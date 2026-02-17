@@ -13,6 +13,11 @@ for explanation of parameters not described here.
 
   An object of class `ALEPlots`.
 
+- x_cols, exclude_cols:
+
+  See documentation for
+  [`get.ALE()`](https://tripartio.github.io/ale/reference/get.ALE.md)
+
 - ...:
 
   not used. Inserted to require explicit naming of subsequent arguments.
@@ -25,6 +30,11 @@ for explanation of parameters not described here.
   subsetted to remove some existing variables. `include_eff = TRUE`
   (default) includes the ALE effects plot in the subset rather than
   dropping it, if it is available.
+
+- silent:
+
+  See documentation for
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
 
 ## Value
 

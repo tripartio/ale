@@ -19,9 +19,11 @@ ALEPlots(
   obj,
   ...,
   ale_centre = "median",
+  consolid_cats = 10L,
   y_1d_refs = c("25%", "75%"),
   rug_sample_size = obj@params$sample_size,
-  min_rug_per_interval = 1,
+  min_rug_per_interval = 1L,
+  min_col_width = 0.05,
   y_nonsig_band = 0.05,
   seed = 0,
   silent = FALSE
@@ -45,6 +47,26 @@ ALEPlots(
   plots will be centred relative to this value. 'median' is the default.
   'zero' will maintain the actual ALE values, which are centred on zero.
 
+- consolid_cats:
+
+  integer(1) \> 1 or list. For 1D plots of categorical variables, only a
+  maximum of `consolid_cats` distinct values (e.g., factor levels) are
+  shown. The top `consolid_cats - 1` values in ALE strength are shown
+  and all other values are consolidated into an "other" category. See
+  details for the calculation. Valid formats are:
+
+  - Single integer \> 1: Consolidate categories only if there are more
+    than `consolid_cats` factor levels.
+
+  - List with required levels: a list with exactly two elements: `max`
+    is the same as the single-integer option above: the maximum
+    allowable levels before consolidation begins; `include` is a named
+    list. Each sublist is a character vector of specific levels that
+    must be included for the factor variable that it names. Unknown
+    names or factor levels trigger an error. An example of the list
+    format would be:
+    `consolid_cats = list(max = 10, include = list(model = c("Cadillac Fleetwood", "Volvo 142E")))`
+
 - y_1d_refs:
 
   character or numeric vector. For 1D ALE plots, the y outcome values
@@ -65,6 +87,16 @@ ALEPlots(
   To prevent this down-sampling, set `rug_sample_size` to `Inf` (but
   then the `ALEPlots` object would store the entire dataset, so could
   become very large).
+
+- min_col_width:
+
+  numeric(1) in `[0.01, 1]`. Column charts scale each column such that
+  the column representing the category with the most elements has a
+  scale of 1 and all other columns have a width that is a fraction of
+  the largest category proportional to their numbers of elements.
+  However, for visibility, no column is displayed narrower than a scale
+  of `min_col_width`. To disable scaling by width, set
+  `min_col_width = 1`.
 
 - y_nonsig_band:
 
@@ -108,6 +140,37 @@ An object of class `ALEPlots` with properties `plots` and `params`.
       * `y_col`, `y_cats`: See documentation for [ALE()]
       * `max_d`: See documentation for [ALE()]
       * `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `ordered_x_cols`.
+
+## Consolidation of factors
+
+When a categorical (unordered factor) variable has too many levels, the
+1D column charts used to plot their ALE become unwieldy and hard to
+read. So, the `consolid_cats` argument sets a maximum number of
+categories (factor levels) to display. For example, for the default
+`consolid_cats = 10`:
+
+- If there are `consolid_cats` (default 10) or fewer categories, then
+  there is no consolidation.
+
+- With more than `consolid_cats` categories, all categories are then
+  ranked by decreasing absolute ALE `y` value. The top
+  `consolid_cats - 1` (default 9) categories are retained.
+
+- All other categories are consolidated into one "other" category that
+  reports the count of consolidated categories. Consolidated means are
+  the weighted mean of all categories; consolidated medians, maximums,
+  and minimums are the medians, maximums, and minimums, respectively, of
+  all categories.
+
+Sometimes, we have specific factor levels that we always want to see; we
+don't want them consolidated even if their effects are very low. In that
+case, see the argument specification for how to list such levels that
+must always be included.
+
+Note that this consolidation is purely for visualization; the underlying
+ALE data is not consolidated. Only unordered factors are consolidated
+thus; ordered factors are never consolidated since their order is
+meaningful. Moreover, for now, only 1D ALE plots are consolidated.
 
 ## Examples
 

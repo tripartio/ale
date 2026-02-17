@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,9 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-acdc-corn.html">Analyzing a Large Corn Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-gomez-rice.html">Analyzing a Small Rice Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
     <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
@@ -52,24 +54,24 @@
 <span>  y_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  exclude_cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  parallel <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  output_stats <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  output_boot_data <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  pred_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span>
-<span>     <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>object <span class="op">=</span></span>
-<span>    <span class="va">object</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, type <span class="op">=</span> <span class="va">type</span><span class="op">)</span></span>
-<span> <span class="op">}</span>,</span>
+<span>  pred_fun <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pred_type <span class="op">=</span> <span class="st">"response"</span>,</span>
 <span>  p_values <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  require_same_p <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  aler_alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
-<span>  max_num_bins <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  boot_it <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  aled_fun <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_num_bins <span class="op">=</span> <span class="fl">10L</span>,</span>
+<span>  fct_order <span class="op">=</span> <span class="st">"levels"</span>,</span>
+<span>  boot_it <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  boot_alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  boot_centre <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  y_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  sample_size <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  sample_size <span class="op">=</span> <span class="fl">500L</span>,</span>
 <span>  silent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .bins <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -92,7 +94,7 @@
 
 
 <dt id="arg-y-col">y_col<a class="anchor" aria-label="anchor" href="#arg-y-col"></a></dt>
-<dd><p>character(1). Name of the outcome target label (y) variable. If not provided, <code>ALE()</code> will try to detect it automatically from the <code>model</code> object. For non-standard models, <code>y_col</code> should be provided. For time-to-event (survival) models, see details.</p></dd>
+<dd><p>character(1). Name of the outcome target label (y) variable. If not provided, <code>ALE()</code> will try to detect it automatically from the <code>model</code> object. If not found automatically, <code>y_col</code> should be provided. For time-to-event (survival) models, see details.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -100,11 +102,11 @@
 
 
 <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
-<dd><p>non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set <code>parallel = 0</code> to disable parallel processing. See details.</p></dd>
+<dd><p>non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default <code>parallel = 0</code> disables parallel processing. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.</p></dd>
 
 
 <dt id="arg-model-packages">model_packages<a class="anchor" aria-label="anchor" href="#arg-model-packages"></a></dt>
-<dd><p>character. Character vector of names of packages that <code>model</code> depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting <code>parallel = 0</code>, you might need to specify <code>model_packages</code>. See details.</p></dd>
+<dd><p>character. Character vector of names of packages that <code>model</code> depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled but they are resolved by setting <code>parallel = 0</code>, you might need to specify <code>model_packages</code>. See details.</p></dd>
 
 
 <dt id="arg-output-stats">output_stats<a class="anchor" aria-label="anchor" href="#arg-output-stats"></a></dt>
@@ -116,22 +118,46 @@
 
 
 <dt id="arg-pred-fun-pred-type">pred_fun, pred_type<a class="anchor" aria-label="anchor" href="#arg-pred-fun-pred-type"></a></dt>
-<dd><p>function,character(1). <code>pred_fun</code> is a function that returns a vector of predicted values of type <code>pred_type</code> from <code>model</code> on <code>data</code>. See details.</p></dd>
+<dd><p>function,character(1). <code>pred_fun</code> is a function that returns a vector of predicted values of type <code>pred_type</code> from <code>model</code> on <code>data</code>. The default <code>NULL</code> for <code>pred_fun</code> will often work; if you get an error message, see details.</p></dd>
 
 
 <dt id="arg-p-values">p_values<a class="anchor" aria-label="anchor" href="#arg-p-values"></a></dt>
 <dd><p>instructions for calculating p-values. Possible values are:</p><ul><li><p><code>NULL</code>: p-values are not calculated.</p></li>
 <li><p>An <code>ALEpDist</code> object: the object will be used to calculate p-values.</p></li>
-<li><p><code>"auto"</code> (default): If statistics are requested (<code>output_stats = TRUE</code>) and bootstrapping is requested (<code>boot_it &gt; 0</code>), the constructor will try to automatically create a fast surrogate <code>ALEpDist</code> object; otherwise, no p-values are calculated. However, automatic creation of a surrogate <code>ALEpDist</code> object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an <code><a href="ALEpDist.html">ALEpDist()</a></code> object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.</p></li>
+<li><p><code>"auto"</code> (default): If statistics are requested (<code>output_stats = TRUE</code>) and bootstrapping is requested (<code>boot_it &gt; 0</code>), the constructor will try to automatically create a fast surrogate <code>ALEpDist</code> object; otherwise, no p-values are calculated. However, automatic creation of a surrogate <code>ALEpDist</code> object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an <code><a href="ALEpDist.html">ALEpDist()</a></code> object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.</p></li>
 </ul></dd>
+
+
+<dt id="arg-require-same-p">require_same_p<a class="anchor" aria-label="anchor" href="#arg-require-same-p"></a></dt>
+<dd><p>logical(1). If <code>TRUE</code> (default), <code>p_values</code> must be generated with exactly the same <code>model</code> object, even in the case of surrogate p-values. Only disable this option with <code>FALSE</code> if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.</p></dd>
 
 
 <dt id="arg-aler-alpha">aler_alpha<a class="anchor" aria-label="anchor" href="#arg-aler-alpha"></a></dt>
 <dd><p>numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if <code>p_values</code> are provided (that is, not <code>NULL</code>). The inner band range will be the median value of y ± <code>aler_alpha[2]</code> of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± <code>aler_alpha[1]</code>. For example, in the ALE plots, for the default <code>aler_alpha = c(0.01, 0.05)</code>, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.</p></dd>
 
 
+<dt id="arg-aled-fun">aled_fun<a class="anchor" aria-label="anchor" href="#arg-aled-fun"></a></dt>
+<dd><p>character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. <code>"mad"</code> is the mean absolute deviation; <code>"sd"</code> is the standard deviation. The default <code>NULL</code> will normally use <code>"mad"</code> except if an <code>ALEpDist</code> object is provided for <code>p_values</code>; in that case, the <code>aled_fun</code> is taken from the <code>ALEpDist</code> object.</p></dd>
+
+
 <dt id="arg-max-num-bins">max_num_bins<a class="anchor" aria-label="anchor" href="#arg-max-num-bins"></a></dt>
-<dd><p>positive integer(1). Maximum number of ALE bins for numeric <code>x_cols</code> variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and <code>max_num_bins</code>. Non-numeric variables such as (binary or categorical) always use all their actual values for ALE bins.</p></dd>
+<dd><p>integer(1) &gt; 1 or list. For numeric <code>x_cols</code>, this sets an upper bound on
+the number of ALE bins, where actual bins are the lesser of the number of unique values and <code>max_num_bins</code>. Valid formats are:</p><ul><li><p>Single integer &gt; 1: used for all numeric <code>x_cols</code>.</p></li>
+<li><p>List with overrides: a list with exactly two elements: <code>default</code> is a single integer &gt; 1 used as the default value; <code>except</code> is a named integer vector with values &gt; 1 of per-column upper bounds. Unknown names are ignored with a warning.
+Non-numeric <code>x_cols</code> (binary/ordinal/categorical) always use all observed levels.
+An example of the list format would be
+<code>max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))</code></p></li>
+</ul><p>The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions.</p></dd>
+
+
+<dt id="arg-fct-order">fct_order<a class="anchor" aria-label="anchor" href="#arg-fct-order"></a></dt>
+<dd><p>character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:</p><ul><li><p><code>"levels"</code> (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.</p></li>
+<li><p><code>"y_col"</code>: Sort based on the increasing mean values of the predictions of <code>y_col</code> for each factor level.</p></li>
+<li><p><code>"ksd"</code>: Not recommended except for compatibility with the original ALEPlot reference implementation.</p></li>
+<li><p>List with overrides: a list with exactly two elements: <code>default</code> is a character string with one of the above as the default value; <code>except</code> is a named character vector with per-column orderings. Unknown names trigger an error.
+An example of the list format would be
+<code>fct_order = list(default = "levels", except = c(continent = "y_col"))</code></p></li>
+</ul><p>See details.</p></dd>
 
 
 <dt id="arg-boot-it">boot_it<a class="anchor" aria-label="anchor" href="#arg-boot-it"></a></dt>
@@ -147,11 +173,11 @@
 
 
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
-<dd><p>integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with <code>parallel = 0</code>.</p></dd>
+<dd><p>integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with <code>parallel = 0</code>.</p></dd>
 
 
 <dt id="arg-y-type">y_type<a class="anchor" aria-label="anchor" href="#arg-y-type"></a></dt>
-<dd><p>character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.</p></dd>
+<dd><p>character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex model requires it.</p></dd>
 
 
 <dt id="arg-sample-size">sample_size<a class="anchor" aria-label="anchor" href="#arg-sample-size"></a></dt>
@@ -215,8 +241,8 @@ These argument names are according to the R convention for the generic <code><a 
     <h2 id="parallel-processing">Parallel processing<a class="anchor" aria-label="anchor" href="#parallel-processing"></a></h2>
 
 
-<p>Parallel processing using the <code>{furrr}</code> framework is enabled by default. The number of parallel threads (workers or cores) is specified with the <code>parallel</code> argument. By default (<code>parallel = "all"</code>), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set <code>parallel = "all but one")</code>, which will only use faster physical cores and reserve one physical core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set <code>parallel = 0</code>.</p>
-<p>The <code>{ale}</code> package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with <code>silent = TRUE</code>). In that case, first try disabling parallel processing with <code>parallel = 0</code>. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the <code>model</code> to the <code>model_packages</code> argument, e.g., <code>model_packages = c('tidymodels', 'mgcv')</code>.</p>
+<p>Parallel processing is possible using the <code>{furrr}</code> framework. The number of parallel threads (workers or cores) is specified with the <code>parallel</code> argument. By default (<code>parallel = 0</code>), it is disabled. <code>parallel = "all but one"</code> will use all the available physical CPU cores except for one, reserved so that your computer does not slow down as you continue working on other tasks while the procedure runs. The <code>parallel = "all"</code> option will use all physical and logical CPU cores reported by the system, but the result might sometimes be slower if inappropriate allocation of these parallel processors chokes the system.</p>
+<p>The <code>{ale}</code> package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled, some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with <code>silent = TRUE</code>). In that case, first try disabling parallel processing with <code>parallel = 0</code>. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the <code>model</code> to the <code>model_packages</code> argument, e.g., <code>model_packages = c('tidymodels', 'mgcv')</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="time-to-event-survival-models">Time-to-event (survival) models<a class="anchor" aria-label="anchor" href="#time-to-event-survival-models"></a></h2>
@@ -225,13 +251,22 @@ These argument names are according to the R convention for the generic <code><a 
 <p>For time-to-event (survival) models, set the following arguments:</p><ul><li><p><code>y_col</code> must be the set to the name of the binary event column.</p></li>
 <li><p>Include the time column in the <code>exclude_cols</code> argument so that its ALE will not be calculated, e.g., <code>exclude_cols = 'time'</code>. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.</p></li>
 <li><p><code>pred_type</code> must be specified according to the desired <code>type</code> argument for the <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).</p></li>
-<li><p><code>pred_fun</code> might work fine without modification as long as the settings above are configured. However, for non-standard time-to-event models, a custom <code>pred_fun</code> as specified above might be needed.</p></li>
+<li><p><code>pred_fun</code> might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom <code>pred_fun</code> as specified above might be needed.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="progress-bars">Progress bars<a class="anchor" aria-label="anchor" href="#progress-bars"></a></h2>
 
 
 <p>Progress bars are implemented with the <code>{progressr}</code> package. For details on customizing the progress bars, see the introduction to the <a href="https://progressr.futureverse.org/articles/progressr-intro.html" class="external-link"><code>{progressr}</code> package</a>. To disable progress bars when calling a function in the <code>ale</code> package, set <code>silent = TRUE</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="sorting-of-unordered-factors">Sorting of unordered factors<a class="anchor" aria-label="anchor" href="#sorting-of-unordered-factors"></a></h2>
+
+
+<p>The ALE algorithm requires an order for the values of all variables. All basic datatypes have a natural order except for unordered factors and characters. <code>fct_order</code> specifies how unordered factors will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) Note that factor ordering has no effect on the discriminativeness of the ALE algorithm; it only affects which level is listed first, second, and so on in comparison with each other, which is relevant for interpretation. The first level according to <code>fct_order</code> is always calculated as having zero effect; ALE for all other levels are relative to the first level. We recommend that users explicitly set the levels of each factor in an order that is meaningful for interpretation and then leave <code>fct_order</code> at its default value (<code>"levels"</code>).</p>
+<p>Character columns treat their unique values as factor levels. With <code>fct_order = "levels"</code>, the order of values is alphabetical to make it easier to find results in plots.</p>
+<p>An alternative ordering is to set <code>fct_order = "y_col"</code>, which sorts levels based on the increasing mean values of the predictions of <code>y_col</code> for each factor level. Thus, the ALE results show how the isolated effects of each level of a factor might differ from the average effects when all other variables come into play.</p>
+<p>The original <code>ALEPlot</code> reference implementation sorts factor levels based on their similarity to each other, using an algorithm based on Kolmogorov-Smirnov distances and multidimensional scaling. However, that implementation calculates distances using all the data that happen to be in the dataset, even if some of that data is not used in the model at all. This results in arbitrary different sort orders unless all columns not used in the model are excluded from the dataset. We do not recommend this approach, but we include it with the <code>"ksd"</code> option for compatibility with the original <code>ALEPlot</code> reference implementation.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -335,7 +370,7 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_gam_diamonds.0.5.2.rds'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span></span>
-<span class="r-in"><span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span></span>
+<span class="r-in"><span>    <span class="co"># For models like mgcv::gam that store their data,</span></span></span>
 <span class="r-in"><span>    <span class="co"># there is no need to specify the data argument.</span></span></span>
 <span class="r-in"><span>    <span class="fu">ALE</span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
@@ -343,7 +378,6 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Simple printing of all plots</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `label.size`</span>
 <span class="r-plt img"><img src="ALE-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Bootstrapped ALE</span></span></span>
@@ -368,7 +402,6 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># More advanced plot manipulation</span></span></span>
 <span class="r-in"><span><span class="va">ale_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span> <span class="co"># Create an ALEPlots object</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `label.size`</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Print the plots: First page prints 1D ALE; second page prints 2D ALE</span></span></span>
 <span class="r-in"><span><span class="va">ale_plots</span>  <span class="co"># or print(ale_plots) to be explicit</span></span></span>
@@ -387,8 +420,8 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># If the predict function you want is non-standard, you may define a</span></span></span>
-<span class="r-in"><span><span class="co"># custom predict function. It must return a single numeric vector.</span></span></span>
+<span class="r-in"><span><span class="co"># If the predict function you want does not work automatically, you may</span></span></span>
+<span class="r-in"><span><span class="co"># define a custom predict function. It must return a single numeric vector.</span></span></span>
 <span class="r-in"><span><span class="va">custom_predict</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, type <span class="op">=</span> <span class="va">type</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">fit</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -409,7 +442,6 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the ALE data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_custom</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `label.size`</span>
 <span class="r-plt img"><img src="ALE-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -419,7 +451,7 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_diamonds_with_boot_data.0.5.2.rds'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span></span>
-<span class="r-in"><span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span></span>
+<span class="r-in"><span>    <span class="co"># For models like mgcv::gam that store their data,</span></span></span>
 <span class="r-in"><span>    <span class="co"># there is no need to specify the data argument.</span></span></span>
 <span class="r-in"><span>    <span class="fu">ALE</span><span class="op">(</span></span></span>
 <span class="r-in"><span>      <span class="va">gam_diamonds</span>,</span></span>

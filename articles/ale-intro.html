@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,9 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
+<li><a class="dropdown-item" href="../articles/ale-acdc-corn.html">Analyzing a Large Corn Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-gomez-rice.html">Analyzing a Small Rice Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
     <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
@@ -324,51 +326,55 @@ the dataset can be specified with the <code>data</code> argument. It can
 optionally create ALE only for specified variables and interactions
 using the <code>x_cols</code> argument. To change these options (e.g.,
 to calculate ALE for only a subset of variables; to output the data only
-or to use a custom, non-standard predict function for the model), see
-details in the help file for the object: <code><a href="../reference/ALE.html">help(ALE)</a></code>. In this
-introduction, we only demonstrate The basics of retrieving and plotting
-ALE data. For details on ALE statistics see <a href="ale-statistics.html" title="ALE-based statistics">the dedicated
-vignette</a> on that topic.</p>
+or to use a custom predict function for the model), see details in the
+help file for the object: <code><a href="../reference/ALE.html">help(ALE)</a></code>. In this introduction,
+we only demonstrate The basics of retrieving and plotting ALE data. For
+details on ALE statistics see <a href="ale-statistics.html" title="ALE-based statistics">the dedicated vignette</a> on that
+topic.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>ale.parallel <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>For faster demonstrations, this vignette uses precreated ALE objects.
 For the full experience, you can uncomment the relevant lines in the
 code below.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Simple ALE without bootstrapping</span></span>
-<span></span>
-<span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects </span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects </span></span>
 <span><span class="co"># from an online repository.</span></span>
 <span><span class="co"># To run the code yourself, execute the code blocks directly.  </span></span>
-<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span>
+<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Simple ALE without bootstrapping</span></span>
 <span></span>
 <span><span class="co"># Create ALE data</span></span>
-<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
-<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_gam_diamonds.0.5.2.rds'</span><span class="op">)</span>,</span>
-<span>  <span class="op">{</span></span>
-<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
-<span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span>
-<span>    <span class="co"># there is no need to specify the data argument.</span></span>
-<span>    <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co"># saveRDS(ale_gam_diamonds, file.choose())</span></span></code></pre></div>
-<p>By default, most core functions in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package use
-parallel processing. If your computer has problems with this, you can
-disable parallelization with the argument <code>parallel = 0</code>.</p>
+<span></span>
+<span><span class="co"># # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
+<span><span class="co"># # For models like mgcv::gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_gam_diamonds &lt;- ALE(gam_diamonds)</span></span>
+<span></span>
+<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"ale_gam_diamonds.0.5.2.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Most core functions in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package support
+parallel processing. You can enable parallelization globally with
+<code>options(ale.parallel = x)</code>, where “x” is the number of CPU
+cores you want to use. It can also be enabled for specific function runs
+with the <code>parallel</code> argument. Parallelization is disabled by
+default with <code>parallel = 0</code>. See the documentation for
+<code><a href="../reference/ALE.html">ALE()</a></code> for details.</p>
 <p>To access the plot for a specific variable, we must first create an
 <code>ALEPlots</code> object by calling the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method
 on the <code>ALE</code> object which internally generates
 <code>ggplot</code> objects with the full flexibility of {ggplot2}:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
-<span><span class="va">diamonds_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
-<span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span></code></pre></div>
+<span><span class="va">diamonds_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></code></pre></div>
 <p>To retrieve a specific variable plot, you can use the
 <code><a href="../reference/get.html">get()</a></code> method of the <code>ALEPlots</code> object. For
 example, to access and print the <code>carat</code> ALE plot, we can
 simply refer to <code>get(diamonds_plots, 'carat')</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
 <span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_plots</span>, <span class="st">'carat'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-carat-1.png" class="r-plt" alt="" width="384"></p>
@@ -379,7 +385,7 @@ arrange multiple plots in a common plot grid using
 <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>, so we can pass arguments from that
 function. For example, we can specify that we want two plots per row
 with the <code>ncol</code> argument:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">diamonds_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-ale_simple-1.png" class="r-plt" alt="" width="672"></p>
@@ -406,29 +412,25 @@ sufficient for relatively stable results, especially for model
 development. Final results could be confirmed with 1000 bootstrap
 samples or more, but there should not be much difference in the results
 beyond 100 iterations.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
-<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_gam_diamonds_boot.0.5.2.rds'</span><span class="op">)</span>,</span>
-<span>  <span class="op">{</span></span>
-<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
-<span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span>
-<span>    <span class="co"># there is no need to specify the data argument.</span></span>
-<span>    <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
-<span>      <span class="va">gam_diamonds</span>,</span>
-<span>      boot_it <span class="op">=</span> <span class="fl">100</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co"># saveRDS(ale_gam_diamonds_boot, file.choose())</span></span>
+<span><span class="co"># # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
+<span><span class="co"># # For models like mgcv::gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_gam_diamonds_boot &lt;- ALE(</span></span>
+<span><span class="co">#   gam_diamonds,</span></span>
+<span><span class="co">#   boot_it = 100</span></span>
+<span><span class="co"># )</span></span>
+<span></span>
+<span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">'ale_gam_diamonds_boot.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bootstrapping produces confidence intervals</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
-<span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/ale_boot-1.png" class="r-plt" alt="" width="672"><img src="ale-intro_files/figure-html/ale_boot-2.png" class="r-plt" alt="" width="672"></p>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-intro_files/figure-html/ale_boot-rds-1.png" class="r-plt" alt="" width="672"><img src="ale-intro_files/figure-html/ale_boot-rds-2.png" class="r-plt" alt="" width="672"></p>
 <p>In this case, the bootstrapped results are mostly similar to single
 (non-bootstrapped) ALE results. In principle, we should always bootstrap
 the results and trust only in bootstrapped results. The most unusual
@@ -454,26 +456,24 @@ ALE data on all possible 2D interactions from the input dataset. To
 change the default options (e.g., to calculate interactions for only
 certain pairs of variables), see details in the help file for the
 object: <code><a href="../reference/ALE.html">help(ALE)</a></code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ALE two-way interactions</span></span>
 <span></span>
-<span><span class="va">ale_2D_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
-<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_2D_gam_diamonds.0.5.2.rds'</span><span class="op">)</span>,</span>
-<span>  <span class="op">{</span></span>
-<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
-<span>    <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
-<span>      <span class="va">gam_diamonds</span>,</span>
-<span>      x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co"># saveRDS(ale_2D_gam_diamonds, file.choose())</span></span></code></pre></div>
+<span><span class="co"># # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
+<span><span class="co"># ale_2D_gam_diamonds &lt;- ALE(</span></span>
+<span><span class="co">#   gam_diamonds,</span></span>
+<span><span class="co">#   x_cols = list(d2 = TRUE)</span></span>
+<span><span class="co"># )</span></span>
+<span></span>
+<span><span class="va">ale_2D_gam_diamonds</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">'ale_2D_gam_diamonds.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method similarly creates 2D ALE plots from
 the <code>ALE</code> object. The <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset()</a></code> method of
 <code>ALEPlots</code> extracts a new <code>ALEPlots</code> object with
 only the selected variables or interaction terms:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds_2D_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_2D_gam_diamonds</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">diamonds_2D_plots</span> <span class="op">|&gt;</span></span>
@@ -488,7 +488,7 @@ specific plot. The <code>ale</code> package supports the standard R
 formula notation for specifying variables. For example, we can print the
 interaction plot between carat and depth by referring to it thus:
 <code>get(diamonds_2D_plots, ~ carat:clarity)</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_2D_plots</span>, <span class="op">~</span> <span class="va">carat</span><span class="op">:</span><span class="va">clarity</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" class="r-plt" alt="" width="480"></p>
 <p>This is not the best dataset to use to illustrate ALE interactions

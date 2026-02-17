@@ -2,6 +2,8 @@
 <url><loc>https://tripartio.github.io/ale/404.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/LICENSE-text.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/LICENSE.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/articles/ale-acdc-corn.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/articles/ale-gomez-rice.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/articles/ale-intro.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/articles/ale-small-datasets.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/articles/ale-statistics.html</loc></url>
@@ -32,7 +34,10 @@
 <url><loc>https://tripartio.github.io/ale/reference/resolve_x_cols.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/retrieve_rds.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/subset.ALEPlots.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/reference/summary.ALE.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/summary.ALEPlots.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/reference/summary.ModelBoot.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/var_cars.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/reference/x_medoids.html</loc></url>
 </urlset>
 

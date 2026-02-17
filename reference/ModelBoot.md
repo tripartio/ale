@@ -26,14 +26,11 @@ ModelBoot(
   ...,
   model_call_string = NULL,
   model_call_string_vars = character(),
-  parallel = "all",
+  parallel = 0,
   model_packages = NULL,
   y_col = NULL,
   positive = TRUE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
   boot_it = 100,
   boot_alpha = 0.05,
@@ -62,8 +59,8 @@ ModelBoot(
 
   dataframe. Dataset to be bootstrapped. This must be the same data on
   which the `model` was trained. If not provided, `ModelBoot()` will try
-  to detect it automatically. For non-standard models, `data` should be
-  provided.
+  to detect it automatically. For `model` objects that do not contain
+  their data within them, `data` should be provided.
 
 - ...:
 
@@ -392,14 +389,14 @@ mb_gam_attitude <- retrieve_rds(
   c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like lm that store their data,
+    # For models like lm that store their data,
     # there is no need to specify the data argument.
     # 100 bootstrap iterations by default.
     ModelBoot(gam_attitude)
   }
 )
 
-# # If the model is not standard, supply model_call_string with 'data = boot_data'
+# # If default settings cause errors, supply model_call_string with 'data = boot_data'
 # # in the string instead of the actual dataset name (in addition to the actual dataset
 # # as the 'data' argument directly to the `ModelBoot` constructor).
 # mb_gam_attitude <- ModelBoot(
@@ -435,7 +432,6 @@ mb_gam_attitude@model_coefs
 
 # Plot ALE
 plot(mb_gam_attitude)
-#> Warning: Ignoring unknown parameters: `label.size`
 
 
 # Retrieve ALE data

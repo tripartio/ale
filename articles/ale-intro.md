@@ -237,45 +237,53 @@ the model, if the dataset is included in the model object. If not, the
 dataset can be specified with the `data` argument. It can optionally
 create ALE only for specified variables and interactions using the
 `x_cols` argument. To change these options (e.g., to calculate ALE for
-only a subset of variables; to output the data only or to use a custom,
-non-standard predict function for the model), see details in the help
-file for the object:
-[`help(ALE)`](https://tripartio.github.io/ale/reference/ALE.md). In this
-introduction, we only demonstrate The basics of retrieving and plotting
-ALE data. For details on ALE statistics see [the dedicated
+only a subset of variables; to output the data only or to use a custom
+predict function for the model), see details in the help file for the
+object: [`help(ALE)`](https://tripartio.github.io/ale/reference/ALE.md).
+In this introduction, we only demonstrate The basics of retrieving and
+plotting ALE data. For details on ALE statistics see [the dedicated
 vignette](https://tripartio.github.io/ale/articles/ale-statistics.md "ALE-based statistics")
 on that topic.
+
+``` r
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
+```
 
 For faster demonstrations, this vignette uses precreated ALE objects.
 For the full experience, you can uncomment the relevant lines in the
 code below.
 
 ``` r
-# Simple ALE without bootstrapping
-
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
 serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
-
-# Create ALE data
-ale_gam_diamonds <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ALE(gam_diamonds)
-  }
-)
-# saveRDS(ale_gam_diamonds, file.choose())
 ```
 
-By default, most core functions in the
-[ale](https://github.com/tripartio/ale) package use parallel processing.
-If your computer has problems with this, you can disable parallelization
-with the argument `parallel = 0`.
+``` r
+# Simple ALE without bootstrapping
+
+# Create ALE data
+
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_gam_diamonds <- ALE(gam_diamonds)
+
+ale_gam_diamonds <- serialized_objects_site |> 
+  file.path("ale_gam_diamonds.0.5.2.rds") |>
+  url() |> 
+  readRDS()
+```
+
+Most core functions in the [ale](https://github.com/tripartio/ale)
+package support parallel processing. You can enable parallelization
+globally with `options(ale.parallel = x)`, where “x” is the number of
+CPU cores you want to use. It can also be enabled for specific function
+runs with the `parallel` argument. Parallelization is disabled by
+default with `parallel = 0`. See the documentation for
+[`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) for details.
 
 To access the plot for a specific variable, we must first create an
 `ALEPlots` object by calling the
@@ -286,8 +294,6 @@ flexibility of {ggplot2}:
 ``` r
 # Print a plot by entering its reference
 diamonds_plots <- plot(ale_gam_diamonds)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
 To retrieve a specific variable plot, you can use the
@@ -345,29 +351,25 @@ much difference in the results beyond 100 iterations.
 
 ``` r
 
-ale_gam_diamonds_boot <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_boot.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ALE(
-      gam_diamonds,
-      boot_it = 100
-    )
-  }
-)
-# saveRDS(ale_gam_diamonds_boot, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_gam_diamonds_boot <- ALE(
+#   gam_diamonds,
+#   boot_it = 100
+# )
+
+ale_gam_diamonds_boot <- serialized_objects_site |> 
+  file.path('ale_gam_diamonds_boot.0.5.2.rds') |>
+  url() |> 
+  readRDS()
 
 # Bootstrapping produces confidence intervals
 plot(ale_gam_diamonds_boot) |> 
   print(ncol = 2)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
-![](ale-intro_files/figure-html/ale_boot-1.png)![](ale-intro_files/figure-html/ale_boot-2.png)
+![](ale-intro_files/figure-html/ale_boot-rds-1.png)![](ale-intro_files/figure-html/ale_boot-rds-2.png)
 
 In this case, the bootstrapped results are mostly similar to single
 (non-bootstrapped) ALE results. In principle, we should always bootstrap
@@ -397,18 +399,16 @@ object: [`help(ALE)`](https://tripartio.github.io/ale/reference/ALE.md).
 ``` r
 # ALE two-way interactions
 
-ale_2D_gam_diamonds <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_2D_gam_diamonds.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      x_cols = list(d2 = TRUE)
-    )
-  }
-)
-# saveRDS(ale_2D_gam_diamonds, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# ale_2D_gam_diamonds <- ALE(
+#   gam_diamonds,
+#   x_cols = list(d2 = TRUE)
+# )
+
+ale_2D_gam_diamonds <- serialized_objects_site |> 
+  file.path('ale_2D_gam_diamonds.0.5.2.rds') |>
+  url() |> 
+  readRDS()
 ```
 
 The [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method

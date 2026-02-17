@@ -14,24 +14,24 @@ ALE(
   y_col = NULL,
   ...,
   exclude_cols = NULL,
-  parallel = "all",
+  parallel = 0,
   model_packages = NULL,
   output_stats = TRUE,
   output_boot_data = FALSE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
   p_values = "auto",
+  require_same_p = TRUE,
   aler_alpha = c(0.01, 0.05),
-  max_num_bins = 10,
-  boot_it = 0,
+  aled_fun = NULL,
+  max_num_bins = 10L,
+  fct_order = "levels",
+  boot_it = 0L,
   boot_alpha = 0.05,
   boot_centre = "mean",
   seed = 0,
   y_type = NULL,
-  sample_size = 500,
+  sample_size = 500L,
   silent = FALSE,
   .bins = NULL
 )
@@ -63,7 +63,7 @@ ALE(
 
   character(1). Name of the outcome target label (y) variable. If not
   provided, `ALE()` will try to detect it automatically from the `model`
-  object. For non-standard models, `y_col` should be provided. For
+  object. If not found automatically, `y_col` should be provided. For
   time-to-event (survival) models, see details.
 
 - ...:
@@ -74,18 +74,18 @@ ALE(
 
   non-negative integer(1) or character(1) in c("all", "all but one").
   Number of parallel threads (workers or tasks) for parallel execution
-  of the constructor. The default "all" uses all available physical and
-  logical CPU cores. "all but one" uses only physical cores and reserves
-  one core for the system. Set `parallel = 0` to disable parallel
-  processing. See details.
+  of the constructor. The default `parallel = 0` disables parallel
+  processing. "all but one" uses all available physical CPU cores minus
+  one, reserved for the system, whereas "all" uses all physical and
+  logical cores reported by the system. See details.
 
 - model_packages:
 
   character. Character vector of names of packages that `model` depends
   on that might not be obvious with parallel processing. If you get
-  weird error messages when parallel processing is enabled (which is the
-  default) but they are resolved by setting `parallel = 0`, you might
-  need to specify `model_packages`. See details.
+  weird error messages when parallel processing is enabled but they are
+  resolved by setting `parallel = 0`, you might need to specify
+  `model_packages`. See details.
 
 - output_stats:
 
@@ -99,8 +99,9 @@ ALE(
 - pred_fun, pred_type:
 
   function,character(1). `pred_fun` is a function that returns a vector
-  of predicted values of type `pred_type` from `model` on `data`. See
-  details.
+  of predicted values of type `pred_type` from `model` on `data`. The
+  default `NULL` for `pred_fun` will often work; if you get an error
+  message, see details.
 
 - p_values:
 
@@ -115,12 +116,22 @@ ALE(
     (`boot_it > 0`), the constructor will try to automatically create a
     fast surrogate `ALEpDist` object; otherwise, no p-values are
     calculated. However, automatic creation of a surrogate `ALEpDist`
-    object only works with standard R model types. If the automatic
-    process errors, then you must explicitly create and provide an
+    object might not work with all R models. If the automatic process
+    errors, then you must explicitly create and provide an
     [`ALEpDist()`](https://tripartio.github.io/ale/reference/ALEpDist.md)
     object. Note: although faster surrogate p-values are convenient for
     interactive analysis, they are not acceptable for definitive
     conclusions or publication. See details below.
+
+- require_same_p:
+
+  logical(1). If `TRUE` (default), `p_values` must be generated with
+  exactly the same `model` object, even in the case of surrogate
+  p-values. Only disable this option with `FALSE` if certain that a
+  deliberate exception is appropriate, otherwise calculated p-values may
+  be completely invalid. A notable valid exception is resampling the
+  same model specification on various samples, such as with
+  bootstrapping or cross-validation.
 
 - aler_alpha:
 
@@ -135,13 +146,61 @@ ALE(
   minimum or maximum at p = 0.05 and the outer band will be the median ±
   ALER minimum or maximum at p = 0.01.
 
+- aled_fun:
+
+  character(1) in c("mad", "sd"), or NULL. Deviation function used to
+  calculated ALE deviation. `"mad"` is the mean absolute deviation;
+  `"sd"` is the standard deviation. The default `NULL` will normally use
+  `"mad"` except if an `ALEpDist` object is provided for `p_values`; in
+  that case, the `aled_fun` is taken from the `ALEpDist` object.
+
 - max_num_bins:
 
-  positive integer(1). Maximum number of ALE bins for numeric `x_cols`
-  variables. The number of bins is eventually the lower of the number of
-  unique values of a numeric variable and `max_num_bins`. Non-numeric
-  variables such as (binary or categorical) always use all their actual
-  values for ALE bins.
+  integer(1) \> 1 or list. For numeric `x_cols`, this sets an upper
+  bound on the number of ALE bins, where actual bins are the lesser of
+  the number of unique values and `max_num_bins`. Valid formats are:
+
+  - Single integer \> 1: used for all numeric `x_cols`.
+
+  - List with overrides: a list with exactly two elements: `default` is
+    a single integer \> 1 used as the default value; `except` is a named
+    integer vector with values \> 1 of per-column upper bounds. Unknown
+    names are ignored with a warning. Non-numeric `x_cols`
+    (binary/ordinal/categorical) always use all observed levels. An
+    example of the list format would be
+    `max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))`
+
+  The default value of 10 is recommended for speed; it should adequately
+  express most relationships. Increase it (e.g., to 100) for complex
+  relationships. However, higher values are slower, especially for ALE
+  interactions.
+
+- fct_order:
+
+  character(1) or list. Specifies how unordered factors and characters
+  will be ordered for ALE calculation. (Ordered factors ignore this
+  setting; they always use their intrinsic order.) The following options
+  are possible:
+
+  - `"levels"` (default): For ordered factors, use the order of the
+    factor levels. Recommended for meaningful interpretation because
+    this lets the user explicitly control their semantic sort order as
+    desired. For characters, order unique values alphabetically.
+
+  - `"y_col"`: Sort based on the increasing mean values of the
+    predictions of `y_col` for each factor level.
+
+  - `"ksd"`: Not recommended except for compatibility with the original
+    ALEPlot reference implementation.
+
+  - List with overrides: a list with exactly two elements: `default` is
+    a character string with one of the above as the default value;
+    `except` is a named character vector with per-column orderings.
+    Unknown names trigger an error. An example of the list format would
+    be
+    `fct_order = list(default = "levels", except = c(continent = "y_col"))`
+
+  See details.
 
 - boot_it:
 
@@ -176,17 +235,17 @@ ALE(
   identical random ALE data is generated each time when bootstrapping.
   Without bootstrapping, ALE is a deterministic algorithm that should
   result in identical results each time regardless of the seed
-  specified. However, with parallel processing enabled (as it is by
-  default), only the exact computing setup will give reproducible
-  results. For reproducible results across different computers, turn off
-  parallelization with `parallel = 0`.
+  specified. However, with parallel processing enabled, only the exact
+  computing setup will give reproducible results. For reproducible
+  results across different computers, leave parallelization disabled
+  with `parallel = 0`.
 
 - y_type:
 
   character(1) in c('binary', 'numeric', 'categorical', 'ordinal').
   Datatype of the y (outcome) variable. Normally determined
-  automatically; only provide if an error message for a complex
-  non-standard model requires it.
+  automatically; only provide if an error message for a complex model
+  requires it.
 
 - sample_size:
 
@@ -302,28 +361,27 @@ least create a relatively faster surrogate `ALEpDist` object.
 
 ## Parallel processing
 
-Parallel processing using the `{furrr}` framework is enabled by default.
-The number of parallel threads (workers or cores) is specified with the
-`parallel` argument. By default (`parallel = "all"`), it will use all
-the available physical and logical CPU cores. However, if the procedure
-is very slow (with a large dataset and slow prediction algorithm), you
-might want to set `parallel = "all but one")`, which will only use
-faster physical cores and reserve one physical core so that your
-computer does not slow down as you continue working on other tasks while
-the procedure runs. To disable parallel processing, set `parallel = 0`.
+Parallel processing is possible using the `{furrr}` framework. The
+number of parallel threads (workers or cores) is specified with the
+`parallel` argument. By default (`parallel = 0`), it is disabled.
+`parallel = "all but one"` will use all the available physical CPU cores
+except for one, reserved so that your computer does not slow down as you
+continue working on other tasks while the procedure runs. The
+`parallel = "all"` option will use all physical and logical CPU cores
+reported by the system, but the result might sometimes be slower if
+inappropriate allocation of these parallel processors chokes the system.
 
 The `{ale}` package should be able to automatically recognize and load
-most packages that are needed, but with parallel processing enabled
-(which is the default), some packages might not be properly loaded. This
-problem might be indicated if you get a strange error message that
-mentions something somewhere about "progress interrupted" or "future",
-especially if you see such errors after the progress bars begin
-displaying (assuming you did not disable progress bars with
-`silent = TRUE`). In that case, first try disabling parallel processing
-with `parallel = 0`. If that resolves the problem, then to get faster
-parallel processing to work, try adding all the package names needed for
-the `model` to the `model_packages` argument, e.g.,
-`model_packages = c('tidymodels', 'mgcv')`.
+most packages that are needed, but with parallel processing enabled,
+some packages might not be properly loaded. This problem might be
+indicated if you get a strange error message that mentions something
+somewhere about "progress interrupted" or "future", especially if you
+see such errors after the progress bars begin displaying (assuming you
+did not disable progress bars with `silent = TRUE`). In that case, first
+try disabling parallel processing with `parallel = 0`. If that resolves
+the problem, then to get faster parallel processing to work, try adding
+all the package names needed for the `model` to the `model_packages`
+argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
 
 ## Time-to-event (survival) models
 
@@ -343,8 +401,9 @@ For time-to-event (survival) models, set the following arguments:
   the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
 
 - `pred_fun` might work fine without modification as long as the
-  settings above are configured. However, for non-standard time-to-event
-  models, a custom `pred_fun` as specified above might be needed.
+  settings above are configured. However, if there is an error with some
+  time-to-event models, a custom `pred_fun` as specified above might be
+  needed.
 
 ## Progress bars
 
@@ -354,6 +413,41 @@ details on customizing the progress bars, see the introduction to the
 package](https://progressr.futureverse.org/articles/progressr-intro.html).
 To disable progress bars when calling a function in the `ale` package,
 set `silent = TRUE`.
+
+## Sorting of unordered factors
+
+The ALE algorithm requires an order for the values of all variables. All
+basic datatypes have a natural order except for unordered factors and
+characters. `fct_order` specifies how unordered factors will be ordered
+for ALE calculation. (Ordered factors ignore this setting; they always
+use their intrinsic order.) Note that factor ordering has no effect on
+the discriminativeness of the ALE algorithm; it only affects which level
+is listed first, second, and so on in comparison with each other, which
+is relevant for interpretation. The first level according to `fct_order`
+is always calculated as having zero effect; ALE for all other levels are
+relative to the first level. We recommend that users explicitly set the
+levels of each factor in an order that is meaningful for interpretation
+and then leave `fct_order` at its default value (`"levels"`).
+
+Character columns treat their unique values as factor levels. With
+`fct_order = "levels"`, the order of values is alphabetical to make it
+easier to find results in plots.
+
+An alternative ordering is to set `fct_order = "y_col"`, which sorts
+levels based on the increasing mean values of the predictions of `y_col`
+for each factor level. Thus, the ALE results show how the isolated
+effects of each level of a factor might differ from the average effects
+when all other variables come into play.
+
+The original `ALEPlot` reference implementation sorts factor levels
+based on their similarity to each other, using an algorithm based on
+Kolmogorov-Smirnov distances and multidimensional scaling. However, that
+implementation calculates distances using all the data that happen to be
+in the dataset, even if some of that data is not used in the model at
+all. This results in arbitrary different sort orders unless all columns
+not used in the model are excluded from the dataset. We do not recommend
+this approach, but we include it with the `"ksd"` option for
+compatibility with the original `ALEPlot` reference implementation.
 
 ## References
 
@@ -458,7 +552,7 @@ ale_gam_diamonds <- retrieve_rds(
   c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(gam_diamonds)
   }
@@ -466,7 +560,6 @@ ale_gam_diamonds <- retrieve_rds(
 
 # Simple printing of all plots
 plot(ale_gam_diamonds)
-#> Warning: Ignoring unknown parameters: `label.size`
 
 
 # Bootstrapped ALE
@@ -491,7 +584,6 @@ ale_gam_diamonds_boot <- retrieve_rds(
 
 # More advanced plot manipulation
 ale_plots <- plot(ale_gam_diamonds_boot) # Create an ALEPlots object
-#> Warning: Ignoring unknown parameters: `label.size`
 
 # Print the plots: First page prints 1D ALE; second page prints 2D ALE
 ale_plots  # or print(ale_plots) to be explicit
@@ -510,8 +602,8 @@ get(ale_plots, type = 'effect')  # ALE effects plot
 
 
 
-# If the predict function you want is non-standard, you may define a
-# custom predict function. It must return a single numeric vector.
+# If the predict function you want does not work automatically, you may
+# define a custom predict function. It must return a single numeric vector.
 custom_predict <- function(object, newdata, type = pred_type) {
   predict(object, newdata, type = type, se.fit = TRUE)$fit
 }
@@ -532,7 +624,6 @@ ale_gam_diamonds_custom <- retrieve_rds(
 
 # Plot the ALE data
 plot(ale_gam_diamonds_custom)
-#> Warning: Ignoring unknown parameters: `label.size`
 
 
 
@@ -542,7 +633,7 @@ ale_diamonds_with_boot_data <- retrieve_rds(
   c(serialized_objects_site, 'ale_diamonds_with_boot_data.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(
       gam_diamonds,

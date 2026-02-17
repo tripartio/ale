@@ -67,8 +67,18 @@
 - [`subset.ALEPlots`](https://tripartio.github.io/ale/reference/subset.ALEPlots.md)
   : subset method for ALEPlots object
 
+- [`summary.ALE`](https://tripartio.github.io/ale/reference/summary.ALE.md)
+  : summary Method for ALE object
+
 - [`summary.ALEPlots`](https://tripartio.github.io/ale/reference/summary.ALEPlots.md)
   : summary method for ALEPlots object
 
+- [`summary.ModelBoot`](https://tripartio.github.io/ale/reference/summary.ModelBoot.md)
+  : summary Method for ModelBoot object
+
 - [`var_cars`](https://tripartio.github.io/ale/reference/var_cars.md) :
   Multi-variable transformation of the mtcars dataset.
+
+- [`x_medoids()`](https://tripartio.github.io/ale/reference/x_medoids.md)
+  : k-medoids across a range, returning all internal cluster-quality
+  measures

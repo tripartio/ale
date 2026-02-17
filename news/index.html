@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,9 @@
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-acdc-corn.html">Analyzing a Large Corn Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-gomez-rice.html">Analyzing a Small Rice Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
     <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
@@ -38,6 +40,34 @@
       <small>Source: <a href="https://github.com/tripartio/ale/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="ale-development-version">ale (development version)<a class="anchor" aria-label="anchor" href="#ale-development-version"></a></h2>
+<div class="section level3">
+<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<ul><li>
+<code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> methods have now been implemented for <code>ALE</code> and <code>ModelBoot</code> objects. They print a summary of ALE statistics to the console. When there are no ALE statistics available, they print a message saying so.</li>
+<li>With the <code>aled_fun</code> argument of the <code><a href="../reference/ALE.html">ALE()</a></code> and <code><a href="../reference/ALEpDist.html">ALEpDist()</a></code> constructors, we may optionally choose to calculate ALE deviation based on standard deviations instead of the default mean absolute deviation.</li>
+<li>The widths of 1D ALE plots for non-numerical variables are now proportional to the frequency of the data. We find these proportional widths more intuitive than the text annotations that indicated the percentages, which have now been removed. The minimum width can be controlled with the <code>min_col_widths</code> argument of <code><a href="../reference/plot.ale.html">plot.ALE()</a></code>.</li>
+<li>For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the <code>consolid_cats</code> argument of <code><a href="../reference/plot.ale.html">plot.ALE()</a></code>). The top <code>consolid_cats - 1</code> values in ALE strength are shown and all other values are consolidated into an “other” category.</li>
+<li>With the default value <code>"levels"</code> of the <code>fct_order</code> argument to the <code><a href="../reference/ALE.html">ALE()</a></code> constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative <code>"y_col"</code> sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The <code>"ksd"</code> option allows compatibility with the original ALEPlot reference implementation.</li>
+<li>The <code>max_num_bins</code> argument to the <code><a href="../reference/ALE.html">ALE()</a></code> constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with a default for columns not named. For details, see documentation for <code><a href="../reference/ALE.html">ALE()</a></code>.</li>
+<li>Parallelization can now be controlled with a global option <code>ale.parallel</code>. For example, you can set 4 CPU cores with <code>options(ale.parallel = 4)</code>.</li>
+<li>The <a href="https://imbs-hl.github.io/ranger/" class="external-link">ranger</a> package is now automatically recognized so that <code>y_col</code> and <code>pred_fun</code> don’t need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changed-functionality-development-version">Changed functionality<a class="anchor" aria-label="anchor" href="#changed-functionality-development-version"></a></h3>
+<ul><li>Parallelization has been disabled by default (<code>parallel</code> = 0) (<a href="https://github.com/tripartio/ale/issues/16" class="external-link">#16</a>).</li>
+<li>The <code>pred_fun</code> argument in <code><a href="../reference/ALE.html">ALE()</a></code> and other constructors now defaults to <code>NULL</code>. However, the functionality is the unchanged: the default still creates the same generic custom prediction function.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>Update parallelization settings to handle massive parallelization (<a href="https://github.com/tripartio/ale/issues/16" class="external-link">#16</a>) and refactor code (<a href="https://github.com/tripartio/ale/issues/17" class="external-link">#17</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-development-version">Documentation<a class="anchor" aria-label="anchor" href="#documentation-development-version"></a></h3>
+<ul><li>Added two Quarto vignettes: “Analyzing a Large Corn Yield Dataset with ALE-Based Inference” and “Analyzing a Small Rice Yield Dataset with ALE-Based Inference”. They are available from the vignettes link on the main CRAN page at <a href="https://CRAN.R-project.org/package=ale" class="external-link uri">https://CRAN.R-project.org/package=ale</a>.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.2" id="ale-052">ale 0.5.2<a class="anchor" aria-label="anchor" href="#ale-052"></a></h2><p class="text-muted">CRAN release: 2025-08-29</p>
 <div class="section level3">

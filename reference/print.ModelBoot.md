@@ -8,6 +8,11 @@ Print a ModelBoot object.
 
   An object of class `ModelBoot`.
 
+- details:
+
+  logical(1). If `TRUE` (default), all brief details are printed. If
+  `FALSE`, only minimal information is printed.
+
 - ...:
 
   Additional arguments (currently not used).

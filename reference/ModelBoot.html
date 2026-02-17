@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,9 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-acdc-corn.html">Analyzing a Large Corn Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-gomez-rice.html">Analyzing a Small Rice Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
     <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
@@ -51,14 +53,11 @@
 <span>  <span class="va">...</span>,</span>
 <span>  model_call_string <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  model_call_string_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  parallel <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  positive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  pred_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span>
-<span>     <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>object <span class="op">=</span></span>
-<span>    <span class="va">object</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, type <span class="op">=</span> <span class="va">type</span><span class="op">)</span></span>
-<span> <span class="op">}</span>,</span>
+<span>  pred_fun <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pred_type <span class="op">=</span> <span class="st">"response"</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  boot_alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -85,7 +84,7 @@
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>dataframe. Dataset to be bootstrapped. This must be the same data on which the <code>model</code> was trained. If not provided, <code>ModelBoot()</code> will try to detect it automatically. For non-standard models, <code>data</code> should be provided.</p></dd>
+<dd><p>dataframe. Dataset to be bootstrapped. This must be the same data on which the <code>model</code> was trained. If not provided, <code>ModelBoot()</code> will try to detect it automatically. For <code>model</code> objects that do not contain their data within them, <code>data</code> should be provided.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -306,14 +305,14 @@
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'mb_gam_attitude.0.5.2.rds'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span></span>
-<span class="r-in"><span>    <span class="co"># For standard models like lm that store their data,</span></span></span>
+<span class="r-in"><span>    <span class="co"># For models like lm that store their data,</span></span></span>
 <span class="r-in"><span>    <span class="co"># there is no need to specify the data argument.</span></span></span>
 <span class="r-in"><span>    <span class="co"># 100 bootstrap iterations by default.</span></span></span>
 <span class="r-in"><span>    <span class="fu">ModelBoot</span><span class="op">(</span><span class="va">gam_attitude</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># # If the model is not standard, supply model_call_string with 'data = boot_data'</span></span></span>
+<span class="r-in"><span><span class="co"># # If default settings cause errors, supply model_call_string with 'data = boot_data'</span></span></span>
 <span class="r-in"><span><span class="co"># # in the string instead of the actual dataset name (in addition to the actual dataset</span></span></span>
 <span class="r-in"><span><span class="co"># # as the 'data' argument directly to the `ModelBoot` constructor).</span></span></span>
 <span class="r-in"><span><span class="co"># mb_gam_attitude &lt;- ModelBoot(</span></span></span>
@@ -349,7 +348,6 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot ALE</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam_attitude</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `label.size`</span>
 <span class="r-plt img"><img src="ModelBoot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Retrieve ALE data</span></span></span>

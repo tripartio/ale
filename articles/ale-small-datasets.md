@@ -158,32 +158,36 @@ special bootstrap approach, as explained below. For now, all we are
 doing is using ALE to accurately visualize what the model estimates.
 
 ``` r
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
+```
 
+``` r
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
 serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+```
 
-ale_lm_attitude_simple <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_lm_attitude_simple.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like lm that store their data,
-    # there is no need to specify the data argument.
-    ALE(lm_attitude)
-  }
-)
-# saveRDS(ale_lm_attitude_simple, file.choose())
+``` r
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like lm that store their data,
+# # there is no need to specify the data argument.
+# ale_lm_attitude_simple <- ALE(lm_attitude)
 
+ale_lm_attitude_simple <- serialized_objects_site |> 
+  file.path("ale_lm_attitude_simple.0.5.2.rds") |>
+  url() |> 
+  readRDS()
+```
+
+``` r
 # Print all plots
 plot(ale_lm_attitude_simple) |> 
   print(ncol = 2)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
-![](ale-small-datasets_files/figure-html/lm_simple-1.png)
+![](ale-small-datasets_files/figure-html/lm_simple-plot-1.png)
 
 This visualization confirms what we see in the model coefficients above:
 complaints have a strong positive effect on ratings and learning has a
@@ -222,24 +226,22 @@ it:
 The constructor for [S7](https://rconsortium.github.io/S7/) `ModelBoot`
 object requires a model object as its first argument–any R model object
 that can generate numeric predictions. The second argument is the
-dataset. For objects that follow standard R modelling conventions,
+dataset. For objects that follow base R modelling conventions,
 [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
 should be able to automatically recognize and parse the model object, so
 the data object is often optional. So, here is the creation of a
 `ModelBoot` object:
 
 ``` r
-mb_lm_attitude <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'mb_lm_attitude.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like lm that store their data,
-    # there is no need to specify the data argument.
-    ModelBoot(lm_attitude) # 100 bootstrap iterations by default
-  }
-)
-# saveRDS(mb_lm_attitude, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like lm that store their data,
+# # there is no need to specify the data argument.
+# mb_lm_attitude <- ModelBoot(lm_attitude) # 100 bootstrap iterations by default
+
+mb_lm_attitude <- serialized_objects_site |> 
+  file.path("mb_lm_attitude.0.5.2.rds") |>
+  url() |> 
+  readRDS()
 ```
 
 By default, a `ModelBoot` object creates 100 bootstrap samples of the
@@ -312,8 +314,6 @@ Here we can visualize the results of the ALE plots.
 ``` r
 plot(mb_lm_attitude) |> 
   print(ncol = 2)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
 ![](ale-small-datasets_files/figure-html/lm_full_ale-1.png)
@@ -405,25 +405,21 @@ They need to be visualized for effective interpretation—ALE is perfect
 for such purposes.
 
 ``` r
-ale_gam_attitude_simple <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_attitude_simple.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ALE(gam_attitude)
-  }
-)
-# saveRDS(ale_gam_attitude_simple, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_gam_attitude_simple <- ALE(gam_attitude)
+
+ale_gam_attitude_simple <- serialized_objects_site |> 
+  file.path("ale_gam_attitude_simple.0.5.2.rds") |>
+  url() |> 
+  readRDS()
 
 plot(ale_gam_attitude_simple) |> 
   print(ncol = 2)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
-![](ale-small-datasets_files/figure-html/gam_simple-1.png)
+![](ale-small-datasets_files/figure-html/gam_simple-rds-1.png)
 
 Compared to the OLS results above, the GAM results provide quite a
 surprise concerning the shape of the effect of employees’ perceptions
@@ -434,32 +430,31 @@ are not bootstrapped are simply not reliable. So, let us see what
 bootstrapping will give us.
 
 ``` r
-mb_gam_attitude <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ModelBoot(gam_attitude) # 100 bootstrap iterations by default
-  }
-)
-# saveRDS(mb_gam_attitude, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# mb_gam_attitude <- ModelBoot(gam_attitude) # 100 bootstrap iterations by default
+
+mb_gam_attitude <- serialized_objects_site |> 
+  file.path('mb_gam_attitude.0.5.2.rds') |>
+  url() |> 
+  readRDS()
 
 mb_gam_attitude@model_stats
-#> # A tibble: 9 × 7
-#>   name          boot_valid conf.low median   mean conf.high      sd
-#>   <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>   <dbl>
-#> 1 df                NA        8.36  17.0   15.8      21.0    4.08  
-#> 2 df.residual       NA        9.00  13.0   14.2      21.6    4.08  
-#> 3 nobs              NA       30     30     30        30      0     
-#> 4 adj.r.squared     NA        0.746  1.000  0.945     1      0.0832
-#> 5 npar              NA       23     23     23        23      0     
-#> 6 mae               12.9      4.50  NA     NA        62.6   15.0   
-#> 7 sa_mae             0.307   -2.00  NA     NA         0.769  0.772 
-#> 8 rmse              16.3      5.51  NA     NA        79.4   19.5   
-#> 9 sa_rmse            0.332   -2.08  NA     NA         0.786  0.754
 ```
+
+    #> # A tibble: 9 × 7
+    #>   name          boot_valid conf.low median   mean conf.high      sd
+    #>   <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>   <dbl>
+    #> 1 df                NA        8.36  17.0   15.8      21.0    4.08  
+    #> 2 df.residual       NA        9.00  13.0   14.2      21.6    4.08  
+    #> 3 nobs              NA       30     30     30        30      0     
+    #> 4 adj.r.squared     NA        0.746  1.000  0.945     1      0.0832
+    #> 5 npar              NA       23     23     23        23      0     
+    #> 6 mae               12.9      4.50  NA     NA        62.6   15.0   
+    #> 7 sa_mae             0.307   -2.00  NA     NA         0.769  0.772 
+    #> 8 rmse              16.3      5.51  NA     NA        79.4   19.5   
+    #> 9 sa_rmse            0.332   -2.08  NA     NA         0.786  0.754
 
 ``` r
 mb_gam_attitude@model_coefs
@@ -473,8 +468,6 @@ mb_gam_attitude@model_coefs
 ``` r
 plot(mb_gam_attitude) |> 
   print(ncol = 2)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
 ![](ale-small-datasets_files/figure-html/gam_full_ale-1.png)
@@ -503,15 +496,15 @@ No doubt, the inconclusive results are because the dataset is so small
 (only 30 rows). A dataset even double that size might show significant
 effects at least for complaints, if not for other variables.
 
-## `model_call_string` argument for non-standard models
+## `model_call_string` argument for models not automatically detected
 
 The
 [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
 constructor accesses the model object and internally modifies it to
 retrain the model on bootstrapped datasets. It should be able to
 automatically manipulate most R model objects that are used for
-statistical analysis. However, if an object does not follow standard
-conventions for R model objects,
+statistical analysis. However, if an object does not follow base R
+conventions for model objects,
 [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
 might not be able to manipulate it. If so, the function will fail early
 with an appropriate error message. In that case, the user must specify
@@ -573,43 +566,45 @@ is constructed with three simple steps:
     as the `model_call_string` argument (the argument must be explicitly
     named).
 
-So, here is the form for constructing a `ModelBoot` for a non-standard
-model object type:
+So, here is the form for constructing a `ModelBoot` for a model object
+type that is not automatically detected:
 
 ``` r
 
-mb_gam_attitude_non_standard <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'mb_gam_attitude_non_standard.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    # 100 bootstrap iterations by default.
-    ModelBoot(
-      gam_attitude_again,
-      model_call_string = 'mgcv::gam(
-        rating ~ complaints + privileges + s(learning) +
-          raises + s(critical) + advance,
-        data = boot_data)'
-    )
-  }
-)
-# saveRDS(mb_gam_attitude_non_standard, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# # 100 bootstrap iterations by default.
+# mb_gam_attitude_special <- ModelBoot(
+#   gam_attitude_again,
+#   model_call_string = 'mgcv::gam(
+#     rating ~ complaints + privileges + s(learning) +
+#       raises + s(critical) + advance,
+#     data = boot_data)'
+# )
 
-mb_gam_attitude_non_standard@model_stats
-#> # A tibble: 9 × 7
-#>   name          boot_valid conf.low median   mean conf.high      sd
-#>   <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>   <dbl>
-#> 1 df                NA        8.36  17.0   15.8      21.0    4.08  
-#> 2 df.residual       NA        9.00  13.0   14.2      21.6    4.08  
-#> 3 nobs              NA       30     30     30        30      0     
-#> 4 adj.r.squared     NA        0.746  1.000  0.945     1      0.0832
-#> 5 npar              NA       23     23     23        23      0     
-#> 6 mae               12.9      4.50  NA     NA        62.6   15.0   
-#> 7 sa_mae             0.307   -2.00  NA     NA         0.769  0.772 
-#> 8 rmse              16.3      5.51  NA     NA        79.4   19.5   
-#> 9 sa_rmse            0.332   -2.08  NA     NA         0.786  0.754
+mb_gam_attitude_special <- serialized_objects_site |> 
+  file.path('mb_gam_attitude_special.0.5.2.rds') |>
+  url() |> 
+  readRDS()
+
+mb_gam_attitude_special@model_stats
 ```
+
+    #> Warning in readRDS(url(paste0(it.attempt, collapse = "/"))): cannot open URL
+    #> 'https://github.com/tripartio/ale/raw/main/download/mb_gam_attitude_special.0.5.2.rds':
+    #> HTTP status was '404 Not Found'
+    #> # A tibble: 9 × 7
+    #>   name          boot_valid conf.low median   mean conf.high      sd
+    #>   <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>   <dbl>
+    #> 1 df                NA        8.36  17.0   15.8      21.0    4.08  
+    #> 2 df.residual       NA        9.00  13.0   14.2      21.6    4.08  
+    #> 3 nobs              NA       30     30     30        30      0     
+    #> 4 adj.r.squared     NA        0.746  1.000  0.945     1      0.0832
+    #> 5 npar              NA       23     23     23        23      0     
+    #> 6 mae               12.9      4.50  NA     NA        62.6   15.0   
+    #> 7 sa_mae             0.308   -2.00  NA     NA         0.769  0.772 
+    #> 8 rmse              16.3      5.51  NA     NA        79.4   19.5   
+    #> 9 sa_rmse            0.332   -2.08  NA     NA         0.786  0.754
 
 Everything else works as usual.

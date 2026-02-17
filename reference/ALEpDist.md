@@ -17,16 +17,14 @@ ALEpDist(
   y_col = NULL,
   rand_it = NULL,
   surrogate = FALSE,
-  parallel = "all",
+  parallel = 0,
   model_packages = NULL,
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
   positive = TRUE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
+  aled_fun = "mad",
   output_residuals = FALSE,
   seed = 0,
   silent = FALSE,
@@ -105,6 +103,11 @@ ALEpDist(
   [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
 
 - pred_fun, pred_type:
+
+  See documentation for
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
+
+- aled_fun:
 
   See documentation for
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
@@ -215,14 +218,15 @@ The specific steps are as follows:
 Because the `ale` package is model-agnostic (that is, it works with any
 kind of R model), the `ALEpDist()` constructor cannot always
 automatically manipulate the model object to create the p-values. It can
-only do so for models that follow the standard R statistical modelling
-conventions, which includes almost all base R algorithms (like
+only do so for models that follow modelling conventions similar to those
+of base R algorithms (like
 [`stats::lm()`](https://rdrr.io/r/stats/lm.html) and
 [`stats::glm()`](https://rdrr.io/r/stats/glm.html)) and many widely used
-statistics packages (like `mgcv` and `survival`), but which excludes
+statistics packages (like `mgcv` and `survival`), but probably not for
 most machine learning algorithms (like `tidymodels` and `caret`). For
-non-standard algorithms, the user needs to do a little work to help the
-`ALEpDist()` constructor correctly manipulate its model object:
+algorithms that do not follow base R conventions, the user needs to do a
+little work to help the `ALEpDist()` constructor correctly manipulate
+its model object:
 
 - The full model call must be passed as a character string in the
   argument `random_model_call_string`, with two slight modifications as
@@ -440,19 +444,18 @@ ale_gam_diamonds <- retrieve_rds(
 
 # Plot the ALE data. The horizontal bands in the plots use the p-values.
 plot(ale_gam_diamonds)
-#> Warning: Ignoring unknown parameters: `label.size`
 
 
 
 
-# For non-standard models that give errors with the default settings,
+# For models that give errors with the default settings,
 # you can use 'random_model_call_string' to specify a model for the estimation
 # of p-values from random variables as in this example.
 # See details above for an explanation.
 
-pd_diamonds_non_standard <- retrieve_rds(
+pd_diamonds_special <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'pd_diamonds_non_standard.0.5.2.rds'),
+  c(serialized_objects_site, 'pd_diamonds_special.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
     ALEpDist(
@@ -468,10 +471,11 @@ pd_diamonds_non_standard <- retrieve_rds(
     )
   }
 )
-# saveRDS(pd_diamonds_non_standard, file.choose())
+#> Warning: cannot open URL 'https://github.com/tripartio/ale/raw/main/download/pd_diamonds_special.0.5.2.rds': HTTP status was '404 Not Found'
+# saveRDS(pd_diamonds_special, file.choose())
 
 # Examine the structure of the returned object
-print(pd_diamonds_non_standard)
+print(pd_diamonds_special)
 #> <ale::ALEpDist>
 #>  @ rand_stats           :List of 1
 #>  .. $ price: tibble [100 × 6] (S3: tbl_df/tbl/data.frame)
@@ -492,20 +496,18 @@ print(pd_diamonds_non_standard)
 #>  .. - attr(*, "default")= num [1:4] 0 1 3 2
 #>  .. - attr(*, "continuous")= logi TRUE
 #>  @ residuals            : NULL
-#>  @ params               :List of 11
-#>  .. $ model                        :List of 4
-#>  ..  ..$ class  : chr [1:3] "gam" "glm" "lm"
-#>  ..  ..$ call   : chr "mgcv::gam(formula = price ~ s(carat) + s(depth_pct) + s(table) + \n    s(x_length) + s(y_width) + s(z_depth) + "| __truncated__
-#>  ..  ..$ print  : chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nprice ~ s(carat) + s(depth_pct) + s(table) + s(x_len"| __truncated__
-#>  ..  ..$ summary: chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nprice ~ s(carat) + s(depth_pct) + s(table) + s(x_len"| __truncated__
+#>  @ params               :List of 12
+#>  .. $ model                        :List of 2
+#>  ..  ..$ class: chr [1:3] "gam" "glm" "lm"
+#>  ..  ..$ hash : chr "e92e511307cb9457ffafbe991e2738f3"
 #>  .. $ y_col                        : chr "price"
 #>  .. $ rand_it                      : num 100
-#>  .. $ parallel                     : Named int 22
-#>  ..  ..- attr(*, "names")= chr "system"
-#>  .. $ model_packages               : chr "mgcv"
-#>  .. $ random_model_call_string     : chr "mgcv::gam(\n    price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +\n      cut"| __truncated__
+#>  .. $ parallel                     : num 0
+#>  .. $ model_packages               : NULL
+#>  .. $ random_model_call_string     : chr "mgcv::gam(\n        price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +\n     "| __truncated__
 #>  .. $ random_model_call_string_vars: chr(0) 
 #>  .. $ positive                     : logi TRUE
+#>  .. $ aled_fun                     : chr "mad"
 #>  .. $ seed                         : num 0
 #>  .. $ rand_it_ok                   : int 100
 #>  .. $ exactness                    : chr "approx"

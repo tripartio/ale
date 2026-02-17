@@ -2,6 +2,10 @@
 
 ### All vignettes
 
+- [Analyzing a Large Corn Yield Dataset with ALE-Based
+  Inference](https://tripartio.github.io/ale/articles/ale-acdc-corn.md):
+- [Analyzing a Small Rice Yield Dataset with ALE-Based
+  Inference](https://tripartio.github.io/ale/articles/ale-gomez-rice.md):
 - [Introduction to the ale
   package](https://tripartio.github.io/ale/articles/ale-intro.md):
 - [Analyzing small datasets (fewer than 2000 rows) with

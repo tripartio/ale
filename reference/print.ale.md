@@ -8,6 +8,11 @@ Print an ALE object.
 
   An object of class `ALE`.
 
+- details:
+
+  logical(1). If `TRUE` (default), all brief details are printed. If
+  `FALSE`, only minimal information is printed.
+
 - ...:
 
   Additional arguments (currently not used).

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,9 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-acdc-corn.html">Analyzing a Large Corn Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-gomez-rice.html">Analyzing a Small Rice Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
     <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
@@ -49,9 +51,11 @@
 <span>  <span class="va">obj</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  ale_centre <span class="op">=</span> <span class="st">"median"</span>,</span>
+<span>  consolid_cats <span class="op">=</span> <span class="fl">10L</span>,</span>
 <span>  y_1d_refs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"25%"</span>, <span class="st">"75%"</span><span class="op">)</span>,</span>
 <span>  rug_sample_size <span class="op">=</span> <span class="va">obj</span><span class="op">@</span><span class="va">params</span><span class="op">$</span><span class="va">sample_size</span>,</span>
-<span>  min_rug_per_interval <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  min_rug_per_interval <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  min_col_width <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  y_nonsig_band <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  silent <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -74,12 +78,24 @@
 <dd><p>character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be centred relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are centred on zero.</p></dd>
 
 
+<dt id="arg-consolid-cats">consolid_cats<a class="anchor" aria-label="anchor" href="#arg-consolid-cats"></a></dt>
+<dd><p>integer(1) &gt; 1 or list. For 1D plots of categorical variables, only a maximum of <code>consolid_cats</code> distinct values (e.g., factor levels) are shown. The top <code>consolid_cats - 1</code> values in ALE strength are shown and all other values are consolidated into an "other" category. See details for the calculation. Valid formats are:</p><ul><li><p>Single integer &gt; 1: Consolidate categories only if there are more than <code>consolid_cats</code> factor levels.</p></li>
+<li><p>List with required levels: a list with exactly two elements: <code>max</code> is the same as the single-integer option above: the maximum allowable levels before consolidation begins; <code>include</code> is a named list. Each sublist is a character vector of specific levels that must be included for the factor variable that it names. Unknown names or factor levels trigger an error.
+An example of the list format would be:
+<code>consolid_cats = list(max = 10, include = list(model = c("Cadillac Fleetwood", "Volvo 142E")))</code></p></li>
+</ul></dd>
+
+
 <dt id="arg-y-d-refs">y_1d_refs<a class="anchor" aria-label="anchor" href="#arg-y-d-refs"></a></dt>
 <dd><p>character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, <code>y_1d_refs</code> values are names from <code>obj@params$y_summary</code> (usually quantile names). If a numeric vector, <code>y_1d_refs</code> values must be values within the range of y, that is, between <code>obj@params$y_summary$min</code> and <code>obj@params$y_summary$max</code> inclusive.</p></dd>
 
 
 <dt id="arg-rug-sample-size-min-rug-per-interval">rug_sample_size, min_rug_per_interval<a class="anchor" aria-label="anchor" href="#arg-rug-sample-size-min-rug-per-interval"></a></dt>
 <dd><p>non-negative integer(1). Rug plots are down-sampled to <code>rug_sample_size</code> rows, otherwise they can be very slow for large datasets. By default, their size is the value of <code>obj@params$sample_size</code>. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least <code>min_rug_per_interval</code> elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set <code>rug_sample_size</code> to <code>Inf</code> (but then the <code>ALEPlots</code> object would store the entire dataset, so could become very large).</p></dd>
+
+
+<dt id="arg-min-col-width">min_col_width<a class="anchor" aria-label="anchor" href="#arg-min-col-width"></a></dt>
+<dd><p>numeric(1) in <code>[0.01, 1]</code>. Column charts scale each column such that the column representing the category with the most elements has a scale of 1 and all other columns have a width that is a fraction of the largest category proportional to their numbers of elements. However, for visibility, no column is displayed narrower than a scale of <code>min_col_width</code>. To disable scaling by width, set <code>min_col_width = 1</code>.</p></dd>
 
 
 <dt id="arg-y-nonsig-band">y_nonsig_band<a class="anchor" aria-label="anchor" href="#arg-y-nonsig-band"></a></dt>
@@ -113,6 +129,17 @@
 
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="consolidation-of-factors">Consolidation of factors<a class="anchor" aria-label="anchor" href="#consolidation-of-factors"></a></h2>
+
+
+
+<p>When a categorical (unordered factor) variable has too many levels, the 1D column charts used to plot their ALE become unwieldy and hard to read. So, the <code>consolid_cats</code> argument sets a maximum number of categories (factor levels) to display. For example, for the default <code>consolid_cats = 10</code>:</p><ul><li><p>If there are <code>consolid_cats</code> (default 10) or fewer categories, then there is no consolidation.</p></li>
+<li><p>With more than <code>consolid_cats</code> categories, all categories are then ranked by decreasing absolute ALE <code>y</code> value. The top <code>consolid_cats - 1</code> (default 9) categories are retained.</p></li>
+<li><p>All other categories are consolidated into one "other" category that reports the count of consolidated categories. Consolidated means are the weighted mean of all categories; consolidated medians, maximums, and minimums are the medians, maximums, and minimums, respectively, of all categories.</p></li>
+</ul><p>Sometimes, we have specific factor levels that we always want to see; we don't want them consolidated even if their effects are very low. In that case, see the argument specification for how to list such levels that must always be included.</p>
+<p>Note that this consolidation is purely for visualization; the underlying ALE data is not consolidated. Only unordered factors are consolidated thus; ordered factors are never consolidated since their order is meaningful. Moreover, for now, only 1D ALE plots are consolidated.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

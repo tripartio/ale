@@ -1,5 +1,78 @@
 # Changelog
 
+## ale (development version)
+
+### New features
+
+- [`summary()`](https://rdrr.io/r/base/summary.html) methods have now
+  been implemented for `ALE` and `ModelBoot` objects. They print a
+  summary of ALE statistics to the console. When there are no ALE
+  statistics available, they print a message saying so.
+- With the `aled_fun` argument of the
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and
+  [`ALEpDist()`](https://tripartio.github.io/ale/reference/ALEpDist.md)
+  constructors, we may optionally choose to calculate ALE deviation
+  based on standard deviations instead of the default mean absolute
+  deviation.
+- The widths of 1D ALE plots for non-numerical variables are now
+  proportional to the frequency of the data. We find these proportional
+  widths more intuitive than the text annotations that indicated the
+  percentages, which have now been removed. The minimum width can be
+  controlled with the `min_col_widths` argument of
+  [`plot.ALE()`](https://tripartio.github.io/ale/reference/plot.ale.md).
+- For 1D plots of categorical variables, only a maximum of 10 distinct
+  values (e.g., factor levels) are now shown (the default 10 is
+  adjustable with the `consolid_cats` argument of
+  [`plot.ALE()`](https://tripartio.github.io/ale/reference/plot.ale.md)).
+  The top `consolid_cats - 1` values in ALE strength are shown and all
+  other values are consolidated into an “other” category.
+- With the default value `"levels"` of the `fct_order` argument to the
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
+  constructor, unordered factors are now sorted in the order of the
+  factor levels (characters columns are sorted in alphabetical order of
+  their unique values). An alternative `"y_col"` sorts based on the
+  increasing mean values of the predictions of the outcome variable for
+  each factor level. The `"ksd"` option allows compatibility with the
+  original ALEPlot reference implementation.
+- The `max_num_bins` argument to the
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
+  constructor now accepts a special list format that allows the
+  specification of per-column maximum ALE bin sizes for numeric input
+  columns, with a default for columns not named. For details, see
+  documentation for
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md).
+- Parallelization can now be controlled with a global option
+  `ale.parallel`. For example, you can set 4 CPU cores with
+  `options(ale.parallel = 4)`.
+- The [ranger](https://imbs-hl.github.io/ranger/) package is now
+  automatically recognized so that `y_col` and `pred_fun` don’t need to
+  be specified. In the future, a very few other very popular packages
+  and frameworks will also be automatically recognized, but there will
+  be no attempt to cover most packages.
+
+### Changed functionality
+
+- Parallelization has been disabled by default (`parallel` = 0)
+  ([\#16](https://github.com/tripartio/ale/issues/16)).
+- The `pred_fun` argument in
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and other
+  constructors now defaults to `NULL`. However, the functionality is the
+  unchanged: the default still creates the same generic custom
+  prediction function.
+
+### Bug fixes
+
+- Update parallelization settings to handle massive parallelization
+  ([\#16](https://github.com/tripartio/ale/issues/16)) and refactor code
+  ([\#17](https://github.com/tripartio/ale/issues/17)).
+
+### Documentation
+
+- Added two Quarto vignettes: “Analyzing a Large Corn Yield Dataset with
+  ALE-Based Inference” and “Analyzing a Small Rice Yield Dataset with
+  ALE-Based Inference”. They are available from the vignettes link on
+  the main CRAN page at <https://CRAN.R-project.org/package=ale>.
+
 ## ale 0.5.2
 
 CRAN release: 2025-08-29

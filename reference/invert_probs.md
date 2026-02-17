@@ -65,7 +65,6 @@ ale_obj <- glm(setosa ~ ., data = setosa, family = binomial()) |>
   ALE()
 #> Warning: glm.fit: algorithm did not converge
 #> Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-#> Warning: no non-missing arguments to max; returning -Inf
 
 # Invert the predicted probabilities
 ale_inverted <- invert_probs(ale_obj)

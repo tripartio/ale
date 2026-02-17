@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,9 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-acdc-corn.html">Analyzing a Large Corn Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-gomez-rice.html">Analyzing a Small Rice Yield Dataset with ALE-Based Inference</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
     <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
@@ -52,16 +54,14 @@
 <span>  y_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rand_it <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  surrogate <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  parallel <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  random_model_call_string <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  random_model_call_string_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  positive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  pred_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span>
-<span>     <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>object <span class="op">=</span></span>
-<span>    <span class="va">object</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, type <span class="op">=</span> <span class="va">type</span><span class="op">)</span></span>
-<span> <span class="op">}</span>,</span>
+<span>  pred_fun <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pred_type <span class="op">=</span> <span class="st">"response"</span>,</span>
+<span>  aled_fun <span class="op">=</span> <span class="st">"mad"</span>,</span>
 <span>  output_residuals <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  silent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -121,6 +121,10 @@
 <dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
+<dt id="arg-aled-fun">aled_fun<a class="anchor" aria-label="anchor" href="#arg-aled-fun"></a></dt>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
+
+
 <dt id="arg-output-residuals">output_residuals<a class="anchor" aria-label="anchor" href="#arg-output-residuals"></a></dt>
 <dd><p>logical(1). If <code>TRUE</code>, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default <code>FALSE</code> does not return the residuals.</p></dd>
 
@@ -176,7 +180,7 @@
 <li><p>1000 new models are trained by generating a random variable each time with <code><a href="https://jonasmoss.github.io/univariateML/reference/MaximumLikelihoodDistribution.html" class="external-link">univariateML::rml()</a></code> and then training a new model with that random variable added.</p></li>
 <li><p>The ALEs and ALE statistics are calculated for each random variable.</p></li>
 <li><p>For each ALE statistic, the empirical cumulative distribution function (<code><a href="https://rdrr.io/r/stats/ecdf.html" class="external-link">stats::ecdf()</a></code>) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.</p></li>
-</ul><p>Because the <code>ale</code> package is model-agnostic (that is, it works with any kind of R model), the <code>ALEpDist()</code> constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all base R algorithms (like <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm()</a></code> and <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">stats::glm()</a></code>) and many widely used statistics packages (like <code>mgcv</code> and <code>survival</code>), but which excludes most machine learning algorithms (like <code>tidymodels</code> and <code>caret</code>). For non-standard algorithms, the user needs to do a little work to help the <code>ALEpDist()</code> constructor correctly manipulate its model object:</p><ul><li><p>The full model call must be passed as a character string in the argument <code>random_model_call_string</code>, with two slight modifications as follows.</p></li>
+</ul><p>Because the <code>ale</code> package is model-agnostic (that is, it works with any kind of R model), the <code>ALEpDist()</code> constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow modelling conventions similar to those of base R algorithms (like <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm()</a></code> and <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">stats::glm()</a></code>) and many widely used statistics packages (like <code>mgcv</code> and <code>survival</code>), but probably not for most machine learning algorithms (like <code>tidymodels</code> and <code>caret</code>). For algorithms that do not follow base R conventions, the user needs to do a little work to help the <code>ALEpDist()</code> constructor correctly manipulate its model object:</p><ul><li><p>The full model call must be passed as a character string in the argument <code>random_model_call_string</code>, with two slight modifications as follows.</p></li>
 <li><p>In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.</p></li>
 <li><p>The dataset on which the model is trained must be named 'rand_data'. This corresponds to the modified datasets that will be used to train the random variables.</p></li>
 </ul><p>See the example below for how this is implemented.</p>
@@ -350,19 +354,18 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the ALE data. The horizontal bands in the plots use the p-values.</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `label.size`</span>
 <span class="r-plt img"><img src="ALEpDist-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="ALEpDist-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># For non-standard models that give errors with the default settings,</span></span></span>
+<span class="r-in"><span><span class="co"># For models that give errors with the default settings,</span></span></span>
 <span class="r-in"><span><span class="co"># you can use 'random_model_call_string' to specify a model for the estimation</span></span></span>
 <span class="r-in"><span><span class="co"># of p-values from random variables as in this example.</span></span></span>
 <span class="r-in"><span><span class="co"># See details above for an explanation.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">pd_diamonds_non_standard</span> <span class="op">&lt;-</span> <span class="fu"><a href="retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">pd_diamonds_special</span> <span class="op">&lt;-</span> <span class="fu"><a href="retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="co"># For speed, load a pre-created object by default.</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'pd_diamonds_non_standard.0.5.2.rds'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'pd_diamonds_special.0.5.2.rds'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span></span>
 <span class="r-in"><span>    <span class="fu">ALEpDist</span><span class="op">(</span></span></span>
@@ -378,10 +381,11 @@
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># saveRDS(pd_diamonds_non_standard, file.choose())</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open URL 'https://github.com/tripartio/ale/raw/main/download/pd_diamonds_special.0.5.2.rds': HTTP status was '404 Not Found'</span>
+<span class="r-in"><span><span class="co"># saveRDS(pd_diamonds_special, file.choose())</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Examine the structure of the returned object</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pd_diamonds_non_standard</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pd_diamonds_special</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ale::ALEpDist&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ rand_stats           :List of 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ price: tibble [100 × 6] (S3: tbl_df/tbl/data.frame)</span>
@@ -402,20 +406,18 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "default")= num [1:4] 0 1 3 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "continuous")= logi TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ residuals            : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  @ params               :List of 11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ model                        :List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..$ class  : chr [1:3] "gam" "glm" "lm"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..$ call   : chr "mgcv::gam(formula = price ~ s(carat) + s(depth_pct) + s(table) + \n    s(x_length) + s(y_width) + s(z_depth) + "| __truncated__</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..$ print  : chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nprice ~ s(carat) + s(depth_pct) + s(table) + s(x_len"| __truncated__</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..$ summary: chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nprice ~ s(carat) + s(depth_pct) + s(table) + s(x_len"| __truncated__</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ params               :List of 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ model                        :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..$ class: chr [1:3] "gam" "glm" "lm"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..$ hash : chr "e92e511307cb9457ffafbe991e2738f3"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ y_col                        : chr "price"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ rand_it                      : num 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ parallel                     : Named int 22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..- attr(*, "names")= chr "system"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ model_packages               : chr "mgcv"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ random_model_call_string     : chr "mgcv::gam(\n    price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +\n      cut"| __truncated__</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ parallel                     : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ model_packages               : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ random_model_call_string     : chr "mgcv::gam(\n        price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +\n     "| __truncated__</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ random_model_call_string_vars: chr(0) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ positive                     : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ aled_fun                     : chr "mad"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ seed                         : num 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ rand_it_ok                   : int 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ exactness                    : chr "approx"</span>

@@ -212,10 +212,9 @@ the following:
   random variables obtain specific statistic values.
 
 As you can imagine, this procedure is very slow: it involves retraining
-the entire model on the full dataset 1,000 times. The `ale` package
-speeds of the process significantly through parallel processing
-(implemented by default), but it still involves the speed of retraining
-the model hundreds of times.
+the entire model on the full dataset 1,000 times. The `ale` package can
+speed up the process significantly through parallel processing, but it
+still involves the speed of retraining the model hundreds of times.
 
 To avoid having to repeat this procedure several times (as would be the
 case when you are doing exploratory analyses), we can create a
@@ -236,24 +235,27 @@ p-values thus generated would be meaningless.)
 We now demonstrate how to create the `ALEpDist` object for our case.
 
 ``` r
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
+```
+
+``` r
 
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
 serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
 
-gam_math_p_dist <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'gam_math_p_dist.0.5.0.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    # Rather slow because it retrains the model 1000 times.
-    ALEpDist(gam_math)
-  }
-)
-# saveRDS(gam_math_p_dist, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# # Rather slow because it retrains the model 1000 times.
+# gam_math_p_dist <- ALEpDist(gam_math)
+
+gam_math_p_dist <- serialized_objects_site |> 
+  file.path('gam_math_p_dist.0.5.0.rds') |>
+  url() |> 
+  readRDS()
 ```
 
 We can now proceed to bootstrap the model for ALE analysis.
@@ -265,35 +267,33 @@ be controlled with the `boot_it` argument. Bootstrapping is usually
 rather slow, even on small datasets, since the entire process is
 repeated that many times. The
 [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
-constructor speeds up the process significantly through parallel
-processing (implemented by default), but it still involves retraining
-the entire model dozens of times. The default of 100 should be
-sufficiently stable for model building, when you would want to run the
-bootstrapped algorithm several times and you do not want it to be too
-slow each time. For definitive conclusions, you could run 1,000
-bootstraps or more to confirm the results of 100 bootstraps.
+constructor can speed up the process significantly through parallel
+processing, but it still involves retraining the entire model dozens of
+times. The default of 100 should be sufficiently stable for model
+building, when you would want to run the bootstrapped algorithm several
+times and you do not want it to be too slow each time. For definitive
+conclusions, you could run 1,000 bootstraps or more to confirm the
+results of 100 bootstraps.
 
 ``` r
-mb_gam_math <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'mb_gam_math_stats_vignette.0.5.0.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    # 100 bootstrap iterations by default (rather slow).
-    ModelBoot(
-      gam_math,
-      # Pass the ALEpDist object so that p-values will be generated
-      ale_p = gam_math_p_dist,
-      # For the GAM model coefficients, show details of all variables, parametric or not
-      tidy_options = list(parametric = TRUE),
-      # tidy_options = list(parametric = NULL),
-      boot_it = 100  # default
-    )
-  }
-)
-# saveRDS(mb_gam_math, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# # 100 bootstrap iterations by default (rather slow).
+# mb_gam_math <- ModelBoot(
+#   gam_math,
+#   # Pass the ALEpDist object so that p-values will be generated
+#   ale_p = gam_math_p_dist,
+#   # For the GAM model coefficients, show details of all variables, parametric or not
+#   tidy_options = list(parametric = TRUE),
+#   # tidy_options = list(parametric = NULL),
+#   boot_it = 100  # default
+# )
+
+mb_gam_math <- serialized_objects_site |> 
+  file.path('mb_gam_math_stats_vignette.0.5.0.rds') |>
+  url() |> 
+  readRDS()
 ```
 
 We can see the bootstrapped values of various overall model statistics
@@ -418,8 +418,6 @@ plots for each variable.
 
 ``` r
 mb_gam_plots <- plot(mb_gam_math)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 print(mb_gam_plots, ncol = 2)
 ```
 
@@ -500,32 +498,28 @@ object. Let us create another `ModelBoot` object, but this time, one
 without p-values.
 
 ``` r
-mb_gam_no_p <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'mb_gam_no_p_stats_vignette.0.5.0.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ModelBoot(
-      gam_math,
-      ale_p = NULL,  # disable ALE p-values
-      # For the GAM model coefficients, show details of all variables, parametric or not
-      tidy_options = list(parametric = TRUE),
-      # tidy_options = list(parametric = NULL),
-      boot_it = 40  # 100 by default but reduced here for a faster demonstration
-    )
-  }
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# For models like mgcv::gam that store their data,
+# there is no need to specify the data argument.
+mb_gam_no_p <- ModelBoot(
+  gam_math,
+  ale_p = NULL,  # disable ALE p-values
+  # For the GAM model coefficients, show details of all variables, parametric or not
+  tidy_options = list(parametric = TRUE),
+  # tidy_options = list(parametric = NULL),
+  boot_it = 40  # 100 by default but reduced here for a faster demonstration
 )
-# saveRDS(mb_gam_no_p, file.choose())
+
+mb_gam_no_p <- serialized_objects_site |> 
+  file.path('mb_gam_no_p_stats_vignette.0.5.0.rds') |>
+  url() |> 
+  readRDS()
 
 plot(mb_gam_no_p) |> 
   print(ncol = 2)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
-![](ale-statistics_files/figure-html/model-bootstrap-without-p-1.png)
+![](ale-statistics_files/figure-html/model-bootstrap-without-p-rds-1.png)
 
 In the absence of p-values, the `ale` packages uses simpler
 visualizations to offer meaningful results. There is no ALER band; there

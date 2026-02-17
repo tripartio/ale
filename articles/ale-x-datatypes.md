@@ -167,20 +167,27 @@ summary(gam_cars)
 Now we generate ALE data from the `gam_cars` GAM model and plot it.
 
 ``` r
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
+```
 
+``` r
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
 serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+```
+
+``` r
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_cars_1D <- ALE(gam_cars)
 
 ale_cars_1D <- retrieve_rds(
   # For speed, load a pre-created object by default.
   c(serialized_objects_site, 'ale_cars_1D.0.5.2.rds'),
   {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ALE(gam_cars)
   }
 )
 # saveRDS(ale_cars_1D, file.choose())
@@ -188,11 +195,9 @@ ale_cars_1D <- retrieve_rds(
 # Print all plots
 plot(ale_cars_1D) |> 
   print(ncol = 2)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
-![](ale-x-datatypes_files/figure-html/ale_cars_1D-1.png)
+![](ale-x-datatypes_files/figure-html/ale_cars_1D-rds-1.png)
 
 We can see that
 [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) has no
@@ -210,20 +215,18 @@ displayed.
 We can also generate and plot the ALE data for all two-way interactions.
 
 ``` r
-ale_cars_2D <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_cars_2D.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ALE(
-      gam_cars,
-      x_cols = list(d2 = TRUE)
-    )
-  }
-)
-# saveRDS(ale_cars_2D, file.choose())
+# # # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_cars_2D <- ALE(
+#   gam_cars,
+#   x_cols = list(d2 = TRUE)
+# )
+
+ale_cars_2D <- serialized_objects_site |> 
+  file.path('ale_cars_2D.0.5.2.rds') |>
+  url() |> 
+  readRDS()
 
 # Print plots
 plot(ale_cars_2D) |> 
@@ -234,7 +237,7 @@ plot(ale_cars_2D) |>
   )
 ```
 
-![](ale-x-datatypes_files/figure-html/ale_cars_2D-1.png)
+![](ale-x-datatypes_files/figure-html/ale_cars_2D-rds-1.png)
 
 There are no interactions in this model but the point of this
 demonstration is to show that the `ale` package can handle 2D
@@ -247,25 +250,21 @@ a more appropriate modelling workflow would require bootstrapping the
 entire model, not just the ALE data. So, let’s do that now.
 
 ``` r
-mb_cars <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'mb_cars.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ModelBoot(gam_cars) # 100 bootstrap iterations by default
-  }
-)
-# saveRDS(mb_cars, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# mb_cars <- ModelBoot(gam_cars) # 100 bootstrap iterations by default
+
+mb_cars <- serialized_objects_site |> 
+  file.path('mb_cars.0.5.2.rds') |>
+  url() |> 
+  readRDS()
 
 plot(mb_cars) |> 
   print(ncol = 2)
-#> Warning in annotate(geom = "label", x = y_summary["max"], y =
-#> which(estimates$aler_max == : Ignoring unknown parameters: `label.size`
 ```
 
-![](ale-x-datatypes_files/figure-html/cars_full-1.png)
+![](ale-x-datatypes_files/figure-html/cars_full-rds-1.png)
 
 (By default, a `ModelBoot` object creates 100 bootstrap samples but, so
 that this illustration runs faster, we demonstrate it here with only 10
