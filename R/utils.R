@@ -100,11 +100,22 @@ params_data <- function(
 
 # Reduce a model to text descriptions of its key elements
 params_model <- function(model) {
+  raw <- serialize(model, NULL)
+
+  # R versions before 4.5.1 don't support the tools::md5sum(bytes) argument,
+  # so create a fallback for older verions
+  hash <- if ("bytes" %in% names(formals(tools::md5sum))) {
+    tools::md5sum(bytes = raw)
+  } else {
+    tf <- tempfile(fileext = ".bin")
+    on.exit(unlink(tf), add = TRUE)
+    writeBin(raw, tf)
+    tools::md5sum(tf)
+  }
+
   list(
     class = class(model),
-    hash = model |>
-      serialize(NULL) |>
-      tools::md5sum(bytes = _)
+    hash  = hash
   )
 }
 
