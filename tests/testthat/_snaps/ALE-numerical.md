@@ -20,7 +20,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -40,9 +40,9 @@
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America    24     0     0       0         0     0
+      1 Asia             12     0     0       0         0     0
       2 Europe           28     0     0       0         0     0
-      3 Asia             12     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7
@@ -53,18 +53,18 @@
       
       attr(,"effect")$mpg$ale$d1$model
       # A tibble: 32 x 7
-         model.bin              .n     .y  .y_lo .y_mean .y_median .y_hi
-         <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-       1 Camaro Z28              2 -0.817 -3.79   -0.817    -1.05   2.36
-       2 Cadillac Fleetwood      2 -0.741 -9.66   -0.741    -0.437  7.92
-       3 Lincoln Continental     2  6.79  -9.61    6.79      6.67  23.3 
-       4 Chrysler Imperial       2 15.7   -5.02   15.7      14.0   37.9 
-       5 Duster 360              2 21.1   -0.717  21.1      19.6   44.3 
-       6 Hornet Sportabout       2 26.2    4.52   26.2      29.0   45.5 
-       7 Pontiac Firebird        2 20.9    2.89   20.9      20.9   38.9 
-       8 Dodge Challenger        2 18.2    0.485  18.2      16.6   37.2 
-       9 AMC Javelin             2 18.7    0.691  18.7      18.4   36.9 
-      10 Merc 450SL              2 20.4    0.938  20.4       8.30  50.3 
+         model.bin             .n     .y  .y_lo .y_mean .y_median .y_hi
+         <ord>              <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin            2 -12.7  -17.7   -12.7     -12.8  -7.59
+       2 Cadillac Fleetwood     2 -16.4  -27.4   -16.4     -11.2  -9.96
+       3 Camaro Z28             2  -4.30 -21.2    -4.30     -4.18 12.5 
+       4 Chrysler Imperial      2  -2.38 -10.5    -2.38     -3.83  6.97
+       5 Datsun 710             2   6.89  -1.03    6.89      9.74 12.4 
+       6 Dodge Challenger       2  15.7    5.56   15.7      17.0  24.7 
+       7 Duster 360             2  15.4    4.21   15.4      17.0  25.4 
+       8 Ferrari Dino           2  20.1    9.65   20.1      24.1  27.2 
+       9 Fiat 128               2  24.2   16.0    24.2      26.3  30.7 
+      10 Fiat X1-9              2  16.8    6.10   16.8      22.1  23.0 
       # i 22 more rows
       
       attr(,"effect")$mpg$ale$d1$gear
@@ -106,12 +106,12 @@
       # A tibble: 6 x 8
         vs.bin continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  North America    20     0     0       0         0     0
-      2 TRUE   North America     4     0     0       0         0     0
+      1 FALSE  Asia              4     0     0       0         0     0
+      2 TRUE   Asia              8     0     0       0         0     0
       3 FALSE  Europe           12     0     0       0         0     0
       4 TRUE   Europe           16     0     0       0         0     0
-      5 FALSE  Asia              4     0     0       0         0     0
-      6 TRUE   Asia              8     0     0       0         0     0
+      5 FALSE  North America    20     0     0       0         0     0
+      6 TRUE   North America     4     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d2$`vs:am`
       # A tibble: 4 x 8
@@ -124,18 +124,18 @@
       
       attr(,"effect")$mpg$ale$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Camaro Z28              2     0     0       0         0     0
-       2 TRUE   Camaro Z28              0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Lincoln Continental     2     0     0       0         0     0
-       6 TRUE   Lincoln Continental     0     0     0       0         0     0
-       7 FALSE  Chrysler Imperial       2     0     0       0         0     0
-       8 TRUE   Chrysler Imperial       0     0     0       0         0     0
-       9 FALSE  Duster 360              2     0     0       0         0     0
-      10 TRUE   Duster 360              0     0     0       0         0     0
+         vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  AMC Javelin            2     0     0       0         0     0
+       2 TRUE   AMC Javelin            0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood     2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood     0     0     0       0         0     0
+       5 FALSE  Camaro Z28             0     0     0       0         0     0
+       6 TRUE   Camaro Z28             2     0     0       0         0     0
+       7 FALSE  Chrysler Imperial      0     0     0       0         0     0
+       8 TRUE   Chrysler Imperial      2     0     0       0         0     0
+       9 FALSE  Datsun 710             2     0     0       0         0     0
+      10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
       attr(,"effect")$mpg$ale$d2$`vs:gear`
@@ -193,93 +193,93 @@
       # A tibble: 6 x 8
         continent.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America FALSE     22     0     0       0         0     0
+      1 Asia          FALSE      2     0     0       0         0     0
       2 Europe        FALSE     14     0     0       0         0     0
-      3 Asia          FALSE      2     0     0       0         0     0
-      4 North America TRUE       2     0     0       0         0     0
+      3 North America FALSE     22     0     0       0         0     0
+      4 Asia          TRUE      10     0     0       0         0     0
       5 Europe        TRUE      14     0     0       0         0     0
-      6 Asia          TRUE      10     0     0       0         0     0
+      6 North America TRUE       2     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d2$`continent:model`
       # A tibble: 96 x 8
-         continent.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>         <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 North America Camaro Z28              2     0     0       0         0     0
-       2 Europe        Camaro Z28              0     0     0       0         0     0
-       3 Asia          Camaro Z28              0     0     0       0         0     0
-       4 North America Cadillac Fleetwood      2     0     0       0         0     0
-       5 Europe        Cadillac Fleetwood      0     0     0       0         0     0
-       6 Asia          Cadillac Fleetwood      0     0     0       0         0     0
-       7 North America Lincoln Continental     2     0     0       0         0     0
-       8 Europe        Lincoln Continental     0     0     0       0         0     0
-       9 Asia          Lincoln Continental     0     0     0       0         0     0
-      10 North America Chrysler Imperial       2     0     0       0         0     0
+         continent.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>         <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 Asia          AMC Javelin            2     0     0       0         0     0
+       2 Europe        AMC Javelin            0     0     0       0         0     0
+       3 North America AMC Javelin            0     0     0       0         0     0
+       4 Asia          Cadillac Fleetwood     2     0     0       0         0     0
+       5 Europe        Cadillac Fleetwood     0     0     0       0         0     0
+       6 North America Cadillac Fleetwood     0     0     0       0         0     0
+       7 Asia          Camaro Z28             2     0     0       0         0     0
+       8 Europe        Camaro Z28             0     0     0       0         0     0
+       9 North America Camaro Z28             0     0     0       0         0     0
+      10 Asia          Chrysler Imperial      0     0     0       0         0     0
       # i 86 more rows
       
       attr(,"effect")$mpg$ale$d2$`continent:gear`
       # A tibble: 9 x 8
         continent.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America three       22     0     0       0         0     0
+      1 Asia          three        2     0     0       0         0     0
       2 Europe        three        6     0     0       0         0     0
-      3 Asia          three        2     0     0       0         0     0
-      4 North America four         0     0     0       0         0     0
+      3 North America three       22     0     0       0         0     0
+      4 Asia          four        10     0     0       0         0     0
       5 Europe        four        14     0     0       0         0     0
-      6 Asia          four        10     0     0       0         0     0
-      7 North America five         2     0     0       0         0     0
+      6 North America four         0     0     0       0         0     0
+      7 Asia          five         0     0     0       0         0     0
       8 Europe        five         8     0     0       0         0     0
-      9 Asia          five         0     0     0       0         0     0
+      9 North America five         2     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d2$`continent:carb`
       # A tibble: 15 x 8
          continent.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 North America         1     4     0     0       0         0     0
+       1 Asia                  1     6     0     0       0         0     0
        2 Europe                1     4     0     0       0         0     0
-       3 Asia                  1     6     0     0       0         0     0
-       4 North America         2     7     0     0       0         0     0
+       3 North America         1     4     0     0       0         0     0
+       4 Asia                  2     2     0     0       0         0     0
        5 Europe                2    10     0     0       0         0     0
-       6 Asia                  2     2     0     0       0         0     0
-       7 North America         3     3     0     0       0         0     0
+       6 North America         2     7     0     0       0         0     0
+       7 Asia                  3     1     0     0       0         0     0
        8 Europe                3     5     0     0       0         0     0
-       9 Asia                  3     1     0     0       0         0     0
-      10 North America         4     9     0     0       0         0     0
+       9 North America         3     3     0     0       0         0     0
+      10 Asia                  4     3     0     0       0         0     0
       11 Europe                4     4     0     0       0         0     0
-      12 Asia                  4     3     0     0       0         0     0
-      13 North America         8     1     0     0       0         0     0
+      12 North America         4     9     0     0       0         0     0
+      13 Asia                  8     0     0     0       0         0     0
       14 Europe                8     5     0     0       0         0     0
-      15 Asia                  8     0     0     0       0         0     0
+      15 North America         8     1     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d2$`continent:wt`
       # A tibble: 30 x 8
          continent.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 North America    1.50     0     0     0       0         0     0
+       1 Asia             1.50     0     0     0       0         0     0
        2 Europe           1.50     1     0     0       0         0     0
-       3 Asia             1.50     0     0     0       0         0     0
-       4 North America    1.94     0     0     0       0         0     0
+       3 North America    1.50     0     0     0       0         0     0
+       4 Asia             1.94     4     0     0       0         0     0
        5 Europe           1.94     3     0     0       0         0     0
-       6 Asia             1.94     4     0     0       0         0     0
-       7 North America    2.46     0     0     0       0         0     0
+       6 North America    1.94     0     0     0       0         0     0
+       7 Asia             2.46     3     0     0       0         0     0
        8 Europe           2.46     4     0     0       0         0     0
-       9 Asia             2.46     3     0     0       0         0     0
-      10 North America    2.79     0     0     0       0         0     0
+       9 North America    2.46     0     0     0       0         0     0
+      10 Asia             2.79     3     0     0       0         0     0
       # i 20 more rows
       
       attr(,"effect")$mpg$ale$d2$`am:model`
       # A tibble: 64 x 8
-         am.bin model.bin          .n        .y     .y_lo   .y_mean .y_median    .y_hi
-         <ord>  <ord>           <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1 FALSE  Camaro Z28          2  1.76e-15  5.79e-16  1.76e-15  5.79e-16 3.95e-15
-       2 TRUE   Camaro Z28          0 -1.26e-15 -2.44e-15 -1.26e-15 -2.44e-15 9.31e-16
-       3 FALSE  Cadillac Fleet~     2  1.47e-15 -2.64e-16  1.47e-15  5.79e-16 3.95e-15
-       4 TRUE   Cadillac Fleet~     0 -1.56e-15 -3.29e-15 -1.56e-15 -2.44e-15 9.31e-16
-       5 FALSE  Lincoln Contin~     2  8.75e-16 -1.95e-15  8.75e-16  5.79e-16 3.95e-15
-       6 TRUE   Lincoln Contin~     0 -2.15e-15 -4.98e-15 -2.15e-15 -2.44e-15 9.31e-16
-       7 FALSE  Chrysler Imper~     2  1.76e-15 -1.95e-15  1.76e-15  5.79e-16 6.49e-15
-       8 TRUE   Chrysler Imper~     0 -1.26e-15 -4.98e-15 -1.26e-15 -2.44e-15 3.46e-15
-       9 FALSE  Duster 360          2  1.76e-15 -1.95e-15  1.76e-15  5.79e-16 6.49e-15
-      10 TRUE   Duster 360          0 -1.26e-15 -4.98e-15 -1.26e-15 -2.44e-15 3.46e-15
+         am.bin model.bin         .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>  <ord>          <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 FALSE  AMC Javelin        0  4.51e-16  4.51e-16  4.51e-16  4.51e-16  4.51e-16
+       2 TRUE   AMC Javelin        2 -2.41e-15 -4.64e-15 -2.41e-15 -2.11e-15 -4.23e-16
+       3 FALSE  Cadillac Flee~     0  2.23e-15  2.23e-15  2.23e-15  2.23e-15  2.23e-15
+       4 TRUE   Cadillac Flee~     2 -1.22e-15 -6.24e-15 -1.22e-15 -3.35e-16  3.04e-15
+       5 FALSE  Camaro Z28         0  8.95e-16  8.95e-16  8.95e-16  8.95e-16  8.95e-16
+       6 TRUE   Camaro Z28         2 -1.22e-15 -5.00e-15 -1.22e-15 -7.79e-16  2.17e-15
+       7 FALSE  Chrysler Impe~     2  8.95e-16  8.95e-16  8.95e-16  8.95e-16  8.95e-16
+       8 TRUE   Chrysler Impe~     0  8.66e-19 -2.71e-15  8.66e-19  5.02e-17  2.67e-15
+       9 FALSE  Datsun 710         2  1.49e-15  8.95e-16  1.49e-15  8.95e-16  2.58e-15
+      10 TRUE   Datsun 710         0  1.71e-15 -6.10e-16  1.71e-15  2.60e-15  3.27e-15
       # i 54 more rows
       
       attr(,"effect")$mpg$ale$d2$`am:gear`
@@ -337,48 +337,48 @@
       # A tibble: 96 x 8
          model.bin        gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>            <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1 Camaro Z28       three        2 2.84e-15 2.25e-15 2.84e-15  2.25e-15 3.94e-15
-       2 Cadillac Fleetw~ three        2 2.84e-15 2.25e-15 2.84e-15  2.25e-15 3.94e-15
-       3 Lincoln Contine~ three        2 2.84e-15 2.25e-15 2.84e-15  2.25e-15 3.94e-15
-       4 Chrysler Imperi~ three        2 4.03e-15 2.25e-15 4.03e-15  2.25e-15 7.31e-15
-       5 Duster 360       three        2 4.03e-15 2.25e-15 4.03e-15  2.25e-15 7.31e-15
-       6 Hornet Sportabo~ three        2 4.03e-15 2.25e-15 4.03e-15  2.25e-15 7.31e-15
-       7 Pontiac Firebird three        2 3.73e-15 2.25e-15 3.73e-15  2.25e-15 6.47e-15
-       8 Dodge Challenger three        2 4.32e-15 2.34e-15 4.32e-15  4.03e-15 6.56e-15
-       9 AMC Javelin      three        2 5.51e-15 2.34e-15 5.51e-15  4.03e-15 9.93e-15
-      10 Merc 450SL       three        2 5.21e-15 2.34e-15 5.21e-15  4.03e-15 9.09e-15
+       1 AMC Javelin      three        0 1.86e-15 1.86e-15 1.86e-15  1.86e-15 1.86e-15
+       2 Cadillac Fleetw~ three        0 2.31e-15 2.31e-15 2.31e-15  2.31e-15 2.31e-15
+       3 Camaro Z28       three        0 1.42e-15 1.42e-15 1.42e-15  1.42e-15 1.42e-15
+       4 Chrysler Imperi~ three        2 2.60e-15 1.51e-15 2.60e-15  3.20e-15 3.20e-15
+       5 Datsun 710       three        2 2.60e-15 1.51e-15 2.60e-15  3.20e-15 3.20e-15
+       6 Dodge Challenger three        2 2.60e-15 1.51e-15 2.60e-15  3.20e-15 3.20e-15
+       7 Duster 360       three        2 2.60e-15 1.51e-15 2.60e-15  3.20e-15 3.20e-15
+       8 Ferrari Dino     three        0 1.72e-15 6.20e-16 1.72e-15  2.31e-15 2.31e-15
+       9 Fiat 128         three        0 1.27e-15 1.76e-16 1.27e-15  1.86e-15 1.86e-15
+      10 Fiat X1-9        three        0 1.27e-15 1.76e-16 1.27e-15  1.86e-15 1.86e-15
       # i 86 more rows
       
       attr(,"effect")$mpg$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin   carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 Camaro Z28          1     0 -1.27e-14 -1.27e-14 -1.27e-14 -1.27e-14 -1.27e-14
-       2 Cadillac F~         1     0 -1.14e-14 -1.14e-14 -1.14e-14 -1.14e-14 -1.14e-14
-       3 Lincoln Co~         1     0 -1.14e-14 -1.14e-14 -1.14e-14 -1.14e-14 -1.14e-14
-       4 Chrysler I~         1     0 -1.04e-14 -1.04e-14 -1.04e-14 -1.04e-14 -1.04e-14
-       5 Duster 360          1     0 -9.78e-15 -9.78e-15 -9.78e-15 -9.78e-15 -9.78e-15
-       6 Hornet Spo~         1     0 -9.34e-15 -9.34e-15 -9.34e-15 -9.34e-15 -9.34e-15
-       7 Pontiac Fi~         1     0 -9.34e-15 -9.34e-15 -9.34e-15 -9.34e-15 -9.34e-15
-       8 Dodge Chal~         1     0 -9.34e-15 -9.34e-15 -9.34e-15 -9.34e-15 -9.34e-15
-       9 AMC Javelin         1     0 -9.34e-15 -9.34e-15 -9.34e-15 -9.34e-15 -9.34e-15
-      10 Merc 450SL          1     0 -6.67e-15 -6.67e-15 -6.67e-15 -6.67e-15 -6.67e-15
+       1 AMC Javelin         1     0 -1.33e-14 -1.33e-14 -1.33e-14 -1.33e-14 -1.33e-14
+       2 Cadillac F~         1     0 -1.33e-14 -1.33e-14 -1.33e-14 -1.33e-14 -1.33e-14
+       3 Camaro Z28          1     2 -1.33e-14 -1.33e-14 -1.33e-14 -1.33e-14 -1.33e-14
+       4 Chrysler I~         1     2 -1.33e-14 -1.33e-14 -1.33e-14 -1.33e-14 -1.33e-14
+       5 Datsun 710          1     0 -1.29e-14 -1.29e-14 -1.29e-14 -1.29e-14 -1.29e-14
+       6 Dodge Chal~         1     2 -1.29e-14 -1.29e-14 -1.29e-14 -1.29e-14 -1.29e-14
+       7 Duster 360          1     0 -1.13e-14 -1.13e-14 -1.13e-14 -1.13e-14 -1.13e-14
+       8 Ferrari Di~         1     0 -1.13e-14 -1.13e-14 -1.13e-14 -1.13e-14 -1.13e-14
+       9 Fiat 128            1     0 -1.13e-14 -1.13e-14 -1.13e-14 -1.13e-14 -1.13e-14
+      10 Fiat X1-9           1     0 -1.09e-14 -1.09e-14 -1.09e-14 -1.09e-14 -1.09e-14
       # i 150 more rows
       
       attr(,"effect")$mpg$ale$d2$`model:wt`
       # A tibble: 320 x 8
          model.bin     wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 Camaro Z28       1.50     0 -3.82e-15 -3.82e-15 -3.82e-15 -3.82e-15 -3.82e-15
-       2 Cadillac Fle~    1.50     0 -4.71e-15 -4.71e-15 -4.71e-15 -4.71e-15 -4.71e-15
-       3 Lincoln Cont~    1.50     0 -4.49e-15 -4.49e-15 -4.49e-15 -4.49e-15 -4.49e-15
-       4 Chrysler Imp~    1.50     0 -5.05e-15 -5.05e-15 -5.05e-15 -5.05e-15 -5.05e-15
-       5 Duster 360       1.50     0 -5.93e-15 -5.93e-15 -5.93e-15 -5.93e-15 -5.93e-15
-       6 Hornet Sport~    1.50     0 -4.16e-15 -4.16e-15 -4.16e-15 -4.16e-15 -4.16e-15
-       7 Pontiac Fire~    1.50     0 -2.68e-15 -2.68e-15 -2.68e-15 -2.68e-15 -2.68e-15
-       8 Dodge Challe~    1.50     0 -3.57e-15 -3.57e-15 -3.57e-15 -3.57e-15 -3.57e-15
-       9 AMC Javelin      1.50     0 -3.57e-15 -3.57e-15 -3.57e-15 -3.57e-15 -3.57e-15
-      10 Merc 450SL       1.50     0 -4.63e-15 -4.63e-15 -4.63e-15 -4.63e-15 -4.63e-15
+       1 AMC Javelin      1.50     0 -9.76e-14 -9.76e-14 -9.76e-14 -9.76e-14 -9.76e-14
+       2 Cadillac Fle~    1.50     0 -9.25e-14 -9.25e-14 -9.25e-14 -9.25e-14 -9.25e-14
+       3 Camaro Z28       1.50     0 -9.16e-14 -9.16e-14 -9.16e-14 -9.16e-14 -9.16e-14
+       4 Chrysler Imp~    1.50     0 -8.63e-14 -8.63e-14 -8.63e-14 -8.63e-14 -8.63e-14
+       5 Datsun 710       1.50     0 -8.06e-14 -8.06e-14 -8.06e-14 -8.06e-14 -8.06e-14
+       6 Dodge Challe~    1.50     0 -7.51e-14 -7.51e-14 -7.51e-14 -7.51e-14 -7.51e-14
+       7 Duster 360       1.50     0 -6.93e-14 -6.93e-14 -6.93e-14 -6.93e-14 -6.93e-14
+       8 Ferrari Dino     1.50     0 -6.49e-14 -6.49e-14 -6.49e-14 -6.49e-14 -6.49e-14
+       9 Fiat 128         1.50     0 -5.96e-14 -5.96e-14 -5.96e-14 -5.96e-14 -5.96e-14
+      10 Fiat X1-9        1.50     0 -5.54e-14 -5.54e-14 -5.54e-14 -5.54e-14 -5.54e-14
       # i 310 more rows
       
       attr(,"effect")$mpg$ale$d2$`gear:carb`
@@ -535,14 +535,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      attr(,"params")$model$hash
+      [1] "80242e9f11c771db3d0e938012948846"
       
       
       attr(,"params")$data
@@ -649,7 +643,10 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function (object, newdata, type = pred_type) "                      
+      [2] "{"                                                                  
+      [3] "    stats::predict(object = object, newdata = newdata, type = type)"
+      [4] "}"                                                                  
       
       attr(,"params")$pred_type
       [1] "response"
@@ -657,11 +654,20 @@
       attr(,"params")$p_values
       NULL
       
+      attr(,"params")$require_same_p
+      [1] TRUE
+      
       attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$max_num_bins
       [1] 10
+      
+      attr(,"params")$fct_order
+      [1] "levels"
       
       attr(,"params")$boot_it
       [1] 2
@@ -686,112 +692,70 @@
 
     Code
       ale_plots_to_data(plot(cars_ale))
+    Message
+      `height` was translated to `width`.
     Output
       $mpg
       $mpg$d1
       $mpg$d1$vs
-        x    y PANEL group flipped_aes ymin ymax xmin xmax colour fill linewidth
-      1 1 19.2     1     1       FALSE    0 19.2 0.55 1.45     NA gray       0.5
-      2 2 19.2     1     2       FALSE    0 19.2 1.55 2.45     NA gray       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
+        x    y PANEL group flipped_aes ymin ymax     xmin     xmax order xid newx
+      1 1 19.2     1     1       FALSE    0 19.2 0.500000 1.500000     1   1    1
+      2 2 19.2     1     2       FALSE    0 19.2 1.611111 2.388889     1   2    2
+        new_width colour fill linewidth linetype alpha     width
+      1 1.0000000     NA grey       0.5        1    NA 1.0000000
+      2 0.7777778     NA grey       0.5        1    NA 0.7777778
       
       $mpg$d1$continent
-        x    y PANEL group flipped_aes ymin ymax xmin xmax colour fill linewidth
-      1 1 19.2     1     1       FALSE    0 19.2 0.55 1.45     NA gray       0.5
-      2 2 19.2     1     2       FALSE    0 19.2 1.55 2.45     NA gray       0.5
-      3 3 19.2     1     3       FALSE    0 19.2 2.55 3.45     NA gray       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
+        x    y PANEL group flipped_aes ymin ymax      xmin     xmax order xid newx
+      1 1 19.2     1     1       FALSE    0 19.2 0.7857143 1.214286     1   1    1
+      2 2 19.2     1     2       FALSE    0 19.2 1.5000000 2.500000     1   2    2
+      3 3 19.2     1     3       FALSE    0 19.2 2.5714286 3.428571     1   3    3
+        new_width colour fill linewidth linetype alpha     width
+      1 0.4285714     NA grey       0.5        1    NA 0.4285714
+      2 1.0000000     NA grey       0.5        1    NA 1.0000000
+      3 0.8571429     NA grey       0.5        1    NA 0.8571429
       
       $mpg$d1$am
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 17.22308     1     1       FALSE    0 17.22308 0.55 1.45     NA gray
-      2 2 21.92245     1     2       FALSE    0 21.92245 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x        y PANEL group flipped_aes ymin     ymax     xmin     xmax order xid
+      1 1 17.22308     1     1       FALSE    0 17.22308 0.500000 1.500000     1   1
+      2 2 21.92245     1     2       FALSE    0 21.92245 1.657895 2.342105     1   2
+        newx new_width colour fill linewidth linetype alpha     width
+      1    1 1.0000000     NA grey       0.5        1    NA 1.0000000
+      2    2 0.6842105     NA grey       0.5        1    NA 0.6842105
       
       $mpg$d1$model
-          x        y PANEL group flipped_aes ymin     ymax  xmin  xmax colour fill
-      1   1 18.38302     1     1       FALSE    0 18.38302  0.55  1.45     NA gray
-      2   2 18.45919     1     2       FALSE    0 18.45919  1.55  2.45     NA gray
-      3   3 25.98670     1     3       FALSE    0 25.98670  2.55  3.45     NA gray
-      4   4 34.91223     1     4       FALSE    0 34.91223  3.55  4.45     NA gray
-      5   5 40.33675     1     5       FALSE    0 40.33675  4.55  5.45     NA gray
-      6   6 45.37328     1     6       FALSE    0 45.37328  5.55  6.45     NA gray
-      7   7 40.10345     1     7       FALSE    0 40.10345  6.55  7.45     NA gray
-      8   8 37.38704     1     8       FALSE    0 37.38704  7.55  8.45     NA gray
-      9   9 37.85481     1     9       FALSE    0 37.85481  8.55  9.45     NA gray
-      10 10 39.64924     1    10       FALSE    0 39.64924  9.55 10.45     NA gray
-      11 11 35.69606     1    11       FALSE    0 35.69606 10.55 11.45     NA gray
-      12 12 32.55588     1    12       FALSE    0 32.55588 11.55 12.45     NA gray
-      13 13 39.20838     1    13       FALSE    0 39.20838 12.55 13.45     NA gray
-      14 14 34.67077     1    14       FALSE    0 34.67077 13.55 14.45     NA gray
-      15 15 25.90739     1    15       FALSE    0 25.90739 14.55 15.45     NA gray
-      16 16 38.14859     1    16       FALSE    0 38.14859 15.55 16.45     NA gray
-      17 17 21.07580     1    17       FALSE    0 21.07580 16.55 17.45     NA gray
-      18 18 44.18520     1    18       FALSE    0 44.18520 17.55 18.45     NA gray
-      19 19 31.79058     1    19       FALSE    0 31.79058 18.55 19.45     NA gray
-      20 20 29.80716     1    20       FALSE    0 29.80716 19.55 20.45     NA gray
-      21 21 33.98286     1    21       FALSE    0 33.98286 20.55 21.45     NA gray
-      22 22 33.21053     1    22       FALSE    0 33.21053 21.55 22.45     NA gray
-      23 23 40.40360     1    23       FALSE    0 40.40360 22.55 23.45     NA gray
-      24 24 51.86594     1    24       FALSE    0 51.86594 23.55 24.45     NA gray
-      25 25 48.10434     1    25       FALSE    0 48.10434 24.55 25.45     NA gray
-      26 26 55.21757     1    26       FALSE    0 55.21757 25.55 26.45     NA gray
-      27 27 29.07899     1    27       FALSE    0 29.07899 26.55 27.45     NA gray
-      28 28 38.46939     1    28       FALSE    0 38.46939 27.55 28.45     NA gray
-      29 29 25.95702     1    29       FALSE    0 25.95702 28.55 29.45     NA gray
-      30 30 34.43662     1    30       FALSE    0 34.43662 29.55 30.45     NA gray
-      31 31 19.77670     1    31       FALSE    0 19.77670 30.55 31.45     NA gray
-      32 32 13.44833     1    32       FALSE    0 13.44833 31.55 32.45     NA gray
-         linewidth linetype alpha
-      1        0.5        1    NA
-      2        0.5        1    NA
-      3        0.5        1    NA
-      4        0.5        1    NA
-      5        0.5        1    NA
-      6        0.5        1    NA
-      7        0.5        1    NA
-      8        0.5        1    NA
-      9        0.5        1    NA
-      10       0.5        1    NA
-      11       0.5        1    NA
-      12       0.5        1    NA
-      13       0.5        1    NA
-      14       0.5        1    NA
-      15       0.5        1    NA
-      16       0.5        1    NA
-      17       0.5        1    NA
-      18       0.5        1    NA
-      19       0.5        1    NA
-      20       0.5        1    NA
-      21       0.5        1    NA
-      22       0.5        1    NA
-      23       0.5        1    NA
-      24       0.5        1    NA
-      25       0.5        1    NA
-      26       0.5        1    NA
-      27       0.5        1    NA
-      28       0.5        1    NA
-      29       0.5        1    NA
-      30       0.5        1    NA
-      31       0.5        1    NA
-      32       0.5        1    NA
+          x          y PANEL group flipped_aes       ymin     ymax  xmin   xmax order
+      1   1  39.297712     1     1       FALSE   0.000000 39.29771 0.975  1.025     1
+      2   2  43.428103     1     2       FALSE   0.000000 43.42810 1.975  2.025     1
+      3   3  36.010315     1     3       FALSE   0.000000 36.01031 2.975  3.025     1
+      4   4  -0.465399     1     4       FALSE  -0.465399  0.00000 3.975  4.025     1
+      5   5 -17.334496     1     5       FALSE -17.334496  0.00000 4.975  5.025     1
+      6   6  -3.722157     1     6       FALSE  -3.722157  0.00000 5.975  6.025     1
+      7   7  39.347919     1     7       FALSE   0.000000 39.34792 6.975  7.025     1
+      8   8  -5.503236     1     8       FALSE  -5.503236  0.00000 7.975  8.025     1
+      9   9 -10.989353     1     9       FALSE -10.989353  0.00000 8.975  9.025     1
+      10 10  18.912354     1    10       FALSE   0.000000 18.91235 9.500 10.500     1
+         xid newx new_width colour fill linewidth linetype alpha width
+      1    1    1      0.05     NA grey       0.5        1    NA  0.05
+      2    2    2      0.05     NA grey       0.5        1    NA  0.05
+      3    3    3      0.05     NA grey       0.5        1    NA  0.05
+      4    4    4      0.05     NA grey       0.5        1    NA  0.05
+      5    5    5      0.05     NA grey       0.5        1    NA  0.05
+      6    6    6      0.05     NA grey       0.5        1    NA  0.05
+      7    7    7      0.05     NA grey       0.5        1    NA  0.05
+      8    8    8      0.05     NA grey       0.5        1    NA  0.05
+      9    9    9      0.05     NA grey       0.5        1    NA  0.05
+      10  10   10      1.00     NA grey       0.5        1    NA  1.00
       
       $mpg$d1$gear
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 17.88406     1     1       FALSE    0 17.88406 0.55 1.45     NA gray
-      2 2 22.24975     1     2       FALSE    0 22.24975 1.55 2.45     NA gray
-      3 3 17.48802     1     3       FALSE    0 17.48802 2.55 3.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
+        x        y PANEL group flipped_aes ymin     ymax     xmin     xmax order xid
+      1 1 17.88406     1     1       FALSE    0 17.88406 0.500000 1.500000     1   1
+      2 2 22.24975     1     2       FALSE    0 22.24975 1.600000 2.400000     1   2
+      3 3 17.48802     1     3       FALSE    0 17.48802 2.833333 3.166667     1   3
+        newx new_width colour fill linewidth linetype alpha     width
+      1    1 1.0000000     NA grey       0.5        1    NA 1.0000000
+      2    2 0.8000000     NA grey       0.5        1    NA 0.8000000
+      3    3 0.3333333     NA grey       0.5        1    NA 0.3333333
       
       $mpg$d1$carb
             ymin     ymax x        y PANEL group flipped_aes colour   fill linewidth
@@ -834,6340 +798,6340 @@
       
       $mpg$d2
       $mpg$d2$`vs:continent`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      8  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      9  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      10 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      14 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      15 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      16 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      17 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      18 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      8  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      9  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      10 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      11 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      12 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      13 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      14 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      15 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      16 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      17 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      18 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
       
       $mpg$d2$`vs:am`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     3  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     3  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     3  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      8  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      9  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      10 #D2D2D2 2 2     1     4  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 2 2     1     4  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 2 2     1     4  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     3  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     3  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     3  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      8  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      9  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      10 2 2 #D2D2D2     1     4  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      11 2 2 #D2D2D2     1     4  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      12 2 2 #D2D2D2     1     4  1.5  2.5  1.5  2.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
       
       $mpg$d2$`vs:model`
-             fill x  y PANEL group xmin xmax ymin ymax colour linewidth linetype
-      1   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      2   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      3   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      4   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      5   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      6   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      7   #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      8   #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      9   #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      10  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      11  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      12  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      13  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      14  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      15  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      16  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      17  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      18  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      19  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      20  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      21  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      22  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      23  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      24  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      25  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      26  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      27  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      28  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      29  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      30  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      31  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      32  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      33  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      34  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      35  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      36  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      37  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      38  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      39  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      40  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      41  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      42  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      43  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      44  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      45  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      46  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      47  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      48  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      49  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      50  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      51  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      52  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      53  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      54  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      55  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      56  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      57  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      58  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      59  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      60  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      61  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      62  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      63  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      64  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      65  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      66  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      67  #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      68  #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      69  #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      70  #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      71  #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      72  #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      73  #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      74  #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      75  #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      76  #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      77  #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      78  #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      79  #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      80  #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      81  #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      82  #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      83  #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      84  #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      85  #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      86  #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      87  #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      88  #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      89  #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      90  #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      91  #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      92  #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      93  #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      94  #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      95  #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      96  #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      97  #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      98  #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      99  #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      100 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      101 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      102 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      103 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      104 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      105 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      106 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      107 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      108 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      109 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      110 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      111 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      112 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      113 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      114 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      115 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      116 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      117 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      118 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      119 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      120 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      121 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      122 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      123 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      124 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      125 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      126 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      127 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      128 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      129 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      130 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      131 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      132 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      133 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      134 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      135 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      136 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      137 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      138 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      139 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      140 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      141 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      142 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      143 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      144 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      145 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      146 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      147 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      148 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      149 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      150 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      151 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      152 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      153 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      154 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      155 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      156 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      157 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      158 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      159 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      160 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      161 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      162 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      163 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      164 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      165 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      166 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      167 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      168 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      169 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      170 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      171 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      172 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      173 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      174 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      175 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      176 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      177 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      178 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      179 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      180 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      181 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      182 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      183 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      184 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      185 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      186 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      187 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      188 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      189 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      190 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
-      191 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
-      192 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
+          x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype
+      1   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      2   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      3   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      4   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      5   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      6   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      7   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      8   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      9   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      10  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      11  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      12  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      13  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      14  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      15  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      16  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      17  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      18  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      19  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      20  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      21  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      22  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      23  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      24  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      25  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      26  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      27  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      28  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      29  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      30  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      31  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      32  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      33  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      34  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      35  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      36  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      37  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      38  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      39  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      40  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      41  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      42  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      43  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      44  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      45  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      46  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      47  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      48  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      49  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      50  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      51  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      52  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      53  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      54  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      55  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      56  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      57  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      58  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      59  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      60  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      61  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      62  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      63  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      64  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      65  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      66  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      67  1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      68  1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      69  1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      70  2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      71  2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      72  2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      73  1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      74  1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      75  1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      76  2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      77  2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      78  2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      79  1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      80  1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      81  1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      82  2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      83  2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      84  2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      85  1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      86  1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      87  1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      88  2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      89  2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      90  2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      91  1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      92  1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      93  1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      94  2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      95  2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      96  2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      97  1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      98  1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      99  1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      100 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      101 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      102 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      103 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      104 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      105 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      106 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      107 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      108 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      109 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      110 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      111 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      112 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      113 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      114 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      115 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      116 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      117 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      118 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      119 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      120 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      121 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      122 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      123 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      124 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      125 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      126 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      127 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      128 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      129 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      130 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      131 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      132 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      133 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      134 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      135 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      136 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      137 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      138 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      139 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      140 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      141 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      142 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      143 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      144 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      145 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      146 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      147 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      148 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      149 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      150 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      151 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      152 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      153 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      154 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      155 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      156 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      157 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      158 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      159 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      160 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      161 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      162 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      163 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      164 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      165 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      166 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      167 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      168 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      169 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      170 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      171 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      172 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      173 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      174 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      175 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      176 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      177 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      178 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      179 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      180 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      181 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      182 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      183 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      184 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      185 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      186 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      187 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      188 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      189 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      190 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
+      191 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
+      192 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
           alpha width height
-      1      NA    NA     NA
-      2      NA    NA     NA
-      3      NA    NA     NA
-      4      NA    NA     NA
-      5      NA    NA     NA
-      6      NA    NA     NA
-      7      NA    NA     NA
-      8      NA    NA     NA
-      9      NA    NA     NA
-      10     NA    NA     NA
-      11     NA    NA     NA
-      12     NA    NA     NA
-      13     NA    NA     NA
-      14     NA    NA     NA
-      15     NA    NA     NA
-      16     NA    NA     NA
-      17     NA    NA     NA
-      18     NA    NA     NA
-      19     NA    NA     NA
-      20     NA    NA     NA
-      21     NA    NA     NA
-      22     NA    NA     NA
-      23     NA    NA     NA
-      24     NA    NA     NA
-      25     NA    NA     NA
-      26     NA    NA     NA
-      27     NA    NA     NA
-      28     NA    NA     NA
-      29     NA    NA     NA
-      30     NA    NA     NA
-      31     NA    NA     NA
-      32     NA    NA     NA
-      33     NA    NA     NA
-      34     NA    NA     NA
-      35     NA    NA     NA
-      36     NA    NA     NA
-      37     NA    NA     NA
-      38     NA    NA     NA
-      39     NA    NA     NA
-      40     NA    NA     NA
-      41     NA    NA     NA
-      42     NA    NA     NA
-      43     NA    NA     NA
-      44     NA    NA     NA
-      45     NA    NA     NA
-      46     NA    NA     NA
-      47     NA    NA     NA
-      48     NA    NA     NA
-      49     NA    NA     NA
-      50     NA    NA     NA
-      51     NA    NA     NA
-      52     NA    NA     NA
-      53     NA    NA     NA
-      54     NA    NA     NA
-      55     NA    NA     NA
-      56     NA    NA     NA
-      57     NA    NA     NA
-      58     NA    NA     NA
-      59     NA    NA     NA
-      60     NA    NA     NA
-      61     NA    NA     NA
-      62     NA    NA     NA
-      63     NA    NA     NA
-      64     NA    NA     NA
-      65     NA    NA     NA
-      66     NA    NA     NA
-      67     NA    NA     NA
-      68     NA    NA     NA
-      69     NA    NA     NA
-      70     NA    NA     NA
-      71     NA    NA     NA
-      72     NA    NA     NA
-      73     NA    NA     NA
-      74     NA    NA     NA
-      75     NA    NA     NA
-      76     NA    NA     NA
-      77     NA    NA     NA
-      78     NA    NA     NA
-      79     NA    NA     NA
-      80     NA    NA     NA
-      81     NA    NA     NA
-      82     NA    NA     NA
-      83     NA    NA     NA
-      84     NA    NA     NA
-      85     NA    NA     NA
-      86     NA    NA     NA
-      87     NA    NA     NA
-      88     NA    NA     NA
-      89     NA    NA     NA
-      90     NA    NA     NA
-      91     NA    NA     NA
-      92     NA    NA     NA
-      93     NA    NA     NA
-      94     NA    NA     NA
-      95     NA    NA     NA
-      96     NA    NA     NA
-      97     NA    NA     NA
-      98     NA    NA     NA
-      99     NA    NA     NA
-      100    NA    NA     NA
-      101    NA    NA     NA
-      102    NA    NA     NA
-      103    NA    NA     NA
-      104    NA    NA     NA
-      105    NA    NA     NA
-      106    NA    NA     NA
-      107    NA    NA     NA
-      108    NA    NA     NA
-      109    NA    NA     NA
-      110    NA    NA     NA
-      111    NA    NA     NA
-      112    NA    NA     NA
-      113    NA    NA     NA
-      114    NA    NA     NA
-      115    NA    NA     NA
-      116    NA    NA     NA
-      117    NA    NA     NA
-      118    NA    NA     NA
-      119    NA    NA     NA
-      120    NA    NA     NA
-      121    NA    NA     NA
-      122    NA    NA     NA
-      123    NA    NA     NA
-      124    NA    NA     NA
-      125    NA    NA     NA
-      126    NA    NA     NA
-      127    NA    NA     NA
-      128    NA    NA     NA
-      129    NA    NA     NA
-      130    NA    NA     NA
-      131    NA    NA     NA
-      132    NA    NA     NA
-      133    NA    NA     NA
-      134    NA    NA     NA
-      135    NA    NA     NA
-      136    NA    NA     NA
-      137    NA    NA     NA
-      138    NA    NA     NA
-      139    NA    NA     NA
-      140    NA    NA     NA
-      141    NA    NA     NA
-      142    NA    NA     NA
-      143    NA    NA     NA
-      144    NA    NA     NA
-      145    NA    NA     NA
-      146    NA    NA     NA
-      147    NA    NA     NA
-      148    NA    NA     NA
-      149    NA    NA     NA
-      150    NA    NA     NA
-      151    NA    NA     NA
-      152    NA    NA     NA
-      153    NA    NA     NA
-      154    NA    NA     NA
-      155    NA    NA     NA
-      156    NA    NA     NA
-      157    NA    NA     NA
-      158    NA    NA     NA
-      159    NA    NA     NA
-      160    NA    NA     NA
-      161    NA    NA     NA
-      162    NA    NA     NA
-      163    NA    NA     NA
-      164    NA    NA     NA
-      165    NA    NA     NA
-      166    NA    NA     NA
-      167    NA    NA     NA
-      168    NA    NA     NA
-      169    NA    NA     NA
-      170    NA    NA     NA
-      171    NA    NA     NA
-      172    NA    NA     NA
-      173    NA    NA     NA
-      174    NA    NA     NA
-      175    NA    NA     NA
-      176    NA    NA     NA
-      177    NA    NA     NA
-      178    NA    NA     NA
-      179    NA    NA     NA
-      180    NA    NA     NA
-      181    NA    NA     NA
-      182    NA    NA     NA
-      183    NA    NA     NA
-      184    NA    NA     NA
-      185    NA    NA     NA
-      186    NA    NA     NA
-      187    NA    NA     NA
-      188    NA    NA     NA
-      189    NA    NA     NA
-      190    NA    NA     NA
-      191    NA    NA     NA
-      192    NA    NA     NA
+      1      NA     1      1
+      2      NA     1      1
+      3      NA     1      1
+      4      NA     1      1
+      5      NA     1      1
+      6      NA     1      1
+      7      NA     1      1
+      8      NA     1      1
+      9      NA     1      1
+      10     NA     1      1
+      11     NA     1      1
+      12     NA     1      1
+      13     NA     1      1
+      14     NA     1      1
+      15     NA     1      1
+      16     NA     1      1
+      17     NA     1      1
+      18     NA     1      1
+      19     NA     1      1
+      20     NA     1      1
+      21     NA     1      1
+      22     NA     1      1
+      23     NA     1      1
+      24     NA     1      1
+      25     NA     1      1
+      26     NA     1      1
+      27     NA     1      1
+      28     NA     1      1
+      29     NA     1      1
+      30     NA     1      1
+      31     NA     1      1
+      32     NA     1      1
+      33     NA     1      1
+      34     NA     1      1
+      35     NA     1      1
+      36     NA     1      1
+      37     NA     1      1
+      38     NA     1      1
+      39     NA     1      1
+      40     NA     1      1
+      41     NA     1      1
+      42     NA     1      1
+      43     NA     1      1
+      44     NA     1      1
+      45     NA     1      1
+      46     NA     1      1
+      47     NA     1      1
+      48     NA     1      1
+      49     NA     1      1
+      50     NA     1      1
+      51     NA     1      1
+      52     NA     1      1
+      53     NA     1      1
+      54     NA     1      1
+      55     NA     1      1
+      56     NA     1      1
+      57     NA     1      1
+      58     NA     1      1
+      59     NA     1      1
+      60     NA     1      1
+      61     NA     1      1
+      62     NA     1      1
+      63     NA     1      1
+      64     NA     1      1
+      65     NA     1      1
+      66     NA     1      1
+      67     NA     1      1
+      68     NA     1      1
+      69     NA     1      1
+      70     NA     1      1
+      71     NA     1      1
+      72     NA     1      1
+      73     NA     1      1
+      74     NA     1      1
+      75     NA     1      1
+      76     NA     1      1
+      77     NA     1      1
+      78     NA     1      1
+      79     NA     1      1
+      80     NA     1      1
+      81     NA     1      1
+      82     NA     1      1
+      83     NA     1      1
+      84     NA     1      1
+      85     NA     1      1
+      86     NA     1      1
+      87     NA     1      1
+      88     NA     1      1
+      89     NA     1      1
+      90     NA     1      1
+      91     NA     1      1
+      92     NA     1      1
+      93     NA     1      1
+      94     NA     1      1
+      95     NA     1      1
+      96     NA     1      1
+      97     NA     1      1
+      98     NA     1      1
+      99     NA     1      1
+      100    NA     1      1
+      101    NA     1      1
+      102    NA     1      1
+      103    NA     1      1
+      104    NA     1      1
+      105    NA     1      1
+      106    NA     1      1
+      107    NA     1      1
+      108    NA     1      1
+      109    NA     1      1
+      110    NA     1      1
+      111    NA     1      1
+      112    NA     1      1
+      113    NA     1      1
+      114    NA     1      1
+      115    NA     1      1
+      116    NA     1      1
+      117    NA     1      1
+      118    NA     1      1
+      119    NA     1      1
+      120    NA     1      1
+      121    NA     1      1
+      122    NA     1      1
+      123    NA     1      1
+      124    NA     1      1
+      125    NA     1      1
+      126    NA     1      1
+      127    NA     1      1
+      128    NA     1      1
+      129    NA     1      1
+      130    NA     1      1
+      131    NA     1      1
+      132    NA     1      1
+      133    NA     1      1
+      134    NA     1      1
+      135    NA     1      1
+      136    NA     1      1
+      137    NA     1      1
+      138    NA     1      1
+      139    NA     1      1
+      140    NA     1      1
+      141    NA     1      1
+      142    NA     1      1
+      143    NA     1      1
+      144    NA     1      1
+      145    NA     1      1
+      146    NA     1      1
+      147    NA     1      1
+      148    NA     1      1
+      149    NA     1      1
+      150    NA     1      1
+      151    NA     1      1
+      152    NA     1      1
+      153    NA     1      1
+      154    NA     1      1
+      155    NA     1      1
+      156    NA     1      1
+      157    NA     1      1
+      158    NA     1      1
+      159    NA     1      1
+      160    NA     1      1
+      161    NA     1      1
+      162    NA     1      1
+      163    NA     1      1
+      164    NA     1      1
+      165    NA     1      1
+      166    NA     1      1
+      167    NA     1      1
+      168    NA     1      1
+      169    NA     1      1
+      170    NA     1      1
+      171    NA     1      1
+      172    NA     1      1
+      173    NA     1      1
+      174    NA     1      1
+      175    NA     1      1
+      176    NA     1      1
+      177    NA     1      1
+      178    NA     1      1
+      179    NA     1      1
+      180    NA     1      1
+      181    NA     1      1
+      182    NA     1      1
+      183    NA     1      1
+      184    NA     1      1
+      185    NA     1      1
+      186    NA     1      1
+      187    NA     1      1
+      188    NA     1      1
+      189    NA     1      1
+      190    NA     1      1
+      191    NA     1      1
+      192    NA     1      1
       
       $mpg$d2$`vs:gear`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      8  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      9  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      10 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      14 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      15 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      16 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      17 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      18 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      8  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      9  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      10 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      11 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      12 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      13 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      14 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      15 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      16 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      17 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      18 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
       
       $mpg$d2$`vs:carb`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      8  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      9  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      10 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      14 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      15 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      16 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      17 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      18 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      19 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      20 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      21 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      22 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      23 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      24 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      25 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      26 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      27 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      28 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      29 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      30 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      8  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      9  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      10 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      11 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      12 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      13 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      14 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      15 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      16 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      17 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      18 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      19 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      20 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      21 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      22 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      23 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      24 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      25 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      26 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      27 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      28 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      29 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      30 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
       
       $mpg$d2$`vs:wt`
-            fill x  y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      8  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      9  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      10 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      14 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      15 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      16 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      17 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      18 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      19 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      20 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      21 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      22 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      23 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      24 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      25 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      26 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      27 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      28 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      29 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      30 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      31 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      32 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      33 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      34 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      35 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      36 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      37 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      38 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      39 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      40 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      41 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      42 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      43 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      44 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      45 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      46 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      47 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      48 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      49 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      50 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      51 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      52 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      53 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      54 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      55 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      56 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      57 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      58 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      59 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      60 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
+         x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      8  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      9  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      10 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      11 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      12 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      13 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      14 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      15 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      16 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      17 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      18 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      19 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      20 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      21 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      22 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      23 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      24 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      25 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      26 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      27 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      28 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      29 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      30 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      31 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      32 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      33 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      34 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      35 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      36 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      37 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      38 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      39 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      40 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      41 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      42 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      43 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      44 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      45 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      46 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      47 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      48 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      49 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      50 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      51 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      52 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      53 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      54 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      55 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      56 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      57 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      58 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      59 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      60 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
-      31    NA     NA
-      32    NA     NA
-      33    NA     NA
-      34    NA     NA
-      35    NA     NA
-      36    NA     NA
-      37    NA     NA
-      38    NA     NA
-      39    NA     NA
-      40    NA     NA
-      41    NA     NA
-      42    NA     NA
-      43    NA     NA
-      44    NA     NA
-      45    NA     NA
-      46    NA     NA
-      47    NA     NA
-      48    NA     NA
-      49    NA     NA
-      50    NA     NA
-      51    NA     NA
-      52    NA     NA
-      53    NA     NA
-      54    NA     NA
-      55    NA     NA
-      56    NA     NA
-      57    NA     NA
-      58    NA     NA
-      59    NA     NA
-      60    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
+      31     1      1
+      32     1      1
+      33     1      1
+      34     1      1
+      35     1      1
+      36     1      1
+      37     1      1
+      38     1      1
+      39     1      1
+      40     1      1
+      41     1      1
+      42     1      1
+      43     1      1
+      44     1      1
+      45     1      1
+      46     1      1
+      47     1      1
+      48     1      1
+      49     1      1
+      50     1      1
+      51     1      1
+      52     1      1
+      53     1      1
+      54     1      1
+      55     1      1
+      56     1      1
+      57     1      1
+      58     1      1
+      59     1      1
+      60     1      1
       
       $mpg$d2$`continent:am`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     3  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     3  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     3  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 3 1     1     5  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #D2D2D2 3 1     1     5  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #D2D2D2 3 1     1     5  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 2 2     1     4  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #D2D2D2 2 2     1     4  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #D2D2D2 2 2     1     4  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #D2D2D2 3 2     1     6  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #D2D2D2 3 2     1     6  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #D2D2D2 3 2     1     6  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     3  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     3  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     3  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  3 1 #D2D2D2     1     5  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      8  3 1 #D2D2D2     1     5  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      9  3 1 #D2D2D2     1     5  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      10 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      11 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      12 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      13 2 2 #D2D2D2     1     4  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      14 2 2 #D2D2D2     1     4  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      15 2 2 #D2D2D2     1     4  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      16 3 2 #D2D2D2     1     6  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      17 3 2 #D2D2D2     1     6  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      18 3 2 #D2D2D2     1     6  2.5  3.5  1.5  2.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
       
       $mpg$d2$`continent:model`
-             fill x  y PANEL group xmin xmax ymin ymax colour linewidth linetype
-      1   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      2   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      3   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      4   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      5   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      6   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      7   #D2D2D2 3  1     1    65  2.5  3.5  0.5  1.5     NA       0.1        1
-      8   #D2D2D2 3  1     1    65  2.5  3.5  0.5  1.5     NA       0.1        1
-      9   #D2D2D2 3  1     1    65  2.5  3.5  0.5  1.5     NA       0.1        1
-      10  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      11  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      12  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      13  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      14  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      15  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      16  #D2D2D2 3  2     1    66  2.5  3.5  1.5  2.5     NA       0.1        1
-      17  #D2D2D2 3  2     1    66  2.5  3.5  1.5  2.5     NA       0.1        1
-      18  #D2D2D2 3  2     1    66  2.5  3.5  1.5  2.5     NA       0.1        1
-      19  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      20  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      21  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      22  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      23  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      24  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      25  #D2D2D2 3  3     1    67  2.5  3.5  2.5  3.5     NA       0.1        1
-      26  #D2D2D2 3  3     1    67  2.5  3.5  2.5  3.5     NA       0.1        1
-      27  #D2D2D2 3  3     1    67  2.5  3.5  2.5  3.5     NA       0.1        1
-      28  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      29  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      30  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      31  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      32  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      33  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      34  #D2D2D2 3  4     1    68  2.5  3.5  3.5  4.5     NA       0.1        1
-      35  #D2D2D2 3  4     1    68  2.5  3.5  3.5  4.5     NA       0.1        1
-      36  #D2D2D2 3  4     1    68  2.5  3.5  3.5  4.5     NA       0.1        1
-      37  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      38  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      39  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      40  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      41  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      42  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      43  #D2D2D2 3  5     1    69  2.5  3.5  4.5  5.5     NA       0.1        1
-      44  #D2D2D2 3  5     1    69  2.5  3.5  4.5  5.5     NA       0.1        1
-      45  #D2D2D2 3  5     1    69  2.5  3.5  4.5  5.5     NA       0.1        1
-      46  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      47  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      48  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      49  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      50  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      51  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      52  #D2D2D2 3  6     1    70  2.5  3.5  5.5  6.5     NA       0.1        1
-      53  #D2D2D2 3  6     1    70  2.5  3.5  5.5  6.5     NA       0.1        1
-      54  #D2D2D2 3  6     1    70  2.5  3.5  5.5  6.5     NA       0.1        1
-      55  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      56  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      57  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      58  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      59  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      60  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      61  #D2D2D2 3  7     1    71  2.5  3.5  6.5  7.5     NA       0.1        1
-      62  #D2D2D2 3  7     1    71  2.5  3.5  6.5  7.5     NA       0.1        1
-      63  #D2D2D2 3  7     1    71  2.5  3.5  6.5  7.5     NA       0.1        1
-      64  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      65  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      66  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      67  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      68  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      69  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      70  #D2D2D2 3  8     1    72  2.5  3.5  7.5  8.5     NA       0.1        1
-      71  #D2D2D2 3  8     1    72  2.5  3.5  7.5  8.5     NA       0.1        1
-      72  #D2D2D2 3  8     1    72  2.5  3.5  7.5  8.5     NA       0.1        1
-      73  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      74  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      75  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      76  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      77  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      78  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      79  #D2D2D2 3  9     1    73  2.5  3.5  8.5  9.5     NA       0.1        1
-      80  #D2D2D2 3  9     1    73  2.5  3.5  8.5  9.5     NA       0.1        1
-      81  #D2D2D2 3  9     1    73  2.5  3.5  8.5  9.5     NA       0.1        1
-      82  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      83  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      84  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      85  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      86  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      87  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      88  #D2D2D2 3 10     1    74  2.5  3.5  9.5 10.5     NA       0.1        1
-      89  #D2D2D2 3 10     1    74  2.5  3.5  9.5 10.5     NA       0.1        1
-      90  #D2D2D2 3 10     1    74  2.5  3.5  9.5 10.5     NA       0.1        1
-      91  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      92  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      93  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      94  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      95  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      96  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      97  #D2D2D2 3 11     1    75  2.5  3.5 10.5 11.5     NA       0.1        1
-      98  #D2D2D2 3 11     1    75  2.5  3.5 10.5 11.5     NA       0.1        1
-      99  #D2D2D2 3 11     1    75  2.5  3.5 10.5 11.5     NA       0.1        1
-      100 #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      101 #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      102 #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      103 #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      104 #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      105 #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      106 #D2D2D2 3 12     1    76  2.5  3.5 11.5 12.5     NA       0.1        1
-      107 #D2D2D2 3 12     1    76  2.5  3.5 11.5 12.5     NA       0.1        1
-      108 #D2D2D2 3 12     1    76  2.5  3.5 11.5 12.5     NA       0.1        1
-      109 #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      110 #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      111 #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      112 #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      113 #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      114 #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      115 #D2D2D2 3 13     1    77  2.5  3.5 12.5 13.5     NA       0.1        1
-      116 #D2D2D2 3 13     1    77  2.5  3.5 12.5 13.5     NA       0.1        1
-      117 #D2D2D2 3 13     1    77  2.5  3.5 12.5 13.5     NA       0.1        1
-      118 #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      119 #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      120 #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      121 #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      122 #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      123 #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      124 #D2D2D2 3 14     1    78  2.5  3.5 13.5 14.5     NA       0.1        1
-      125 #D2D2D2 3 14     1    78  2.5  3.5 13.5 14.5     NA       0.1        1
-      126 #D2D2D2 3 14     1    78  2.5  3.5 13.5 14.5     NA       0.1        1
-      127 #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      128 #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      129 #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      130 #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      131 #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      132 #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      133 #D2D2D2 3 15     1    79  2.5  3.5 14.5 15.5     NA       0.1        1
-      134 #D2D2D2 3 15     1    79  2.5  3.5 14.5 15.5     NA       0.1        1
-      135 #D2D2D2 3 15     1    79  2.5  3.5 14.5 15.5     NA       0.1        1
-      136 #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      137 #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      138 #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      139 #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      140 #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      141 #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      142 #D2D2D2 3 16     1    80  2.5  3.5 15.5 16.5     NA       0.1        1
-      143 #D2D2D2 3 16     1    80  2.5  3.5 15.5 16.5     NA       0.1        1
-      144 #D2D2D2 3 16     1    80  2.5  3.5 15.5 16.5     NA       0.1        1
-      145 #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      146 #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      147 #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      148 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      149 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      150 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      151 #D2D2D2 3 17     1    81  2.5  3.5 16.5 17.5     NA       0.1        1
-      152 #D2D2D2 3 17     1    81  2.5  3.5 16.5 17.5     NA       0.1        1
-      153 #D2D2D2 3 17     1    81  2.5  3.5 16.5 17.5     NA       0.1        1
-      154 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      155 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      156 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      157 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      158 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      159 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      160 #D2D2D2 3 18     1    82  2.5  3.5 17.5 18.5     NA       0.1        1
-      161 #D2D2D2 3 18     1    82  2.5  3.5 17.5 18.5     NA       0.1        1
-      162 #D2D2D2 3 18     1    82  2.5  3.5 17.5 18.5     NA       0.1        1
-      163 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      164 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      165 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      166 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      167 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      168 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      169 #D2D2D2 3 19     1    83  2.5  3.5 18.5 19.5     NA       0.1        1
-      170 #D2D2D2 3 19     1    83  2.5  3.5 18.5 19.5     NA       0.1        1
-      171 #D2D2D2 3 19     1    83  2.5  3.5 18.5 19.5     NA       0.1        1
-      172 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      173 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      174 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      175 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      176 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      177 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      178 #D2D2D2 3 20     1    84  2.5  3.5 19.5 20.5     NA       0.1        1
-      179 #D2D2D2 3 20     1    84  2.5  3.5 19.5 20.5     NA       0.1        1
-      180 #D2D2D2 3 20     1    84  2.5  3.5 19.5 20.5     NA       0.1        1
-      181 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      182 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      183 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      184 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      185 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      186 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      187 #D2D2D2 3 21     1    85  2.5  3.5 20.5 21.5     NA       0.1        1
-      188 #D2D2D2 3 21     1    85  2.5  3.5 20.5 21.5     NA       0.1        1
-      189 #D2D2D2 3 21     1    85  2.5  3.5 20.5 21.5     NA       0.1        1
-      190 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      191 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      192 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      193 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      194 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      195 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      196 #D2D2D2 3 22     1    86  2.5  3.5 21.5 22.5     NA       0.1        1
-      197 #D2D2D2 3 22     1    86  2.5  3.5 21.5 22.5     NA       0.1        1
-      198 #D2D2D2 3 22     1    86  2.5  3.5 21.5 22.5     NA       0.1        1
-      199 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      200 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      201 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      202 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      203 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      204 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      205 #D2D2D2 3 23     1    87  2.5  3.5 22.5 23.5     NA       0.1        1
-      206 #D2D2D2 3 23     1    87  2.5  3.5 22.5 23.5     NA       0.1        1
-      207 #D2D2D2 3 23     1    87  2.5  3.5 22.5 23.5     NA       0.1        1
-      208 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      209 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      210 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      211 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      212 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      213 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      214 #D2D2D2 3 24     1    88  2.5  3.5 23.5 24.5     NA       0.1        1
-      215 #D2D2D2 3 24     1    88  2.5  3.5 23.5 24.5     NA       0.1        1
-      216 #D2D2D2 3 24     1    88  2.5  3.5 23.5 24.5     NA       0.1        1
-      217 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      218 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      219 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      220 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      221 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      222 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      223 #D2D2D2 3 25     1    89  2.5  3.5 24.5 25.5     NA       0.1        1
-      224 #D2D2D2 3 25     1    89  2.5  3.5 24.5 25.5     NA       0.1        1
-      225 #D2D2D2 3 25     1    89  2.5  3.5 24.5 25.5     NA       0.1        1
-      226 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      227 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      228 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      229 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      230 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      231 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      232 #D2D2D2 3 26     1    90  2.5  3.5 25.5 26.5     NA       0.1        1
-      233 #D2D2D2 3 26     1    90  2.5  3.5 25.5 26.5     NA       0.1        1
-      234 #D2D2D2 3 26     1    90  2.5  3.5 25.5 26.5     NA       0.1        1
-      235 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      236 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      237 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      238 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      239 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      240 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      241 #D2D2D2 3 27     1    91  2.5  3.5 26.5 27.5     NA       0.1        1
-      242 #D2D2D2 3 27     1    91  2.5  3.5 26.5 27.5     NA       0.1        1
-      243 #D2D2D2 3 27     1    91  2.5  3.5 26.5 27.5     NA       0.1        1
-      244 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      245 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      246 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      247 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      248 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      249 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      250 #D2D2D2 3 28     1    92  2.5  3.5 27.5 28.5     NA       0.1        1
-      251 #D2D2D2 3 28     1    92  2.5  3.5 27.5 28.5     NA       0.1        1
-      252 #D2D2D2 3 28     1    92  2.5  3.5 27.5 28.5     NA       0.1        1
-      253 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      254 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      255 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      256 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      257 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      258 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      259 #D2D2D2 3 29     1    93  2.5  3.5 28.5 29.5     NA       0.1        1
-      260 #D2D2D2 3 29     1    93  2.5  3.5 28.5 29.5     NA       0.1        1
-      261 #D2D2D2 3 29     1    93  2.5  3.5 28.5 29.5     NA       0.1        1
-      262 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      263 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      264 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      265 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      266 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      267 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      268 #D2D2D2 3 30     1    94  2.5  3.5 29.5 30.5     NA       0.1        1
-      269 #D2D2D2 3 30     1    94  2.5  3.5 29.5 30.5     NA       0.1        1
-      270 #D2D2D2 3 30     1    94  2.5  3.5 29.5 30.5     NA       0.1        1
-      271 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      272 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      273 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      274 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      275 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      276 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      277 #D2D2D2 3 31     1    95  2.5  3.5 30.5 31.5     NA       0.1        1
-      278 #D2D2D2 3 31     1    95  2.5  3.5 30.5 31.5     NA       0.1        1
-      279 #D2D2D2 3 31     1    95  2.5  3.5 30.5 31.5     NA       0.1        1
-      280 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      281 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      282 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      283 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
-      284 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
-      285 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
-      286 #D2D2D2 3 32     1    96  2.5  3.5 31.5 32.5     NA       0.1        1
-      287 #D2D2D2 3 32     1    96  2.5  3.5 31.5 32.5     NA       0.1        1
-      288 #D2D2D2 3 32     1    96  2.5  3.5 31.5 32.5     NA       0.1        1
+          x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype
+      1   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      2   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      3   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      4   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      5   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      6   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      7   3  1 #D2D2D2     1    65  2.5  3.5  0.5  1.5     NA       0.2        1
+      8   3  1 #D2D2D2     1    65  2.5  3.5  0.5  1.5     NA       0.2        1
+      9   3  1 #D2D2D2     1    65  2.5  3.5  0.5  1.5     NA       0.2        1
+      10  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      11  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      12  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      13  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      14  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      15  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      16  3  2 #D2D2D2     1    66  2.5  3.5  1.5  2.5     NA       0.2        1
+      17  3  2 #D2D2D2     1    66  2.5  3.5  1.5  2.5     NA       0.2        1
+      18  3  2 #D2D2D2     1    66  2.5  3.5  1.5  2.5     NA       0.2        1
+      19  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      20  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      21  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      22  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      23  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      24  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      25  3  3 #D2D2D2     1    67  2.5  3.5  2.5  3.5     NA       0.2        1
+      26  3  3 #D2D2D2     1    67  2.5  3.5  2.5  3.5     NA       0.2        1
+      27  3  3 #D2D2D2     1    67  2.5  3.5  2.5  3.5     NA       0.2        1
+      28  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      29  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      30  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      31  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      32  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      33  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      34  3  4 #D2D2D2     1    68  2.5  3.5  3.5  4.5     NA       0.2        1
+      35  3  4 #D2D2D2     1    68  2.5  3.5  3.5  4.5     NA       0.2        1
+      36  3  4 #D2D2D2     1    68  2.5  3.5  3.5  4.5     NA       0.2        1
+      37  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      38  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      39  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      40  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      41  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      42  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      43  3  5 #D2D2D2     1    69  2.5  3.5  4.5  5.5     NA       0.2        1
+      44  3  5 #D2D2D2     1    69  2.5  3.5  4.5  5.5     NA       0.2        1
+      45  3  5 #D2D2D2     1    69  2.5  3.5  4.5  5.5     NA       0.2        1
+      46  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      47  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      48  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      49  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      50  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      51  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      52  3  6 #D2D2D2     1    70  2.5  3.5  5.5  6.5     NA       0.2        1
+      53  3  6 #D2D2D2     1    70  2.5  3.5  5.5  6.5     NA       0.2        1
+      54  3  6 #D2D2D2     1    70  2.5  3.5  5.5  6.5     NA       0.2        1
+      55  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      56  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      57  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      58  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      59  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      60  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      61  3  7 #D2D2D2     1    71  2.5  3.5  6.5  7.5     NA       0.2        1
+      62  3  7 #D2D2D2     1    71  2.5  3.5  6.5  7.5     NA       0.2        1
+      63  3  7 #D2D2D2     1    71  2.5  3.5  6.5  7.5     NA       0.2        1
+      64  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      65  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      66  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      67  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      68  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      69  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      70  3  8 #D2D2D2     1    72  2.5  3.5  7.5  8.5     NA       0.2        1
+      71  3  8 #D2D2D2     1    72  2.5  3.5  7.5  8.5     NA       0.2        1
+      72  3  8 #D2D2D2     1    72  2.5  3.5  7.5  8.5     NA       0.2        1
+      73  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      74  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      75  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      76  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      77  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      78  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      79  3  9 #D2D2D2     1    73  2.5  3.5  8.5  9.5     NA       0.2        1
+      80  3  9 #D2D2D2     1    73  2.5  3.5  8.5  9.5     NA       0.2        1
+      81  3  9 #D2D2D2     1    73  2.5  3.5  8.5  9.5     NA       0.2        1
+      82  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      83  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      84  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      85  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      86  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      87  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      88  3 10 #D2D2D2     1    74  2.5  3.5  9.5 10.5     NA       0.2        1
+      89  3 10 #D2D2D2     1    74  2.5  3.5  9.5 10.5     NA       0.2        1
+      90  3 10 #D2D2D2     1    74  2.5  3.5  9.5 10.5     NA       0.2        1
+      91  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      92  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      93  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      94  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      95  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      96  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      97  3 11 #D2D2D2     1    75  2.5  3.5 10.5 11.5     NA       0.2        1
+      98  3 11 #D2D2D2     1    75  2.5  3.5 10.5 11.5     NA       0.2        1
+      99  3 11 #D2D2D2     1    75  2.5  3.5 10.5 11.5     NA       0.2        1
+      100 1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      101 1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      102 1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      103 2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      104 2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      105 2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      106 3 12 #D2D2D2     1    76  2.5  3.5 11.5 12.5     NA       0.2        1
+      107 3 12 #D2D2D2     1    76  2.5  3.5 11.5 12.5     NA       0.2        1
+      108 3 12 #D2D2D2     1    76  2.5  3.5 11.5 12.5     NA       0.2        1
+      109 1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      110 1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      111 1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      112 2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      113 2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      114 2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      115 3 13 #D2D2D2     1    77  2.5  3.5 12.5 13.5     NA       0.2        1
+      116 3 13 #D2D2D2     1    77  2.5  3.5 12.5 13.5     NA       0.2        1
+      117 3 13 #D2D2D2     1    77  2.5  3.5 12.5 13.5     NA       0.2        1
+      118 1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      119 1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      120 1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      121 2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      122 2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      123 2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      124 3 14 #D2D2D2     1    78  2.5  3.5 13.5 14.5     NA       0.2        1
+      125 3 14 #D2D2D2     1    78  2.5  3.5 13.5 14.5     NA       0.2        1
+      126 3 14 #D2D2D2     1    78  2.5  3.5 13.5 14.5     NA       0.2        1
+      127 1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      128 1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      129 1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      130 2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      131 2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      132 2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      133 3 15 #D2D2D2     1    79  2.5  3.5 14.5 15.5     NA       0.2        1
+      134 3 15 #D2D2D2     1    79  2.5  3.5 14.5 15.5     NA       0.2        1
+      135 3 15 #D2D2D2     1    79  2.5  3.5 14.5 15.5     NA       0.2        1
+      136 1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      137 1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      138 1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      139 2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      140 2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      141 2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      142 3 16 #D2D2D2     1    80  2.5  3.5 15.5 16.5     NA       0.2        1
+      143 3 16 #D2D2D2     1    80  2.5  3.5 15.5 16.5     NA       0.2        1
+      144 3 16 #D2D2D2     1    80  2.5  3.5 15.5 16.5     NA       0.2        1
+      145 1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      146 1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      147 1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      148 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      149 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      150 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      151 3 17 #D2D2D2     1    81  2.5  3.5 16.5 17.5     NA       0.2        1
+      152 3 17 #D2D2D2     1    81  2.5  3.5 16.5 17.5     NA       0.2        1
+      153 3 17 #D2D2D2     1    81  2.5  3.5 16.5 17.5     NA       0.2        1
+      154 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      155 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      156 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      157 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      158 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      159 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      160 3 18 #D2D2D2     1    82  2.5  3.5 17.5 18.5     NA       0.2        1
+      161 3 18 #D2D2D2     1    82  2.5  3.5 17.5 18.5     NA       0.2        1
+      162 3 18 #D2D2D2     1    82  2.5  3.5 17.5 18.5     NA       0.2        1
+      163 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      164 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      165 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      166 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      167 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      168 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      169 3 19 #D2D2D2     1    83  2.5  3.5 18.5 19.5     NA       0.2        1
+      170 3 19 #D2D2D2     1    83  2.5  3.5 18.5 19.5     NA       0.2        1
+      171 3 19 #D2D2D2     1    83  2.5  3.5 18.5 19.5     NA       0.2        1
+      172 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      173 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      174 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      175 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      176 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      177 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      178 3 20 #D2D2D2     1    84  2.5  3.5 19.5 20.5     NA       0.2        1
+      179 3 20 #D2D2D2     1    84  2.5  3.5 19.5 20.5     NA       0.2        1
+      180 3 20 #D2D2D2     1    84  2.5  3.5 19.5 20.5     NA       0.2        1
+      181 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      182 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      183 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      184 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      185 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      186 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      187 3 21 #D2D2D2     1    85  2.5  3.5 20.5 21.5     NA       0.2        1
+      188 3 21 #D2D2D2     1    85  2.5  3.5 20.5 21.5     NA       0.2        1
+      189 3 21 #D2D2D2     1    85  2.5  3.5 20.5 21.5     NA       0.2        1
+      190 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      191 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      192 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      193 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      194 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      195 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      196 3 22 #D2D2D2     1    86  2.5  3.5 21.5 22.5     NA       0.2        1
+      197 3 22 #D2D2D2     1    86  2.5  3.5 21.5 22.5     NA       0.2        1
+      198 3 22 #D2D2D2     1    86  2.5  3.5 21.5 22.5     NA       0.2        1
+      199 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      200 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      201 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      202 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      203 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      204 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      205 3 23 #D2D2D2     1    87  2.5  3.5 22.5 23.5     NA       0.2        1
+      206 3 23 #D2D2D2     1    87  2.5  3.5 22.5 23.5     NA       0.2        1
+      207 3 23 #D2D2D2     1    87  2.5  3.5 22.5 23.5     NA       0.2        1
+      208 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      209 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      210 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      211 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      212 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      213 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      214 3 24 #D2D2D2     1    88  2.5  3.5 23.5 24.5     NA       0.2        1
+      215 3 24 #D2D2D2     1    88  2.5  3.5 23.5 24.5     NA       0.2        1
+      216 3 24 #D2D2D2     1    88  2.5  3.5 23.5 24.5     NA       0.2        1
+      217 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      218 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      219 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      220 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      221 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      222 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      223 3 25 #D2D2D2     1    89  2.5  3.5 24.5 25.5     NA       0.2        1
+      224 3 25 #D2D2D2     1    89  2.5  3.5 24.5 25.5     NA       0.2        1
+      225 3 25 #D2D2D2     1    89  2.5  3.5 24.5 25.5     NA       0.2        1
+      226 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      227 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      228 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      229 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      230 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      231 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      232 3 26 #D2D2D2     1    90  2.5  3.5 25.5 26.5     NA       0.2        1
+      233 3 26 #D2D2D2     1    90  2.5  3.5 25.5 26.5     NA       0.2        1
+      234 3 26 #D2D2D2     1    90  2.5  3.5 25.5 26.5     NA       0.2        1
+      235 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      236 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      237 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      238 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      239 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      240 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      241 3 27 #D2D2D2     1    91  2.5  3.5 26.5 27.5     NA       0.2        1
+      242 3 27 #D2D2D2     1    91  2.5  3.5 26.5 27.5     NA       0.2        1
+      243 3 27 #D2D2D2     1    91  2.5  3.5 26.5 27.5     NA       0.2        1
+      244 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      245 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      246 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      247 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      248 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      249 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      250 3 28 #D2D2D2     1    92  2.5  3.5 27.5 28.5     NA       0.2        1
+      251 3 28 #D2D2D2     1    92  2.5  3.5 27.5 28.5     NA       0.2        1
+      252 3 28 #D2D2D2     1    92  2.5  3.5 27.5 28.5     NA       0.2        1
+      253 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      254 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      255 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      256 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      257 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      258 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      259 3 29 #D2D2D2     1    93  2.5  3.5 28.5 29.5     NA       0.2        1
+      260 3 29 #D2D2D2     1    93  2.5  3.5 28.5 29.5     NA       0.2        1
+      261 3 29 #D2D2D2     1    93  2.5  3.5 28.5 29.5     NA       0.2        1
+      262 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      263 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      264 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      265 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      266 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      267 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      268 3 30 #D2D2D2     1    94  2.5  3.5 29.5 30.5     NA       0.2        1
+      269 3 30 #D2D2D2     1    94  2.5  3.5 29.5 30.5     NA       0.2        1
+      270 3 30 #D2D2D2     1    94  2.5  3.5 29.5 30.5     NA       0.2        1
+      271 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      272 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      273 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      274 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      275 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      276 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      277 3 31 #D2D2D2     1    95  2.5  3.5 30.5 31.5     NA       0.2        1
+      278 3 31 #D2D2D2     1    95  2.5  3.5 30.5 31.5     NA       0.2        1
+      279 3 31 #D2D2D2     1    95  2.5  3.5 30.5 31.5     NA       0.2        1
+      280 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      281 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      282 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      283 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
+      284 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
+      285 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
+      286 3 32 #D2D2D2     1    96  2.5  3.5 31.5 32.5     NA       0.2        1
+      287 3 32 #D2D2D2     1    96  2.5  3.5 31.5 32.5     NA       0.2        1
+      288 3 32 #D2D2D2     1    96  2.5  3.5 31.5 32.5     NA       0.2        1
           alpha width height
-      1      NA    NA     NA
-      2      NA    NA     NA
-      3      NA    NA     NA
-      4      NA    NA     NA
-      5      NA    NA     NA
-      6      NA    NA     NA
-      7      NA    NA     NA
-      8      NA    NA     NA
-      9      NA    NA     NA
-      10     NA    NA     NA
-      11     NA    NA     NA
-      12     NA    NA     NA
-      13     NA    NA     NA
-      14     NA    NA     NA
-      15     NA    NA     NA
-      16     NA    NA     NA
-      17     NA    NA     NA
-      18     NA    NA     NA
-      19     NA    NA     NA
-      20     NA    NA     NA
-      21     NA    NA     NA
-      22     NA    NA     NA
-      23     NA    NA     NA
-      24     NA    NA     NA
-      25     NA    NA     NA
-      26     NA    NA     NA
-      27     NA    NA     NA
-      28     NA    NA     NA
-      29     NA    NA     NA
-      30     NA    NA     NA
-      31     NA    NA     NA
-      32     NA    NA     NA
-      33     NA    NA     NA
-      34     NA    NA     NA
-      35     NA    NA     NA
-      36     NA    NA     NA
-      37     NA    NA     NA
-      38     NA    NA     NA
-      39     NA    NA     NA
-      40     NA    NA     NA
-      41     NA    NA     NA
-      42     NA    NA     NA
-      43     NA    NA     NA
-      44     NA    NA     NA
-      45     NA    NA     NA
-      46     NA    NA     NA
-      47     NA    NA     NA
-      48     NA    NA     NA
-      49     NA    NA     NA
-      50     NA    NA     NA
-      51     NA    NA     NA
-      52     NA    NA     NA
-      53     NA    NA     NA
-      54     NA    NA     NA
-      55     NA    NA     NA
-      56     NA    NA     NA
-      57     NA    NA     NA
-      58     NA    NA     NA
-      59     NA    NA     NA
-      60     NA    NA     NA
-      61     NA    NA     NA
-      62     NA    NA     NA
-      63     NA    NA     NA
-      64     NA    NA     NA
-      65     NA    NA     NA
-      66     NA    NA     NA
-      67     NA    NA     NA
-      68     NA    NA     NA
-      69     NA    NA     NA
-      70     NA    NA     NA
-      71     NA    NA     NA
-      72     NA    NA     NA
-      73     NA    NA     NA
-      74     NA    NA     NA
-      75     NA    NA     NA
-      76     NA    NA     NA
-      77     NA    NA     NA
-      78     NA    NA     NA
-      79     NA    NA     NA
-      80     NA    NA     NA
-      81     NA    NA     NA
-      82     NA    NA     NA
-      83     NA    NA     NA
-      84     NA    NA     NA
-      85     NA    NA     NA
-      86     NA    NA     NA
-      87     NA    NA     NA
-      88     NA    NA     NA
-      89     NA    NA     NA
-      90     NA    NA     NA
-      91     NA    NA     NA
-      92     NA    NA     NA
-      93     NA    NA     NA
-      94     NA    NA     NA
-      95     NA    NA     NA
-      96     NA    NA     NA
-      97     NA    NA     NA
-      98     NA    NA     NA
-      99     NA    NA     NA
-      100    NA    NA     NA
-      101    NA    NA     NA
-      102    NA    NA     NA
-      103    NA    NA     NA
-      104    NA    NA     NA
-      105    NA    NA     NA
-      106    NA    NA     NA
-      107    NA    NA     NA
-      108    NA    NA     NA
-      109    NA    NA     NA
-      110    NA    NA     NA
-      111    NA    NA     NA
-      112    NA    NA     NA
-      113    NA    NA     NA
-      114    NA    NA     NA
-      115    NA    NA     NA
-      116    NA    NA     NA
-      117    NA    NA     NA
-      118    NA    NA     NA
-      119    NA    NA     NA
-      120    NA    NA     NA
-      121    NA    NA     NA
-      122    NA    NA     NA
-      123    NA    NA     NA
-      124    NA    NA     NA
-      125    NA    NA     NA
-      126    NA    NA     NA
-      127    NA    NA     NA
-      128    NA    NA     NA
-      129    NA    NA     NA
-      130    NA    NA     NA
-      131    NA    NA     NA
-      132    NA    NA     NA
-      133    NA    NA     NA
-      134    NA    NA     NA
-      135    NA    NA     NA
-      136    NA    NA     NA
-      137    NA    NA     NA
-      138    NA    NA     NA
-      139    NA    NA     NA
-      140    NA    NA     NA
-      141    NA    NA     NA
-      142    NA    NA     NA
-      143    NA    NA     NA
-      144    NA    NA     NA
-      145    NA    NA     NA
-      146    NA    NA     NA
-      147    NA    NA     NA
-      148    NA    NA     NA
-      149    NA    NA     NA
-      150    NA    NA     NA
-      151    NA    NA     NA
-      152    NA    NA     NA
-      153    NA    NA     NA
-      154    NA    NA     NA
-      155    NA    NA     NA
-      156    NA    NA     NA
-      157    NA    NA     NA
-      158    NA    NA     NA
-      159    NA    NA     NA
-      160    NA    NA     NA
-      161    NA    NA     NA
-      162    NA    NA     NA
-      163    NA    NA     NA
-      164    NA    NA     NA
-      165    NA    NA     NA
-      166    NA    NA     NA
-      167    NA    NA     NA
-      168    NA    NA     NA
-      169    NA    NA     NA
-      170    NA    NA     NA
-      171    NA    NA     NA
-      172    NA    NA     NA
-      173    NA    NA     NA
-      174    NA    NA     NA
-      175    NA    NA     NA
-      176    NA    NA     NA
-      177    NA    NA     NA
-      178    NA    NA     NA
-      179    NA    NA     NA
-      180    NA    NA     NA
-      181    NA    NA     NA
-      182    NA    NA     NA
-      183    NA    NA     NA
-      184    NA    NA     NA
-      185    NA    NA     NA
-      186    NA    NA     NA
-      187    NA    NA     NA
-      188    NA    NA     NA
-      189    NA    NA     NA
-      190    NA    NA     NA
-      191    NA    NA     NA
-      192    NA    NA     NA
-      193    NA    NA     NA
-      194    NA    NA     NA
-      195    NA    NA     NA
-      196    NA    NA     NA
-      197    NA    NA     NA
-      198    NA    NA     NA
-      199    NA    NA     NA
-      200    NA    NA     NA
-      201    NA    NA     NA
-      202    NA    NA     NA
-      203    NA    NA     NA
-      204    NA    NA     NA
-      205    NA    NA     NA
-      206    NA    NA     NA
-      207    NA    NA     NA
-      208    NA    NA     NA
-      209    NA    NA     NA
-      210    NA    NA     NA
-      211    NA    NA     NA
-      212    NA    NA     NA
-      213    NA    NA     NA
-      214    NA    NA     NA
-      215    NA    NA     NA
-      216    NA    NA     NA
-      217    NA    NA     NA
-      218    NA    NA     NA
-      219    NA    NA     NA
-      220    NA    NA     NA
-      221    NA    NA     NA
-      222    NA    NA     NA
-      223    NA    NA     NA
-      224    NA    NA     NA
-      225    NA    NA     NA
-      226    NA    NA     NA
-      227    NA    NA     NA
-      228    NA    NA     NA
-      229    NA    NA     NA
-      230    NA    NA     NA
-      231    NA    NA     NA
-      232    NA    NA     NA
-      233    NA    NA     NA
-      234    NA    NA     NA
-      235    NA    NA     NA
-      236    NA    NA     NA
-      237    NA    NA     NA
-      238    NA    NA     NA
-      239    NA    NA     NA
-      240    NA    NA     NA
-      241    NA    NA     NA
-      242    NA    NA     NA
-      243    NA    NA     NA
-      244    NA    NA     NA
-      245    NA    NA     NA
-      246    NA    NA     NA
-      247    NA    NA     NA
-      248    NA    NA     NA
-      249    NA    NA     NA
-      250    NA    NA     NA
-      251    NA    NA     NA
-      252    NA    NA     NA
-      253    NA    NA     NA
-      254    NA    NA     NA
-      255    NA    NA     NA
-      256    NA    NA     NA
-      257    NA    NA     NA
-      258    NA    NA     NA
-      259    NA    NA     NA
-      260    NA    NA     NA
-      261    NA    NA     NA
-      262    NA    NA     NA
-      263    NA    NA     NA
-      264    NA    NA     NA
-      265    NA    NA     NA
-      266    NA    NA     NA
-      267    NA    NA     NA
-      268    NA    NA     NA
-      269    NA    NA     NA
-      270    NA    NA     NA
-      271    NA    NA     NA
-      272    NA    NA     NA
-      273    NA    NA     NA
-      274    NA    NA     NA
-      275    NA    NA     NA
-      276    NA    NA     NA
-      277    NA    NA     NA
-      278    NA    NA     NA
-      279    NA    NA     NA
-      280    NA    NA     NA
-      281    NA    NA     NA
-      282    NA    NA     NA
-      283    NA    NA     NA
-      284    NA    NA     NA
-      285    NA    NA     NA
-      286    NA    NA     NA
-      287    NA    NA     NA
-      288    NA    NA     NA
+      1      NA     1      1
+      2      NA     1      1
+      3      NA     1      1
+      4      NA     1      1
+      5      NA     1      1
+      6      NA     1      1
+      7      NA     1      1
+      8      NA     1      1
+      9      NA     1      1
+      10     NA     1      1
+      11     NA     1      1
+      12     NA     1      1
+      13     NA     1      1
+      14     NA     1      1
+      15     NA     1      1
+      16     NA     1      1
+      17     NA     1      1
+      18     NA     1      1
+      19     NA     1      1
+      20     NA     1      1
+      21     NA     1      1
+      22     NA     1      1
+      23     NA     1      1
+      24     NA     1      1
+      25     NA     1      1
+      26     NA     1      1
+      27     NA     1      1
+      28     NA     1      1
+      29     NA     1      1
+      30     NA     1      1
+      31     NA     1      1
+      32     NA     1      1
+      33     NA     1      1
+      34     NA     1      1
+      35     NA     1      1
+      36     NA     1      1
+      37     NA     1      1
+      38     NA     1      1
+      39     NA     1      1
+      40     NA     1      1
+      41     NA     1      1
+      42     NA     1      1
+      43     NA     1      1
+      44     NA     1      1
+      45     NA     1      1
+      46     NA     1      1
+      47     NA     1      1
+      48     NA     1      1
+      49     NA     1      1
+      50     NA     1      1
+      51     NA     1      1
+      52     NA     1      1
+      53     NA     1      1
+      54     NA     1      1
+      55     NA     1      1
+      56     NA     1      1
+      57     NA     1      1
+      58     NA     1      1
+      59     NA     1      1
+      60     NA     1      1
+      61     NA     1      1
+      62     NA     1      1
+      63     NA     1      1
+      64     NA     1      1
+      65     NA     1      1
+      66     NA     1      1
+      67     NA     1      1
+      68     NA     1      1
+      69     NA     1      1
+      70     NA     1      1
+      71     NA     1      1
+      72     NA     1      1
+      73     NA     1      1
+      74     NA     1      1
+      75     NA     1      1
+      76     NA     1      1
+      77     NA     1      1
+      78     NA     1      1
+      79     NA     1      1
+      80     NA     1      1
+      81     NA     1      1
+      82     NA     1      1
+      83     NA     1      1
+      84     NA     1      1
+      85     NA     1      1
+      86     NA     1      1
+      87     NA     1      1
+      88     NA     1      1
+      89     NA     1      1
+      90     NA     1      1
+      91     NA     1      1
+      92     NA     1      1
+      93     NA     1      1
+      94     NA     1      1
+      95     NA     1      1
+      96     NA     1      1
+      97     NA     1      1
+      98     NA     1      1
+      99     NA     1      1
+      100    NA     1      1
+      101    NA     1      1
+      102    NA     1      1
+      103    NA     1      1
+      104    NA     1      1
+      105    NA     1      1
+      106    NA     1      1
+      107    NA     1      1
+      108    NA     1      1
+      109    NA     1      1
+      110    NA     1      1
+      111    NA     1      1
+      112    NA     1      1
+      113    NA     1      1
+      114    NA     1      1
+      115    NA     1      1
+      116    NA     1      1
+      117    NA     1      1
+      118    NA     1      1
+      119    NA     1      1
+      120    NA     1      1
+      121    NA     1      1
+      122    NA     1      1
+      123    NA     1      1
+      124    NA     1      1
+      125    NA     1      1
+      126    NA     1      1
+      127    NA     1      1
+      128    NA     1      1
+      129    NA     1      1
+      130    NA     1      1
+      131    NA     1      1
+      132    NA     1      1
+      133    NA     1      1
+      134    NA     1      1
+      135    NA     1      1
+      136    NA     1      1
+      137    NA     1      1
+      138    NA     1      1
+      139    NA     1      1
+      140    NA     1      1
+      141    NA     1      1
+      142    NA     1      1
+      143    NA     1      1
+      144    NA     1      1
+      145    NA     1      1
+      146    NA     1      1
+      147    NA     1      1
+      148    NA     1      1
+      149    NA     1      1
+      150    NA     1      1
+      151    NA     1      1
+      152    NA     1      1
+      153    NA     1      1
+      154    NA     1      1
+      155    NA     1      1
+      156    NA     1      1
+      157    NA     1      1
+      158    NA     1      1
+      159    NA     1      1
+      160    NA     1      1
+      161    NA     1      1
+      162    NA     1      1
+      163    NA     1      1
+      164    NA     1      1
+      165    NA     1      1
+      166    NA     1      1
+      167    NA     1      1
+      168    NA     1      1
+      169    NA     1      1
+      170    NA     1      1
+      171    NA     1      1
+      172    NA     1      1
+      173    NA     1      1
+      174    NA     1      1
+      175    NA     1      1
+      176    NA     1      1
+      177    NA     1      1
+      178    NA     1      1
+      179    NA     1      1
+      180    NA     1      1
+      181    NA     1      1
+      182    NA     1      1
+      183    NA     1      1
+      184    NA     1      1
+      185    NA     1      1
+      186    NA     1      1
+      187    NA     1      1
+      188    NA     1      1
+      189    NA     1      1
+      190    NA     1      1
+      191    NA     1      1
+      192    NA     1      1
+      193    NA     1      1
+      194    NA     1      1
+      195    NA     1      1
+      196    NA     1      1
+      197    NA     1      1
+      198    NA     1      1
+      199    NA     1      1
+      200    NA     1      1
+      201    NA     1      1
+      202    NA     1      1
+      203    NA     1      1
+      204    NA     1      1
+      205    NA     1      1
+      206    NA     1      1
+      207    NA     1      1
+      208    NA     1      1
+      209    NA     1      1
+      210    NA     1      1
+      211    NA     1      1
+      212    NA     1      1
+      213    NA     1      1
+      214    NA     1      1
+      215    NA     1      1
+      216    NA     1      1
+      217    NA     1      1
+      218    NA     1      1
+      219    NA     1      1
+      220    NA     1      1
+      221    NA     1      1
+      222    NA     1      1
+      223    NA     1      1
+      224    NA     1      1
+      225    NA     1      1
+      226    NA     1      1
+      227    NA     1      1
+      228    NA     1      1
+      229    NA     1      1
+      230    NA     1      1
+      231    NA     1      1
+      232    NA     1      1
+      233    NA     1      1
+      234    NA     1      1
+      235    NA     1      1
+      236    NA     1      1
+      237    NA     1      1
+      238    NA     1      1
+      239    NA     1      1
+      240    NA     1      1
+      241    NA     1      1
+      242    NA     1      1
+      243    NA     1      1
+      244    NA     1      1
+      245    NA     1      1
+      246    NA     1      1
+      247    NA     1      1
+      248    NA     1      1
+      249    NA     1      1
+      250    NA     1      1
+      251    NA     1      1
+      252    NA     1      1
+      253    NA     1      1
+      254    NA     1      1
+      255    NA     1      1
+      256    NA     1      1
+      257    NA     1      1
+      258    NA     1      1
+      259    NA     1      1
+      260    NA     1      1
+      261    NA     1      1
+      262    NA     1      1
+      263    NA     1      1
+      264    NA     1      1
+      265    NA     1      1
+      266    NA     1      1
+      267    NA     1      1
+      268    NA     1      1
+      269    NA     1      1
+      270    NA     1      1
+      271    NA     1      1
+      272    NA     1      1
+      273    NA     1      1
+      274    NA     1      1
+      275    NA     1      1
+      276    NA     1      1
+      277    NA     1      1
+      278    NA     1      1
+      279    NA     1      1
+      280    NA     1      1
+      281    NA     1      1
+      282    NA     1      1
+      283    NA     1      1
+      284    NA     1      1
+      285    NA     1      1
+      286    NA     1      1
+      287    NA     1      1
+      288    NA     1      1
       
       $mpg$d2$`continent:gear`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 3 1     1     7  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #D2D2D2 3 1     1     7  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #D2D2D2 3 1     1     7  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #D2D2D2 3 2     1     8  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #D2D2D2 3 2     1     8  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #D2D2D2 3 2     1     8  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      19 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      20 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      21 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      22 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      23 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      24 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      25 #D2D2D2 3 3     1     9  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      26 #D2D2D2 3 3     1     9  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      27 #D2D2D2 3 3     1     9  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  3 1 #D2D2D2     1     7  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      8  3 1 #D2D2D2     1     7  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      9  3 1 #D2D2D2     1     7  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      10 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      11 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      12 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      13 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      14 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      15 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      16 3 2 #D2D2D2     1     8  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      17 3 2 #D2D2D2     1     8  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      18 3 2 #D2D2D2     1     8  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      19 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      20 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      21 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      22 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      23 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      24 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      25 3 3 #D2D2D2     1     9  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      26 3 3 #D2D2D2     1     9  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      27 3 3 #D2D2D2     1     9  2.5  3.5  2.5  3.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
       
       $mpg$d2$`continent:carb`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      19 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      20 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      21 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      22 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      23 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      24 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      25 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      26 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      27 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      28 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      29 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      30 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      31 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      32 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      33 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      34 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      35 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      36 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      37 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      38 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      39 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      40 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      41 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      42 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      43 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      44 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      45 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      8  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      9  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      10 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      11 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      12 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      13 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      14 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      15 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      16 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      17 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      18 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      19 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      20 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      21 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      22 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      23 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      24 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      25 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      26 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      27 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      28 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      29 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      30 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      31 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      32 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      33 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      34 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      35 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      36 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      37 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      38 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      39 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      40 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      41 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      42 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      43 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      44 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      45 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
-      31    NA     NA
-      32    NA     NA
-      33    NA     NA
-      34    NA     NA
-      35    NA     NA
-      36    NA     NA
-      37    NA     NA
-      38    NA     NA
-      39    NA     NA
-      40    NA     NA
-      41    NA     NA
-      42    NA     NA
-      43    NA     NA
-      44    NA     NA
-      45    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
+      31     1      1
+      32     1      1
+      33     1      1
+      34     1      1
+      35     1      1
+      36     1      1
+      37     1      1
+      38     1      1
+      39     1      1
+      40     1      1
+      41     1      1
+      42     1      1
+      43     1      1
+      44     1      1
+      45     1      1
       
       $mpg$d2$`continent:wt`
-            fill x  y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      19 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      20 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      21 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      22 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      23 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      24 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      25 #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      26 #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      27 #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      28 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      29 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      30 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      31 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      32 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      33 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      34 #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      35 #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      36 #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      37 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      38 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      39 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      40 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      41 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      42 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      43 #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      44 #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      45 #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      46 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      47 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      48 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      49 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      50 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      51 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      52 #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1    NA
-      53 #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1    NA
-      54 #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1    NA
-      55 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      56 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      57 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      58 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      59 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      60 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      61 #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1    NA
-      62 #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1    NA
-      63 #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1    NA
-      64 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      65 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      66 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      67 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      68 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      69 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      70 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1    NA
-      71 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1    NA
-      72 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1    NA
-      73 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      74 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      75 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      76 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      77 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      78 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      79 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1    NA
-      80 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1    NA
-      81 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1    NA
-      82 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      83 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      84 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      85 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      86 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      87 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      88 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1    NA
-      89 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1    NA
-      90 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1    NA
+         x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      8  3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      9  3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      10 1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      11 1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      12 1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      13 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      14 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      15 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      16 3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      17 3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      18 3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      19 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      20 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      21 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      22 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      23 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      24 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      25 3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      26 3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      27 3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      28 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      29 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      30 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      31 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      32 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      33 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      34 3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      35 3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      36 3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      37 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      38 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      39 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      40 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      41 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      42 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      43 3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      44 3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      45 3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      46 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      47 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      48 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      49 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      50 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      51 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      52 3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1    NA
+      53 3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1    NA
+      54 3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1    NA
+      55 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      56 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      57 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      58 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      59 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      60 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      61 3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1    NA
+      62 3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1    NA
+      63 3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1    NA
+      64 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      65 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      66 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      67 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      68 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      69 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      70 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1    NA
+      71 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1    NA
+      72 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1    NA
+      73 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      74 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      75 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      76 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      77 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      78 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      79 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1    NA
+      80 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1    NA
+      81 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1    NA
+      82 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      83 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      84 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      85 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      86 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      87 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      88 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1    NA
+      89 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1    NA
+      90 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
-      31    NA     NA
-      32    NA     NA
-      33    NA     NA
-      34    NA     NA
-      35    NA     NA
-      36    NA     NA
-      37    NA     NA
-      38    NA     NA
-      39    NA     NA
-      40    NA     NA
-      41    NA     NA
-      42    NA     NA
-      43    NA     NA
-      44    NA     NA
-      45    NA     NA
-      46    NA     NA
-      47    NA     NA
-      48    NA     NA
-      49    NA     NA
-      50    NA     NA
-      51    NA     NA
-      52    NA     NA
-      53    NA     NA
-      54    NA     NA
-      55    NA     NA
-      56    NA     NA
-      57    NA     NA
-      58    NA     NA
-      59    NA     NA
-      60    NA     NA
-      61    NA     NA
-      62    NA     NA
-      63    NA     NA
-      64    NA     NA
-      65    NA     NA
-      66    NA     NA
-      67    NA     NA
-      68    NA     NA
-      69    NA     NA
-      70    NA     NA
-      71    NA     NA
-      72    NA     NA
-      73    NA     NA
-      74    NA     NA
-      75    NA     NA
-      76    NA     NA
-      77    NA     NA
-      78    NA     NA
-      79    NA     NA
-      80    NA     NA
-      81    NA     NA
-      82    NA     NA
-      83    NA     NA
-      84    NA     NA
-      85    NA     NA
-      86    NA     NA
-      87    NA     NA
-      88    NA     NA
-      89    NA     NA
-      90    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
+      31     1      1
+      32     1      1
+      33     1      1
+      34     1      1
+      35     1      1
+      36     1      1
+      37     1      1
+      38     1      1
+      39     1      1
+      40     1      1
+      41     1      1
+      42     1      1
+      43     1      1
+      44     1      1
+      45     1      1
+      46     1      1
+      47     1      1
+      48     1      1
+      49     1      1
+      50     1      1
+      51     1      1
+      52     1      1
+      53     1      1
+      54     1      1
+      55     1      1
+      56     1      1
+      57     1      1
+      58     1      1
+      59     1      1
+      60     1      1
+      61     1      1
+      62     1      1
+      63     1      1
+      64     1      1
+      65     1      1
+      66     1      1
+      67     1      1
+      68     1      1
+      69     1      1
+      70     1      1
+      71     1      1
+      72     1      1
+      73     1      1
+      74     1      1
+      75     1      1
+      76     1      1
+      77     1      1
+      78     1      1
+      79     1      1
+      80     1      1
+      81     1      1
+      82     1      1
+      83     1      1
+      84     1      1
+      85     1      1
+      86     1      1
+      87     1      1
+      88     1      1
+      89     1      1
+      90     1      1
       
       $mpg$d2$`am:model`
-             fill x  y PANEL group xmin xmax ymin ymax colour linewidth linetype
-      1   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      2   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      3   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      4   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      5   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      6   #D2D2D2 2  1     1    33  1.5  2.5  0.5  1.5     NA       0.1        1
-      7   #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      8   #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      9   #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      10  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      11  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      12  #D2D2D2 2  2     1    34  1.5  2.5  1.5  2.5     NA       0.1        1
-      13  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      14  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      15  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      16  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      17  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      18  #D2D2D2 2  3     1    35  1.5  2.5  2.5  3.5     NA       0.1        1
-      19  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      20  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      21  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      22  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      23  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      24  #D2D2D2 2  4     1    36  1.5  2.5  3.5  4.5     NA       0.1        1
-      25  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      26  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      27  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      28  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      29  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      30  #D2D2D2 2  5     1    37  1.5  2.5  4.5  5.5     NA       0.1        1
-      31  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      32  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      33  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      34  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      35  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      36  #D2D2D2 2  6     1    38  1.5  2.5  5.5  6.5     NA       0.1        1
-      37  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      38  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      39  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      40  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      41  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      42  #D2D2D2 2  7     1    39  1.5  2.5  6.5  7.5     NA       0.1        1
-      43  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      44  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      45  #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      46  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      47  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      48  #D2D2D2 2  8     1    40  1.5  2.5  7.5  8.5     NA       0.1        1
-      49  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      50  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      51  #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      52  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      53  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      54  #D2D2D2 2  9     1    41  1.5  2.5  8.5  9.5     NA       0.1        1
-      55  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      56  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      57  #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      58  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      59  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      60  #D2D2D2 2 10     1    42  1.5  2.5  9.5 10.5     NA       0.1        1
-      61  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      62  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      63  #D2D2D2 1 11     1    11  0.5  1.5 10.5 11.5     NA       0.1        1
-      64  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      65  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      66  #D2D2D2 2 11     1    43  1.5  2.5 10.5 11.5     NA       0.1        1
-      67  #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      68  #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      69  #D2D2D2 1 12     1    12  0.5  1.5 11.5 12.5     NA       0.1        1
-      70  #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      71  #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      72  #D2D2D2 2 12     1    44  1.5  2.5 11.5 12.5     NA       0.1        1
-      73  #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      74  #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      75  #D2D2D2 1 13     1    13  0.5  1.5 12.5 13.5     NA       0.1        1
-      76  #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      77  #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      78  #D2D2D2 2 13     1    45  1.5  2.5 12.5 13.5     NA       0.1        1
-      79  #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      80  #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      81  #D2D2D2 1 14     1    14  0.5  1.5 13.5 14.5     NA       0.1        1
-      82  #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      83  #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      84  #D2D2D2 2 14     1    46  1.5  2.5 13.5 14.5     NA       0.1        1
-      85  #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      86  #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      87  #D2D2D2 1 15     1    15  0.5  1.5 14.5 15.5     NA       0.1        1
-      88  #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      89  #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      90  #D2D2D2 2 15     1    47  1.5  2.5 14.5 15.5     NA       0.1        1
-      91  #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      92  #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      93  #D2D2D2 1 16     1    16  0.5  1.5 15.5 16.5     NA       0.1        1
-      94  #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      95  #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      96  #D2D2D2 2 16     1    48  1.5  2.5 15.5 16.5     NA       0.1        1
-      97  #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      98  #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      99  #D2D2D2 1 17     1    17  0.5  1.5 16.5 17.5     NA       0.1        1
-      100 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      101 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      102 #D2D2D2 2 17     1    49  1.5  2.5 16.5 17.5     NA       0.1        1
-      103 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      104 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      105 #D2D2D2 1 18     1    18  0.5  1.5 17.5 18.5     NA       0.1        1
-      106 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      107 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      108 #D2D2D2 2 18     1    50  1.5  2.5 17.5 18.5     NA       0.1        1
-      109 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      110 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      111 #D2D2D2 1 19     1    19  0.5  1.5 18.5 19.5     NA       0.1        1
-      112 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      113 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      114 #D2D2D2 2 19     1    51  1.5  2.5 18.5 19.5     NA       0.1        1
-      115 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      116 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      117 #D2D2D2 1 20     1    20  0.5  1.5 19.5 20.5     NA       0.1        1
-      118 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      119 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      120 #D2D2D2 2 20     1    52  1.5  2.5 19.5 20.5     NA       0.1        1
-      121 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      122 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      123 #D2D2D2 1 21     1    21  0.5  1.5 20.5 21.5     NA       0.1        1
-      124 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      125 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      126 #D2D2D2 2 21     1    53  1.5  2.5 20.5 21.5     NA       0.1        1
-      127 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      128 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      129 #D2D2D2 1 22     1    22  0.5  1.5 21.5 22.5     NA       0.1        1
-      130 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      131 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      132 #D2D2D2 2 22     1    54  1.5  2.5 21.5 22.5     NA       0.1        1
-      133 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      134 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      135 #D2D2D2 1 23     1    23  0.5  1.5 22.5 23.5     NA       0.1        1
-      136 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      137 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      138 #D2D2D2 2 23     1    55  1.5  2.5 22.5 23.5     NA       0.1        1
-      139 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      140 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      141 #D2D2D2 1 24     1    24  0.5  1.5 23.5 24.5     NA       0.1        1
-      142 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      143 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      144 #D2D2D2 2 24     1    56  1.5  2.5 23.5 24.5     NA       0.1        1
-      145 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      146 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      147 #D2D2D2 1 25     1    25  0.5  1.5 24.5 25.5     NA       0.1        1
-      148 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      149 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      150 #D2D2D2 2 25     1    57  1.5  2.5 24.5 25.5     NA       0.1        1
-      151 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      152 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      153 #D2D2D2 1 26     1    26  0.5  1.5 25.5 26.5     NA       0.1        1
-      154 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      155 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      156 #D2D2D2 2 26     1    58  1.5  2.5 25.5 26.5     NA       0.1        1
-      157 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      158 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      159 #D2D2D2 1 27     1    27  0.5  1.5 26.5 27.5     NA       0.1        1
-      160 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      161 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      162 #D2D2D2 2 27     1    59  1.5  2.5 26.5 27.5     NA       0.1        1
-      163 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      164 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      165 #D2D2D2 1 28     1    28  0.5  1.5 27.5 28.5     NA       0.1        1
-      166 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      167 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      168 #D2D2D2 2 28     1    60  1.5  2.5 27.5 28.5     NA       0.1        1
-      169 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      170 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      171 #D2D2D2 1 29     1    29  0.5  1.5 28.5 29.5     NA       0.1        1
-      172 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      173 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      174 #D2D2D2 2 29     1    61  1.5  2.5 28.5 29.5     NA       0.1        1
-      175 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      176 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      177 #D2D2D2 1 30     1    30  0.5  1.5 29.5 30.5     NA       0.1        1
-      178 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      179 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      180 #D2D2D2 2 30     1    62  1.5  2.5 29.5 30.5     NA       0.1        1
-      181 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      182 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      183 #D2D2D2 1 31     1    31  0.5  1.5 30.5 31.5     NA       0.1        1
-      184 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      185 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      186 #D2D2D2 2 31     1    63  1.5  2.5 30.5 31.5     NA       0.1        1
-      187 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      188 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      189 #D2D2D2 1 32     1    32  0.5  1.5 31.5 32.5     NA       0.1        1
-      190 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
-      191 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
-      192 #D2D2D2 2 32     1    64  1.5  2.5 31.5 32.5     NA       0.1        1
+          x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype
+      1   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      2   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      3   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      4   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      5   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      6   2  1 #D2D2D2     1    33  1.5  2.5  0.5  1.5     NA       0.2        1
+      7   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      8   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      9   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      10  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      11  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      12  2  2 #D2D2D2     1    34  1.5  2.5  1.5  2.5     NA       0.2        1
+      13  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      14  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      15  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      16  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      17  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      18  2  3 #D2D2D2     1    35  1.5  2.5  2.5  3.5     NA       0.2        1
+      19  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      20  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      21  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      22  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      23  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      24  2  4 #D2D2D2     1    36  1.5  2.5  3.5  4.5     NA       0.2        1
+      25  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      26  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      27  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      28  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      29  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      30  2  5 #D2D2D2     1    37  1.5  2.5  4.5  5.5     NA       0.2        1
+      31  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      32  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      33  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      34  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      35  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      36  2  6 #D2D2D2     1    38  1.5  2.5  5.5  6.5     NA       0.2        1
+      37  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      38  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      39  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      40  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      41  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      42  2  7 #D2D2D2     1    39  1.5  2.5  6.5  7.5     NA       0.2        1
+      43  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      44  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      45  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      46  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      47  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      48  2  8 #D2D2D2     1    40  1.5  2.5  7.5  8.5     NA       0.2        1
+      49  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      50  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      51  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      52  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      53  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      54  2  9 #D2D2D2     1    41  1.5  2.5  8.5  9.5     NA       0.2        1
+      55  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      56  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      57  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      58  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      59  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      60  2 10 #D2D2D2     1    42  1.5  2.5  9.5 10.5     NA       0.2        1
+      61  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      62  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      63  1 11 #D2D2D2     1    11  0.5  1.5 10.5 11.5     NA       0.2        1
+      64  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      65  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      66  2 11 #D2D2D2     1    43  1.5  2.5 10.5 11.5     NA       0.2        1
+      67  1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      68  1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      69  1 12 #D2D2D2     1    12  0.5  1.5 11.5 12.5     NA       0.2        1
+      70  2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      71  2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      72  2 12 #D2D2D2     1    44  1.5  2.5 11.5 12.5     NA       0.2        1
+      73  1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      74  1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      75  1 13 #D2D2D2     1    13  0.5  1.5 12.5 13.5     NA       0.2        1
+      76  2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      77  2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      78  2 13 #D2D2D2     1    45  1.5  2.5 12.5 13.5     NA       0.2        1
+      79  1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      80  1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      81  1 14 #D2D2D2     1    14  0.5  1.5 13.5 14.5     NA       0.2        1
+      82  2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      83  2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      84  2 14 #D2D2D2     1    46  1.5  2.5 13.5 14.5     NA       0.2        1
+      85  1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      86  1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      87  1 15 #D2D2D2     1    15  0.5  1.5 14.5 15.5     NA       0.2        1
+      88  2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      89  2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      90  2 15 #D2D2D2     1    47  1.5  2.5 14.5 15.5     NA       0.2        1
+      91  1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      92  1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      93  1 16 #D2D2D2     1    16  0.5  1.5 15.5 16.5     NA       0.2        1
+      94  2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      95  2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      96  2 16 #D2D2D2     1    48  1.5  2.5 15.5 16.5     NA       0.2        1
+      97  1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      98  1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      99  1 17 #D2D2D2     1    17  0.5  1.5 16.5 17.5     NA       0.2        1
+      100 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      101 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      102 2 17 #D2D2D2     1    49  1.5  2.5 16.5 17.5     NA       0.2        1
+      103 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      104 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      105 1 18 #D2D2D2     1    18  0.5  1.5 17.5 18.5     NA       0.2        1
+      106 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      107 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      108 2 18 #D2D2D2     1    50  1.5  2.5 17.5 18.5     NA       0.2        1
+      109 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      110 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      111 1 19 #D2D2D2     1    19  0.5  1.5 18.5 19.5     NA       0.2        1
+      112 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      113 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      114 2 19 #D2D2D2     1    51  1.5  2.5 18.5 19.5     NA       0.2        1
+      115 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      116 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      117 1 20 #D2D2D2     1    20  0.5  1.5 19.5 20.5     NA       0.2        1
+      118 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      119 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      120 2 20 #D2D2D2     1    52  1.5  2.5 19.5 20.5     NA       0.2        1
+      121 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      122 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      123 1 21 #D2D2D2     1    21  0.5  1.5 20.5 21.5     NA       0.2        1
+      124 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      125 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      126 2 21 #D2D2D2     1    53  1.5  2.5 20.5 21.5     NA       0.2        1
+      127 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      128 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      129 1 22 #D2D2D2     1    22  0.5  1.5 21.5 22.5     NA       0.2        1
+      130 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      131 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      132 2 22 #D2D2D2     1    54  1.5  2.5 21.5 22.5     NA       0.2        1
+      133 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      134 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      135 1 23 #D2D2D2     1    23  0.5  1.5 22.5 23.5     NA       0.2        1
+      136 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      137 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      138 2 23 #D2D2D2     1    55  1.5  2.5 22.5 23.5     NA       0.2        1
+      139 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      140 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      141 1 24 #D2D2D2     1    24  0.5  1.5 23.5 24.5     NA       0.2        1
+      142 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      143 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      144 2 24 #D2D2D2     1    56  1.5  2.5 23.5 24.5     NA       0.2        1
+      145 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      146 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      147 1 25 #D2D2D2     1    25  0.5  1.5 24.5 25.5     NA       0.2        1
+      148 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      149 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      150 2 25 #D2D2D2     1    57  1.5  2.5 24.5 25.5     NA       0.2        1
+      151 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      152 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      153 1 26 #D2D2D2     1    26  0.5  1.5 25.5 26.5     NA       0.2        1
+      154 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      155 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      156 2 26 #D2D2D2     1    58  1.5  2.5 25.5 26.5     NA       0.2        1
+      157 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      158 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      159 1 27 #D2D2D2     1    27  0.5  1.5 26.5 27.5     NA       0.2        1
+      160 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      161 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      162 2 27 #D2D2D2     1    59  1.5  2.5 26.5 27.5     NA       0.2        1
+      163 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      164 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      165 1 28 #D2D2D2     1    28  0.5  1.5 27.5 28.5     NA       0.2        1
+      166 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      167 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      168 2 28 #D2D2D2     1    60  1.5  2.5 27.5 28.5     NA       0.2        1
+      169 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      170 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      171 1 29 #D2D2D2     1    29  0.5  1.5 28.5 29.5     NA       0.2        1
+      172 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      173 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      174 2 29 #D2D2D2     1    61  1.5  2.5 28.5 29.5     NA       0.2        1
+      175 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      176 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      177 1 30 #D2D2D2     1    30  0.5  1.5 29.5 30.5     NA       0.2        1
+      178 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      179 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      180 2 30 #D2D2D2     1    62  1.5  2.5 29.5 30.5     NA       0.2        1
+      181 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      182 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      183 1 31 #D2D2D2     1    31  0.5  1.5 30.5 31.5     NA       0.2        1
+      184 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      185 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      186 2 31 #D2D2D2     1    63  1.5  2.5 30.5 31.5     NA       0.2        1
+      187 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      188 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      189 1 32 #D2D2D2     1    32  0.5  1.5 31.5 32.5     NA       0.2        1
+      190 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
+      191 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
+      192 2 32 #D2D2D2     1    64  1.5  2.5 31.5 32.5     NA       0.2        1
           alpha width height
-      1      NA    NA     NA
-      2      NA    NA     NA
-      3      NA    NA     NA
-      4      NA    NA     NA
-      5      NA    NA     NA
-      6      NA    NA     NA
-      7      NA    NA     NA
-      8      NA    NA     NA
-      9      NA    NA     NA
-      10     NA    NA     NA
-      11     NA    NA     NA
-      12     NA    NA     NA
-      13     NA    NA     NA
-      14     NA    NA     NA
-      15     NA    NA     NA
-      16     NA    NA     NA
-      17     NA    NA     NA
-      18     NA    NA     NA
-      19     NA    NA     NA
-      20     NA    NA     NA
-      21     NA    NA     NA
-      22     NA    NA     NA
-      23     NA    NA     NA
-      24     NA    NA     NA
-      25     NA    NA     NA
-      26     NA    NA     NA
-      27     NA    NA     NA
-      28     NA    NA     NA
-      29     NA    NA     NA
-      30     NA    NA     NA
-      31     NA    NA     NA
-      32     NA    NA     NA
-      33     NA    NA     NA
-      34     NA    NA     NA
-      35     NA    NA     NA
-      36     NA    NA     NA
-      37     NA    NA     NA
-      38     NA    NA     NA
-      39     NA    NA     NA
-      40     NA    NA     NA
-      41     NA    NA     NA
-      42     NA    NA     NA
-      43     NA    NA     NA
-      44     NA    NA     NA
-      45     NA    NA     NA
-      46     NA    NA     NA
-      47     NA    NA     NA
-      48     NA    NA     NA
-      49     NA    NA     NA
-      50     NA    NA     NA
-      51     NA    NA     NA
-      52     NA    NA     NA
-      53     NA    NA     NA
-      54     NA    NA     NA
-      55     NA    NA     NA
-      56     NA    NA     NA
-      57     NA    NA     NA
-      58     NA    NA     NA
-      59     NA    NA     NA
-      60     NA    NA     NA
-      61     NA    NA     NA
-      62     NA    NA     NA
-      63     NA    NA     NA
-      64     NA    NA     NA
-      65     NA    NA     NA
-      66     NA    NA     NA
-      67     NA    NA     NA
-      68     NA    NA     NA
-      69     NA    NA     NA
-      70     NA    NA     NA
-      71     NA    NA     NA
-      72     NA    NA     NA
-      73     NA    NA     NA
-      74     NA    NA     NA
-      75     NA    NA     NA
-      76     NA    NA     NA
-      77     NA    NA     NA
-      78     NA    NA     NA
-      79     NA    NA     NA
-      80     NA    NA     NA
-      81     NA    NA     NA
-      82     NA    NA     NA
-      83     NA    NA     NA
-      84     NA    NA     NA
-      85     NA    NA     NA
-      86     NA    NA     NA
-      87     NA    NA     NA
-      88     NA    NA     NA
-      89     NA    NA     NA
-      90     NA    NA     NA
-      91     NA    NA     NA
-      92     NA    NA     NA
-      93     NA    NA     NA
-      94     NA    NA     NA
-      95     NA    NA     NA
-      96     NA    NA     NA
-      97     NA    NA     NA
-      98     NA    NA     NA
-      99     NA    NA     NA
-      100    NA    NA     NA
-      101    NA    NA     NA
-      102    NA    NA     NA
-      103    NA    NA     NA
-      104    NA    NA     NA
-      105    NA    NA     NA
-      106    NA    NA     NA
-      107    NA    NA     NA
-      108    NA    NA     NA
-      109    NA    NA     NA
-      110    NA    NA     NA
-      111    NA    NA     NA
-      112    NA    NA     NA
-      113    NA    NA     NA
-      114    NA    NA     NA
-      115    NA    NA     NA
-      116    NA    NA     NA
-      117    NA    NA     NA
-      118    NA    NA     NA
-      119    NA    NA     NA
-      120    NA    NA     NA
-      121    NA    NA     NA
-      122    NA    NA     NA
-      123    NA    NA     NA
-      124    NA    NA     NA
-      125    NA    NA     NA
-      126    NA    NA     NA
-      127    NA    NA     NA
-      128    NA    NA     NA
-      129    NA    NA     NA
-      130    NA    NA     NA
-      131    NA    NA     NA
-      132    NA    NA     NA
-      133    NA    NA     NA
-      134    NA    NA     NA
-      135    NA    NA     NA
-      136    NA    NA     NA
-      137    NA    NA     NA
-      138    NA    NA     NA
-      139    NA    NA     NA
-      140    NA    NA     NA
-      141    NA    NA     NA
-      142    NA    NA     NA
-      143    NA    NA     NA
-      144    NA    NA     NA
-      145    NA    NA     NA
-      146    NA    NA     NA
-      147    NA    NA     NA
-      148    NA    NA     NA
-      149    NA    NA     NA
-      150    NA    NA     NA
-      151    NA    NA     NA
-      152    NA    NA     NA
-      153    NA    NA     NA
-      154    NA    NA     NA
-      155    NA    NA     NA
-      156    NA    NA     NA
-      157    NA    NA     NA
-      158    NA    NA     NA
-      159    NA    NA     NA
-      160    NA    NA     NA
-      161    NA    NA     NA
-      162    NA    NA     NA
-      163    NA    NA     NA
-      164    NA    NA     NA
-      165    NA    NA     NA
-      166    NA    NA     NA
-      167    NA    NA     NA
-      168    NA    NA     NA
-      169    NA    NA     NA
-      170    NA    NA     NA
-      171    NA    NA     NA
-      172    NA    NA     NA
-      173    NA    NA     NA
-      174    NA    NA     NA
-      175    NA    NA     NA
-      176    NA    NA     NA
-      177    NA    NA     NA
-      178    NA    NA     NA
-      179    NA    NA     NA
-      180    NA    NA     NA
-      181    NA    NA     NA
-      182    NA    NA     NA
-      183    NA    NA     NA
-      184    NA    NA     NA
-      185    NA    NA     NA
-      186    NA    NA     NA
-      187    NA    NA     NA
-      188    NA    NA     NA
-      189    NA    NA     NA
-      190    NA    NA     NA
-      191    NA    NA     NA
-      192    NA    NA     NA
+      1      NA     1      1
+      2      NA     1      1
+      3      NA     1      1
+      4      NA     1      1
+      5      NA     1      1
+      6      NA     1      1
+      7      NA     1      1
+      8      NA     1      1
+      9      NA     1      1
+      10     NA     1      1
+      11     NA     1      1
+      12     NA     1      1
+      13     NA     1      1
+      14     NA     1      1
+      15     NA     1      1
+      16     NA     1      1
+      17     NA     1      1
+      18     NA     1      1
+      19     NA     1      1
+      20     NA     1      1
+      21     NA     1      1
+      22     NA     1      1
+      23     NA     1      1
+      24     NA     1      1
+      25     NA     1      1
+      26     NA     1      1
+      27     NA     1      1
+      28     NA     1      1
+      29     NA     1      1
+      30     NA     1      1
+      31     NA     1      1
+      32     NA     1      1
+      33     NA     1      1
+      34     NA     1      1
+      35     NA     1      1
+      36     NA     1      1
+      37     NA     1      1
+      38     NA     1      1
+      39     NA     1      1
+      40     NA     1      1
+      41     NA     1      1
+      42     NA     1      1
+      43     NA     1      1
+      44     NA     1      1
+      45     NA     1      1
+      46     NA     1      1
+      47     NA     1      1
+      48     NA     1      1
+      49     NA     1      1
+      50     NA     1      1
+      51     NA     1      1
+      52     NA     1      1
+      53     NA     1      1
+      54     NA     1      1
+      55     NA     1      1
+      56     NA     1      1
+      57     NA     1      1
+      58     NA     1      1
+      59     NA     1      1
+      60     NA     1      1
+      61     NA     1      1
+      62     NA     1      1
+      63     NA     1      1
+      64     NA     1      1
+      65     NA     1      1
+      66     NA     1      1
+      67     NA     1      1
+      68     NA     1      1
+      69     NA     1      1
+      70     NA     1      1
+      71     NA     1      1
+      72     NA     1      1
+      73     NA     1      1
+      74     NA     1      1
+      75     NA     1      1
+      76     NA     1      1
+      77     NA     1      1
+      78     NA     1      1
+      79     NA     1      1
+      80     NA     1      1
+      81     NA     1      1
+      82     NA     1      1
+      83     NA     1      1
+      84     NA     1      1
+      85     NA     1      1
+      86     NA     1      1
+      87     NA     1      1
+      88     NA     1      1
+      89     NA     1      1
+      90     NA     1      1
+      91     NA     1      1
+      92     NA     1      1
+      93     NA     1      1
+      94     NA     1      1
+      95     NA     1      1
+      96     NA     1      1
+      97     NA     1      1
+      98     NA     1      1
+      99     NA     1      1
+      100    NA     1      1
+      101    NA     1      1
+      102    NA     1      1
+      103    NA     1      1
+      104    NA     1      1
+      105    NA     1      1
+      106    NA     1      1
+      107    NA     1      1
+      108    NA     1      1
+      109    NA     1      1
+      110    NA     1      1
+      111    NA     1      1
+      112    NA     1      1
+      113    NA     1      1
+      114    NA     1      1
+      115    NA     1      1
+      116    NA     1      1
+      117    NA     1      1
+      118    NA     1      1
+      119    NA     1      1
+      120    NA     1      1
+      121    NA     1      1
+      122    NA     1      1
+      123    NA     1      1
+      124    NA     1      1
+      125    NA     1      1
+      126    NA     1      1
+      127    NA     1      1
+      128    NA     1      1
+      129    NA     1      1
+      130    NA     1      1
+      131    NA     1      1
+      132    NA     1      1
+      133    NA     1      1
+      134    NA     1      1
+      135    NA     1      1
+      136    NA     1      1
+      137    NA     1      1
+      138    NA     1      1
+      139    NA     1      1
+      140    NA     1      1
+      141    NA     1      1
+      142    NA     1      1
+      143    NA     1      1
+      144    NA     1      1
+      145    NA     1      1
+      146    NA     1      1
+      147    NA     1      1
+      148    NA     1      1
+      149    NA     1      1
+      150    NA     1      1
+      151    NA     1      1
+      152    NA     1      1
+      153    NA     1      1
+      154    NA     1      1
+      155    NA     1      1
+      156    NA     1      1
+      157    NA     1      1
+      158    NA     1      1
+      159    NA     1      1
+      160    NA     1      1
+      161    NA     1      1
+      162    NA     1      1
+      163    NA     1      1
+      164    NA     1      1
+      165    NA     1      1
+      166    NA     1      1
+      167    NA     1      1
+      168    NA     1      1
+      169    NA     1      1
+      170    NA     1      1
+      171    NA     1      1
+      172    NA     1      1
+      173    NA     1      1
+      174    NA     1      1
+      175    NA     1      1
+      176    NA     1      1
+      177    NA     1      1
+      178    NA     1      1
+      179    NA     1      1
+      180    NA     1      1
+      181    NA     1      1
+      182    NA     1      1
+      183    NA     1      1
+      184    NA     1      1
+      185    NA     1      1
+      186    NA     1      1
+      187    NA     1      1
+      188    NA     1      1
+      189    NA     1      1
+      190    NA     1      1
+      191    NA     1      1
+      192    NA     1      1
       
       $mpg$d2$`am:gear`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      8  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      9  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      10 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      14 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      15 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      16 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      17 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      18 #D2D2D2 2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      8  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      9  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      10 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      11 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      12 2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      13 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      14 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      15 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      16 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      17 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      18 2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
       
       $mpg$d2$`am:carb`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      8  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      9  #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      10 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      14 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      15 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      16 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      17 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      18 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      19 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      20 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      21 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      22 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      23 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      24 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      25 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      26 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      27 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      28 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      29 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      30 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      8  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      9  1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      10 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      11 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      12 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      13 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      14 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      15 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      16 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      17 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      18 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      19 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      20 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      21 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      22 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      23 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      24 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      25 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      26 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      27 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      28 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      29 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      30 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
       
       $mpg$d2$`am:wt`
-            fill x  y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      8  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      9  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      10 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      14 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      15 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      16 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      17 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      18 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      19 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      20 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      21 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      22 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      23 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      24 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      25 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      26 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      27 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      28 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      29 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      30 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      31 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      32 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      33 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      34 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      35 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      36 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      37 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      38 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      39 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      40 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      41 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      42 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      43 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      44 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      45 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      46 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      47 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      48 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      49 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      50 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      51 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      52 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      53 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      54 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      55 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      56 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      57 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      58 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      59 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      60 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
+         x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      8  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      9  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      10 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      11 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      12 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      13 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      14 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      15 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      16 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      17 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      18 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      19 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      20 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      21 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      22 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      23 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      24 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      25 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      26 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      27 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      28 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      29 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      30 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      31 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      32 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      33 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      34 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      35 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      36 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      37 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      38 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      39 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      40 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      41 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      42 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      43 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      44 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      45 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      46 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      47 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      48 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      49 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      50 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      51 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      52 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      53 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      54 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      55 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      56 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      57 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      58 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      59 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      60 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
-      31    NA     NA
-      32    NA     NA
-      33    NA     NA
-      34    NA     NA
-      35    NA     NA
-      36    NA     NA
-      37    NA     NA
-      38    NA     NA
-      39    NA     NA
-      40    NA     NA
-      41    NA     NA
-      42    NA     NA
-      43    NA     NA
-      44    NA     NA
-      45    NA     NA
-      46    NA     NA
-      47    NA     NA
-      48    NA     NA
-      49    NA     NA
-      50    NA     NA
-      51    NA     NA
-      52    NA     NA
-      53    NA     NA
-      54    NA     NA
-      55    NA     NA
-      56    NA     NA
-      57    NA     NA
-      58    NA     NA
-      59    NA     NA
-      60    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
+      31     1      1
+      32     1      1
+      33     1      1
+      34     1      1
+      35     1      1
+      36     1      1
+      37     1      1
+      38     1      1
+      39     1      1
+      40     1      1
+      41     1      1
+      42     1      1
+      43     1      1
+      44     1      1
+      45     1      1
+      46     1      1
+      47     1      1
+      48     1      1
+      49     1      1
+      50     1      1
+      51     1      1
+      52     1      1
+      53     1      1
+      54     1      1
+      55     1      1
+      56     1      1
+      57     1      1
+      58     1      1
+      59     1      1
+      60     1      1
       
       $mpg$d2$`model:gear`
-             fill  x y PANEL group xmin xmax ymin ymax colour linewidth linetype
-      1   #D2D2D2  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      2   #D2D2D2  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      3   #D2D2D2  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      4   #D2D2D2  2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1
-      5   #D2D2D2  2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1
-      6   #D2D2D2  2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1
-      7   #D2D2D2  3 1     1     7  2.5  3.5  0.5  1.5     NA       0.1        1
-      8   #D2D2D2  3 1     1     7  2.5  3.5  0.5  1.5     NA       0.1        1
-      9   #D2D2D2  3 1     1     7  2.5  3.5  0.5  1.5     NA       0.1        1
-      10  #D2D2D2  4 1     1    10  3.5  4.5  0.5  1.5     NA       0.1        1
-      11  #D2D2D2  4 1     1    10  3.5  4.5  0.5  1.5     NA       0.1        1
-      12  #D2D2D2  4 1     1    10  3.5  4.5  0.5  1.5     NA       0.1        1
-      13  #D2D2D2  5 1     1    13  4.5  5.5  0.5  1.5     NA       0.1        1
-      14  #D2D2D2  5 1     1    13  4.5  5.5  0.5  1.5     NA       0.1        1
-      15  #D2D2D2  5 1     1    13  4.5  5.5  0.5  1.5     NA       0.1        1
-      16  #D2D2D2  6 1     1    16  5.5  6.5  0.5  1.5     NA       0.1        1
-      17  #D2D2D2  6 1     1    16  5.5  6.5  0.5  1.5     NA       0.1        1
-      18  #D2D2D2  6 1     1    16  5.5  6.5  0.5  1.5     NA       0.1        1
-      19  #D2D2D2  7 1     1    19  6.5  7.5  0.5  1.5     NA       0.1        1
-      20  #D2D2D2  7 1     1    19  6.5  7.5  0.5  1.5     NA       0.1        1
-      21  #D2D2D2  7 1     1    19  6.5  7.5  0.5  1.5     NA       0.1        1
-      22  #D2D2D2  8 1     1    22  7.5  8.5  0.5  1.5     NA       0.1        1
-      23  #D2D2D2  8 1     1    22  7.5  8.5  0.5  1.5     NA       0.1        1
-      24  #D2D2D2  8 1     1    22  7.5  8.5  0.5  1.5     NA       0.1        1
-      25  #D2D2D2  9 1     1    25  8.5  9.5  0.5  1.5     NA       0.1        1
-      26  #D2D2D2  9 1     1    25  8.5  9.5  0.5  1.5     NA       0.1        1
-      27  #D2D2D2  9 1     1    25  8.5  9.5  0.5  1.5     NA       0.1        1
-      28  #D2D2D2 10 1     1    28  9.5 10.5  0.5  1.5     NA       0.1        1
-      29  #D2D2D2 10 1     1    28  9.5 10.5  0.5  1.5     NA       0.1        1
-      30  #D2D2D2 10 1     1    28  9.5 10.5  0.5  1.5     NA       0.1        1
-      31  #D2D2D2 11 1     1    31 10.5 11.5  0.5  1.5     NA       0.1        1
-      32  #D2D2D2 11 1     1    31 10.5 11.5  0.5  1.5     NA       0.1        1
-      33  #D2D2D2 11 1     1    31 10.5 11.5  0.5  1.5     NA       0.1        1
-      34  #D2D2D2 12 1     1    34 11.5 12.5  0.5  1.5     NA       0.1        1
-      35  #D2D2D2 12 1     1    34 11.5 12.5  0.5  1.5     NA       0.1        1
-      36  #D2D2D2 12 1     1    34 11.5 12.5  0.5  1.5     NA       0.1        1
-      37  #D2D2D2 13 1     1    37 12.5 13.5  0.5  1.5     NA       0.1        1
-      38  #D2D2D2 13 1     1    37 12.5 13.5  0.5  1.5     NA       0.1        1
-      39  #D2D2D2 13 1     1    37 12.5 13.5  0.5  1.5     NA       0.1        1
-      40  #D2D2D2 14 1     1    40 13.5 14.5  0.5  1.5     NA       0.1        1
-      41  #D2D2D2 14 1     1    40 13.5 14.5  0.5  1.5     NA       0.1        1
-      42  #D2D2D2 14 1     1    40 13.5 14.5  0.5  1.5     NA       0.1        1
-      43  #D2D2D2 15 1     1    43 14.5 15.5  0.5  1.5     NA       0.1        1
-      44  #D2D2D2 15 1     1    43 14.5 15.5  0.5  1.5     NA       0.1        1
-      45  #D2D2D2 15 1     1    43 14.5 15.5  0.5  1.5     NA       0.1        1
-      46  #D2D2D2 16 1     1    46 15.5 16.5  0.5  1.5     NA       0.1        1
-      47  #D2D2D2 16 1     1    46 15.5 16.5  0.5  1.5     NA       0.1        1
-      48  #D2D2D2 16 1     1    46 15.5 16.5  0.5  1.5     NA       0.1        1
-      49  #D2D2D2 17 1     1    49 16.5 17.5  0.5  1.5     NA       0.1        1
-      50  #D2D2D2 17 1     1    49 16.5 17.5  0.5  1.5     NA       0.1        1
-      51  #D2D2D2 17 1     1    49 16.5 17.5  0.5  1.5     NA       0.1        1
-      52  #D2D2D2 18 1     1    52 17.5 18.5  0.5  1.5     NA       0.1        1
-      53  #D2D2D2 18 1     1    52 17.5 18.5  0.5  1.5     NA       0.1        1
-      54  #D2D2D2 18 1     1    52 17.5 18.5  0.5  1.5     NA       0.1        1
-      55  #D2D2D2 19 1     1    55 18.5 19.5  0.5  1.5     NA       0.1        1
-      56  #D2D2D2 19 1     1    55 18.5 19.5  0.5  1.5     NA       0.1        1
-      57  #D2D2D2 19 1     1    55 18.5 19.5  0.5  1.5     NA       0.1        1
-      58  #D2D2D2 20 1     1    58 19.5 20.5  0.5  1.5     NA       0.1        1
-      59  #D2D2D2 20 1     1    58 19.5 20.5  0.5  1.5     NA       0.1        1
-      60  #D2D2D2 20 1     1    58 19.5 20.5  0.5  1.5     NA       0.1        1
-      61  #D2D2D2 21 1     1    61 20.5 21.5  0.5  1.5     NA       0.1        1
-      62  #D2D2D2 21 1     1    61 20.5 21.5  0.5  1.5     NA       0.1        1
-      63  #D2D2D2 21 1     1    61 20.5 21.5  0.5  1.5     NA       0.1        1
-      64  #D2D2D2 22 1     1    64 21.5 22.5  0.5  1.5     NA       0.1        1
-      65  #D2D2D2 22 1     1    64 21.5 22.5  0.5  1.5     NA       0.1        1
-      66  #D2D2D2 22 1     1    64 21.5 22.5  0.5  1.5     NA       0.1        1
-      67  #D2D2D2 23 1     1    67 22.5 23.5  0.5  1.5     NA       0.1        1
-      68  #D2D2D2 23 1     1    67 22.5 23.5  0.5  1.5     NA       0.1        1
-      69  #D2D2D2 23 1     1    67 22.5 23.5  0.5  1.5     NA       0.1        1
-      70  #D2D2D2 24 1     1    70 23.5 24.5  0.5  1.5     NA       0.1        1
-      71  #D2D2D2 24 1     1    70 23.5 24.5  0.5  1.5     NA       0.1        1
-      72  #D2D2D2 24 1     1    70 23.5 24.5  0.5  1.5     NA       0.1        1
-      73  #D2D2D2 25 1     1    73 24.5 25.5  0.5  1.5     NA       0.1        1
-      74  #D2D2D2 25 1     1    73 24.5 25.5  0.5  1.5     NA       0.1        1
-      75  #D2D2D2 25 1     1    73 24.5 25.5  0.5  1.5     NA       0.1        1
-      76  #D2D2D2 26 1     1    76 25.5 26.5  0.5  1.5     NA       0.1        1
-      77  #D2D2D2 26 1     1    76 25.5 26.5  0.5  1.5     NA       0.1        1
-      78  #D2D2D2 26 1     1    76 25.5 26.5  0.5  1.5     NA       0.1        1
-      79  #D2D2D2 27 1     1    79 26.5 27.5  0.5  1.5     NA       0.1        1
-      80  #D2D2D2 27 1     1    79 26.5 27.5  0.5  1.5     NA       0.1        1
-      81  #D2D2D2 27 1     1    79 26.5 27.5  0.5  1.5     NA       0.1        1
-      82  #D2D2D2 28 1     1    82 27.5 28.5  0.5  1.5     NA       0.1        1
-      83  #D2D2D2 28 1     1    82 27.5 28.5  0.5  1.5     NA       0.1        1
-      84  #D2D2D2 28 1     1    82 27.5 28.5  0.5  1.5     NA       0.1        1
-      85  #D2D2D2 29 1     1    85 28.5 29.5  0.5  1.5     NA       0.1        1
-      86  #D2D2D2 29 1     1    85 28.5 29.5  0.5  1.5     NA       0.1        1
-      87  #D2D2D2 29 1     1    85 28.5 29.5  0.5  1.5     NA       0.1        1
-      88  #D2D2D2 30 1     1    88 29.5 30.5  0.5  1.5     NA       0.1        1
-      89  #D2D2D2 30 1     1    88 29.5 30.5  0.5  1.5     NA       0.1        1
-      90  #D2D2D2 30 1     1    88 29.5 30.5  0.5  1.5     NA       0.1        1
-      91  #D2D2D2 31 1     1    91 30.5 31.5  0.5  1.5     NA       0.1        1
-      92  #D2D2D2 31 1     1    91 30.5 31.5  0.5  1.5     NA       0.1        1
-      93  #D2D2D2 31 1     1    91 30.5 31.5  0.5  1.5     NA       0.1        1
-      94  #D2D2D2 32 1     1    94 31.5 32.5  0.5  1.5     NA       0.1        1
-      95  #D2D2D2 32 1     1    94 31.5 32.5  0.5  1.5     NA       0.1        1
-      96  #D2D2D2 32 1     1    94 31.5 32.5  0.5  1.5     NA       0.1        1
-      97  #D2D2D2  1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      98  #D2D2D2  1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      99  #D2D2D2  1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      100 #D2D2D2  2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1
-      101 #D2D2D2  2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1
-      102 #D2D2D2  2 2     1     5  1.5  2.5  1.5  2.5     NA       0.1        1
-      103 #D2D2D2  3 2     1     8  2.5  3.5  1.5  2.5     NA       0.1        1
-      104 #D2D2D2  3 2     1     8  2.5  3.5  1.5  2.5     NA       0.1        1
-      105 #D2D2D2  3 2     1     8  2.5  3.5  1.5  2.5     NA       0.1        1
-      106 #D2D2D2  4 2     1    11  3.5  4.5  1.5  2.5     NA       0.1        1
-      107 #D2D2D2  4 2     1    11  3.5  4.5  1.5  2.5     NA       0.1        1
-      108 #D2D2D2  4 2     1    11  3.5  4.5  1.5  2.5     NA       0.1        1
-      109 #D2D2D2  5 2     1    14  4.5  5.5  1.5  2.5     NA       0.1        1
-      110 #D2D2D2  5 2     1    14  4.5  5.5  1.5  2.5     NA       0.1        1
-      111 #D2D2D2  5 2     1    14  4.5  5.5  1.5  2.5     NA       0.1        1
-      112 #D2D2D2  6 2     1    17  5.5  6.5  1.5  2.5     NA       0.1        1
-      113 #D2D2D2  6 2     1    17  5.5  6.5  1.5  2.5     NA       0.1        1
-      114 #D2D2D2  6 2     1    17  5.5  6.5  1.5  2.5     NA       0.1        1
-      115 #D2D2D2  7 2     1    20  6.5  7.5  1.5  2.5     NA       0.1        1
-      116 #D2D2D2  7 2     1    20  6.5  7.5  1.5  2.5     NA       0.1        1
-      117 #D2D2D2  7 2     1    20  6.5  7.5  1.5  2.5     NA       0.1        1
-      118 #D2D2D2  8 2     1    23  7.5  8.5  1.5  2.5     NA       0.1        1
-      119 #D2D2D2  8 2     1    23  7.5  8.5  1.5  2.5     NA       0.1        1
-      120 #D2D2D2  8 2     1    23  7.5  8.5  1.5  2.5     NA       0.1        1
-      121 #D2D2D2  9 2     1    26  8.5  9.5  1.5  2.5     NA       0.1        1
-      122 #D2D2D2  9 2     1    26  8.5  9.5  1.5  2.5     NA       0.1        1
-      123 #D2D2D2  9 2     1    26  8.5  9.5  1.5  2.5     NA       0.1        1
-      124 #D2D2D2 10 2     1    29  9.5 10.5  1.5  2.5     NA       0.1        1
-      125 #D2D2D2 10 2     1    29  9.5 10.5  1.5  2.5     NA       0.1        1
-      126 #D2D2D2 10 2     1    29  9.5 10.5  1.5  2.5     NA       0.1        1
-      127 #D2D2D2 11 2     1    32 10.5 11.5  1.5  2.5     NA       0.1        1
-      128 #D2D2D2 11 2     1    32 10.5 11.5  1.5  2.5     NA       0.1        1
-      129 #D2D2D2 11 2     1    32 10.5 11.5  1.5  2.5     NA       0.1        1
-      130 #D2D2D2 12 2     1    35 11.5 12.5  1.5  2.5     NA       0.1        1
-      131 #D2D2D2 12 2     1    35 11.5 12.5  1.5  2.5     NA       0.1        1
-      132 #D2D2D2 12 2     1    35 11.5 12.5  1.5  2.5     NA       0.1        1
-      133 #D2D2D2 13 2     1    38 12.5 13.5  1.5  2.5     NA       0.1        1
-      134 #D2D2D2 13 2     1    38 12.5 13.5  1.5  2.5     NA       0.1        1
-      135 #D2D2D2 13 2     1    38 12.5 13.5  1.5  2.5     NA       0.1        1
-      136 #D2D2D2 14 2     1    41 13.5 14.5  1.5  2.5     NA       0.1        1
-      137 #D2D2D2 14 2     1    41 13.5 14.5  1.5  2.5     NA       0.1        1
-      138 #D2D2D2 14 2     1    41 13.5 14.5  1.5  2.5     NA       0.1        1
-      139 #D2D2D2 15 2     1    44 14.5 15.5  1.5  2.5     NA       0.1        1
-      140 #D2D2D2 15 2     1    44 14.5 15.5  1.5  2.5     NA       0.1        1
-      141 #D2D2D2 15 2     1    44 14.5 15.5  1.5  2.5     NA       0.1        1
-      142 #D2D2D2 16 2     1    47 15.5 16.5  1.5  2.5     NA       0.1        1
-      143 #D2D2D2 16 2     1    47 15.5 16.5  1.5  2.5     NA       0.1        1
-      144 #D2D2D2 16 2     1    47 15.5 16.5  1.5  2.5     NA       0.1        1
-      145 #D2D2D2 17 2     1    50 16.5 17.5  1.5  2.5     NA       0.1        1
-      146 #D2D2D2 17 2     1    50 16.5 17.5  1.5  2.5     NA       0.1        1
-      147 #D2D2D2 17 2     1    50 16.5 17.5  1.5  2.5     NA       0.1        1
-      148 #D2D2D2 18 2     1    53 17.5 18.5  1.5  2.5     NA       0.1        1
-      149 #D2D2D2 18 2     1    53 17.5 18.5  1.5  2.5     NA       0.1        1
-      150 #D2D2D2 18 2     1    53 17.5 18.5  1.5  2.5     NA       0.1        1
-      151 #D2D2D2 19 2     1    56 18.5 19.5  1.5  2.5     NA       0.1        1
-      152 #D2D2D2 19 2     1    56 18.5 19.5  1.5  2.5     NA       0.1        1
-      153 #D2D2D2 19 2     1    56 18.5 19.5  1.5  2.5     NA       0.1        1
-      154 #D2D2D2 20 2     1    59 19.5 20.5  1.5  2.5     NA       0.1        1
-      155 #D2D2D2 20 2     1    59 19.5 20.5  1.5  2.5     NA       0.1        1
-      156 #D2D2D2 20 2     1    59 19.5 20.5  1.5  2.5     NA       0.1        1
-      157 #D2D2D2 21 2     1    62 20.5 21.5  1.5  2.5     NA       0.1        1
-      158 #D2D2D2 21 2     1    62 20.5 21.5  1.5  2.5     NA       0.1        1
-      159 #D2D2D2 21 2     1    62 20.5 21.5  1.5  2.5     NA       0.1        1
-      160 #D2D2D2 22 2     1    65 21.5 22.5  1.5  2.5     NA       0.1        1
-      161 #D2D2D2 22 2     1    65 21.5 22.5  1.5  2.5     NA       0.1        1
-      162 #D2D2D2 22 2     1    65 21.5 22.5  1.5  2.5     NA       0.1        1
-      163 #D2D2D2 23 2     1    68 22.5 23.5  1.5  2.5     NA       0.1        1
-      164 #D2D2D2 23 2     1    68 22.5 23.5  1.5  2.5     NA       0.1        1
-      165 #D2D2D2 23 2     1    68 22.5 23.5  1.5  2.5     NA       0.1        1
-      166 #D2D2D2 24 2     1    71 23.5 24.5  1.5  2.5     NA       0.1        1
-      167 #D2D2D2 24 2     1    71 23.5 24.5  1.5  2.5     NA       0.1        1
-      168 #D2D2D2 24 2     1    71 23.5 24.5  1.5  2.5     NA       0.1        1
-      169 #D2D2D2 25 2     1    74 24.5 25.5  1.5  2.5     NA       0.1        1
-      170 #D2D2D2 25 2     1    74 24.5 25.5  1.5  2.5     NA       0.1        1
-      171 #D2D2D2 25 2     1    74 24.5 25.5  1.5  2.5     NA       0.1        1
-      172 #D2D2D2 26 2     1    77 25.5 26.5  1.5  2.5     NA       0.1        1
-      173 #D2D2D2 26 2     1    77 25.5 26.5  1.5  2.5     NA       0.1        1
-      174 #D2D2D2 26 2     1    77 25.5 26.5  1.5  2.5     NA       0.1        1
-      175 #D2D2D2 27 2     1    80 26.5 27.5  1.5  2.5     NA       0.1        1
-      176 #D2D2D2 27 2     1    80 26.5 27.5  1.5  2.5     NA       0.1        1
-      177 #D2D2D2 27 2     1    80 26.5 27.5  1.5  2.5     NA       0.1        1
-      178 #D2D2D2 28 2     1    83 27.5 28.5  1.5  2.5     NA       0.1        1
-      179 #D2D2D2 28 2     1    83 27.5 28.5  1.5  2.5     NA       0.1        1
-      180 #D2D2D2 28 2     1    83 27.5 28.5  1.5  2.5     NA       0.1        1
-      181 #D2D2D2 29 2     1    86 28.5 29.5  1.5  2.5     NA       0.1        1
-      182 #D2D2D2 29 2     1    86 28.5 29.5  1.5  2.5     NA       0.1        1
-      183 #D2D2D2 29 2     1    86 28.5 29.5  1.5  2.5     NA       0.1        1
-      184 #D2D2D2 30 2     1    89 29.5 30.5  1.5  2.5     NA       0.1        1
-      185 #D2D2D2 30 2     1    89 29.5 30.5  1.5  2.5     NA       0.1        1
-      186 #D2D2D2 30 2     1    89 29.5 30.5  1.5  2.5     NA       0.1        1
-      187 #D2D2D2 31 2     1    92 30.5 31.5  1.5  2.5     NA       0.1        1
-      188 #D2D2D2 31 2     1    92 30.5 31.5  1.5  2.5     NA       0.1        1
-      189 #D2D2D2 31 2     1    92 30.5 31.5  1.5  2.5     NA       0.1        1
-      190 #D2D2D2 32 2     1    95 31.5 32.5  1.5  2.5     NA       0.1        1
-      191 #D2D2D2 32 2     1    95 31.5 32.5  1.5  2.5     NA       0.1        1
-      192 #D2D2D2 32 2     1    95 31.5 32.5  1.5  2.5     NA       0.1        1
-      193 #D2D2D2  1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      194 #D2D2D2  1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      195 #D2D2D2  1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      196 #D2D2D2  2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1
-      197 #D2D2D2  2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1
-      198 #D2D2D2  2 3     1     6  1.5  2.5  2.5  3.5     NA       0.1        1
-      199 #D2D2D2  3 3     1     9  2.5  3.5  2.5  3.5     NA       0.1        1
-      200 #D2D2D2  3 3     1     9  2.5  3.5  2.5  3.5     NA       0.1        1
-      201 #D2D2D2  3 3     1     9  2.5  3.5  2.5  3.5     NA       0.1        1
-      202 #D2D2D2  4 3     1    12  3.5  4.5  2.5  3.5     NA       0.1        1
-      203 #D2D2D2  4 3     1    12  3.5  4.5  2.5  3.5     NA       0.1        1
-      204 #D2D2D2  4 3     1    12  3.5  4.5  2.5  3.5     NA       0.1        1
-      205 #D2D2D2  5 3     1    15  4.5  5.5  2.5  3.5     NA       0.1        1
-      206 #D2D2D2  5 3     1    15  4.5  5.5  2.5  3.5     NA       0.1        1
-      207 #D2D2D2  5 3     1    15  4.5  5.5  2.5  3.5     NA       0.1        1
-      208 #D2D2D2  6 3     1    18  5.5  6.5  2.5  3.5     NA       0.1        1
-      209 #D2D2D2  6 3     1    18  5.5  6.5  2.5  3.5     NA       0.1        1
-      210 #D2D2D2  6 3     1    18  5.5  6.5  2.5  3.5     NA       0.1        1
-      211 #D2D2D2  7 3     1    21  6.5  7.5  2.5  3.5     NA       0.1        1
-      212 #D2D2D2  7 3     1    21  6.5  7.5  2.5  3.5     NA       0.1        1
-      213 #D2D2D2  7 3     1    21  6.5  7.5  2.5  3.5     NA       0.1        1
-      214 #D2D2D2  8 3     1    24  7.5  8.5  2.5  3.5     NA       0.1        1
-      215 #D2D2D2  8 3     1    24  7.5  8.5  2.5  3.5     NA       0.1        1
-      216 #D2D2D2  8 3     1    24  7.5  8.5  2.5  3.5     NA       0.1        1
-      217 #D2D2D2  9 3     1    27  8.5  9.5  2.5  3.5     NA       0.1        1
-      218 #D2D2D2  9 3     1    27  8.5  9.5  2.5  3.5     NA       0.1        1
-      219 #D2D2D2  9 3     1    27  8.5  9.5  2.5  3.5     NA       0.1        1
-      220 #D2D2D2 10 3     1    30  9.5 10.5  2.5  3.5     NA       0.1        1
-      221 #D2D2D2 10 3     1    30  9.5 10.5  2.5  3.5     NA       0.1        1
-      222 #D2D2D2 10 3     1    30  9.5 10.5  2.5  3.5     NA       0.1        1
-      223 #D2D2D2 11 3     1    33 10.5 11.5  2.5  3.5     NA       0.1        1
-      224 #D2D2D2 11 3     1    33 10.5 11.5  2.5  3.5     NA       0.1        1
-      225 #D2D2D2 11 3     1    33 10.5 11.5  2.5  3.5     NA       0.1        1
-      226 #D2D2D2 12 3     1    36 11.5 12.5  2.5  3.5     NA       0.1        1
-      227 #D2D2D2 12 3     1    36 11.5 12.5  2.5  3.5     NA       0.1        1
-      228 #D2D2D2 12 3     1    36 11.5 12.5  2.5  3.5     NA       0.1        1
-      229 #D2D2D2 13 3     1    39 12.5 13.5  2.5  3.5     NA       0.1        1
-      230 #D2D2D2 13 3     1    39 12.5 13.5  2.5  3.5     NA       0.1        1
-      231 #D2D2D2 13 3     1    39 12.5 13.5  2.5  3.5     NA       0.1        1
-      232 #D2D2D2 14 3     1    42 13.5 14.5  2.5  3.5     NA       0.1        1
-      233 #D2D2D2 14 3     1    42 13.5 14.5  2.5  3.5     NA       0.1        1
-      234 #D2D2D2 14 3     1    42 13.5 14.5  2.5  3.5     NA       0.1        1
-      235 #D2D2D2 15 3     1    45 14.5 15.5  2.5  3.5     NA       0.1        1
-      236 #D2D2D2 15 3     1    45 14.5 15.5  2.5  3.5     NA       0.1        1
-      237 #D2D2D2 15 3     1    45 14.5 15.5  2.5  3.5     NA       0.1        1
-      238 #D2D2D2 16 3     1    48 15.5 16.5  2.5  3.5     NA       0.1        1
-      239 #D2D2D2 16 3     1    48 15.5 16.5  2.5  3.5     NA       0.1        1
-      240 #D2D2D2 16 3     1    48 15.5 16.5  2.5  3.5     NA       0.1        1
-      241 #D2D2D2 17 3     1    51 16.5 17.5  2.5  3.5     NA       0.1        1
-      242 #D2D2D2 17 3     1    51 16.5 17.5  2.5  3.5     NA       0.1        1
-      243 #D2D2D2 17 3     1    51 16.5 17.5  2.5  3.5     NA       0.1        1
-      244 #D2D2D2 18 3     1    54 17.5 18.5  2.5  3.5     NA       0.1        1
-      245 #D2D2D2 18 3     1    54 17.5 18.5  2.5  3.5     NA       0.1        1
-      246 #D2D2D2 18 3     1    54 17.5 18.5  2.5  3.5     NA       0.1        1
-      247 #D2D2D2 19 3     1    57 18.5 19.5  2.5  3.5     NA       0.1        1
-      248 #D2D2D2 19 3     1    57 18.5 19.5  2.5  3.5     NA       0.1        1
-      249 #D2D2D2 19 3     1    57 18.5 19.5  2.5  3.5     NA       0.1        1
-      250 #D2D2D2 20 3     1    60 19.5 20.5  2.5  3.5     NA       0.1        1
-      251 #D2D2D2 20 3     1    60 19.5 20.5  2.5  3.5     NA       0.1        1
-      252 #D2D2D2 20 3     1    60 19.5 20.5  2.5  3.5     NA       0.1        1
-      253 #D2D2D2 21 3     1    63 20.5 21.5  2.5  3.5     NA       0.1        1
-      254 #D2D2D2 21 3     1    63 20.5 21.5  2.5  3.5     NA       0.1        1
-      255 #D2D2D2 21 3     1    63 20.5 21.5  2.5  3.5     NA       0.1        1
-      256 #D2D2D2 22 3     1    66 21.5 22.5  2.5  3.5     NA       0.1        1
-      257 #D2D2D2 22 3     1    66 21.5 22.5  2.5  3.5     NA       0.1        1
-      258 #D2D2D2 22 3     1    66 21.5 22.5  2.5  3.5     NA       0.1        1
-      259 #D2D2D2 23 3     1    69 22.5 23.5  2.5  3.5     NA       0.1        1
-      260 #D2D2D2 23 3     1    69 22.5 23.5  2.5  3.5     NA       0.1        1
-      261 #D2D2D2 23 3     1    69 22.5 23.5  2.5  3.5     NA       0.1        1
-      262 #D2D2D2 24 3     1    72 23.5 24.5  2.5  3.5     NA       0.1        1
-      263 #D2D2D2 24 3     1    72 23.5 24.5  2.5  3.5     NA       0.1        1
-      264 #D2D2D2 24 3     1    72 23.5 24.5  2.5  3.5     NA       0.1        1
-      265 #D2D2D2 25 3     1    75 24.5 25.5  2.5  3.5     NA       0.1        1
-      266 #D2D2D2 25 3     1    75 24.5 25.5  2.5  3.5     NA       0.1        1
-      267 #D2D2D2 25 3     1    75 24.5 25.5  2.5  3.5     NA       0.1        1
-      268 #D2D2D2 26 3     1    78 25.5 26.5  2.5  3.5     NA       0.1        1
-      269 #D2D2D2 26 3     1    78 25.5 26.5  2.5  3.5     NA       0.1        1
-      270 #D2D2D2 26 3     1    78 25.5 26.5  2.5  3.5     NA       0.1        1
-      271 #D2D2D2 27 3     1    81 26.5 27.5  2.5  3.5     NA       0.1        1
-      272 #D2D2D2 27 3     1    81 26.5 27.5  2.5  3.5     NA       0.1        1
-      273 #D2D2D2 27 3     1    81 26.5 27.5  2.5  3.5     NA       0.1        1
-      274 #D2D2D2 28 3     1    84 27.5 28.5  2.5  3.5     NA       0.1        1
-      275 #D2D2D2 28 3     1    84 27.5 28.5  2.5  3.5     NA       0.1        1
-      276 #D2D2D2 28 3     1    84 27.5 28.5  2.5  3.5     NA       0.1        1
-      277 #D2D2D2 29 3     1    87 28.5 29.5  2.5  3.5     NA       0.1        1
-      278 #D2D2D2 29 3     1    87 28.5 29.5  2.5  3.5     NA       0.1        1
-      279 #D2D2D2 29 3     1    87 28.5 29.5  2.5  3.5     NA       0.1        1
-      280 #D2D2D2 30 3     1    90 29.5 30.5  2.5  3.5     NA       0.1        1
-      281 #D2D2D2 30 3     1    90 29.5 30.5  2.5  3.5     NA       0.1        1
-      282 #D2D2D2 30 3     1    90 29.5 30.5  2.5  3.5     NA       0.1        1
-      283 #D2D2D2 31 3     1    93 30.5 31.5  2.5  3.5     NA       0.1        1
-      284 #D2D2D2 31 3     1    93 30.5 31.5  2.5  3.5     NA       0.1        1
-      285 #D2D2D2 31 3     1    93 30.5 31.5  2.5  3.5     NA       0.1        1
-      286 #D2D2D2 32 3     1    96 31.5 32.5  2.5  3.5     NA       0.1        1
-      287 #D2D2D2 32 3     1    96 31.5 32.5  2.5  3.5     NA       0.1        1
-      288 #D2D2D2 32 3     1    96 31.5 32.5  2.5  3.5     NA       0.1        1
+           x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype
+      1    1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      2    1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      3    1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      4    2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
+      5    2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
+      6    2 1 #D2D2D2     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
+      7    3 1 #D2D2D2     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
+      8    3 1 #D2D2D2     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
+      9    3 1 #D2D2D2     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
+      10   4 1 #D2D2D2     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
+      11   4 1 #D2D2D2     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
+      12   4 1 #D2D2D2     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
+      13   5 1 #D2D2D2     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
+      14   5 1 #D2D2D2     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
+      15   5 1 #D2D2D2     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
+      16   6 1 #D2D2D2     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
+      17   6 1 #D2D2D2     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
+      18   6 1 #D2D2D2     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
+      19   7 1 #D2D2D2     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
+      20   7 1 #D2D2D2     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
+      21   7 1 #D2D2D2     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
+      22   8 1 #D2D2D2     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
+      23   8 1 #D2D2D2     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
+      24   8 1 #D2D2D2     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
+      25   9 1 #D2D2D2     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
+      26   9 1 #D2D2D2     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
+      27   9 1 #D2D2D2     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
+      28  10 1 #D2D2D2     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
+      29  10 1 #D2D2D2     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
+      30  10 1 #D2D2D2     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
+      31  11 1 #D2D2D2     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
+      32  11 1 #D2D2D2     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
+      33  11 1 #D2D2D2     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
+      34  12 1 #D2D2D2     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
+      35  12 1 #D2D2D2     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
+      36  12 1 #D2D2D2     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
+      37  13 1 #D2D2D2     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
+      38  13 1 #D2D2D2     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
+      39  13 1 #D2D2D2     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
+      40  14 1 #D2D2D2     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
+      41  14 1 #D2D2D2     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
+      42  14 1 #D2D2D2     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
+      43  15 1 #D2D2D2     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
+      44  15 1 #D2D2D2     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
+      45  15 1 #D2D2D2     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
+      46  16 1 #D2D2D2     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
+      47  16 1 #D2D2D2     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
+      48  16 1 #D2D2D2     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
+      49  17 1 #D2D2D2     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
+      50  17 1 #D2D2D2     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
+      51  17 1 #D2D2D2     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
+      52  18 1 #D2D2D2     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
+      53  18 1 #D2D2D2     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
+      54  18 1 #D2D2D2     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
+      55  19 1 #D2D2D2     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
+      56  19 1 #D2D2D2     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
+      57  19 1 #D2D2D2     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
+      58  20 1 #D2D2D2     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
+      59  20 1 #D2D2D2     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
+      60  20 1 #D2D2D2     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
+      61  21 1 #D2D2D2     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
+      62  21 1 #D2D2D2     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
+      63  21 1 #D2D2D2     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
+      64  22 1 #D2D2D2     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
+      65  22 1 #D2D2D2     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
+      66  22 1 #D2D2D2     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
+      67  23 1 #D2D2D2     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
+      68  23 1 #D2D2D2     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
+      69  23 1 #D2D2D2     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
+      70  24 1 #D2D2D2     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
+      71  24 1 #D2D2D2     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
+      72  24 1 #D2D2D2     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
+      73  25 1 #D2D2D2     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
+      74  25 1 #D2D2D2     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
+      75  25 1 #D2D2D2     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
+      76  26 1 #D2D2D2     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
+      77  26 1 #D2D2D2     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
+      78  26 1 #D2D2D2     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
+      79  27 1 #D2D2D2     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
+      80  27 1 #D2D2D2     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
+      81  27 1 #D2D2D2     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
+      82  28 1 #D2D2D2     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
+      83  28 1 #D2D2D2     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
+      84  28 1 #D2D2D2     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
+      85  29 1 #D2D2D2     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
+      86  29 1 #D2D2D2     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
+      87  29 1 #D2D2D2     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
+      88  30 1 #D2D2D2     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
+      89  30 1 #D2D2D2     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
+      90  30 1 #D2D2D2     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
+      91  31 1 #D2D2D2     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
+      92  31 1 #D2D2D2     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
+      93  31 1 #D2D2D2     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
+      94  32 1 #D2D2D2     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
+      95  32 1 #D2D2D2     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
+      96  32 1 #D2D2D2     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
+      97   1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      98   1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      99   1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      100  2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
+      101  2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
+      102  2 2 #D2D2D2     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
+      103  3 2 #D2D2D2     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
+      104  3 2 #D2D2D2     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
+      105  3 2 #D2D2D2     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
+      106  4 2 #D2D2D2     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
+      107  4 2 #D2D2D2     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
+      108  4 2 #D2D2D2     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
+      109  5 2 #D2D2D2     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
+      110  5 2 #D2D2D2     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
+      111  5 2 #D2D2D2     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
+      112  6 2 #D2D2D2     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
+      113  6 2 #D2D2D2     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
+      114  6 2 #D2D2D2     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
+      115  7 2 #D2D2D2     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
+      116  7 2 #D2D2D2     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
+      117  7 2 #D2D2D2     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
+      118  8 2 #D2D2D2     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
+      119  8 2 #D2D2D2     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
+      120  8 2 #D2D2D2     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
+      121  9 2 #D2D2D2     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
+      122  9 2 #D2D2D2     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
+      123  9 2 #D2D2D2     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
+      124 10 2 #D2D2D2     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
+      125 10 2 #D2D2D2     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
+      126 10 2 #D2D2D2     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
+      127 11 2 #D2D2D2     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
+      128 11 2 #D2D2D2     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
+      129 11 2 #D2D2D2     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
+      130 12 2 #D2D2D2     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
+      131 12 2 #D2D2D2     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
+      132 12 2 #D2D2D2     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
+      133 13 2 #D2D2D2     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
+      134 13 2 #D2D2D2     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
+      135 13 2 #D2D2D2     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
+      136 14 2 #D2D2D2     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
+      137 14 2 #D2D2D2     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
+      138 14 2 #D2D2D2     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
+      139 15 2 #D2D2D2     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
+      140 15 2 #D2D2D2     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
+      141 15 2 #D2D2D2     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
+      142 16 2 #D2D2D2     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
+      143 16 2 #D2D2D2     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
+      144 16 2 #D2D2D2     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
+      145 17 2 #D2D2D2     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
+      146 17 2 #D2D2D2     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
+      147 17 2 #D2D2D2     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
+      148 18 2 #D2D2D2     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
+      149 18 2 #D2D2D2     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
+      150 18 2 #D2D2D2     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
+      151 19 2 #D2D2D2     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
+      152 19 2 #D2D2D2     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
+      153 19 2 #D2D2D2     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
+      154 20 2 #D2D2D2     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
+      155 20 2 #D2D2D2     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
+      156 20 2 #D2D2D2     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
+      157 21 2 #D2D2D2     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
+      158 21 2 #D2D2D2     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
+      159 21 2 #D2D2D2     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
+      160 22 2 #D2D2D2     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
+      161 22 2 #D2D2D2     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
+      162 22 2 #D2D2D2     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
+      163 23 2 #D2D2D2     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
+      164 23 2 #D2D2D2     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
+      165 23 2 #D2D2D2     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
+      166 24 2 #D2D2D2     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
+      167 24 2 #D2D2D2     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
+      168 24 2 #D2D2D2     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
+      169 25 2 #D2D2D2     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
+      170 25 2 #D2D2D2     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
+      171 25 2 #D2D2D2     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
+      172 26 2 #D2D2D2     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
+      173 26 2 #D2D2D2     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
+      174 26 2 #D2D2D2     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
+      175 27 2 #D2D2D2     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
+      176 27 2 #D2D2D2     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
+      177 27 2 #D2D2D2     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
+      178 28 2 #D2D2D2     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
+      179 28 2 #D2D2D2     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
+      180 28 2 #D2D2D2     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
+      181 29 2 #D2D2D2     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
+      182 29 2 #D2D2D2     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
+      183 29 2 #D2D2D2     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
+      184 30 2 #D2D2D2     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
+      185 30 2 #D2D2D2     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
+      186 30 2 #D2D2D2     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
+      187 31 2 #D2D2D2     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
+      188 31 2 #D2D2D2     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
+      189 31 2 #D2D2D2     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
+      190 32 2 #D2D2D2     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
+      191 32 2 #D2D2D2     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
+      192 32 2 #D2D2D2     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
+      193  1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      194  1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      195  1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      196  2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
+      197  2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
+      198  2 3 #D2D2D2     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
+      199  3 3 #D2D2D2     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
+      200  3 3 #D2D2D2     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
+      201  3 3 #D2D2D2     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
+      202  4 3 #D2D2D2     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
+      203  4 3 #D2D2D2     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
+      204  4 3 #D2D2D2     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
+      205  5 3 #D2D2D2     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
+      206  5 3 #D2D2D2     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
+      207  5 3 #D2D2D2     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
+      208  6 3 #D2D2D2     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
+      209  6 3 #D2D2D2     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
+      210  6 3 #D2D2D2     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
+      211  7 3 #D2D2D2     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
+      212  7 3 #D2D2D2     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
+      213  7 3 #D2D2D2     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
+      214  8 3 #D2D2D2     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
+      215  8 3 #D2D2D2     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
+      216  8 3 #D2D2D2     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
+      217  9 3 #D2D2D2     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
+      218  9 3 #D2D2D2     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
+      219  9 3 #D2D2D2     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
+      220 10 3 #D2D2D2     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
+      221 10 3 #D2D2D2     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
+      222 10 3 #D2D2D2     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
+      223 11 3 #D2D2D2     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
+      224 11 3 #D2D2D2     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
+      225 11 3 #D2D2D2     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
+      226 12 3 #D2D2D2     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
+      227 12 3 #D2D2D2     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
+      228 12 3 #D2D2D2     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
+      229 13 3 #D2D2D2     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
+      230 13 3 #D2D2D2     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
+      231 13 3 #D2D2D2     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
+      232 14 3 #D2D2D2     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
+      233 14 3 #D2D2D2     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
+      234 14 3 #D2D2D2     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
+      235 15 3 #D2D2D2     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
+      236 15 3 #D2D2D2     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
+      237 15 3 #D2D2D2     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
+      238 16 3 #D2D2D2     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
+      239 16 3 #D2D2D2     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
+      240 16 3 #D2D2D2     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
+      241 17 3 #D2D2D2     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
+      242 17 3 #D2D2D2     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
+      243 17 3 #D2D2D2     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
+      244 18 3 #D2D2D2     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
+      245 18 3 #D2D2D2     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
+      246 18 3 #D2D2D2     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
+      247 19 3 #D2D2D2     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
+      248 19 3 #D2D2D2     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
+      249 19 3 #D2D2D2     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
+      250 20 3 #D2D2D2     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
+      251 20 3 #D2D2D2     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
+      252 20 3 #D2D2D2     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
+      253 21 3 #D2D2D2     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
+      254 21 3 #D2D2D2     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
+      255 21 3 #D2D2D2     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
+      256 22 3 #D2D2D2     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
+      257 22 3 #D2D2D2     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
+      258 22 3 #D2D2D2     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
+      259 23 3 #D2D2D2     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
+      260 23 3 #D2D2D2     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
+      261 23 3 #D2D2D2     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
+      262 24 3 #D2D2D2     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
+      263 24 3 #D2D2D2     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
+      264 24 3 #D2D2D2     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
+      265 25 3 #D2D2D2     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
+      266 25 3 #D2D2D2     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
+      267 25 3 #D2D2D2     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
+      268 26 3 #D2D2D2     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
+      269 26 3 #D2D2D2     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
+      270 26 3 #D2D2D2     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
+      271 27 3 #D2D2D2     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
+      272 27 3 #D2D2D2     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
+      273 27 3 #D2D2D2     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
+      274 28 3 #D2D2D2     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
+      275 28 3 #D2D2D2     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
+      276 28 3 #D2D2D2     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
+      277 29 3 #D2D2D2     1    87 28.5 29.5  2.5  3.5     NA       0.2        1
+      278 29 3 #D2D2D2     1    87 28.5 29.5  2.5  3.5     NA       0.2        1
+      279 29 3 #D2D2D2     1    87 28.5 29.5  2.5  3.5     NA       0.2        1
+      280 30 3 #D2D2D2     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
+      281 30 3 #D2D2D2     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
+      282 30 3 #D2D2D2     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
+      283 31 3 #D2D2D2     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
+      284 31 3 #D2D2D2     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
+      285 31 3 #D2D2D2     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
+      286 32 3 #D2D2D2     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
+      287 32 3 #D2D2D2     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
+      288 32 3 #D2D2D2     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
           alpha width height
-      1      NA    NA     NA
-      2      NA    NA     NA
-      3      NA    NA     NA
-      4      NA    NA     NA
-      5      NA    NA     NA
-      6      NA    NA     NA
-      7      NA    NA     NA
-      8      NA    NA     NA
-      9      NA    NA     NA
-      10     NA    NA     NA
-      11     NA    NA     NA
-      12     NA    NA     NA
-      13     NA    NA     NA
-      14     NA    NA     NA
-      15     NA    NA     NA
-      16     NA    NA     NA
-      17     NA    NA     NA
-      18     NA    NA     NA
-      19     NA    NA     NA
-      20     NA    NA     NA
-      21     NA    NA     NA
-      22     NA    NA     NA
-      23     NA    NA     NA
-      24     NA    NA     NA
-      25     NA    NA     NA
-      26     NA    NA     NA
-      27     NA    NA     NA
-      28     NA    NA     NA
-      29     NA    NA     NA
-      30     NA    NA     NA
-      31     NA    NA     NA
-      32     NA    NA     NA
-      33     NA    NA     NA
-      34     NA    NA     NA
-      35     NA    NA     NA
-      36     NA    NA     NA
-      37     NA    NA     NA
-      38     NA    NA     NA
-      39     NA    NA     NA
-      40     NA    NA     NA
-      41     NA    NA     NA
-      42     NA    NA     NA
-      43     NA    NA     NA
-      44     NA    NA     NA
-      45     NA    NA     NA
-      46     NA    NA     NA
-      47     NA    NA     NA
-      48     NA    NA     NA
-      49     NA    NA     NA
-      50     NA    NA     NA
-      51     NA    NA     NA
-      52     NA    NA     NA
-      53     NA    NA     NA
-      54     NA    NA     NA
-      55     NA    NA     NA
-      56     NA    NA     NA
-      57     NA    NA     NA
-      58     NA    NA     NA
-      59     NA    NA     NA
-      60     NA    NA     NA
-      61     NA    NA     NA
-      62     NA    NA     NA
-      63     NA    NA     NA
-      64     NA    NA     NA
-      65     NA    NA     NA
-      66     NA    NA     NA
-      67     NA    NA     NA
-      68     NA    NA     NA
-      69     NA    NA     NA
-      70     NA    NA     NA
-      71     NA    NA     NA
-      72     NA    NA     NA
-      73     NA    NA     NA
-      74     NA    NA     NA
-      75     NA    NA     NA
-      76     NA    NA     NA
-      77     NA    NA     NA
-      78     NA    NA     NA
-      79     NA    NA     NA
-      80     NA    NA     NA
-      81     NA    NA     NA
-      82     NA    NA     NA
-      83     NA    NA     NA
-      84     NA    NA     NA
-      85     NA    NA     NA
-      86     NA    NA     NA
-      87     NA    NA     NA
-      88     NA    NA     NA
-      89     NA    NA     NA
-      90     NA    NA     NA
-      91     NA    NA     NA
-      92     NA    NA     NA
-      93     NA    NA     NA
-      94     NA    NA     NA
-      95     NA    NA     NA
-      96     NA    NA     NA
-      97     NA    NA     NA
-      98     NA    NA     NA
-      99     NA    NA     NA
-      100    NA    NA     NA
-      101    NA    NA     NA
-      102    NA    NA     NA
-      103    NA    NA     NA
-      104    NA    NA     NA
-      105    NA    NA     NA
-      106    NA    NA     NA
-      107    NA    NA     NA
-      108    NA    NA     NA
-      109    NA    NA     NA
-      110    NA    NA     NA
-      111    NA    NA     NA
-      112    NA    NA     NA
-      113    NA    NA     NA
-      114    NA    NA     NA
-      115    NA    NA     NA
-      116    NA    NA     NA
-      117    NA    NA     NA
-      118    NA    NA     NA
-      119    NA    NA     NA
-      120    NA    NA     NA
-      121    NA    NA     NA
-      122    NA    NA     NA
-      123    NA    NA     NA
-      124    NA    NA     NA
-      125    NA    NA     NA
-      126    NA    NA     NA
-      127    NA    NA     NA
-      128    NA    NA     NA
-      129    NA    NA     NA
-      130    NA    NA     NA
-      131    NA    NA     NA
-      132    NA    NA     NA
-      133    NA    NA     NA
-      134    NA    NA     NA
-      135    NA    NA     NA
-      136    NA    NA     NA
-      137    NA    NA     NA
-      138    NA    NA     NA
-      139    NA    NA     NA
-      140    NA    NA     NA
-      141    NA    NA     NA
-      142    NA    NA     NA
-      143    NA    NA     NA
-      144    NA    NA     NA
-      145    NA    NA     NA
-      146    NA    NA     NA
-      147    NA    NA     NA
-      148    NA    NA     NA
-      149    NA    NA     NA
-      150    NA    NA     NA
-      151    NA    NA     NA
-      152    NA    NA     NA
-      153    NA    NA     NA
-      154    NA    NA     NA
-      155    NA    NA     NA
-      156    NA    NA     NA
-      157    NA    NA     NA
-      158    NA    NA     NA
-      159    NA    NA     NA
-      160    NA    NA     NA
-      161    NA    NA     NA
-      162    NA    NA     NA
-      163    NA    NA     NA
-      164    NA    NA     NA
-      165    NA    NA     NA
-      166    NA    NA     NA
-      167    NA    NA     NA
-      168    NA    NA     NA
-      169    NA    NA     NA
-      170    NA    NA     NA
-      171    NA    NA     NA
-      172    NA    NA     NA
-      173    NA    NA     NA
-      174    NA    NA     NA
-      175    NA    NA     NA
-      176    NA    NA     NA
-      177    NA    NA     NA
-      178    NA    NA     NA
-      179    NA    NA     NA
-      180    NA    NA     NA
-      181    NA    NA     NA
-      182    NA    NA     NA
-      183    NA    NA     NA
-      184    NA    NA     NA
-      185    NA    NA     NA
-      186    NA    NA     NA
-      187    NA    NA     NA
-      188    NA    NA     NA
-      189    NA    NA     NA
-      190    NA    NA     NA
-      191    NA    NA     NA
-      192    NA    NA     NA
-      193    NA    NA     NA
-      194    NA    NA     NA
-      195    NA    NA     NA
-      196    NA    NA     NA
-      197    NA    NA     NA
-      198    NA    NA     NA
-      199    NA    NA     NA
-      200    NA    NA     NA
-      201    NA    NA     NA
-      202    NA    NA     NA
-      203    NA    NA     NA
-      204    NA    NA     NA
-      205    NA    NA     NA
-      206    NA    NA     NA
-      207    NA    NA     NA
-      208    NA    NA     NA
-      209    NA    NA     NA
-      210    NA    NA     NA
-      211    NA    NA     NA
-      212    NA    NA     NA
-      213    NA    NA     NA
-      214    NA    NA     NA
-      215    NA    NA     NA
-      216    NA    NA     NA
-      217    NA    NA     NA
-      218    NA    NA     NA
-      219    NA    NA     NA
-      220    NA    NA     NA
-      221    NA    NA     NA
-      222    NA    NA     NA
-      223    NA    NA     NA
-      224    NA    NA     NA
-      225    NA    NA     NA
-      226    NA    NA     NA
-      227    NA    NA     NA
-      228    NA    NA     NA
-      229    NA    NA     NA
-      230    NA    NA     NA
-      231    NA    NA     NA
-      232    NA    NA     NA
-      233    NA    NA     NA
-      234    NA    NA     NA
-      235    NA    NA     NA
-      236    NA    NA     NA
-      237    NA    NA     NA
-      238    NA    NA     NA
-      239    NA    NA     NA
-      240    NA    NA     NA
-      241    NA    NA     NA
-      242    NA    NA     NA
-      243    NA    NA     NA
-      244    NA    NA     NA
-      245    NA    NA     NA
-      246    NA    NA     NA
-      247    NA    NA     NA
-      248    NA    NA     NA
-      249    NA    NA     NA
-      250    NA    NA     NA
-      251    NA    NA     NA
-      252    NA    NA     NA
-      253    NA    NA     NA
-      254    NA    NA     NA
-      255    NA    NA     NA
-      256    NA    NA     NA
-      257    NA    NA     NA
-      258    NA    NA     NA
-      259    NA    NA     NA
-      260    NA    NA     NA
-      261    NA    NA     NA
-      262    NA    NA     NA
-      263    NA    NA     NA
-      264    NA    NA     NA
-      265    NA    NA     NA
-      266    NA    NA     NA
-      267    NA    NA     NA
-      268    NA    NA     NA
-      269    NA    NA     NA
-      270    NA    NA     NA
-      271    NA    NA     NA
-      272    NA    NA     NA
-      273    NA    NA     NA
-      274    NA    NA     NA
-      275    NA    NA     NA
-      276    NA    NA     NA
-      277    NA    NA     NA
-      278    NA    NA     NA
-      279    NA    NA     NA
-      280    NA    NA     NA
-      281    NA    NA     NA
-      282    NA    NA     NA
-      283    NA    NA     NA
-      284    NA    NA     NA
-      285    NA    NA     NA
-      286    NA    NA     NA
-      287    NA    NA     NA
-      288    NA    NA     NA
+      1      NA     1      1
+      2      NA     1      1
+      3      NA     1      1
+      4      NA     1      1
+      5      NA     1      1
+      6      NA     1      1
+      7      NA     1      1
+      8      NA     1      1
+      9      NA     1      1
+      10     NA     1      1
+      11     NA     1      1
+      12     NA     1      1
+      13     NA     1      1
+      14     NA     1      1
+      15     NA     1      1
+      16     NA     1      1
+      17     NA     1      1
+      18     NA     1      1
+      19     NA     1      1
+      20     NA     1      1
+      21     NA     1      1
+      22     NA     1      1
+      23     NA     1      1
+      24     NA     1      1
+      25     NA     1      1
+      26     NA     1      1
+      27     NA     1      1
+      28     NA     1      1
+      29     NA     1      1
+      30     NA     1      1
+      31     NA     1      1
+      32     NA     1      1
+      33     NA     1      1
+      34     NA     1      1
+      35     NA     1      1
+      36     NA     1      1
+      37     NA     1      1
+      38     NA     1      1
+      39     NA     1      1
+      40     NA     1      1
+      41     NA     1      1
+      42     NA     1      1
+      43     NA     1      1
+      44     NA     1      1
+      45     NA     1      1
+      46     NA     1      1
+      47     NA     1      1
+      48     NA     1      1
+      49     NA     1      1
+      50     NA     1      1
+      51     NA     1      1
+      52     NA     1      1
+      53     NA     1      1
+      54     NA     1      1
+      55     NA     1      1
+      56     NA     1      1
+      57     NA     1      1
+      58     NA     1      1
+      59     NA     1      1
+      60     NA     1      1
+      61     NA     1      1
+      62     NA     1      1
+      63     NA     1      1
+      64     NA     1      1
+      65     NA     1      1
+      66     NA     1      1
+      67     NA     1      1
+      68     NA     1      1
+      69     NA     1      1
+      70     NA     1      1
+      71     NA     1      1
+      72     NA     1      1
+      73     NA     1      1
+      74     NA     1      1
+      75     NA     1      1
+      76     NA     1      1
+      77     NA     1      1
+      78     NA     1      1
+      79     NA     1      1
+      80     NA     1      1
+      81     NA     1      1
+      82     NA     1      1
+      83     NA     1      1
+      84     NA     1      1
+      85     NA     1      1
+      86     NA     1      1
+      87     NA     1      1
+      88     NA     1      1
+      89     NA     1      1
+      90     NA     1      1
+      91     NA     1      1
+      92     NA     1      1
+      93     NA     1      1
+      94     NA     1      1
+      95     NA     1      1
+      96     NA     1      1
+      97     NA     1      1
+      98     NA     1      1
+      99     NA     1      1
+      100    NA     1      1
+      101    NA     1      1
+      102    NA     1      1
+      103    NA     1      1
+      104    NA     1      1
+      105    NA     1      1
+      106    NA     1      1
+      107    NA     1      1
+      108    NA     1      1
+      109    NA     1      1
+      110    NA     1      1
+      111    NA     1      1
+      112    NA     1      1
+      113    NA     1      1
+      114    NA     1      1
+      115    NA     1      1
+      116    NA     1      1
+      117    NA     1      1
+      118    NA     1      1
+      119    NA     1      1
+      120    NA     1      1
+      121    NA     1      1
+      122    NA     1      1
+      123    NA     1      1
+      124    NA     1      1
+      125    NA     1      1
+      126    NA     1      1
+      127    NA     1      1
+      128    NA     1      1
+      129    NA     1      1
+      130    NA     1      1
+      131    NA     1      1
+      132    NA     1      1
+      133    NA     1      1
+      134    NA     1      1
+      135    NA     1      1
+      136    NA     1      1
+      137    NA     1      1
+      138    NA     1      1
+      139    NA     1      1
+      140    NA     1      1
+      141    NA     1      1
+      142    NA     1      1
+      143    NA     1      1
+      144    NA     1      1
+      145    NA     1      1
+      146    NA     1      1
+      147    NA     1      1
+      148    NA     1      1
+      149    NA     1      1
+      150    NA     1      1
+      151    NA     1      1
+      152    NA     1      1
+      153    NA     1      1
+      154    NA     1      1
+      155    NA     1      1
+      156    NA     1      1
+      157    NA     1      1
+      158    NA     1      1
+      159    NA     1      1
+      160    NA     1      1
+      161    NA     1      1
+      162    NA     1      1
+      163    NA     1      1
+      164    NA     1      1
+      165    NA     1      1
+      166    NA     1      1
+      167    NA     1      1
+      168    NA     1      1
+      169    NA     1      1
+      170    NA     1      1
+      171    NA     1      1
+      172    NA     1      1
+      173    NA     1      1
+      174    NA     1      1
+      175    NA     1      1
+      176    NA     1      1
+      177    NA     1      1
+      178    NA     1      1
+      179    NA     1      1
+      180    NA     1      1
+      181    NA     1      1
+      182    NA     1      1
+      183    NA     1      1
+      184    NA     1      1
+      185    NA     1      1
+      186    NA     1      1
+      187    NA     1      1
+      188    NA     1      1
+      189    NA     1      1
+      190    NA     1      1
+      191    NA     1      1
+      192    NA     1      1
+      193    NA     1      1
+      194    NA     1      1
+      195    NA     1      1
+      196    NA     1      1
+      197    NA     1      1
+      198    NA     1      1
+      199    NA     1      1
+      200    NA     1      1
+      201    NA     1      1
+      202    NA     1      1
+      203    NA     1      1
+      204    NA     1      1
+      205    NA     1      1
+      206    NA     1      1
+      207    NA     1      1
+      208    NA     1      1
+      209    NA     1      1
+      210    NA     1      1
+      211    NA     1      1
+      212    NA     1      1
+      213    NA     1      1
+      214    NA     1      1
+      215    NA     1      1
+      216    NA     1      1
+      217    NA     1      1
+      218    NA     1      1
+      219    NA     1      1
+      220    NA     1      1
+      221    NA     1      1
+      222    NA     1      1
+      223    NA     1      1
+      224    NA     1      1
+      225    NA     1      1
+      226    NA     1      1
+      227    NA     1      1
+      228    NA     1      1
+      229    NA     1      1
+      230    NA     1      1
+      231    NA     1      1
+      232    NA     1      1
+      233    NA     1      1
+      234    NA     1      1
+      235    NA     1      1
+      236    NA     1      1
+      237    NA     1      1
+      238    NA     1      1
+      239    NA     1      1
+      240    NA     1      1
+      241    NA     1      1
+      242    NA     1      1
+      243    NA     1      1
+      244    NA     1      1
+      245    NA     1      1
+      246    NA     1      1
+      247    NA     1      1
+      248    NA     1      1
+      249    NA     1      1
+      250    NA     1      1
+      251    NA     1      1
+      252    NA     1      1
+      253    NA     1      1
+      254    NA     1      1
+      255    NA     1      1
+      256    NA     1      1
+      257    NA     1      1
+      258    NA     1      1
+      259    NA     1      1
+      260    NA     1      1
+      261    NA     1      1
+      262    NA     1      1
+      263    NA     1      1
+      264    NA     1      1
+      265    NA     1      1
+      266    NA     1      1
+      267    NA     1      1
+      268    NA     1      1
+      269    NA     1      1
+      270    NA     1      1
+      271    NA     1      1
+      272    NA     1      1
+      273    NA     1      1
+      274    NA     1      1
+      275    NA     1      1
+      276    NA     1      1
+      277    NA     1      1
+      278    NA     1      1
+      279    NA     1      1
+      280    NA     1      1
+      281    NA     1      1
+      282    NA     1      1
+      283    NA     1      1
+      284    NA     1      1
+      285    NA     1      1
+      286    NA     1      1
+      287    NA     1      1
+      288    NA     1      1
       
       $mpg$d2$`model:carb`
-             fill  x y PANEL group xmin xmax ymin ymax colour linewidth linetype
-      1   #D2D2D2  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      2   #D2D2D2  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      3   #D2D2D2  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      4   #D2D2D2  2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1
-      5   #D2D2D2  2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1
-      6   #D2D2D2  2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1
-      7   #D2D2D2  3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1
-      8   #D2D2D2  3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1
-      9   #D2D2D2  3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1
-      10  #D2D2D2  4 1     1    16  3.5  4.5  0.5  1.5     NA       0.1        1
-      11  #D2D2D2  4 1     1    16  3.5  4.5  0.5  1.5     NA       0.1        1
-      12  #D2D2D2  4 1     1    16  3.5  4.5  0.5  1.5     NA       0.1        1
-      13  #D2D2D2  5 1     1    21  4.5  5.5  0.5  1.5     NA       0.1        1
-      14  #D2D2D2  5 1     1    21  4.5  5.5  0.5  1.5     NA       0.1        1
-      15  #D2D2D2  5 1     1    21  4.5  5.5  0.5  1.5     NA       0.1        1
-      16  #D2D2D2  6 1     1    26  5.5  6.5  0.5  1.5     NA       0.1        1
-      17  #D2D2D2  6 1     1    26  5.5  6.5  0.5  1.5     NA       0.1        1
-      18  #D2D2D2  6 1     1    26  5.5  6.5  0.5  1.5     NA       0.1        1
-      19  #D2D2D2  7 1     1    31  6.5  7.5  0.5  1.5     NA       0.1        1
-      20  #D2D2D2  7 1     1    31  6.5  7.5  0.5  1.5     NA       0.1        1
-      21  #D2D2D2  7 1     1    31  6.5  7.5  0.5  1.5     NA       0.1        1
-      22  #D2D2D2  8 1     1    36  7.5  8.5  0.5  1.5     NA       0.1        1
-      23  #D2D2D2  8 1     1    36  7.5  8.5  0.5  1.5     NA       0.1        1
-      24  #D2D2D2  8 1     1    36  7.5  8.5  0.5  1.5     NA       0.1        1
-      25  #D2D2D2  9 1     1    41  8.5  9.5  0.5  1.5     NA       0.1        1
-      26  #D2D2D2  9 1     1    41  8.5  9.5  0.5  1.5     NA       0.1        1
-      27  #D2D2D2  9 1     1    41  8.5  9.5  0.5  1.5     NA       0.1        1
-      28  #D2D2D2 10 1     1    46  9.5 10.5  0.5  1.5     NA       0.1        1
-      29  #D2D2D2 10 1     1    46  9.5 10.5  0.5  1.5     NA       0.1        1
-      30  #D2D2D2 10 1     1    46  9.5 10.5  0.5  1.5     NA       0.1        1
-      31  #D2D2D2 11 1     1    51 10.5 11.5  0.5  1.5     NA       0.1        1
-      32  #D2D2D2 11 1     1    51 10.5 11.5  0.5  1.5     NA       0.1        1
-      33  #D2D2D2 11 1     1    51 10.5 11.5  0.5  1.5     NA       0.1        1
-      34  #D2D2D2 12 1     1    56 11.5 12.5  0.5  1.5     NA       0.1        1
-      35  #D2D2D2 12 1     1    56 11.5 12.5  0.5  1.5     NA       0.1        1
-      36  #D2D2D2 12 1     1    56 11.5 12.5  0.5  1.5     NA       0.1        1
-      37  #D2D2D2 13 1     1    61 12.5 13.5  0.5  1.5     NA       0.1        1
-      38  #D2D2D2 13 1     1    61 12.5 13.5  0.5  1.5     NA       0.1        1
-      39  #D2D2D2 13 1     1    61 12.5 13.5  0.5  1.5     NA       0.1        1
-      40  #D2D2D2 14 1     1    66 13.5 14.5  0.5  1.5     NA       0.1        1
-      41  #D2D2D2 14 1     1    66 13.5 14.5  0.5  1.5     NA       0.1        1
-      42  #D2D2D2 14 1     1    66 13.5 14.5  0.5  1.5     NA       0.1        1
-      43  #D2D2D2 15 1     1    71 14.5 15.5  0.5  1.5     NA       0.1        1
-      44  #D2D2D2 15 1     1    71 14.5 15.5  0.5  1.5     NA       0.1        1
-      45  #D2D2D2 15 1     1    71 14.5 15.5  0.5  1.5     NA       0.1        1
-      46  #D2D2D2 16 1     1    76 15.5 16.5  0.5  1.5     NA       0.1        1
-      47  #D2D2D2 16 1     1    76 15.5 16.5  0.5  1.5     NA       0.1        1
-      48  #D2D2D2 16 1     1    76 15.5 16.5  0.5  1.5     NA       0.1        1
-      49  #D2D2D2 17 1     1    81 16.5 17.5  0.5  1.5     NA       0.1        1
-      50  #D2D2D2 17 1     1    81 16.5 17.5  0.5  1.5     NA       0.1        1
-      51  #D2D2D2 17 1     1    81 16.5 17.5  0.5  1.5     NA       0.1        1
-      52  #D2D2D2 18 1     1    86 17.5 18.5  0.5  1.5     NA       0.1        1
-      53  #D2D2D2 18 1     1    86 17.5 18.5  0.5  1.5     NA       0.1        1
-      54  #D2D2D2 18 1     1    86 17.5 18.5  0.5  1.5     NA       0.1        1
-      55  #D2D2D2 19 1     1    91 18.5 19.5  0.5  1.5     NA       0.1        1
-      56  #D2D2D2 19 1     1    91 18.5 19.5  0.5  1.5     NA       0.1        1
-      57  #D2D2D2 19 1     1    91 18.5 19.5  0.5  1.5     NA       0.1        1
-      58  #D2D2D2 20 1     1    96 19.5 20.5  0.5  1.5     NA       0.1        1
-      59  #D2D2D2 20 1     1    96 19.5 20.5  0.5  1.5     NA       0.1        1
-      60  #D2D2D2 20 1     1    96 19.5 20.5  0.5  1.5     NA       0.1        1
-      61  #D2D2D2 21 1     1   101 20.5 21.5  0.5  1.5     NA       0.1        1
-      62  #D2D2D2 21 1     1   101 20.5 21.5  0.5  1.5     NA       0.1        1
-      63  #D2D2D2 21 1     1   101 20.5 21.5  0.5  1.5     NA       0.1        1
-      64  #D2D2D2 22 1     1   106 21.5 22.5  0.5  1.5     NA       0.1        1
-      65  #D2D2D2 22 1     1   106 21.5 22.5  0.5  1.5     NA       0.1        1
-      66  #D2D2D2 22 1     1   106 21.5 22.5  0.5  1.5     NA       0.1        1
-      67  #D2D2D2 23 1     1   111 22.5 23.5  0.5  1.5     NA       0.1        1
-      68  #D2D2D2 23 1     1   111 22.5 23.5  0.5  1.5     NA       0.1        1
-      69  #D2D2D2 23 1     1   111 22.5 23.5  0.5  1.5     NA       0.1        1
-      70  #D2D2D2 24 1     1   116 23.5 24.5  0.5  1.5     NA       0.1        1
-      71  #D2D2D2 24 1     1   116 23.5 24.5  0.5  1.5     NA       0.1        1
-      72  #D2D2D2 24 1     1   116 23.5 24.5  0.5  1.5     NA       0.1        1
-      73  #D2D2D2 25 1     1   121 24.5 25.5  0.5  1.5     NA       0.1        1
-      74  #D2D2D2 25 1     1   121 24.5 25.5  0.5  1.5     NA       0.1        1
-      75  #D2D2D2 25 1     1   121 24.5 25.5  0.5  1.5     NA       0.1        1
-      76  #D2D2D2 26 1     1   126 25.5 26.5  0.5  1.5     NA       0.1        1
-      77  #D2D2D2 26 1     1   126 25.5 26.5  0.5  1.5     NA       0.1        1
-      78  #D2D2D2 26 1     1   126 25.5 26.5  0.5  1.5     NA       0.1        1
-      79  #D2D2D2 27 1     1   131 26.5 27.5  0.5  1.5     NA       0.1        1
-      80  #D2D2D2 27 1     1   131 26.5 27.5  0.5  1.5     NA       0.1        1
-      81  #D2D2D2 27 1     1   131 26.5 27.5  0.5  1.5     NA       0.1        1
-      82  #D2D2D2 28 1     1   136 27.5 28.5  0.5  1.5     NA       0.1        1
-      83  #D2D2D2 28 1     1   136 27.5 28.5  0.5  1.5     NA       0.1        1
-      84  #D2D2D2 28 1     1   136 27.5 28.5  0.5  1.5     NA       0.1        1
-      85  #D2D2D2 29 1     1   141 28.5 29.5  0.5  1.5     NA       0.1        1
-      86  #D2D2D2 29 1     1   141 28.5 29.5  0.5  1.5     NA       0.1        1
-      87  #D2D2D2 29 1     1   141 28.5 29.5  0.5  1.5     NA       0.1        1
-      88  #D2D2D2 30 1     1   146 29.5 30.5  0.5  1.5     NA       0.1        1
-      89  #D2D2D2 30 1     1   146 29.5 30.5  0.5  1.5     NA       0.1        1
-      90  #D2D2D2 30 1     1   146 29.5 30.5  0.5  1.5     NA       0.1        1
-      91  #D2D2D2 31 1     1   151 30.5 31.5  0.5  1.5     NA       0.1        1
-      92  #D2D2D2 31 1     1   151 30.5 31.5  0.5  1.5     NA       0.1        1
-      93  #D2D2D2 31 1     1   151 30.5 31.5  0.5  1.5     NA       0.1        1
-      94  #D2D2D2 32 1     1   156 31.5 32.5  0.5  1.5     NA       0.1        1
-      95  #D2D2D2 32 1     1   156 31.5 32.5  0.5  1.5     NA       0.1        1
-      96  #D2D2D2 32 1     1   156 31.5 32.5  0.5  1.5     NA       0.1        1
-      97  #D2D2D2  1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      98  #D2D2D2  1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      99  #D2D2D2  1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      100 #D2D2D2  2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1
-      101 #D2D2D2  2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1
-      102 #D2D2D2  2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1
-      103 #D2D2D2  3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1
-      104 #D2D2D2  3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1
-      105 #D2D2D2  3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1
-      106 #D2D2D2  4 2     1    17  3.5  4.5  1.5  2.5     NA       0.1        1
-      107 #D2D2D2  4 2     1    17  3.5  4.5  1.5  2.5     NA       0.1        1
-      108 #D2D2D2  4 2     1    17  3.5  4.5  1.5  2.5     NA       0.1        1
-      109 #D2D2D2  5 2     1    22  4.5  5.5  1.5  2.5     NA       0.1        1
-      110 #D2D2D2  5 2     1    22  4.5  5.5  1.5  2.5     NA       0.1        1
-      111 #D2D2D2  5 2     1    22  4.5  5.5  1.5  2.5     NA       0.1        1
-      112 #D2D2D2  6 2     1    27  5.5  6.5  1.5  2.5     NA       0.1        1
-      113 #D2D2D2  6 2     1    27  5.5  6.5  1.5  2.5     NA       0.1        1
-      114 #D2D2D2  6 2     1    27  5.5  6.5  1.5  2.5     NA       0.1        1
-      115 #D2D2D2  7 2     1    32  6.5  7.5  1.5  2.5     NA       0.1        1
-      116 #D2D2D2  7 2     1    32  6.5  7.5  1.5  2.5     NA       0.1        1
-      117 #D2D2D2  7 2     1    32  6.5  7.5  1.5  2.5     NA       0.1        1
-      118 #D2D2D2  8 2     1    37  7.5  8.5  1.5  2.5     NA       0.1        1
-      119 #D2D2D2  8 2     1    37  7.5  8.5  1.5  2.5     NA       0.1        1
-      120 #D2D2D2  8 2     1    37  7.5  8.5  1.5  2.5     NA       0.1        1
-      121 #D2D2D2  9 2     1    42  8.5  9.5  1.5  2.5     NA       0.1        1
-      122 #D2D2D2  9 2     1    42  8.5  9.5  1.5  2.5     NA       0.1        1
-      123 #D2D2D2  9 2     1    42  8.5  9.5  1.5  2.5     NA       0.1        1
-      124 #D2D2D2 10 2     1    47  9.5 10.5  1.5  2.5     NA       0.1        1
-      125 #D2D2D2 10 2     1    47  9.5 10.5  1.5  2.5     NA       0.1        1
-      126 #D2D2D2 10 2     1    47  9.5 10.5  1.5  2.5     NA       0.1        1
-      127 #D2D2D2 11 2     1    52 10.5 11.5  1.5  2.5     NA       0.1        1
-      128 #D2D2D2 11 2     1    52 10.5 11.5  1.5  2.5     NA       0.1        1
-      129 #D2D2D2 11 2     1    52 10.5 11.5  1.5  2.5     NA       0.1        1
-      130 #D2D2D2 12 2     1    57 11.5 12.5  1.5  2.5     NA       0.1        1
-      131 #D2D2D2 12 2     1    57 11.5 12.5  1.5  2.5     NA       0.1        1
-      132 #D2D2D2 12 2     1    57 11.5 12.5  1.5  2.5     NA       0.1        1
-      133 #D2D2D2 13 2     1    62 12.5 13.5  1.5  2.5     NA       0.1        1
-      134 #D2D2D2 13 2     1    62 12.5 13.5  1.5  2.5     NA       0.1        1
-      135 #D2D2D2 13 2     1    62 12.5 13.5  1.5  2.5     NA       0.1        1
-      136 #D2D2D2 14 2     1    67 13.5 14.5  1.5  2.5     NA       0.1        1
-      137 #D2D2D2 14 2     1    67 13.5 14.5  1.5  2.5     NA       0.1        1
-      138 #D2D2D2 14 2     1    67 13.5 14.5  1.5  2.5     NA       0.1        1
-      139 #D2D2D2 15 2     1    72 14.5 15.5  1.5  2.5     NA       0.1        1
-      140 #D2D2D2 15 2     1    72 14.5 15.5  1.5  2.5     NA       0.1        1
-      141 #D2D2D2 15 2     1    72 14.5 15.5  1.5  2.5     NA       0.1        1
-      142 #D2D2D2 16 2     1    77 15.5 16.5  1.5  2.5     NA       0.1        1
-      143 #D2D2D2 16 2     1    77 15.5 16.5  1.5  2.5     NA       0.1        1
-      144 #D2D2D2 16 2     1    77 15.5 16.5  1.5  2.5     NA       0.1        1
-      145 #D2D2D2 17 2     1    82 16.5 17.5  1.5  2.5     NA       0.1        1
-      146 #D2D2D2 17 2     1    82 16.5 17.5  1.5  2.5     NA       0.1        1
-      147 #D2D2D2 17 2     1    82 16.5 17.5  1.5  2.5     NA       0.1        1
-      148 #D2D2D2 18 2     1    87 17.5 18.5  1.5  2.5     NA       0.1        1
-      149 #D2D2D2 18 2     1    87 17.5 18.5  1.5  2.5     NA       0.1        1
-      150 #D2D2D2 18 2     1    87 17.5 18.5  1.5  2.5     NA       0.1        1
-      151 #D2D2D2 19 2     1    92 18.5 19.5  1.5  2.5     NA       0.1        1
-      152 #D2D2D2 19 2     1    92 18.5 19.5  1.5  2.5     NA       0.1        1
-      153 #D2D2D2 19 2     1    92 18.5 19.5  1.5  2.5     NA       0.1        1
-      154 #D2D2D2 20 2     1    97 19.5 20.5  1.5  2.5     NA       0.1        1
-      155 #D2D2D2 20 2     1    97 19.5 20.5  1.5  2.5     NA       0.1        1
-      156 #D2D2D2 20 2     1    97 19.5 20.5  1.5  2.5     NA       0.1        1
-      157 #D2D2D2 21 2     1   102 20.5 21.5  1.5  2.5     NA       0.1        1
-      158 #D2D2D2 21 2     1   102 20.5 21.5  1.5  2.5     NA       0.1        1
-      159 #D2D2D2 21 2     1   102 20.5 21.5  1.5  2.5     NA       0.1        1
-      160 #D2D2D2 22 2     1   107 21.5 22.5  1.5  2.5     NA       0.1        1
-      161 #D2D2D2 22 2     1   107 21.5 22.5  1.5  2.5     NA       0.1        1
-      162 #D2D2D2 22 2     1   107 21.5 22.5  1.5  2.5     NA       0.1        1
-      163 #D2D2D2 23 2     1   112 22.5 23.5  1.5  2.5     NA       0.1        1
-      164 #D2D2D2 23 2     1   112 22.5 23.5  1.5  2.5     NA       0.1        1
-      165 #D2D2D2 23 2     1   112 22.5 23.5  1.5  2.5     NA       0.1        1
-      166 #D2D2D2 24 2     1   117 23.5 24.5  1.5  2.5     NA       0.1        1
-      167 #D2D2D2 24 2     1   117 23.5 24.5  1.5  2.5     NA       0.1        1
-      168 #D2D2D2 24 2     1   117 23.5 24.5  1.5  2.5     NA       0.1        1
-      169 #D2D2D2 25 2     1   122 24.5 25.5  1.5  2.5     NA       0.1        1
-      170 #D2D2D2 25 2     1   122 24.5 25.5  1.5  2.5     NA       0.1        1
-      171 #D2D2D2 25 2     1   122 24.5 25.5  1.5  2.5     NA       0.1        1
-      172 #D2D2D2 26 2     1   127 25.5 26.5  1.5  2.5     NA       0.1        1
-      173 #D2D2D2 26 2     1   127 25.5 26.5  1.5  2.5     NA       0.1        1
-      174 #D2D2D2 26 2     1   127 25.5 26.5  1.5  2.5     NA       0.1        1
-      175 #D2D2D2 27 2     1   132 26.5 27.5  1.5  2.5     NA       0.1        1
-      176 #D2D2D2 27 2     1   132 26.5 27.5  1.5  2.5     NA       0.1        1
-      177 #D2D2D2 27 2     1   132 26.5 27.5  1.5  2.5     NA       0.1        1
-      178 #D2D2D2 28 2     1   137 27.5 28.5  1.5  2.5     NA       0.1        1
-      179 #D2D2D2 28 2     1   137 27.5 28.5  1.5  2.5     NA       0.1        1
-      180 #D2D2D2 28 2     1   137 27.5 28.5  1.5  2.5     NA       0.1        1
-      181 #D2D2D2 29 2     1   142 28.5 29.5  1.5  2.5     NA       0.1        1
-      182 #D2D2D2 29 2     1   142 28.5 29.5  1.5  2.5     NA       0.1        1
-      183 #D2D2D2 29 2     1   142 28.5 29.5  1.5  2.5     NA       0.1        1
-      184 #D2D2D2 30 2     1   147 29.5 30.5  1.5  2.5     NA       0.1        1
-      185 #D2D2D2 30 2     1   147 29.5 30.5  1.5  2.5     NA       0.1        1
-      186 #D2D2D2 30 2     1   147 29.5 30.5  1.5  2.5     NA       0.1        1
-      187 #D2D2D2 31 2     1   152 30.5 31.5  1.5  2.5     NA       0.1        1
-      188 #D2D2D2 31 2     1   152 30.5 31.5  1.5  2.5     NA       0.1        1
-      189 #D2D2D2 31 2     1   152 30.5 31.5  1.5  2.5     NA       0.1        1
-      190 #D2D2D2 32 2     1   157 31.5 32.5  1.5  2.5     NA       0.1        1
-      191 #D2D2D2 32 2     1   157 31.5 32.5  1.5  2.5     NA       0.1        1
-      192 #D2D2D2 32 2     1   157 31.5 32.5  1.5  2.5     NA       0.1        1
-      193 #D2D2D2  1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      194 #D2D2D2  1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      195 #D2D2D2  1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      196 #D2D2D2  2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1
-      197 #D2D2D2  2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1
-      198 #D2D2D2  2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1
-      199 #D2D2D2  3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1
-      200 #D2D2D2  3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1
-      201 #D2D2D2  3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1
-      202 #D2D2D2  4 3     1    18  3.5  4.5  2.5  3.5     NA       0.1        1
-      203 #D2D2D2  4 3     1    18  3.5  4.5  2.5  3.5     NA       0.1        1
-      204 #D2D2D2  4 3     1    18  3.5  4.5  2.5  3.5     NA       0.1        1
-      205 #D2D2D2  5 3     1    23  4.5  5.5  2.5  3.5     NA       0.1        1
-      206 #D2D2D2  5 3     1    23  4.5  5.5  2.5  3.5     NA       0.1        1
-      207 #D2D2D2  5 3     1    23  4.5  5.5  2.5  3.5     NA       0.1        1
-      208 #D2D2D2  6 3     1    28  5.5  6.5  2.5  3.5     NA       0.1        1
-      209 #D2D2D2  6 3     1    28  5.5  6.5  2.5  3.5     NA       0.1        1
-      210 #D2D2D2  6 3     1    28  5.5  6.5  2.5  3.5     NA       0.1        1
-      211 #D2D2D2  7 3     1    33  6.5  7.5  2.5  3.5     NA       0.1        1
-      212 #D2D2D2  7 3     1    33  6.5  7.5  2.5  3.5     NA       0.1        1
-      213 #D2D2D2  7 3     1    33  6.5  7.5  2.5  3.5     NA       0.1        1
-      214 #D2D2D2  8 3     1    38  7.5  8.5  2.5  3.5     NA       0.1        1
-      215 #D2D2D2  8 3     1    38  7.5  8.5  2.5  3.5     NA       0.1        1
-      216 #D2D2D2  8 3     1    38  7.5  8.5  2.5  3.5     NA       0.1        1
-      217 #D2D2D2  9 3     1    43  8.5  9.5  2.5  3.5     NA       0.1        1
-      218 #D2D2D2  9 3     1    43  8.5  9.5  2.5  3.5     NA       0.1        1
-      219 #D2D2D2  9 3     1    43  8.5  9.5  2.5  3.5     NA       0.1        1
-      220 #D2D2D2 10 3     1    48  9.5 10.5  2.5  3.5     NA       0.1        1
-      221 #D2D2D2 10 3     1    48  9.5 10.5  2.5  3.5     NA       0.1        1
-      222 #D2D2D2 10 3     1    48  9.5 10.5  2.5  3.5     NA       0.1        1
-      223 #D2D2D2 11 3     1    53 10.5 11.5  2.5  3.5     NA       0.1        1
-      224 #D2D2D2 11 3     1    53 10.5 11.5  2.5  3.5     NA       0.1        1
-      225 #D2D2D2 11 3     1    53 10.5 11.5  2.5  3.5     NA       0.1        1
-      226 #D2D2D2 12 3     1    58 11.5 12.5  2.5  3.5     NA       0.1        1
-      227 #D2D2D2 12 3     1    58 11.5 12.5  2.5  3.5     NA       0.1        1
-      228 #D2D2D2 12 3     1    58 11.5 12.5  2.5  3.5     NA       0.1        1
-      229 #D2D2D2 13 3     1    63 12.5 13.5  2.5  3.5     NA       0.1        1
-      230 #D2D2D2 13 3     1    63 12.5 13.5  2.5  3.5     NA       0.1        1
-      231 #D2D2D2 13 3     1    63 12.5 13.5  2.5  3.5     NA       0.1        1
-      232 #D2D2D2 14 3     1    68 13.5 14.5  2.5  3.5     NA       0.1        1
-      233 #D2D2D2 14 3     1    68 13.5 14.5  2.5  3.5     NA       0.1        1
-      234 #D2D2D2 14 3     1    68 13.5 14.5  2.5  3.5     NA       0.1        1
-      235 #D2D2D2 15 3     1    73 14.5 15.5  2.5  3.5     NA       0.1        1
-      236 #D2D2D2 15 3     1    73 14.5 15.5  2.5  3.5     NA       0.1        1
-      237 #D2D2D2 15 3     1    73 14.5 15.5  2.5  3.5     NA       0.1        1
-      238 #D2D2D2 16 3     1    78 15.5 16.5  2.5  3.5     NA       0.1        1
-      239 #D2D2D2 16 3     1    78 15.5 16.5  2.5  3.5     NA       0.1        1
-      240 #D2D2D2 16 3     1    78 15.5 16.5  2.5  3.5     NA       0.1        1
-      241 #D2D2D2 17 3     1    83 16.5 17.5  2.5  3.5     NA       0.1        1
-      242 #D2D2D2 17 3     1    83 16.5 17.5  2.5  3.5     NA       0.1        1
-      243 #D2D2D2 17 3     1    83 16.5 17.5  2.5  3.5     NA       0.1        1
-      244 #D2D2D2 18 3     1    88 17.5 18.5  2.5  3.5     NA       0.1        1
-      245 #D2D2D2 18 3     1    88 17.5 18.5  2.5  3.5     NA       0.1        1
-      246 #D2D2D2 18 3     1    88 17.5 18.5  2.5  3.5     NA       0.1        1
-      247 #D2D2D2 19 3     1    93 18.5 19.5  2.5  3.5     NA       0.1        1
-      248 #D2D2D2 19 3     1    93 18.5 19.5  2.5  3.5     NA       0.1        1
-      249 #D2D2D2 19 3     1    93 18.5 19.5  2.5  3.5     NA       0.1        1
-      250 #D2D2D2 20 3     1    98 19.5 20.5  2.5  3.5     NA       0.1        1
-      251 #D2D2D2 20 3     1    98 19.5 20.5  2.5  3.5     NA       0.1        1
-      252 #D2D2D2 20 3     1    98 19.5 20.5  2.5  3.5     NA       0.1        1
-      253 #D2D2D2 21 3     1   103 20.5 21.5  2.5  3.5     NA       0.1        1
-      254 #D2D2D2 21 3     1   103 20.5 21.5  2.5  3.5     NA       0.1        1
-      255 #D2D2D2 21 3     1   103 20.5 21.5  2.5  3.5     NA       0.1        1
-      256 #D2D2D2 22 3     1   108 21.5 22.5  2.5  3.5     NA       0.1        1
-      257 #D2D2D2 22 3     1   108 21.5 22.5  2.5  3.5     NA       0.1        1
-      258 #D2D2D2 22 3     1   108 21.5 22.5  2.5  3.5     NA       0.1        1
-      259 #D2D2D2 23 3     1   113 22.5 23.5  2.5  3.5     NA       0.1        1
-      260 #D2D2D2 23 3     1   113 22.5 23.5  2.5  3.5     NA       0.1        1
-      261 #D2D2D2 23 3     1   113 22.5 23.5  2.5  3.5     NA       0.1        1
-      262 #D2D2D2 24 3     1   118 23.5 24.5  2.5  3.5     NA       0.1        1
-      263 #D2D2D2 24 3     1   118 23.5 24.5  2.5  3.5     NA       0.1        1
-      264 #D2D2D2 24 3     1   118 23.5 24.5  2.5  3.5     NA       0.1        1
-      265 #D2D2D2 25 3     1   123 24.5 25.5  2.5  3.5     NA       0.1        1
-      266 #D2D2D2 25 3     1   123 24.5 25.5  2.5  3.5     NA       0.1        1
-      267 #D2D2D2 25 3     1   123 24.5 25.5  2.5  3.5     NA       0.1        1
-      268 #D2D2D2 26 3     1   128 25.5 26.5  2.5  3.5     NA       0.1        1
-      269 #D2D2D2 26 3     1   128 25.5 26.5  2.5  3.5     NA       0.1        1
-      270 #D2D2D2 26 3     1   128 25.5 26.5  2.5  3.5     NA       0.1        1
-      271 #D2D2D2 27 3     1   133 26.5 27.5  2.5  3.5     NA       0.1        1
-      272 #D2D2D2 27 3     1   133 26.5 27.5  2.5  3.5     NA       0.1        1
-      273 #D2D2D2 27 3     1   133 26.5 27.5  2.5  3.5     NA       0.1        1
-      274 #D2D2D2 28 3     1   138 27.5 28.5  2.5  3.5     NA       0.1        1
-      275 #D2D2D2 28 3     1   138 27.5 28.5  2.5  3.5     NA       0.1        1
-      276 #D2D2D2 28 3     1   138 27.5 28.5  2.5  3.5     NA       0.1        1
-      277 #D2D2D2 29 3     1   143 28.5 29.5  2.5  3.5     NA       0.1        1
-      278 #D2D2D2 29 3     1   143 28.5 29.5  2.5  3.5     NA       0.1        1
-      279 #D2D2D2 29 3     1   143 28.5 29.5  2.5  3.5     NA       0.1        1
-      280 #D2D2D2 30 3     1   148 29.5 30.5  2.5  3.5     NA       0.1        1
-      281 #D2D2D2 30 3     1   148 29.5 30.5  2.5  3.5     NA       0.1        1
-      282 #D2D2D2 30 3     1   148 29.5 30.5  2.5  3.5     NA       0.1        1
-      283 #D2D2D2 31 3     1   153 30.5 31.5  2.5  3.5     NA       0.1        1
-      284 #D2D2D2 31 3     1   153 30.5 31.5  2.5  3.5     NA       0.1        1
-      285 #D2D2D2 31 3     1   153 30.5 31.5  2.5  3.5     NA       0.1        1
-      286 #D2D2D2 32 3     1   158 31.5 32.5  2.5  3.5     NA       0.1        1
-      287 #D2D2D2 32 3     1   158 31.5 32.5  2.5  3.5     NA       0.1        1
-      288 #D2D2D2 32 3     1   158 31.5 32.5  2.5  3.5     NA       0.1        1
-      289 #D2D2D2  1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      290 #D2D2D2  1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      291 #D2D2D2  1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      292 #D2D2D2  2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1
-      293 #D2D2D2  2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1
-      294 #D2D2D2  2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1
-      295 #D2D2D2  3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1
-      296 #D2D2D2  3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1
-      297 #D2D2D2  3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1
-      298 #D2D2D2  4 4     1    19  3.5  4.5  3.5  4.5     NA       0.1        1
-      299 #D2D2D2  4 4     1    19  3.5  4.5  3.5  4.5     NA       0.1        1
-      300 #D2D2D2  4 4     1    19  3.5  4.5  3.5  4.5     NA       0.1        1
-      301 #D2D2D2  5 4     1    24  4.5  5.5  3.5  4.5     NA       0.1        1
-      302 #D2D2D2  5 4     1    24  4.5  5.5  3.5  4.5     NA       0.1        1
-      303 #D2D2D2  5 4     1    24  4.5  5.5  3.5  4.5     NA       0.1        1
-      304 #D2D2D2  6 4     1    29  5.5  6.5  3.5  4.5     NA       0.1        1
-      305 #D2D2D2  6 4     1    29  5.5  6.5  3.5  4.5     NA       0.1        1
-      306 #D2D2D2  6 4     1    29  5.5  6.5  3.5  4.5     NA       0.1        1
-      307 #D2D2D2  7 4     1    34  6.5  7.5  3.5  4.5     NA       0.1        1
-      308 #D2D2D2  7 4     1    34  6.5  7.5  3.5  4.5     NA       0.1        1
-      309 #D2D2D2  7 4     1    34  6.5  7.5  3.5  4.5     NA       0.1        1
-      310 #D2D2D2  8 4     1    39  7.5  8.5  3.5  4.5     NA       0.1        1
-      311 #D2D2D2  8 4     1    39  7.5  8.5  3.5  4.5     NA       0.1        1
-      312 #D2D2D2  8 4     1    39  7.5  8.5  3.5  4.5     NA       0.1        1
-      313 #D2D2D2  9 4     1    44  8.5  9.5  3.5  4.5     NA       0.1        1
-      314 #D2D2D2  9 4     1    44  8.5  9.5  3.5  4.5     NA       0.1        1
-      315 #D2D2D2  9 4     1    44  8.5  9.5  3.5  4.5     NA       0.1        1
-      316 #D2D2D2 10 4     1    49  9.5 10.5  3.5  4.5     NA       0.1        1
-      317 #D2D2D2 10 4     1    49  9.5 10.5  3.5  4.5     NA       0.1        1
-      318 #D2D2D2 10 4     1    49  9.5 10.5  3.5  4.5     NA       0.1        1
-      319 #D2D2D2 11 4     1    54 10.5 11.5  3.5  4.5     NA       0.1        1
-      320 #D2D2D2 11 4     1    54 10.5 11.5  3.5  4.5     NA       0.1        1
-      321 #D2D2D2 11 4     1    54 10.5 11.5  3.5  4.5     NA       0.1        1
-      322 #D2D2D2 12 4     1    59 11.5 12.5  3.5  4.5     NA       0.1        1
-      323 #D2D2D2 12 4     1    59 11.5 12.5  3.5  4.5     NA       0.1        1
-      324 #D2D2D2 12 4     1    59 11.5 12.5  3.5  4.5     NA       0.1        1
-      325 #D2D2D2 13 4     1    64 12.5 13.5  3.5  4.5     NA       0.1        1
-      326 #D2D2D2 13 4     1    64 12.5 13.5  3.5  4.5     NA       0.1        1
-      327 #D2D2D2 13 4     1    64 12.5 13.5  3.5  4.5     NA       0.1        1
-      328 #D2D2D2 14 4     1    69 13.5 14.5  3.5  4.5     NA       0.1        1
-      329 #D2D2D2 14 4     1    69 13.5 14.5  3.5  4.5     NA       0.1        1
-      330 #D2D2D2 14 4     1    69 13.5 14.5  3.5  4.5     NA       0.1        1
-      331 #D2D2D2 15 4     1    74 14.5 15.5  3.5  4.5     NA       0.1        1
-      332 #D2D2D2 15 4     1    74 14.5 15.5  3.5  4.5     NA       0.1        1
-      333 #D2D2D2 15 4     1    74 14.5 15.5  3.5  4.5     NA       0.1        1
-      334 #D2D2D2 16 4     1    79 15.5 16.5  3.5  4.5     NA       0.1        1
-      335 #D2D2D2 16 4     1    79 15.5 16.5  3.5  4.5     NA       0.1        1
-      336 #D2D2D2 16 4     1    79 15.5 16.5  3.5  4.5     NA       0.1        1
-      337 #D2D2D2 17 4     1    84 16.5 17.5  3.5  4.5     NA       0.1        1
-      338 #D2D2D2 17 4     1    84 16.5 17.5  3.5  4.5     NA       0.1        1
-      339 #D2D2D2 17 4     1    84 16.5 17.5  3.5  4.5     NA       0.1        1
-      340 #D2D2D2 18 4     1    89 17.5 18.5  3.5  4.5     NA       0.1        1
-      341 #D2D2D2 18 4     1    89 17.5 18.5  3.5  4.5     NA       0.1        1
-      342 #D2D2D2 18 4     1    89 17.5 18.5  3.5  4.5     NA       0.1        1
-      343 #D2D2D2 19 4     1    94 18.5 19.5  3.5  4.5     NA       0.1        1
-      344 #D2D2D2 19 4     1    94 18.5 19.5  3.5  4.5     NA       0.1        1
-      345 #D2D2D2 19 4     1    94 18.5 19.5  3.5  4.5     NA       0.1        1
-      346 #D2D2D2 20 4     1    99 19.5 20.5  3.5  4.5     NA       0.1        1
-      347 #D2D2D2 20 4     1    99 19.5 20.5  3.5  4.5     NA       0.1        1
-      348 #D2D2D2 20 4     1    99 19.5 20.5  3.5  4.5     NA       0.1        1
-      349 #D2D2D2 21 4     1   104 20.5 21.5  3.5  4.5     NA       0.1        1
-      350 #D2D2D2 21 4     1   104 20.5 21.5  3.5  4.5     NA       0.1        1
-      351 #D2D2D2 21 4     1   104 20.5 21.5  3.5  4.5     NA       0.1        1
-      352 #D2D2D2 22 4     1   109 21.5 22.5  3.5  4.5     NA       0.1        1
-      353 #D2D2D2 22 4     1   109 21.5 22.5  3.5  4.5     NA       0.1        1
-      354 #D2D2D2 22 4     1   109 21.5 22.5  3.5  4.5     NA       0.1        1
-      355 #D2D2D2 23 4     1   114 22.5 23.5  3.5  4.5     NA       0.1        1
-      356 #D2D2D2 23 4     1   114 22.5 23.5  3.5  4.5     NA       0.1        1
-      357 #D2D2D2 23 4     1   114 22.5 23.5  3.5  4.5     NA       0.1        1
-      358 #D2D2D2 24 4     1   119 23.5 24.5  3.5  4.5     NA       0.1        1
-      359 #D2D2D2 24 4     1   119 23.5 24.5  3.5  4.5     NA       0.1        1
-      360 #D2D2D2 24 4     1   119 23.5 24.5  3.5  4.5     NA       0.1        1
-      361 #D2D2D2 25 4     1   124 24.5 25.5  3.5  4.5     NA       0.1        1
-      362 #D2D2D2 25 4     1   124 24.5 25.5  3.5  4.5     NA       0.1        1
-      363 #D2D2D2 25 4     1   124 24.5 25.5  3.5  4.5     NA       0.1        1
-      364 #D2D2D2 26 4     1   129 25.5 26.5  3.5  4.5     NA       0.1        1
-      365 #D2D2D2 26 4     1   129 25.5 26.5  3.5  4.5     NA       0.1        1
-      366 #D2D2D2 26 4     1   129 25.5 26.5  3.5  4.5     NA       0.1        1
-      367 #D2D2D2 27 4     1   134 26.5 27.5  3.5  4.5     NA       0.1        1
-      368 #D2D2D2 27 4     1   134 26.5 27.5  3.5  4.5     NA       0.1        1
-      369 #D2D2D2 27 4     1   134 26.5 27.5  3.5  4.5     NA       0.1        1
-      370 #D2D2D2 28 4     1   139 27.5 28.5  3.5  4.5     NA       0.1        1
-      371 #D2D2D2 28 4     1   139 27.5 28.5  3.5  4.5     NA       0.1        1
-      372 #D2D2D2 28 4     1   139 27.5 28.5  3.5  4.5     NA       0.1        1
-      373 #D2D2D2 29 4     1   144 28.5 29.5  3.5  4.5     NA       0.1        1
-      374 #D2D2D2 29 4     1   144 28.5 29.5  3.5  4.5     NA       0.1        1
-      375 #D2D2D2 29 4     1   144 28.5 29.5  3.5  4.5     NA       0.1        1
-      376 #D2D2D2 30 4     1   149 29.5 30.5  3.5  4.5     NA       0.1        1
-      377 #D2D2D2 30 4     1   149 29.5 30.5  3.5  4.5     NA       0.1        1
-      378 #D2D2D2 30 4     1   149 29.5 30.5  3.5  4.5     NA       0.1        1
-      379 #D2D2D2 31 4     1   154 30.5 31.5  3.5  4.5     NA       0.1        1
-      380 #D2D2D2 31 4     1   154 30.5 31.5  3.5  4.5     NA       0.1        1
-      381 #D2D2D2 31 4     1   154 30.5 31.5  3.5  4.5     NA       0.1        1
-      382 #D2D2D2 32 4     1   159 31.5 32.5  3.5  4.5     NA       0.1        1
-      383 #D2D2D2 32 4     1   159 31.5 32.5  3.5  4.5     NA       0.1        1
-      384 #D2D2D2 32 4     1   159 31.5 32.5  3.5  4.5     NA       0.1        1
-      385 #D2D2D2  1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      386 #D2D2D2  1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      387 #D2D2D2  1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      388 #D2D2D2  2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1
-      389 #D2D2D2  2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1
-      390 #D2D2D2  2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1
-      391 #D2D2D2  3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1
-      392 #D2D2D2  3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1
-      393 #D2D2D2  3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1
-      394 #D2D2D2  4 5     1    20  3.5  4.5  4.5  5.5     NA       0.1        1
-      395 #D2D2D2  4 5     1    20  3.5  4.5  4.5  5.5     NA       0.1        1
-      396 #D2D2D2  4 5     1    20  3.5  4.5  4.5  5.5     NA       0.1        1
-      397 #D2D2D2  5 5     1    25  4.5  5.5  4.5  5.5     NA       0.1        1
-      398 #D2D2D2  5 5     1    25  4.5  5.5  4.5  5.5     NA       0.1        1
-      399 #D2D2D2  5 5     1    25  4.5  5.5  4.5  5.5     NA       0.1        1
-      400 #D2D2D2  6 5     1    30  5.5  6.5  4.5  5.5     NA       0.1        1
-      401 #D2D2D2  6 5     1    30  5.5  6.5  4.5  5.5     NA       0.1        1
-      402 #D2D2D2  6 5     1    30  5.5  6.5  4.5  5.5     NA       0.1        1
-      403 #D2D2D2  7 5     1    35  6.5  7.5  4.5  5.5     NA       0.1        1
-      404 #D2D2D2  7 5     1    35  6.5  7.5  4.5  5.5     NA       0.1        1
-      405 #D2D2D2  7 5     1    35  6.5  7.5  4.5  5.5     NA       0.1        1
-      406 #D2D2D2  8 5     1    40  7.5  8.5  4.5  5.5     NA       0.1        1
-      407 #D2D2D2  8 5     1    40  7.5  8.5  4.5  5.5     NA       0.1        1
-      408 #D2D2D2  8 5     1    40  7.5  8.5  4.5  5.5     NA       0.1        1
-      409 #D2D2D2  9 5     1    45  8.5  9.5  4.5  5.5     NA       0.1        1
-      410 #D2D2D2  9 5     1    45  8.5  9.5  4.5  5.5     NA       0.1        1
-      411 #D2D2D2  9 5     1    45  8.5  9.5  4.5  5.5     NA       0.1        1
-      412 #D2D2D2 10 5     1    50  9.5 10.5  4.5  5.5     NA       0.1        1
-      413 #D2D2D2 10 5     1    50  9.5 10.5  4.5  5.5     NA       0.1        1
-      414 #D2D2D2 10 5     1    50  9.5 10.5  4.5  5.5     NA       0.1        1
-      415 #D2D2D2 11 5     1    55 10.5 11.5  4.5  5.5     NA       0.1        1
-      416 #D2D2D2 11 5     1    55 10.5 11.5  4.5  5.5     NA       0.1        1
-      417 #D2D2D2 11 5     1    55 10.5 11.5  4.5  5.5     NA       0.1        1
-      418 #D2D2D2 12 5     1    60 11.5 12.5  4.5  5.5     NA       0.1        1
-      419 #D2D2D2 12 5     1    60 11.5 12.5  4.5  5.5     NA       0.1        1
-      420 #D2D2D2 12 5     1    60 11.5 12.5  4.5  5.5     NA       0.1        1
-      421 #D2D2D2 13 5     1    65 12.5 13.5  4.5  5.5     NA       0.1        1
-      422 #D2D2D2 13 5     1    65 12.5 13.5  4.5  5.5     NA       0.1        1
-      423 #D2D2D2 13 5     1    65 12.5 13.5  4.5  5.5     NA       0.1        1
-      424 #D2D2D2 14 5     1    70 13.5 14.5  4.5  5.5     NA       0.1        1
-      425 #D2D2D2 14 5     1    70 13.5 14.5  4.5  5.5     NA       0.1        1
-      426 #D2D2D2 14 5     1    70 13.5 14.5  4.5  5.5     NA       0.1        1
-      427 #D2D2D2 15 5     1    75 14.5 15.5  4.5  5.5     NA       0.1        1
-      428 #D2D2D2 15 5     1    75 14.5 15.5  4.5  5.5     NA       0.1        1
-      429 #D2D2D2 15 5     1    75 14.5 15.5  4.5  5.5     NA       0.1        1
-      430 #D2D2D2 16 5     1    80 15.5 16.5  4.5  5.5     NA       0.1        1
-      431 #D2D2D2 16 5     1    80 15.5 16.5  4.5  5.5     NA       0.1        1
-      432 #D2D2D2 16 5     1    80 15.5 16.5  4.5  5.5     NA       0.1        1
-      433 #D2D2D2 17 5     1    85 16.5 17.5  4.5  5.5     NA       0.1        1
-      434 #D2D2D2 17 5     1    85 16.5 17.5  4.5  5.5     NA       0.1        1
-      435 #D2D2D2 17 5     1    85 16.5 17.5  4.5  5.5     NA       0.1        1
-      436 #D2D2D2 18 5     1    90 17.5 18.5  4.5  5.5     NA       0.1        1
-      437 #D2D2D2 18 5     1    90 17.5 18.5  4.5  5.5     NA       0.1        1
-      438 #D2D2D2 18 5     1    90 17.5 18.5  4.5  5.5     NA       0.1        1
-      439 #D2D2D2 19 5     1    95 18.5 19.5  4.5  5.5     NA       0.1        1
-      440 #D2D2D2 19 5     1    95 18.5 19.5  4.5  5.5     NA       0.1        1
-      441 #D2D2D2 19 5     1    95 18.5 19.5  4.5  5.5     NA       0.1        1
-      442 #D2D2D2 20 5     1   100 19.5 20.5  4.5  5.5     NA       0.1        1
-      443 #D2D2D2 20 5     1   100 19.5 20.5  4.5  5.5     NA       0.1        1
-      444 #D2D2D2 20 5     1   100 19.5 20.5  4.5  5.5     NA       0.1        1
-      445 #D2D2D2 21 5     1   105 20.5 21.5  4.5  5.5     NA       0.1        1
-      446 #D2D2D2 21 5     1   105 20.5 21.5  4.5  5.5     NA       0.1        1
-      447 #D2D2D2 21 5     1   105 20.5 21.5  4.5  5.5     NA       0.1        1
-      448 #D2D2D2 22 5     1   110 21.5 22.5  4.5  5.5     NA       0.1        1
-      449 #D2D2D2 22 5     1   110 21.5 22.5  4.5  5.5     NA       0.1        1
-      450 #D2D2D2 22 5     1   110 21.5 22.5  4.5  5.5     NA       0.1        1
-      451 #D2D2D2 23 5     1   115 22.5 23.5  4.5  5.5     NA       0.1        1
-      452 #D2D2D2 23 5     1   115 22.5 23.5  4.5  5.5     NA       0.1        1
-      453 #D2D2D2 23 5     1   115 22.5 23.5  4.5  5.5     NA       0.1        1
-      454 #D2D2D2 24 5     1   120 23.5 24.5  4.5  5.5     NA       0.1        1
-      455 #D2D2D2 24 5     1   120 23.5 24.5  4.5  5.5     NA       0.1        1
-      456 #D2D2D2 24 5     1   120 23.5 24.5  4.5  5.5     NA       0.1        1
-      457 #D2D2D2 25 5     1   125 24.5 25.5  4.5  5.5     NA       0.1        1
-      458 #D2D2D2 25 5     1   125 24.5 25.5  4.5  5.5     NA       0.1        1
-      459 #D2D2D2 25 5     1   125 24.5 25.5  4.5  5.5     NA       0.1        1
-      460 #D2D2D2 26 5     1   130 25.5 26.5  4.5  5.5     NA       0.1        1
-      461 #D2D2D2 26 5     1   130 25.5 26.5  4.5  5.5     NA       0.1        1
-      462 #D2D2D2 26 5     1   130 25.5 26.5  4.5  5.5     NA       0.1        1
-      463 #D2D2D2 27 5     1   135 26.5 27.5  4.5  5.5     NA       0.1        1
-      464 #D2D2D2 27 5     1   135 26.5 27.5  4.5  5.5     NA       0.1        1
-      465 #D2D2D2 27 5     1   135 26.5 27.5  4.5  5.5     NA       0.1        1
-      466 #D2D2D2 28 5     1   140 27.5 28.5  4.5  5.5     NA       0.1        1
-      467 #D2D2D2 28 5     1   140 27.5 28.5  4.5  5.5     NA       0.1        1
-      468 #D2D2D2 28 5     1   140 27.5 28.5  4.5  5.5     NA       0.1        1
-      469 #D2D2D2 29 5     1   145 28.5 29.5  4.5  5.5     NA       0.1        1
-      470 #D2D2D2 29 5     1   145 28.5 29.5  4.5  5.5     NA       0.1        1
-      471 #D2D2D2 29 5     1   145 28.5 29.5  4.5  5.5     NA       0.1        1
-      472 #D2D2D2 30 5     1   150 29.5 30.5  4.5  5.5     NA       0.1        1
-      473 #D2D2D2 30 5     1   150 29.5 30.5  4.5  5.5     NA       0.1        1
-      474 #D2D2D2 30 5     1   150 29.5 30.5  4.5  5.5     NA       0.1        1
-      475 #D2D2D2 31 5     1   155 30.5 31.5  4.5  5.5     NA       0.1        1
-      476 #D2D2D2 31 5     1   155 30.5 31.5  4.5  5.5     NA       0.1        1
-      477 #D2D2D2 31 5     1   155 30.5 31.5  4.5  5.5     NA       0.1        1
-      478 #D2D2D2 32 5     1   160 31.5 32.5  4.5  5.5     NA       0.1        1
-      479 #D2D2D2 32 5     1   160 31.5 32.5  4.5  5.5     NA       0.1        1
-      480 #D2D2D2 32 5     1   160 31.5 32.5  4.5  5.5     NA       0.1        1
+           x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype
+      1    1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      2    1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      3    1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      4    2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1
+      5    2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1
+      6    2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1
+      7    3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1
+      8    3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1
+      9    3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1
+      10   4 1 #D2D2D2     1    16  3.5  4.5  0.5  1.5     NA       0.2        1
+      11   4 1 #D2D2D2     1    16  3.5  4.5  0.5  1.5     NA       0.2        1
+      12   4 1 #D2D2D2     1    16  3.5  4.5  0.5  1.5     NA       0.2        1
+      13   5 1 #D2D2D2     1    21  4.5  5.5  0.5  1.5     NA       0.2        1
+      14   5 1 #D2D2D2     1    21  4.5  5.5  0.5  1.5     NA       0.2        1
+      15   5 1 #D2D2D2     1    21  4.5  5.5  0.5  1.5     NA       0.2        1
+      16   6 1 #D2D2D2     1    26  5.5  6.5  0.5  1.5     NA       0.2        1
+      17   6 1 #D2D2D2     1    26  5.5  6.5  0.5  1.5     NA       0.2        1
+      18   6 1 #D2D2D2     1    26  5.5  6.5  0.5  1.5     NA       0.2        1
+      19   7 1 #D2D2D2     1    31  6.5  7.5  0.5  1.5     NA       0.2        1
+      20   7 1 #D2D2D2     1    31  6.5  7.5  0.5  1.5     NA       0.2        1
+      21   7 1 #D2D2D2     1    31  6.5  7.5  0.5  1.5     NA       0.2        1
+      22   8 1 #D2D2D2     1    36  7.5  8.5  0.5  1.5     NA       0.2        1
+      23   8 1 #D2D2D2     1    36  7.5  8.5  0.5  1.5     NA       0.2        1
+      24   8 1 #D2D2D2     1    36  7.5  8.5  0.5  1.5     NA       0.2        1
+      25   9 1 #D2D2D2     1    41  8.5  9.5  0.5  1.5     NA       0.2        1
+      26   9 1 #D2D2D2     1    41  8.5  9.5  0.5  1.5     NA       0.2        1
+      27   9 1 #D2D2D2     1    41  8.5  9.5  0.5  1.5     NA       0.2        1
+      28  10 1 #D2D2D2     1    46  9.5 10.5  0.5  1.5     NA       0.2        1
+      29  10 1 #D2D2D2     1    46  9.5 10.5  0.5  1.5     NA       0.2        1
+      30  10 1 #D2D2D2     1    46  9.5 10.5  0.5  1.5     NA       0.2        1
+      31  11 1 #D2D2D2     1    51 10.5 11.5  0.5  1.5     NA       0.2        1
+      32  11 1 #D2D2D2     1    51 10.5 11.5  0.5  1.5     NA       0.2        1
+      33  11 1 #D2D2D2     1    51 10.5 11.5  0.5  1.5     NA       0.2        1
+      34  12 1 #D2D2D2     1    56 11.5 12.5  0.5  1.5     NA       0.2        1
+      35  12 1 #D2D2D2     1    56 11.5 12.5  0.5  1.5     NA       0.2        1
+      36  12 1 #D2D2D2     1    56 11.5 12.5  0.5  1.5     NA       0.2        1
+      37  13 1 #D2D2D2     1    61 12.5 13.5  0.5  1.5     NA       0.2        1
+      38  13 1 #D2D2D2     1    61 12.5 13.5  0.5  1.5     NA       0.2        1
+      39  13 1 #D2D2D2     1    61 12.5 13.5  0.5  1.5     NA       0.2        1
+      40  14 1 #D2D2D2     1    66 13.5 14.5  0.5  1.5     NA       0.2        1
+      41  14 1 #D2D2D2     1    66 13.5 14.5  0.5  1.5     NA       0.2        1
+      42  14 1 #D2D2D2     1    66 13.5 14.5  0.5  1.5     NA       0.2        1
+      43  15 1 #D2D2D2     1    71 14.5 15.5  0.5  1.5     NA       0.2        1
+      44  15 1 #D2D2D2     1    71 14.5 15.5  0.5  1.5     NA       0.2        1
+      45  15 1 #D2D2D2     1    71 14.5 15.5  0.5  1.5     NA       0.2        1
+      46  16 1 #D2D2D2     1    76 15.5 16.5  0.5  1.5     NA       0.2        1
+      47  16 1 #D2D2D2     1    76 15.5 16.5  0.5  1.5     NA       0.2        1
+      48  16 1 #D2D2D2     1    76 15.5 16.5  0.5  1.5     NA       0.2        1
+      49  17 1 #D2D2D2     1    81 16.5 17.5  0.5  1.5     NA       0.2        1
+      50  17 1 #D2D2D2     1    81 16.5 17.5  0.5  1.5     NA       0.2        1
+      51  17 1 #D2D2D2     1    81 16.5 17.5  0.5  1.5     NA       0.2        1
+      52  18 1 #D2D2D2     1    86 17.5 18.5  0.5  1.5     NA       0.2        1
+      53  18 1 #D2D2D2     1    86 17.5 18.5  0.5  1.5     NA       0.2        1
+      54  18 1 #D2D2D2     1    86 17.5 18.5  0.5  1.5     NA       0.2        1
+      55  19 1 #D2D2D2     1    91 18.5 19.5  0.5  1.5     NA       0.2        1
+      56  19 1 #D2D2D2     1    91 18.5 19.5  0.5  1.5     NA       0.2        1
+      57  19 1 #D2D2D2     1    91 18.5 19.5  0.5  1.5     NA       0.2        1
+      58  20 1 #D2D2D2     1    96 19.5 20.5  0.5  1.5     NA       0.2        1
+      59  20 1 #D2D2D2     1    96 19.5 20.5  0.5  1.5     NA       0.2        1
+      60  20 1 #D2D2D2     1    96 19.5 20.5  0.5  1.5     NA       0.2        1
+      61  21 1 #D2D2D2     1   101 20.5 21.5  0.5  1.5     NA       0.2        1
+      62  21 1 #D2D2D2     1   101 20.5 21.5  0.5  1.5     NA       0.2        1
+      63  21 1 #D2D2D2     1   101 20.5 21.5  0.5  1.5     NA       0.2        1
+      64  22 1 #D2D2D2     1   106 21.5 22.5  0.5  1.5     NA       0.2        1
+      65  22 1 #D2D2D2     1   106 21.5 22.5  0.5  1.5     NA       0.2        1
+      66  22 1 #D2D2D2     1   106 21.5 22.5  0.5  1.5     NA       0.2        1
+      67  23 1 #D2D2D2     1   111 22.5 23.5  0.5  1.5     NA       0.2        1
+      68  23 1 #D2D2D2     1   111 22.5 23.5  0.5  1.5     NA       0.2        1
+      69  23 1 #D2D2D2     1   111 22.5 23.5  0.5  1.5     NA       0.2        1
+      70  24 1 #D2D2D2     1   116 23.5 24.5  0.5  1.5     NA       0.2        1
+      71  24 1 #D2D2D2     1   116 23.5 24.5  0.5  1.5     NA       0.2        1
+      72  24 1 #D2D2D2     1   116 23.5 24.5  0.5  1.5     NA       0.2        1
+      73  25 1 #D2D2D2     1   121 24.5 25.5  0.5  1.5     NA       0.2        1
+      74  25 1 #D2D2D2     1   121 24.5 25.5  0.5  1.5     NA       0.2        1
+      75  25 1 #D2D2D2     1   121 24.5 25.5  0.5  1.5     NA       0.2        1
+      76  26 1 #D2D2D2     1   126 25.5 26.5  0.5  1.5     NA       0.2        1
+      77  26 1 #D2D2D2     1   126 25.5 26.5  0.5  1.5     NA       0.2        1
+      78  26 1 #D2D2D2     1   126 25.5 26.5  0.5  1.5     NA       0.2        1
+      79  27 1 #D2D2D2     1   131 26.5 27.5  0.5  1.5     NA       0.2        1
+      80  27 1 #D2D2D2     1   131 26.5 27.5  0.5  1.5     NA       0.2        1
+      81  27 1 #D2D2D2     1   131 26.5 27.5  0.5  1.5     NA       0.2        1
+      82  28 1 #D2D2D2     1   136 27.5 28.5  0.5  1.5     NA       0.2        1
+      83  28 1 #D2D2D2     1   136 27.5 28.5  0.5  1.5     NA       0.2        1
+      84  28 1 #D2D2D2     1   136 27.5 28.5  0.5  1.5     NA       0.2        1
+      85  29 1 #D2D2D2     1   141 28.5 29.5  0.5  1.5     NA       0.2        1
+      86  29 1 #D2D2D2     1   141 28.5 29.5  0.5  1.5     NA       0.2        1
+      87  29 1 #D2D2D2     1   141 28.5 29.5  0.5  1.5     NA       0.2        1
+      88  30 1 #D2D2D2     1   146 29.5 30.5  0.5  1.5     NA       0.2        1
+      89  30 1 #D2D2D2     1   146 29.5 30.5  0.5  1.5     NA       0.2        1
+      90  30 1 #D2D2D2     1   146 29.5 30.5  0.5  1.5     NA       0.2        1
+      91  31 1 #D2D2D2     1   151 30.5 31.5  0.5  1.5     NA       0.2        1
+      92  31 1 #D2D2D2     1   151 30.5 31.5  0.5  1.5     NA       0.2        1
+      93  31 1 #D2D2D2     1   151 30.5 31.5  0.5  1.5     NA       0.2        1
+      94  32 1 #D2D2D2     1   156 31.5 32.5  0.5  1.5     NA       0.2        1
+      95  32 1 #D2D2D2     1   156 31.5 32.5  0.5  1.5     NA       0.2        1
+      96  32 1 #D2D2D2     1   156 31.5 32.5  0.5  1.5     NA       0.2        1
+      97   1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      98   1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      99   1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      100  2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1
+      101  2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1
+      102  2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1
+      103  3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1
+      104  3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1
+      105  3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1
+      106  4 2 #D2D2D2     1    17  3.5  4.5  1.5  2.5     NA       0.2        1
+      107  4 2 #D2D2D2     1    17  3.5  4.5  1.5  2.5     NA       0.2        1
+      108  4 2 #D2D2D2     1    17  3.5  4.5  1.5  2.5     NA       0.2        1
+      109  5 2 #D2D2D2     1    22  4.5  5.5  1.5  2.5     NA       0.2        1
+      110  5 2 #D2D2D2     1    22  4.5  5.5  1.5  2.5     NA       0.2        1
+      111  5 2 #D2D2D2     1    22  4.5  5.5  1.5  2.5     NA       0.2        1
+      112  6 2 #D2D2D2     1    27  5.5  6.5  1.5  2.5     NA       0.2        1
+      113  6 2 #D2D2D2     1    27  5.5  6.5  1.5  2.5     NA       0.2        1
+      114  6 2 #D2D2D2     1    27  5.5  6.5  1.5  2.5     NA       0.2        1
+      115  7 2 #D2D2D2     1    32  6.5  7.5  1.5  2.5     NA       0.2        1
+      116  7 2 #D2D2D2     1    32  6.5  7.5  1.5  2.5     NA       0.2        1
+      117  7 2 #D2D2D2     1    32  6.5  7.5  1.5  2.5     NA       0.2        1
+      118  8 2 #D2D2D2     1    37  7.5  8.5  1.5  2.5     NA       0.2        1
+      119  8 2 #D2D2D2     1    37  7.5  8.5  1.5  2.5     NA       0.2        1
+      120  8 2 #D2D2D2     1    37  7.5  8.5  1.5  2.5     NA       0.2        1
+      121  9 2 #D2D2D2     1    42  8.5  9.5  1.5  2.5     NA       0.2        1
+      122  9 2 #D2D2D2     1    42  8.5  9.5  1.5  2.5     NA       0.2        1
+      123  9 2 #D2D2D2     1    42  8.5  9.5  1.5  2.5     NA       0.2        1
+      124 10 2 #D2D2D2     1    47  9.5 10.5  1.5  2.5     NA       0.2        1
+      125 10 2 #D2D2D2     1    47  9.5 10.5  1.5  2.5     NA       0.2        1
+      126 10 2 #D2D2D2     1    47  9.5 10.5  1.5  2.5     NA       0.2        1
+      127 11 2 #D2D2D2     1    52 10.5 11.5  1.5  2.5     NA       0.2        1
+      128 11 2 #D2D2D2     1    52 10.5 11.5  1.5  2.5     NA       0.2        1
+      129 11 2 #D2D2D2     1    52 10.5 11.5  1.5  2.5     NA       0.2        1
+      130 12 2 #D2D2D2     1    57 11.5 12.5  1.5  2.5     NA       0.2        1
+      131 12 2 #D2D2D2     1    57 11.5 12.5  1.5  2.5     NA       0.2        1
+      132 12 2 #D2D2D2     1    57 11.5 12.5  1.5  2.5     NA       0.2        1
+      133 13 2 #D2D2D2     1    62 12.5 13.5  1.5  2.5     NA       0.2        1
+      134 13 2 #D2D2D2     1    62 12.5 13.5  1.5  2.5     NA       0.2        1
+      135 13 2 #D2D2D2     1    62 12.5 13.5  1.5  2.5     NA       0.2        1
+      136 14 2 #D2D2D2     1    67 13.5 14.5  1.5  2.5     NA       0.2        1
+      137 14 2 #D2D2D2     1    67 13.5 14.5  1.5  2.5     NA       0.2        1
+      138 14 2 #D2D2D2     1    67 13.5 14.5  1.5  2.5     NA       0.2        1
+      139 15 2 #D2D2D2     1    72 14.5 15.5  1.5  2.5     NA       0.2        1
+      140 15 2 #D2D2D2     1    72 14.5 15.5  1.5  2.5     NA       0.2        1
+      141 15 2 #D2D2D2     1    72 14.5 15.5  1.5  2.5     NA       0.2        1
+      142 16 2 #D2D2D2     1    77 15.5 16.5  1.5  2.5     NA       0.2        1
+      143 16 2 #D2D2D2     1    77 15.5 16.5  1.5  2.5     NA       0.2        1
+      144 16 2 #D2D2D2     1    77 15.5 16.5  1.5  2.5     NA       0.2        1
+      145 17 2 #D2D2D2     1    82 16.5 17.5  1.5  2.5     NA       0.2        1
+      146 17 2 #D2D2D2     1    82 16.5 17.5  1.5  2.5     NA       0.2        1
+      147 17 2 #D2D2D2     1    82 16.5 17.5  1.5  2.5     NA       0.2        1
+      148 18 2 #D2D2D2     1    87 17.5 18.5  1.5  2.5     NA       0.2        1
+      149 18 2 #D2D2D2     1    87 17.5 18.5  1.5  2.5     NA       0.2        1
+      150 18 2 #D2D2D2     1    87 17.5 18.5  1.5  2.5     NA       0.2        1
+      151 19 2 #D2D2D2     1    92 18.5 19.5  1.5  2.5     NA       0.2        1
+      152 19 2 #D2D2D2     1    92 18.5 19.5  1.5  2.5     NA       0.2        1
+      153 19 2 #D2D2D2     1    92 18.5 19.5  1.5  2.5     NA       0.2        1
+      154 20 2 #D2D2D2     1    97 19.5 20.5  1.5  2.5     NA       0.2        1
+      155 20 2 #D2D2D2     1    97 19.5 20.5  1.5  2.5     NA       0.2        1
+      156 20 2 #D2D2D2     1    97 19.5 20.5  1.5  2.5     NA       0.2        1
+      157 21 2 #D2D2D2     1   102 20.5 21.5  1.5  2.5     NA       0.2        1
+      158 21 2 #D2D2D2     1   102 20.5 21.5  1.5  2.5     NA       0.2        1
+      159 21 2 #D2D2D2     1   102 20.5 21.5  1.5  2.5     NA       0.2        1
+      160 22 2 #D2D2D2     1   107 21.5 22.5  1.5  2.5     NA       0.2        1
+      161 22 2 #D2D2D2     1   107 21.5 22.5  1.5  2.5     NA       0.2        1
+      162 22 2 #D2D2D2     1   107 21.5 22.5  1.5  2.5     NA       0.2        1
+      163 23 2 #D2D2D2     1   112 22.5 23.5  1.5  2.5     NA       0.2        1
+      164 23 2 #D2D2D2     1   112 22.5 23.5  1.5  2.5     NA       0.2        1
+      165 23 2 #D2D2D2     1   112 22.5 23.5  1.5  2.5     NA       0.2        1
+      166 24 2 #D2D2D2     1   117 23.5 24.5  1.5  2.5     NA       0.2        1
+      167 24 2 #D2D2D2     1   117 23.5 24.5  1.5  2.5     NA       0.2        1
+      168 24 2 #D2D2D2     1   117 23.5 24.5  1.5  2.5     NA       0.2        1
+      169 25 2 #D2D2D2     1   122 24.5 25.5  1.5  2.5     NA       0.2        1
+      170 25 2 #D2D2D2     1   122 24.5 25.5  1.5  2.5     NA       0.2        1
+      171 25 2 #D2D2D2     1   122 24.5 25.5  1.5  2.5     NA       0.2        1
+      172 26 2 #D2D2D2     1   127 25.5 26.5  1.5  2.5     NA       0.2        1
+      173 26 2 #D2D2D2     1   127 25.5 26.5  1.5  2.5     NA       0.2        1
+      174 26 2 #D2D2D2     1   127 25.5 26.5  1.5  2.5     NA       0.2        1
+      175 27 2 #D2D2D2     1   132 26.5 27.5  1.5  2.5     NA       0.2        1
+      176 27 2 #D2D2D2     1   132 26.5 27.5  1.5  2.5     NA       0.2        1
+      177 27 2 #D2D2D2     1   132 26.5 27.5  1.5  2.5     NA       0.2        1
+      178 28 2 #D2D2D2     1   137 27.5 28.5  1.5  2.5     NA       0.2        1
+      179 28 2 #D2D2D2     1   137 27.5 28.5  1.5  2.5     NA       0.2        1
+      180 28 2 #D2D2D2     1   137 27.5 28.5  1.5  2.5     NA       0.2        1
+      181 29 2 #D2D2D2     1   142 28.5 29.5  1.5  2.5     NA       0.2        1
+      182 29 2 #D2D2D2     1   142 28.5 29.5  1.5  2.5     NA       0.2        1
+      183 29 2 #D2D2D2     1   142 28.5 29.5  1.5  2.5     NA       0.2        1
+      184 30 2 #D2D2D2     1   147 29.5 30.5  1.5  2.5     NA       0.2        1
+      185 30 2 #D2D2D2     1   147 29.5 30.5  1.5  2.5     NA       0.2        1
+      186 30 2 #D2D2D2     1   147 29.5 30.5  1.5  2.5     NA       0.2        1
+      187 31 2 #D2D2D2     1   152 30.5 31.5  1.5  2.5     NA       0.2        1
+      188 31 2 #D2D2D2     1   152 30.5 31.5  1.5  2.5     NA       0.2        1
+      189 31 2 #D2D2D2     1   152 30.5 31.5  1.5  2.5     NA       0.2        1
+      190 32 2 #D2D2D2     1   157 31.5 32.5  1.5  2.5     NA       0.2        1
+      191 32 2 #D2D2D2     1   157 31.5 32.5  1.5  2.5     NA       0.2        1
+      192 32 2 #D2D2D2     1   157 31.5 32.5  1.5  2.5     NA       0.2        1
+      193  1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      194  1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      195  1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      196  2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1
+      197  2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1
+      198  2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1
+      199  3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1
+      200  3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1
+      201  3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1
+      202  4 3 #D2D2D2     1    18  3.5  4.5  2.5  3.5     NA       0.2        1
+      203  4 3 #D2D2D2     1    18  3.5  4.5  2.5  3.5     NA       0.2        1
+      204  4 3 #D2D2D2     1    18  3.5  4.5  2.5  3.5     NA       0.2        1
+      205  5 3 #D2D2D2     1    23  4.5  5.5  2.5  3.5     NA       0.2        1
+      206  5 3 #D2D2D2     1    23  4.5  5.5  2.5  3.5     NA       0.2        1
+      207  5 3 #D2D2D2     1    23  4.5  5.5  2.5  3.5     NA       0.2        1
+      208  6 3 #D2D2D2     1    28  5.5  6.5  2.5  3.5     NA       0.2        1
+      209  6 3 #D2D2D2     1    28  5.5  6.5  2.5  3.5     NA       0.2        1
+      210  6 3 #D2D2D2     1    28  5.5  6.5  2.5  3.5     NA       0.2        1
+      211  7 3 #D2D2D2     1    33  6.5  7.5  2.5  3.5     NA       0.2        1
+      212  7 3 #D2D2D2     1    33  6.5  7.5  2.5  3.5     NA       0.2        1
+      213  7 3 #D2D2D2     1    33  6.5  7.5  2.5  3.5     NA       0.2        1
+      214  8 3 #D2D2D2     1    38  7.5  8.5  2.5  3.5     NA       0.2        1
+      215  8 3 #D2D2D2     1    38  7.5  8.5  2.5  3.5     NA       0.2        1
+      216  8 3 #D2D2D2     1    38  7.5  8.5  2.5  3.5     NA       0.2        1
+      217  9 3 #D2D2D2     1    43  8.5  9.5  2.5  3.5     NA       0.2        1
+      218  9 3 #D2D2D2     1    43  8.5  9.5  2.5  3.5     NA       0.2        1
+      219  9 3 #D2D2D2     1    43  8.5  9.5  2.5  3.5     NA       0.2        1
+      220 10 3 #D2D2D2     1    48  9.5 10.5  2.5  3.5     NA       0.2        1
+      221 10 3 #D2D2D2     1    48  9.5 10.5  2.5  3.5     NA       0.2        1
+      222 10 3 #D2D2D2     1    48  9.5 10.5  2.5  3.5     NA       0.2        1
+      223 11 3 #D2D2D2     1    53 10.5 11.5  2.5  3.5     NA       0.2        1
+      224 11 3 #D2D2D2     1    53 10.5 11.5  2.5  3.5     NA       0.2        1
+      225 11 3 #D2D2D2     1    53 10.5 11.5  2.5  3.5     NA       0.2        1
+      226 12 3 #D2D2D2     1    58 11.5 12.5  2.5  3.5     NA       0.2        1
+      227 12 3 #D2D2D2     1    58 11.5 12.5  2.5  3.5     NA       0.2        1
+      228 12 3 #D2D2D2     1    58 11.5 12.5  2.5  3.5     NA       0.2        1
+      229 13 3 #D2D2D2     1    63 12.5 13.5  2.5  3.5     NA       0.2        1
+      230 13 3 #D2D2D2     1    63 12.5 13.5  2.5  3.5     NA       0.2        1
+      231 13 3 #D2D2D2     1    63 12.5 13.5  2.5  3.5     NA       0.2        1
+      232 14 3 #D2D2D2     1    68 13.5 14.5  2.5  3.5     NA       0.2        1
+      233 14 3 #D2D2D2     1    68 13.5 14.5  2.5  3.5     NA       0.2        1
+      234 14 3 #D2D2D2     1    68 13.5 14.5  2.5  3.5     NA       0.2        1
+      235 15 3 #D2D2D2     1    73 14.5 15.5  2.5  3.5     NA       0.2        1
+      236 15 3 #D2D2D2     1    73 14.5 15.5  2.5  3.5     NA       0.2        1
+      237 15 3 #D2D2D2     1    73 14.5 15.5  2.5  3.5     NA       0.2        1
+      238 16 3 #D2D2D2     1    78 15.5 16.5  2.5  3.5     NA       0.2        1
+      239 16 3 #D2D2D2     1    78 15.5 16.5  2.5  3.5     NA       0.2        1
+      240 16 3 #D2D2D2     1    78 15.5 16.5  2.5  3.5     NA       0.2        1
+      241 17 3 #D2D2D2     1    83 16.5 17.5  2.5  3.5     NA       0.2        1
+      242 17 3 #D2D2D2     1    83 16.5 17.5  2.5  3.5     NA       0.2        1
+      243 17 3 #D2D2D2     1    83 16.5 17.5  2.5  3.5     NA       0.2        1
+      244 18 3 #D2D2D2     1    88 17.5 18.5  2.5  3.5     NA       0.2        1
+      245 18 3 #D2D2D2     1    88 17.5 18.5  2.5  3.5     NA       0.2        1
+      246 18 3 #D2D2D2     1    88 17.5 18.5  2.5  3.5     NA       0.2        1
+      247 19 3 #D2D2D2     1    93 18.5 19.5  2.5  3.5     NA       0.2        1
+      248 19 3 #D2D2D2     1    93 18.5 19.5  2.5  3.5     NA       0.2        1
+      249 19 3 #D2D2D2     1    93 18.5 19.5  2.5  3.5     NA       0.2        1
+      250 20 3 #D2D2D2     1    98 19.5 20.5  2.5  3.5     NA       0.2        1
+      251 20 3 #D2D2D2     1    98 19.5 20.5  2.5  3.5     NA       0.2        1
+      252 20 3 #D2D2D2     1    98 19.5 20.5  2.5  3.5     NA       0.2        1
+      253 21 3 #D2D2D2     1   103 20.5 21.5  2.5  3.5     NA       0.2        1
+      254 21 3 #D2D2D2     1   103 20.5 21.5  2.5  3.5     NA       0.2        1
+      255 21 3 #D2D2D2     1   103 20.5 21.5  2.5  3.5     NA       0.2        1
+      256 22 3 #D2D2D2     1   108 21.5 22.5  2.5  3.5     NA       0.2        1
+      257 22 3 #D2D2D2     1   108 21.5 22.5  2.5  3.5     NA       0.2        1
+      258 22 3 #D2D2D2     1   108 21.5 22.5  2.5  3.5     NA       0.2        1
+      259 23 3 #D2D2D2     1   113 22.5 23.5  2.5  3.5     NA       0.2        1
+      260 23 3 #D2D2D2     1   113 22.5 23.5  2.5  3.5     NA       0.2        1
+      261 23 3 #D2D2D2     1   113 22.5 23.5  2.5  3.5     NA       0.2        1
+      262 24 3 #D2D2D2     1   118 23.5 24.5  2.5  3.5     NA       0.2        1
+      263 24 3 #D2D2D2     1   118 23.5 24.5  2.5  3.5     NA       0.2        1
+      264 24 3 #D2D2D2     1   118 23.5 24.5  2.5  3.5     NA       0.2        1
+      265 25 3 #D2D2D2     1   123 24.5 25.5  2.5  3.5     NA       0.2        1
+      266 25 3 #D2D2D2     1   123 24.5 25.5  2.5  3.5     NA       0.2        1
+      267 25 3 #D2D2D2     1   123 24.5 25.5  2.5  3.5     NA       0.2        1
+      268 26 3 #D2D2D2     1   128 25.5 26.5  2.5  3.5     NA       0.2        1
+      269 26 3 #D2D2D2     1   128 25.5 26.5  2.5  3.5     NA       0.2        1
+      270 26 3 #D2D2D2     1   128 25.5 26.5  2.5  3.5     NA       0.2        1
+      271 27 3 #D2D2D2     1   133 26.5 27.5  2.5  3.5     NA       0.2        1
+      272 27 3 #D2D2D2     1   133 26.5 27.5  2.5  3.5     NA       0.2        1
+      273 27 3 #D2D2D2     1   133 26.5 27.5  2.5  3.5     NA       0.2        1
+      274 28 3 #D2D2D2     1   138 27.5 28.5  2.5  3.5     NA       0.2        1
+      275 28 3 #D2D2D2     1   138 27.5 28.5  2.5  3.5     NA       0.2        1
+      276 28 3 #D2D2D2     1   138 27.5 28.5  2.5  3.5     NA       0.2        1
+      277 29 3 #D2D2D2     1   143 28.5 29.5  2.5  3.5     NA       0.2        1
+      278 29 3 #D2D2D2     1   143 28.5 29.5  2.5  3.5     NA       0.2        1
+      279 29 3 #D2D2D2     1   143 28.5 29.5  2.5  3.5     NA       0.2        1
+      280 30 3 #D2D2D2     1   148 29.5 30.5  2.5  3.5     NA       0.2        1
+      281 30 3 #D2D2D2     1   148 29.5 30.5  2.5  3.5     NA       0.2        1
+      282 30 3 #D2D2D2     1   148 29.5 30.5  2.5  3.5     NA       0.2        1
+      283 31 3 #D2D2D2     1   153 30.5 31.5  2.5  3.5     NA       0.2        1
+      284 31 3 #D2D2D2     1   153 30.5 31.5  2.5  3.5     NA       0.2        1
+      285 31 3 #D2D2D2     1   153 30.5 31.5  2.5  3.5     NA       0.2        1
+      286 32 3 #D2D2D2     1   158 31.5 32.5  2.5  3.5     NA       0.2        1
+      287 32 3 #D2D2D2     1   158 31.5 32.5  2.5  3.5     NA       0.2        1
+      288 32 3 #D2D2D2     1   158 31.5 32.5  2.5  3.5     NA       0.2        1
+      289  1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      290  1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      291  1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      292  2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1
+      293  2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1
+      294  2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1
+      295  3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1
+      296  3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1
+      297  3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1
+      298  4 4 #D2D2D2     1    19  3.5  4.5  3.5  4.5     NA       0.2        1
+      299  4 4 #D2D2D2     1    19  3.5  4.5  3.5  4.5     NA       0.2        1
+      300  4 4 #D2D2D2     1    19  3.5  4.5  3.5  4.5     NA       0.2        1
+      301  5 4 #D2D2D2     1    24  4.5  5.5  3.5  4.5     NA       0.2        1
+      302  5 4 #D2D2D2     1    24  4.5  5.5  3.5  4.5     NA       0.2        1
+      303  5 4 #D2D2D2     1    24  4.5  5.5  3.5  4.5     NA       0.2        1
+      304  6 4 #D2D2D2     1    29  5.5  6.5  3.5  4.5     NA       0.2        1
+      305  6 4 #D2D2D2     1    29  5.5  6.5  3.5  4.5     NA       0.2        1
+      306  6 4 #D2D2D2     1    29  5.5  6.5  3.5  4.5     NA       0.2        1
+      307  7 4 #D2D2D2     1    34  6.5  7.5  3.5  4.5     NA       0.2        1
+      308  7 4 #D2D2D2     1    34  6.5  7.5  3.5  4.5     NA       0.2        1
+      309  7 4 #D2D2D2     1    34  6.5  7.5  3.5  4.5     NA       0.2        1
+      310  8 4 #D2D2D2     1    39  7.5  8.5  3.5  4.5     NA       0.2        1
+      311  8 4 #D2D2D2     1    39  7.5  8.5  3.5  4.5     NA       0.2        1
+      312  8 4 #D2D2D2     1    39  7.5  8.5  3.5  4.5     NA       0.2        1
+      313  9 4 #D2D2D2     1    44  8.5  9.5  3.5  4.5     NA       0.2        1
+      314  9 4 #D2D2D2     1    44  8.5  9.5  3.5  4.5     NA       0.2        1
+      315  9 4 #D2D2D2     1    44  8.5  9.5  3.5  4.5     NA       0.2        1
+      316 10 4 #D2D2D2     1    49  9.5 10.5  3.5  4.5     NA       0.2        1
+      317 10 4 #D2D2D2     1    49  9.5 10.5  3.5  4.5     NA       0.2        1
+      318 10 4 #D2D2D2     1    49  9.5 10.5  3.5  4.5     NA       0.2        1
+      319 11 4 #D2D2D2     1    54 10.5 11.5  3.5  4.5     NA       0.2        1
+      320 11 4 #D2D2D2     1    54 10.5 11.5  3.5  4.5     NA       0.2        1
+      321 11 4 #D2D2D2     1    54 10.5 11.5  3.5  4.5     NA       0.2        1
+      322 12 4 #D2D2D2     1    59 11.5 12.5  3.5  4.5     NA       0.2        1
+      323 12 4 #D2D2D2     1    59 11.5 12.5  3.5  4.5     NA       0.2        1
+      324 12 4 #D2D2D2     1    59 11.5 12.5  3.5  4.5     NA       0.2        1
+      325 13 4 #D2D2D2     1    64 12.5 13.5  3.5  4.5     NA       0.2        1
+      326 13 4 #D2D2D2     1    64 12.5 13.5  3.5  4.5     NA       0.2        1
+      327 13 4 #D2D2D2     1    64 12.5 13.5  3.5  4.5     NA       0.2        1
+      328 14 4 #D2D2D2     1    69 13.5 14.5  3.5  4.5     NA       0.2        1
+      329 14 4 #D2D2D2     1    69 13.5 14.5  3.5  4.5     NA       0.2        1
+      330 14 4 #D2D2D2     1    69 13.5 14.5  3.5  4.5     NA       0.2        1
+      331 15 4 #D2D2D2     1    74 14.5 15.5  3.5  4.5     NA       0.2        1
+      332 15 4 #D2D2D2     1    74 14.5 15.5  3.5  4.5     NA       0.2        1
+      333 15 4 #D2D2D2     1    74 14.5 15.5  3.5  4.5     NA       0.2        1
+      334 16 4 #D2D2D2     1    79 15.5 16.5  3.5  4.5     NA       0.2        1
+      335 16 4 #D2D2D2     1    79 15.5 16.5  3.5  4.5     NA       0.2        1
+      336 16 4 #D2D2D2     1    79 15.5 16.5  3.5  4.5     NA       0.2        1
+      337 17 4 #D2D2D2     1    84 16.5 17.5  3.5  4.5     NA       0.2        1
+      338 17 4 #D2D2D2     1    84 16.5 17.5  3.5  4.5     NA       0.2        1
+      339 17 4 #D2D2D2     1    84 16.5 17.5  3.5  4.5     NA       0.2        1
+      340 18 4 #D2D2D2     1    89 17.5 18.5  3.5  4.5     NA       0.2        1
+      341 18 4 #D2D2D2     1    89 17.5 18.5  3.5  4.5     NA       0.2        1
+      342 18 4 #D2D2D2     1    89 17.5 18.5  3.5  4.5     NA       0.2        1
+      343 19 4 #D2D2D2     1    94 18.5 19.5  3.5  4.5     NA       0.2        1
+      344 19 4 #D2D2D2     1    94 18.5 19.5  3.5  4.5     NA       0.2        1
+      345 19 4 #D2D2D2     1    94 18.5 19.5  3.5  4.5     NA       0.2        1
+      346 20 4 #D2D2D2     1    99 19.5 20.5  3.5  4.5     NA       0.2        1
+      347 20 4 #D2D2D2     1    99 19.5 20.5  3.5  4.5     NA       0.2        1
+      348 20 4 #D2D2D2     1    99 19.5 20.5  3.5  4.5     NA       0.2        1
+      349 21 4 #D2D2D2     1   104 20.5 21.5  3.5  4.5     NA       0.2        1
+      350 21 4 #D2D2D2     1   104 20.5 21.5  3.5  4.5     NA       0.2        1
+      351 21 4 #D2D2D2     1   104 20.5 21.5  3.5  4.5     NA       0.2        1
+      352 22 4 #D2D2D2     1   109 21.5 22.5  3.5  4.5     NA       0.2        1
+      353 22 4 #D2D2D2     1   109 21.5 22.5  3.5  4.5     NA       0.2        1
+      354 22 4 #D2D2D2     1   109 21.5 22.5  3.5  4.5     NA       0.2        1
+      355 23 4 #D2D2D2     1   114 22.5 23.5  3.5  4.5     NA       0.2        1
+      356 23 4 #D2D2D2     1   114 22.5 23.5  3.5  4.5     NA       0.2        1
+      357 23 4 #D2D2D2     1   114 22.5 23.5  3.5  4.5     NA       0.2        1
+      358 24 4 #D2D2D2     1   119 23.5 24.5  3.5  4.5     NA       0.2        1
+      359 24 4 #D2D2D2     1   119 23.5 24.5  3.5  4.5     NA       0.2        1
+      360 24 4 #D2D2D2     1   119 23.5 24.5  3.5  4.5     NA       0.2        1
+      361 25 4 #D2D2D2     1   124 24.5 25.5  3.5  4.5     NA       0.2        1
+      362 25 4 #D2D2D2     1   124 24.5 25.5  3.5  4.5     NA       0.2        1
+      363 25 4 #D2D2D2     1   124 24.5 25.5  3.5  4.5     NA       0.2        1
+      364 26 4 #D2D2D2     1   129 25.5 26.5  3.5  4.5     NA       0.2        1
+      365 26 4 #D2D2D2     1   129 25.5 26.5  3.5  4.5     NA       0.2        1
+      366 26 4 #D2D2D2     1   129 25.5 26.5  3.5  4.5     NA       0.2        1
+      367 27 4 #D2D2D2     1   134 26.5 27.5  3.5  4.5     NA       0.2        1
+      368 27 4 #D2D2D2     1   134 26.5 27.5  3.5  4.5     NA       0.2        1
+      369 27 4 #D2D2D2     1   134 26.5 27.5  3.5  4.5     NA       0.2        1
+      370 28 4 #D2D2D2     1   139 27.5 28.5  3.5  4.5     NA       0.2        1
+      371 28 4 #D2D2D2     1   139 27.5 28.5  3.5  4.5     NA       0.2        1
+      372 28 4 #D2D2D2     1   139 27.5 28.5  3.5  4.5     NA       0.2        1
+      373 29 4 #D2D2D2     1   144 28.5 29.5  3.5  4.5     NA       0.2        1
+      374 29 4 #D2D2D2     1   144 28.5 29.5  3.5  4.5     NA       0.2        1
+      375 29 4 #D2D2D2     1   144 28.5 29.5  3.5  4.5     NA       0.2        1
+      376 30 4 #D2D2D2     1   149 29.5 30.5  3.5  4.5     NA       0.2        1
+      377 30 4 #D2D2D2     1   149 29.5 30.5  3.5  4.5     NA       0.2        1
+      378 30 4 #D2D2D2     1   149 29.5 30.5  3.5  4.5     NA       0.2        1
+      379 31 4 #D2D2D2     1   154 30.5 31.5  3.5  4.5     NA       0.2        1
+      380 31 4 #D2D2D2     1   154 30.5 31.5  3.5  4.5     NA       0.2        1
+      381 31 4 #D2D2D2     1   154 30.5 31.5  3.5  4.5     NA       0.2        1
+      382 32 4 #D2D2D2     1   159 31.5 32.5  3.5  4.5     NA       0.2        1
+      383 32 4 #D2D2D2     1   159 31.5 32.5  3.5  4.5     NA       0.2        1
+      384 32 4 #D2D2D2     1   159 31.5 32.5  3.5  4.5     NA       0.2        1
+      385  1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      386  1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      387  1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      388  2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1
+      389  2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1
+      390  2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1
+      391  3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1
+      392  3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1
+      393  3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1
+      394  4 5 #D2D2D2     1    20  3.5  4.5  4.5  5.5     NA       0.2        1
+      395  4 5 #D2D2D2     1    20  3.5  4.5  4.5  5.5     NA       0.2        1
+      396  4 5 #D2D2D2     1    20  3.5  4.5  4.5  5.5     NA       0.2        1
+      397  5 5 #D2D2D2     1    25  4.5  5.5  4.5  5.5     NA       0.2        1
+      398  5 5 #D2D2D2     1    25  4.5  5.5  4.5  5.5     NA       0.2        1
+      399  5 5 #D2D2D2     1    25  4.5  5.5  4.5  5.5     NA       0.2        1
+      400  6 5 #D2D2D2     1    30  5.5  6.5  4.5  5.5     NA       0.2        1
+      401  6 5 #D2D2D2     1    30  5.5  6.5  4.5  5.5     NA       0.2        1
+      402  6 5 #D2D2D2     1    30  5.5  6.5  4.5  5.5     NA       0.2        1
+      403  7 5 #D2D2D2     1    35  6.5  7.5  4.5  5.5     NA       0.2        1
+      404  7 5 #D2D2D2     1    35  6.5  7.5  4.5  5.5     NA       0.2        1
+      405  7 5 #D2D2D2     1    35  6.5  7.5  4.5  5.5     NA       0.2        1
+      406  8 5 #D2D2D2     1    40  7.5  8.5  4.5  5.5     NA       0.2        1
+      407  8 5 #D2D2D2     1    40  7.5  8.5  4.5  5.5     NA       0.2        1
+      408  8 5 #D2D2D2     1    40  7.5  8.5  4.5  5.5     NA       0.2        1
+      409  9 5 #D2D2D2     1    45  8.5  9.5  4.5  5.5     NA       0.2        1
+      410  9 5 #D2D2D2     1    45  8.5  9.5  4.5  5.5     NA       0.2        1
+      411  9 5 #D2D2D2     1    45  8.5  9.5  4.5  5.5     NA       0.2        1
+      412 10 5 #D2D2D2     1    50  9.5 10.5  4.5  5.5     NA       0.2        1
+      413 10 5 #D2D2D2     1    50  9.5 10.5  4.5  5.5     NA       0.2        1
+      414 10 5 #D2D2D2     1    50  9.5 10.5  4.5  5.5     NA       0.2        1
+      415 11 5 #D2D2D2     1    55 10.5 11.5  4.5  5.5     NA       0.2        1
+      416 11 5 #D2D2D2     1    55 10.5 11.5  4.5  5.5     NA       0.2        1
+      417 11 5 #D2D2D2     1    55 10.5 11.5  4.5  5.5     NA       0.2        1
+      418 12 5 #D2D2D2     1    60 11.5 12.5  4.5  5.5     NA       0.2        1
+      419 12 5 #D2D2D2     1    60 11.5 12.5  4.5  5.5     NA       0.2        1
+      420 12 5 #D2D2D2     1    60 11.5 12.5  4.5  5.5     NA       0.2        1
+      421 13 5 #D2D2D2     1    65 12.5 13.5  4.5  5.5     NA       0.2        1
+      422 13 5 #D2D2D2     1    65 12.5 13.5  4.5  5.5     NA       0.2        1
+      423 13 5 #D2D2D2     1    65 12.5 13.5  4.5  5.5     NA       0.2        1
+      424 14 5 #D2D2D2     1    70 13.5 14.5  4.5  5.5     NA       0.2        1
+      425 14 5 #D2D2D2     1    70 13.5 14.5  4.5  5.5     NA       0.2        1
+      426 14 5 #D2D2D2     1    70 13.5 14.5  4.5  5.5     NA       0.2        1
+      427 15 5 #D2D2D2     1    75 14.5 15.5  4.5  5.5     NA       0.2        1
+      428 15 5 #D2D2D2     1    75 14.5 15.5  4.5  5.5     NA       0.2        1
+      429 15 5 #D2D2D2     1    75 14.5 15.5  4.5  5.5     NA       0.2        1
+      430 16 5 #D2D2D2     1    80 15.5 16.5  4.5  5.5     NA       0.2        1
+      431 16 5 #D2D2D2     1    80 15.5 16.5  4.5  5.5     NA       0.2        1
+      432 16 5 #D2D2D2     1    80 15.5 16.5  4.5  5.5     NA       0.2        1
+      433 17 5 #D2D2D2     1    85 16.5 17.5  4.5  5.5     NA       0.2        1
+      434 17 5 #D2D2D2     1    85 16.5 17.5  4.5  5.5     NA       0.2        1
+      435 17 5 #D2D2D2     1    85 16.5 17.5  4.5  5.5     NA       0.2        1
+      436 18 5 #D2D2D2     1    90 17.5 18.5  4.5  5.5     NA       0.2        1
+      437 18 5 #D2D2D2     1    90 17.5 18.5  4.5  5.5     NA       0.2        1
+      438 18 5 #D2D2D2     1    90 17.5 18.5  4.5  5.5     NA       0.2        1
+      439 19 5 #D2D2D2     1    95 18.5 19.5  4.5  5.5     NA       0.2        1
+      440 19 5 #D2D2D2     1    95 18.5 19.5  4.5  5.5     NA       0.2        1
+      441 19 5 #D2D2D2     1    95 18.5 19.5  4.5  5.5     NA       0.2        1
+      442 20 5 #D2D2D2     1   100 19.5 20.5  4.5  5.5     NA       0.2        1
+      443 20 5 #D2D2D2     1   100 19.5 20.5  4.5  5.5     NA       0.2        1
+      444 20 5 #D2D2D2     1   100 19.5 20.5  4.5  5.5     NA       0.2        1
+      445 21 5 #D2D2D2     1   105 20.5 21.5  4.5  5.5     NA       0.2        1
+      446 21 5 #D2D2D2     1   105 20.5 21.5  4.5  5.5     NA       0.2        1
+      447 21 5 #D2D2D2     1   105 20.5 21.5  4.5  5.5     NA       0.2        1
+      448 22 5 #D2D2D2     1   110 21.5 22.5  4.5  5.5     NA       0.2        1
+      449 22 5 #D2D2D2     1   110 21.5 22.5  4.5  5.5     NA       0.2        1
+      450 22 5 #D2D2D2     1   110 21.5 22.5  4.5  5.5     NA       0.2        1
+      451 23 5 #D2D2D2     1   115 22.5 23.5  4.5  5.5     NA       0.2        1
+      452 23 5 #D2D2D2     1   115 22.5 23.5  4.5  5.5     NA       0.2        1
+      453 23 5 #D2D2D2     1   115 22.5 23.5  4.5  5.5     NA       0.2        1
+      454 24 5 #D2D2D2     1   120 23.5 24.5  4.5  5.5     NA       0.2        1
+      455 24 5 #D2D2D2     1   120 23.5 24.5  4.5  5.5     NA       0.2        1
+      456 24 5 #D2D2D2     1   120 23.5 24.5  4.5  5.5     NA       0.2        1
+      457 25 5 #D2D2D2     1   125 24.5 25.5  4.5  5.5     NA       0.2        1
+      458 25 5 #D2D2D2     1   125 24.5 25.5  4.5  5.5     NA       0.2        1
+      459 25 5 #D2D2D2     1   125 24.5 25.5  4.5  5.5     NA       0.2        1
+      460 26 5 #D2D2D2     1   130 25.5 26.5  4.5  5.5     NA       0.2        1
+      461 26 5 #D2D2D2     1   130 25.5 26.5  4.5  5.5     NA       0.2        1
+      462 26 5 #D2D2D2     1   130 25.5 26.5  4.5  5.5     NA       0.2        1
+      463 27 5 #D2D2D2     1   135 26.5 27.5  4.5  5.5     NA       0.2        1
+      464 27 5 #D2D2D2     1   135 26.5 27.5  4.5  5.5     NA       0.2        1
+      465 27 5 #D2D2D2     1   135 26.5 27.5  4.5  5.5     NA       0.2        1
+      466 28 5 #D2D2D2     1   140 27.5 28.5  4.5  5.5     NA       0.2        1
+      467 28 5 #D2D2D2     1   140 27.5 28.5  4.5  5.5     NA       0.2        1
+      468 28 5 #D2D2D2     1   140 27.5 28.5  4.5  5.5     NA       0.2        1
+      469 29 5 #D2D2D2     1   145 28.5 29.5  4.5  5.5     NA       0.2        1
+      470 29 5 #D2D2D2     1   145 28.5 29.5  4.5  5.5     NA       0.2        1
+      471 29 5 #D2D2D2     1   145 28.5 29.5  4.5  5.5     NA       0.2        1
+      472 30 5 #D2D2D2     1   150 29.5 30.5  4.5  5.5     NA       0.2        1
+      473 30 5 #D2D2D2     1   150 29.5 30.5  4.5  5.5     NA       0.2        1
+      474 30 5 #D2D2D2     1   150 29.5 30.5  4.5  5.5     NA       0.2        1
+      475 31 5 #D2D2D2     1   155 30.5 31.5  4.5  5.5     NA       0.2        1
+      476 31 5 #D2D2D2     1   155 30.5 31.5  4.5  5.5     NA       0.2        1
+      477 31 5 #D2D2D2     1   155 30.5 31.5  4.5  5.5     NA       0.2        1
+      478 32 5 #D2D2D2     1   160 31.5 32.5  4.5  5.5     NA       0.2        1
+      479 32 5 #D2D2D2     1   160 31.5 32.5  4.5  5.5     NA       0.2        1
+      480 32 5 #D2D2D2     1   160 31.5 32.5  4.5  5.5     NA       0.2        1
           alpha width height
-      1      NA    NA     NA
-      2      NA    NA     NA
-      3      NA    NA     NA
-      4      NA    NA     NA
-      5      NA    NA     NA
-      6      NA    NA     NA
-      7      NA    NA     NA
-      8      NA    NA     NA
-      9      NA    NA     NA
-      10     NA    NA     NA
-      11     NA    NA     NA
-      12     NA    NA     NA
-      13     NA    NA     NA
-      14     NA    NA     NA
-      15     NA    NA     NA
-      16     NA    NA     NA
-      17     NA    NA     NA
-      18     NA    NA     NA
-      19     NA    NA     NA
-      20     NA    NA     NA
-      21     NA    NA     NA
-      22     NA    NA     NA
-      23     NA    NA     NA
-      24     NA    NA     NA
-      25     NA    NA     NA
-      26     NA    NA     NA
-      27     NA    NA     NA
-      28     NA    NA     NA
-      29     NA    NA     NA
-      30     NA    NA     NA
-      31     NA    NA     NA
-      32     NA    NA     NA
-      33     NA    NA     NA
-      34     NA    NA     NA
-      35     NA    NA     NA
-      36     NA    NA     NA
-      37     NA    NA     NA
-      38     NA    NA     NA
-      39     NA    NA     NA
-      40     NA    NA     NA
-      41     NA    NA     NA
-      42     NA    NA     NA
-      43     NA    NA     NA
-      44     NA    NA     NA
-      45     NA    NA     NA
-      46     NA    NA     NA
-      47     NA    NA     NA
-      48     NA    NA     NA
-      49     NA    NA     NA
-      50     NA    NA     NA
-      51     NA    NA     NA
-      52     NA    NA     NA
-      53     NA    NA     NA
-      54     NA    NA     NA
-      55     NA    NA     NA
-      56     NA    NA     NA
-      57     NA    NA     NA
-      58     NA    NA     NA
-      59     NA    NA     NA
-      60     NA    NA     NA
-      61     NA    NA     NA
-      62     NA    NA     NA
-      63     NA    NA     NA
-      64     NA    NA     NA
-      65     NA    NA     NA
-      66     NA    NA     NA
-      67     NA    NA     NA
-      68     NA    NA     NA
-      69     NA    NA     NA
-      70     NA    NA     NA
-      71     NA    NA     NA
-      72     NA    NA     NA
-      73     NA    NA     NA
-      74     NA    NA     NA
-      75     NA    NA     NA
-      76     NA    NA     NA
-      77     NA    NA     NA
-      78     NA    NA     NA
-      79     NA    NA     NA
-      80     NA    NA     NA
-      81     NA    NA     NA
-      82     NA    NA     NA
-      83     NA    NA     NA
-      84     NA    NA     NA
-      85     NA    NA     NA
-      86     NA    NA     NA
-      87     NA    NA     NA
-      88     NA    NA     NA
-      89     NA    NA     NA
-      90     NA    NA     NA
-      91     NA    NA     NA
-      92     NA    NA     NA
-      93     NA    NA     NA
-      94     NA    NA     NA
-      95     NA    NA     NA
-      96     NA    NA     NA
-      97     NA    NA     NA
-      98     NA    NA     NA
-      99     NA    NA     NA
-      100    NA    NA     NA
-      101    NA    NA     NA
-      102    NA    NA     NA
-      103    NA    NA     NA
-      104    NA    NA     NA
-      105    NA    NA     NA
-      106    NA    NA     NA
-      107    NA    NA     NA
-      108    NA    NA     NA
-      109    NA    NA     NA
-      110    NA    NA     NA
-      111    NA    NA     NA
-      112    NA    NA     NA
-      113    NA    NA     NA
-      114    NA    NA     NA
-      115    NA    NA     NA
-      116    NA    NA     NA
-      117    NA    NA     NA
-      118    NA    NA     NA
-      119    NA    NA     NA
-      120    NA    NA     NA
-      121    NA    NA     NA
-      122    NA    NA     NA
-      123    NA    NA     NA
-      124    NA    NA     NA
-      125    NA    NA     NA
-      126    NA    NA     NA
-      127    NA    NA     NA
-      128    NA    NA     NA
-      129    NA    NA     NA
-      130    NA    NA     NA
-      131    NA    NA     NA
-      132    NA    NA     NA
-      133    NA    NA     NA
-      134    NA    NA     NA
-      135    NA    NA     NA
-      136    NA    NA     NA
-      137    NA    NA     NA
-      138    NA    NA     NA
-      139    NA    NA     NA
-      140    NA    NA     NA
-      141    NA    NA     NA
-      142    NA    NA     NA
-      143    NA    NA     NA
-      144    NA    NA     NA
-      145    NA    NA     NA
-      146    NA    NA     NA
-      147    NA    NA     NA
-      148    NA    NA     NA
-      149    NA    NA     NA
-      150    NA    NA     NA
-      151    NA    NA     NA
-      152    NA    NA     NA
-      153    NA    NA     NA
-      154    NA    NA     NA
-      155    NA    NA     NA
-      156    NA    NA     NA
-      157    NA    NA     NA
-      158    NA    NA     NA
-      159    NA    NA     NA
-      160    NA    NA     NA
-      161    NA    NA     NA
-      162    NA    NA     NA
-      163    NA    NA     NA
-      164    NA    NA     NA
-      165    NA    NA     NA
-      166    NA    NA     NA
-      167    NA    NA     NA
-      168    NA    NA     NA
-      169    NA    NA     NA
-      170    NA    NA     NA
-      171    NA    NA     NA
-      172    NA    NA     NA
-      173    NA    NA     NA
-      174    NA    NA     NA
-      175    NA    NA     NA
-      176    NA    NA     NA
-      177    NA    NA     NA
-      178    NA    NA     NA
-      179    NA    NA     NA
-      180    NA    NA     NA
-      181    NA    NA     NA
-      182    NA    NA     NA
-      183    NA    NA     NA
-      184    NA    NA     NA
-      185    NA    NA     NA
-      186    NA    NA     NA
-      187    NA    NA     NA
-      188    NA    NA     NA
-      189    NA    NA     NA
-      190    NA    NA     NA
-      191    NA    NA     NA
-      192    NA    NA     NA
-      193    NA    NA     NA
-      194    NA    NA     NA
-      195    NA    NA     NA
-      196    NA    NA     NA
-      197    NA    NA     NA
-      198    NA    NA     NA
-      199    NA    NA     NA
-      200    NA    NA     NA
-      201    NA    NA     NA
-      202    NA    NA     NA
-      203    NA    NA     NA
-      204    NA    NA     NA
-      205    NA    NA     NA
-      206    NA    NA     NA
-      207    NA    NA     NA
-      208    NA    NA     NA
-      209    NA    NA     NA
-      210    NA    NA     NA
-      211    NA    NA     NA
-      212    NA    NA     NA
-      213    NA    NA     NA
-      214    NA    NA     NA
-      215    NA    NA     NA
-      216    NA    NA     NA
-      217    NA    NA     NA
-      218    NA    NA     NA
-      219    NA    NA     NA
-      220    NA    NA     NA
-      221    NA    NA     NA
-      222    NA    NA     NA
-      223    NA    NA     NA
-      224    NA    NA     NA
-      225    NA    NA     NA
-      226    NA    NA     NA
-      227    NA    NA     NA
-      228    NA    NA     NA
-      229    NA    NA     NA
-      230    NA    NA     NA
-      231    NA    NA     NA
-      232    NA    NA     NA
-      233    NA    NA     NA
-      234    NA    NA     NA
-      235    NA    NA     NA
-      236    NA    NA     NA
-      237    NA    NA     NA
-      238    NA    NA     NA
-      239    NA    NA     NA
-      240    NA    NA     NA
-      241    NA    NA     NA
-      242    NA    NA     NA
-      243    NA    NA     NA
-      244    NA    NA     NA
-      245    NA    NA     NA
-      246    NA    NA     NA
-      247    NA    NA     NA
-      248    NA    NA     NA
-      249    NA    NA     NA
-      250    NA    NA     NA
-      251    NA    NA     NA
-      252    NA    NA     NA
-      253    NA    NA     NA
-      254    NA    NA     NA
-      255    NA    NA     NA
-      256    NA    NA     NA
-      257    NA    NA     NA
-      258    NA    NA     NA
-      259    NA    NA     NA
-      260    NA    NA     NA
-      261    NA    NA     NA
-      262    NA    NA     NA
-      263    NA    NA     NA
-      264    NA    NA     NA
-      265    NA    NA     NA
-      266    NA    NA     NA
-      267    NA    NA     NA
-      268    NA    NA     NA
-      269    NA    NA     NA
-      270    NA    NA     NA
-      271    NA    NA     NA
-      272    NA    NA     NA
-      273    NA    NA     NA
-      274    NA    NA     NA
-      275    NA    NA     NA
-      276    NA    NA     NA
-      277    NA    NA     NA
-      278    NA    NA     NA
-      279    NA    NA     NA
-      280    NA    NA     NA
-      281    NA    NA     NA
-      282    NA    NA     NA
-      283    NA    NA     NA
-      284    NA    NA     NA
-      285    NA    NA     NA
-      286    NA    NA     NA
-      287    NA    NA     NA
-      288    NA    NA     NA
-      289    NA    NA     NA
-      290    NA    NA     NA
-      291    NA    NA     NA
-      292    NA    NA     NA
-      293    NA    NA     NA
-      294    NA    NA     NA
-      295    NA    NA     NA
-      296    NA    NA     NA
-      297    NA    NA     NA
-      298    NA    NA     NA
-      299    NA    NA     NA
-      300    NA    NA     NA
-      301    NA    NA     NA
-      302    NA    NA     NA
-      303    NA    NA     NA
-      304    NA    NA     NA
-      305    NA    NA     NA
-      306    NA    NA     NA
-      307    NA    NA     NA
-      308    NA    NA     NA
-      309    NA    NA     NA
-      310    NA    NA     NA
-      311    NA    NA     NA
-      312    NA    NA     NA
-      313    NA    NA     NA
-      314    NA    NA     NA
-      315    NA    NA     NA
-      316    NA    NA     NA
-      317    NA    NA     NA
-      318    NA    NA     NA
-      319    NA    NA     NA
-      320    NA    NA     NA
-      321    NA    NA     NA
-      322    NA    NA     NA
-      323    NA    NA     NA
-      324    NA    NA     NA
-      325    NA    NA     NA
-      326    NA    NA     NA
-      327    NA    NA     NA
-      328    NA    NA     NA
-      329    NA    NA     NA
-      330    NA    NA     NA
-      331    NA    NA     NA
-      332    NA    NA     NA
-      333    NA    NA     NA
-      334    NA    NA     NA
-      335    NA    NA     NA
-      336    NA    NA     NA
-      337    NA    NA     NA
-      338    NA    NA     NA
-      339    NA    NA     NA
-      340    NA    NA     NA
-      341    NA    NA     NA
-      342    NA    NA     NA
-      343    NA    NA     NA
-      344    NA    NA     NA
-      345    NA    NA     NA
-      346    NA    NA     NA
-      347    NA    NA     NA
-      348    NA    NA     NA
-      349    NA    NA     NA
-      350    NA    NA     NA
-      351    NA    NA     NA
-      352    NA    NA     NA
-      353    NA    NA     NA
-      354    NA    NA     NA
-      355    NA    NA     NA
-      356    NA    NA     NA
-      357    NA    NA     NA
-      358    NA    NA     NA
-      359    NA    NA     NA
-      360    NA    NA     NA
-      361    NA    NA     NA
-      362    NA    NA     NA
-      363    NA    NA     NA
-      364    NA    NA     NA
-      365    NA    NA     NA
-      366    NA    NA     NA
-      367    NA    NA     NA
-      368    NA    NA     NA
-      369    NA    NA     NA
-      370    NA    NA     NA
-      371    NA    NA     NA
-      372    NA    NA     NA
-      373    NA    NA     NA
-      374    NA    NA     NA
-      375    NA    NA     NA
-      376    NA    NA     NA
-      377    NA    NA     NA
-      378    NA    NA     NA
-      379    NA    NA     NA
-      380    NA    NA     NA
-      381    NA    NA     NA
-      382    NA    NA     NA
-      383    NA    NA     NA
-      384    NA    NA     NA
-      385    NA    NA     NA
-      386    NA    NA     NA
-      387    NA    NA     NA
-      388    NA    NA     NA
-      389    NA    NA     NA
-      390    NA    NA     NA
-      391    NA    NA     NA
-      392    NA    NA     NA
-      393    NA    NA     NA
-      394    NA    NA     NA
-      395    NA    NA     NA
-      396    NA    NA     NA
-      397    NA    NA     NA
-      398    NA    NA     NA
-      399    NA    NA     NA
-      400    NA    NA     NA
-      401    NA    NA     NA
-      402    NA    NA     NA
-      403    NA    NA     NA
-      404    NA    NA     NA
-      405    NA    NA     NA
-      406    NA    NA     NA
-      407    NA    NA     NA
-      408    NA    NA     NA
-      409    NA    NA     NA
-      410    NA    NA     NA
-      411    NA    NA     NA
-      412    NA    NA     NA
-      413    NA    NA     NA
-      414    NA    NA     NA
-      415    NA    NA     NA
-      416    NA    NA     NA
-      417    NA    NA     NA
-      418    NA    NA     NA
-      419    NA    NA     NA
-      420    NA    NA     NA
-      421    NA    NA     NA
-      422    NA    NA     NA
-      423    NA    NA     NA
-      424    NA    NA     NA
-      425    NA    NA     NA
-      426    NA    NA     NA
-      427    NA    NA     NA
-      428    NA    NA     NA
-      429    NA    NA     NA
-      430    NA    NA     NA
-      431    NA    NA     NA
-      432    NA    NA     NA
-      433    NA    NA     NA
-      434    NA    NA     NA
-      435    NA    NA     NA
-      436    NA    NA     NA
-      437    NA    NA     NA
-      438    NA    NA     NA
-      439    NA    NA     NA
-      440    NA    NA     NA
-      441    NA    NA     NA
-      442    NA    NA     NA
-      443    NA    NA     NA
-      444    NA    NA     NA
-      445    NA    NA     NA
-      446    NA    NA     NA
-      447    NA    NA     NA
-      448    NA    NA     NA
-      449    NA    NA     NA
-      450    NA    NA     NA
-      451    NA    NA     NA
-      452    NA    NA     NA
-      453    NA    NA     NA
-      454    NA    NA     NA
-      455    NA    NA     NA
-      456    NA    NA     NA
-      457    NA    NA     NA
-      458    NA    NA     NA
-      459    NA    NA     NA
-      460    NA    NA     NA
-      461    NA    NA     NA
-      462    NA    NA     NA
-      463    NA    NA     NA
-      464    NA    NA     NA
-      465    NA    NA     NA
-      466    NA    NA     NA
-      467    NA    NA     NA
-      468    NA    NA     NA
-      469    NA    NA     NA
-      470    NA    NA     NA
-      471    NA    NA     NA
-      472    NA    NA     NA
-      473    NA    NA     NA
-      474    NA    NA     NA
-      475    NA    NA     NA
-      476    NA    NA     NA
-      477    NA    NA     NA
-      478    NA    NA     NA
-      479    NA    NA     NA
-      480    NA    NA     NA
+      1      NA     1      1
+      2      NA     1      1
+      3      NA     1      1
+      4      NA     1      1
+      5      NA     1      1
+      6      NA     1      1
+      7      NA     1      1
+      8      NA     1      1
+      9      NA     1      1
+      10     NA     1      1
+      11     NA     1      1
+      12     NA     1      1
+      13     NA     1      1
+      14     NA     1      1
+      15     NA     1      1
+      16     NA     1      1
+      17     NA     1      1
+      18     NA     1      1
+      19     NA     1      1
+      20     NA     1      1
+      21     NA     1      1
+      22     NA     1      1
+      23     NA     1      1
+      24     NA     1      1
+      25     NA     1      1
+      26     NA     1      1
+      27     NA     1      1
+      28     NA     1      1
+      29     NA     1      1
+      30     NA     1      1
+      31     NA     1      1
+      32     NA     1      1
+      33     NA     1      1
+      34     NA     1      1
+      35     NA     1      1
+      36     NA     1      1
+      37     NA     1      1
+      38     NA     1      1
+      39     NA     1      1
+      40     NA     1      1
+      41     NA     1      1
+      42     NA     1      1
+      43     NA     1      1
+      44     NA     1      1
+      45     NA     1      1
+      46     NA     1      1
+      47     NA     1      1
+      48     NA     1      1
+      49     NA     1      1
+      50     NA     1      1
+      51     NA     1      1
+      52     NA     1      1
+      53     NA     1      1
+      54     NA     1      1
+      55     NA     1      1
+      56     NA     1      1
+      57     NA     1      1
+      58     NA     1      1
+      59     NA     1      1
+      60     NA     1      1
+      61     NA     1      1
+      62     NA     1      1
+      63     NA     1      1
+      64     NA     1      1
+      65     NA     1      1
+      66     NA     1      1
+      67     NA     1      1
+      68     NA     1      1
+      69     NA     1      1
+      70     NA     1      1
+      71     NA     1      1
+      72     NA     1      1
+      73     NA     1      1
+      74     NA     1      1
+      75     NA     1      1
+      76     NA     1      1
+      77     NA     1      1
+      78     NA     1      1
+      79     NA     1      1
+      80     NA     1      1
+      81     NA     1      1
+      82     NA     1      1
+      83     NA     1      1
+      84     NA     1      1
+      85     NA     1      1
+      86     NA     1      1
+      87     NA     1      1
+      88     NA     1      1
+      89     NA     1      1
+      90     NA     1      1
+      91     NA     1      1
+      92     NA     1      1
+      93     NA     1      1
+      94     NA     1      1
+      95     NA     1      1
+      96     NA     1      1
+      97     NA     1      1
+      98     NA     1      1
+      99     NA     1      1
+      100    NA     1      1
+      101    NA     1      1
+      102    NA     1      1
+      103    NA     1      1
+      104    NA     1      1
+      105    NA     1      1
+      106    NA     1      1
+      107    NA     1      1
+      108    NA     1      1
+      109    NA     1      1
+      110    NA     1      1
+      111    NA     1      1
+      112    NA     1      1
+      113    NA     1      1
+      114    NA     1      1
+      115    NA     1      1
+      116    NA     1      1
+      117    NA     1      1
+      118    NA     1      1
+      119    NA     1      1
+      120    NA     1      1
+      121    NA     1      1
+      122    NA     1      1
+      123    NA     1      1
+      124    NA     1      1
+      125    NA     1      1
+      126    NA     1      1
+      127    NA     1      1
+      128    NA     1      1
+      129    NA     1      1
+      130    NA     1      1
+      131    NA     1      1
+      132    NA     1      1
+      133    NA     1      1
+      134    NA     1      1
+      135    NA     1      1
+      136    NA     1      1
+      137    NA     1      1
+      138    NA     1      1
+      139    NA     1      1
+      140    NA     1      1
+      141    NA     1      1
+      142    NA     1      1
+      143    NA     1      1
+      144    NA     1      1
+      145    NA     1      1
+      146    NA     1      1
+      147    NA     1      1
+      148    NA     1      1
+      149    NA     1      1
+      150    NA     1      1
+      151    NA     1      1
+      152    NA     1      1
+      153    NA     1      1
+      154    NA     1      1
+      155    NA     1      1
+      156    NA     1      1
+      157    NA     1      1
+      158    NA     1      1
+      159    NA     1      1
+      160    NA     1      1
+      161    NA     1      1
+      162    NA     1      1
+      163    NA     1      1
+      164    NA     1      1
+      165    NA     1      1
+      166    NA     1      1
+      167    NA     1      1
+      168    NA     1      1
+      169    NA     1      1
+      170    NA     1      1
+      171    NA     1      1
+      172    NA     1      1
+      173    NA     1      1
+      174    NA     1      1
+      175    NA     1      1
+      176    NA     1      1
+      177    NA     1      1
+      178    NA     1      1
+      179    NA     1      1
+      180    NA     1      1
+      181    NA     1      1
+      182    NA     1      1
+      183    NA     1      1
+      184    NA     1      1
+      185    NA     1      1
+      186    NA     1      1
+      187    NA     1      1
+      188    NA     1      1
+      189    NA     1      1
+      190    NA     1      1
+      191    NA     1      1
+      192    NA     1      1
+      193    NA     1      1
+      194    NA     1      1
+      195    NA     1      1
+      196    NA     1      1
+      197    NA     1      1
+      198    NA     1      1
+      199    NA     1      1
+      200    NA     1      1
+      201    NA     1      1
+      202    NA     1      1
+      203    NA     1      1
+      204    NA     1      1
+      205    NA     1      1
+      206    NA     1      1
+      207    NA     1      1
+      208    NA     1      1
+      209    NA     1      1
+      210    NA     1      1
+      211    NA     1      1
+      212    NA     1      1
+      213    NA     1      1
+      214    NA     1      1
+      215    NA     1      1
+      216    NA     1      1
+      217    NA     1      1
+      218    NA     1      1
+      219    NA     1      1
+      220    NA     1      1
+      221    NA     1      1
+      222    NA     1      1
+      223    NA     1      1
+      224    NA     1      1
+      225    NA     1      1
+      226    NA     1      1
+      227    NA     1      1
+      228    NA     1      1
+      229    NA     1      1
+      230    NA     1      1
+      231    NA     1      1
+      232    NA     1      1
+      233    NA     1      1
+      234    NA     1      1
+      235    NA     1      1
+      236    NA     1      1
+      237    NA     1      1
+      238    NA     1      1
+      239    NA     1      1
+      240    NA     1      1
+      241    NA     1      1
+      242    NA     1      1
+      243    NA     1      1
+      244    NA     1      1
+      245    NA     1      1
+      246    NA     1      1
+      247    NA     1      1
+      248    NA     1      1
+      249    NA     1      1
+      250    NA     1      1
+      251    NA     1      1
+      252    NA     1      1
+      253    NA     1      1
+      254    NA     1      1
+      255    NA     1      1
+      256    NA     1      1
+      257    NA     1      1
+      258    NA     1      1
+      259    NA     1      1
+      260    NA     1      1
+      261    NA     1      1
+      262    NA     1      1
+      263    NA     1      1
+      264    NA     1      1
+      265    NA     1      1
+      266    NA     1      1
+      267    NA     1      1
+      268    NA     1      1
+      269    NA     1      1
+      270    NA     1      1
+      271    NA     1      1
+      272    NA     1      1
+      273    NA     1      1
+      274    NA     1      1
+      275    NA     1      1
+      276    NA     1      1
+      277    NA     1      1
+      278    NA     1      1
+      279    NA     1      1
+      280    NA     1      1
+      281    NA     1      1
+      282    NA     1      1
+      283    NA     1      1
+      284    NA     1      1
+      285    NA     1      1
+      286    NA     1      1
+      287    NA     1      1
+      288    NA     1      1
+      289    NA     1      1
+      290    NA     1      1
+      291    NA     1      1
+      292    NA     1      1
+      293    NA     1      1
+      294    NA     1      1
+      295    NA     1      1
+      296    NA     1      1
+      297    NA     1      1
+      298    NA     1      1
+      299    NA     1      1
+      300    NA     1      1
+      301    NA     1      1
+      302    NA     1      1
+      303    NA     1      1
+      304    NA     1      1
+      305    NA     1      1
+      306    NA     1      1
+      307    NA     1      1
+      308    NA     1      1
+      309    NA     1      1
+      310    NA     1      1
+      311    NA     1      1
+      312    NA     1      1
+      313    NA     1      1
+      314    NA     1      1
+      315    NA     1      1
+      316    NA     1      1
+      317    NA     1      1
+      318    NA     1      1
+      319    NA     1      1
+      320    NA     1      1
+      321    NA     1      1
+      322    NA     1      1
+      323    NA     1      1
+      324    NA     1      1
+      325    NA     1      1
+      326    NA     1      1
+      327    NA     1      1
+      328    NA     1      1
+      329    NA     1      1
+      330    NA     1      1
+      331    NA     1      1
+      332    NA     1      1
+      333    NA     1      1
+      334    NA     1      1
+      335    NA     1      1
+      336    NA     1      1
+      337    NA     1      1
+      338    NA     1      1
+      339    NA     1      1
+      340    NA     1      1
+      341    NA     1      1
+      342    NA     1      1
+      343    NA     1      1
+      344    NA     1      1
+      345    NA     1      1
+      346    NA     1      1
+      347    NA     1      1
+      348    NA     1      1
+      349    NA     1      1
+      350    NA     1      1
+      351    NA     1      1
+      352    NA     1      1
+      353    NA     1      1
+      354    NA     1      1
+      355    NA     1      1
+      356    NA     1      1
+      357    NA     1      1
+      358    NA     1      1
+      359    NA     1      1
+      360    NA     1      1
+      361    NA     1      1
+      362    NA     1      1
+      363    NA     1      1
+      364    NA     1      1
+      365    NA     1      1
+      366    NA     1      1
+      367    NA     1      1
+      368    NA     1      1
+      369    NA     1      1
+      370    NA     1      1
+      371    NA     1      1
+      372    NA     1      1
+      373    NA     1      1
+      374    NA     1      1
+      375    NA     1      1
+      376    NA     1      1
+      377    NA     1      1
+      378    NA     1      1
+      379    NA     1      1
+      380    NA     1      1
+      381    NA     1      1
+      382    NA     1      1
+      383    NA     1      1
+      384    NA     1      1
+      385    NA     1      1
+      386    NA     1      1
+      387    NA     1      1
+      388    NA     1      1
+      389    NA     1      1
+      390    NA     1      1
+      391    NA     1      1
+      392    NA     1      1
+      393    NA     1      1
+      394    NA     1      1
+      395    NA     1      1
+      396    NA     1      1
+      397    NA     1      1
+      398    NA     1      1
+      399    NA     1      1
+      400    NA     1      1
+      401    NA     1      1
+      402    NA     1      1
+      403    NA     1      1
+      404    NA     1      1
+      405    NA     1      1
+      406    NA     1      1
+      407    NA     1      1
+      408    NA     1      1
+      409    NA     1      1
+      410    NA     1      1
+      411    NA     1      1
+      412    NA     1      1
+      413    NA     1      1
+      414    NA     1      1
+      415    NA     1      1
+      416    NA     1      1
+      417    NA     1      1
+      418    NA     1      1
+      419    NA     1      1
+      420    NA     1      1
+      421    NA     1      1
+      422    NA     1      1
+      423    NA     1      1
+      424    NA     1      1
+      425    NA     1      1
+      426    NA     1      1
+      427    NA     1      1
+      428    NA     1      1
+      429    NA     1      1
+      430    NA     1      1
+      431    NA     1      1
+      432    NA     1      1
+      433    NA     1      1
+      434    NA     1      1
+      435    NA     1      1
+      436    NA     1      1
+      437    NA     1      1
+      438    NA     1      1
+      439    NA     1      1
+      440    NA     1      1
+      441    NA     1      1
+      442    NA     1      1
+      443    NA     1      1
+      444    NA     1      1
+      445    NA     1      1
+      446    NA     1      1
+      447    NA     1      1
+      448    NA     1      1
+      449    NA     1      1
+      450    NA     1      1
+      451    NA     1      1
+      452    NA     1      1
+      453    NA     1      1
+      454    NA     1      1
+      455    NA     1      1
+      456    NA     1      1
+      457    NA     1      1
+      458    NA     1      1
+      459    NA     1      1
+      460    NA     1      1
+      461    NA     1      1
+      462    NA     1      1
+      463    NA     1      1
+      464    NA     1      1
+      465    NA     1      1
+      466    NA     1      1
+      467    NA     1      1
+      468    NA     1      1
+      469    NA     1      1
+      470    NA     1      1
+      471    NA     1      1
+      472    NA     1      1
+      473    NA     1      1
+      474    NA     1      1
+      475    NA     1      1
+      476    NA     1      1
+      477    NA     1      1
+      478    NA     1      1
+      479    NA     1      1
+      480    NA     1      1
       
       $mpg$d2$`model:wt`
-             fill  x  y PANEL group xmin xmax ymin ymax colour linewidth linetype
-      1   #D2D2D2  1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      2   #D2D2D2  1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      3   #D2D2D2  1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      4   #D2D2D2  2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1
-      5   #D2D2D2  2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1
-      6   #D2D2D2  2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1
-      7   #D2D2D2  3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1
-      8   #D2D2D2  3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1
-      9   #D2D2D2  3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1
-      10  #D2D2D2  4  1     1    31  3.5  4.5  0.5  1.5     NA       0.1        1
-      11  #D2D2D2  4  1     1    31  3.5  4.5  0.5  1.5     NA       0.1        1
-      12  #D2D2D2  4  1     1    31  3.5  4.5  0.5  1.5     NA       0.1        1
-      13  #D2D2D2  5  1     1    41  4.5  5.5  0.5  1.5     NA       0.1        1
-      14  #D2D2D2  5  1     1    41  4.5  5.5  0.5  1.5     NA       0.1        1
-      15  #D2D2D2  5  1     1    41  4.5  5.5  0.5  1.5     NA       0.1        1
-      16  #D2D2D2  6  1     1    51  5.5  6.5  0.5  1.5     NA       0.1        1
-      17  #D2D2D2  6  1     1    51  5.5  6.5  0.5  1.5     NA       0.1        1
-      18  #D2D2D2  6  1     1    51  5.5  6.5  0.5  1.5     NA       0.1        1
-      19  #D2D2D2  7  1     1    61  6.5  7.5  0.5  1.5     NA       0.1        1
-      20  #D2D2D2  7  1     1    61  6.5  7.5  0.5  1.5     NA       0.1        1
-      21  #D2D2D2  7  1     1    61  6.5  7.5  0.5  1.5     NA       0.1        1
-      22  #D2D2D2  8  1     1    71  7.5  8.5  0.5  1.5     NA       0.1        1
-      23  #D2D2D2  8  1     1    71  7.5  8.5  0.5  1.5     NA       0.1        1
-      24  #D2D2D2  8  1     1    71  7.5  8.5  0.5  1.5     NA       0.1        1
-      25  #D2D2D2  9  1     1    81  8.5  9.5  0.5  1.5     NA       0.1        1
-      26  #D2D2D2  9  1     1    81  8.5  9.5  0.5  1.5     NA       0.1        1
-      27  #D2D2D2  9  1     1    81  8.5  9.5  0.5  1.5     NA       0.1        1
-      28  #D2D2D2 10  1     1    91  9.5 10.5  0.5  1.5     NA       0.1        1
-      29  #D2D2D2 10  1     1    91  9.5 10.5  0.5  1.5     NA       0.1        1
-      30  #D2D2D2 10  1     1    91  9.5 10.5  0.5  1.5     NA       0.1        1
-      31  #D2D2D2 11  1     1   101 10.5 11.5  0.5  1.5     NA       0.1        1
-      32  #D2D2D2 11  1     1   101 10.5 11.5  0.5  1.5     NA       0.1        1
-      33  #D2D2D2 11  1     1   101 10.5 11.5  0.5  1.5     NA       0.1        1
-      34  #D2D2D2 12  1     1   111 11.5 12.5  0.5  1.5     NA       0.1        1
-      35  #D2D2D2 12  1     1   111 11.5 12.5  0.5  1.5     NA       0.1        1
-      36  #D2D2D2 12  1     1   111 11.5 12.5  0.5  1.5     NA       0.1        1
-      37  #D2D2D2 13  1     1   121 12.5 13.5  0.5  1.5     NA       0.1        1
-      38  #D2D2D2 13  1     1   121 12.5 13.5  0.5  1.5     NA       0.1        1
-      39  #D2D2D2 13  1     1   121 12.5 13.5  0.5  1.5     NA       0.1        1
-      40  #D2D2D2 14  1     1   131 13.5 14.5  0.5  1.5     NA       0.1        1
-      41  #D2D2D2 14  1     1   131 13.5 14.5  0.5  1.5     NA       0.1        1
-      42  #D2D2D2 14  1     1   131 13.5 14.5  0.5  1.5     NA       0.1        1
-      43  #D2D2D2 15  1     1   141 14.5 15.5  0.5  1.5     NA       0.1        1
-      44  #D2D2D2 15  1     1   141 14.5 15.5  0.5  1.5     NA       0.1        1
-      45  #D2D2D2 15  1     1   141 14.5 15.5  0.5  1.5     NA       0.1        1
-      46  #D2D2D2 16  1     1   151 15.5 16.5  0.5  1.5     NA       0.1        1
-      47  #D2D2D2 16  1     1   151 15.5 16.5  0.5  1.5     NA       0.1        1
-      48  #D2D2D2 16  1     1   151 15.5 16.5  0.5  1.5     NA       0.1        1
-      49  #D2D2D2 17  1     1   161 16.5 17.5  0.5  1.5     NA       0.1        1
-      50  #D2D2D2 17  1     1   161 16.5 17.5  0.5  1.5     NA       0.1        1
-      51  #D2D2D2 17  1     1   161 16.5 17.5  0.5  1.5     NA       0.1        1
-      52  #D2D2D2 18  1     1   171 17.5 18.5  0.5  1.5     NA       0.1        1
-      53  #D2D2D2 18  1     1   171 17.5 18.5  0.5  1.5     NA       0.1        1
-      54  #D2D2D2 18  1     1   171 17.5 18.5  0.5  1.5     NA       0.1        1
-      55  #D2D2D2 19  1     1   181 18.5 19.5  0.5  1.5     NA       0.1        1
-      56  #D2D2D2 19  1     1   181 18.5 19.5  0.5  1.5     NA       0.1        1
-      57  #D2D2D2 19  1     1   181 18.5 19.5  0.5  1.5     NA       0.1        1
-      58  #D2D2D2 20  1     1   191 19.5 20.5  0.5  1.5     NA       0.1        1
-      59  #D2D2D2 20  1     1   191 19.5 20.5  0.5  1.5     NA       0.1        1
-      60  #D2D2D2 20  1     1   191 19.5 20.5  0.5  1.5     NA       0.1        1
-      61  #D2D2D2 21  1     1   201 20.5 21.5  0.5  1.5     NA       0.1        1
-      62  #D2D2D2 21  1     1   201 20.5 21.5  0.5  1.5     NA       0.1        1
-      63  #D2D2D2 21  1     1   201 20.5 21.5  0.5  1.5     NA       0.1        1
-      64  #D2D2D2 22  1     1   211 21.5 22.5  0.5  1.5     NA       0.1        1
-      65  #D2D2D2 22  1     1   211 21.5 22.5  0.5  1.5     NA       0.1        1
-      66  #D2D2D2 22  1     1   211 21.5 22.5  0.5  1.5     NA       0.1        1
-      67  #D2D2D2 23  1     1   221 22.5 23.5  0.5  1.5     NA       0.1        1
-      68  #D2D2D2 23  1     1   221 22.5 23.5  0.5  1.5     NA       0.1        1
-      69  #D2D2D2 23  1     1   221 22.5 23.5  0.5  1.5     NA       0.1        1
-      70  #D2D2D2 24  1     1   231 23.5 24.5  0.5  1.5     NA       0.1        1
-      71  #D2D2D2 24  1     1   231 23.5 24.5  0.5  1.5     NA       0.1        1
-      72  #D2D2D2 24  1     1   231 23.5 24.5  0.5  1.5     NA       0.1        1
-      73  #D2D2D2 25  1     1   241 24.5 25.5  0.5  1.5     NA       0.1        1
-      74  #D2D2D2 25  1     1   241 24.5 25.5  0.5  1.5     NA       0.1        1
-      75  #D2D2D2 25  1     1   241 24.5 25.5  0.5  1.5     NA       0.1        1
-      76  #D2D2D2 26  1     1   251 25.5 26.5  0.5  1.5     NA       0.1        1
-      77  #D2D2D2 26  1     1   251 25.5 26.5  0.5  1.5     NA       0.1        1
-      78  #D2D2D2 26  1     1   251 25.5 26.5  0.5  1.5     NA       0.1        1
-      79  #D2D2D2 27  1     1   261 26.5 27.5  0.5  1.5     NA       0.1        1
-      80  #D2D2D2 27  1     1   261 26.5 27.5  0.5  1.5     NA       0.1        1
-      81  #D2D2D2 27  1     1   261 26.5 27.5  0.5  1.5     NA       0.1        1
-      82  #D2D2D2 28  1     1   271 27.5 28.5  0.5  1.5     NA       0.1        1
-      83  #D2D2D2 28  1     1   271 27.5 28.5  0.5  1.5     NA       0.1        1
-      84  #D2D2D2 28  1     1   271 27.5 28.5  0.5  1.5     NA       0.1        1
-      85  #D2D2D2 29  1     1   281 28.5 29.5  0.5  1.5     NA       0.1        1
-      86  #D2D2D2 29  1     1   281 28.5 29.5  0.5  1.5     NA       0.1        1
-      87  #D2D2D2 29  1     1   281 28.5 29.5  0.5  1.5     NA       0.1        1
-      88  #D2D2D2 30  1     1   291 29.5 30.5  0.5  1.5     NA       0.1        1
-      89  #D2D2D2 30  1     1   291 29.5 30.5  0.5  1.5     NA       0.1        1
-      90  #D2D2D2 30  1     1   291 29.5 30.5  0.5  1.5     NA       0.1        1
-      91  #D2D2D2 31  1     1   301 30.5 31.5  0.5  1.5     NA       0.1        1
-      92  #D2D2D2 31  1     1   301 30.5 31.5  0.5  1.5     NA       0.1        1
-      93  #D2D2D2 31  1     1   301 30.5 31.5  0.5  1.5     NA       0.1        1
-      94  #D2D2D2 32  1     1   311 31.5 32.5  0.5  1.5     NA       0.1        1
-      95  #D2D2D2 32  1     1   311 31.5 32.5  0.5  1.5     NA       0.1        1
-      96  #D2D2D2 32  1     1   311 31.5 32.5  0.5  1.5     NA       0.1        1
-      97  #D2D2D2  1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      98  #D2D2D2  1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      99  #D2D2D2  1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      100 #D2D2D2  2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1
-      101 #D2D2D2  2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1
-      102 #D2D2D2  2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1
-      103 #D2D2D2  3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1
-      104 #D2D2D2  3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1
-      105 #D2D2D2  3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1
-      106 #D2D2D2  4  2     1    32  3.5  4.5  1.5  2.5     NA       0.1        1
-      107 #D2D2D2  4  2     1    32  3.5  4.5  1.5  2.5     NA       0.1        1
-      108 #D2D2D2  4  2     1    32  3.5  4.5  1.5  2.5     NA       0.1        1
-      109 #D2D2D2  5  2     1    42  4.5  5.5  1.5  2.5     NA       0.1        1
-      110 #D2D2D2  5  2     1    42  4.5  5.5  1.5  2.5     NA       0.1        1
-      111 #D2D2D2  5  2     1    42  4.5  5.5  1.5  2.5     NA       0.1        1
-      112 #D2D2D2  6  2     1    52  5.5  6.5  1.5  2.5     NA       0.1        1
-      113 #D2D2D2  6  2     1    52  5.5  6.5  1.5  2.5     NA       0.1        1
-      114 #D2D2D2  6  2     1    52  5.5  6.5  1.5  2.5     NA       0.1        1
-      115 #D2D2D2  7  2     1    62  6.5  7.5  1.5  2.5     NA       0.1        1
-      116 #D2D2D2  7  2     1    62  6.5  7.5  1.5  2.5     NA       0.1        1
-      117 #D2D2D2  7  2     1    62  6.5  7.5  1.5  2.5     NA       0.1        1
-      118 #D2D2D2  8  2     1    72  7.5  8.5  1.5  2.5     NA       0.1        1
-      119 #D2D2D2  8  2     1    72  7.5  8.5  1.5  2.5     NA       0.1        1
-      120 #D2D2D2  8  2     1    72  7.5  8.5  1.5  2.5     NA       0.1        1
-      121 #D2D2D2  9  2     1    82  8.5  9.5  1.5  2.5     NA       0.1        1
-      122 #D2D2D2  9  2     1    82  8.5  9.5  1.5  2.5     NA       0.1        1
-      123 #D2D2D2  9  2     1    82  8.5  9.5  1.5  2.5     NA       0.1        1
-      124 #D2D2D2 10  2     1    92  9.5 10.5  1.5  2.5     NA       0.1        1
-      125 #D2D2D2 10  2     1    92  9.5 10.5  1.5  2.5     NA       0.1        1
-      126 #D2D2D2 10  2     1    92  9.5 10.5  1.5  2.5     NA       0.1        1
-      127 #D2D2D2 11  2     1   102 10.5 11.5  1.5  2.5     NA       0.1        1
-      128 #D2D2D2 11  2     1   102 10.5 11.5  1.5  2.5     NA       0.1        1
-      129 #D2D2D2 11  2     1   102 10.5 11.5  1.5  2.5     NA       0.1        1
-      130 #D2D2D2 12  2     1   112 11.5 12.5  1.5  2.5     NA       0.1        1
-      131 #D2D2D2 12  2     1   112 11.5 12.5  1.5  2.5     NA       0.1        1
-      132 #D2D2D2 12  2     1   112 11.5 12.5  1.5  2.5     NA       0.1        1
-      133 #D2D2D2 13  2     1   122 12.5 13.5  1.5  2.5     NA       0.1        1
-      134 #D2D2D2 13  2     1   122 12.5 13.5  1.5  2.5     NA       0.1        1
-      135 #D2D2D2 13  2     1   122 12.5 13.5  1.5  2.5     NA       0.1        1
-      136 #D2D2D2 14  2     1   132 13.5 14.5  1.5  2.5     NA       0.1        1
-      137 #D2D2D2 14  2     1   132 13.5 14.5  1.5  2.5     NA       0.1        1
-      138 #D2D2D2 14  2     1   132 13.5 14.5  1.5  2.5     NA       0.1        1
-      139 #D2D2D2 15  2     1   142 14.5 15.5  1.5  2.5     NA       0.1        1
-      140 #D2D2D2 15  2     1   142 14.5 15.5  1.5  2.5     NA       0.1        1
-      141 #D2D2D2 15  2     1   142 14.5 15.5  1.5  2.5     NA       0.1        1
-      142 #D2D2D2 16  2     1   152 15.5 16.5  1.5  2.5     NA       0.1        1
-      143 #D2D2D2 16  2     1   152 15.5 16.5  1.5  2.5     NA       0.1        1
-      144 #D2D2D2 16  2     1   152 15.5 16.5  1.5  2.5     NA       0.1        1
-      145 #D2D2D2 17  2     1   162 16.5 17.5  1.5  2.5     NA       0.1        1
-      146 #D2D2D2 17  2     1   162 16.5 17.5  1.5  2.5     NA       0.1        1
-      147 #D2D2D2 17  2     1   162 16.5 17.5  1.5  2.5     NA       0.1        1
-      148 #D2D2D2 18  2     1   172 17.5 18.5  1.5  2.5     NA       0.1        1
-      149 #D2D2D2 18  2     1   172 17.5 18.5  1.5  2.5     NA       0.1        1
-      150 #D2D2D2 18  2     1   172 17.5 18.5  1.5  2.5     NA       0.1        1
-      151 #D2D2D2 19  2     1   182 18.5 19.5  1.5  2.5     NA       0.1        1
-      152 #D2D2D2 19  2     1   182 18.5 19.5  1.5  2.5     NA       0.1        1
-      153 #D2D2D2 19  2     1   182 18.5 19.5  1.5  2.5     NA       0.1        1
-      154 #D2D2D2 20  2     1   192 19.5 20.5  1.5  2.5     NA       0.1        1
-      155 #D2D2D2 20  2     1   192 19.5 20.5  1.5  2.5     NA       0.1        1
-      156 #D2D2D2 20  2     1   192 19.5 20.5  1.5  2.5     NA       0.1        1
-      157 #D2D2D2 21  2     1   202 20.5 21.5  1.5  2.5     NA       0.1        1
-      158 #D2D2D2 21  2     1   202 20.5 21.5  1.5  2.5     NA       0.1        1
-      159 #D2D2D2 21  2     1   202 20.5 21.5  1.5  2.5     NA       0.1        1
-      160 #D2D2D2 22  2     1   212 21.5 22.5  1.5  2.5     NA       0.1        1
-      161 #D2D2D2 22  2     1   212 21.5 22.5  1.5  2.5     NA       0.1        1
-      162 #D2D2D2 22  2     1   212 21.5 22.5  1.5  2.5     NA       0.1        1
-      163 #D2D2D2 23  2     1   222 22.5 23.5  1.5  2.5     NA       0.1        1
-      164 #D2D2D2 23  2     1   222 22.5 23.5  1.5  2.5     NA       0.1        1
-      165 #D2D2D2 23  2     1   222 22.5 23.5  1.5  2.5     NA       0.1        1
-      166 #D2D2D2 24  2     1   232 23.5 24.5  1.5  2.5     NA       0.1        1
-      167 #D2D2D2 24  2     1   232 23.5 24.5  1.5  2.5     NA       0.1        1
-      168 #D2D2D2 24  2     1   232 23.5 24.5  1.5  2.5     NA       0.1        1
-      169 #D2D2D2 25  2     1   242 24.5 25.5  1.5  2.5     NA       0.1        1
-      170 #D2D2D2 25  2     1   242 24.5 25.5  1.5  2.5     NA       0.1        1
-      171 #D2D2D2 25  2     1   242 24.5 25.5  1.5  2.5     NA       0.1        1
-      172 #D2D2D2 26  2     1   252 25.5 26.5  1.5  2.5     NA       0.1        1
-      173 #D2D2D2 26  2     1   252 25.5 26.5  1.5  2.5     NA       0.1        1
-      174 #D2D2D2 26  2     1   252 25.5 26.5  1.5  2.5     NA       0.1        1
-      175 #D2D2D2 27  2     1   262 26.5 27.5  1.5  2.5     NA       0.1        1
-      176 #D2D2D2 27  2     1   262 26.5 27.5  1.5  2.5     NA       0.1        1
-      177 #D2D2D2 27  2     1   262 26.5 27.5  1.5  2.5     NA       0.1        1
-      178 #D2D2D2 28  2     1   272 27.5 28.5  1.5  2.5     NA       0.1        1
-      179 #D2D2D2 28  2     1   272 27.5 28.5  1.5  2.5     NA       0.1        1
-      180 #D2D2D2 28  2     1   272 27.5 28.5  1.5  2.5     NA       0.1        1
-      181 #D2D2D2 29  2     1   282 28.5 29.5  1.5  2.5     NA       0.1        1
-      182 #D2D2D2 29  2     1   282 28.5 29.5  1.5  2.5     NA       0.1        1
-      183 #D2D2D2 29  2     1   282 28.5 29.5  1.5  2.5     NA       0.1        1
-      184 #D2D2D2 30  2     1   292 29.5 30.5  1.5  2.5     NA       0.1        1
-      185 #D2D2D2 30  2     1   292 29.5 30.5  1.5  2.5     NA       0.1        1
-      186 #D2D2D2 30  2     1   292 29.5 30.5  1.5  2.5     NA       0.1        1
-      187 #D2D2D2 31  2     1   302 30.5 31.5  1.5  2.5     NA       0.1        1
-      188 #D2D2D2 31  2     1   302 30.5 31.5  1.5  2.5     NA       0.1        1
-      189 #D2D2D2 31  2     1   302 30.5 31.5  1.5  2.5     NA       0.1        1
-      190 #D2D2D2 32  2     1   312 31.5 32.5  1.5  2.5     NA       0.1        1
-      191 #D2D2D2 32  2     1   312 31.5 32.5  1.5  2.5     NA       0.1        1
-      192 #D2D2D2 32  2     1   312 31.5 32.5  1.5  2.5     NA       0.1        1
-      193 #D2D2D2  1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      194 #D2D2D2  1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      195 #D2D2D2  1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      196 #D2D2D2  2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1
-      197 #D2D2D2  2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1
-      198 #D2D2D2  2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1
-      199 #D2D2D2  3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1
-      200 #D2D2D2  3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1
-      201 #D2D2D2  3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1
-      202 #D2D2D2  4  3     1    33  3.5  4.5  2.5  3.5     NA       0.1        1
-      203 #D2D2D2  4  3     1    33  3.5  4.5  2.5  3.5     NA       0.1        1
-      204 #D2D2D2  4  3     1    33  3.5  4.5  2.5  3.5     NA       0.1        1
-      205 #D2D2D2  5  3     1    43  4.5  5.5  2.5  3.5     NA       0.1        1
-      206 #D2D2D2  5  3     1    43  4.5  5.5  2.5  3.5     NA       0.1        1
-      207 #D2D2D2  5  3     1    43  4.5  5.5  2.5  3.5     NA       0.1        1
-      208 #D2D2D2  6  3     1    53  5.5  6.5  2.5  3.5     NA       0.1        1
-      209 #D2D2D2  6  3     1    53  5.5  6.5  2.5  3.5     NA       0.1        1
-      210 #D2D2D2  6  3     1    53  5.5  6.5  2.5  3.5     NA       0.1        1
-      211 #D2D2D2  7  3     1    63  6.5  7.5  2.5  3.5     NA       0.1        1
-      212 #D2D2D2  7  3     1    63  6.5  7.5  2.5  3.5     NA       0.1        1
-      213 #D2D2D2  7  3     1    63  6.5  7.5  2.5  3.5     NA       0.1        1
-      214 #D2D2D2  8  3     1    73  7.5  8.5  2.5  3.5     NA       0.1        1
-      215 #D2D2D2  8  3     1    73  7.5  8.5  2.5  3.5     NA       0.1        1
-      216 #D2D2D2  8  3     1    73  7.5  8.5  2.5  3.5     NA       0.1        1
-      217 #D2D2D2  9  3     1    83  8.5  9.5  2.5  3.5     NA       0.1        1
-      218 #D2D2D2  9  3     1    83  8.5  9.5  2.5  3.5     NA       0.1        1
-      219 #D2D2D2  9  3     1    83  8.5  9.5  2.5  3.5     NA       0.1        1
-      220 #D2D2D2 10  3     1    93  9.5 10.5  2.5  3.5     NA       0.1        1
-      221 #D2D2D2 10  3     1    93  9.5 10.5  2.5  3.5     NA       0.1        1
-      222 #D2D2D2 10  3     1    93  9.5 10.5  2.5  3.5     NA       0.1        1
-      223 #D2D2D2 11  3     1   103 10.5 11.5  2.5  3.5     NA       0.1        1
-      224 #D2D2D2 11  3     1   103 10.5 11.5  2.5  3.5     NA       0.1        1
-      225 #D2D2D2 11  3     1   103 10.5 11.5  2.5  3.5     NA       0.1        1
-      226 #D2D2D2 12  3     1   113 11.5 12.5  2.5  3.5     NA       0.1        1
-      227 #D2D2D2 12  3     1   113 11.5 12.5  2.5  3.5     NA       0.1        1
-      228 #D2D2D2 12  3     1   113 11.5 12.5  2.5  3.5     NA       0.1        1
-      229 #D2D2D2 13  3     1   123 12.5 13.5  2.5  3.5     NA       0.1        1
-      230 #D2D2D2 13  3     1   123 12.5 13.5  2.5  3.5     NA       0.1        1
-      231 #D2D2D2 13  3     1   123 12.5 13.5  2.5  3.5     NA       0.1        1
-      232 #D2D2D2 14  3     1   133 13.5 14.5  2.5  3.5     NA       0.1        1
-      233 #D2D2D2 14  3     1   133 13.5 14.5  2.5  3.5     NA       0.1        1
-      234 #D2D2D2 14  3     1   133 13.5 14.5  2.5  3.5     NA       0.1        1
-      235 #D2D2D2 15  3     1   143 14.5 15.5  2.5  3.5     NA       0.1        1
-      236 #D2D2D2 15  3     1   143 14.5 15.5  2.5  3.5     NA       0.1        1
-      237 #D2D2D2 15  3     1   143 14.5 15.5  2.5  3.5     NA       0.1        1
-      238 #D2D2D2 16  3     1   153 15.5 16.5  2.5  3.5     NA       0.1        1
-      239 #D2D2D2 16  3     1   153 15.5 16.5  2.5  3.5     NA       0.1        1
-      240 #D2D2D2 16  3     1   153 15.5 16.5  2.5  3.5     NA       0.1        1
-      241 #D2D2D2 17  3     1   163 16.5 17.5  2.5  3.5     NA       0.1        1
-      242 #D2D2D2 17  3     1   163 16.5 17.5  2.5  3.5     NA       0.1        1
-      243 #D2D2D2 17  3     1   163 16.5 17.5  2.5  3.5     NA       0.1        1
-      244 #D2D2D2 18  3     1   173 17.5 18.5  2.5  3.5     NA       0.1        1
-      245 #D2D2D2 18  3     1   173 17.5 18.5  2.5  3.5     NA       0.1        1
-      246 #D2D2D2 18  3     1   173 17.5 18.5  2.5  3.5     NA       0.1        1
-      247 #D2D2D2 19  3     1   183 18.5 19.5  2.5  3.5     NA       0.1        1
-      248 #D2D2D2 19  3     1   183 18.5 19.5  2.5  3.5     NA       0.1        1
-      249 #D2D2D2 19  3     1   183 18.5 19.5  2.5  3.5     NA       0.1        1
-      250 #D2D2D2 20  3     1   193 19.5 20.5  2.5  3.5     NA       0.1        1
-      251 #D2D2D2 20  3     1   193 19.5 20.5  2.5  3.5     NA       0.1        1
-      252 #D2D2D2 20  3     1   193 19.5 20.5  2.5  3.5     NA       0.1        1
-      253 #D2D2D2 21  3     1   203 20.5 21.5  2.5  3.5     NA       0.1        1
-      254 #D2D2D2 21  3     1   203 20.5 21.5  2.5  3.5     NA       0.1        1
-      255 #D2D2D2 21  3     1   203 20.5 21.5  2.5  3.5     NA       0.1        1
-      256 #D2D2D2 22  3     1   213 21.5 22.5  2.5  3.5     NA       0.1        1
-      257 #D2D2D2 22  3     1   213 21.5 22.5  2.5  3.5     NA       0.1        1
-      258 #D2D2D2 22  3     1   213 21.5 22.5  2.5  3.5     NA       0.1        1
-      259 #D2D2D2 23  3     1   223 22.5 23.5  2.5  3.5     NA       0.1        1
-      260 #D2D2D2 23  3     1   223 22.5 23.5  2.5  3.5     NA       0.1        1
-      261 #D2D2D2 23  3     1   223 22.5 23.5  2.5  3.5     NA       0.1        1
-      262 #D2D2D2 24  3     1   233 23.5 24.5  2.5  3.5     NA       0.1        1
-      263 #D2D2D2 24  3     1   233 23.5 24.5  2.5  3.5     NA       0.1        1
-      264 #D2D2D2 24  3     1   233 23.5 24.5  2.5  3.5     NA       0.1        1
-      265 #D2D2D2 25  3     1   243 24.5 25.5  2.5  3.5     NA       0.1        1
-      266 #D2D2D2 25  3     1   243 24.5 25.5  2.5  3.5     NA       0.1        1
-      267 #D2D2D2 25  3     1   243 24.5 25.5  2.5  3.5     NA       0.1        1
-      268 #D2D2D2 26  3     1   253 25.5 26.5  2.5  3.5     NA       0.1        1
-      269 #D2D2D2 26  3     1   253 25.5 26.5  2.5  3.5     NA       0.1        1
-      270 #D2D2D2 26  3     1   253 25.5 26.5  2.5  3.5     NA       0.1        1
-      271 #D2D2D2 27  3     1   263 26.5 27.5  2.5  3.5     NA       0.1        1
-      272 #D2D2D2 27  3     1   263 26.5 27.5  2.5  3.5     NA       0.1        1
-      273 #D2D2D2 27  3     1   263 26.5 27.5  2.5  3.5     NA       0.1        1
-      274 #D2D2D2 28  3     1   273 27.5 28.5  2.5  3.5     NA       0.1        1
-      275 #D2D2D2 28  3     1   273 27.5 28.5  2.5  3.5     NA       0.1        1
-      276 #D2D2D2 28  3     1   273 27.5 28.5  2.5  3.5     NA       0.1        1
-      277 #D2D2D2 29  3     1   283 28.5 29.5  2.5  3.5     NA       0.1        1
-      278 #D2D2D2 29  3     1   283 28.5 29.5  2.5  3.5     NA       0.1        1
-      279 #D2D2D2 29  3     1   283 28.5 29.5  2.5  3.5     NA       0.1        1
-      280 #D2D2D2 30  3     1   293 29.5 30.5  2.5  3.5     NA       0.1        1
-      281 #D2D2D2 30  3     1   293 29.5 30.5  2.5  3.5     NA       0.1        1
-      282 #D2D2D2 30  3     1   293 29.5 30.5  2.5  3.5     NA       0.1        1
-      283 #D2D2D2 31  3     1   303 30.5 31.5  2.5  3.5     NA       0.1        1
-      284 #D2D2D2 31  3     1   303 30.5 31.5  2.5  3.5     NA       0.1        1
-      285 #D2D2D2 31  3     1   303 30.5 31.5  2.5  3.5     NA       0.1        1
-      286 #D2D2D2 32  3     1   313 31.5 32.5  2.5  3.5     NA       0.1        1
-      287 #D2D2D2 32  3     1   313 31.5 32.5  2.5  3.5     NA       0.1        1
-      288 #D2D2D2 32  3     1   313 31.5 32.5  2.5  3.5     NA       0.1        1
-      289 #D2D2D2  1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      290 #D2D2D2  1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      291 #D2D2D2  1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      292 #D2D2D2  2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1
-      293 #D2D2D2  2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1
-      294 #D2D2D2  2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1
-      295 #D2D2D2  3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1
-      296 #D2D2D2  3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1
-      297 #D2D2D2  3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1
-      298 #D2D2D2  4  4     1    34  3.5  4.5  3.5  4.5     NA       0.1        1
-      299 #D2D2D2  4  4     1    34  3.5  4.5  3.5  4.5     NA       0.1        1
-      300 #D2D2D2  4  4     1    34  3.5  4.5  3.5  4.5     NA       0.1        1
-      301 #D2D2D2  5  4     1    44  4.5  5.5  3.5  4.5     NA       0.1        1
-      302 #D2D2D2  5  4     1    44  4.5  5.5  3.5  4.5     NA       0.1        1
-      303 #D2D2D2  5  4     1    44  4.5  5.5  3.5  4.5     NA       0.1        1
-      304 #D2D2D2  6  4     1    54  5.5  6.5  3.5  4.5     NA       0.1        1
-      305 #D2D2D2  6  4     1    54  5.5  6.5  3.5  4.5     NA       0.1        1
-      306 #D2D2D2  6  4     1    54  5.5  6.5  3.5  4.5     NA       0.1        1
-      307 #D2D2D2  7  4     1    64  6.5  7.5  3.5  4.5     NA       0.1        1
-      308 #D2D2D2  7  4     1    64  6.5  7.5  3.5  4.5     NA       0.1        1
-      309 #D2D2D2  7  4     1    64  6.5  7.5  3.5  4.5     NA       0.1        1
-      310 #D2D2D2  8  4     1    74  7.5  8.5  3.5  4.5     NA       0.1        1
-      311 #D2D2D2  8  4     1    74  7.5  8.5  3.5  4.5     NA       0.1        1
-      312 #D2D2D2  8  4     1    74  7.5  8.5  3.5  4.5     NA       0.1        1
-      313 #D2D2D2  9  4     1    84  8.5  9.5  3.5  4.5     NA       0.1        1
-      314 #D2D2D2  9  4     1    84  8.5  9.5  3.5  4.5     NA       0.1        1
-      315 #D2D2D2  9  4     1    84  8.5  9.5  3.5  4.5     NA       0.1        1
-      316 #D2D2D2 10  4     1    94  9.5 10.5  3.5  4.5     NA       0.1        1
-      317 #D2D2D2 10  4     1    94  9.5 10.5  3.5  4.5     NA       0.1        1
-      318 #D2D2D2 10  4     1    94  9.5 10.5  3.5  4.5     NA       0.1        1
-      319 #D2D2D2 11  4     1   104 10.5 11.5  3.5  4.5     NA       0.1        1
-      320 #D2D2D2 11  4     1   104 10.5 11.5  3.5  4.5     NA       0.1        1
-      321 #D2D2D2 11  4     1   104 10.5 11.5  3.5  4.5     NA       0.1        1
-      322 #D2D2D2 12  4     1   114 11.5 12.5  3.5  4.5     NA       0.1        1
-      323 #D2D2D2 12  4     1   114 11.5 12.5  3.5  4.5     NA       0.1        1
-      324 #D2D2D2 12  4     1   114 11.5 12.5  3.5  4.5     NA       0.1        1
-      325 #D2D2D2 13  4     1   124 12.5 13.5  3.5  4.5     NA       0.1        1
-      326 #D2D2D2 13  4     1   124 12.5 13.5  3.5  4.5     NA       0.1        1
-      327 #D2D2D2 13  4     1   124 12.5 13.5  3.5  4.5     NA       0.1        1
-      328 #D2D2D2 14  4     1   134 13.5 14.5  3.5  4.5     NA       0.1        1
-      329 #D2D2D2 14  4     1   134 13.5 14.5  3.5  4.5     NA       0.1        1
-      330 #D2D2D2 14  4     1   134 13.5 14.5  3.5  4.5     NA       0.1        1
-      331 #D2D2D2 15  4     1   144 14.5 15.5  3.5  4.5     NA       0.1        1
-      332 #D2D2D2 15  4     1   144 14.5 15.5  3.5  4.5     NA       0.1        1
-      333 #D2D2D2 15  4     1   144 14.5 15.5  3.5  4.5     NA       0.1        1
-      334 #D2D2D2 16  4     1   154 15.5 16.5  3.5  4.5     NA       0.1        1
-      335 #D2D2D2 16  4     1   154 15.5 16.5  3.5  4.5     NA       0.1        1
-      336 #D2D2D2 16  4     1   154 15.5 16.5  3.5  4.5     NA       0.1        1
-      337 #D2D2D2 17  4     1   164 16.5 17.5  3.5  4.5     NA       0.1        1
-      338 #D2D2D2 17  4     1   164 16.5 17.5  3.5  4.5     NA       0.1        1
-      339 #D2D2D2 17  4     1   164 16.5 17.5  3.5  4.5     NA       0.1        1
-      340 #D2D2D2 18  4     1   174 17.5 18.5  3.5  4.5     NA       0.1        1
-      341 #D2D2D2 18  4     1   174 17.5 18.5  3.5  4.5     NA       0.1        1
-      342 #D2D2D2 18  4     1   174 17.5 18.5  3.5  4.5     NA       0.1        1
-      343 #D2D2D2 19  4     1   184 18.5 19.5  3.5  4.5     NA       0.1        1
-      344 #D2D2D2 19  4     1   184 18.5 19.5  3.5  4.5     NA       0.1        1
-      345 #D2D2D2 19  4     1   184 18.5 19.5  3.5  4.5     NA       0.1        1
-      346 #D2D2D2 20  4     1   194 19.5 20.5  3.5  4.5     NA       0.1        1
-      347 #D2D2D2 20  4     1   194 19.5 20.5  3.5  4.5     NA       0.1        1
-      348 #D2D2D2 20  4     1   194 19.5 20.5  3.5  4.5     NA       0.1        1
-      349 #D2D2D2 21  4     1   204 20.5 21.5  3.5  4.5     NA       0.1        1
-      350 #D2D2D2 21  4     1   204 20.5 21.5  3.5  4.5     NA       0.1        1
-      351 #D2D2D2 21  4     1   204 20.5 21.5  3.5  4.5     NA       0.1        1
-      352 #D2D2D2 22  4     1   214 21.5 22.5  3.5  4.5     NA       0.1        1
-      353 #D2D2D2 22  4     1   214 21.5 22.5  3.5  4.5     NA       0.1        1
-      354 #D2D2D2 22  4     1   214 21.5 22.5  3.5  4.5     NA       0.1        1
-      355 #D2D2D2 23  4     1   224 22.5 23.5  3.5  4.5     NA       0.1        1
-      356 #D2D2D2 23  4     1   224 22.5 23.5  3.5  4.5     NA       0.1        1
-      357 #D2D2D2 23  4     1   224 22.5 23.5  3.5  4.5     NA       0.1        1
-      358 #D2D2D2 24  4     1   234 23.5 24.5  3.5  4.5     NA       0.1        1
-      359 #D2D2D2 24  4     1   234 23.5 24.5  3.5  4.5     NA       0.1        1
-      360 #D2D2D2 24  4     1   234 23.5 24.5  3.5  4.5     NA       0.1        1
-      361 #D2D2D2 25  4     1   244 24.5 25.5  3.5  4.5     NA       0.1        1
-      362 #D2D2D2 25  4     1   244 24.5 25.5  3.5  4.5     NA       0.1        1
-      363 #D2D2D2 25  4     1   244 24.5 25.5  3.5  4.5     NA       0.1        1
-      364 #D2D2D2 26  4     1   254 25.5 26.5  3.5  4.5     NA       0.1        1
-      365 #D2D2D2 26  4     1   254 25.5 26.5  3.5  4.5     NA       0.1        1
-      366 #D2D2D2 26  4     1   254 25.5 26.5  3.5  4.5     NA       0.1        1
-      367 #D2D2D2 27  4     1   264 26.5 27.5  3.5  4.5     NA       0.1        1
-      368 #D2D2D2 27  4     1   264 26.5 27.5  3.5  4.5     NA       0.1        1
-      369 #D2D2D2 27  4     1   264 26.5 27.5  3.5  4.5     NA       0.1        1
-      370 #D2D2D2 28  4     1   274 27.5 28.5  3.5  4.5     NA       0.1        1
-      371 #D2D2D2 28  4     1   274 27.5 28.5  3.5  4.5     NA       0.1        1
-      372 #D2D2D2 28  4     1   274 27.5 28.5  3.5  4.5     NA       0.1        1
-      373 #D2D2D2 29  4     1   284 28.5 29.5  3.5  4.5     NA       0.1        1
-      374 #D2D2D2 29  4     1   284 28.5 29.5  3.5  4.5     NA       0.1        1
-      375 #D2D2D2 29  4     1   284 28.5 29.5  3.5  4.5     NA       0.1        1
-      376 #D2D2D2 30  4     1   294 29.5 30.5  3.5  4.5     NA       0.1        1
-      377 #D2D2D2 30  4     1   294 29.5 30.5  3.5  4.5     NA       0.1        1
-      378 #D2D2D2 30  4     1   294 29.5 30.5  3.5  4.5     NA       0.1        1
-      379 #D2D2D2 31  4     1   304 30.5 31.5  3.5  4.5     NA       0.1        1
-      380 #D2D2D2 31  4     1   304 30.5 31.5  3.5  4.5     NA       0.1        1
-      381 #D2D2D2 31  4     1   304 30.5 31.5  3.5  4.5     NA       0.1        1
-      382 #D2D2D2 32  4     1   314 31.5 32.5  3.5  4.5     NA       0.1        1
-      383 #D2D2D2 32  4     1   314 31.5 32.5  3.5  4.5     NA       0.1        1
-      384 #D2D2D2 32  4     1   314 31.5 32.5  3.5  4.5     NA       0.1        1
-      385 #D2D2D2  1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      386 #D2D2D2  1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      387 #D2D2D2  1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      388 #D2D2D2  2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1
-      389 #D2D2D2  2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1
-      390 #D2D2D2  2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1
-      391 #D2D2D2  3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1
-      392 #D2D2D2  3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1
-      393 #D2D2D2  3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1
-      394 #D2D2D2  4  5     1    35  3.5  4.5  4.5  5.5     NA       0.1        1
-      395 #D2D2D2  4  5     1    35  3.5  4.5  4.5  5.5     NA       0.1        1
-      396 #D2D2D2  4  5     1    35  3.5  4.5  4.5  5.5     NA       0.1        1
-      397 #D2D2D2  5  5     1    45  4.5  5.5  4.5  5.5     NA       0.1        1
-      398 #D2D2D2  5  5     1    45  4.5  5.5  4.5  5.5     NA       0.1        1
-      399 #D2D2D2  5  5     1    45  4.5  5.5  4.5  5.5     NA       0.1        1
-      400 #D2D2D2  6  5     1    55  5.5  6.5  4.5  5.5     NA       0.1        1
-      401 #D2D2D2  6  5     1    55  5.5  6.5  4.5  5.5     NA       0.1        1
-      402 #D2D2D2  6  5     1    55  5.5  6.5  4.5  5.5     NA       0.1        1
-      403 #D2D2D2  7  5     1    65  6.5  7.5  4.5  5.5     NA       0.1        1
-      404 #D2D2D2  7  5     1    65  6.5  7.5  4.5  5.5     NA       0.1        1
-      405 #D2D2D2  7  5     1    65  6.5  7.5  4.5  5.5     NA       0.1        1
-      406 #D2D2D2  8  5     1    75  7.5  8.5  4.5  5.5     NA       0.1        1
-      407 #D2D2D2  8  5     1    75  7.5  8.5  4.5  5.5     NA       0.1        1
-      408 #D2D2D2  8  5     1    75  7.5  8.5  4.5  5.5     NA       0.1        1
-      409 #D2D2D2  9  5     1    85  8.5  9.5  4.5  5.5     NA       0.1        1
-      410 #D2D2D2  9  5     1    85  8.5  9.5  4.5  5.5     NA       0.1        1
-      411 #D2D2D2  9  5     1    85  8.5  9.5  4.5  5.5     NA       0.1        1
-      412 #D2D2D2 10  5     1    95  9.5 10.5  4.5  5.5     NA       0.1        1
-      413 #D2D2D2 10  5     1    95  9.5 10.5  4.5  5.5     NA       0.1        1
-      414 #D2D2D2 10  5     1    95  9.5 10.5  4.5  5.5     NA       0.1        1
-      415 #D2D2D2 11  5     1   105 10.5 11.5  4.5  5.5     NA       0.1        1
-      416 #D2D2D2 11  5     1   105 10.5 11.5  4.5  5.5     NA       0.1        1
-      417 #D2D2D2 11  5     1   105 10.5 11.5  4.5  5.5     NA       0.1        1
-      418 #D2D2D2 12  5     1   115 11.5 12.5  4.5  5.5     NA       0.1        1
-      419 #D2D2D2 12  5     1   115 11.5 12.5  4.5  5.5     NA       0.1        1
-      420 #D2D2D2 12  5     1   115 11.5 12.5  4.5  5.5     NA       0.1        1
-      421 #D2D2D2 13  5     1   125 12.5 13.5  4.5  5.5     NA       0.1        1
-      422 #D2D2D2 13  5     1   125 12.5 13.5  4.5  5.5     NA       0.1        1
-      423 #D2D2D2 13  5     1   125 12.5 13.5  4.5  5.5     NA       0.1        1
-      424 #D2D2D2 14  5     1   135 13.5 14.5  4.5  5.5     NA       0.1        1
-      425 #D2D2D2 14  5     1   135 13.5 14.5  4.5  5.5     NA       0.1        1
-      426 #D2D2D2 14  5     1   135 13.5 14.5  4.5  5.5     NA       0.1        1
-      427 #D2D2D2 15  5     1   145 14.5 15.5  4.5  5.5     NA       0.1        1
-      428 #D2D2D2 15  5     1   145 14.5 15.5  4.5  5.5     NA       0.1        1
-      429 #D2D2D2 15  5     1   145 14.5 15.5  4.5  5.5     NA       0.1        1
-      430 #D2D2D2 16  5     1   155 15.5 16.5  4.5  5.5     NA       0.1        1
-      431 #D2D2D2 16  5     1   155 15.5 16.5  4.5  5.5     NA       0.1        1
-      432 #D2D2D2 16  5     1   155 15.5 16.5  4.5  5.5     NA       0.1        1
-      433 #D2D2D2 17  5     1   165 16.5 17.5  4.5  5.5     NA       0.1        1
-      434 #D2D2D2 17  5     1   165 16.5 17.5  4.5  5.5     NA       0.1        1
-      435 #D2D2D2 17  5     1   165 16.5 17.5  4.5  5.5     NA       0.1        1
-      436 #D2D2D2 18  5     1   175 17.5 18.5  4.5  5.5     NA       0.1        1
-      437 #D2D2D2 18  5     1   175 17.5 18.5  4.5  5.5     NA       0.1        1
-      438 #D2D2D2 18  5     1   175 17.5 18.5  4.5  5.5     NA       0.1        1
-      439 #D2D2D2 19  5     1   185 18.5 19.5  4.5  5.5     NA       0.1        1
-      440 #D2D2D2 19  5     1   185 18.5 19.5  4.5  5.5     NA       0.1        1
-      441 #D2D2D2 19  5     1   185 18.5 19.5  4.5  5.5     NA       0.1        1
-      442 #D2D2D2 20  5     1   195 19.5 20.5  4.5  5.5     NA       0.1        1
-      443 #D2D2D2 20  5     1   195 19.5 20.5  4.5  5.5     NA       0.1        1
-      444 #D2D2D2 20  5     1   195 19.5 20.5  4.5  5.5     NA       0.1        1
-      445 #D2D2D2 21  5     1   205 20.5 21.5  4.5  5.5     NA       0.1        1
-      446 #D2D2D2 21  5     1   205 20.5 21.5  4.5  5.5     NA       0.1        1
-      447 #D2D2D2 21  5     1   205 20.5 21.5  4.5  5.5     NA       0.1        1
-      448 #D2D2D2 22  5     1   215 21.5 22.5  4.5  5.5     NA       0.1        1
-      449 #D2D2D2 22  5     1   215 21.5 22.5  4.5  5.5     NA       0.1        1
-      450 #D2D2D2 22  5     1   215 21.5 22.5  4.5  5.5     NA       0.1        1
-      451 #D2D2D2 23  5     1   225 22.5 23.5  4.5  5.5     NA       0.1        1
-      452 #D2D2D2 23  5     1   225 22.5 23.5  4.5  5.5     NA       0.1        1
-      453 #D2D2D2 23  5     1   225 22.5 23.5  4.5  5.5     NA       0.1        1
-      454 #D2D2D2 24  5     1   235 23.5 24.5  4.5  5.5     NA       0.1        1
-      455 #D2D2D2 24  5     1   235 23.5 24.5  4.5  5.5     NA       0.1        1
-      456 #D2D2D2 24  5     1   235 23.5 24.5  4.5  5.5     NA       0.1        1
-      457 #D2D2D2 25  5     1   245 24.5 25.5  4.5  5.5     NA       0.1        1
-      458 #D2D2D2 25  5     1   245 24.5 25.5  4.5  5.5     NA       0.1        1
-      459 #D2D2D2 25  5     1   245 24.5 25.5  4.5  5.5     NA       0.1        1
-      460 #D2D2D2 26  5     1   255 25.5 26.5  4.5  5.5     NA       0.1        1
-      461 #D2D2D2 26  5     1   255 25.5 26.5  4.5  5.5     NA       0.1        1
-      462 #D2D2D2 26  5     1   255 25.5 26.5  4.5  5.5     NA       0.1        1
-      463 #D2D2D2 27  5     1   265 26.5 27.5  4.5  5.5     NA       0.1        1
-      464 #D2D2D2 27  5     1   265 26.5 27.5  4.5  5.5     NA       0.1        1
-      465 #D2D2D2 27  5     1   265 26.5 27.5  4.5  5.5     NA       0.1        1
-      466 #D2D2D2 28  5     1   275 27.5 28.5  4.5  5.5     NA       0.1        1
-      467 #D2D2D2 28  5     1   275 27.5 28.5  4.5  5.5     NA       0.1        1
-      468 #D2D2D2 28  5     1   275 27.5 28.5  4.5  5.5     NA       0.1        1
-      469 #D2D2D2 29  5     1   285 28.5 29.5  4.5  5.5     NA       0.1        1
-      470 #D2D2D2 29  5     1   285 28.5 29.5  4.5  5.5     NA       0.1        1
-      471 #D2D2D2 29  5     1   285 28.5 29.5  4.5  5.5     NA       0.1        1
-      472 #D2D2D2 30  5     1   295 29.5 30.5  4.5  5.5     NA       0.1        1
-      473 #D2D2D2 30  5     1   295 29.5 30.5  4.5  5.5     NA       0.1        1
-      474 #D2D2D2 30  5     1   295 29.5 30.5  4.5  5.5     NA       0.1        1
-      475 #D2D2D2 31  5     1   305 30.5 31.5  4.5  5.5     NA       0.1        1
-      476 #D2D2D2 31  5     1   305 30.5 31.5  4.5  5.5     NA       0.1        1
-      477 #D2D2D2 31  5     1   305 30.5 31.5  4.5  5.5     NA       0.1        1
-      478 #D2D2D2 32  5     1   315 31.5 32.5  4.5  5.5     NA       0.1        1
-      479 #D2D2D2 32  5     1   315 31.5 32.5  4.5  5.5     NA       0.1        1
-      480 #D2D2D2 32  5     1   315 31.5 32.5  4.5  5.5     NA       0.1        1
-      481 #D2D2D2  1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      482 #D2D2D2  1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      483 #D2D2D2  1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      484 #D2D2D2  2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1
-      485 #D2D2D2  2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1
-      486 #D2D2D2  2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1
-      487 #D2D2D2  3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1
-      488 #D2D2D2  3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1
-      489 #D2D2D2  3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1
-      490 #D2D2D2  4  6     1    36  3.5  4.5  5.5  6.5     NA       0.1        1
-      491 #D2D2D2  4  6     1    36  3.5  4.5  5.5  6.5     NA       0.1        1
-      492 #D2D2D2  4  6     1    36  3.5  4.5  5.5  6.5     NA       0.1        1
-      493 #D2D2D2  5  6     1    46  4.5  5.5  5.5  6.5     NA       0.1        1
-      494 #D2D2D2  5  6     1    46  4.5  5.5  5.5  6.5     NA       0.1        1
-      495 #D2D2D2  5  6     1    46  4.5  5.5  5.5  6.5     NA       0.1        1
-      496 #D2D2D2  6  6     1    56  5.5  6.5  5.5  6.5     NA       0.1        1
-      497 #D2D2D2  6  6     1    56  5.5  6.5  5.5  6.5     NA       0.1        1
-      498 #D2D2D2  6  6     1    56  5.5  6.5  5.5  6.5     NA       0.1        1
-      499 #D2D2D2  7  6     1    66  6.5  7.5  5.5  6.5     NA       0.1        1
-      500 #D2D2D2  7  6     1    66  6.5  7.5  5.5  6.5     NA       0.1        1
-      501 #D2D2D2  7  6     1    66  6.5  7.5  5.5  6.5     NA       0.1        1
-      502 #D2D2D2  8  6     1    76  7.5  8.5  5.5  6.5     NA       0.1        1
-      503 #D2D2D2  8  6     1    76  7.5  8.5  5.5  6.5     NA       0.1        1
-      504 #D2D2D2  8  6     1    76  7.5  8.5  5.5  6.5     NA       0.1        1
-      505 #D2D2D2  9  6     1    86  8.5  9.5  5.5  6.5     NA       0.1        1
-      506 #D2D2D2  9  6     1    86  8.5  9.5  5.5  6.5     NA       0.1        1
-      507 #D2D2D2  9  6     1    86  8.5  9.5  5.5  6.5     NA       0.1        1
-      508 #D2D2D2 10  6     1    96  9.5 10.5  5.5  6.5     NA       0.1        1
-      509 #D2D2D2 10  6     1    96  9.5 10.5  5.5  6.5     NA       0.1        1
-      510 #D2D2D2 10  6     1    96  9.5 10.5  5.5  6.5     NA       0.1        1
-      511 #D2D2D2 11  6     1   106 10.5 11.5  5.5  6.5     NA       0.1        1
-      512 #D2D2D2 11  6     1   106 10.5 11.5  5.5  6.5     NA       0.1        1
-      513 #D2D2D2 11  6     1   106 10.5 11.5  5.5  6.5     NA       0.1        1
-      514 #D2D2D2 12  6     1   116 11.5 12.5  5.5  6.5     NA       0.1        1
-      515 #D2D2D2 12  6     1   116 11.5 12.5  5.5  6.5     NA       0.1        1
-      516 #D2D2D2 12  6     1   116 11.5 12.5  5.5  6.5     NA       0.1        1
-      517 #D2D2D2 13  6     1   126 12.5 13.5  5.5  6.5     NA       0.1        1
-      518 #D2D2D2 13  6     1   126 12.5 13.5  5.5  6.5     NA       0.1        1
-      519 #D2D2D2 13  6     1   126 12.5 13.5  5.5  6.5     NA       0.1        1
-      520 #D2D2D2 14  6     1   136 13.5 14.5  5.5  6.5     NA       0.1        1
-      521 #D2D2D2 14  6     1   136 13.5 14.5  5.5  6.5     NA       0.1        1
-      522 #D2D2D2 14  6     1   136 13.5 14.5  5.5  6.5     NA       0.1        1
-      523 #D2D2D2 15  6     1   146 14.5 15.5  5.5  6.5     NA       0.1        1
-      524 #D2D2D2 15  6     1   146 14.5 15.5  5.5  6.5     NA       0.1        1
-      525 #D2D2D2 15  6     1   146 14.5 15.5  5.5  6.5     NA       0.1        1
-      526 #D2D2D2 16  6     1   156 15.5 16.5  5.5  6.5     NA       0.1        1
-      527 #D2D2D2 16  6     1   156 15.5 16.5  5.5  6.5     NA       0.1        1
-      528 #D2D2D2 16  6     1   156 15.5 16.5  5.5  6.5     NA       0.1        1
-      529 #D2D2D2 17  6     1   166 16.5 17.5  5.5  6.5     NA       0.1        1
-      530 #D2D2D2 17  6     1   166 16.5 17.5  5.5  6.5     NA       0.1        1
-      531 #D2D2D2 17  6     1   166 16.5 17.5  5.5  6.5     NA       0.1        1
-      532 #D2D2D2 18  6     1   176 17.5 18.5  5.5  6.5     NA       0.1        1
-      533 #D2D2D2 18  6     1   176 17.5 18.5  5.5  6.5     NA       0.1        1
-      534 #D2D2D2 18  6     1   176 17.5 18.5  5.5  6.5     NA       0.1        1
-      535 #D2D2D2 19  6     1   186 18.5 19.5  5.5  6.5     NA       0.1        1
-      536 #D2D2D2 19  6     1   186 18.5 19.5  5.5  6.5     NA       0.1        1
-      537 #D2D2D2 19  6     1   186 18.5 19.5  5.5  6.5     NA       0.1        1
-      538 #D2D2D2 20  6     1   196 19.5 20.5  5.5  6.5     NA       0.1        1
-      539 #D2D2D2 20  6     1   196 19.5 20.5  5.5  6.5     NA       0.1        1
-      540 #D2D2D2 20  6     1   196 19.5 20.5  5.5  6.5     NA       0.1        1
-      541 #D2D2D2 21  6     1   206 20.5 21.5  5.5  6.5     NA       0.1        1
-      542 #D2D2D2 21  6     1   206 20.5 21.5  5.5  6.5     NA       0.1        1
-      543 #D2D2D2 21  6     1   206 20.5 21.5  5.5  6.5     NA       0.1        1
-      544 #D2D2D2 22  6     1   216 21.5 22.5  5.5  6.5     NA       0.1        1
-      545 #D2D2D2 22  6     1   216 21.5 22.5  5.5  6.5     NA       0.1        1
-      546 #D2D2D2 22  6     1   216 21.5 22.5  5.5  6.5     NA       0.1        1
-      547 #D2D2D2 23  6     1   226 22.5 23.5  5.5  6.5     NA       0.1        1
-      548 #D2D2D2 23  6     1   226 22.5 23.5  5.5  6.5     NA       0.1        1
-      549 #D2D2D2 23  6     1   226 22.5 23.5  5.5  6.5     NA       0.1        1
-      550 #D2D2D2 24  6     1   236 23.5 24.5  5.5  6.5     NA       0.1        1
-      551 #D2D2D2 24  6     1   236 23.5 24.5  5.5  6.5     NA       0.1        1
-      552 #D2D2D2 24  6     1   236 23.5 24.5  5.5  6.5     NA       0.1        1
-      553 #D2D2D2 25  6     1   246 24.5 25.5  5.5  6.5     NA       0.1        1
-      554 #D2D2D2 25  6     1   246 24.5 25.5  5.5  6.5     NA       0.1        1
-      555 #D2D2D2 25  6     1   246 24.5 25.5  5.5  6.5     NA       0.1        1
-      556 #D2D2D2 26  6     1   256 25.5 26.5  5.5  6.5     NA       0.1        1
-      557 #D2D2D2 26  6     1   256 25.5 26.5  5.5  6.5     NA       0.1        1
-      558 #D2D2D2 26  6     1   256 25.5 26.5  5.5  6.5     NA       0.1        1
-      559 #D2D2D2 27  6     1   266 26.5 27.5  5.5  6.5     NA       0.1        1
-      560 #D2D2D2 27  6     1   266 26.5 27.5  5.5  6.5     NA       0.1        1
-      561 #D2D2D2 27  6     1   266 26.5 27.5  5.5  6.5     NA       0.1        1
-      562 #D2D2D2 28  6     1   276 27.5 28.5  5.5  6.5     NA       0.1        1
-      563 #D2D2D2 28  6     1   276 27.5 28.5  5.5  6.5     NA       0.1        1
-      564 #D2D2D2 28  6     1   276 27.5 28.5  5.5  6.5     NA       0.1        1
-      565 #D2D2D2 29  6     1   286 28.5 29.5  5.5  6.5     NA       0.1        1
-      566 #D2D2D2 29  6     1   286 28.5 29.5  5.5  6.5     NA       0.1        1
-      567 #D2D2D2 29  6     1   286 28.5 29.5  5.5  6.5     NA       0.1        1
-      568 #D2D2D2 30  6     1   296 29.5 30.5  5.5  6.5     NA       0.1        1
-      569 #D2D2D2 30  6     1   296 29.5 30.5  5.5  6.5     NA       0.1        1
-      570 #D2D2D2 30  6     1   296 29.5 30.5  5.5  6.5     NA       0.1        1
-      571 #D2D2D2 31  6     1   306 30.5 31.5  5.5  6.5     NA       0.1        1
-      572 #D2D2D2 31  6     1   306 30.5 31.5  5.5  6.5     NA       0.1        1
-      573 #D2D2D2 31  6     1   306 30.5 31.5  5.5  6.5     NA       0.1        1
-      574 #D2D2D2 32  6     1   316 31.5 32.5  5.5  6.5     NA       0.1        1
-      575 #D2D2D2 32  6     1   316 31.5 32.5  5.5  6.5     NA       0.1        1
-      576 #D2D2D2 32  6     1   316 31.5 32.5  5.5  6.5     NA       0.1        1
-      577 #D2D2D2  1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      578 #D2D2D2  1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      579 #D2D2D2  1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      580 #D2D2D2  2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1
-      581 #D2D2D2  2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1
-      582 #D2D2D2  2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1
-      583 #D2D2D2  3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1
-      584 #D2D2D2  3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1
-      585 #D2D2D2  3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1
-      586 #D2D2D2  4  7     1    37  3.5  4.5  6.5  7.5     NA       0.1        1
-      587 #D2D2D2  4  7     1    37  3.5  4.5  6.5  7.5     NA       0.1        1
-      588 #D2D2D2  4  7     1    37  3.5  4.5  6.5  7.5     NA       0.1        1
-      589 #D2D2D2  5  7     1    47  4.5  5.5  6.5  7.5     NA       0.1        1
-      590 #D2D2D2  5  7     1    47  4.5  5.5  6.5  7.5     NA       0.1        1
-      591 #D2D2D2  5  7     1    47  4.5  5.5  6.5  7.5     NA       0.1        1
-      592 #D2D2D2  6  7     1    57  5.5  6.5  6.5  7.5     NA       0.1        1
-      593 #D2D2D2  6  7     1    57  5.5  6.5  6.5  7.5     NA       0.1        1
-      594 #D2D2D2  6  7     1    57  5.5  6.5  6.5  7.5     NA       0.1        1
-      595 #D2D2D2  7  7     1    67  6.5  7.5  6.5  7.5     NA       0.1        1
-      596 #D2D2D2  7  7     1    67  6.5  7.5  6.5  7.5     NA       0.1        1
-      597 #D2D2D2  7  7     1    67  6.5  7.5  6.5  7.5     NA       0.1        1
-      598 #D2D2D2  8  7     1    77  7.5  8.5  6.5  7.5     NA       0.1        1
-      599 #D2D2D2  8  7     1    77  7.5  8.5  6.5  7.5     NA       0.1        1
-      600 #D2D2D2  8  7     1    77  7.5  8.5  6.5  7.5     NA       0.1        1
-      601 #D2D2D2  9  7     1    87  8.5  9.5  6.5  7.5     NA       0.1        1
-      602 #D2D2D2  9  7     1    87  8.5  9.5  6.5  7.5     NA       0.1        1
-      603 #D2D2D2  9  7     1    87  8.5  9.5  6.5  7.5     NA       0.1        1
-      604 #D2D2D2 10  7     1    97  9.5 10.5  6.5  7.5     NA       0.1        1
-      605 #D2D2D2 10  7     1    97  9.5 10.5  6.5  7.5     NA       0.1        1
-      606 #D2D2D2 10  7     1    97  9.5 10.5  6.5  7.5     NA       0.1        1
-      607 #D2D2D2 11  7     1   107 10.5 11.5  6.5  7.5     NA       0.1        1
-      608 #D2D2D2 11  7     1   107 10.5 11.5  6.5  7.5     NA       0.1        1
-      609 #D2D2D2 11  7     1   107 10.5 11.5  6.5  7.5     NA       0.1        1
-      610 #D2D2D2 12  7     1   117 11.5 12.5  6.5  7.5     NA       0.1        1
-      611 #D2D2D2 12  7     1   117 11.5 12.5  6.5  7.5     NA       0.1        1
-      612 #D2D2D2 12  7     1   117 11.5 12.5  6.5  7.5     NA       0.1        1
-      613 #D2D2D2 13  7     1   127 12.5 13.5  6.5  7.5     NA       0.1        1
-      614 #D2D2D2 13  7     1   127 12.5 13.5  6.5  7.5     NA       0.1        1
-      615 #D2D2D2 13  7     1   127 12.5 13.5  6.5  7.5     NA       0.1        1
-      616 #D2D2D2 14  7     1   137 13.5 14.5  6.5  7.5     NA       0.1        1
-      617 #D2D2D2 14  7     1   137 13.5 14.5  6.5  7.5     NA       0.1        1
-      618 #D2D2D2 14  7     1   137 13.5 14.5  6.5  7.5     NA       0.1        1
-      619 #D2D2D2 15  7     1   147 14.5 15.5  6.5  7.5     NA       0.1        1
-      620 #D2D2D2 15  7     1   147 14.5 15.5  6.5  7.5     NA       0.1        1
-      621 #D2D2D2 15  7     1   147 14.5 15.5  6.5  7.5     NA       0.1        1
-      622 #D2D2D2 16  7     1   157 15.5 16.5  6.5  7.5     NA       0.1        1
-      623 #D2D2D2 16  7     1   157 15.5 16.5  6.5  7.5     NA       0.1        1
-      624 #D2D2D2 16  7     1   157 15.5 16.5  6.5  7.5     NA       0.1        1
-      625 #D2D2D2 17  7     1   167 16.5 17.5  6.5  7.5     NA       0.1        1
-      626 #D2D2D2 17  7     1   167 16.5 17.5  6.5  7.5     NA       0.1        1
-      627 #D2D2D2 17  7     1   167 16.5 17.5  6.5  7.5     NA       0.1        1
-      628 #D2D2D2 18  7     1   177 17.5 18.5  6.5  7.5     NA       0.1        1
-      629 #D2D2D2 18  7     1   177 17.5 18.5  6.5  7.5     NA       0.1        1
-      630 #D2D2D2 18  7     1   177 17.5 18.5  6.5  7.5     NA       0.1        1
-      631 #D2D2D2 19  7     1   187 18.5 19.5  6.5  7.5     NA       0.1        1
-      632 #D2D2D2 19  7     1   187 18.5 19.5  6.5  7.5     NA       0.1        1
-      633 #D2D2D2 19  7     1   187 18.5 19.5  6.5  7.5     NA       0.1        1
-      634 #D2D2D2 20  7     1   197 19.5 20.5  6.5  7.5     NA       0.1        1
-      635 #D2D2D2 20  7     1   197 19.5 20.5  6.5  7.5     NA       0.1        1
-      636 #D2D2D2 20  7     1   197 19.5 20.5  6.5  7.5     NA       0.1        1
-      637 #D2D2D2 21  7     1   207 20.5 21.5  6.5  7.5     NA       0.1        1
-      638 #D2D2D2 21  7     1   207 20.5 21.5  6.5  7.5     NA       0.1        1
-      639 #D2D2D2 21  7     1   207 20.5 21.5  6.5  7.5     NA       0.1        1
-      640 #D2D2D2 22  7     1   217 21.5 22.5  6.5  7.5     NA       0.1        1
-      641 #D2D2D2 22  7     1   217 21.5 22.5  6.5  7.5     NA       0.1        1
-      642 #D2D2D2 22  7     1   217 21.5 22.5  6.5  7.5     NA       0.1        1
-      643 #D2D2D2 23  7     1   227 22.5 23.5  6.5  7.5     NA       0.1        1
-      644 #D2D2D2 23  7     1   227 22.5 23.5  6.5  7.5     NA       0.1        1
-      645 #D2D2D2 23  7     1   227 22.5 23.5  6.5  7.5     NA       0.1        1
-      646 #D2D2D2 24  7     1   237 23.5 24.5  6.5  7.5     NA       0.1        1
-      647 #D2D2D2 24  7     1   237 23.5 24.5  6.5  7.5     NA       0.1        1
-      648 #D2D2D2 24  7     1   237 23.5 24.5  6.5  7.5     NA       0.1        1
-      649 #D2D2D2 25  7     1   247 24.5 25.5  6.5  7.5     NA       0.1        1
-      650 #D2D2D2 25  7     1   247 24.5 25.5  6.5  7.5     NA       0.1        1
-      651 #D2D2D2 25  7     1   247 24.5 25.5  6.5  7.5     NA       0.1        1
-      652 #D2D2D2 26  7     1   257 25.5 26.5  6.5  7.5     NA       0.1        1
-      653 #D2D2D2 26  7     1   257 25.5 26.5  6.5  7.5     NA       0.1        1
-      654 #D2D2D2 26  7     1   257 25.5 26.5  6.5  7.5     NA       0.1        1
-      655 #D2D2D2 27  7     1   267 26.5 27.5  6.5  7.5     NA       0.1        1
-      656 #D2D2D2 27  7     1   267 26.5 27.5  6.5  7.5     NA       0.1        1
-      657 #D2D2D2 27  7     1   267 26.5 27.5  6.5  7.5     NA       0.1        1
-      658 #D2D2D2 28  7     1   277 27.5 28.5  6.5  7.5     NA       0.1        1
-      659 #D2D2D2 28  7     1   277 27.5 28.5  6.5  7.5     NA       0.1        1
-      660 #D2D2D2 28  7     1   277 27.5 28.5  6.5  7.5     NA       0.1        1
-      661 #D2D2D2 29  7     1   287 28.5 29.5  6.5  7.5     NA       0.1        1
-      662 #D2D2D2 29  7     1   287 28.5 29.5  6.5  7.5     NA       0.1        1
-      663 #D2D2D2 29  7     1   287 28.5 29.5  6.5  7.5     NA       0.1        1
-      664 #D2D2D2 30  7     1   297 29.5 30.5  6.5  7.5     NA       0.1        1
-      665 #D2D2D2 30  7     1   297 29.5 30.5  6.5  7.5     NA       0.1        1
-      666 #D2D2D2 30  7     1   297 29.5 30.5  6.5  7.5     NA       0.1        1
-      667 #D2D2D2 31  7     1   307 30.5 31.5  6.5  7.5     NA       0.1        1
-      668 #D2D2D2 31  7     1   307 30.5 31.5  6.5  7.5     NA       0.1        1
-      669 #D2D2D2 31  7     1   307 30.5 31.5  6.5  7.5     NA       0.1        1
-      670 #D2D2D2 32  7     1   317 31.5 32.5  6.5  7.5     NA       0.1        1
-      671 #D2D2D2 32  7     1   317 31.5 32.5  6.5  7.5     NA       0.1        1
-      672 #D2D2D2 32  7     1   317 31.5 32.5  6.5  7.5     NA       0.1        1
-      673 #D2D2D2  1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      674 #D2D2D2  1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      675 #D2D2D2  1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      676 #D2D2D2  2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1
-      677 #D2D2D2  2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1
-      678 #D2D2D2  2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1
-      679 #D2D2D2  3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1
-      680 #D2D2D2  3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1
-      681 #D2D2D2  3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1
-      682 #D2D2D2  4  8     1    38  3.5  4.5  7.5  8.5     NA       0.1        1
-      683 #D2D2D2  4  8     1    38  3.5  4.5  7.5  8.5     NA       0.1        1
-      684 #D2D2D2  4  8     1    38  3.5  4.5  7.5  8.5     NA       0.1        1
-      685 #D2D2D2  5  8     1    48  4.5  5.5  7.5  8.5     NA       0.1        1
-      686 #D2D2D2  5  8     1    48  4.5  5.5  7.5  8.5     NA       0.1        1
-      687 #D2D2D2  5  8     1    48  4.5  5.5  7.5  8.5     NA       0.1        1
-      688 #D2D2D2  6  8     1    58  5.5  6.5  7.5  8.5     NA       0.1        1
-      689 #D2D2D2  6  8     1    58  5.5  6.5  7.5  8.5     NA       0.1        1
-      690 #D2D2D2  6  8     1    58  5.5  6.5  7.5  8.5     NA       0.1        1
-      691 #D2D2D2  7  8     1    68  6.5  7.5  7.5  8.5     NA       0.1        1
-      692 #D2D2D2  7  8     1    68  6.5  7.5  7.5  8.5     NA       0.1        1
-      693 #D2D2D2  7  8     1    68  6.5  7.5  7.5  8.5     NA       0.1        1
-      694 #D2D2D2  8  8     1    78  7.5  8.5  7.5  8.5     NA       0.1        1
-      695 #D2D2D2  8  8     1    78  7.5  8.5  7.5  8.5     NA       0.1        1
-      696 #D2D2D2  8  8     1    78  7.5  8.5  7.5  8.5     NA       0.1        1
-      697 #D2D2D2  9  8     1    88  8.5  9.5  7.5  8.5     NA       0.1        1
-      698 #D2D2D2  9  8     1    88  8.5  9.5  7.5  8.5     NA       0.1        1
-      699 #D2D2D2  9  8     1    88  8.5  9.5  7.5  8.5     NA       0.1        1
-      700 #D2D2D2 10  8     1    98  9.5 10.5  7.5  8.5     NA       0.1        1
-      701 #D2D2D2 10  8     1    98  9.5 10.5  7.5  8.5     NA       0.1        1
-      702 #D2D2D2 10  8     1    98  9.5 10.5  7.5  8.5     NA       0.1        1
-      703 #D2D2D2 11  8     1   108 10.5 11.5  7.5  8.5     NA       0.1        1
-      704 #D2D2D2 11  8     1   108 10.5 11.5  7.5  8.5     NA       0.1        1
-      705 #D2D2D2 11  8     1   108 10.5 11.5  7.5  8.5     NA       0.1        1
-      706 #D2D2D2 12  8     1   118 11.5 12.5  7.5  8.5     NA       0.1        1
-      707 #D2D2D2 12  8     1   118 11.5 12.5  7.5  8.5     NA       0.1        1
-      708 #D2D2D2 12  8     1   118 11.5 12.5  7.5  8.5     NA       0.1        1
-      709 #D2D2D2 13  8     1   128 12.5 13.5  7.5  8.5     NA       0.1        1
-      710 #D2D2D2 13  8     1   128 12.5 13.5  7.5  8.5     NA       0.1        1
-      711 #D2D2D2 13  8     1   128 12.5 13.5  7.5  8.5     NA       0.1        1
-      712 #D2D2D2 14  8     1   138 13.5 14.5  7.5  8.5     NA       0.1        1
-      713 #D2D2D2 14  8     1   138 13.5 14.5  7.5  8.5     NA       0.1        1
-      714 #D2D2D2 14  8     1   138 13.5 14.5  7.5  8.5     NA       0.1        1
-      715 #D2D2D2 15  8     1   148 14.5 15.5  7.5  8.5     NA       0.1        1
-      716 #D2D2D2 15  8     1   148 14.5 15.5  7.5  8.5     NA       0.1        1
-      717 #D2D2D2 15  8     1   148 14.5 15.5  7.5  8.5     NA       0.1        1
-      718 #D2D2D2 16  8     1   158 15.5 16.5  7.5  8.5     NA       0.1        1
-      719 #D2D2D2 16  8     1   158 15.5 16.5  7.5  8.5     NA       0.1        1
-      720 #D2D2D2 16  8     1   158 15.5 16.5  7.5  8.5     NA       0.1        1
-      721 #D2D2D2 17  8     1   168 16.5 17.5  7.5  8.5     NA       0.1        1
-      722 #D2D2D2 17  8     1   168 16.5 17.5  7.5  8.5     NA       0.1        1
-      723 #D2D2D2 17  8     1   168 16.5 17.5  7.5  8.5     NA       0.1        1
-      724 #D2D2D2 18  8     1   178 17.5 18.5  7.5  8.5     NA       0.1        1
-      725 #D2D2D2 18  8     1   178 17.5 18.5  7.5  8.5     NA       0.1        1
-      726 #D2D2D2 18  8     1   178 17.5 18.5  7.5  8.5     NA       0.1        1
-      727 #D2D2D2 19  8     1   188 18.5 19.5  7.5  8.5     NA       0.1        1
-      728 #D2D2D2 19  8     1   188 18.5 19.5  7.5  8.5     NA       0.1        1
-      729 #D2D2D2 19  8     1   188 18.5 19.5  7.5  8.5     NA       0.1        1
-      730 #D2D2D2 20  8     1   198 19.5 20.5  7.5  8.5     NA       0.1        1
-      731 #D2D2D2 20  8     1   198 19.5 20.5  7.5  8.5     NA       0.1        1
-      732 #D2D2D2 20  8     1   198 19.5 20.5  7.5  8.5     NA       0.1        1
-      733 #D2D2D2 21  8     1   208 20.5 21.5  7.5  8.5     NA       0.1        1
-      734 #D2D2D2 21  8     1   208 20.5 21.5  7.5  8.5     NA       0.1        1
-      735 #D2D2D2 21  8     1   208 20.5 21.5  7.5  8.5     NA       0.1        1
-      736 #D2D2D2 22  8     1   218 21.5 22.5  7.5  8.5     NA       0.1        1
-      737 #D2D2D2 22  8     1   218 21.5 22.5  7.5  8.5     NA       0.1        1
-      738 #D2D2D2 22  8     1   218 21.5 22.5  7.5  8.5     NA       0.1        1
-      739 #D2D2D2 23  8     1   228 22.5 23.5  7.5  8.5     NA       0.1        1
-      740 #D2D2D2 23  8     1   228 22.5 23.5  7.5  8.5     NA       0.1        1
-      741 #D2D2D2 23  8     1   228 22.5 23.5  7.5  8.5     NA       0.1        1
-      742 #D2D2D2 24  8     1   238 23.5 24.5  7.5  8.5     NA       0.1        1
-      743 #D2D2D2 24  8     1   238 23.5 24.5  7.5  8.5     NA       0.1        1
-      744 #D2D2D2 24  8     1   238 23.5 24.5  7.5  8.5     NA       0.1        1
-      745 #D2D2D2 25  8     1   248 24.5 25.5  7.5  8.5     NA       0.1        1
-      746 #D2D2D2 25  8     1   248 24.5 25.5  7.5  8.5     NA       0.1        1
-      747 #D2D2D2 25  8     1   248 24.5 25.5  7.5  8.5     NA       0.1        1
-      748 #D2D2D2 26  8     1   258 25.5 26.5  7.5  8.5     NA       0.1        1
-      749 #D2D2D2 26  8     1   258 25.5 26.5  7.5  8.5     NA       0.1        1
-      750 #D2D2D2 26  8     1   258 25.5 26.5  7.5  8.5     NA       0.1        1
-      751 #D2D2D2 27  8     1   268 26.5 27.5  7.5  8.5     NA       0.1        1
-      752 #D2D2D2 27  8     1   268 26.5 27.5  7.5  8.5     NA       0.1        1
-      753 #D2D2D2 27  8     1   268 26.5 27.5  7.5  8.5     NA       0.1        1
-      754 #D2D2D2 28  8     1   278 27.5 28.5  7.5  8.5     NA       0.1        1
-      755 #D2D2D2 28  8     1   278 27.5 28.5  7.5  8.5     NA       0.1        1
-      756 #D2D2D2 28  8     1   278 27.5 28.5  7.5  8.5     NA       0.1        1
-      757 #D2D2D2 29  8     1   288 28.5 29.5  7.5  8.5     NA       0.1        1
-      758 #D2D2D2 29  8     1   288 28.5 29.5  7.5  8.5     NA       0.1        1
-      759 #D2D2D2 29  8     1   288 28.5 29.5  7.5  8.5     NA       0.1        1
-      760 #D2D2D2 30  8     1   298 29.5 30.5  7.5  8.5     NA       0.1        1
-      761 #D2D2D2 30  8     1   298 29.5 30.5  7.5  8.5     NA       0.1        1
-      762 #D2D2D2 30  8     1   298 29.5 30.5  7.5  8.5     NA       0.1        1
-      763 #D2D2D2 31  8     1   308 30.5 31.5  7.5  8.5     NA       0.1        1
-      764 #D2D2D2 31  8     1   308 30.5 31.5  7.5  8.5     NA       0.1        1
-      765 #D2D2D2 31  8     1   308 30.5 31.5  7.5  8.5     NA       0.1        1
-      766 #D2D2D2 32  8     1   318 31.5 32.5  7.5  8.5     NA       0.1        1
-      767 #D2D2D2 32  8     1   318 31.5 32.5  7.5  8.5     NA       0.1        1
-      768 #D2D2D2 32  8     1   318 31.5 32.5  7.5  8.5     NA       0.1        1
-      769 #D2D2D2  1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      770 #D2D2D2  1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      771 #D2D2D2  1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      772 #D2D2D2  2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1
-      773 #D2D2D2  2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1
-      774 #D2D2D2  2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1
-      775 #D2D2D2  3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1
-      776 #D2D2D2  3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1
-      777 #D2D2D2  3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1
-      778 #D2D2D2  4  9     1    39  3.5  4.5  8.5  9.5     NA       0.1        1
-      779 #D2D2D2  4  9     1    39  3.5  4.5  8.5  9.5     NA       0.1        1
-      780 #D2D2D2  4  9     1    39  3.5  4.5  8.5  9.5     NA       0.1        1
-      781 #D2D2D2  5  9     1    49  4.5  5.5  8.5  9.5     NA       0.1        1
-      782 #D2D2D2  5  9     1    49  4.5  5.5  8.5  9.5     NA       0.1        1
-      783 #D2D2D2  5  9     1    49  4.5  5.5  8.5  9.5     NA       0.1        1
-      784 #D2D2D2  6  9     1    59  5.5  6.5  8.5  9.5     NA       0.1        1
-      785 #D2D2D2  6  9     1    59  5.5  6.5  8.5  9.5     NA       0.1        1
-      786 #D2D2D2  6  9     1    59  5.5  6.5  8.5  9.5     NA       0.1        1
-      787 #D2D2D2  7  9     1    69  6.5  7.5  8.5  9.5     NA       0.1        1
-      788 #D2D2D2  7  9     1    69  6.5  7.5  8.5  9.5     NA       0.1        1
-      789 #D2D2D2  7  9     1    69  6.5  7.5  8.5  9.5     NA       0.1        1
-      790 #D2D2D2  8  9     1    79  7.5  8.5  8.5  9.5     NA       0.1        1
-      791 #D2D2D2  8  9     1    79  7.5  8.5  8.5  9.5     NA       0.1        1
-      792 #D2D2D2  8  9     1    79  7.5  8.5  8.5  9.5     NA       0.1        1
-      793 #D2D2D2  9  9     1    89  8.5  9.5  8.5  9.5     NA       0.1        1
-      794 #D2D2D2  9  9     1    89  8.5  9.5  8.5  9.5     NA       0.1        1
-      795 #D2D2D2  9  9     1    89  8.5  9.5  8.5  9.5     NA       0.1        1
-      796 #D2D2D2 10  9     1    99  9.5 10.5  8.5  9.5     NA       0.1        1
-      797 #D2D2D2 10  9     1    99  9.5 10.5  8.5  9.5     NA       0.1        1
-      798 #D2D2D2 10  9     1    99  9.5 10.5  8.5  9.5     NA       0.1        1
-      799 #D2D2D2 11  9     1   109 10.5 11.5  8.5  9.5     NA       0.1        1
-      800 #D2D2D2 11  9     1   109 10.5 11.5  8.5  9.5     NA       0.1        1
-      801 #D2D2D2 11  9     1   109 10.5 11.5  8.5  9.5     NA       0.1        1
-      802 #D2D2D2 12  9     1   119 11.5 12.5  8.5  9.5     NA       0.1        1
-      803 #D2D2D2 12  9     1   119 11.5 12.5  8.5  9.5     NA       0.1        1
-      804 #D2D2D2 12  9     1   119 11.5 12.5  8.5  9.5     NA       0.1        1
-      805 #D2D2D2 13  9     1   129 12.5 13.5  8.5  9.5     NA       0.1        1
-      806 #D2D2D2 13  9     1   129 12.5 13.5  8.5  9.5     NA       0.1        1
-      807 #D2D2D2 13  9     1   129 12.5 13.5  8.5  9.5     NA       0.1        1
-      808 #D2D2D2 14  9     1   139 13.5 14.5  8.5  9.5     NA       0.1        1
-      809 #D2D2D2 14  9     1   139 13.5 14.5  8.5  9.5     NA       0.1        1
-      810 #D2D2D2 14  9     1   139 13.5 14.5  8.5  9.5     NA       0.1        1
-      811 #D2D2D2 15  9     1   149 14.5 15.5  8.5  9.5     NA       0.1        1
-      812 #D2D2D2 15  9     1   149 14.5 15.5  8.5  9.5     NA       0.1        1
-      813 #D2D2D2 15  9     1   149 14.5 15.5  8.5  9.5     NA       0.1        1
-      814 #D2D2D2 16  9     1   159 15.5 16.5  8.5  9.5     NA       0.1        1
-      815 #D2D2D2 16  9     1   159 15.5 16.5  8.5  9.5     NA       0.1        1
-      816 #D2D2D2 16  9     1   159 15.5 16.5  8.5  9.5     NA       0.1        1
-      817 #D2D2D2 17  9     1   169 16.5 17.5  8.5  9.5     NA       0.1        1
-      818 #D2D2D2 17  9     1   169 16.5 17.5  8.5  9.5     NA       0.1        1
-      819 #D2D2D2 17  9     1   169 16.5 17.5  8.5  9.5     NA       0.1        1
-      820 #D2D2D2 18  9     1   179 17.5 18.5  8.5  9.5     NA       0.1        1
-      821 #D2D2D2 18  9     1   179 17.5 18.5  8.5  9.5     NA       0.1        1
-      822 #D2D2D2 18  9     1   179 17.5 18.5  8.5  9.5     NA       0.1        1
-      823 #D2D2D2 19  9     1   189 18.5 19.5  8.5  9.5     NA       0.1        1
-      824 #D2D2D2 19  9     1   189 18.5 19.5  8.5  9.5     NA       0.1        1
-      825 #D2D2D2 19  9     1   189 18.5 19.5  8.5  9.5     NA       0.1        1
-      826 #D2D2D2 20  9     1   199 19.5 20.5  8.5  9.5     NA       0.1        1
-      827 #D2D2D2 20  9     1   199 19.5 20.5  8.5  9.5     NA       0.1        1
-      828 #D2D2D2 20  9     1   199 19.5 20.5  8.5  9.5     NA       0.1        1
-      829 #D2D2D2 21  9     1   209 20.5 21.5  8.5  9.5     NA       0.1        1
-      830 #D2D2D2 21  9     1   209 20.5 21.5  8.5  9.5     NA       0.1        1
-      831 #D2D2D2 21  9     1   209 20.5 21.5  8.5  9.5     NA       0.1        1
-      832 #D2D2D2 22  9     1   219 21.5 22.5  8.5  9.5     NA       0.1        1
-      833 #D2D2D2 22  9     1   219 21.5 22.5  8.5  9.5     NA       0.1        1
-      834 #D2D2D2 22  9     1   219 21.5 22.5  8.5  9.5     NA       0.1        1
-      835 #D2D2D2 23  9     1   229 22.5 23.5  8.5  9.5     NA       0.1        1
-      836 #D2D2D2 23  9     1   229 22.5 23.5  8.5  9.5     NA       0.1        1
-      837 #D2D2D2 23  9     1   229 22.5 23.5  8.5  9.5     NA       0.1        1
-      838 #D2D2D2 24  9     1   239 23.5 24.5  8.5  9.5     NA       0.1        1
-      839 #D2D2D2 24  9     1   239 23.5 24.5  8.5  9.5     NA       0.1        1
-      840 #D2D2D2 24  9     1   239 23.5 24.5  8.5  9.5     NA       0.1        1
-      841 #D2D2D2 25  9     1   249 24.5 25.5  8.5  9.5     NA       0.1        1
-      842 #D2D2D2 25  9     1   249 24.5 25.5  8.5  9.5     NA       0.1        1
-      843 #D2D2D2 25  9     1   249 24.5 25.5  8.5  9.5     NA       0.1        1
-      844 #D2D2D2 26  9     1   259 25.5 26.5  8.5  9.5     NA       0.1        1
-      845 #D2D2D2 26  9     1   259 25.5 26.5  8.5  9.5     NA       0.1        1
-      846 #D2D2D2 26  9     1   259 25.5 26.5  8.5  9.5     NA       0.1        1
-      847 #D2D2D2 27  9     1   269 26.5 27.5  8.5  9.5     NA       0.1        1
-      848 #D2D2D2 27  9     1   269 26.5 27.5  8.5  9.5     NA       0.1        1
-      849 #D2D2D2 27  9     1   269 26.5 27.5  8.5  9.5     NA       0.1        1
-      850 #D2D2D2 28  9     1   279 27.5 28.5  8.5  9.5     NA       0.1        1
-      851 #D2D2D2 28  9     1   279 27.5 28.5  8.5  9.5     NA       0.1        1
-      852 #D2D2D2 28  9     1   279 27.5 28.5  8.5  9.5     NA       0.1        1
-      853 #D2D2D2 29  9     1   289 28.5 29.5  8.5  9.5     NA       0.1        1
-      854 #D2D2D2 29  9     1   289 28.5 29.5  8.5  9.5     NA       0.1        1
-      855 #D2D2D2 29  9     1   289 28.5 29.5  8.5  9.5     NA       0.1        1
-      856 #D2D2D2 30  9     1   299 29.5 30.5  8.5  9.5     NA       0.1        1
-      857 #D2D2D2 30  9     1   299 29.5 30.5  8.5  9.5     NA       0.1        1
-      858 #D2D2D2 30  9     1   299 29.5 30.5  8.5  9.5     NA       0.1        1
-      859 #D2D2D2 31  9     1   309 30.5 31.5  8.5  9.5     NA       0.1        1
-      860 #D2D2D2 31  9     1   309 30.5 31.5  8.5  9.5     NA       0.1        1
-      861 #D2D2D2 31  9     1   309 30.5 31.5  8.5  9.5     NA       0.1        1
-      862 #D2D2D2 32  9     1   319 31.5 32.5  8.5  9.5     NA       0.1        1
-      863 #D2D2D2 32  9     1   319 31.5 32.5  8.5  9.5     NA       0.1        1
-      864 #D2D2D2 32  9     1   319 31.5 32.5  8.5  9.5     NA       0.1        1
-      865 #D2D2D2  1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      866 #D2D2D2  1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      867 #D2D2D2  1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      868 #D2D2D2  2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1
-      869 #D2D2D2  2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1
-      870 #D2D2D2  2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1
-      871 #D2D2D2  3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1
-      872 #D2D2D2  3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1
-      873 #D2D2D2  3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1
-      874 #D2D2D2  4 10     1    40  3.5  4.5  9.5 10.5     NA       0.1        1
-      875 #D2D2D2  4 10     1    40  3.5  4.5  9.5 10.5     NA       0.1        1
-      876 #D2D2D2  4 10     1    40  3.5  4.5  9.5 10.5     NA       0.1        1
-      877 #D2D2D2  5 10     1    50  4.5  5.5  9.5 10.5     NA       0.1        1
-      878 #D2D2D2  5 10     1    50  4.5  5.5  9.5 10.5     NA       0.1        1
-      879 #D2D2D2  5 10     1    50  4.5  5.5  9.5 10.5     NA       0.1        1
-      880 #D2D2D2  6 10     1    60  5.5  6.5  9.5 10.5     NA       0.1        1
-      881 #D2D2D2  6 10     1    60  5.5  6.5  9.5 10.5     NA       0.1        1
-      882 #D2D2D2  6 10     1    60  5.5  6.5  9.5 10.5     NA       0.1        1
-      883 #D2D2D2  7 10     1    70  6.5  7.5  9.5 10.5     NA       0.1        1
-      884 #D2D2D2  7 10     1    70  6.5  7.5  9.5 10.5     NA       0.1        1
-      885 #D2D2D2  7 10     1    70  6.5  7.5  9.5 10.5     NA       0.1        1
-      886 #D2D2D2  8 10     1    80  7.5  8.5  9.5 10.5     NA       0.1        1
-      887 #D2D2D2  8 10     1    80  7.5  8.5  9.5 10.5     NA       0.1        1
-      888 #D2D2D2  8 10     1    80  7.5  8.5  9.5 10.5     NA       0.1        1
-      889 #D2D2D2  9 10     1    90  8.5  9.5  9.5 10.5     NA       0.1        1
-      890 #D2D2D2  9 10     1    90  8.5  9.5  9.5 10.5     NA       0.1        1
-      891 #D2D2D2  9 10     1    90  8.5  9.5  9.5 10.5     NA       0.1        1
-      892 #D2D2D2 10 10     1   100  9.5 10.5  9.5 10.5     NA       0.1        1
-      893 #D2D2D2 10 10     1   100  9.5 10.5  9.5 10.5     NA       0.1        1
-      894 #D2D2D2 10 10     1   100  9.5 10.5  9.5 10.5     NA       0.1        1
-      895 #D2D2D2 11 10     1   110 10.5 11.5  9.5 10.5     NA       0.1        1
-      896 #D2D2D2 11 10     1   110 10.5 11.5  9.5 10.5     NA       0.1        1
-      897 #D2D2D2 11 10     1   110 10.5 11.5  9.5 10.5     NA       0.1        1
-      898 #D2D2D2 12 10     1   120 11.5 12.5  9.5 10.5     NA       0.1        1
-      899 #D2D2D2 12 10     1   120 11.5 12.5  9.5 10.5     NA       0.1        1
-      900 #D2D2D2 12 10     1   120 11.5 12.5  9.5 10.5     NA       0.1        1
-      901 #D2D2D2 13 10     1   130 12.5 13.5  9.5 10.5     NA       0.1        1
-      902 #D2D2D2 13 10     1   130 12.5 13.5  9.5 10.5     NA       0.1        1
-      903 #D2D2D2 13 10     1   130 12.5 13.5  9.5 10.5     NA       0.1        1
-      904 #D2D2D2 14 10     1   140 13.5 14.5  9.5 10.5     NA       0.1        1
-      905 #D2D2D2 14 10     1   140 13.5 14.5  9.5 10.5     NA       0.1        1
-      906 #D2D2D2 14 10     1   140 13.5 14.5  9.5 10.5     NA       0.1        1
-      907 #D2D2D2 15 10     1   150 14.5 15.5  9.5 10.5     NA       0.1        1
-      908 #D2D2D2 15 10     1   150 14.5 15.5  9.5 10.5     NA       0.1        1
-      909 #D2D2D2 15 10     1   150 14.5 15.5  9.5 10.5     NA       0.1        1
-      910 #D2D2D2 16 10     1   160 15.5 16.5  9.5 10.5     NA       0.1        1
-      911 #D2D2D2 16 10     1   160 15.5 16.5  9.5 10.5     NA       0.1        1
-      912 #D2D2D2 16 10     1   160 15.5 16.5  9.5 10.5     NA       0.1        1
-      913 #D2D2D2 17 10     1   170 16.5 17.5  9.5 10.5     NA       0.1        1
-      914 #D2D2D2 17 10     1   170 16.5 17.5  9.5 10.5     NA       0.1        1
-      915 #D2D2D2 17 10     1   170 16.5 17.5  9.5 10.5     NA       0.1        1
-      916 #D2D2D2 18 10     1   180 17.5 18.5  9.5 10.5     NA       0.1        1
-      917 #D2D2D2 18 10     1   180 17.5 18.5  9.5 10.5     NA       0.1        1
-      918 #D2D2D2 18 10     1   180 17.5 18.5  9.5 10.5     NA       0.1        1
-      919 #D2D2D2 19 10     1   190 18.5 19.5  9.5 10.5     NA       0.1        1
-      920 #D2D2D2 19 10     1   190 18.5 19.5  9.5 10.5     NA       0.1        1
-      921 #D2D2D2 19 10     1   190 18.5 19.5  9.5 10.5     NA       0.1        1
-      922 #D2D2D2 20 10     1   200 19.5 20.5  9.5 10.5     NA       0.1        1
-      923 #D2D2D2 20 10     1   200 19.5 20.5  9.5 10.5     NA       0.1        1
-      924 #D2D2D2 20 10     1   200 19.5 20.5  9.5 10.5     NA       0.1        1
-      925 #D2D2D2 21 10     1   210 20.5 21.5  9.5 10.5     NA       0.1        1
-      926 #D2D2D2 21 10     1   210 20.5 21.5  9.5 10.5     NA       0.1        1
-      927 #D2D2D2 21 10     1   210 20.5 21.5  9.5 10.5     NA       0.1        1
-      928 #D2D2D2 22 10     1   220 21.5 22.5  9.5 10.5     NA       0.1        1
-      929 #D2D2D2 22 10     1   220 21.5 22.5  9.5 10.5     NA       0.1        1
-      930 #D2D2D2 22 10     1   220 21.5 22.5  9.5 10.5     NA       0.1        1
-      931 #D2D2D2 23 10     1   230 22.5 23.5  9.5 10.5     NA       0.1        1
-      932 #D2D2D2 23 10     1   230 22.5 23.5  9.5 10.5     NA       0.1        1
-      933 #D2D2D2 23 10     1   230 22.5 23.5  9.5 10.5     NA       0.1        1
-      934 #D2D2D2 24 10     1   240 23.5 24.5  9.5 10.5     NA       0.1        1
-      935 #D2D2D2 24 10     1   240 23.5 24.5  9.5 10.5     NA       0.1        1
-      936 #D2D2D2 24 10     1   240 23.5 24.5  9.5 10.5     NA       0.1        1
-      937 #D2D2D2 25 10     1   250 24.5 25.5  9.5 10.5     NA       0.1        1
-      938 #D2D2D2 25 10     1   250 24.5 25.5  9.5 10.5     NA       0.1        1
-      939 #D2D2D2 25 10     1   250 24.5 25.5  9.5 10.5     NA       0.1        1
-      940 #D2D2D2 26 10     1   260 25.5 26.5  9.5 10.5     NA       0.1        1
-      941 #D2D2D2 26 10     1   260 25.5 26.5  9.5 10.5     NA       0.1        1
-      942 #D2D2D2 26 10     1   260 25.5 26.5  9.5 10.5     NA       0.1        1
-      943 #D2D2D2 27 10     1   270 26.5 27.5  9.5 10.5     NA       0.1        1
-      944 #D2D2D2 27 10     1   270 26.5 27.5  9.5 10.5     NA       0.1        1
-      945 #D2D2D2 27 10     1   270 26.5 27.5  9.5 10.5     NA       0.1        1
-      946 #D2D2D2 28 10     1   280 27.5 28.5  9.5 10.5     NA       0.1        1
-      947 #D2D2D2 28 10     1   280 27.5 28.5  9.5 10.5     NA       0.1        1
-      948 #D2D2D2 28 10     1   280 27.5 28.5  9.5 10.5     NA       0.1        1
-      949 #D2D2D2 29 10     1   290 28.5 29.5  9.5 10.5     NA       0.1        1
-      950 #D2D2D2 29 10     1   290 28.5 29.5  9.5 10.5     NA       0.1        1
-      951 #D2D2D2 29 10     1   290 28.5 29.5  9.5 10.5     NA       0.1        1
-      952 #D2D2D2 30 10     1   300 29.5 30.5  9.5 10.5     NA       0.1        1
-      953 #D2D2D2 30 10     1   300 29.5 30.5  9.5 10.5     NA       0.1        1
-      954 #D2D2D2 30 10     1   300 29.5 30.5  9.5 10.5     NA       0.1        1
-      955 #D2D2D2 31 10     1   310 30.5 31.5  9.5 10.5     NA       0.1        1
-      956 #D2D2D2 31 10     1   310 30.5 31.5  9.5 10.5     NA       0.1        1
-      957 #D2D2D2 31 10     1   310 30.5 31.5  9.5 10.5     NA       0.1        1
-      958 #D2D2D2 32 10     1   320 31.5 32.5  9.5 10.5     NA       0.1        1
-      959 #D2D2D2 32 10     1   320 31.5 32.5  9.5 10.5     NA       0.1        1
-      960 #D2D2D2 32 10     1   320 31.5 32.5  9.5 10.5     NA       0.1        1
+           x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype
+      1    1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      2    1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      3    1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      4    2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1
+      5    2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1
+      6    2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1
+      7    3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1
+      8    3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1
+      9    3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1
+      10   4  1 #D2D2D2     1    31  3.5  4.5  0.5  1.5     NA       0.2        1
+      11   4  1 #D2D2D2     1    31  3.5  4.5  0.5  1.5     NA       0.2        1
+      12   4  1 #D2D2D2     1    31  3.5  4.5  0.5  1.5     NA       0.2        1
+      13   5  1 #D2D2D2     1    41  4.5  5.5  0.5  1.5     NA       0.2        1
+      14   5  1 #D2D2D2     1    41  4.5  5.5  0.5  1.5     NA       0.2        1
+      15   5  1 #D2D2D2     1    41  4.5  5.5  0.5  1.5     NA       0.2        1
+      16   6  1 #D2D2D2     1    51  5.5  6.5  0.5  1.5     NA       0.2        1
+      17   6  1 #D2D2D2     1    51  5.5  6.5  0.5  1.5     NA       0.2        1
+      18   6  1 #D2D2D2     1    51  5.5  6.5  0.5  1.5     NA       0.2        1
+      19   7  1 #D2D2D2     1    61  6.5  7.5  0.5  1.5     NA       0.2        1
+      20   7  1 #D2D2D2     1    61  6.5  7.5  0.5  1.5     NA       0.2        1
+      21   7  1 #D2D2D2     1    61  6.5  7.5  0.5  1.5     NA       0.2        1
+      22   8  1 #D2D2D2     1    71  7.5  8.5  0.5  1.5     NA       0.2        1
+      23   8  1 #D2D2D2     1    71  7.5  8.5  0.5  1.5     NA       0.2        1
+      24   8  1 #D2D2D2     1    71  7.5  8.5  0.5  1.5     NA       0.2        1
+      25   9  1 #D2D2D2     1    81  8.5  9.5  0.5  1.5     NA       0.2        1
+      26   9  1 #D2D2D2     1    81  8.5  9.5  0.5  1.5     NA       0.2        1
+      27   9  1 #D2D2D2     1    81  8.5  9.5  0.5  1.5     NA       0.2        1
+      28  10  1 #D2D2D2     1    91  9.5 10.5  0.5  1.5     NA       0.2        1
+      29  10  1 #D2D2D2     1    91  9.5 10.5  0.5  1.5     NA       0.2        1
+      30  10  1 #D2D2D2     1    91  9.5 10.5  0.5  1.5     NA       0.2        1
+      31  11  1 #D2D2D2     1   101 10.5 11.5  0.5  1.5     NA       0.2        1
+      32  11  1 #D2D2D2     1   101 10.5 11.5  0.5  1.5     NA       0.2        1
+      33  11  1 #D2D2D2     1   101 10.5 11.5  0.5  1.5     NA       0.2        1
+      34  12  1 #D2D2D2     1   111 11.5 12.5  0.5  1.5     NA       0.2        1
+      35  12  1 #D2D2D2     1   111 11.5 12.5  0.5  1.5     NA       0.2        1
+      36  12  1 #D2D2D2     1   111 11.5 12.5  0.5  1.5     NA       0.2        1
+      37  13  1 #D2D2D2     1   121 12.5 13.5  0.5  1.5     NA       0.2        1
+      38  13  1 #D2D2D2     1   121 12.5 13.5  0.5  1.5     NA       0.2        1
+      39  13  1 #D2D2D2     1   121 12.5 13.5  0.5  1.5     NA       0.2        1
+      40  14  1 #D2D2D2     1   131 13.5 14.5  0.5  1.5     NA       0.2        1
+      41  14  1 #D2D2D2     1   131 13.5 14.5  0.5  1.5     NA       0.2        1
+      42  14  1 #D2D2D2     1   131 13.5 14.5  0.5  1.5     NA       0.2        1
+      43  15  1 #D2D2D2     1   141 14.5 15.5  0.5  1.5     NA       0.2        1
+      44  15  1 #D2D2D2     1   141 14.5 15.5  0.5  1.5     NA       0.2        1
+      45  15  1 #D2D2D2     1   141 14.5 15.5  0.5  1.5     NA       0.2        1
+      46  16  1 #D2D2D2     1   151 15.5 16.5  0.5  1.5     NA       0.2        1
+      47  16  1 #D2D2D2     1   151 15.5 16.5  0.5  1.5     NA       0.2        1
+      48  16  1 #D2D2D2     1   151 15.5 16.5  0.5  1.5     NA       0.2        1
+      49  17  1 #D2D2D2     1   161 16.5 17.5  0.5  1.5     NA       0.2        1
+      50  17  1 #D2D2D2     1   161 16.5 17.5  0.5  1.5     NA       0.2        1
+      51  17  1 #D2D2D2     1   161 16.5 17.5  0.5  1.5     NA       0.2        1
+      52  18  1 #D2D2D2     1   171 17.5 18.5  0.5  1.5     NA       0.2        1
+      53  18  1 #D2D2D2     1   171 17.5 18.5  0.5  1.5     NA       0.2        1
+      54  18  1 #D2D2D2     1   171 17.5 18.5  0.5  1.5     NA       0.2        1
+      55  19  1 #D2D2D2     1   181 18.5 19.5  0.5  1.5     NA       0.2        1
+      56  19  1 #D2D2D2     1   181 18.5 19.5  0.5  1.5     NA       0.2        1
+      57  19  1 #D2D2D2     1   181 18.5 19.5  0.5  1.5     NA       0.2        1
+      58  20  1 #D2D2D2     1   191 19.5 20.5  0.5  1.5     NA       0.2        1
+      59  20  1 #D2D2D2     1   191 19.5 20.5  0.5  1.5     NA       0.2        1
+      60  20  1 #D2D2D2     1   191 19.5 20.5  0.5  1.5     NA       0.2        1
+      61  21  1 #D2D2D2     1   201 20.5 21.5  0.5  1.5     NA       0.2        1
+      62  21  1 #D2D2D2     1   201 20.5 21.5  0.5  1.5     NA       0.2        1
+      63  21  1 #D2D2D2     1   201 20.5 21.5  0.5  1.5     NA       0.2        1
+      64  22  1 #D2D2D2     1   211 21.5 22.5  0.5  1.5     NA       0.2        1
+      65  22  1 #D2D2D2     1   211 21.5 22.5  0.5  1.5     NA       0.2        1
+      66  22  1 #D2D2D2     1   211 21.5 22.5  0.5  1.5     NA       0.2        1
+      67  23  1 #D2D2D2     1   221 22.5 23.5  0.5  1.5     NA       0.2        1
+      68  23  1 #D2D2D2     1   221 22.5 23.5  0.5  1.5     NA       0.2        1
+      69  23  1 #D2D2D2     1   221 22.5 23.5  0.5  1.5     NA       0.2        1
+      70  24  1 #D2D2D2     1   231 23.5 24.5  0.5  1.5     NA       0.2        1
+      71  24  1 #D2D2D2     1   231 23.5 24.5  0.5  1.5     NA       0.2        1
+      72  24  1 #D2D2D2     1   231 23.5 24.5  0.5  1.5     NA       0.2        1
+      73  25  1 #D2D2D2     1   241 24.5 25.5  0.5  1.5     NA       0.2        1
+      74  25  1 #D2D2D2     1   241 24.5 25.5  0.5  1.5     NA       0.2        1
+      75  25  1 #D2D2D2     1   241 24.5 25.5  0.5  1.5     NA       0.2        1
+      76  26  1 #D2D2D2     1   251 25.5 26.5  0.5  1.5     NA       0.2        1
+      77  26  1 #D2D2D2     1   251 25.5 26.5  0.5  1.5     NA       0.2        1
+      78  26  1 #D2D2D2     1   251 25.5 26.5  0.5  1.5     NA       0.2        1
+      79  27  1 #D2D2D2     1   261 26.5 27.5  0.5  1.5     NA       0.2        1
+      80  27  1 #D2D2D2     1   261 26.5 27.5  0.5  1.5     NA       0.2        1
+      81  27  1 #D2D2D2     1   261 26.5 27.5  0.5  1.5     NA       0.2        1
+      82  28  1 #D2D2D2     1   271 27.5 28.5  0.5  1.5     NA       0.2        1
+      83  28  1 #D2D2D2     1   271 27.5 28.5  0.5  1.5     NA       0.2        1
+      84  28  1 #D2D2D2     1   271 27.5 28.5  0.5  1.5     NA       0.2        1
+      85  29  1 #D2D2D2     1   281 28.5 29.5  0.5  1.5     NA       0.2        1
+      86  29  1 #D2D2D2     1   281 28.5 29.5  0.5  1.5     NA       0.2        1
+      87  29  1 #D2D2D2     1   281 28.5 29.5  0.5  1.5     NA       0.2        1
+      88  30  1 #D2D2D2     1   291 29.5 30.5  0.5  1.5     NA       0.2        1
+      89  30  1 #D2D2D2     1   291 29.5 30.5  0.5  1.5     NA       0.2        1
+      90  30  1 #D2D2D2     1   291 29.5 30.5  0.5  1.5     NA       0.2        1
+      91  31  1 #D2D2D2     1   301 30.5 31.5  0.5  1.5     NA       0.2        1
+      92  31  1 #D2D2D2     1   301 30.5 31.5  0.5  1.5     NA       0.2        1
+      93  31  1 #D2D2D2     1   301 30.5 31.5  0.5  1.5     NA       0.2        1
+      94  32  1 #D2D2D2     1   311 31.5 32.5  0.5  1.5     NA       0.2        1
+      95  32  1 #D2D2D2     1   311 31.5 32.5  0.5  1.5     NA       0.2        1
+      96  32  1 #D2D2D2     1   311 31.5 32.5  0.5  1.5     NA       0.2        1
+      97   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      98   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      99   1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      100  2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1
+      101  2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1
+      102  2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1
+      103  3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1
+      104  3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1
+      105  3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1
+      106  4  2 #D2D2D2     1    32  3.5  4.5  1.5  2.5     NA       0.2        1
+      107  4  2 #D2D2D2     1    32  3.5  4.5  1.5  2.5     NA       0.2        1
+      108  4  2 #D2D2D2     1    32  3.5  4.5  1.5  2.5     NA       0.2        1
+      109  5  2 #D2D2D2     1    42  4.5  5.5  1.5  2.5     NA       0.2        1
+      110  5  2 #D2D2D2     1    42  4.5  5.5  1.5  2.5     NA       0.2        1
+      111  5  2 #D2D2D2     1    42  4.5  5.5  1.5  2.5     NA       0.2        1
+      112  6  2 #D2D2D2     1    52  5.5  6.5  1.5  2.5     NA       0.2        1
+      113  6  2 #D2D2D2     1    52  5.5  6.5  1.5  2.5     NA       0.2        1
+      114  6  2 #D2D2D2     1    52  5.5  6.5  1.5  2.5     NA       0.2        1
+      115  7  2 #D2D2D2     1    62  6.5  7.5  1.5  2.5     NA       0.2        1
+      116  7  2 #D2D2D2     1    62  6.5  7.5  1.5  2.5     NA       0.2        1
+      117  7  2 #D2D2D2     1    62  6.5  7.5  1.5  2.5     NA       0.2        1
+      118  8  2 #D2D2D2     1    72  7.5  8.5  1.5  2.5     NA       0.2        1
+      119  8  2 #D2D2D2     1    72  7.5  8.5  1.5  2.5     NA       0.2        1
+      120  8  2 #D2D2D2     1    72  7.5  8.5  1.5  2.5     NA       0.2        1
+      121  9  2 #D2D2D2     1    82  8.5  9.5  1.5  2.5     NA       0.2        1
+      122  9  2 #D2D2D2     1    82  8.5  9.5  1.5  2.5     NA       0.2        1
+      123  9  2 #D2D2D2     1    82  8.5  9.5  1.5  2.5     NA       0.2        1
+      124 10  2 #D2D2D2     1    92  9.5 10.5  1.5  2.5     NA       0.2        1
+      125 10  2 #D2D2D2     1    92  9.5 10.5  1.5  2.5     NA       0.2        1
+      126 10  2 #D2D2D2     1    92  9.5 10.5  1.5  2.5     NA       0.2        1
+      127 11  2 #D2D2D2     1   102 10.5 11.5  1.5  2.5     NA       0.2        1
+      128 11  2 #D2D2D2     1   102 10.5 11.5  1.5  2.5     NA       0.2        1
+      129 11  2 #D2D2D2     1   102 10.5 11.5  1.5  2.5     NA       0.2        1
+      130 12  2 #D2D2D2     1   112 11.5 12.5  1.5  2.5     NA       0.2        1
+      131 12  2 #D2D2D2     1   112 11.5 12.5  1.5  2.5     NA       0.2        1
+      132 12  2 #D2D2D2     1   112 11.5 12.5  1.5  2.5     NA       0.2        1
+      133 13  2 #D2D2D2     1   122 12.5 13.5  1.5  2.5     NA       0.2        1
+      134 13  2 #D2D2D2     1   122 12.5 13.5  1.5  2.5     NA       0.2        1
+      135 13  2 #D2D2D2     1   122 12.5 13.5  1.5  2.5     NA       0.2        1
+      136 14  2 #D2D2D2     1   132 13.5 14.5  1.5  2.5     NA       0.2        1
+      137 14  2 #D2D2D2     1   132 13.5 14.5  1.5  2.5     NA       0.2        1
+      138 14  2 #D2D2D2     1   132 13.5 14.5  1.5  2.5     NA       0.2        1
+      139 15  2 #D2D2D2     1   142 14.5 15.5  1.5  2.5     NA       0.2        1
+      140 15  2 #D2D2D2     1   142 14.5 15.5  1.5  2.5     NA       0.2        1
+      141 15  2 #D2D2D2     1   142 14.5 15.5  1.5  2.5     NA       0.2        1
+      142 16  2 #D2D2D2     1   152 15.5 16.5  1.5  2.5     NA       0.2        1
+      143 16  2 #D2D2D2     1   152 15.5 16.5  1.5  2.5     NA       0.2        1
+      144 16  2 #D2D2D2     1   152 15.5 16.5  1.5  2.5     NA       0.2        1
+      145 17  2 #D2D2D2     1   162 16.5 17.5  1.5  2.5     NA       0.2        1
+      146 17  2 #D2D2D2     1   162 16.5 17.5  1.5  2.5     NA       0.2        1
+      147 17  2 #D2D2D2     1   162 16.5 17.5  1.5  2.5     NA       0.2        1
+      148 18  2 #D2D2D2     1   172 17.5 18.5  1.5  2.5     NA       0.2        1
+      149 18  2 #D2D2D2     1   172 17.5 18.5  1.5  2.5     NA       0.2        1
+      150 18  2 #D2D2D2     1   172 17.5 18.5  1.5  2.5     NA       0.2        1
+      151 19  2 #D2D2D2     1   182 18.5 19.5  1.5  2.5     NA       0.2        1
+      152 19  2 #D2D2D2     1   182 18.5 19.5  1.5  2.5     NA       0.2        1
+      153 19  2 #D2D2D2     1   182 18.5 19.5  1.5  2.5     NA       0.2        1
+      154 20  2 #D2D2D2     1   192 19.5 20.5  1.5  2.5     NA       0.2        1
+      155 20  2 #D2D2D2     1   192 19.5 20.5  1.5  2.5     NA       0.2        1
+      156 20  2 #D2D2D2     1   192 19.5 20.5  1.5  2.5     NA       0.2        1
+      157 21  2 #D2D2D2     1   202 20.5 21.5  1.5  2.5     NA       0.2        1
+      158 21  2 #D2D2D2     1   202 20.5 21.5  1.5  2.5     NA       0.2        1
+      159 21  2 #D2D2D2     1   202 20.5 21.5  1.5  2.5     NA       0.2        1
+      160 22  2 #D2D2D2     1   212 21.5 22.5  1.5  2.5     NA       0.2        1
+      161 22  2 #D2D2D2     1   212 21.5 22.5  1.5  2.5     NA       0.2        1
+      162 22  2 #D2D2D2     1   212 21.5 22.5  1.5  2.5     NA       0.2        1
+      163 23  2 #D2D2D2     1   222 22.5 23.5  1.5  2.5     NA       0.2        1
+      164 23  2 #D2D2D2     1   222 22.5 23.5  1.5  2.5     NA       0.2        1
+      165 23  2 #D2D2D2     1   222 22.5 23.5  1.5  2.5     NA       0.2        1
+      166 24  2 #D2D2D2     1   232 23.5 24.5  1.5  2.5     NA       0.2        1
+      167 24  2 #D2D2D2     1   232 23.5 24.5  1.5  2.5     NA       0.2        1
+      168 24  2 #D2D2D2     1   232 23.5 24.5  1.5  2.5     NA       0.2        1
+      169 25  2 #D2D2D2     1   242 24.5 25.5  1.5  2.5     NA       0.2        1
+      170 25  2 #D2D2D2     1   242 24.5 25.5  1.5  2.5     NA       0.2        1
+      171 25  2 #D2D2D2     1   242 24.5 25.5  1.5  2.5     NA       0.2        1
+      172 26  2 #D2D2D2     1   252 25.5 26.5  1.5  2.5     NA       0.2        1
+      173 26  2 #D2D2D2     1   252 25.5 26.5  1.5  2.5     NA       0.2        1
+      174 26  2 #D2D2D2     1   252 25.5 26.5  1.5  2.5     NA       0.2        1
+      175 27  2 #D2D2D2     1   262 26.5 27.5  1.5  2.5     NA       0.2        1
+      176 27  2 #D2D2D2     1   262 26.5 27.5  1.5  2.5     NA       0.2        1
+      177 27  2 #D2D2D2     1   262 26.5 27.5  1.5  2.5     NA       0.2        1
+      178 28  2 #D2D2D2     1   272 27.5 28.5  1.5  2.5     NA       0.2        1
+      179 28  2 #D2D2D2     1   272 27.5 28.5  1.5  2.5     NA       0.2        1
+      180 28  2 #D2D2D2     1   272 27.5 28.5  1.5  2.5     NA       0.2        1
+      181 29  2 #D2D2D2     1   282 28.5 29.5  1.5  2.5     NA       0.2        1
+      182 29  2 #D2D2D2     1   282 28.5 29.5  1.5  2.5     NA       0.2        1
+      183 29  2 #D2D2D2     1   282 28.5 29.5  1.5  2.5     NA       0.2        1
+      184 30  2 #D2D2D2     1   292 29.5 30.5  1.5  2.5     NA       0.2        1
+      185 30  2 #D2D2D2     1   292 29.5 30.5  1.5  2.5     NA       0.2        1
+      186 30  2 #D2D2D2     1   292 29.5 30.5  1.5  2.5     NA       0.2        1
+      187 31  2 #D2D2D2     1   302 30.5 31.5  1.5  2.5     NA       0.2        1
+      188 31  2 #D2D2D2     1   302 30.5 31.5  1.5  2.5     NA       0.2        1
+      189 31  2 #D2D2D2     1   302 30.5 31.5  1.5  2.5     NA       0.2        1
+      190 32  2 #D2D2D2     1   312 31.5 32.5  1.5  2.5     NA       0.2        1
+      191 32  2 #D2D2D2     1   312 31.5 32.5  1.5  2.5     NA       0.2        1
+      192 32  2 #D2D2D2     1   312 31.5 32.5  1.5  2.5     NA       0.2        1
+      193  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      194  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      195  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      196  2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1
+      197  2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1
+      198  2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1
+      199  3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1
+      200  3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1
+      201  3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1
+      202  4  3 #D2D2D2     1    33  3.5  4.5  2.5  3.5     NA       0.2        1
+      203  4  3 #D2D2D2     1    33  3.5  4.5  2.5  3.5     NA       0.2        1
+      204  4  3 #D2D2D2     1    33  3.5  4.5  2.5  3.5     NA       0.2        1
+      205  5  3 #D2D2D2     1    43  4.5  5.5  2.5  3.5     NA       0.2        1
+      206  5  3 #D2D2D2     1    43  4.5  5.5  2.5  3.5     NA       0.2        1
+      207  5  3 #D2D2D2     1    43  4.5  5.5  2.5  3.5     NA       0.2        1
+      208  6  3 #D2D2D2     1    53  5.5  6.5  2.5  3.5     NA       0.2        1
+      209  6  3 #D2D2D2     1    53  5.5  6.5  2.5  3.5     NA       0.2        1
+      210  6  3 #D2D2D2     1    53  5.5  6.5  2.5  3.5     NA       0.2        1
+      211  7  3 #D2D2D2     1    63  6.5  7.5  2.5  3.5     NA       0.2        1
+      212  7  3 #D2D2D2     1    63  6.5  7.5  2.5  3.5     NA       0.2        1
+      213  7  3 #D2D2D2     1    63  6.5  7.5  2.5  3.5     NA       0.2        1
+      214  8  3 #D2D2D2     1    73  7.5  8.5  2.5  3.5     NA       0.2        1
+      215  8  3 #D2D2D2     1    73  7.5  8.5  2.5  3.5     NA       0.2        1
+      216  8  3 #D2D2D2     1    73  7.5  8.5  2.5  3.5     NA       0.2        1
+      217  9  3 #D2D2D2     1    83  8.5  9.5  2.5  3.5     NA       0.2        1
+      218  9  3 #D2D2D2     1    83  8.5  9.5  2.5  3.5     NA       0.2        1
+      219  9  3 #D2D2D2     1    83  8.5  9.5  2.5  3.5     NA       0.2        1
+      220 10  3 #D2D2D2     1    93  9.5 10.5  2.5  3.5     NA       0.2        1
+      221 10  3 #D2D2D2     1    93  9.5 10.5  2.5  3.5     NA       0.2        1
+      222 10  3 #D2D2D2     1    93  9.5 10.5  2.5  3.5     NA       0.2        1
+      223 11  3 #D2D2D2     1   103 10.5 11.5  2.5  3.5     NA       0.2        1
+      224 11  3 #D2D2D2     1   103 10.5 11.5  2.5  3.5     NA       0.2        1
+      225 11  3 #D2D2D2     1   103 10.5 11.5  2.5  3.5     NA       0.2        1
+      226 12  3 #D2D2D2     1   113 11.5 12.5  2.5  3.5     NA       0.2        1
+      227 12  3 #D2D2D2     1   113 11.5 12.5  2.5  3.5     NA       0.2        1
+      228 12  3 #D2D2D2     1   113 11.5 12.5  2.5  3.5     NA       0.2        1
+      229 13  3 #D2D2D2     1   123 12.5 13.5  2.5  3.5     NA       0.2        1
+      230 13  3 #D2D2D2     1   123 12.5 13.5  2.5  3.5     NA       0.2        1
+      231 13  3 #D2D2D2     1   123 12.5 13.5  2.5  3.5     NA       0.2        1
+      232 14  3 #D2D2D2     1   133 13.5 14.5  2.5  3.5     NA       0.2        1
+      233 14  3 #D2D2D2     1   133 13.5 14.5  2.5  3.5     NA       0.2        1
+      234 14  3 #D2D2D2     1   133 13.5 14.5  2.5  3.5     NA       0.2        1
+      235 15  3 #D2D2D2     1   143 14.5 15.5  2.5  3.5     NA       0.2        1
+      236 15  3 #D2D2D2     1   143 14.5 15.5  2.5  3.5     NA       0.2        1
+      237 15  3 #D2D2D2     1   143 14.5 15.5  2.5  3.5     NA       0.2        1
+      238 16  3 #D2D2D2     1   153 15.5 16.5  2.5  3.5     NA       0.2        1
+      239 16  3 #D2D2D2     1   153 15.5 16.5  2.5  3.5     NA       0.2        1
+      240 16  3 #D2D2D2     1   153 15.5 16.5  2.5  3.5     NA       0.2        1
+      241 17  3 #D2D2D2     1   163 16.5 17.5  2.5  3.5     NA       0.2        1
+      242 17  3 #D2D2D2     1   163 16.5 17.5  2.5  3.5     NA       0.2        1
+      243 17  3 #D2D2D2     1   163 16.5 17.5  2.5  3.5     NA       0.2        1
+      244 18  3 #D2D2D2     1   173 17.5 18.5  2.5  3.5     NA       0.2        1
+      245 18  3 #D2D2D2     1   173 17.5 18.5  2.5  3.5     NA       0.2        1
+      246 18  3 #D2D2D2     1   173 17.5 18.5  2.5  3.5     NA       0.2        1
+      247 19  3 #D2D2D2     1   183 18.5 19.5  2.5  3.5     NA       0.2        1
+      248 19  3 #D2D2D2     1   183 18.5 19.5  2.5  3.5     NA       0.2        1
+      249 19  3 #D2D2D2     1   183 18.5 19.5  2.5  3.5     NA       0.2        1
+      250 20  3 #D2D2D2     1   193 19.5 20.5  2.5  3.5     NA       0.2        1
+      251 20  3 #D2D2D2     1   193 19.5 20.5  2.5  3.5     NA       0.2        1
+      252 20  3 #D2D2D2     1   193 19.5 20.5  2.5  3.5     NA       0.2        1
+      253 21  3 #D2D2D2     1   203 20.5 21.5  2.5  3.5     NA       0.2        1
+      254 21  3 #D2D2D2     1   203 20.5 21.5  2.5  3.5     NA       0.2        1
+      255 21  3 #D2D2D2     1   203 20.5 21.5  2.5  3.5     NA       0.2        1
+      256 22  3 #D2D2D2     1   213 21.5 22.5  2.5  3.5     NA       0.2        1
+      257 22  3 #D2D2D2     1   213 21.5 22.5  2.5  3.5     NA       0.2        1
+      258 22  3 #D2D2D2     1   213 21.5 22.5  2.5  3.5     NA       0.2        1
+      259 23  3 #D2D2D2     1   223 22.5 23.5  2.5  3.5     NA       0.2        1
+      260 23  3 #D2D2D2     1   223 22.5 23.5  2.5  3.5     NA       0.2        1
+      261 23  3 #D2D2D2     1   223 22.5 23.5  2.5  3.5     NA       0.2        1
+      262 24  3 #D2D2D2     1   233 23.5 24.5  2.5  3.5     NA       0.2        1
+      263 24  3 #D2D2D2     1   233 23.5 24.5  2.5  3.5     NA       0.2        1
+      264 24  3 #D2D2D2     1   233 23.5 24.5  2.5  3.5     NA       0.2        1
+      265 25  3 #D2D2D2     1   243 24.5 25.5  2.5  3.5     NA       0.2        1
+      266 25  3 #D2D2D2     1   243 24.5 25.5  2.5  3.5     NA       0.2        1
+      267 25  3 #D2D2D2     1   243 24.5 25.5  2.5  3.5     NA       0.2        1
+      268 26  3 #D2D2D2     1   253 25.5 26.5  2.5  3.5     NA       0.2        1
+      269 26  3 #D2D2D2     1   253 25.5 26.5  2.5  3.5     NA       0.2        1
+      270 26  3 #D2D2D2     1   253 25.5 26.5  2.5  3.5     NA       0.2        1
+      271 27  3 #D2D2D2     1   263 26.5 27.5  2.5  3.5     NA       0.2        1
+      272 27  3 #D2D2D2     1   263 26.5 27.5  2.5  3.5     NA       0.2        1
+      273 27  3 #D2D2D2     1   263 26.5 27.5  2.5  3.5     NA       0.2        1
+      274 28  3 #D2D2D2     1   273 27.5 28.5  2.5  3.5     NA       0.2        1
+      275 28  3 #D2D2D2     1   273 27.5 28.5  2.5  3.5     NA       0.2        1
+      276 28  3 #D2D2D2     1   273 27.5 28.5  2.5  3.5     NA       0.2        1
+      277 29  3 #D2D2D2     1   283 28.5 29.5  2.5  3.5     NA       0.2        1
+      278 29  3 #D2D2D2     1   283 28.5 29.5  2.5  3.5     NA       0.2        1
+      279 29  3 #D2D2D2     1   283 28.5 29.5  2.5  3.5     NA       0.2        1
+      280 30  3 #D2D2D2     1   293 29.5 30.5  2.5  3.5     NA       0.2        1
+      281 30  3 #D2D2D2     1   293 29.5 30.5  2.5  3.5     NA       0.2        1
+      282 30  3 #D2D2D2     1   293 29.5 30.5  2.5  3.5     NA       0.2        1
+      283 31  3 #D2D2D2     1   303 30.5 31.5  2.5  3.5     NA       0.2        1
+      284 31  3 #D2D2D2     1   303 30.5 31.5  2.5  3.5     NA       0.2        1
+      285 31  3 #D2D2D2     1   303 30.5 31.5  2.5  3.5     NA       0.2        1
+      286 32  3 #D2D2D2     1   313 31.5 32.5  2.5  3.5     NA       0.2        1
+      287 32  3 #D2D2D2     1   313 31.5 32.5  2.5  3.5     NA       0.2        1
+      288 32  3 #D2D2D2     1   313 31.5 32.5  2.5  3.5     NA       0.2        1
+      289  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      290  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      291  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      292  2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1
+      293  2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1
+      294  2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1
+      295  3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1
+      296  3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1
+      297  3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1
+      298  4  4 #D2D2D2     1    34  3.5  4.5  3.5  4.5     NA       0.2        1
+      299  4  4 #D2D2D2     1    34  3.5  4.5  3.5  4.5     NA       0.2        1
+      300  4  4 #D2D2D2     1    34  3.5  4.5  3.5  4.5     NA       0.2        1
+      301  5  4 #D2D2D2     1    44  4.5  5.5  3.5  4.5     NA       0.2        1
+      302  5  4 #D2D2D2     1    44  4.5  5.5  3.5  4.5     NA       0.2        1
+      303  5  4 #D2D2D2     1    44  4.5  5.5  3.5  4.5     NA       0.2        1
+      304  6  4 #D2D2D2     1    54  5.5  6.5  3.5  4.5     NA       0.2        1
+      305  6  4 #D2D2D2     1    54  5.5  6.5  3.5  4.5     NA       0.2        1
+      306  6  4 #D2D2D2     1    54  5.5  6.5  3.5  4.5     NA       0.2        1
+      307  7  4 #D2D2D2     1    64  6.5  7.5  3.5  4.5     NA       0.2        1
+      308  7  4 #D2D2D2     1    64  6.5  7.5  3.5  4.5     NA       0.2        1
+      309  7  4 #D2D2D2     1    64  6.5  7.5  3.5  4.5     NA       0.2        1
+      310  8  4 #D2D2D2     1    74  7.5  8.5  3.5  4.5     NA       0.2        1
+      311  8  4 #D2D2D2     1    74  7.5  8.5  3.5  4.5     NA       0.2        1
+      312  8  4 #D2D2D2     1    74  7.5  8.5  3.5  4.5     NA       0.2        1
+      313  9  4 #D2D2D2     1    84  8.5  9.5  3.5  4.5     NA       0.2        1
+      314  9  4 #D2D2D2     1    84  8.5  9.5  3.5  4.5     NA       0.2        1
+      315  9  4 #D2D2D2     1    84  8.5  9.5  3.5  4.5     NA       0.2        1
+      316 10  4 #D2D2D2     1    94  9.5 10.5  3.5  4.5     NA       0.2        1
+      317 10  4 #D2D2D2     1    94  9.5 10.5  3.5  4.5     NA       0.2        1
+      318 10  4 #D2D2D2     1    94  9.5 10.5  3.5  4.5     NA       0.2        1
+      319 11  4 #D2D2D2     1   104 10.5 11.5  3.5  4.5     NA       0.2        1
+      320 11  4 #D2D2D2     1   104 10.5 11.5  3.5  4.5     NA       0.2        1
+      321 11  4 #D2D2D2     1   104 10.5 11.5  3.5  4.5     NA       0.2        1
+      322 12  4 #D2D2D2     1   114 11.5 12.5  3.5  4.5     NA       0.2        1
+      323 12  4 #D2D2D2     1   114 11.5 12.5  3.5  4.5     NA       0.2        1
+      324 12  4 #D2D2D2     1   114 11.5 12.5  3.5  4.5     NA       0.2        1
+      325 13  4 #D2D2D2     1   124 12.5 13.5  3.5  4.5     NA       0.2        1
+      326 13  4 #D2D2D2     1   124 12.5 13.5  3.5  4.5     NA       0.2        1
+      327 13  4 #D2D2D2     1   124 12.5 13.5  3.5  4.5     NA       0.2        1
+      328 14  4 #D2D2D2     1   134 13.5 14.5  3.5  4.5     NA       0.2        1
+      329 14  4 #D2D2D2     1   134 13.5 14.5  3.5  4.5     NA       0.2        1
+      330 14  4 #D2D2D2     1   134 13.5 14.5  3.5  4.5     NA       0.2        1
+      331 15  4 #D2D2D2     1   144 14.5 15.5  3.5  4.5     NA       0.2        1
+      332 15  4 #D2D2D2     1   144 14.5 15.5  3.5  4.5     NA       0.2        1
+      333 15  4 #D2D2D2     1   144 14.5 15.5  3.5  4.5     NA       0.2        1
+      334 16  4 #D2D2D2     1   154 15.5 16.5  3.5  4.5     NA       0.2        1
+      335 16  4 #D2D2D2     1   154 15.5 16.5  3.5  4.5     NA       0.2        1
+      336 16  4 #D2D2D2     1   154 15.5 16.5  3.5  4.5     NA       0.2        1
+      337 17  4 #D2D2D2     1   164 16.5 17.5  3.5  4.5     NA       0.2        1
+      338 17  4 #D2D2D2     1   164 16.5 17.5  3.5  4.5     NA       0.2        1
+      339 17  4 #D2D2D2     1   164 16.5 17.5  3.5  4.5     NA       0.2        1
+      340 18  4 #D2D2D2     1   174 17.5 18.5  3.5  4.5     NA       0.2        1
+      341 18  4 #D2D2D2     1   174 17.5 18.5  3.5  4.5     NA       0.2        1
+      342 18  4 #D2D2D2     1   174 17.5 18.5  3.5  4.5     NA       0.2        1
+      343 19  4 #D2D2D2     1   184 18.5 19.5  3.5  4.5     NA       0.2        1
+      344 19  4 #D2D2D2     1   184 18.5 19.5  3.5  4.5     NA       0.2        1
+      345 19  4 #D2D2D2     1   184 18.5 19.5  3.5  4.5     NA       0.2        1
+      346 20  4 #D2D2D2     1   194 19.5 20.5  3.5  4.5     NA       0.2        1
+      347 20  4 #D2D2D2     1   194 19.5 20.5  3.5  4.5     NA       0.2        1
+      348 20  4 #D2D2D2     1   194 19.5 20.5  3.5  4.5     NA       0.2        1
+      349 21  4 #D2D2D2     1   204 20.5 21.5  3.5  4.5     NA       0.2        1
+      350 21  4 #D2D2D2     1   204 20.5 21.5  3.5  4.5     NA       0.2        1
+      351 21  4 #D2D2D2     1   204 20.5 21.5  3.5  4.5     NA       0.2        1
+      352 22  4 #D2D2D2     1   214 21.5 22.5  3.5  4.5     NA       0.2        1
+      353 22  4 #D2D2D2     1   214 21.5 22.5  3.5  4.5     NA       0.2        1
+      354 22  4 #D2D2D2     1   214 21.5 22.5  3.5  4.5     NA       0.2        1
+      355 23  4 #D2D2D2     1   224 22.5 23.5  3.5  4.5     NA       0.2        1
+      356 23  4 #D2D2D2     1   224 22.5 23.5  3.5  4.5     NA       0.2        1
+      357 23  4 #D2D2D2     1   224 22.5 23.5  3.5  4.5     NA       0.2        1
+      358 24  4 #D2D2D2     1   234 23.5 24.5  3.5  4.5     NA       0.2        1
+      359 24  4 #D2D2D2     1   234 23.5 24.5  3.5  4.5     NA       0.2        1
+      360 24  4 #D2D2D2     1   234 23.5 24.5  3.5  4.5     NA       0.2        1
+      361 25  4 #D2D2D2     1   244 24.5 25.5  3.5  4.5     NA       0.2        1
+      362 25  4 #D2D2D2     1   244 24.5 25.5  3.5  4.5     NA       0.2        1
+      363 25  4 #D2D2D2     1   244 24.5 25.5  3.5  4.5     NA       0.2        1
+      364 26  4 #D2D2D2     1   254 25.5 26.5  3.5  4.5     NA       0.2        1
+      365 26  4 #D2D2D2     1   254 25.5 26.5  3.5  4.5     NA       0.2        1
+      366 26  4 #D2D2D2     1   254 25.5 26.5  3.5  4.5     NA       0.2        1
+      367 27  4 #D2D2D2     1   264 26.5 27.5  3.5  4.5     NA       0.2        1
+      368 27  4 #D2D2D2     1   264 26.5 27.5  3.5  4.5     NA       0.2        1
+      369 27  4 #D2D2D2     1   264 26.5 27.5  3.5  4.5     NA       0.2        1
+      370 28  4 #D2D2D2     1   274 27.5 28.5  3.5  4.5     NA       0.2        1
+      371 28  4 #D2D2D2     1   274 27.5 28.5  3.5  4.5     NA       0.2        1
+      372 28  4 #D2D2D2     1   274 27.5 28.5  3.5  4.5     NA       0.2        1
+      373 29  4 #D2D2D2     1   284 28.5 29.5  3.5  4.5     NA       0.2        1
+      374 29  4 #D2D2D2     1   284 28.5 29.5  3.5  4.5     NA       0.2        1
+      375 29  4 #D2D2D2     1   284 28.5 29.5  3.5  4.5     NA       0.2        1
+      376 30  4 #D2D2D2     1   294 29.5 30.5  3.5  4.5     NA       0.2        1
+      377 30  4 #D2D2D2     1   294 29.5 30.5  3.5  4.5     NA       0.2        1
+      378 30  4 #D2D2D2     1   294 29.5 30.5  3.5  4.5     NA       0.2        1
+      379 31  4 #D2D2D2     1   304 30.5 31.5  3.5  4.5     NA       0.2        1
+      380 31  4 #D2D2D2     1   304 30.5 31.5  3.5  4.5     NA       0.2        1
+      381 31  4 #D2D2D2     1   304 30.5 31.5  3.5  4.5     NA       0.2        1
+      382 32  4 #D2D2D2     1   314 31.5 32.5  3.5  4.5     NA       0.2        1
+      383 32  4 #D2D2D2     1   314 31.5 32.5  3.5  4.5     NA       0.2        1
+      384 32  4 #D2D2D2     1   314 31.5 32.5  3.5  4.5     NA       0.2        1
+      385  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      386  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      387  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      388  2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1
+      389  2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1
+      390  2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1
+      391  3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1
+      392  3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1
+      393  3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1
+      394  4  5 #D2D2D2     1    35  3.5  4.5  4.5  5.5     NA       0.2        1
+      395  4  5 #D2D2D2     1    35  3.5  4.5  4.5  5.5     NA       0.2        1
+      396  4  5 #D2D2D2     1    35  3.5  4.5  4.5  5.5     NA       0.2        1
+      397  5  5 #D2D2D2     1    45  4.5  5.5  4.5  5.5     NA       0.2        1
+      398  5  5 #D2D2D2     1    45  4.5  5.5  4.5  5.5     NA       0.2        1
+      399  5  5 #D2D2D2     1    45  4.5  5.5  4.5  5.5     NA       0.2        1
+      400  6  5 #D2D2D2     1    55  5.5  6.5  4.5  5.5     NA       0.2        1
+      401  6  5 #D2D2D2     1    55  5.5  6.5  4.5  5.5     NA       0.2        1
+      402  6  5 #D2D2D2     1    55  5.5  6.5  4.5  5.5     NA       0.2        1
+      403  7  5 #D2D2D2     1    65  6.5  7.5  4.5  5.5     NA       0.2        1
+      404  7  5 #D2D2D2     1    65  6.5  7.5  4.5  5.5     NA       0.2        1
+      405  7  5 #D2D2D2     1    65  6.5  7.5  4.5  5.5     NA       0.2        1
+      406  8  5 #D2D2D2     1    75  7.5  8.5  4.5  5.5     NA       0.2        1
+      407  8  5 #D2D2D2     1    75  7.5  8.5  4.5  5.5     NA       0.2        1
+      408  8  5 #D2D2D2     1    75  7.5  8.5  4.5  5.5     NA       0.2        1
+      409  9  5 #D2D2D2     1    85  8.5  9.5  4.5  5.5     NA       0.2        1
+      410  9  5 #D2D2D2     1    85  8.5  9.5  4.5  5.5     NA       0.2        1
+      411  9  5 #D2D2D2     1    85  8.5  9.5  4.5  5.5     NA       0.2        1
+      412 10  5 #D2D2D2     1    95  9.5 10.5  4.5  5.5     NA       0.2        1
+      413 10  5 #D2D2D2     1    95  9.5 10.5  4.5  5.5     NA       0.2        1
+      414 10  5 #D2D2D2     1    95  9.5 10.5  4.5  5.5     NA       0.2        1
+      415 11  5 #D2D2D2     1   105 10.5 11.5  4.5  5.5     NA       0.2        1
+      416 11  5 #D2D2D2     1   105 10.5 11.5  4.5  5.5     NA       0.2        1
+      417 11  5 #D2D2D2     1   105 10.5 11.5  4.5  5.5     NA       0.2        1
+      418 12  5 #D2D2D2     1   115 11.5 12.5  4.5  5.5     NA       0.2        1
+      419 12  5 #D2D2D2     1   115 11.5 12.5  4.5  5.5     NA       0.2        1
+      420 12  5 #D2D2D2     1   115 11.5 12.5  4.5  5.5     NA       0.2        1
+      421 13  5 #D2D2D2     1   125 12.5 13.5  4.5  5.5     NA       0.2        1
+      422 13  5 #D2D2D2     1   125 12.5 13.5  4.5  5.5     NA       0.2        1
+      423 13  5 #D2D2D2     1   125 12.5 13.5  4.5  5.5     NA       0.2        1
+      424 14  5 #D2D2D2     1   135 13.5 14.5  4.5  5.5     NA       0.2        1
+      425 14  5 #D2D2D2     1   135 13.5 14.5  4.5  5.5     NA       0.2        1
+      426 14  5 #D2D2D2     1   135 13.5 14.5  4.5  5.5     NA       0.2        1
+      427 15  5 #D2D2D2     1   145 14.5 15.5  4.5  5.5     NA       0.2        1
+      428 15  5 #D2D2D2     1   145 14.5 15.5  4.5  5.5     NA       0.2        1
+      429 15  5 #D2D2D2     1   145 14.5 15.5  4.5  5.5     NA       0.2        1
+      430 16  5 #D2D2D2     1   155 15.5 16.5  4.5  5.5     NA       0.2        1
+      431 16  5 #D2D2D2     1   155 15.5 16.5  4.5  5.5     NA       0.2        1
+      432 16  5 #D2D2D2     1   155 15.5 16.5  4.5  5.5     NA       0.2        1
+      433 17  5 #D2D2D2     1   165 16.5 17.5  4.5  5.5     NA       0.2        1
+      434 17  5 #D2D2D2     1   165 16.5 17.5  4.5  5.5     NA       0.2        1
+      435 17  5 #D2D2D2     1   165 16.5 17.5  4.5  5.5     NA       0.2        1
+      436 18  5 #D2D2D2     1   175 17.5 18.5  4.5  5.5     NA       0.2        1
+      437 18  5 #D2D2D2     1   175 17.5 18.5  4.5  5.5     NA       0.2        1
+      438 18  5 #D2D2D2     1   175 17.5 18.5  4.5  5.5     NA       0.2        1
+      439 19  5 #D2D2D2     1   185 18.5 19.5  4.5  5.5     NA       0.2        1
+      440 19  5 #D2D2D2     1   185 18.5 19.5  4.5  5.5     NA       0.2        1
+      441 19  5 #D2D2D2     1   185 18.5 19.5  4.5  5.5     NA       0.2        1
+      442 20  5 #D2D2D2     1   195 19.5 20.5  4.5  5.5     NA       0.2        1
+      443 20  5 #D2D2D2     1   195 19.5 20.5  4.5  5.5     NA       0.2        1
+      444 20  5 #D2D2D2     1   195 19.5 20.5  4.5  5.5     NA       0.2        1
+      445 21  5 #D2D2D2     1   205 20.5 21.5  4.5  5.5     NA       0.2        1
+      446 21  5 #D2D2D2     1   205 20.5 21.5  4.5  5.5     NA       0.2        1
+      447 21  5 #D2D2D2     1   205 20.5 21.5  4.5  5.5     NA       0.2        1
+      448 22  5 #D2D2D2     1   215 21.5 22.5  4.5  5.5     NA       0.2        1
+      449 22  5 #D2D2D2     1   215 21.5 22.5  4.5  5.5     NA       0.2        1
+      450 22  5 #D2D2D2     1   215 21.5 22.5  4.5  5.5     NA       0.2        1
+      451 23  5 #D2D2D2     1   225 22.5 23.5  4.5  5.5     NA       0.2        1
+      452 23  5 #D2D2D2     1   225 22.5 23.5  4.5  5.5     NA       0.2        1
+      453 23  5 #D2D2D2     1   225 22.5 23.5  4.5  5.5     NA       0.2        1
+      454 24  5 #D2D2D2     1   235 23.5 24.5  4.5  5.5     NA       0.2        1
+      455 24  5 #D2D2D2     1   235 23.5 24.5  4.5  5.5     NA       0.2        1
+      456 24  5 #D2D2D2     1   235 23.5 24.5  4.5  5.5     NA       0.2        1
+      457 25  5 #D2D2D2     1   245 24.5 25.5  4.5  5.5     NA       0.2        1
+      458 25  5 #D2D2D2     1   245 24.5 25.5  4.5  5.5     NA       0.2        1
+      459 25  5 #D2D2D2     1   245 24.5 25.5  4.5  5.5     NA       0.2        1
+      460 26  5 #D2D2D2     1   255 25.5 26.5  4.5  5.5     NA       0.2        1
+      461 26  5 #D2D2D2     1   255 25.5 26.5  4.5  5.5     NA       0.2        1
+      462 26  5 #D2D2D2     1   255 25.5 26.5  4.5  5.5     NA       0.2        1
+      463 27  5 #D2D2D2     1   265 26.5 27.5  4.5  5.5     NA       0.2        1
+      464 27  5 #D2D2D2     1   265 26.5 27.5  4.5  5.5     NA       0.2        1
+      465 27  5 #D2D2D2     1   265 26.5 27.5  4.5  5.5     NA       0.2        1
+      466 28  5 #D2D2D2     1   275 27.5 28.5  4.5  5.5     NA       0.2        1
+      467 28  5 #D2D2D2     1   275 27.5 28.5  4.5  5.5     NA       0.2        1
+      468 28  5 #D2D2D2     1   275 27.5 28.5  4.5  5.5     NA       0.2        1
+      469 29  5 #D2D2D2     1   285 28.5 29.5  4.5  5.5     NA       0.2        1
+      470 29  5 #D2D2D2     1   285 28.5 29.5  4.5  5.5     NA       0.2        1
+      471 29  5 #D2D2D2     1   285 28.5 29.5  4.5  5.5     NA       0.2        1
+      472 30  5 #D2D2D2     1   295 29.5 30.5  4.5  5.5     NA       0.2        1
+      473 30  5 #D2D2D2     1   295 29.5 30.5  4.5  5.5     NA       0.2        1
+      474 30  5 #D2D2D2     1   295 29.5 30.5  4.5  5.5     NA       0.2        1
+      475 31  5 #D2D2D2     1   305 30.5 31.5  4.5  5.5     NA       0.2        1
+      476 31  5 #D2D2D2     1   305 30.5 31.5  4.5  5.5     NA       0.2        1
+      477 31  5 #D2D2D2     1   305 30.5 31.5  4.5  5.5     NA       0.2        1
+      478 32  5 #D2D2D2     1   315 31.5 32.5  4.5  5.5     NA       0.2        1
+      479 32  5 #D2D2D2     1   315 31.5 32.5  4.5  5.5     NA       0.2        1
+      480 32  5 #D2D2D2     1   315 31.5 32.5  4.5  5.5     NA       0.2        1
+      481  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      482  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      483  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      484  2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1
+      485  2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1
+      486  2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1
+      487  3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1
+      488  3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1
+      489  3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1
+      490  4  6 #D2D2D2     1    36  3.5  4.5  5.5  6.5     NA       0.2        1
+      491  4  6 #D2D2D2     1    36  3.5  4.5  5.5  6.5     NA       0.2        1
+      492  4  6 #D2D2D2     1    36  3.5  4.5  5.5  6.5     NA       0.2        1
+      493  5  6 #D2D2D2     1    46  4.5  5.5  5.5  6.5     NA       0.2        1
+      494  5  6 #D2D2D2     1    46  4.5  5.5  5.5  6.5     NA       0.2        1
+      495  5  6 #D2D2D2     1    46  4.5  5.5  5.5  6.5     NA       0.2        1
+      496  6  6 #D2D2D2     1    56  5.5  6.5  5.5  6.5     NA       0.2        1
+      497  6  6 #D2D2D2     1    56  5.5  6.5  5.5  6.5     NA       0.2        1
+      498  6  6 #D2D2D2     1    56  5.5  6.5  5.5  6.5     NA       0.2        1
+      499  7  6 #D2D2D2     1    66  6.5  7.5  5.5  6.5     NA       0.2        1
+      500  7  6 #D2D2D2     1    66  6.5  7.5  5.5  6.5     NA       0.2        1
+      501  7  6 #D2D2D2     1    66  6.5  7.5  5.5  6.5     NA       0.2        1
+      502  8  6 #D2D2D2     1    76  7.5  8.5  5.5  6.5     NA       0.2        1
+      503  8  6 #D2D2D2     1    76  7.5  8.5  5.5  6.5     NA       0.2        1
+      504  8  6 #D2D2D2     1    76  7.5  8.5  5.5  6.5     NA       0.2        1
+      505  9  6 #D2D2D2     1    86  8.5  9.5  5.5  6.5     NA       0.2        1
+      506  9  6 #D2D2D2     1    86  8.5  9.5  5.5  6.5     NA       0.2        1
+      507  9  6 #D2D2D2     1    86  8.5  9.5  5.5  6.5     NA       0.2        1
+      508 10  6 #D2D2D2     1    96  9.5 10.5  5.5  6.5     NA       0.2        1
+      509 10  6 #D2D2D2     1    96  9.5 10.5  5.5  6.5     NA       0.2        1
+      510 10  6 #D2D2D2     1    96  9.5 10.5  5.5  6.5     NA       0.2        1
+      511 11  6 #D2D2D2     1   106 10.5 11.5  5.5  6.5     NA       0.2        1
+      512 11  6 #D2D2D2     1   106 10.5 11.5  5.5  6.5     NA       0.2        1
+      513 11  6 #D2D2D2     1   106 10.5 11.5  5.5  6.5     NA       0.2        1
+      514 12  6 #D2D2D2     1   116 11.5 12.5  5.5  6.5     NA       0.2        1
+      515 12  6 #D2D2D2     1   116 11.5 12.5  5.5  6.5     NA       0.2        1
+      516 12  6 #D2D2D2     1   116 11.5 12.5  5.5  6.5     NA       0.2        1
+      517 13  6 #D2D2D2     1   126 12.5 13.5  5.5  6.5     NA       0.2        1
+      518 13  6 #D2D2D2     1   126 12.5 13.5  5.5  6.5     NA       0.2        1
+      519 13  6 #D2D2D2     1   126 12.5 13.5  5.5  6.5     NA       0.2        1
+      520 14  6 #D2D2D2     1   136 13.5 14.5  5.5  6.5     NA       0.2        1
+      521 14  6 #D2D2D2     1   136 13.5 14.5  5.5  6.5     NA       0.2        1
+      522 14  6 #D2D2D2     1   136 13.5 14.5  5.5  6.5     NA       0.2        1
+      523 15  6 #D2D2D2     1   146 14.5 15.5  5.5  6.5     NA       0.2        1
+      524 15  6 #D2D2D2     1   146 14.5 15.5  5.5  6.5     NA       0.2        1
+      525 15  6 #D2D2D2     1   146 14.5 15.5  5.5  6.5     NA       0.2        1
+      526 16  6 #D2D2D2     1   156 15.5 16.5  5.5  6.5     NA       0.2        1
+      527 16  6 #D2D2D2     1   156 15.5 16.5  5.5  6.5     NA       0.2        1
+      528 16  6 #D2D2D2     1   156 15.5 16.5  5.5  6.5     NA       0.2        1
+      529 17  6 #D2D2D2     1   166 16.5 17.5  5.5  6.5     NA       0.2        1
+      530 17  6 #D2D2D2     1   166 16.5 17.5  5.5  6.5     NA       0.2        1
+      531 17  6 #D2D2D2     1   166 16.5 17.5  5.5  6.5     NA       0.2        1
+      532 18  6 #D2D2D2     1   176 17.5 18.5  5.5  6.5     NA       0.2        1
+      533 18  6 #D2D2D2     1   176 17.5 18.5  5.5  6.5     NA       0.2        1
+      534 18  6 #D2D2D2     1   176 17.5 18.5  5.5  6.5     NA       0.2        1
+      535 19  6 #D2D2D2     1   186 18.5 19.5  5.5  6.5     NA       0.2        1
+      536 19  6 #D2D2D2     1   186 18.5 19.5  5.5  6.5     NA       0.2        1
+      537 19  6 #D2D2D2     1   186 18.5 19.5  5.5  6.5     NA       0.2        1
+      538 20  6 #D2D2D2     1   196 19.5 20.5  5.5  6.5     NA       0.2        1
+      539 20  6 #D2D2D2     1   196 19.5 20.5  5.5  6.5     NA       0.2        1
+      540 20  6 #D2D2D2     1   196 19.5 20.5  5.5  6.5     NA       0.2        1
+      541 21  6 #D2D2D2     1   206 20.5 21.5  5.5  6.5     NA       0.2        1
+      542 21  6 #D2D2D2     1   206 20.5 21.5  5.5  6.5     NA       0.2        1
+      543 21  6 #D2D2D2     1   206 20.5 21.5  5.5  6.5     NA       0.2        1
+      544 22  6 #D2D2D2     1   216 21.5 22.5  5.5  6.5     NA       0.2        1
+      545 22  6 #D2D2D2     1   216 21.5 22.5  5.5  6.5     NA       0.2        1
+      546 22  6 #D2D2D2     1   216 21.5 22.5  5.5  6.5     NA       0.2        1
+      547 23  6 #D2D2D2     1   226 22.5 23.5  5.5  6.5     NA       0.2        1
+      548 23  6 #D2D2D2     1   226 22.5 23.5  5.5  6.5     NA       0.2        1
+      549 23  6 #D2D2D2     1   226 22.5 23.5  5.5  6.5     NA       0.2        1
+      550 24  6 #D2D2D2     1   236 23.5 24.5  5.5  6.5     NA       0.2        1
+      551 24  6 #D2D2D2     1   236 23.5 24.5  5.5  6.5     NA       0.2        1
+      552 24  6 #D2D2D2     1   236 23.5 24.5  5.5  6.5     NA       0.2        1
+      553 25  6 #D2D2D2     1   246 24.5 25.5  5.5  6.5     NA       0.2        1
+      554 25  6 #D2D2D2     1   246 24.5 25.5  5.5  6.5     NA       0.2        1
+      555 25  6 #D2D2D2     1   246 24.5 25.5  5.5  6.5     NA       0.2        1
+      556 26  6 #D2D2D2     1   256 25.5 26.5  5.5  6.5     NA       0.2        1
+      557 26  6 #D2D2D2     1   256 25.5 26.5  5.5  6.5     NA       0.2        1
+      558 26  6 #D2D2D2     1   256 25.5 26.5  5.5  6.5     NA       0.2        1
+      559 27  6 #D2D2D2     1   266 26.5 27.5  5.5  6.5     NA       0.2        1
+      560 27  6 #D2D2D2     1   266 26.5 27.5  5.5  6.5     NA       0.2        1
+      561 27  6 #D2D2D2     1   266 26.5 27.5  5.5  6.5     NA       0.2        1
+      562 28  6 #D2D2D2     1   276 27.5 28.5  5.5  6.5     NA       0.2        1
+      563 28  6 #D2D2D2     1   276 27.5 28.5  5.5  6.5     NA       0.2        1
+      564 28  6 #D2D2D2     1   276 27.5 28.5  5.5  6.5     NA       0.2        1
+      565 29  6 #D2D2D2     1   286 28.5 29.5  5.5  6.5     NA       0.2        1
+      566 29  6 #D2D2D2     1   286 28.5 29.5  5.5  6.5     NA       0.2        1
+      567 29  6 #D2D2D2     1   286 28.5 29.5  5.5  6.5     NA       0.2        1
+      568 30  6 #D2D2D2     1   296 29.5 30.5  5.5  6.5     NA       0.2        1
+      569 30  6 #D2D2D2     1   296 29.5 30.5  5.5  6.5     NA       0.2        1
+      570 30  6 #D2D2D2     1   296 29.5 30.5  5.5  6.5     NA       0.2        1
+      571 31  6 #D2D2D2     1   306 30.5 31.5  5.5  6.5     NA       0.2        1
+      572 31  6 #D2D2D2     1   306 30.5 31.5  5.5  6.5     NA       0.2        1
+      573 31  6 #D2D2D2     1   306 30.5 31.5  5.5  6.5     NA       0.2        1
+      574 32  6 #D2D2D2     1   316 31.5 32.5  5.5  6.5     NA       0.2        1
+      575 32  6 #D2D2D2     1   316 31.5 32.5  5.5  6.5     NA       0.2        1
+      576 32  6 #D2D2D2     1   316 31.5 32.5  5.5  6.5     NA       0.2        1
+      577  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      578  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      579  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      580  2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1
+      581  2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1
+      582  2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1
+      583  3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1
+      584  3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1
+      585  3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1
+      586  4  7 #D2D2D2     1    37  3.5  4.5  6.5  7.5     NA       0.2        1
+      587  4  7 #D2D2D2     1    37  3.5  4.5  6.5  7.5     NA       0.2        1
+      588  4  7 #D2D2D2     1    37  3.5  4.5  6.5  7.5     NA       0.2        1
+      589  5  7 #D2D2D2     1    47  4.5  5.5  6.5  7.5     NA       0.2        1
+      590  5  7 #D2D2D2     1    47  4.5  5.5  6.5  7.5     NA       0.2        1
+      591  5  7 #D2D2D2     1    47  4.5  5.5  6.5  7.5     NA       0.2        1
+      592  6  7 #D2D2D2     1    57  5.5  6.5  6.5  7.5     NA       0.2        1
+      593  6  7 #D2D2D2     1    57  5.5  6.5  6.5  7.5     NA       0.2        1
+      594  6  7 #D2D2D2     1    57  5.5  6.5  6.5  7.5     NA       0.2        1
+      595  7  7 #D2D2D2     1    67  6.5  7.5  6.5  7.5     NA       0.2        1
+      596  7  7 #D2D2D2     1    67  6.5  7.5  6.5  7.5     NA       0.2        1
+      597  7  7 #D2D2D2     1    67  6.5  7.5  6.5  7.5     NA       0.2        1
+      598  8  7 #D2D2D2     1    77  7.5  8.5  6.5  7.5     NA       0.2        1
+      599  8  7 #D2D2D2     1    77  7.5  8.5  6.5  7.5     NA       0.2        1
+      600  8  7 #D2D2D2     1    77  7.5  8.5  6.5  7.5     NA       0.2        1
+      601  9  7 #D2D2D2     1    87  8.5  9.5  6.5  7.5     NA       0.2        1
+      602  9  7 #D2D2D2     1    87  8.5  9.5  6.5  7.5     NA       0.2        1
+      603  9  7 #D2D2D2     1    87  8.5  9.5  6.5  7.5     NA       0.2        1
+      604 10  7 #D2D2D2     1    97  9.5 10.5  6.5  7.5     NA       0.2        1
+      605 10  7 #D2D2D2     1    97  9.5 10.5  6.5  7.5     NA       0.2        1
+      606 10  7 #D2D2D2     1    97  9.5 10.5  6.5  7.5     NA       0.2        1
+      607 11  7 #D2D2D2     1   107 10.5 11.5  6.5  7.5     NA       0.2        1
+      608 11  7 #D2D2D2     1   107 10.5 11.5  6.5  7.5     NA       0.2        1
+      609 11  7 #D2D2D2     1   107 10.5 11.5  6.5  7.5     NA       0.2        1
+      610 12  7 #D2D2D2     1   117 11.5 12.5  6.5  7.5     NA       0.2        1
+      611 12  7 #D2D2D2     1   117 11.5 12.5  6.5  7.5     NA       0.2        1
+      612 12  7 #D2D2D2     1   117 11.5 12.5  6.5  7.5     NA       0.2        1
+      613 13  7 #D2D2D2     1   127 12.5 13.5  6.5  7.5     NA       0.2        1
+      614 13  7 #D2D2D2     1   127 12.5 13.5  6.5  7.5     NA       0.2        1
+      615 13  7 #D2D2D2     1   127 12.5 13.5  6.5  7.5     NA       0.2        1
+      616 14  7 #D2D2D2     1   137 13.5 14.5  6.5  7.5     NA       0.2        1
+      617 14  7 #D2D2D2     1   137 13.5 14.5  6.5  7.5     NA       0.2        1
+      618 14  7 #D2D2D2     1   137 13.5 14.5  6.5  7.5     NA       0.2        1
+      619 15  7 #D2D2D2     1   147 14.5 15.5  6.5  7.5     NA       0.2        1
+      620 15  7 #D2D2D2     1   147 14.5 15.5  6.5  7.5     NA       0.2        1
+      621 15  7 #D2D2D2     1   147 14.5 15.5  6.5  7.5     NA       0.2        1
+      622 16  7 #D2D2D2     1   157 15.5 16.5  6.5  7.5     NA       0.2        1
+      623 16  7 #D2D2D2     1   157 15.5 16.5  6.5  7.5     NA       0.2        1
+      624 16  7 #D2D2D2     1   157 15.5 16.5  6.5  7.5     NA       0.2        1
+      625 17  7 #D2D2D2     1   167 16.5 17.5  6.5  7.5     NA       0.2        1
+      626 17  7 #D2D2D2     1   167 16.5 17.5  6.5  7.5     NA       0.2        1
+      627 17  7 #D2D2D2     1   167 16.5 17.5  6.5  7.5     NA       0.2        1
+      628 18  7 #D2D2D2     1   177 17.5 18.5  6.5  7.5     NA       0.2        1
+      629 18  7 #D2D2D2     1   177 17.5 18.5  6.5  7.5     NA       0.2        1
+      630 18  7 #D2D2D2     1   177 17.5 18.5  6.5  7.5     NA       0.2        1
+      631 19  7 #D2D2D2     1   187 18.5 19.5  6.5  7.5     NA       0.2        1
+      632 19  7 #D2D2D2     1   187 18.5 19.5  6.5  7.5     NA       0.2        1
+      633 19  7 #D2D2D2     1   187 18.5 19.5  6.5  7.5     NA       0.2        1
+      634 20  7 #D2D2D2     1   197 19.5 20.5  6.5  7.5     NA       0.2        1
+      635 20  7 #D2D2D2     1   197 19.5 20.5  6.5  7.5     NA       0.2        1
+      636 20  7 #D2D2D2     1   197 19.5 20.5  6.5  7.5     NA       0.2        1
+      637 21  7 #D2D2D2     1   207 20.5 21.5  6.5  7.5     NA       0.2        1
+      638 21  7 #D2D2D2     1   207 20.5 21.5  6.5  7.5     NA       0.2        1
+      639 21  7 #D2D2D2     1   207 20.5 21.5  6.5  7.5     NA       0.2        1
+      640 22  7 #D2D2D2     1   217 21.5 22.5  6.5  7.5     NA       0.2        1
+      641 22  7 #D2D2D2     1   217 21.5 22.5  6.5  7.5     NA       0.2        1
+      642 22  7 #D2D2D2     1   217 21.5 22.5  6.5  7.5     NA       0.2        1
+      643 23  7 #D2D2D2     1   227 22.5 23.5  6.5  7.5     NA       0.2        1
+      644 23  7 #D2D2D2     1   227 22.5 23.5  6.5  7.5     NA       0.2        1
+      645 23  7 #D2D2D2     1   227 22.5 23.5  6.5  7.5     NA       0.2        1
+      646 24  7 #D2D2D2     1   237 23.5 24.5  6.5  7.5     NA       0.2        1
+      647 24  7 #D2D2D2     1   237 23.5 24.5  6.5  7.5     NA       0.2        1
+      648 24  7 #D2D2D2     1   237 23.5 24.5  6.5  7.5     NA       0.2        1
+      649 25  7 #D2D2D2     1   247 24.5 25.5  6.5  7.5     NA       0.2        1
+      650 25  7 #D2D2D2     1   247 24.5 25.5  6.5  7.5     NA       0.2        1
+      651 25  7 #D2D2D2     1   247 24.5 25.5  6.5  7.5     NA       0.2        1
+      652 26  7 #D2D2D2     1   257 25.5 26.5  6.5  7.5     NA       0.2        1
+      653 26  7 #D2D2D2     1   257 25.5 26.5  6.5  7.5     NA       0.2        1
+      654 26  7 #D2D2D2     1   257 25.5 26.5  6.5  7.5     NA       0.2        1
+      655 27  7 #D2D2D2     1   267 26.5 27.5  6.5  7.5     NA       0.2        1
+      656 27  7 #D2D2D2     1   267 26.5 27.5  6.5  7.5     NA       0.2        1
+      657 27  7 #D2D2D2     1   267 26.5 27.5  6.5  7.5     NA       0.2        1
+      658 28  7 #D2D2D2     1   277 27.5 28.5  6.5  7.5     NA       0.2        1
+      659 28  7 #D2D2D2     1   277 27.5 28.5  6.5  7.5     NA       0.2        1
+      660 28  7 #D2D2D2     1   277 27.5 28.5  6.5  7.5     NA       0.2        1
+      661 29  7 #D2D2D2     1   287 28.5 29.5  6.5  7.5     NA       0.2        1
+      662 29  7 #D2D2D2     1   287 28.5 29.5  6.5  7.5     NA       0.2        1
+      663 29  7 #D2D2D2     1   287 28.5 29.5  6.5  7.5     NA       0.2        1
+      664 30  7 #D2D2D2     1   297 29.5 30.5  6.5  7.5     NA       0.2        1
+      665 30  7 #D2D2D2     1   297 29.5 30.5  6.5  7.5     NA       0.2        1
+      666 30  7 #D2D2D2     1   297 29.5 30.5  6.5  7.5     NA       0.2        1
+      667 31  7 #D2D2D2     1   307 30.5 31.5  6.5  7.5     NA       0.2        1
+      668 31  7 #D2D2D2     1   307 30.5 31.5  6.5  7.5     NA       0.2        1
+      669 31  7 #D2D2D2     1   307 30.5 31.5  6.5  7.5     NA       0.2        1
+      670 32  7 #D2D2D2     1   317 31.5 32.5  6.5  7.5     NA       0.2        1
+      671 32  7 #D2D2D2     1   317 31.5 32.5  6.5  7.5     NA       0.2        1
+      672 32  7 #D2D2D2     1   317 31.5 32.5  6.5  7.5     NA       0.2        1
+      673  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      674  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      675  1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      676  2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1
+      677  2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1
+      678  2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1
+      679  3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1
+      680  3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1
+      681  3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1
+      682  4  8 #D2D2D2     1    38  3.5  4.5  7.5  8.5     NA       0.2        1
+      683  4  8 #D2D2D2     1    38  3.5  4.5  7.5  8.5     NA       0.2        1
+      684  4  8 #D2D2D2     1    38  3.5  4.5  7.5  8.5     NA       0.2        1
+      685  5  8 #D2D2D2     1    48  4.5  5.5  7.5  8.5     NA       0.2        1
+      686  5  8 #D2D2D2     1    48  4.5  5.5  7.5  8.5     NA       0.2        1
+      687  5  8 #D2D2D2     1    48  4.5  5.5  7.5  8.5     NA       0.2        1
+      688  6  8 #D2D2D2     1    58  5.5  6.5  7.5  8.5     NA       0.2        1
+      689  6  8 #D2D2D2     1    58  5.5  6.5  7.5  8.5     NA       0.2        1
+      690  6  8 #D2D2D2     1    58  5.5  6.5  7.5  8.5     NA       0.2        1
+      691  7  8 #D2D2D2     1    68  6.5  7.5  7.5  8.5     NA       0.2        1
+      692  7  8 #D2D2D2     1    68  6.5  7.5  7.5  8.5     NA       0.2        1
+      693  7  8 #D2D2D2     1    68  6.5  7.5  7.5  8.5     NA       0.2        1
+      694  8  8 #D2D2D2     1    78  7.5  8.5  7.5  8.5     NA       0.2        1
+      695  8  8 #D2D2D2     1    78  7.5  8.5  7.5  8.5     NA       0.2        1
+      696  8  8 #D2D2D2     1    78  7.5  8.5  7.5  8.5     NA       0.2        1
+      697  9  8 #D2D2D2     1    88  8.5  9.5  7.5  8.5     NA       0.2        1
+      698  9  8 #D2D2D2     1    88  8.5  9.5  7.5  8.5     NA       0.2        1
+      699  9  8 #D2D2D2     1    88  8.5  9.5  7.5  8.5     NA       0.2        1
+      700 10  8 #D2D2D2     1    98  9.5 10.5  7.5  8.5     NA       0.2        1
+      701 10  8 #D2D2D2     1    98  9.5 10.5  7.5  8.5     NA       0.2        1
+      702 10  8 #D2D2D2     1    98  9.5 10.5  7.5  8.5     NA       0.2        1
+      703 11  8 #D2D2D2     1   108 10.5 11.5  7.5  8.5     NA       0.2        1
+      704 11  8 #D2D2D2     1   108 10.5 11.5  7.5  8.5     NA       0.2        1
+      705 11  8 #D2D2D2     1   108 10.5 11.5  7.5  8.5     NA       0.2        1
+      706 12  8 #D2D2D2     1   118 11.5 12.5  7.5  8.5     NA       0.2        1
+      707 12  8 #D2D2D2     1   118 11.5 12.5  7.5  8.5     NA       0.2        1
+      708 12  8 #D2D2D2     1   118 11.5 12.5  7.5  8.5     NA       0.2        1
+      709 13  8 #D2D2D2     1   128 12.5 13.5  7.5  8.5     NA       0.2        1
+      710 13  8 #D2D2D2     1   128 12.5 13.5  7.5  8.5     NA       0.2        1
+      711 13  8 #D2D2D2     1   128 12.5 13.5  7.5  8.5     NA       0.2        1
+      712 14  8 #D2D2D2     1   138 13.5 14.5  7.5  8.5     NA       0.2        1
+      713 14  8 #D2D2D2     1   138 13.5 14.5  7.5  8.5     NA       0.2        1
+      714 14  8 #D2D2D2     1   138 13.5 14.5  7.5  8.5     NA       0.2        1
+      715 15  8 #D2D2D2     1   148 14.5 15.5  7.5  8.5     NA       0.2        1
+      716 15  8 #D2D2D2     1   148 14.5 15.5  7.5  8.5     NA       0.2        1
+      717 15  8 #D2D2D2     1   148 14.5 15.5  7.5  8.5     NA       0.2        1
+      718 16  8 #D2D2D2     1   158 15.5 16.5  7.5  8.5     NA       0.2        1
+      719 16  8 #D2D2D2     1   158 15.5 16.5  7.5  8.5     NA       0.2        1
+      720 16  8 #D2D2D2     1   158 15.5 16.5  7.5  8.5     NA       0.2        1
+      721 17  8 #D2D2D2     1   168 16.5 17.5  7.5  8.5     NA       0.2        1
+      722 17  8 #D2D2D2     1   168 16.5 17.5  7.5  8.5     NA       0.2        1
+      723 17  8 #D2D2D2     1   168 16.5 17.5  7.5  8.5     NA       0.2        1
+      724 18  8 #D2D2D2     1   178 17.5 18.5  7.5  8.5     NA       0.2        1
+      725 18  8 #D2D2D2     1   178 17.5 18.5  7.5  8.5     NA       0.2        1
+      726 18  8 #D2D2D2     1   178 17.5 18.5  7.5  8.5     NA       0.2        1
+      727 19  8 #D2D2D2     1   188 18.5 19.5  7.5  8.5     NA       0.2        1
+      728 19  8 #D2D2D2     1   188 18.5 19.5  7.5  8.5     NA       0.2        1
+      729 19  8 #D2D2D2     1   188 18.5 19.5  7.5  8.5     NA       0.2        1
+      730 20  8 #D2D2D2     1   198 19.5 20.5  7.5  8.5     NA       0.2        1
+      731 20  8 #D2D2D2     1   198 19.5 20.5  7.5  8.5     NA       0.2        1
+      732 20  8 #D2D2D2     1   198 19.5 20.5  7.5  8.5     NA       0.2        1
+      733 21  8 #D2D2D2     1   208 20.5 21.5  7.5  8.5     NA       0.2        1
+      734 21  8 #D2D2D2     1   208 20.5 21.5  7.5  8.5     NA       0.2        1
+      735 21  8 #D2D2D2     1   208 20.5 21.5  7.5  8.5     NA       0.2        1
+      736 22  8 #D2D2D2     1   218 21.5 22.5  7.5  8.5     NA       0.2        1
+      737 22  8 #D2D2D2     1   218 21.5 22.5  7.5  8.5     NA       0.2        1
+      738 22  8 #D2D2D2     1   218 21.5 22.5  7.5  8.5     NA       0.2        1
+      739 23  8 #D2D2D2     1   228 22.5 23.5  7.5  8.5     NA       0.2        1
+      740 23  8 #D2D2D2     1   228 22.5 23.5  7.5  8.5     NA       0.2        1
+      741 23  8 #D2D2D2     1   228 22.5 23.5  7.5  8.5     NA       0.2        1
+      742 24  8 #D2D2D2     1   238 23.5 24.5  7.5  8.5     NA       0.2        1
+      743 24  8 #D2D2D2     1   238 23.5 24.5  7.5  8.5     NA       0.2        1
+      744 24  8 #D2D2D2     1   238 23.5 24.5  7.5  8.5     NA       0.2        1
+      745 25  8 #D2D2D2     1   248 24.5 25.5  7.5  8.5     NA       0.2        1
+      746 25  8 #D2D2D2     1   248 24.5 25.5  7.5  8.5     NA       0.2        1
+      747 25  8 #D2D2D2     1   248 24.5 25.5  7.5  8.5     NA       0.2        1
+      748 26  8 #D2D2D2     1   258 25.5 26.5  7.5  8.5     NA       0.2        1
+      749 26  8 #D2D2D2     1   258 25.5 26.5  7.5  8.5     NA       0.2        1
+      750 26  8 #D2D2D2     1   258 25.5 26.5  7.5  8.5     NA       0.2        1
+      751 27  8 #D2D2D2     1   268 26.5 27.5  7.5  8.5     NA       0.2        1
+      752 27  8 #D2D2D2     1   268 26.5 27.5  7.5  8.5     NA       0.2        1
+      753 27  8 #D2D2D2     1   268 26.5 27.5  7.5  8.5     NA       0.2        1
+      754 28  8 #D2D2D2     1   278 27.5 28.5  7.5  8.5     NA       0.2        1
+      755 28  8 #D2D2D2     1   278 27.5 28.5  7.5  8.5     NA       0.2        1
+      756 28  8 #D2D2D2     1   278 27.5 28.5  7.5  8.5     NA       0.2        1
+      757 29  8 #D2D2D2     1   288 28.5 29.5  7.5  8.5     NA       0.2        1
+      758 29  8 #D2D2D2     1   288 28.5 29.5  7.5  8.5     NA       0.2        1
+      759 29  8 #D2D2D2     1   288 28.5 29.5  7.5  8.5     NA       0.2        1
+      760 30  8 #D2D2D2     1   298 29.5 30.5  7.5  8.5     NA       0.2        1
+      761 30  8 #D2D2D2     1   298 29.5 30.5  7.5  8.5     NA       0.2        1
+      762 30  8 #D2D2D2     1   298 29.5 30.5  7.5  8.5     NA       0.2        1
+      763 31  8 #D2D2D2     1   308 30.5 31.5  7.5  8.5     NA       0.2        1
+      764 31  8 #D2D2D2     1   308 30.5 31.5  7.5  8.5     NA       0.2        1
+      765 31  8 #D2D2D2     1   308 30.5 31.5  7.5  8.5     NA       0.2        1
+      766 32  8 #D2D2D2     1   318 31.5 32.5  7.5  8.5     NA       0.2        1
+      767 32  8 #D2D2D2     1   318 31.5 32.5  7.5  8.5     NA       0.2        1
+      768 32  8 #D2D2D2     1   318 31.5 32.5  7.5  8.5     NA       0.2        1
+      769  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      770  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      771  1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      772  2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1
+      773  2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1
+      774  2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1
+      775  3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1
+      776  3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1
+      777  3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1
+      778  4  9 #D2D2D2     1    39  3.5  4.5  8.5  9.5     NA       0.2        1
+      779  4  9 #D2D2D2     1    39  3.5  4.5  8.5  9.5     NA       0.2        1
+      780  4  9 #D2D2D2     1    39  3.5  4.5  8.5  9.5     NA       0.2        1
+      781  5  9 #D2D2D2     1    49  4.5  5.5  8.5  9.5     NA       0.2        1
+      782  5  9 #D2D2D2     1    49  4.5  5.5  8.5  9.5     NA       0.2        1
+      783  5  9 #D2D2D2     1    49  4.5  5.5  8.5  9.5     NA       0.2        1
+      784  6  9 #D2D2D2     1    59  5.5  6.5  8.5  9.5     NA       0.2        1
+      785  6  9 #D2D2D2     1    59  5.5  6.5  8.5  9.5     NA       0.2        1
+      786  6  9 #D2D2D2     1    59  5.5  6.5  8.5  9.5     NA       0.2        1
+      787  7  9 #D2D2D2     1    69  6.5  7.5  8.5  9.5     NA       0.2        1
+      788  7  9 #D2D2D2     1    69  6.5  7.5  8.5  9.5     NA       0.2        1
+      789  7  9 #D2D2D2     1    69  6.5  7.5  8.5  9.5     NA       0.2        1
+      790  8  9 #D2D2D2     1    79  7.5  8.5  8.5  9.5     NA       0.2        1
+      791  8  9 #D2D2D2     1    79  7.5  8.5  8.5  9.5     NA       0.2        1
+      792  8  9 #D2D2D2     1    79  7.5  8.5  8.5  9.5     NA       0.2        1
+      793  9  9 #D2D2D2     1    89  8.5  9.5  8.5  9.5     NA       0.2        1
+      794  9  9 #D2D2D2     1    89  8.5  9.5  8.5  9.5     NA       0.2        1
+      795  9  9 #D2D2D2     1    89  8.5  9.5  8.5  9.5     NA       0.2        1
+      796 10  9 #D2D2D2     1    99  9.5 10.5  8.5  9.5     NA       0.2        1
+      797 10  9 #D2D2D2     1    99  9.5 10.5  8.5  9.5     NA       0.2        1
+      798 10  9 #D2D2D2     1    99  9.5 10.5  8.5  9.5     NA       0.2        1
+      799 11  9 #D2D2D2     1   109 10.5 11.5  8.5  9.5     NA       0.2        1
+      800 11  9 #D2D2D2     1   109 10.5 11.5  8.5  9.5     NA       0.2        1
+      801 11  9 #D2D2D2     1   109 10.5 11.5  8.5  9.5     NA       0.2        1
+      802 12  9 #D2D2D2     1   119 11.5 12.5  8.5  9.5     NA       0.2        1
+      803 12  9 #D2D2D2     1   119 11.5 12.5  8.5  9.5     NA       0.2        1
+      804 12  9 #D2D2D2     1   119 11.5 12.5  8.5  9.5     NA       0.2        1
+      805 13  9 #D2D2D2     1   129 12.5 13.5  8.5  9.5     NA       0.2        1
+      806 13  9 #D2D2D2     1   129 12.5 13.5  8.5  9.5     NA       0.2        1
+      807 13  9 #D2D2D2     1   129 12.5 13.5  8.5  9.5     NA       0.2        1
+      808 14  9 #D2D2D2     1   139 13.5 14.5  8.5  9.5     NA       0.2        1
+      809 14  9 #D2D2D2     1   139 13.5 14.5  8.5  9.5     NA       0.2        1
+      810 14  9 #D2D2D2     1   139 13.5 14.5  8.5  9.5     NA       0.2        1
+      811 15  9 #D2D2D2     1   149 14.5 15.5  8.5  9.5     NA       0.2        1
+      812 15  9 #D2D2D2     1   149 14.5 15.5  8.5  9.5     NA       0.2        1
+      813 15  9 #D2D2D2     1   149 14.5 15.5  8.5  9.5     NA       0.2        1
+      814 16  9 #D2D2D2     1   159 15.5 16.5  8.5  9.5     NA       0.2        1
+      815 16  9 #D2D2D2     1   159 15.5 16.5  8.5  9.5     NA       0.2        1
+      816 16  9 #D2D2D2     1   159 15.5 16.5  8.5  9.5     NA       0.2        1
+      817 17  9 #D2D2D2     1   169 16.5 17.5  8.5  9.5     NA       0.2        1
+      818 17  9 #D2D2D2     1   169 16.5 17.5  8.5  9.5     NA       0.2        1
+      819 17  9 #D2D2D2     1   169 16.5 17.5  8.5  9.5     NA       0.2        1
+      820 18  9 #D2D2D2     1   179 17.5 18.5  8.5  9.5     NA       0.2        1
+      821 18  9 #D2D2D2     1   179 17.5 18.5  8.5  9.5     NA       0.2        1
+      822 18  9 #D2D2D2     1   179 17.5 18.5  8.5  9.5     NA       0.2        1
+      823 19  9 #D2D2D2     1   189 18.5 19.5  8.5  9.5     NA       0.2        1
+      824 19  9 #D2D2D2     1   189 18.5 19.5  8.5  9.5     NA       0.2        1
+      825 19  9 #D2D2D2     1   189 18.5 19.5  8.5  9.5     NA       0.2        1
+      826 20  9 #D2D2D2     1   199 19.5 20.5  8.5  9.5     NA       0.2        1
+      827 20  9 #D2D2D2     1   199 19.5 20.5  8.5  9.5     NA       0.2        1
+      828 20  9 #D2D2D2     1   199 19.5 20.5  8.5  9.5     NA       0.2        1
+      829 21  9 #D2D2D2     1   209 20.5 21.5  8.5  9.5     NA       0.2        1
+      830 21  9 #D2D2D2     1   209 20.5 21.5  8.5  9.5     NA       0.2        1
+      831 21  9 #D2D2D2     1   209 20.5 21.5  8.5  9.5     NA       0.2        1
+      832 22  9 #D2D2D2     1   219 21.5 22.5  8.5  9.5     NA       0.2        1
+      833 22  9 #D2D2D2     1   219 21.5 22.5  8.5  9.5     NA       0.2        1
+      834 22  9 #D2D2D2     1   219 21.5 22.5  8.5  9.5     NA       0.2        1
+      835 23  9 #D2D2D2     1   229 22.5 23.5  8.5  9.5     NA       0.2        1
+      836 23  9 #D2D2D2     1   229 22.5 23.5  8.5  9.5     NA       0.2        1
+      837 23  9 #D2D2D2     1   229 22.5 23.5  8.5  9.5     NA       0.2        1
+      838 24  9 #D2D2D2     1   239 23.5 24.5  8.5  9.5     NA       0.2        1
+      839 24  9 #D2D2D2     1   239 23.5 24.5  8.5  9.5     NA       0.2        1
+      840 24  9 #D2D2D2     1   239 23.5 24.5  8.5  9.5     NA       0.2        1
+      841 25  9 #D2D2D2     1   249 24.5 25.5  8.5  9.5     NA       0.2        1
+      842 25  9 #D2D2D2     1   249 24.5 25.5  8.5  9.5     NA       0.2        1
+      843 25  9 #D2D2D2     1   249 24.5 25.5  8.5  9.5     NA       0.2        1
+      844 26  9 #D2D2D2     1   259 25.5 26.5  8.5  9.5     NA       0.2        1
+      845 26  9 #D2D2D2     1   259 25.5 26.5  8.5  9.5     NA       0.2        1
+      846 26  9 #D2D2D2     1   259 25.5 26.5  8.5  9.5     NA       0.2        1
+      847 27  9 #D2D2D2     1   269 26.5 27.5  8.5  9.5     NA       0.2        1
+      848 27  9 #D2D2D2     1   269 26.5 27.5  8.5  9.5     NA       0.2        1
+      849 27  9 #D2D2D2     1   269 26.5 27.5  8.5  9.5     NA       0.2        1
+      850 28  9 #D2D2D2     1   279 27.5 28.5  8.5  9.5     NA       0.2        1
+      851 28  9 #D2D2D2     1   279 27.5 28.5  8.5  9.5     NA       0.2        1
+      852 28  9 #D2D2D2     1   279 27.5 28.5  8.5  9.5     NA       0.2        1
+      853 29  9 #D2D2D2     1   289 28.5 29.5  8.5  9.5     NA       0.2        1
+      854 29  9 #D2D2D2     1   289 28.5 29.5  8.5  9.5     NA       0.2        1
+      855 29  9 #D2D2D2     1   289 28.5 29.5  8.5  9.5     NA       0.2        1
+      856 30  9 #D2D2D2     1   299 29.5 30.5  8.5  9.5     NA       0.2        1
+      857 30  9 #D2D2D2     1   299 29.5 30.5  8.5  9.5     NA       0.2        1
+      858 30  9 #D2D2D2     1   299 29.5 30.5  8.5  9.5     NA       0.2        1
+      859 31  9 #D2D2D2     1   309 30.5 31.5  8.5  9.5     NA       0.2        1
+      860 31  9 #D2D2D2     1   309 30.5 31.5  8.5  9.5     NA       0.2        1
+      861 31  9 #D2D2D2     1   309 30.5 31.5  8.5  9.5     NA       0.2        1
+      862 32  9 #D2D2D2     1   319 31.5 32.5  8.5  9.5     NA       0.2        1
+      863 32  9 #D2D2D2     1   319 31.5 32.5  8.5  9.5     NA       0.2        1
+      864 32  9 #D2D2D2     1   319 31.5 32.5  8.5  9.5     NA       0.2        1
+      865  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      866  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      867  1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      868  2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1
+      869  2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1
+      870  2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1
+      871  3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1
+      872  3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1
+      873  3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1
+      874  4 10 #D2D2D2     1    40  3.5  4.5  9.5 10.5     NA       0.2        1
+      875  4 10 #D2D2D2     1    40  3.5  4.5  9.5 10.5     NA       0.2        1
+      876  4 10 #D2D2D2     1    40  3.5  4.5  9.5 10.5     NA       0.2        1
+      877  5 10 #D2D2D2     1    50  4.5  5.5  9.5 10.5     NA       0.2        1
+      878  5 10 #D2D2D2     1    50  4.5  5.5  9.5 10.5     NA       0.2        1
+      879  5 10 #D2D2D2     1    50  4.5  5.5  9.5 10.5     NA       0.2        1
+      880  6 10 #D2D2D2     1    60  5.5  6.5  9.5 10.5     NA       0.2        1
+      881  6 10 #D2D2D2     1    60  5.5  6.5  9.5 10.5     NA       0.2        1
+      882  6 10 #D2D2D2     1    60  5.5  6.5  9.5 10.5     NA       0.2        1
+      883  7 10 #D2D2D2     1    70  6.5  7.5  9.5 10.5     NA       0.2        1
+      884  7 10 #D2D2D2     1    70  6.5  7.5  9.5 10.5     NA       0.2        1
+      885  7 10 #D2D2D2     1    70  6.5  7.5  9.5 10.5     NA       0.2        1
+      886  8 10 #D2D2D2     1    80  7.5  8.5  9.5 10.5     NA       0.2        1
+      887  8 10 #D2D2D2     1    80  7.5  8.5  9.5 10.5     NA       0.2        1
+      888  8 10 #D2D2D2     1    80  7.5  8.5  9.5 10.5     NA       0.2        1
+      889  9 10 #D2D2D2     1    90  8.5  9.5  9.5 10.5     NA       0.2        1
+      890  9 10 #D2D2D2     1    90  8.5  9.5  9.5 10.5     NA       0.2        1
+      891  9 10 #D2D2D2     1    90  8.5  9.5  9.5 10.5     NA       0.2        1
+      892 10 10 #D2D2D2     1   100  9.5 10.5  9.5 10.5     NA       0.2        1
+      893 10 10 #D2D2D2     1   100  9.5 10.5  9.5 10.5     NA       0.2        1
+      894 10 10 #D2D2D2     1   100  9.5 10.5  9.5 10.5     NA       0.2        1
+      895 11 10 #D2D2D2     1   110 10.5 11.5  9.5 10.5     NA       0.2        1
+      896 11 10 #D2D2D2     1   110 10.5 11.5  9.5 10.5     NA       0.2        1
+      897 11 10 #D2D2D2     1   110 10.5 11.5  9.5 10.5     NA       0.2        1
+      898 12 10 #D2D2D2     1   120 11.5 12.5  9.5 10.5     NA       0.2        1
+      899 12 10 #D2D2D2     1   120 11.5 12.5  9.5 10.5     NA       0.2        1
+      900 12 10 #D2D2D2     1   120 11.5 12.5  9.5 10.5     NA       0.2        1
+      901 13 10 #D2D2D2     1   130 12.5 13.5  9.5 10.5     NA       0.2        1
+      902 13 10 #D2D2D2     1   130 12.5 13.5  9.5 10.5     NA       0.2        1
+      903 13 10 #D2D2D2     1   130 12.5 13.5  9.5 10.5     NA       0.2        1
+      904 14 10 #D2D2D2     1   140 13.5 14.5  9.5 10.5     NA       0.2        1
+      905 14 10 #D2D2D2     1   140 13.5 14.5  9.5 10.5     NA       0.2        1
+      906 14 10 #D2D2D2     1   140 13.5 14.5  9.5 10.5     NA       0.2        1
+      907 15 10 #D2D2D2     1   150 14.5 15.5  9.5 10.5     NA       0.2        1
+      908 15 10 #D2D2D2     1   150 14.5 15.5  9.5 10.5     NA       0.2        1
+      909 15 10 #D2D2D2     1   150 14.5 15.5  9.5 10.5     NA       0.2        1
+      910 16 10 #D2D2D2     1   160 15.5 16.5  9.5 10.5     NA       0.2        1
+      911 16 10 #D2D2D2     1   160 15.5 16.5  9.5 10.5     NA       0.2        1
+      912 16 10 #D2D2D2     1   160 15.5 16.5  9.5 10.5     NA       0.2        1
+      913 17 10 #D2D2D2     1   170 16.5 17.5  9.5 10.5     NA       0.2        1
+      914 17 10 #D2D2D2     1   170 16.5 17.5  9.5 10.5     NA       0.2        1
+      915 17 10 #D2D2D2     1   170 16.5 17.5  9.5 10.5     NA       0.2        1
+      916 18 10 #D2D2D2     1   180 17.5 18.5  9.5 10.5     NA       0.2        1
+      917 18 10 #D2D2D2     1   180 17.5 18.5  9.5 10.5     NA       0.2        1
+      918 18 10 #D2D2D2     1   180 17.5 18.5  9.5 10.5     NA       0.2        1
+      919 19 10 #D2D2D2     1   190 18.5 19.5  9.5 10.5     NA       0.2        1
+      920 19 10 #D2D2D2     1   190 18.5 19.5  9.5 10.5     NA       0.2        1
+      921 19 10 #D2D2D2     1   190 18.5 19.5  9.5 10.5     NA       0.2        1
+      922 20 10 #D2D2D2     1   200 19.5 20.5  9.5 10.5     NA       0.2        1
+      923 20 10 #D2D2D2     1   200 19.5 20.5  9.5 10.5     NA       0.2        1
+      924 20 10 #D2D2D2     1   200 19.5 20.5  9.5 10.5     NA       0.2        1
+      925 21 10 #D2D2D2     1   210 20.5 21.5  9.5 10.5     NA       0.2        1
+      926 21 10 #D2D2D2     1   210 20.5 21.5  9.5 10.5     NA       0.2        1
+      927 21 10 #D2D2D2     1   210 20.5 21.5  9.5 10.5     NA       0.2        1
+      928 22 10 #D2D2D2     1   220 21.5 22.5  9.5 10.5     NA       0.2        1
+      929 22 10 #D2D2D2     1   220 21.5 22.5  9.5 10.5     NA       0.2        1
+      930 22 10 #D2D2D2     1   220 21.5 22.5  9.5 10.5     NA       0.2        1
+      931 23 10 #D2D2D2     1   230 22.5 23.5  9.5 10.5     NA       0.2        1
+      932 23 10 #D2D2D2     1   230 22.5 23.5  9.5 10.5     NA       0.2        1
+      933 23 10 #D2D2D2     1   230 22.5 23.5  9.5 10.5     NA       0.2        1
+      934 24 10 #D2D2D2     1   240 23.5 24.5  9.5 10.5     NA       0.2        1
+      935 24 10 #D2D2D2     1   240 23.5 24.5  9.5 10.5     NA       0.2        1
+      936 24 10 #D2D2D2     1   240 23.5 24.5  9.5 10.5     NA       0.2        1
+      937 25 10 #D2D2D2     1   250 24.5 25.5  9.5 10.5     NA       0.2        1
+      938 25 10 #D2D2D2     1   250 24.5 25.5  9.5 10.5     NA       0.2        1
+      939 25 10 #D2D2D2     1   250 24.5 25.5  9.5 10.5     NA       0.2        1
+      940 26 10 #D2D2D2     1   260 25.5 26.5  9.5 10.5     NA       0.2        1
+      941 26 10 #D2D2D2     1   260 25.5 26.5  9.5 10.5     NA       0.2        1
+      942 26 10 #D2D2D2     1   260 25.5 26.5  9.5 10.5     NA       0.2        1
+      943 27 10 #D2D2D2     1   270 26.5 27.5  9.5 10.5     NA       0.2        1
+      944 27 10 #D2D2D2     1   270 26.5 27.5  9.5 10.5     NA       0.2        1
+      945 27 10 #D2D2D2     1   270 26.5 27.5  9.5 10.5     NA       0.2        1
+      946 28 10 #D2D2D2     1   280 27.5 28.5  9.5 10.5     NA       0.2        1
+      947 28 10 #D2D2D2     1   280 27.5 28.5  9.5 10.5     NA       0.2        1
+      948 28 10 #D2D2D2     1   280 27.5 28.5  9.5 10.5     NA       0.2        1
+      949 29 10 #D2D2D2     1   290 28.5 29.5  9.5 10.5     NA       0.2        1
+      950 29 10 #D2D2D2     1   290 28.5 29.5  9.5 10.5     NA       0.2        1
+      951 29 10 #D2D2D2     1   290 28.5 29.5  9.5 10.5     NA       0.2        1
+      952 30 10 #D2D2D2     1   300 29.5 30.5  9.5 10.5     NA       0.2        1
+      953 30 10 #D2D2D2     1   300 29.5 30.5  9.5 10.5     NA       0.2        1
+      954 30 10 #D2D2D2     1   300 29.5 30.5  9.5 10.5     NA       0.2        1
+      955 31 10 #D2D2D2     1   310 30.5 31.5  9.5 10.5     NA       0.2        1
+      956 31 10 #D2D2D2     1   310 30.5 31.5  9.5 10.5     NA       0.2        1
+      957 31 10 #D2D2D2     1   310 30.5 31.5  9.5 10.5     NA       0.2        1
+      958 32 10 #D2D2D2     1   320 31.5 32.5  9.5 10.5     NA       0.2        1
+      959 32 10 #D2D2D2     1   320 31.5 32.5  9.5 10.5     NA       0.2        1
+      960 32 10 #D2D2D2     1   320 31.5 32.5  9.5 10.5     NA       0.2        1
           alpha width height
-      1      NA    NA     NA
-      2      NA    NA     NA
-      3      NA    NA     NA
-      4      NA    NA     NA
-      5      NA    NA     NA
-      6      NA    NA     NA
-      7      NA    NA     NA
-      8      NA    NA     NA
-      9      NA    NA     NA
-      10     NA    NA     NA
-      11     NA    NA     NA
-      12     NA    NA     NA
-      13     NA    NA     NA
-      14     NA    NA     NA
-      15     NA    NA     NA
-      16     NA    NA     NA
-      17     NA    NA     NA
-      18     NA    NA     NA
-      19     NA    NA     NA
-      20     NA    NA     NA
-      21     NA    NA     NA
-      22     NA    NA     NA
-      23     NA    NA     NA
-      24     NA    NA     NA
-      25     NA    NA     NA
-      26     NA    NA     NA
-      27     NA    NA     NA
-      28     NA    NA     NA
-      29     NA    NA     NA
-      30     NA    NA     NA
-      31     NA    NA     NA
-      32     NA    NA     NA
-      33     NA    NA     NA
-      34     NA    NA     NA
-      35     NA    NA     NA
-      36     NA    NA     NA
-      37     NA    NA     NA
-      38     NA    NA     NA
-      39     NA    NA     NA
-      40     NA    NA     NA
-      41     NA    NA     NA
-      42     NA    NA     NA
-      43     NA    NA     NA
-      44     NA    NA     NA
-      45     NA    NA     NA
-      46     NA    NA     NA
-      47     NA    NA     NA
-      48     NA    NA     NA
-      49     NA    NA     NA
-      50     NA    NA     NA
-      51     NA    NA     NA
-      52     NA    NA     NA
-      53     NA    NA     NA
-      54     NA    NA     NA
-      55     NA    NA     NA
-      56     NA    NA     NA
-      57     NA    NA     NA
-      58     NA    NA     NA
-      59     NA    NA     NA
-      60     NA    NA     NA
-      61     NA    NA     NA
-      62     NA    NA     NA
-      63     NA    NA     NA
-      64     NA    NA     NA
-      65     NA    NA     NA
-      66     NA    NA     NA
-      67     NA    NA     NA
-      68     NA    NA     NA
-      69     NA    NA     NA
-      70     NA    NA     NA
-      71     NA    NA     NA
-      72     NA    NA     NA
-      73     NA    NA     NA
-      74     NA    NA     NA
-      75     NA    NA     NA
-      76     NA    NA     NA
-      77     NA    NA     NA
-      78     NA    NA     NA
-      79     NA    NA     NA
-      80     NA    NA     NA
-      81     NA    NA     NA
-      82     NA    NA     NA
-      83     NA    NA     NA
-      84     NA    NA     NA
-      85     NA    NA     NA
-      86     NA    NA     NA
-      87     NA    NA     NA
-      88     NA    NA     NA
-      89     NA    NA     NA
-      90     NA    NA     NA
-      91     NA    NA     NA
-      92     NA    NA     NA
-      93     NA    NA     NA
-      94     NA    NA     NA
-      95     NA    NA     NA
-      96     NA    NA     NA
-      97     NA    NA     NA
-      98     NA    NA     NA
-      99     NA    NA     NA
-      100    NA    NA     NA
-      101    NA    NA     NA
-      102    NA    NA     NA
-      103    NA    NA     NA
-      104    NA    NA     NA
-      105    NA    NA     NA
-      106    NA    NA     NA
-      107    NA    NA     NA
-      108    NA    NA     NA
-      109    NA    NA     NA
-      110    NA    NA     NA
-      111    NA    NA     NA
-      112    NA    NA     NA
-      113    NA    NA     NA
-      114    NA    NA     NA
-      115    NA    NA     NA
-      116    NA    NA     NA
-      117    NA    NA     NA
-      118    NA    NA     NA
-      119    NA    NA     NA
-      120    NA    NA     NA
-      121    NA    NA     NA
-      122    NA    NA     NA
-      123    NA    NA     NA
-      124    NA    NA     NA
-      125    NA    NA     NA
-      126    NA    NA     NA
-      127    NA    NA     NA
-      128    NA    NA     NA
-      129    NA    NA     NA
-      130    NA    NA     NA
-      131    NA    NA     NA
-      132    NA    NA     NA
-      133    NA    NA     NA
-      134    NA    NA     NA
-      135    NA    NA     NA
-      136    NA    NA     NA
-      137    NA    NA     NA
-      138    NA    NA     NA
-      139    NA    NA     NA
-      140    NA    NA     NA
-      141    NA    NA     NA
-      142    NA    NA     NA
-      143    NA    NA     NA
-      144    NA    NA     NA
-      145    NA    NA     NA
-      146    NA    NA     NA
-      147    NA    NA     NA
-      148    NA    NA     NA
-      149    NA    NA     NA
-      150    NA    NA     NA
-      151    NA    NA     NA
-      152    NA    NA     NA
-      153    NA    NA     NA
-      154    NA    NA     NA
-      155    NA    NA     NA
-      156    NA    NA     NA
-      157    NA    NA     NA
-      158    NA    NA     NA
-      159    NA    NA     NA
-      160    NA    NA     NA
-      161    NA    NA     NA
-      162    NA    NA     NA
-      163    NA    NA     NA
-      164    NA    NA     NA
-      165    NA    NA     NA
-      166    NA    NA     NA
-      167    NA    NA     NA
-      168    NA    NA     NA
-      169    NA    NA     NA
-      170    NA    NA     NA
-      171    NA    NA     NA
-      172    NA    NA     NA
-      173    NA    NA     NA
-      174    NA    NA     NA
-      175    NA    NA     NA
-      176    NA    NA     NA
-      177    NA    NA     NA
-      178    NA    NA     NA
-      179    NA    NA     NA
-      180    NA    NA     NA
-      181    NA    NA     NA
-      182    NA    NA     NA
-      183    NA    NA     NA
-      184    NA    NA     NA
-      185    NA    NA     NA
-      186    NA    NA     NA
-      187    NA    NA     NA
-      188    NA    NA     NA
-      189    NA    NA     NA
-      190    NA    NA     NA
-      191    NA    NA     NA
-      192    NA    NA     NA
-      193    NA    NA     NA
-      194    NA    NA     NA
-      195    NA    NA     NA
-      196    NA    NA     NA
-      197    NA    NA     NA
-      198    NA    NA     NA
-      199    NA    NA     NA
-      200    NA    NA     NA
-      201    NA    NA     NA
-      202    NA    NA     NA
-      203    NA    NA     NA
-      204    NA    NA     NA
-      205    NA    NA     NA
-      206    NA    NA     NA
-      207    NA    NA     NA
-      208    NA    NA     NA
-      209    NA    NA     NA
-      210    NA    NA     NA
-      211    NA    NA     NA
-      212    NA    NA     NA
-      213    NA    NA     NA
-      214    NA    NA     NA
-      215    NA    NA     NA
-      216    NA    NA     NA
-      217    NA    NA     NA
-      218    NA    NA     NA
-      219    NA    NA     NA
-      220    NA    NA     NA
-      221    NA    NA     NA
-      222    NA    NA     NA
-      223    NA    NA     NA
-      224    NA    NA     NA
-      225    NA    NA     NA
-      226    NA    NA     NA
-      227    NA    NA     NA
-      228    NA    NA     NA
-      229    NA    NA     NA
-      230    NA    NA     NA
-      231    NA    NA     NA
-      232    NA    NA     NA
-      233    NA    NA     NA
-      234    NA    NA     NA
-      235    NA    NA     NA
-      236    NA    NA     NA
-      237    NA    NA     NA
-      238    NA    NA     NA
-      239    NA    NA     NA
-      240    NA    NA     NA
-      241    NA    NA     NA
-      242    NA    NA     NA
-      243    NA    NA     NA
-      244    NA    NA     NA
-      245    NA    NA     NA
-      246    NA    NA     NA
-      247    NA    NA     NA
-      248    NA    NA     NA
-      249    NA    NA     NA
-      250    NA    NA     NA
-      251    NA    NA     NA
-      252    NA    NA     NA
-      253    NA    NA     NA
-      254    NA    NA     NA
-      255    NA    NA     NA
-      256    NA    NA     NA
-      257    NA    NA     NA
-      258    NA    NA     NA
-      259    NA    NA     NA
-      260    NA    NA     NA
-      261    NA    NA     NA
-      262    NA    NA     NA
-      263    NA    NA     NA
-      264    NA    NA     NA
-      265    NA    NA     NA
-      266    NA    NA     NA
-      267    NA    NA     NA
-      268    NA    NA     NA
-      269    NA    NA     NA
-      270    NA    NA     NA
-      271    NA    NA     NA
-      272    NA    NA     NA
-      273    NA    NA     NA
-      274    NA    NA     NA
-      275    NA    NA     NA
-      276    NA    NA     NA
-      277    NA    NA     NA
-      278    NA    NA     NA
-      279    NA    NA     NA
-      280    NA    NA     NA
-      281    NA    NA     NA
-      282    NA    NA     NA
-      283    NA    NA     NA
-      284    NA    NA     NA
-      285    NA    NA     NA
-      286    NA    NA     NA
-      287    NA    NA     NA
-      288    NA    NA     NA
-      289    NA    NA     NA
-      290    NA    NA     NA
-      291    NA    NA     NA
-      292    NA    NA     NA
-      293    NA    NA     NA
-      294    NA    NA     NA
-      295    NA    NA     NA
-      296    NA    NA     NA
-      297    NA    NA     NA
-      298    NA    NA     NA
-      299    NA    NA     NA
-      300    NA    NA     NA
-      301    NA    NA     NA
-      302    NA    NA     NA
-      303    NA    NA     NA
-      304    NA    NA     NA
-      305    NA    NA     NA
-      306    NA    NA     NA
-      307    NA    NA     NA
-      308    NA    NA     NA
-      309    NA    NA     NA
-      310    NA    NA     NA
-      311    NA    NA     NA
-      312    NA    NA     NA
-      313    NA    NA     NA
-      314    NA    NA     NA
-      315    NA    NA     NA
-      316    NA    NA     NA
-      317    NA    NA     NA
-      318    NA    NA     NA
-      319    NA    NA     NA
-      320    NA    NA     NA
-      321    NA    NA     NA
-      322    NA    NA     NA
-      323    NA    NA     NA
-      324    NA    NA     NA
-      325    NA    NA     NA
-      326    NA    NA     NA
-      327    NA    NA     NA
-      328    NA    NA     NA
-      329    NA    NA     NA
-      330    NA    NA     NA
-      331    NA    NA     NA
-      332    NA    NA     NA
-      333    NA    NA     NA
-      334    NA    NA     NA
-      335    NA    NA     NA
-      336    NA    NA     NA
-      337    NA    NA     NA
-      338    NA    NA     NA
-      339    NA    NA     NA
-      340    NA    NA     NA
-      341    NA    NA     NA
-      342    NA    NA     NA
-      343    NA    NA     NA
-      344    NA    NA     NA
-      345    NA    NA     NA
-      346    NA    NA     NA
-      347    NA    NA     NA
-      348    NA    NA     NA
-      349    NA    NA     NA
-      350    NA    NA     NA
-      351    NA    NA     NA
-      352    NA    NA     NA
-      353    NA    NA     NA
-      354    NA    NA     NA
-      355    NA    NA     NA
-      356    NA    NA     NA
-      357    NA    NA     NA
-      358    NA    NA     NA
-      359    NA    NA     NA
-      360    NA    NA     NA
-      361    NA    NA     NA
-      362    NA    NA     NA
-      363    NA    NA     NA
-      364    NA    NA     NA
-      365    NA    NA     NA
-      366    NA    NA     NA
-      367    NA    NA     NA
-      368    NA    NA     NA
-      369    NA    NA     NA
-      370    NA    NA     NA
-      371    NA    NA     NA
-      372    NA    NA     NA
-      373    NA    NA     NA
-      374    NA    NA     NA
-      375    NA    NA     NA
-      376    NA    NA     NA
-      377    NA    NA     NA
-      378    NA    NA     NA
-      379    NA    NA     NA
-      380    NA    NA     NA
-      381    NA    NA     NA
-      382    NA    NA     NA
-      383    NA    NA     NA
-      384    NA    NA     NA
-      385    NA    NA     NA
-      386    NA    NA     NA
-      387    NA    NA     NA
-      388    NA    NA     NA
-      389    NA    NA     NA
-      390    NA    NA     NA
-      391    NA    NA     NA
-      392    NA    NA     NA
-      393    NA    NA     NA
-      394    NA    NA     NA
-      395    NA    NA     NA
-      396    NA    NA     NA
-      397    NA    NA     NA
-      398    NA    NA     NA
-      399    NA    NA     NA
-      400    NA    NA     NA
-      401    NA    NA     NA
-      402    NA    NA     NA
-      403    NA    NA     NA
-      404    NA    NA     NA
-      405    NA    NA     NA
-      406    NA    NA     NA
-      407    NA    NA     NA
-      408    NA    NA     NA
-      409    NA    NA     NA
-      410    NA    NA     NA
-      411    NA    NA     NA
-      412    NA    NA     NA
-      413    NA    NA     NA
-      414    NA    NA     NA
-      415    NA    NA     NA
-      416    NA    NA     NA
-      417    NA    NA     NA
-      418    NA    NA     NA
-      419    NA    NA     NA
-      420    NA    NA     NA
-      421    NA    NA     NA
-      422    NA    NA     NA
-      423    NA    NA     NA
-      424    NA    NA     NA
-      425    NA    NA     NA
-      426    NA    NA     NA
-      427    NA    NA     NA
-      428    NA    NA     NA
-      429    NA    NA     NA
-      430    NA    NA     NA
-      431    NA    NA     NA
-      432    NA    NA     NA
-      433    NA    NA     NA
-      434    NA    NA     NA
-      435    NA    NA     NA
-      436    NA    NA     NA
-      437    NA    NA     NA
-      438    NA    NA     NA
-      439    NA    NA     NA
-      440    NA    NA     NA
-      441    NA    NA     NA
-      442    NA    NA     NA
-      443    NA    NA     NA
-      444    NA    NA     NA
-      445    NA    NA     NA
-      446    NA    NA     NA
-      447    NA    NA     NA
-      448    NA    NA     NA
-      449    NA    NA     NA
-      450    NA    NA     NA
-      451    NA    NA     NA
-      452    NA    NA     NA
-      453    NA    NA     NA
-      454    NA    NA     NA
-      455    NA    NA     NA
-      456    NA    NA     NA
-      457    NA    NA     NA
-      458    NA    NA     NA
-      459    NA    NA     NA
-      460    NA    NA     NA
-      461    NA    NA     NA
-      462    NA    NA     NA
-      463    NA    NA     NA
-      464    NA    NA     NA
-      465    NA    NA     NA
-      466    NA    NA     NA
-      467    NA    NA     NA
-      468    NA    NA     NA
-      469    NA    NA     NA
-      470    NA    NA     NA
-      471    NA    NA     NA
-      472    NA    NA     NA
-      473    NA    NA     NA
-      474    NA    NA     NA
-      475    NA    NA     NA
-      476    NA    NA     NA
-      477    NA    NA     NA
-      478    NA    NA     NA
-      479    NA    NA     NA
-      480    NA    NA     NA
-      481    NA    NA     NA
-      482    NA    NA     NA
-      483    NA    NA     NA
-      484    NA    NA     NA
-      485    NA    NA     NA
-      486    NA    NA     NA
-      487    NA    NA     NA
-      488    NA    NA     NA
-      489    NA    NA     NA
-      490    NA    NA     NA
-      491    NA    NA     NA
-      492    NA    NA     NA
-      493    NA    NA     NA
-      494    NA    NA     NA
-      495    NA    NA     NA
-      496    NA    NA     NA
-      497    NA    NA     NA
-      498    NA    NA     NA
-      499    NA    NA     NA
-      500    NA    NA     NA
-      501    NA    NA     NA
-      502    NA    NA     NA
-      503    NA    NA     NA
-      504    NA    NA     NA
-      505    NA    NA     NA
-      506    NA    NA     NA
-      507    NA    NA     NA
-      508    NA    NA     NA
-      509    NA    NA     NA
-      510    NA    NA     NA
-      511    NA    NA     NA
-      512    NA    NA     NA
-      513    NA    NA     NA
-      514    NA    NA     NA
-      515    NA    NA     NA
-      516    NA    NA     NA
-      517    NA    NA     NA
-      518    NA    NA     NA
-      519    NA    NA     NA
-      520    NA    NA     NA
-      521    NA    NA     NA
-      522    NA    NA     NA
-      523    NA    NA     NA
-      524    NA    NA     NA
-      525    NA    NA     NA
-      526    NA    NA     NA
-      527    NA    NA     NA
-      528    NA    NA     NA
-      529    NA    NA     NA
-      530    NA    NA     NA
-      531    NA    NA     NA
-      532    NA    NA     NA
-      533    NA    NA     NA
-      534    NA    NA     NA
-      535    NA    NA     NA
-      536    NA    NA     NA
-      537    NA    NA     NA
-      538    NA    NA     NA
-      539    NA    NA     NA
-      540    NA    NA     NA
-      541    NA    NA     NA
-      542    NA    NA     NA
-      543    NA    NA     NA
-      544    NA    NA     NA
-      545    NA    NA     NA
-      546    NA    NA     NA
-      547    NA    NA     NA
-      548    NA    NA     NA
-      549    NA    NA     NA
-      550    NA    NA     NA
-      551    NA    NA     NA
-      552    NA    NA     NA
-      553    NA    NA     NA
-      554    NA    NA     NA
-      555    NA    NA     NA
-      556    NA    NA     NA
-      557    NA    NA     NA
-      558    NA    NA     NA
-      559    NA    NA     NA
-      560    NA    NA     NA
-      561    NA    NA     NA
-      562    NA    NA     NA
-      563    NA    NA     NA
-      564    NA    NA     NA
-      565    NA    NA     NA
-      566    NA    NA     NA
-      567    NA    NA     NA
-      568    NA    NA     NA
-      569    NA    NA     NA
-      570    NA    NA     NA
-      571    NA    NA     NA
-      572    NA    NA     NA
-      573    NA    NA     NA
-      574    NA    NA     NA
-      575    NA    NA     NA
-      576    NA    NA     NA
-      577    NA    NA     NA
-      578    NA    NA     NA
-      579    NA    NA     NA
-      580    NA    NA     NA
-      581    NA    NA     NA
-      582    NA    NA     NA
-      583    NA    NA     NA
-      584    NA    NA     NA
-      585    NA    NA     NA
-      586    NA    NA     NA
-      587    NA    NA     NA
-      588    NA    NA     NA
-      589    NA    NA     NA
-      590    NA    NA     NA
-      591    NA    NA     NA
-      592    NA    NA     NA
-      593    NA    NA     NA
-      594    NA    NA     NA
-      595    NA    NA     NA
-      596    NA    NA     NA
-      597    NA    NA     NA
-      598    NA    NA     NA
-      599    NA    NA     NA
-      600    NA    NA     NA
-      601    NA    NA     NA
-      602    NA    NA     NA
-      603    NA    NA     NA
-      604    NA    NA     NA
-      605    NA    NA     NA
-      606    NA    NA     NA
-      607    NA    NA     NA
-      608    NA    NA     NA
-      609    NA    NA     NA
-      610    NA    NA     NA
-      611    NA    NA     NA
-      612    NA    NA     NA
-      613    NA    NA     NA
-      614    NA    NA     NA
-      615    NA    NA     NA
-      616    NA    NA     NA
-      617    NA    NA     NA
-      618    NA    NA     NA
-      619    NA    NA     NA
-      620    NA    NA     NA
-      621    NA    NA     NA
-      622    NA    NA     NA
-      623    NA    NA     NA
-      624    NA    NA     NA
-      625    NA    NA     NA
-      626    NA    NA     NA
-      627    NA    NA     NA
-      628    NA    NA     NA
-      629    NA    NA     NA
-      630    NA    NA     NA
-      631    NA    NA     NA
-      632    NA    NA     NA
-      633    NA    NA     NA
-      634    NA    NA     NA
-      635    NA    NA     NA
-      636    NA    NA     NA
-      637    NA    NA     NA
-      638    NA    NA     NA
-      639    NA    NA     NA
-      640    NA    NA     NA
-      641    NA    NA     NA
-      642    NA    NA     NA
-      643    NA    NA     NA
-      644    NA    NA     NA
-      645    NA    NA     NA
-      646    NA    NA     NA
-      647    NA    NA     NA
-      648    NA    NA     NA
-      649    NA    NA     NA
-      650    NA    NA     NA
-      651    NA    NA     NA
-      652    NA    NA     NA
-      653    NA    NA     NA
-      654    NA    NA     NA
-      655    NA    NA     NA
-      656    NA    NA     NA
-      657    NA    NA     NA
-      658    NA    NA     NA
-      659    NA    NA     NA
-      660    NA    NA     NA
-      661    NA    NA     NA
-      662    NA    NA     NA
-      663    NA    NA     NA
-      664    NA    NA     NA
-      665    NA    NA     NA
-      666    NA    NA     NA
-      667    NA    NA     NA
-      668    NA    NA     NA
-      669    NA    NA     NA
-      670    NA    NA     NA
-      671    NA    NA     NA
-      672    NA    NA     NA
-      673    NA    NA     NA
-      674    NA    NA     NA
-      675    NA    NA     NA
-      676    NA    NA     NA
-      677    NA    NA     NA
-      678    NA    NA     NA
-      679    NA    NA     NA
-      680    NA    NA     NA
-      681    NA    NA     NA
-      682    NA    NA     NA
-      683    NA    NA     NA
-      684    NA    NA     NA
-      685    NA    NA     NA
-      686    NA    NA     NA
-      687    NA    NA     NA
-      688    NA    NA     NA
-      689    NA    NA     NA
-      690    NA    NA     NA
-      691    NA    NA     NA
-      692    NA    NA     NA
-      693    NA    NA     NA
-      694    NA    NA     NA
-      695    NA    NA     NA
-      696    NA    NA     NA
-      697    NA    NA     NA
-      698    NA    NA     NA
-      699    NA    NA     NA
-      700    NA    NA     NA
-      701    NA    NA     NA
-      702    NA    NA     NA
-      703    NA    NA     NA
-      704    NA    NA     NA
-      705    NA    NA     NA
-      706    NA    NA     NA
-      707    NA    NA     NA
-      708    NA    NA     NA
-      709    NA    NA     NA
-      710    NA    NA     NA
-      711    NA    NA     NA
-      712    NA    NA     NA
-      713    NA    NA     NA
-      714    NA    NA     NA
-      715    NA    NA     NA
-      716    NA    NA     NA
-      717    NA    NA     NA
-      718    NA    NA     NA
-      719    NA    NA     NA
-      720    NA    NA     NA
-      721    NA    NA     NA
-      722    NA    NA     NA
-      723    NA    NA     NA
-      724    NA    NA     NA
-      725    NA    NA     NA
-      726    NA    NA     NA
-      727    NA    NA     NA
-      728    NA    NA     NA
-      729    NA    NA     NA
-      730    NA    NA     NA
-      731    NA    NA     NA
-      732    NA    NA     NA
-      733    NA    NA     NA
-      734    NA    NA     NA
-      735    NA    NA     NA
-      736    NA    NA     NA
-      737    NA    NA     NA
-      738    NA    NA     NA
-      739    NA    NA     NA
-      740    NA    NA     NA
-      741    NA    NA     NA
-      742    NA    NA     NA
-      743    NA    NA     NA
-      744    NA    NA     NA
-      745    NA    NA     NA
-      746    NA    NA     NA
-      747    NA    NA     NA
-      748    NA    NA     NA
-      749    NA    NA     NA
-      750    NA    NA     NA
-      751    NA    NA     NA
-      752    NA    NA     NA
-      753    NA    NA     NA
-      754    NA    NA     NA
-      755    NA    NA     NA
-      756    NA    NA     NA
-      757    NA    NA     NA
-      758    NA    NA     NA
-      759    NA    NA     NA
-      760    NA    NA     NA
-      761    NA    NA     NA
-      762    NA    NA     NA
-      763    NA    NA     NA
-      764    NA    NA     NA
-      765    NA    NA     NA
-      766    NA    NA     NA
-      767    NA    NA     NA
-      768    NA    NA     NA
-      769    NA    NA     NA
-      770    NA    NA     NA
-      771    NA    NA     NA
-      772    NA    NA     NA
-      773    NA    NA     NA
-      774    NA    NA     NA
-      775    NA    NA     NA
-      776    NA    NA     NA
-      777    NA    NA     NA
-      778    NA    NA     NA
-      779    NA    NA     NA
-      780    NA    NA     NA
-      781    NA    NA     NA
-      782    NA    NA     NA
-      783    NA    NA     NA
-      784    NA    NA     NA
-      785    NA    NA     NA
-      786    NA    NA     NA
-      787    NA    NA     NA
-      788    NA    NA     NA
-      789    NA    NA     NA
-      790    NA    NA     NA
-      791    NA    NA     NA
-      792    NA    NA     NA
-      793    NA    NA     NA
-      794    NA    NA     NA
-      795    NA    NA     NA
-      796    NA    NA     NA
-      797    NA    NA     NA
-      798    NA    NA     NA
-      799    NA    NA     NA
-      800    NA    NA     NA
-      801    NA    NA     NA
-      802    NA    NA     NA
-      803    NA    NA     NA
-      804    NA    NA     NA
-      805    NA    NA     NA
-      806    NA    NA     NA
-      807    NA    NA     NA
-      808    NA    NA     NA
-      809    NA    NA     NA
-      810    NA    NA     NA
-      811    NA    NA     NA
-      812    NA    NA     NA
-      813    NA    NA     NA
-      814    NA    NA     NA
-      815    NA    NA     NA
-      816    NA    NA     NA
-      817    NA    NA     NA
-      818    NA    NA     NA
-      819    NA    NA     NA
-      820    NA    NA     NA
-      821    NA    NA     NA
-      822    NA    NA     NA
-      823    NA    NA     NA
-      824    NA    NA     NA
-      825    NA    NA     NA
-      826    NA    NA     NA
-      827    NA    NA     NA
-      828    NA    NA     NA
-      829    NA    NA     NA
-      830    NA    NA     NA
-      831    NA    NA     NA
-      832    NA    NA     NA
-      833    NA    NA     NA
-      834    NA    NA     NA
-      835    NA    NA     NA
-      836    NA    NA     NA
-      837    NA    NA     NA
-      838    NA    NA     NA
-      839    NA    NA     NA
-      840    NA    NA     NA
-      841    NA    NA     NA
-      842    NA    NA     NA
-      843    NA    NA     NA
-      844    NA    NA     NA
-      845    NA    NA     NA
-      846    NA    NA     NA
-      847    NA    NA     NA
-      848    NA    NA     NA
-      849    NA    NA     NA
-      850    NA    NA     NA
-      851    NA    NA     NA
-      852    NA    NA     NA
-      853    NA    NA     NA
-      854    NA    NA     NA
-      855    NA    NA     NA
-      856    NA    NA     NA
-      857    NA    NA     NA
-      858    NA    NA     NA
-      859    NA    NA     NA
-      860    NA    NA     NA
-      861    NA    NA     NA
-      862    NA    NA     NA
-      863    NA    NA     NA
-      864    NA    NA     NA
-      865    NA    NA     NA
-      866    NA    NA     NA
-      867    NA    NA     NA
-      868    NA    NA     NA
-      869    NA    NA     NA
-      870    NA    NA     NA
-      871    NA    NA     NA
-      872    NA    NA     NA
-      873    NA    NA     NA
-      874    NA    NA     NA
-      875    NA    NA     NA
-      876    NA    NA     NA
-      877    NA    NA     NA
-      878    NA    NA     NA
-      879    NA    NA     NA
-      880    NA    NA     NA
-      881    NA    NA     NA
-      882    NA    NA     NA
-      883    NA    NA     NA
-      884    NA    NA     NA
-      885    NA    NA     NA
-      886    NA    NA     NA
-      887    NA    NA     NA
-      888    NA    NA     NA
-      889    NA    NA     NA
-      890    NA    NA     NA
-      891    NA    NA     NA
-      892    NA    NA     NA
-      893    NA    NA     NA
-      894    NA    NA     NA
-      895    NA    NA     NA
-      896    NA    NA     NA
-      897    NA    NA     NA
-      898    NA    NA     NA
-      899    NA    NA     NA
-      900    NA    NA     NA
-      901    NA    NA     NA
-      902    NA    NA     NA
-      903    NA    NA     NA
-      904    NA    NA     NA
-      905    NA    NA     NA
-      906    NA    NA     NA
-      907    NA    NA     NA
-      908    NA    NA     NA
-      909    NA    NA     NA
-      910    NA    NA     NA
-      911    NA    NA     NA
-      912    NA    NA     NA
-      913    NA    NA     NA
-      914    NA    NA     NA
-      915    NA    NA     NA
-      916    NA    NA     NA
-      917    NA    NA     NA
-      918    NA    NA     NA
-      919    NA    NA     NA
-      920    NA    NA     NA
-      921    NA    NA     NA
-      922    NA    NA     NA
-      923    NA    NA     NA
-      924    NA    NA     NA
-      925    NA    NA     NA
-      926    NA    NA     NA
-      927    NA    NA     NA
-      928    NA    NA     NA
-      929    NA    NA     NA
-      930    NA    NA     NA
-      931    NA    NA     NA
-      932    NA    NA     NA
-      933    NA    NA     NA
-      934    NA    NA     NA
-      935    NA    NA     NA
-      936    NA    NA     NA
-      937    NA    NA     NA
-      938    NA    NA     NA
-      939    NA    NA     NA
-      940    NA    NA     NA
-      941    NA    NA     NA
-      942    NA    NA     NA
-      943    NA    NA     NA
-      944    NA    NA     NA
-      945    NA    NA     NA
-      946    NA    NA     NA
-      947    NA    NA     NA
-      948    NA    NA     NA
-      949    NA    NA     NA
-      950    NA    NA     NA
-      951    NA    NA     NA
-      952    NA    NA     NA
-      953    NA    NA     NA
-      954    NA    NA     NA
-      955    NA    NA     NA
-      956    NA    NA     NA
-      957    NA    NA     NA
-      958    NA    NA     NA
-      959    NA    NA     NA
-      960    NA    NA     NA
+      1      NA     1      1
+      2      NA     1      1
+      3      NA     1      1
+      4      NA     1      1
+      5      NA     1      1
+      6      NA     1      1
+      7      NA     1      1
+      8      NA     1      1
+      9      NA     1      1
+      10     NA     1      1
+      11     NA     1      1
+      12     NA     1      1
+      13     NA     1      1
+      14     NA     1      1
+      15     NA     1      1
+      16     NA     1      1
+      17     NA     1      1
+      18     NA     1      1
+      19     NA     1      1
+      20     NA     1      1
+      21     NA     1      1
+      22     NA     1      1
+      23     NA     1      1
+      24     NA     1      1
+      25     NA     1      1
+      26     NA     1      1
+      27     NA     1      1
+      28     NA     1      1
+      29     NA     1      1
+      30     NA     1      1
+      31     NA     1      1
+      32     NA     1      1
+      33     NA     1      1
+      34     NA     1      1
+      35     NA     1      1
+      36     NA     1      1
+      37     NA     1      1
+      38     NA     1      1
+      39     NA     1      1
+      40     NA     1      1
+      41     NA     1      1
+      42     NA     1      1
+      43     NA     1      1
+      44     NA     1      1
+      45     NA     1      1
+      46     NA     1      1
+      47     NA     1      1
+      48     NA     1      1
+      49     NA     1      1
+      50     NA     1      1
+      51     NA     1      1
+      52     NA     1      1
+      53     NA     1      1
+      54     NA     1      1
+      55     NA     1      1
+      56     NA     1      1
+      57     NA     1      1
+      58     NA     1      1
+      59     NA     1      1
+      60     NA     1      1
+      61     NA     1      1
+      62     NA     1      1
+      63     NA     1      1
+      64     NA     1      1
+      65     NA     1      1
+      66     NA     1      1
+      67     NA     1      1
+      68     NA     1      1
+      69     NA     1      1
+      70     NA     1      1
+      71     NA     1      1
+      72     NA     1      1
+      73     NA     1      1
+      74     NA     1      1
+      75     NA     1      1
+      76     NA     1      1
+      77     NA     1      1
+      78     NA     1      1
+      79     NA     1      1
+      80     NA     1      1
+      81     NA     1      1
+      82     NA     1      1
+      83     NA     1      1
+      84     NA     1      1
+      85     NA     1      1
+      86     NA     1      1
+      87     NA     1      1
+      88     NA     1      1
+      89     NA     1      1
+      90     NA     1      1
+      91     NA     1      1
+      92     NA     1      1
+      93     NA     1      1
+      94     NA     1      1
+      95     NA     1      1
+      96     NA     1      1
+      97     NA     1      1
+      98     NA     1      1
+      99     NA     1      1
+      100    NA     1      1
+      101    NA     1      1
+      102    NA     1      1
+      103    NA     1      1
+      104    NA     1      1
+      105    NA     1      1
+      106    NA     1      1
+      107    NA     1      1
+      108    NA     1      1
+      109    NA     1      1
+      110    NA     1      1
+      111    NA     1      1
+      112    NA     1      1
+      113    NA     1      1
+      114    NA     1      1
+      115    NA     1      1
+      116    NA     1      1
+      117    NA     1      1
+      118    NA     1      1
+      119    NA     1      1
+      120    NA     1      1
+      121    NA     1      1
+      122    NA     1      1
+      123    NA     1      1
+      124    NA     1      1
+      125    NA     1      1
+      126    NA     1      1
+      127    NA     1      1
+      128    NA     1      1
+      129    NA     1      1
+      130    NA     1      1
+      131    NA     1      1
+      132    NA     1      1
+      133    NA     1      1
+      134    NA     1      1
+      135    NA     1      1
+      136    NA     1      1
+      137    NA     1      1
+      138    NA     1      1
+      139    NA     1      1
+      140    NA     1      1
+      141    NA     1      1
+      142    NA     1      1
+      143    NA     1      1
+      144    NA     1      1
+      145    NA     1      1
+      146    NA     1      1
+      147    NA     1      1
+      148    NA     1      1
+      149    NA     1      1
+      150    NA     1      1
+      151    NA     1      1
+      152    NA     1      1
+      153    NA     1      1
+      154    NA     1      1
+      155    NA     1      1
+      156    NA     1      1
+      157    NA     1      1
+      158    NA     1      1
+      159    NA     1      1
+      160    NA     1      1
+      161    NA     1      1
+      162    NA     1      1
+      163    NA     1      1
+      164    NA     1      1
+      165    NA     1      1
+      166    NA     1      1
+      167    NA     1      1
+      168    NA     1      1
+      169    NA     1      1
+      170    NA     1      1
+      171    NA     1      1
+      172    NA     1      1
+      173    NA     1      1
+      174    NA     1      1
+      175    NA     1      1
+      176    NA     1      1
+      177    NA     1      1
+      178    NA     1      1
+      179    NA     1      1
+      180    NA     1      1
+      181    NA     1      1
+      182    NA     1      1
+      183    NA     1      1
+      184    NA     1      1
+      185    NA     1      1
+      186    NA     1      1
+      187    NA     1      1
+      188    NA     1      1
+      189    NA     1      1
+      190    NA     1      1
+      191    NA     1      1
+      192    NA     1      1
+      193    NA     1      1
+      194    NA     1      1
+      195    NA     1      1
+      196    NA     1      1
+      197    NA     1      1
+      198    NA     1      1
+      199    NA     1      1
+      200    NA     1      1
+      201    NA     1      1
+      202    NA     1      1
+      203    NA     1      1
+      204    NA     1      1
+      205    NA     1      1
+      206    NA     1      1
+      207    NA     1      1
+      208    NA     1      1
+      209    NA     1      1
+      210    NA     1      1
+      211    NA     1      1
+      212    NA     1      1
+      213    NA     1      1
+      214    NA     1      1
+      215    NA     1      1
+      216    NA     1      1
+      217    NA     1      1
+      218    NA     1      1
+      219    NA     1      1
+      220    NA     1      1
+      221    NA     1      1
+      222    NA     1      1
+      223    NA     1      1
+      224    NA     1      1
+      225    NA     1      1
+      226    NA     1      1
+      227    NA     1      1
+      228    NA     1      1
+      229    NA     1      1
+      230    NA     1      1
+      231    NA     1      1
+      232    NA     1      1
+      233    NA     1      1
+      234    NA     1      1
+      235    NA     1      1
+      236    NA     1      1
+      237    NA     1      1
+      238    NA     1      1
+      239    NA     1      1
+      240    NA     1      1
+      241    NA     1      1
+      242    NA     1      1
+      243    NA     1      1
+      244    NA     1      1
+      245    NA     1      1
+      246    NA     1      1
+      247    NA     1      1
+      248    NA     1      1
+      249    NA     1      1
+      250    NA     1      1
+      251    NA     1      1
+      252    NA     1      1
+      253    NA     1      1
+      254    NA     1      1
+      255    NA     1      1
+      256    NA     1      1
+      257    NA     1      1
+      258    NA     1      1
+      259    NA     1      1
+      260    NA     1      1
+      261    NA     1      1
+      262    NA     1      1
+      263    NA     1      1
+      264    NA     1      1
+      265    NA     1      1
+      266    NA     1      1
+      267    NA     1      1
+      268    NA     1      1
+      269    NA     1      1
+      270    NA     1      1
+      271    NA     1      1
+      272    NA     1      1
+      273    NA     1      1
+      274    NA     1      1
+      275    NA     1      1
+      276    NA     1      1
+      277    NA     1      1
+      278    NA     1      1
+      279    NA     1      1
+      280    NA     1      1
+      281    NA     1      1
+      282    NA     1      1
+      283    NA     1      1
+      284    NA     1      1
+      285    NA     1      1
+      286    NA     1      1
+      287    NA     1      1
+      288    NA     1      1
+      289    NA     1      1
+      290    NA     1      1
+      291    NA     1      1
+      292    NA     1      1
+      293    NA     1      1
+      294    NA     1      1
+      295    NA     1      1
+      296    NA     1      1
+      297    NA     1      1
+      298    NA     1      1
+      299    NA     1      1
+      300    NA     1      1
+      301    NA     1      1
+      302    NA     1      1
+      303    NA     1      1
+      304    NA     1      1
+      305    NA     1      1
+      306    NA     1      1
+      307    NA     1      1
+      308    NA     1      1
+      309    NA     1      1
+      310    NA     1      1
+      311    NA     1      1
+      312    NA     1      1
+      313    NA     1      1
+      314    NA     1      1
+      315    NA     1      1
+      316    NA     1      1
+      317    NA     1      1
+      318    NA     1      1
+      319    NA     1      1
+      320    NA     1      1
+      321    NA     1      1
+      322    NA     1      1
+      323    NA     1      1
+      324    NA     1      1
+      325    NA     1      1
+      326    NA     1      1
+      327    NA     1      1
+      328    NA     1      1
+      329    NA     1      1
+      330    NA     1      1
+      331    NA     1      1
+      332    NA     1      1
+      333    NA     1      1
+      334    NA     1      1
+      335    NA     1      1
+      336    NA     1      1
+      337    NA     1      1
+      338    NA     1      1
+      339    NA     1      1
+      340    NA     1      1
+      341    NA     1      1
+      342    NA     1      1
+      343    NA     1      1
+      344    NA     1      1
+      345    NA     1      1
+      346    NA     1      1
+      347    NA     1      1
+      348    NA     1      1
+      349    NA     1      1
+      350    NA     1      1
+      351    NA     1      1
+      352    NA     1      1
+      353    NA     1      1
+      354    NA     1      1
+      355    NA     1      1
+      356    NA     1      1
+      357    NA     1      1
+      358    NA     1      1
+      359    NA     1      1
+      360    NA     1      1
+      361    NA     1      1
+      362    NA     1      1
+      363    NA     1      1
+      364    NA     1      1
+      365    NA     1      1
+      366    NA     1      1
+      367    NA     1      1
+      368    NA     1      1
+      369    NA     1      1
+      370    NA     1      1
+      371    NA     1      1
+      372    NA     1      1
+      373    NA     1      1
+      374    NA     1      1
+      375    NA     1      1
+      376    NA     1      1
+      377    NA     1      1
+      378    NA     1      1
+      379    NA     1      1
+      380    NA     1      1
+      381    NA     1      1
+      382    NA     1      1
+      383    NA     1      1
+      384    NA     1      1
+      385    NA     1      1
+      386    NA     1      1
+      387    NA     1      1
+      388    NA     1      1
+      389    NA     1      1
+      390    NA     1      1
+      391    NA     1      1
+      392    NA     1      1
+      393    NA     1      1
+      394    NA     1      1
+      395    NA     1      1
+      396    NA     1      1
+      397    NA     1      1
+      398    NA     1      1
+      399    NA     1      1
+      400    NA     1      1
+      401    NA     1      1
+      402    NA     1      1
+      403    NA     1      1
+      404    NA     1      1
+      405    NA     1      1
+      406    NA     1      1
+      407    NA     1      1
+      408    NA     1      1
+      409    NA     1      1
+      410    NA     1      1
+      411    NA     1      1
+      412    NA     1      1
+      413    NA     1      1
+      414    NA     1      1
+      415    NA     1      1
+      416    NA     1      1
+      417    NA     1      1
+      418    NA     1      1
+      419    NA     1      1
+      420    NA     1      1
+      421    NA     1      1
+      422    NA     1      1
+      423    NA     1      1
+      424    NA     1      1
+      425    NA     1      1
+      426    NA     1      1
+      427    NA     1      1
+      428    NA     1      1
+      429    NA     1      1
+      430    NA     1      1
+      431    NA     1      1
+      432    NA     1      1
+      433    NA     1      1
+      434    NA     1      1
+      435    NA     1      1
+      436    NA     1      1
+      437    NA     1      1
+      438    NA     1      1
+      439    NA     1      1
+      440    NA     1      1
+      441    NA     1      1
+      442    NA     1      1
+      443    NA     1      1
+      444    NA     1      1
+      445    NA     1      1
+      446    NA     1      1
+      447    NA     1      1
+      448    NA     1      1
+      449    NA     1      1
+      450    NA     1      1
+      451    NA     1      1
+      452    NA     1      1
+      453    NA     1      1
+      454    NA     1      1
+      455    NA     1      1
+      456    NA     1      1
+      457    NA     1      1
+      458    NA     1      1
+      459    NA     1      1
+      460    NA     1      1
+      461    NA     1      1
+      462    NA     1      1
+      463    NA     1      1
+      464    NA     1      1
+      465    NA     1      1
+      466    NA     1      1
+      467    NA     1      1
+      468    NA     1      1
+      469    NA     1      1
+      470    NA     1      1
+      471    NA     1      1
+      472    NA     1      1
+      473    NA     1      1
+      474    NA     1      1
+      475    NA     1      1
+      476    NA     1      1
+      477    NA     1      1
+      478    NA     1      1
+      479    NA     1      1
+      480    NA     1      1
+      481    NA     1      1
+      482    NA     1      1
+      483    NA     1      1
+      484    NA     1      1
+      485    NA     1      1
+      486    NA     1      1
+      487    NA     1      1
+      488    NA     1      1
+      489    NA     1      1
+      490    NA     1      1
+      491    NA     1      1
+      492    NA     1      1
+      493    NA     1      1
+      494    NA     1      1
+      495    NA     1      1
+      496    NA     1      1
+      497    NA     1      1
+      498    NA     1      1
+      499    NA     1      1
+      500    NA     1      1
+      501    NA     1      1
+      502    NA     1      1
+      503    NA     1      1
+      504    NA     1      1
+      505    NA     1      1
+      506    NA     1      1
+      507    NA     1      1
+      508    NA     1      1
+      509    NA     1      1
+      510    NA     1      1
+      511    NA     1      1
+      512    NA     1      1
+      513    NA     1      1
+      514    NA     1      1
+      515    NA     1      1
+      516    NA     1      1
+      517    NA     1      1
+      518    NA     1      1
+      519    NA     1      1
+      520    NA     1      1
+      521    NA     1      1
+      522    NA     1      1
+      523    NA     1      1
+      524    NA     1      1
+      525    NA     1      1
+      526    NA     1      1
+      527    NA     1      1
+      528    NA     1      1
+      529    NA     1      1
+      530    NA     1      1
+      531    NA     1      1
+      532    NA     1      1
+      533    NA     1      1
+      534    NA     1      1
+      535    NA     1      1
+      536    NA     1      1
+      537    NA     1      1
+      538    NA     1      1
+      539    NA     1      1
+      540    NA     1      1
+      541    NA     1      1
+      542    NA     1      1
+      543    NA     1      1
+      544    NA     1      1
+      545    NA     1      1
+      546    NA     1      1
+      547    NA     1      1
+      548    NA     1      1
+      549    NA     1      1
+      550    NA     1      1
+      551    NA     1      1
+      552    NA     1      1
+      553    NA     1      1
+      554    NA     1      1
+      555    NA     1      1
+      556    NA     1      1
+      557    NA     1      1
+      558    NA     1      1
+      559    NA     1      1
+      560    NA     1      1
+      561    NA     1      1
+      562    NA     1      1
+      563    NA     1      1
+      564    NA     1      1
+      565    NA     1      1
+      566    NA     1      1
+      567    NA     1      1
+      568    NA     1      1
+      569    NA     1      1
+      570    NA     1      1
+      571    NA     1      1
+      572    NA     1      1
+      573    NA     1      1
+      574    NA     1      1
+      575    NA     1      1
+      576    NA     1      1
+      577    NA     1      1
+      578    NA     1      1
+      579    NA     1      1
+      580    NA     1      1
+      581    NA     1      1
+      582    NA     1      1
+      583    NA     1      1
+      584    NA     1      1
+      585    NA     1      1
+      586    NA     1      1
+      587    NA     1      1
+      588    NA     1      1
+      589    NA     1      1
+      590    NA     1      1
+      591    NA     1      1
+      592    NA     1      1
+      593    NA     1      1
+      594    NA     1      1
+      595    NA     1      1
+      596    NA     1      1
+      597    NA     1      1
+      598    NA     1      1
+      599    NA     1      1
+      600    NA     1      1
+      601    NA     1      1
+      602    NA     1      1
+      603    NA     1      1
+      604    NA     1      1
+      605    NA     1      1
+      606    NA     1      1
+      607    NA     1      1
+      608    NA     1      1
+      609    NA     1      1
+      610    NA     1      1
+      611    NA     1      1
+      612    NA     1      1
+      613    NA     1      1
+      614    NA     1      1
+      615    NA     1      1
+      616    NA     1      1
+      617    NA     1      1
+      618    NA     1      1
+      619    NA     1      1
+      620    NA     1      1
+      621    NA     1      1
+      622    NA     1      1
+      623    NA     1      1
+      624    NA     1      1
+      625    NA     1      1
+      626    NA     1      1
+      627    NA     1      1
+      628    NA     1      1
+      629    NA     1      1
+      630    NA     1      1
+      631    NA     1      1
+      632    NA     1      1
+      633    NA     1      1
+      634    NA     1      1
+      635    NA     1      1
+      636    NA     1      1
+      637    NA     1      1
+      638    NA     1      1
+      639    NA     1      1
+      640    NA     1      1
+      641    NA     1      1
+      642    NA     1      1
+      643    NA     1      1
+      644    NA     1      1
+      645    NA     1      1
+      646    NA     1      1
+      647    NA     1      1
+      648    NA     1      1
+      649    NA     1      1
+      650    NA     1      1
+      651    NA     1      1
+      652    NA     1      1
+      653    NA     1      1
+      654    NA     1      1
+      655    NA     1      1
+      656    NA     1      1
+      657    NA     1      1
+      658    NA     1      1
+      659    NA     1      1
+      660    NA     1      1
+      661    NA     1      1
+      662    NA     1      1
+      663    NA     1      1
+      664    NA     1      1
+      665    NA     1      1
+      666    NA     1      1
+      667    NA     1      1
+      668    NA     1      1
+      669    NA     1      1
+      670    NA     1      1
+      671    NA     1      1
+      672    NA     1      1
+      673    NA     1      1
+      674    NA     1      1
+      675    NA     1      1
+      676    NA     1      1
+      677    NA     1      1
+      678    NA     1      1
+      679    NA     1      1
+      680    NA     1      1
+      681    NA     1      1
+      682    NA     1      1
+      683    NA     1      1
+      684    NA     1      1
+      685    NA     1      1
+      686    NA     1      1
+      687    NA     1      1
+      688    NA     1      1
+      689    NA     1      1
+      690    NA     1      1
+      691    NA     1      1
+      692    NA     1      1
+      693    NA     1      1
+      694    NA     1      1
+      695    NA     1      1
+      696    NA     1      1
+      697    NA     1      1
+      698    NA     1      1
+      699    NA     1      1
+      700    NA     1      1
+      701    NA     1      1
+      702    NA     1      1
+      703    NA     1      1
+      704    NA     1      1
+      705    NA     1      1
+      706    NA     1      1
+      707    NA     1      1
+      708    NA     1      1
+      709    NA     1      1
+      710    NA     1      1
+      711    NA     1      1
+      712    NA     1      1
+      713    NA     1      1
+      714    NA     1      1
+      715    NA     1      1
+      716    NA     1      1
+      717    NA     1      1
+      718    NA     1      1
+      719    NA     1      1
+      720    NA     1      1
+      721    NA     1      1
+      722    NA     1      1
+      723    NA     1      1
+      724    NA     1      1
+      725    NA     1      1
+      726    NA     1      1
+      727    NA     1      1
+      728    NA     1      1
+      729    NA     1      1
+      730    NA     1      1
+      731    NA     1      1
+      732    NA     1      1
+      733    NA     1      1
+      734    NA     1      1
+      735    NA     1      1
+      736    NA     1      1
+      737    NA     1      1
+      738    NA     1      1
+      739    NA     1      1
+      740    NA     1      1
+      741    NA     1      1
+      742    NA     1      1
+      743    NA     1      1
+      744    NA     1      1
+      745    NA     1      1
+      746    NA     1      1
+      747    NA     1      1
+      748    NA     1      1
+      749    NA     1      1
+      750    NA     1      1
+      751    NA     1      1
+      752    NA     1      1
+      753    NA     1      1
+      754    NA     1      1
+      755    NA     1      1
+      756    NA     1      1
+      757    NA     1      1
+      758    NA     1      1
+      759    NA     1      1
+      760    NA     1      1
+      761    NA     1      1
+      762    NA     1      1
+      763    NA     1      1
+      764    NA     1      1
+      765    NA     1      1
+      766    NA     1      1
+      767    NA     1      1
+      768    NA     1      1
+      769    NA     1      1
+      770    NA     1      1
+      771    NA     1      1
+      772    NA     1      1
+      773    NA     1      1
+      774    NA     1      1
+      775    NA     1      1
+      776    NA     1      1
+      777    NA     1      1
+      778    NA     1      1
+      779    NA     1      1
+      780    NA     1      1
+      781    NA     1      1
+      782    NA     1      1
+      783    NA     1      1
+      784    NA     1      1
+      785    NA     1      1
+      786    NA     1      1
+      787    NA     1      1
+      788    NA     1      1
+      789    NA     1      1
+      790    NA     1      1
+      791    NA     1      1
+      792    NA     1      1
+      793    NA     1      1
+      794    NA     1      1
+      795    NA     1      1
+      796    NA     1      1
+      797    NA     1      1
+      798    NA     1      1
+      799    NA     1      1
+      800    NA     1      1
+      801    NA     1      1
+      802    NA     1      1
+      803    NA     1      1
+      804    NA     1      1
+      805    NA     1      1
+      806    NA     1      1
+      807    NA     1      1
+      808    NA     1      1
+      809    NA     1      1
+      810    NA     1      1
+      811    NA     1      1
+      812    NA     1      1
+      813    NA     1      1
+      814    NA     1      1
+      815    NA     1      1
+      816    NA     1      1
+      817    NA     1      1
+      818    NA     1      1
+      819    NA     1      1
+      820    NA     1      1
+      821    NA     1      1
+      822    NA     1      1
+      823    NA     1      1
+      824    NA     1      1
+      825    NA     1      1
+      826    NA     1      1
+      827    NA     1      1
+      828    NA     1      1
+      829    NA     1      1
+      830    NA     1      1
+      831    NA     1      1
+      832    NA     1      1
+      833    NA     1      1
+      834    NA     1      1
+      835    NA     1      1
+      836    NA     1      1
+      837    NA     1      1
+      838    NA     1      1
+      839    NA     1      1
+      840    NA     1      1
+      841    NA     1      1
+      842    NA     1      1
+      843    NA     1      1
+      844    NA     1      1
+      845    NA     1      1
+      846    NA     1      1
+      847    NA     1      1
+      848    NA     1      1
+      849    NA     1      1
+      850    NA     1      1
+      851    NA     1      1
+      852    NA     1      1
+      853    NA     1      1
+      854    NA     1      1
+      855    NA     1      1
+      856    NA     1      1
+      857    NA     1      1
+      858    NA     1      1
+      859    NA     1      1
+      860    NA     1      1
+      861    NA     1      1
+      862    NA     1      1
+      863    NA     1      1
+      864    NA     1      1
+      865    NA     1      1
+      866    NA     1      1
+      867    NA     1      1
+      868    NA     1      1
+      869    NA     1      1
+      870    NA     1      1
+      871    NA     1      1
+      872    NA     1      1
+      873    NA     1      1
+      874    NA     1      1
+      875    NA     1      1
+      876    NA     1      1
+      877    NA     1      1
+      878    NA     1      1
+      879    NA     1      1
+      880    NA     1      1
+      881    NA     1      1
+      882    NA     1      1
+      883    NA     1      1
+      884    NA     1      1
+      885    NA     1      1
+      886    NA     1      1
+      887    NA     1      1
+      888    NA     1      1
+      889    NA     1      1
+      890    NA     1      1
+      891    NA     1      1
+      892    NA     1      1
+      893    NA     1      1
+      894    NA     1      1
+      895    NA     1      1
+      896    NA     1      1
+      897    NA     1      1
+      898    NA     1      1
+      899    NA     1      1
+      900    NA     1      1
+      901    NA     1      1
+      902    NA     1      1
+      903    NA     1      1
+      904    NA     1      1
+      905    NA     1      1
+      906    NA     1      1
+      907    NA     1      1
+      908    NA     1      1
+      909    NA     1      1
+      910    NA     1      1
+      911    NA     1      1
+      912    NA     1      1
+      913    NA     1      1
+      914    NA     1      1
+      915    NA     1      1
+      916    NA     1      1
+      917    NA     1      1
+      918    NA     1      1
+      919    NA     1      1
+      920    NA     1      1
+      921    NA     1      1
+      922    NA     1      1
+      923    NA     1      1
+      924    NA     1      1
+      925    NA     1      1
+      926    NA     1      1
+      927    NA     1      1
+      928    NA     1      1
+      929    NA     1      1
+      930    NA     1      1
+      931    NA     1      1
+      932    NA     1      1
+      933    NA     1      1
+      934    NA     1      1
+      935    NA     1      1
+      936    NA     1      1
+      937    NA     1      1
+      938    NA     1      1
+      939    NA     1      1
+      940    NA     1      1
+      941    NA     1      1
+      942    NA     1      1
+      943    NA     1      1
+      944    NA     1      1
+      945    NA     1      1
+      946    NA     1      1
+      947    NA     1      1
+      948    NA     1      1
+      949    NA     1      1
+      950    NA     1      1
+      951    NA     1      1
+      952    NA     1      1
+      953    NA     1      1
+      954    NA     1      1
+      955    NA     1      1
+      956    NA     1      1
+      957    NA     1      1
+      958    NA     1      1
+      959    NA     1      1
+      960    NA     1      1
       
       $mpg$d2$`gear:carb`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      19 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      20 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      21 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      22 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      23 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      24 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      25 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      26 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      27 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      28 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      29 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      30 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      31 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      32 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      33 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      34 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      35 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      36 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      37 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      38 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      39 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      40 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      41 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      42 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      43 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      44 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      45 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      8  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      9  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      10 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      11 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      12 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      13 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      14 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      15 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      16 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      17 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      18 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      19 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      20 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      21 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      22 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      23 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      24 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      25 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      26 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      27 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      28 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      29 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      30 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      31 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      32 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      33 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      34 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      35 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      36 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      37 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      38 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      39 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      40 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      41 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      42 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      43 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      44 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      45 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
-      31    NA     NA
-      32    NA     NA
-      33    NA     NA
-      34    NA     NA
-      35    NA     NA
-      36    NA     NA
-      37    NA     NA
-      38    NA     NA
-      39    NA     NA
-      40    NA     NA
-      41    NA     NA
-      42    NA     NA
-      43    NA     NA
-      44    NA     NA
-      45    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
+      31     1      1
+      32     1      1
+      33     1      1
+      34     1      1
+      35     1      1
+      36     1      1
+      37     1      1
+      38     1      1
+      39     1      1
+      40     1      1
+      41     1      1
+      42     1      1
+      43     1      1
+      44     1      1
+      45     1      1
       
       $mpg$d2$`gear:wt`
-            fill x  y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      19 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      20 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      21 #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      22 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      23 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      24 #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      25 #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      26 #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      27 #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      28 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      29 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      30 #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      31 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      32 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      33 #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      34 #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      35 #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      36 #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      37 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      38 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      39 #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      40 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      41 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      42 #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      43 #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      44 #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      45 #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      46 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      47 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      48 #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1    NA
-      49 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      50 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      51 #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1    NA
-      52 #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1    NA
-      53 #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1    NA
-      54 #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1    NA
-      55 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      56 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      57 #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1    NA
-      58 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      59 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      60 #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1    NA
-      61 #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1    NA
-      62 #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1    NA
-      63 #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1    NA
-      64 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      65 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      66 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1    NA
-      67 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      68 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      69 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1    NA
-      70 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1    NA
-      71 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1    NA
-      72 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1    NA
-      73 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      74 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      75 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1    NA
-      76 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      77 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      78 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1    NA
-      79 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1    NA
-      80 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1    NA
-      81 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1    NA
-      82 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      83 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      84 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1    NA
-      85 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      86 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      87 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1    NA
-      88 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1    NA
-      89 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1    NA
-      90 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1    NA
+         x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      8  3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      9  3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      10 1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      11 1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      12 1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      13 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      14 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      15 2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      16 3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      17 3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      18 3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      19 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      20 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      21 1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      22 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      23 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      24 2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      25 3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      26 3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      27 3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      28 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      29 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      30 1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      31 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      32 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      33 2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      34 3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      35 3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      36 3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      37 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      38 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      39 1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      40 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      41 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      42 2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      43 3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      44 3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      45 3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      46 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      47 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      48 1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1    NA
+      49 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      50 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      51 2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1    NA
+      52 3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1    NA
+      53 3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1    NA
+      54 3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1    NA
+      55 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      56 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      57 1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1    NA
+      58 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      59 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      60 2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1    NA
+      61 3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1    NA
+      62 3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1    NA
+      63 3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1    NA
+      64 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      65 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      66 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1    NA
+      67 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      68 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      69 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1    NA
+      70 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1    NA
+      71 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1    NA
+      72 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1    NA
+      73 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      74 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      75 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1    NA
+      76 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      77 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      78 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1    NA
+      79 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1    NA
+      80 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1    NA
+      81 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1    NA
+      82 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      83 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      84 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1    NA
+      85 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      86 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      87 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1    NA
+      88 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1    NA
+      89 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1    NA
+      90 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
-      31    NA     NA
-      32    NA     NA
-      33    NA     NA
-      34    NA     NA
-      35    NA     NA
-      36    NA     NA
-      37    NA     NA
-      38    NA     NA
-      39    NA     NA
-      40    NA     NA
-      41    NA     NA
-      42    NA     NA
-      43    NA     NA
-      44    NA     NA
-      45    NA     NA
-      46    NA     NA
-      47    NA     NA
-      48    NA     NA
-      49    NA     NA
-      50    NA     NA
-      51    NA     NA
-      52    NA     NA
-      53    NA     NA
-      54    NA     NA
-      55    NA     NA
-      56    NA     NA
-      57    NA     NA
-      58    NA     NA
-      59    NA     NA
-      60    NA     NA
-      61    NA     NA
-      62    NA     NA
-      63    NA     NA
-      64    NA     NA
-      65    NA     NA
-      66    NA     NA
-      67    NA     NA
-      68    NA     NA
-      69    NA     NA
-      70    NA     NA
-      71    NA     NA
-      72    NA     NA
-      73    NA     NA
-      74    NA     NA
-      75    NA     NA
-      76    NA     NA
-      77    NA     NA
-      78    NA     NA
-      79    NA     NA
-      80    NA     NA
-      81    NA     NA
-      82    NA     NA
-      83    NA     NA
-      84    NA     NA
-      85    NA     NA
-      86    NA     NA
-      87    NA     NA
-      88    NA     NA
-      89    NA     NA
-      90    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
+      31     1      1
+      32     1      1
+      33     1      1
+      34     1      1
+      35     1      1
+      36     1      1
+      37     1      1
+      38     1      1
+      39     1      1
+      40     1      1
+      41     1      1
+      42     1      1
+      43     1      1
+      44     1      1
+      45     1      1
+      46     1      1
+      47     1      1
+      48     1      1
+      49     1      1
+      50     1      1
+      51     1      1
+      52     1      1
+      53     1      1
+      54     1      1
+      55     1      1
+      56     1      1
+      57     1      1
+      58     1      1
+      59     1      1
+      60     1      1
+      61     1      1
+      62     1      1
+      63     1      1
+      64     1      1
+      65     1      1
+      66     1      1
+      67     1      1
+      68     1      1
+      69     1      1
+      70     1      1
+      71     1      1
+      72     1      1
+      73     1      1
+      74     1      1
+      75     1      1
+      76     1      1
+      77     1      1
+      78     1      1
+      79     1      1
+      80     1      1
+      81     1      1
+      82     1      1
+      83     1      1
+      84     1      1
+      85     1      1
+      86     1      1
+      87     1      1
+      88     1      1
+      89     1      1
+      90     1      1
       
       $mpg$d2$`carb:wt`
-             fill x  y PANEL group xmin xmax ymin ymax colour linewidth linetype
-      1   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      2   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      3   #D2D2D2 1  1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
-      4   #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1
-      5   #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1
-      6   #D2D2D2 2  1     1    11  1.5  2.5  0.5  1.5     NA       0.1        1
-      7   #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1
-      8   #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1
-      9   #D2D2D2 3  1     1    21  2.5  3.5  0.5  1.5     NA       0.1        1
-      10  #D2D2D2 4  1     1    31  3.5  4.5  0.5  1.5     NA       0.1        1
-      11  #D2D2D2 4  1     1    31  3.5  4.5  0.5  1.5     NA       0.1        1
-      12  #D2D2D2 4  1     1    31  3.5  4.5  0.5  1.5     NA       0.1        1
-      13  #D2D2D2 5  1     1    41  4.5  5.5  0.5  1.5     NA       0.1        1
-      14  #D2D2D2 5  1     1    41  4.5  5.5  0.5  1.5     NA       0.1        1
-      15  #D2D2D2 5  1     1    41  4.5  5.5  0.5  1.5     NA       0.1        1
-      16  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      17  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      18  #D2D2D2 1  2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1
-      19  #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1
-      20  #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1
-      21  #D2D2D2 2  2     1    12  1.5  2.5  1.5  2.5     NA       0.1        1
-      22  #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1
-      23  #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1
-      24  #D2D2D2 3  2     1    22  2.5  3.5  1.5  2.5     NA       0.1        1
-      25  #D2D2D2 4  2     1    32  3.5  4.5  1.5  2.5     NA       0.1        1
-      26  #D2D2D2 4  2     1    32  3.5  4.5  1.5  2.5     NA       0.1        1
-      27  #D2D2D2 4  2     1    32  3.5  4.5  1.5  2.5     NA       0.1        1
-      28  #D2D2D2 5  2     1    42  4.5  5.5  1.5  2.5     NA       0.1        1
-      29  #D2D2D2 5  2     1    42  4.5  5.5  1.5  2.5     NA       0.1        1
-      30  #D2D2D2 5  2     1    42  4.5  5.5  1.5  2.5     NA       0.1        1
-      31  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      32  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      33  #D2D2D2 1  3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1
-      34  #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1
-      35  #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1
-      36  #D2D2D2 2  3     1    13  1.5  2.5  2.5  3.5     NA       0.1        1
-      37  #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1
-      38  #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1
-      39  #D2D2D2 3  3     1    23  2.5  3.5  2.5  3.5     NA       0.1        1
-      40  #D2D2D2 4  3     1    33  3.5  4.5  2.5  3.5     NA       0.1        1
-      41  #D2D2D2 4  3     1    33  3.5  4.5  2.5  3.5     NA       0.1        1
-      42  #D2D2D2 4  3     1    33  3.5  4.5  2.5  3.5     NA       0.1        1
-      43  #D2D2D2 5  3     1    43  4.5  5.5  2.5  3.5     NA       0.1        1
-      44  #D2D2D2 5  3     1    43  4.5  5.5  2.5  3.5     NA       0.1        1
-      45  #D2D2D2 5  3     1    43  4.5  5.5  2.5  3.5     NA       0.1        1
-      46  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      47  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      48  #D2D2D2 1  4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1
-      49  #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1
-      50  #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1
-      51  #D2D2D2 2  4     1    14  1.5  2.5  3.5  4.5     NA       0.1        1
-      52  #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1
-      53  #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1
-      54  #D2D2D2 3  4     1    24  2.5  3.5  3.5  4.5     NA       0.1        1
-      55  #D2D2D2 4  4     1    34  3.5  4.5  3.5  4.5     NA       0.1        1
-      56  #D2D2D2 4  4     1    34  3.5  4.5  3.5  4.5     NA       0.1        1
-      57  #D2D2D2 4  4     1    34  3.5  4.5  3.5  4.5     NA       0.1        1
-      58  #D2D2D2 5  4     1    44  4.5  5.5  3.5  4.5     NA       0.1        1
-      59  #D2D2D2 5  4     1    44  4.5  5.5  3.5  4.5     NA       0.1        1
-      60  #D2D2D2 5  4     1    44  4.5  5.5  3.5  4.5     NA       0.1        1
-      61  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      62  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      63  #D2D2D2 1  5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1
-      64  #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1
-      65  #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1
-      66  #D2D2D2 2  5     1    15  1.5  2.5  4.5  5.5     NA       0.1        1
-      67  #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1
-      68  #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1
-      69  #D2D2D2 3  5     1    25  2.5  3.5  4.5  5.5     NA       0.1        1
-      70  #D2D2D2 4  5     1    35  3.5  4.5  4.5  5.5     NA       0.1        1
-      71  #D2D2D2 4  5     1    35  3.5  4.5  4.5  5.5     NA       0.1        1
-      72  #D2D2D2 4  5     1    35  3.5  4.5  4.5  5.5     NA       0.1        1
-      73  #D2D2D2 5  5     1    45  4.5  5.5  4.5  5.5     NA       0.1        1
-      74  #D2D2D2 5  5     1    45  4.5  5.5  4.5  5.5     NA       0.1        1
-      75  #D2D2D2 5  5     1    45  4.5  5.5  4.5  5.5     NA       0.1        1
-      76  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      77  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      78  #D2D2D2 1  6     1     6  0.5  1.5  5.5  6.5     NA       0.1        1
-      79  #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1
-      80  #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1
-      81  #D2D2D2 2  6     1    16  1.5  2.5  5.5  6.5     NA       0.1        1
-      82  #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1
-      83  #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1
-      84  #D2D2D2 3  6     1    26  2.5  3.5  5.5  6.5     NA       0.1        1
-      85  #D2D2D2 4  6     1    36  3.5  4.5  5.5  6.5     NA       0.1        1
-      86  #D2D2D2 4  6     1    36  3.5  4.5  5.5  6.5     NA       0.1        1
-      87  #D2D2D2 4  6     1    36  3.5  4.5  5.5  6.5     NA       0.1        1
-      88  #D2D2D2 5  6     1    46  4.5  5.5  5.5  6.5     NA       0.1        1
-      89  #D2D2D2 5  6     1    46  4.5  5.5  5.5  6.5     NA       0.1        1
-      90  #D2D2D2 5  6     1    46  4.5  5.5  5.5  6.5     NA       0.1        1
-      91  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      92  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      93  #D2D2D2 1  7     1     7  0.5  1.5  6.5  7.5     NA       0.1        1
-      94  #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1
-      95  #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1
-      96  #D2D2D2 2  7     1    17  1.5  2.5  6.5  7.5     NA       0.1        1
-      97  #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1
-      98  #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1
-      99  #D2D2D2 3  7     1    27  2.5  3.5  6.5  7.5     NA       0.1        1
-      100 #D2D2D2 4  7     1    37  3.5  4.5  6.5  7.5     NA       0.1        1
-      101 #D2D2D2 4  7     1    37  3.5  4.5  6.5  7.5     NA       0.1        1
-      102 #D2D2D2 4  7     1    37  3.5  4.5  6.5  7.5     NA       0.1        1
-      103 #D2D2D2 5  7     1    47  4.5  5.5  6.5  7.5     NA       0.1        1
-      104 #D2D2D2 5  7     1    47  4.5  5.5  6.5  7.5     NA       0.1        1
-      105 #D2D2D2 5  7     1    47  4.5  5.5  6.5  7.5     NA       0.1        1
-      106 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      107 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      108 #D2D2D2 1  8     1     8  0.5  1.5  7.5  8.5     NA       0.1        1
-      109 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1
-      110 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1
-      111 #D2D2D2 2  8     1    18  1.5  2.5  7.5  8.5     NA       0.1        1
-      112 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1
-      113 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1
-      114 #D2D2D2 3  8     1    28  2.5  3.5  7.5  8.5     NA       0.1        1
-      115 #D2D2D2 4  8     1    38  3.5  4.5  7.5  8.5     NA       0.1        1
-      116 #D2D2D2 4  8     1    38  3.5  4.5  7.5  8.5     NA       0.1        1
-      117 #D2D2D2 4  8     1    38  3.5  4.5  7.5  8.5     NA       0.1        1
-      118 #D2D2D2 5  8     1    48  4.5  5.5  7.5  8.5     NA       0.1        1
-      119 #D2D2D2 5  8     1    48  4.5  5.5  7.5  8.5     NA       0.1        1
-      120 #D2D2D2 5  8     1    48  4.5  5.5  7.5  8.5     NA       0.1        1
-      121 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      122 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      123 #D2D2D2 1  9     1     9  0.5  1.5  8.5  9.5     NA       0.1        1
-      124 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1
-      125 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1
-      126 #D2D2D2 2  9     1    19  1.5  2.5  8.5  9.5     NA       0.1        1
-      127 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1
-      128 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1
-      129 #D2D2D2 3  9     1    29  2.5  3.5  8.5  9.5     NA       0.1        1
-      130 #D2D2D2 4  9     1    39  3.5  4.5  8.5  9.5     NA       0.1        1
-      131 #D2D2D2 4  9     1    39  3.5  4.5  8.5  9.5     NA       0.1        1
-      132 #D2D2D2 4  9     1    39  3.5  4.5  8.5  9.5     NA       0.1        1
-      133 #D2D2D2 5  9     1    49  4.5  5.5  8.5  9.5     NA       0.1        1
-      134 #D2D2D2 5  9     1    49  4.5  5.5  8.5  9.5     NA       0.1        1
-      135 #D2D2D2 5  9     1    49  4.5  5.5  8.5  9.5     NA       0.1        1
-      136 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      137 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      138 #D2D2D2 1 10     1    10  0.5  1.5  9.5 10.5     NA       0.1        1
-      139 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1
-      140 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1
-      141 #D2D2D2 2 10     1    20  1.5  2.5  9.5 10.5     NA       0.1        1
-      142 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1
-      143 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1
-      144 #D2D2D2 3 10     1    30  2.5  3.5  9.5 10.5     NA       0.1        1
-      145 #D2D2D2 4 10     1    40  3.5  4.5  9.5 10.5     NA       0.1        1
-      146 #D2D2D2 4 10     1    40  3.5  4.5  9.5 10.5     NA       0.1        1
-      147 #D2D2D2 4 10     1    40  3.5  4.5  9.5 10.5     NA       0.1        1
-      148 #D2D2D2 5 10     1    50  4.5  5.5  9.5 10.5     NA       0.1        1
-      149 #D2D2D2 5 10     1    50  4.5  5.5  9.5 10.5     NA       0.1        1
-      150 #D2D2D2 5 10     1    50  4.5  5.5  9.5 10.5     NA       0.1        1
+          x  y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype
+      1   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      2   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      3   1  1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      4   2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1
+      5   2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1
+      6   2  1 #D2D2D2     1    11  1.5  2.5  0.5  1.5     NA       0.2        1
+      7   3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1
+      8   3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1
+      9   3  1 #D2D2D2     1    21  2.5  3.5  0.5  1.5     NA       0.2        1
+      10  4  1 #D2D2D2     1    31  3.5  4.5  0.5  1.5     NA       0.2        1
+      11  4  1 #D2D2D2     1    31  3.5  4.5  0.5  1.5     NA       0.2        1
+      12  4  1 #D2D2D2     1    31  3.5  4.5  0.5  1.5     NA       0.2        1
+      13  5  1 #D2D2D2     1    41  4.5  5.5  0.5  1.5     NA       0.2        1
+      14  5  1 #D2D2D2     1    41  4.5  5.5  0.5  1.5     NA       0.2        1
+      15  5  1 #D2D2D2     1    41  4.5  5.5  0.5  1.5     NA       0.2        1
+      16  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      17  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      18  1  2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      19  2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1
+      20  2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1
+      21  2  2 #D2D2D2     1    12  1.5  2.5  1.5  2.5     NA       0.2        1
+      22  3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1
+      23  3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1
+      24  3  2 #D2D2D2     1    22  2.5  3.5  1.5  2.5     NA       0.2        1
+      25  4  2 #D2D2D2     1    32  3.5  4.5  1.5  2.5     NA       0.2        1
+      26  4  2 #D2D2D2     1    32  3.5  4.5  1.5  2.5     NA       0.2        1
+      27  4  2 #D2D2D2     1    32  3.5  4.5  1.5  2.5     NA       0.2        1
+      28  5  2 #D2D2D2     1    42  4.5  5.5  1.5  2.5     NA       0.2        1
+      29  5  2 #D2D2D2     1    42  4.5  5.5  1.5  2.5     NA       0.2        1
+      30  5  2 #D2D2D2     1    42  4.5  5.5  1.5  2.5     NA       0.2        1
+      31  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      32  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      33  1  3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      34  2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1
+      35  2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1
+      36  2  3 #D2D2D2     1    13  1.5  2.5  2.5  3.5     NA       0.2        1
+      37  3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1
+      38  3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1
+      39  3  3 #D2D2D2     1    23  2.5  3.5  2.5  3.5     NA       0.2        1
+      40  4  3 #D2D2D2     1    33  3.5  4.5  2.5  3.5     NA       0.2        1
+      41  4  3 #D2D2D2     1    33  3.5  4.5  2.5  3.5     NA       0.2        1
+      42  4  3 #D2D2D2     1    33  3.5  4.5  2.5  3.5     NA       0.2        1
+      43  5  3 #D2D2D2     1    43  4.5  5.5  2.5  3.5     NA       0.2        1
+      44  5  3 #D2D2D2     1    43  4.5  5.5  2.5  3.5     NA       0.2        1
+      45  5  3 #D2D2D2     1    43  4.5  5.5  2.5  3.5     NA       0.2        1
+      46  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      47  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      48  1  4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1
+      49  2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1
+      50  2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1
+      51  2  4 #D2D2D2     1    14  1.5  2.5  3.5  4.5     NA       0.2        1
+      52  3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1
+      53  3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1
+      54  3  4 #D2D2D2     1    24  2.5  3.5  3.5  4.5     NA       0.2        1
+      55  4  4 #D2D2D2     1    34  3.5  4.5  3.5  4.5     NA       0.2        1
+      56  4  4 #D2D2D2     1    34  3.5  4.5  3.5  4.5     NA       0.2        1
+      57  4  4 #D2D2D2     1    34  3.5  4.5  3.5  4.5     NA       0.2        1
+      58  5  4 #D2D2D2     1    44  4.5  5.5  3.5  4.5     NA       0.2        1
+      59  5  4 #D2D2D2     1    44  4.5  5.5  3.5  4.5     NA       0.2        1
+      60  5  4 #D2D2D2     1    44  4.5  5.5  3.5  4.5     NA       0.2        1
+      61  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      62  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      63  1  5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1
+      64  2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1
+      65  2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1
+      66  2  5 #D2D2D2     1    15  1.5  2.5  4.5  5.5     NA       0.2        1
+      67  3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1
+      68  3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1
+      69  3  5 #D2D2D2     1    25  2.5  3.5  4.5  5.5     NA       0.2        1
+      70  4  5 #D2D2D2     1    35  3.5  4.5  4.5  5.5     NA       0.2        1
+      71  4  5 #D2D2D2     1    35  3.5  4.5  4.5  5.5     NA       0.2        1
+      72  4  5 #D2D2D2     1    35  3.5  4.5  4.5  5.5     NA       0.2        1
+      73  5  5 #D2D2D2     1    45  4.5  5.5  4.5  5.5     NA       0.2        1
+      74  5  5 #D2D2D2     1    45  4.5  5.5  4.5  5.5     NA       0.2        1
+      75  5  5 #D2D2D2     1    45  4.5  5.5  4.5  5.5     NA       0.2        1
+      76  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      77  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      78  1  6 #D2D2D2     1     6  0.5  1.5  5.5  6.5     NA       0.2        1
+      79  2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1
+      80  2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1
+      81  2  6 #D2D2D2     1    16  1.5  2.5  5.5  6.5     NA       0.2        1
+      82  3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1
+      83  3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1
+      84  3  6 #D2D2D2     1    26  2.5  3.5  5.5  6.5     NA       0.2        1
+      85  4  6 #D2D2D2     1    36  3.5  4.5  5.5  6.5     NA       0.2        1
+      86  4  6 #D2D2D2     1    36  3.5  4.5  5.5  6.5     NA       0.2        1
+      87  4  6 #D2D2D2     1    36  3.5  4.5  5.5  6.5     NA       0.2        1
+      88  5  6 #D2D2D2     1    46  4.5  5.5  5.5  6.5     NA       0.2        1
+      89  5  6 #D2D2D2     1    46  4.5  5.5  5.5  6.5     NA       0.2        1
+      90  5  6 #D2D2D2     1    46  4.5  5.5  5.5  6.5     NA       0.2        1
+      91  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      92  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      93  1  7 #D2D2D2     1     7  0.5  1.5  6.5  7.5     NA       0.2        1
+      94  2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1
+      95  2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1
+      96  2  7 #D2D2D2     1    17  1.5  2.5  6.5  7.5     NA       0.2        1
+      97  3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1
+      98  3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1
+      99  3  7 #D2D2D2     1    27  2.5  3.5  6.5  7.5     NA       0.2        1
+      100 4  7 #D2D2D2     1    37  3.5  4.5  6.5  7.5     NA       0.2        1
+      101 4  7 #D2D2D2     1    37  3.5  4.5  6.5  7.5     NA       0.2        1
+      102 4  7 #D2D2D2     1    37  3.5  4.5  6.5  7.5     NA       0.2        1
+      103 5  7 #D2D2D2     1    47  4.5  5.5  6.5  7.5     NA       0.2        1
+      104 5  7 #D2D2D2     1    47  4.5  5.5  6.5  7.5     NA       0.2        1
+      105 5  7 #D2D2D2     1    47  4.5  5.5  6.5  7.5     NA       0.2        1
+      106 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      107 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      108 1  8 #D2D2D2     1     8  0.5  1.5  7.5  8.5     NA       0.2        1
+      109 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1
+      110 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1
+      111 2  8 #D2D2D2     1    18  1.5  2.5  7.5  8.5     NA       0.2        1
+      112 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1
+      113 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1
+      114 3  8 #D2D2D2     1    28  2.5  3.5  7.5  8.5     NA       0.2        1
+      115 4  8 #D2D2D2     1    38  3.5  4.5  7.5  8.5     NA       0.2        1
+      116 4  8 #D2D2D2     1    38  3.5  4.5  7.5  8.5     NA       0.2        1
+      117 4  8 #D2D2D2     1    38  3.5  4.5  7.5  8.5     NA       0.2        1
+      118 5  8 #D2D2D2     1    48  4.5  5.5  7.5  8.5     NA       0.2        1
+      119 5  8 #D2D2D2     1    48  4.5  5.5  7.5  8.5     NA       0.2        1
+      120 5  8 #D2D2D2     1    48  4.5  5.5  7.5  8.5     NA       0.2        1
+      121 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      122 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      123 1  9 #D2D2D2     1     9  0.5  1.5  8.5  9.5     NA       0.2        1
+      124 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1
+      125 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1
+      126 2  9 #D2D2D2     1    19  1.5  2.5  8.5  9.5     NA       0.2        1
+      127 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1
+      128 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1
+      129 3  9 #D2D2D2     1    29  2.5  3.5  8.5  9.5     NA       0.2        1
+      130 4  9 #D2D2D2     1    39  3.5  4.5  8.5  9.5     NA       0.2        1
+      131 4  9 #D2D2D2     1    39  3.5  4.5  8.5  9.5     NA       0.2        1
+      132 4  9 #D2D2D2     1    39  3.5  4.5  8.5  9.5     NA       0.2        1
+      133 5  9 #D2D2D2     1    49  4.5  5.5  8.5  9.5     NA       0.2        1
+      134 5  9 #D2D2D2     1    49  4.5  5.5  8.5  9.5     NA       0.2        1
+      135 5  9 #D2D2D2     1    49  4.5  5.5  8.5  9.5     NA       0.2        1
+      136 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      137 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      138 1 10 #D2D2D2     1    10  0.5  1.5  9.5 10.5     NA       0.2        1
+      139 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1
+      140 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1
+      141 2 10 #D2D2D2     1    20  1.5  2.5  9.5 10.5     NA       0.2        1
+      142 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1
+      143 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1
+      144 3 10 #D2D2D2     1    30  2.5  3.5  9.5 10.5     NA       0.2        1
+      145 4 10 #D2D2D2     1    40  3.5  4.5  9.5 10.5     NA       0.2        1
+      146 4 10 #D2D2D2     1    40  3.5  4.5  9.5 10.5     NA       0.2        1
+      147 4 10 #D2D2D2     1    40  3.5  4.5  9.5 10.5     NA       0.2        1
+      148 5 10 #D2D2D2     1    50  4.5  5.5  9.5 10.5     NA       0.2        1
+      149 5 10 #D2D2D2     1    50  4.5  5.5  9.5 10.5     NA       0.2        1
+      150 5 10 #D2D2D2     1    50  4.5  5.5  9.5 10.5     NA       0.2        1
           alpha width height
-      1      NA    NA     NA
-      2      NA    NA     NA
-      3      NA    NA     NA
-      4      NA    NA     NA
-      5      NA    NA     NA
-      6      NA    NA     NA
-      7      NA    NA     NA
-      8      NA    NA     NA
-      9      NA    NA     NA
-      10     NA    NA     NA
-      11     NA    NA     NA
-      12     NA    NA     NA
-      13     NA    NA     NA
-      14     NA    NA     NA
-      15     NA    NA     NA
-      16     NA    NA     NA
-      17     NA    NA     NA
-      18     NA    NA     NA
-      19     NA    NA     NA
-      20     NA    NA     NA
-      21     NA    NA     NA
-      22     NA    NA     NA
-      23     NA    NA     NA
-      24     NA    NA     NA
-      25     NA    NA     NA
-      26     NA    NA     NA
-      27     NA    NA     NA
-      28     NA    NA     NA
-      29     NA    NA     NA
-      30     NA    NA     NA
-      31     NA    NA     NA
-      32     NA    NA     NA
-      33     NA    NA     NA
-      34     NA    NA     NA
-      35     NA    NA     NA
-      36     NA    NA     NA
-      37     NA    NA     NA
-      38     NA    NA     NA
-      39     NA    NA     NA
-      40     NA    NA     NA
-      41     NA    NA     NA
-      42     NA    NA     NA
-      43     NA    NA     NA
-      44     NA    NA     NA
-      45     NA    NA     NA
-      46     NA    NA     NA
-      47     NA    NA     NA
-      48     NA    NA     NA
-      49     NA    NA     NA
-      50     NA    NA     NA
-      51     NA    NA     NA
-      52     NA    NA     NA
-      53     NA    NA     NA
-      54     NA    NA     NA
-      55     NA    NA     NA
-      56     NA    NA     NA
-      57     NA    NA     NA
-      58     NA    NA     NA
-      59     NA    NA     NA
-      60     NA    NA     NA
-      61     NA    NA     NA
-      62     NA    NA     NA
-      63     NA    NA     NA
-      64     NA    NA     NA
-      65     NA    NA     NA
-      66     NA    NA     NA
-      67     NA    NA     NA
-      68     NA    NA     NA
-      69     NA    NA     NA
-      70     NA    NA     NA
-      71     NA    NA     NA
-      72     NA    NA     NA
-      73     NA    NA     NA
-      74     NA    NA     NA
-      75     NA    NA     NA
-      76     NA    NA     NA
-      77     NA    NA     NA
-      78     NA    NA     NA
-      79     NA    NA     NA
-      80     NA    NA     NA
-      81     NA    NA     NA
-      82     NA    NA     NA
-      83     NA    NA     NA
-      84     NA    NA     NA
-      85     NA    NA     NA
-      86     NA    NA     NA
-      87     NA    NA     NA
-      88     NA    NA     NA
-      89     NA    NA     NA
-      90     NA    NA     NA
-      91     NA    NA     NA
-      92     NA    NA     NA
-      93     NA    NA     NA
-      94     NA    NA     NA
-      95     NA    NA     NA
-      96     NA    NA     NA
-      97     NA    NA     NA
-      98     NA    NA     NA
-      99     NA    NA     NA
-      100    NA    NA     NA
-      101    NA    NA     NA
-      102    NA    NA     NA
-      103    NA    NA     NA
-      104    NA    NA     NA
-      105    NA    NA     NA
-      106    NA    NA     NA
-      107    NA    NA     NA
-      108    NA    NA     NA
-      109    NA    NA     NA
-      110    NA    NA     NA
-      111    NA    NA     NA
-      112    NA    NA     NA
-      113    NA    NA     NA
-      114    NA    NA     NA
-      115    NA    NA     NA
-      116    NA    NA     NA
-      117    NA    NA     NA
-      118    NA    NA     NA
-      119    NA    NA     NA
-      120    NA    NA     NA
-      121    NA    NA     NA
-      122    NA    NA     NA
-      123    NA    NA     NA
-      124    NA    NA     NA
-      125    NA    NA     NA
-      126    NA    NA     NA
-      127    NA    NA     NA
-      128    NA    NA     NA
-      129    NA    NA     NA
-      130    NA    NA     NA
-      131    NA    NA     NA
-      132    NA    NA     NA
-      133    NA    NA     NA
-      134    NA    NA     NA
-      135    NA    NA     NA
-      136    NA    NA     NA
-      137    NA    NA     NA
-      138    NA    NA     NA
-      139    NA    NA     NA
-      140    NA    NA     NA
-      141    NA    NA     NA
-      142    NA    NA     NA
-      143    NA    NA     NA
-      144    NA    NA     NA
-      145    NA    NA     NA
-      146    NA    NA     NA
-      147    NA    NA     NA
-      148    NA    NA     NA
-      149    NA    NA     NA
-      150    NA    NA     NA
+      1      NA     1      1
+      2      NA     1      1
+      3      NA     1      1
+      4      NA     1      1
+      5      NA     1      1
+      6      NA     1      1
+      7      NA     1      1
+      8      NA     1      1
+      9      NA     1      1
+      10     NA     1      1
+      11     NA     1      1
+      12     NA     1      1
+      13     NA     1      1
+      14     NA     1      1
+      15     NA     1      1
+      16     NA     1      1
+      17     NA     1      1
+      18     NA     1      1
+      19     NA     1      1
+      20     NA     1      1
+      21     NA     1      1
+      22     NA     1      1
+      23     NA     1      1
+      24     NA     1      1
+      25     NA     1      1
+      26     NA     1      1
+      27     NA     1      1
+      28     NA     1      1
+      29     NA     1      1
+      30     NA     1      1
+      31     NA     1      1
+      32     NA     1      1
+      33     NA     1      1
+      34     NA     1      1
+      35     NA     1      1
+      36     NA     1      1
+      37     NA     1      1
+      38     NA     1      1
+      39     NA     1      1
+      40     NA     1      1
+      41     NA     1      1
+      42     NA     1      1
+      43     NA     1      1
+      44     NA     1      1
+      45     NA     1      1
+      46     NA     1      1
+      47     NA     1      1
+      48     NA     1      1
+      49     NA     1      1
+      50     NA     1      1
+      51     NA     1      1
+      52     NA     1      1
+      53     NA     1      1
+      54     NA     1      1
+      55     NA     1      1
+      56     NA     1      1
+      57     NA     1      1
+      58     NA     1      1
+      59     NA     1      1
+      60     NA     1      1
+      61     NA     1      1
+      62     NA     1      1
+      63     NA     1      1
+      64     NA     1      1
+      65     NA     1      1
+      66     NA     1      1
+      67     NA     1      1
+      68     NA     1      1
+      69     NA     1      1
+      70     NA     1      1
+      71     NA     1      1
+      72     NA     1      1
+      73     NA     1      1
+      74     NA     1      1
+      75     NA     1      1
+      76     NA     1      1
+      77     NA     1      1
+      78     NA     1      1
+      79     NA     1      1
+      80     NA     1      1
+      81     NA     1      1
+      82     NA     1      1
+      83     NA     1      1
+      84     NA     1      1
+      85     NA     1      1
+      86     NA     1      1
+      87     NA     1      1
+      88     NA     1      1
+      89     NA     1      1
+      90     NA     1      1
+      91     NA     1      1
+      92     NA     1      1
+      93     NA     1      1
+      94     NA     1      1
+      95     NA     1      1
+      96     NA     1      1
+      97     NA     1      1
+      98     NA     1      1
+      99     NA     1      1
+      100    NA     1      1
+      101    NA     1      1
+      102    NA     1      1
+      103    NA     1      1
+      104    NA     1      1
+      105    NA     1      1
+      106    NA     1      1
+      107    NA     1      1
+      108    NA     1      1
+      109    NA     1      1
+      110    NA     1      1
+      111    NA     1      1
+      112    NA     1      1
+      113    NA     1      1
+      114    NA     1      1
+      115    NA     1      1
+      116    NA     1      1
+      117    NA     1      1
+      118    NA     1      1
+      119    NA     1      1
+      120    NA     1      1
+      121    NA     1      1
+      122    NA     1      1
+      123    NA     1      1
+      124    NA     1      1
+      125    NA     1      1
+      126    NA     1      1
+      127    NA     1      1
+      128    NA     1      1
+      129    NA     1      1
+      130    NA     1      1
+      131    NA     1      1
+      132    NA     1      1
+      133    NA     1      1
+      134    NA     1      1
+      135    NA     1      1
+      136    NA     1      1
+      137    NA     1      1
+      138    NA     1      1
+      139    NA     1      1
+      140    NA     1      1
+      141    NA     1      1
+      142    NA     1      1
+      143    NA     1      1
+      144    NA     1      1
+      145    NA     1      1
+      146    NA     1      1
+      147    NA     1      1
+      148    NA     1      1
+      149    NA     1      1
+      150    NA     1      1
       
       
       $mpg$eff
       $mpg$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      3 3     1     3     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      4 4     1     4     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      5 5     1     5     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      6 6     1     6     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      7 7     1     7     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $mpg$eff[[2]]
-             xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
-      1 19.200000 19.20000 1     1     1 0.875 1.125  black       0.5        1   0.25
-      2 19.200000 19.20000 2     1     2 1.875 2.125  black       0.5        1   0.25
-      3 19.198295 19.20049 3     1     3 2.875 3.125  black       0.5        1   0.25
-      4 18.878840 19.41905 4     1     4 3.875 4.125  black       0.5        1   0.25
-      5 17.841547 21.61993 5     1     5 4.875 5.125  black       0.5        1   0.25
-      6  1.077797 28.30643 6     1     6 5.875 6.125  black       0.5        1   0.25
-      7  3.168663       NA 7     1     7 6.875 7.125  black       0.5        1   0.25
-        alpha
-      1    NA
-      2    NA
-      3    NA
-      4    NA
-      5    NA
-      6    NA
-      7    NA
+              xmin     xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  19.200000 19.20000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  19.200000 19.20000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3  19.198295 19.20049 3     1     3        TRUE 2.875 3.125  black       0.5
+      4  18.878840 19.41905 4     1     4        TRUE 3.875 4.125  black       0.5
+      5  17.841547 21.61993 5     1     5        TRUE 4.875 5.125  black       0.5
+      6   1.077797 28.30643 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -16.703845       NA 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $mpg$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -7180,82 +7144,82 @@
       7   NA   NA  6.7  7.3 7     1     7     NA white       0.5        1    NA
       
       $mpg$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED  0.0% 2     1     2  black    3     0   0.5    -1    NA       
-      3 NA NALED  0.0% 3     1     3  black    3     0   0.5    -1    NA       
-      4 NA NALED  9.8% 4     1     4  black    3     0   0.5    -1    NA       
-      5 NA NALED  9.8% 5     1     5  black    3     0   0.5    -1    NA       
-      6 NA NALED 30.6% 6     1     6  black    3     0   0.5    -1    NA       
-      7 NA NALED 42.7% 7     1     7  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
-      7        1        1.2
+         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 NA NALED  0.0% 3     1     3       0       0  black           3     0   0.5
+      4 NA NALED  9.8% 4     1     4       0       0  black           3     0   0.5
+      5 NA NALED  9.8% 5     1     5       0       0  black           3     0   0.5
+      6 NA NALED 30.6% 6     1     6       0       0  black           3     0   0.5
+      7 NA NALED 44.0% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $mpg$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-      3 NA     ( 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
-      4 NA     ( 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
-      5 NA     ( 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
-      6 NA     ( 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
-      7 NA     ( 7.02     1     7  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      3        1.2
-      4        1.2
-      5        1.2
-      6        1.2
-      7        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+      3 NA     ( 3.02     1     3       0    0.02  black        3.866058     0   0.5
+      4 NA     ( 4.02     1     4       0    0.02  black        3.866058     0   0.5
+      5 NA     ( 5.02     1     5       0    0.02  black        3.866058     0   0.5
+      6 NA     ( 6.02     1     6       0    0.02  black        3.866058     0   0.5
+      7 NA     ( 7.02     1     7       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
+      3   0.5    NA        1        1.2
+      4   0.5    NA        1        1.2
+      5   0.5    NA        1        1.2
+      6   0.5    NA        1        1.2
+      7   0.5    NA        1        1.2
       
       $mpg$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-      3 NA     ) 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
-      4 NA     ) 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
-      5 NA     ) 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
-      6 NA     ) 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
-      7 NA     ) 7.02     1     7  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      3        1.2
-      4        1.2
-      5        1.2
-      6        1.2
-      7        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+      3 NA     ) 3.02     1     3       0    0.02  black        3.866058     0   0.5
+      4 NA     ) 4.02     1     4       0    0.02  black        3.866058     0   0.5
+      5 NA     ) 5.02     1     5       0    0.02  black        3.866058     0   0.5
+      6 NA     ) 6.02     1     6       0    0.02  black        3.866058     0   0.5
+      7 NA     ) 7.02     1     7       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
+      3   0.5    NA        1        1.2
+      4   0.5    NA        1        1.2
+      5   0.5    NA        1        1.2
+      6   0.5    NA        1        1.2
+      7   0.5    NA        1        1.2
       
       $mpg$eff[[7]]
-         x     label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED  0.0 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED  0.0 2     1     2  black    3     0   0.5     2    NA       
-      3 NA ALED  0.0 3     1     3  black    3     0   0.5     2    NA       
-      4 NA ALED  1.3 4     1     4  black    3     0   0.5     2    NA       
-      5 NA ALED  1.4 5     1     5  black    3     0   0.5     2    NA       
-      6 NA ALED  5.6 6     1     6  black    3     0   0.5     2    NA       
-      7 NA ALED 25.7 7     1     7  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
-      7        1        1.2
+         x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA ALED  0.0 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED  0.0 2     1     2       0       0  black           3     0   0.5
+      3 NA ALED  0.0 3     1     3       0       0  black           3     0   0.5
+      4 NA ALED  1.3 4     1     4       0       0  black           3     0   0.5
+      5 NA ALED  1.4 5     1     5       0       0  black           3     0   0.5
+      6 NA ALED  5.6 6     1     6       0       0  black           3     0   0.5
+      7 NA ALED 18.8 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $mpg$eff[[8]]
-               x y PANEL group colour  fill size angle hjust vjust alpha family
-      1 33.84876 1     1    -1  black white    3     0     1   0.5    NA       
-        fontface lineheight
-      1        1        1.2
+               x y PANEL group colour  fill family size angle hjust vjust alpha
+      1 33.84876 1     1    -1  black white           3     0     1   0.5    NA
+        fontface lineheight linewidth linetype
+      1        1        1.2         0        1
                                                                      label
       1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       

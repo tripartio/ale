@@ -70,19 +70,47 @@ summary(gam_cars)
 
 Now we generate ALE data from the `gam_cars` GAM model and plot it.
 
-```{r ale_cars_1D, fig.width=7, fig.height=14}
+```{r parallel}
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
 
+```
+
+
+```{r serialized_objects_site}
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
 serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+```
+
+
+```{r ale_cars_1D, eval=FALSE, echo=TRUE, fig.width=7, fig.height=14}
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_cars_1D <- ALE(gam_cars)
 
 ale_cars_1D <- retrieve_rds(
   # For speed, load a pre-created object by default.
   c(serialized_objects_site, 'ale_cars_1D.0.5.2.rds'),
   {
+  }
+)
+# saveRDS(ale_cars_1D, file.choose())
+
+# Print all plots
+plot(ale_cars_1D) |> 
+  print(ncol = 2)
+```
+
+```{r ale_cars_1D-rds, eval=TRUE, echo=FALSE, fig.width=7, fig.height=14}
+ale_cars_1D <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_cars_1D.0.5.2.rds'),
+  {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(gam_cars)
   }
@@ -100,13 +128,36 @@ The numeric predictors have rug plots that indicate in which ranges of the x (pr
 
 We can also generate and plot the ALE data for all two-way interactions.
 
-```{r ale_cars_2D, fig.width=7, fig.height=28}
+```{r ale_cars_2D, eval=FALSE, echo=TRUE, fig.width=7, fig.height=28}
+# # # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_cars_2D <- ALE(
+#   gam_cars,
+#   x_cols = list(d2 = TRUE)
+# )
+
+ale_cars_2D <- serialized_objects_site |> 
+  file.path('ale_cars_2D.0.5.2.rds') |>
+  url() |> 
+  readRDS()
+
+# Print plots
+plot(ale_cars_2D) |> 
+  print(
+    ncol = 2, 
+    # By default, at most 20 plots are printed. Set max_print to increase this limit
+    max_print = 100
+  )
+```
+
+```{r ale_cars_2D-rds, eval=TRUE, echo=FALSE, fig.width=7, fig.height=28}
 ale_cars_2D <- retrieve_rds(
   # For speed, load a pre-created object by default.
   c(serialized_objects_site, 'ale_cars_2D.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(
       gam_cars,
@@ -129,13 +180,28 @@ There are no interactions in this model but the point of this demonstration is t
 
 Finally, as explained in the vignette on modelling with [small datasets](ale-small-datasets.html "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
-```{r cars_full, fig.width=7, fig.height=14}
+```{r cars_full, eval=FALSE, echo=TRUE, fig.width=7, fig.height=14}
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# # For models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# mb_cars <- ModelBoot(gam_cars) # 100 bootstrap iterations by default
+
+mb_cars <- serialized_objects_site |> 
+  file.path('mb_cars.0.5.2.rds') |>
+  url() |> 
+  readRDS()
+
+plot(mb_cars) |> 
+  print(ncol = 2)
+```
+
+```{r cars_full-rds, eval=TRUE, echo=FALSE, fig.width=7, fig.height=14}
 mb_cars <- retrieve_rds(
   # For speed, load a pre-created object by default.
   c(serialized_objects_site, 'mb_cars.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ModelBoot(gam_cars) # 100 bootstrap iterations by default
   }

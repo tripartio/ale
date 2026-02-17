@@ -8,9 +8,11 @@ ALEPlots(
   obj,
   ...,
   ale_centre = "median",
+  consolid_cats = 10L,
   y_1d_refs = c("25\%", "75\%"),
   rug_sample_size = obj@params$sample_size,
-  min_rug_per_interval = 1,
+  min_rug_per_interval = 1L,
+  min_col_width = 0.05,
   y_nonsig_band = 0.05,
   seed = 0,
   silent = FALSE
@@ -23,9 +25,19 @@ ALEPlots(
 
 \item{ale_centre}{character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be centred relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are centred on zero.}
 
+\item{consolid_cats}{integer(1) > 1 or list. For 1D plots of categorical variables, only a maximum of \code{consolid_cats} distinct values (e.g., factor levels) are shown. The top \code{consolid_cats - 1} values in ALE strength are shown and all other values are consolidated into an "other" category. See details for the calculation. Valid formats are:
+\itemize{
+\item Single integer > 1: Consolidate categories only if there are more than \code{consolid_cats} factor levels.
+\item List with required levels: a list with exactly two elements: \code{max} is the same as the single-integer option above: the maximum allowable levels before consolidation begins; \code{include} is a named list. Each sublist is a character vector of specific levels that must be included for the factor variable that it names. Unknown names or factor levels trigger an error.
+An example of the list format would be:
+\code{consolid_cats = list(max = 10, include = list(model = c("Cadillac Fleetwood", "Volvo 142E")))}
+}}
+
 \item{y_1d_refs}{character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, \code{y_1d_refs} values are names from \code{obj@params$y_summary} (usually quantile names). If a numeric vector, \code{y_1d_refs} values must be values within the range of y, that is, between \code{obj@params$y_summary$min} and \code{obj@params$y_summary$max} inclusive.}
 
 \item{rug_sample_size, min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{rug_sample_size} rows, otherwise they can be very slow for large datasets. By default, their size is the value of \code{obj@params$sample_size}. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{rug_sample_size} to \code{Inf} (but then the \code{ALEPlots} object would store the entire dataset, so could become very large).}
+
+\item{min_col_width}{numeric(1) in \code{[0.01, 1]}. Column charts scale each column such that the column representing the category with the most elements has a scale of 1 and all other columns have a width that is a fraction of the largest category proportional to their numbers of elements. However, for visibility, no column is displayed narrower than a scale of \code{min_col_width}. To disable scaling by width, set \code{min_col_width = 1}.}
 
 \item{y_nonsig_band}{numeric(1) from 0 to 1. If there are no p-values, some plots (notably the 1D effects plot) will shade grey the inner \code{y_nonsig_band} quantile below and above the \code{ale_centre} average (the median, by default) to indicate nonsignificant effects.}
 
@@ -52,6 +64,21 @@ An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{Mod
 
 }
 }
+}
+
+\section{Consolidation of factors}{
+
+
+When a categorical (unordered factor) variable has too many levels, the 1D column charts used to plot their ALE become unwieldy and hard to read. So, the \code{consolid_cats} argument sets a maximum number of categories (factor levels) to display. For example, for the default \code{consolid_cats = 10}:
+\itemize{
+\item If there are \code{consolid_cats} (default 10) or fewer categories, then there is no consolidation.
+\item With more than \code{consolid_cats} categories, all categories are then ranked by decreasing absolute ALE \code{y} value. The top \code{consolid_cats - 1} (default 9) categories are retained.
+\item All other categories are consolidated into one "other" category that reports the count of consolidated categories. Consolidated means are the weighted mean of all categories; consolidated medians, maximums, and minimums are the medians, maximums, and minimums, respectively, of all categories.
+}
+
+Sometimes, we have specific factor levels that we always want to see; we don't want them consolidated even if their effects are very low. In that case, see the argument specification for how to list such levels that must always be included.
+
+Note that this consolidation is purely for visualization; the underlying ALE data is not consolidated. Only unordered factors are consolidated thus; ordered factors are never consolidated since their order is meaningful. Moreover, for now, only 1D ALE plots are consolidated.
 }
 
 \examples{

@@ -6,9 +6,13 @@
 \arguments{
 \item{x}{An object of class \code{ALEPlots}.}
 
+\item{x_cols, exclude_cols}{See documentation for \code{\link[=get.ALE]{get.ALE()}}}
+
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
 \item{include_eff}{logical(1). \code{x_cols} and \code{exclude_cols} specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. \code{include_eff = TRUE} (default) includes the ALE effects plot in the subset rather than dropping it, if it is available.}
+
+\item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
 \value{
 An \code{ALEPlots} object reduced to cover only variables and interactions specified by \code{x_cols} and \code{exclude_cols}. This is different from \code{\link[=get.ALEPlots]{get.ALEPlots()}}, which returns a list of \code{ggplot} objects and loses the special \code{ALEPlots} behaviour like plotting, printing, and summarizing multiple plots.

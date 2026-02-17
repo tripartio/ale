@@ -26,16 +26,18 @@
 
     Code
       ale_plots_to_data(plot(mb, type = "boot"))
+    Message
+      `height` was translated to `width`.
     Output
       $mpg
       $mpg$d1
       $mpg$d1$am
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 13.91157     1     1       FALSE    0 13.91157 0.55 1.45     NA gray
-      2 2 26.92924     1     2       FALSE    0 26.92924 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x        y PANEL group flipped_aes ymin     ymax     xmin     xmax order xid
+      1 1 13.91157     1     1       FALSE    0 13.91157 0.500000 1.500000     1   1
+      2 2 26.92924     1     2       FALSE    0 26.92924 1.657895 2.342105     1   2
+        newx new_width colour fill linewidth linetype alpha     width
+      1    1 1.0000000     NA grey       0.5        1    NA 1.0000000
+      2    2 0.6842105     NA grey       0.5        1    NA 0.6842105
       
       $mpg$d1$wt
               ymin      ymax        x         y PANEL group flipped_aes colour   fill
@@ -64,113 +66,113 @@
       
       $mpg$d2
       $mpg$d2$`gear:carb`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      19 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      20 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      21 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      22 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      23 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      24 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      25 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      26 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      27 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      28 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      29 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      30 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      31 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      32 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      33 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      34 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      35 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      36 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      37 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      38 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      39 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      40 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      41 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      42 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      43 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      44 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      45 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #D2D2D2     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #D2D2D2     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      8  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      9  3 1 #D2D2D2     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      10 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      11 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      12 1 2 #D2D2D2     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      13 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      14 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      15 2 2 #D2D2D2     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      16 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      17 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      18 3 2 #D2D2D2     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      19 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      20 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      21 1 3 #D2D2D2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      22 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      23 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      24 2 3 #D2D2D2     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      25 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      26 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      27 3 3 #D2D2D2     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      28 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      29 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      30 1 4 #D2D2D2     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      31 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      32 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      33 2 4 #D2D2D2     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      34 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      35 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      36 3 4 #D2D2D2     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      37 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      38 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      39 1 5 #D2D2D2     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      40 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      41 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      42 2 5 #D2D2D2     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      43 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      44 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      45 3 5 #D2D2D2     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
-      31    NA     NA
-      32    NA     NA
-      33    NA     NA
-      34    NA     NA
-      35    NA     NA
-      36    NA     NA
-      37    NA     NA
-      38    NA     NA
-      39    NA     NA
-      40    NA     NA
-      41    NA     NA
-      42    NA     NA
-      43    NA     NA
-      44    NA     NA
-      45    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
+      31     1      1
+      32     1      1
+      33     1      1
+      34     1      1
+      35     1      1
+      36     1      1
+      37     1      1
+      38     1      1
+      39     1      1
+      40     1      1
+      41     1      1
+      42     1      1
+      43     1      1
+      44     1      1
+      45     1      1
       
       
       $mpg$eff
       $mpg$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $mpg$eff[[2]]
-             xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
-      1  1.077797 28.30643 1     1     1 0.875 1.125  black       0.5        1   0.25
-      2 13.911571 26.92924 2     1     2 1.875 2.125  black       0.5        1   0.25
-        alpha
-      1    NA
-      2    NA
+             xmin     xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  1.077797 28.30643 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 13.911571 26.92924 2     1     2        TRUE 1.875 2.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
       
       $mpg$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -178,42 +180,42 @@
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
       
       $mpg$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 29.6% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 38.4% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA NALED 29.6% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 38.4% 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
       
       $mpg$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $mpg$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $mpg$eff[[7]]
-         x     label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 5.51 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 6.28 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA ALED 5.51 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 6.28 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
       
       $mpg$eff[[8]]
-               x y PANEL group colour  fill size angle hjust vjust alpha family
-      1 33.84876 2     1    -1  black white    3     0     1   0.5    NA       
-        fontface lineheight
-      1        1        1.2
+               x y PANEL group colour  fill family size angle hjust vjust alpha
+      1 33.84876 2     1    -1  black white           3     0     1   0.5    NA
+        fontface lineheight linewidth linetype
+      1        1        1.2         0        1
                                                                      label
       1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
@@ -257,7 +259,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -396,14 +398,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = structure(list(\n    mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, \n    19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, \n    33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, \n    19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, 22.7416884982344, \n    21.4311812395146, 18.852669713458, 17.9920088590356, 14.4139394499008, \n    24.6170015310794, 22.873323793374, 19.2495797928572, 17.6439959122865, \n    16.303559660567, 17.188088636375, 15.256854945384, 10.3758935733885, \n    10.4561270153597, 14.6993235771731, 32.5410167933553, 30.6990789056569, \n    33.8186638516565, 21.6193014451675, 15.6347586216428, 15.1124913264699, \n    13.3403452217788, 19.0562131568491, 27.1729024851252, 25.9407793281227, \n    30.1041413225606, 15.7628345944341, 19.8456581932139, 14.9521046990063, \n    21.3923302894216), vs = c(FALSE, FALSE, TRUE, TRUE, FALSE, \n    TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, \n    FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, \n    TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, \n    TRUE, FALSE, FALSE, FALSE, TRUE), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\"), am = c(TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, \n    TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE), model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", \n    \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \n    \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \n    \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), gear = structure(c(2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, \n    1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L), levels = c(\"three\", \n    \"four\", \"five\"), class = c(\"ordered\", \"factor\")), carb = c(4L, \n    4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, 4L, 4L, 3L, 3L, 3L, 4L, 4L, \n    4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 8L, \n    2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, 2L, 2L, 5L, 4L, 2L, 4L, 3L, \n    3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, \n    6L, 7L, 3L), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, \n    3.57, 3.19, 3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, \n    5.345, 2.2, 1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, \n    1.935, 2.14, 1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, \n    2.86151674813067, 2.31406654894315, 3.21968447126353, 3.46808469595164, \n    3.43935638962779, 3.59844502350669, 3.21837028213702, 3.16013026092667, \n    3.44888304622024, 3.40985089540817, 4.0460663303968, 3.70587113373866, \n    3.79413892720733, 5.23783089041244, 5.45327239724144, 5.34475404897891, \n    2.20957521436363, 1.63088856686302, 1.83059729108524, 2.47867804941107, \n    3.55060324826986, 3.41522419121212, 3.8516485452354, 3.81620518687943, \n    1.92599143987976, 2.13512568316087, 1.49827519148139, 3.16254339647824, \n    2.79048087285291, 3.5586009183635, 2.77900365442019)), row.names = c(NA, \n-64L), class = c(\"tbl_df\", \"tbl\", \"data.frame\")))"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      attr(,"params")$model$hash
+      [1] "d4e408c919b648b99e8786262b5b5f61"
       
       
       attr(,"params")$data
@@ -510,7 +506,10 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function (object, newdata, type = pred_type) "                      
+      [2] "{"                                                                  
+      [3] "    stats::predict(object = object, newdata = newdata, type = type)"
+      [4] "}"                                                                  
       
       attr(,"params")$pred_type
       [1] "response"
@@ -518,11 +517,20 @@
       attr(,"params")$p_values
       NULL
       
+      attr(,"params")$require_same_p
+      [1] FALSE
+      
       attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$max_num_bins
       [1] 10
+      
+      attr(,"params")$fct_order
+      [1] "levels"
       
       attr(,"params")$boot_it
       [1] 0
@@ -544,18 +552,15 @@
       
       
       attr(,"params")
+      attr(,"params")$class_model
+      [1] "gam" "glm" "lm" 
+      
       attr(,"params")$model
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      attr(,"params")$model$hash
+      [1] "80242e9f11c771db3d0e938012948846"
       
       
       attr(,"params")$data
@@ -665,7 +670,7 @@
       [1] TRUE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "NULL"
       
       attr(,"params")$pred_type
       [1] "response"
@@ -720,156 +725,158 @@
       Warning:
       Position guide is perpendicular to the intended axis.
       i Did you mean to specify a different guide `position`?
+    Message
+      `height` was translated to `width`.
     Output
       $vs
       $vs$d1
       $vs$d1$continent
-        x            y PANEL group colour      fill linewidth linetype alpha xmin
-      1 1 3.925673e-13     1     1     NA lightgray       0.5        1    NA -Inf
-      2 2 3.925673e-13     1     2     NA lightgray       0.5        1    NA -Inf
-      3 3 3.925673e-13     1     3     NA lightgray       0.5        1    NA -Inf
-        xmax         ymin         ymax
-      1  Inf 3.925671e-13 3.925674e-13
-      2  Inf 3.925671e-13 3.925674e-13
-      3  Inf 3.925671e-13 3.925674e-13
+        x            y PANEL group xmin xmax         ymin         ymax colour
+      1 1 3.925673e-13     1     1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      2 2 3.925673e-13     1     2 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      3 3 3.925673e-13     1     3 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+             fill linewidth linetype alpha
+      1 lightgrey       0.5        1    NA
+      2 lightgrey       0.5        1    NA
+      3 lightgrey       0.5        1    NA
       
       $vs$d1$wt
-                x            y PANEL group colour      fill linewidth linetype alpha
-      1  1.498275 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      2  1.935000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      3  2.465000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      4  2.790481 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      5  3.190000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      6  3.439356 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      7  3.520000 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
-      8  3.730000 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
-      9  4.046066 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
-      10 5.453272 3.925670e-13     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax         ymin         ymax
-      1  -Inf  Inf 3.925671e-13 3.925674e-13
-      2  -Inf  Inf 3.925671e-13 3.925674e-13
-      3  -Inf  Inf 3.925671e-13 3.925674e-13
-      4  -Inf  Inf 3.925671e-13 3.925674e-13
-      5  -Inf  Inf 3.925671e-13 3.925674e-13
-      6  -Inf  Inf 3.925671e-13 3.925674e-13
-      7  -Inf  Inf 3.925671e-13 3.925674e-13
-      8  -Inf  Inf 3.925671e-13 3.925674e-13
-      9  -Inf  Inf 3.925671e-13 3.925674e-13
-      10 -Inf  Inf 3.925671e-13 3.925674e-13
+                x            y PANEL group xmin xmax         ymin         ymax colour
+      1  1.498275 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      2  1.935000 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      3  2.465000 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      4  2.790481 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      5  3.190000 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      6  3.439356 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      7  3.520000 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      8  3.730000 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      9  4.046066 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      10 5.453272 3.925670e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+              fill linewidth linetype alpha
+      1  lightgrey       0.5        1    NA
+      2  lightgrey       0.5        1    NA
+      3  lightgrey       0.5        1    NA
+      4  lightgrey       0.5        1    NA
+      5  lightgrey       0.5        1    NA
+      6  lightgrey       0.5        1    NA
+      7  lightgrey       0.5        1    NA
+      8  lightgrey       0.5        1    NA
+      9  lightgrey       0.5        1    NA
+      10 lightgrey       0.5        1    NA
       
       
       $vs$d2
       $vs$d2$`gear:carb`
-            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #FFBBBB 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #FFBBBB 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #FFBBBB 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #FFBBBB 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #FFBBBB 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #FFBBBB 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #FFBBBB 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #FFBBBB 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #FFBBBB 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #FFBBBB 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #FFBBBB 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #FFBBBB 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #FFBBBB 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #FFBBBB 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #FFBBBB 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #FFBBBB 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #FFBBBB 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #FFBBBB 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      19 #FFBBBB 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      20 #FFBBBB 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      21 #FFBBBB 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      22 #FFBBBB 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      23 #FFBBBB 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      24 #FFBBBB 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      25 #FFBBBB 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      26 #FFBBBB 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      27 #FFBBBB 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      28 #FFBBBB 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      29 #FFBBBB 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      30 #FFBBBB 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      31 #FFBBBB 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      32 #FFBBBB 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      33 #FFBBBB 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      34 #FFBBBB 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      35 #FFBBBB 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      36 #FFBBBB 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      37 #FFBBBB 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      38 #FFBBBB 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      39 #FFBBBB 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      40 #FFBBBB 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      41 #FFBBBB 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      42 #FFBBBB 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      43 #FFBBBB 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      44 #FFBBBB 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      45 #FFBBBB 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+         x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  1 1 #FFBBBB     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      2  1 1 #FFBBBB     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      3  1 1 #FFBBBB     1     1  0.5  1.5  0.5  1.5     NA       0.2        1    NA
+      4  2 1 #FFBBBB     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      5  2 1 #FFBBBB     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      6  2 1 #FFBBBB     1     6  1.5  2.5  0.5  1.5     NA       0.2        1    NA
+      7  3 1 #FFBBBB     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      8  3 1 #FFBBBB     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      9  3 1 #FFBBBB     1    11  2.5  3.5  0.5  1.5     NA       0.2        1    NA
+      10 1 2 #FFBBBB     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      11 1 2 #FFBBBB     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      12 1 2 #FFBBBB     1     2  0.5  1.5  1.5  2.5     NA       0.2        1    NA
+      13 2 2 #FFBBBB     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      14 2 2 #FFBBBB     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      15 2 2 #FFBBBB     1     7  1.5  2.5  1.5  2.5     NA       0.2        1    NA
+      16 3 2 #FFBBBB     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      17 3 2 #FFBBBB     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      18 3 2 #FFBBBB     1    12  2.5  3.5  1.5  2.5     NA       0.2        1    NA
+      19 1 3 #FFBBBB     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      20 1 3 #FFBBBB     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      21 1 3 #FFBBBB     1     3  0.5  1.5  2.5  3.5     NA       0.2        1    NA
+      22 2 3 #FFBBBB     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      23 2 3 #FFBBBB     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      24 2 3 #FFBBBB     1     8  1.5  2.5  2.5  3.5     NA       0.2        1    NA
+      25 3 3 #FFBBBB     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      26 3 3 #FFBBBB     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      27 3 3 #FFBBBB     1    13  2.5  3.5  2.5  3.5     NA       0.2        1    NA
+      28 1 4 #FFBBBB     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      29 1 4 #FFBBBB     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      30 1 4 #FFBBBB     1     4  0.5  1.5  3.5  4.5     NA       0.2        1    NA
+      31 2 4 #FFBBBB     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      32 2 4 #FFBBBB     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      33 2 4 #FFBBBB     1     9  1.5  2.5  3.5  4.5     NA       0.2        1    NA
+      34 3 4 #FFBBBB     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      35 3 4 #FFBBBB     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      36 3 4 #FFBBBB     1    14  2.5  3.5  3.5  4.5     NA       0.2        1    NA
+      37 1 5 #FFBBBB     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      38 1 5 #FFBBBB     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      39 1 5 #FFBBBB     1     5  0.5  1.5  4.5  5.5     NA       0.2        1    NA
+      40 2 5 #FFBBBB     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      41 2 5 #FFBBBB     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      42 2 5 #FFBBBB     1    10  1.5  2.5  4.5  5.5     NA       0.2        1    NA
+      43 3 5 #FFBBBB     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      44 3 5 #FFBBBB     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
+      45 3 5 #FFBBBB     1    15  2.5  3.5  4.5  5.5     NA       0.2        1    NA
          width height
-      1     NA     NA
-      2     NA     NA
-      3     NA     NA
-      4     NA     NA
-      5     NA     NA
-      6     NA     NA
-      7     NA     NA
-      8     NA     NA
-      9     NA     NA
-      10    NA     NA
-      11    NA     NA
-      12    NA     NA
-      13    NA     NA
-      14    NA     NA
-      15    NA     NA
-      16    NA     NA
-      17    NA     NA
-      18    NA     NA
-      19    NA     NA
-      20    NA     NA
-      21    NA     NA
-      22    NA     NA
-      23    NA     NA
-      24    NA     NA
-      25    NA     NA
-      26    NA     NA
-      27    NA     NA
-      28    NA     NA
-      29    NA     NA
-      30    NA     NA
-      31    NA     NA
-      32    NA     NA
-      33    NA     NA
-      34    NA     NA
-      35    NA     NA
-      36    NA     NA
-      37    NA     NA
-      38    NA     NA
-      39    NA     NA
-      40    NA     NA
-      41    NA     NA
-      42    NA     NA
-      43    NA     NA
-      44    NA     NA
-      45    NA     NA
+      1      1      1
+      2      1      1
+      3      1      1
+      4      1      1
+      5      1      1
+      6      1      1
+      7      1      1
+      8      1      1
+      9      1      1
+      10     1      1
+      11     1      1
+      12     1      1
+      13     1      1
+      14     1      1
+      15     1      1
+      16     1      1
+      17     1      1
+      18     1      1
+      19     1      1
+      20     1      1
+      21     1      1
+      22     1      1
+      23     1      1
+      24     1      1
+      25     1      1
+      26     1      1
+      27     1      1
+      28     1      1
+      29     1      1
+      30     1      1
+      31     1      1
+      32     1      1
+      33     1      1
+      34     1      1
+      35     1      1
+      36     1      1
+      37     1      1
+      38     1      1
+      39     1      1
+      40     1      1
+      41     1      1
+      42     1      1
+      43     1      1
+      44     1      1
+      45     1      1
       
       
       $vs$eff
       $vs$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha         xmin
-      1 1     1     1     NA lightgray       0.5        1    NA 3.925671e-13
-      2 2     1     2     NA lightgray       0.5        1    NA 3.925671e-13
-                xmax ymin ymax
-      1 3.925674e-13 -Inf  Inf
-      2 3.925674e-13 -Inf  Inf
+        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
+      1 1     1     1 3.925671e-13 3.925674e-13 -Inf  Inf     NA lightgrey       0.5
+      2 2     1     2 3.925671e-13 3.925674e-13 -Inf  Inf     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
       
       $vs$eff[[2]]
-                xmin         xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 3.925673e-13 3.925673e-13 1     1     1 0.875 1.125  black       0.5        1
-      2 3.925669e-13 3.925674e-13 2     1     2 1.875 2.125  black       0.5        1
-        height alpha
-      1   0.25    NA
-      2   0.25    NA
+                xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
+      1 3.925673e-13 3.925673e-13 1     1     1        TRUE 0.875 1.125  black
+      2 3.925669e-13 3.925674e-13 2     1     2        TRUE 1.875 2.125  black
+        linewidth linetype width alpha
+      1       0.5        1   0.9    NA
+      2       0.5        1   0.9    NA
       
       $vs$eff[[3]]
                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
@@ -880,42 +887,44 @@
       2        1    NA
       
       $vs$eff[[4]]
-                   x       label y PANEL group colour size angle hjust vjust alpha
-      1 3.925673e-13 NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA
-      2 3.925673e-13 NALED 26.3% 2     1     2  black    3     0   0.5    -1    NA
-        family fontface lineheight
-      1               1        1.2
-      2               1        1.2
+                   x       label y PANEL group nudge_x nudge_y colour family size
+      1 3.925673e-13 NALED  0.0% 1     1     1       0       0  black           3
+      2 3.925673e-13 NALED 26.3% 2     1     2       0       0  black           3
+        angle hjust vjust alpha fontface lineheight
+      1     0   0.5    -1    NA        1        1.2
+      2     0   0.5    -1    NA        1        1.2
       
       $vs$eff[[5]]
-                   x label    y PANEL group colour size angle hjust vjust alpha
-      1 3.925673e-13     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
-      2 3.925672e-13     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
-        family fontface lineheight
-      1               1        1.2
-      2               1        1.2
+                   x label    y PANEL group nudge_x nudge_y colour family     size
+      1 3.925673e-13     ( 1.02     1     1       0    0.02  black        3.866058
+      2 3.925672e-13     ( 2.02     1     2       0    0.02  black        3.866058
+        angle hjust vjust alpha fontface lineheight
+      1     0   0.5   0.5    NA        1        1.2
+      2     0   0.5   0.5    NA        1        1.2
       
       $vs$eff[[6]]
-                   x label    y PANEL group colour size angle hjust vjust alpha
-      1 3.925673e-13     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
-      2 3.925673e-13     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
-        family fontface lineheight
-      1               1        1.2
-      2               1        1.2
+                   x label    y PANEL group nudge_x nudge_y colour family     size
+      1 3.925673e-13     ) 1.02     1     1       0    0.02  black        3.866058
+      2 3.925673e-13     ) 2.02     1     2       0    0.02  black        3.866058
+        angle hjust vjust alpha fontface lineheight
+      1     0   0.5   0.5    NA        1        1.2
+      2     0   0.5   0.5    NA        1        1.2
       
       $vs$eff[[7]]
-                   x  label y PANEL group colour size angle hjust vjust alpha family
-      1 3.925673e-13 ALED 0 1     1     1  black    3     0   0.5     2    NA       
-      2 3.925673e-13 ALED 0 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+                   x  label y PANEL group nudge_x nudge_y colour family size angle
+      1 3.925673e-13 ALED 0 1     1     1       0       0  black           3     0
+      2 3.925673e-13 ALED 0 2     1     2       0       0  black           3     0
+        hjust vjust alpha fontface lineheight
+      1   0.5     2    NA        1        1.2
+      2   0.5     2    NA        1        1.2
       
       $vs$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
+        lineheight linewidth linetype
+      1        1.2         0        1
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -958,7 +967,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -971,9 +980,9 @@
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America    24     0     0       0         0     0
+      1 Asia             12     0     0       0         0     0
       2 Europe           28     0     0       0         0     0
-      3 Asia             12     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"effect")$vs$ale$d1$wt
       # A tibble: 10 x 7
@@ -1102,14 +1111,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, \n    14.3, 24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, \n    14.7, 32.4, 30.4, 33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, \n    26, 30.4, 15.8, 19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, \n    22.7416884982344, 21.4311812395146, 18.852669713458, 17.9920088590356, \n    14.4139394499008, 24.6170015310794, 22.873323793374, 19.2495797928572, \n    17.6439959122865, 16.303559660567, 17.188088636375, 15.256854945384, \n    10.3758935733885, 10.4561270153597, 14.6993235771731, 32.5410167933553, \n    30.6990789056569, 33.8186638516565, 21.6193014451675, 15.6347586216428, \n    15.1124913264699, 13.3403452217788, 19.0562131568491, 27.1729024851252, \n    25.9407793281227, 30.1041413225606, 15.7628345944341, 19.8456581932139, \n    14.9521046990063, 21.3923302894216), vs = c(FALSE, FALSE, \n    TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, \n    FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, \n    FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, \n    TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, \n    TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\"), am = c(TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, \n    TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE), model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", \n    \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \n    \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \n    \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), gear = structure(c(2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, \n    1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L), levels = c(\"three\", \n    \"four\", \"five\"), class = c(\"ordered\", \"factor\")), carb = c(4L, \n    4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, 4L, 4L, 3L, 3L, 3L, 4L, 4L, \n    4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 8L, \n    2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, 2L, 2L, 5L, 4L, 2L, 4L, 3L, \n    3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, \n    6L, 7L, 3L), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, \n    3.57, 3.19, 3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, \n    5.345, 2.2, 1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, \n    1.935, 2.14, 1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, \n    2.86151674813067, 2.31406654894315, 3.21968447126353, 3.46808469595164, \n    3.43935638962779, 3.59844502350669, 3.21837028213702, 3.16013026092667, \n    3.44888304622024, 3.40985089540817, 4.0460663303968, 3.70587113373866, \n    3.79413892720733, 5.23783089041244, 5.45327239724144, 5.34475404897891, \n    2.20957521436363, 1.63088856686302, 1.83059729108524, 2.47867804941107, \n    3.55060324826986, 3.41522419121212, 3.8516485452354, 3.81620518687943, \n    1.92599143987976, 2.13512568316087, 1.49827519148139, 3.16254339647824, \n    2.79048087285291, 3.5586009183635, 2.77900365442019)), row.names = c(NA, \n    -64L), class = c(\"tbl_df\", \"tbl\", \"data.frame\")))"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n1  total = 34 \n\nUBRE score: 0.0625     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)              -9.522e+00  1.151e+07       0        1\nmodelCadillac Fleetwood  -1.999e-11  2.420e+07       0        1\nmodelCamaro Z28          -4.035e-12  5.648e+06       0        1\nmodelChrysler Imperial   -2.075e-11  2.550e+07       0        1\nmodelDatsun 710          -1.927e-05  9.376e+06       0        1\nmodelDodge Challenger    -1.376e-12  1.760e+06       0        1\nmodelDuster 360          -1.132e-12  2.390e+06       0        1\nmodelFerrari Dino         8.181e-12  1.044e+07       0        1\nmodelFiat 128            -1.846e-05  7.891e+06       0        1\nmodelFiat X1-9           -7.764e-07  4.293e+06       0        1\nmodelFord Pantera L       2.785e-12  5.414e+06       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout   -3.071e-13  1.054e+06       0        1\nmodelLincoln Continental -2.212e-11  2.680e+07       0        1\nmodelLotus Europa         5.713e+01  2.726e+07       0        1\nmodelMaserati Bora        0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -5.121e-09  3.989e+06       0        1\nmodelMerc 240D            4.167e-09  3.387e+06       0        1\nmodelMerc 280             0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280C           -8.888e-09  1.019e+06       0        1\nmodelMerc 450SE          -7.012e-12  8.472e+06       0        1\nmodelMerc 450SL          -2.793e-12  3.993e+06       0        1\nmodelMerc 450SLC         -3.853e-12  4.887e+06       0        1\nmodelPontiac Firebird    -4.567e-12  5.495e+06       0        1\nmodelPorsche 914-2        1.391e-11  1.889e+07       0        1\nmodelToyota Corolla       3.631e-09  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E          -8.364e-07  1.543e+07       0        1\namTRUE                    8.093e-07  2.420e+07       0        1\ngear.L                   -5.723e-07  1.836e+07       0        1\ngear.Q                   -4.665e+01  1.042e+07       0        1\ncarb                     -3.956e-13  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
+      attr(,"params")$model$hash
+      [1] "1b82704eca94086c4b4468e6f51ef413"
       
       
       attr(,"params")$data
@@ -1216,7 +1219,10 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function (object, newdata, type = pred_type) "                      
+      [2] "{"                                                                  
+      [3] "    stats::predict(object = object, newdata = newdata, type = type)"
+      [4] "}"                                                                  
       
       attr(,"params")$pred_type
       [1] "response"
@@ -1242,12 +1248,10 @@
        .. - attr(*, "default")= num [1:2] 0 1
        .. - attr(*, "continuous")= logi TRUE
        @ residuals            : NULL
-       @ params               :List of 11
-       .. $ model                        :List of 4
-       ..  ..$ class  : chr [1:3] "gam" "glm" "lm"
-       ..  ..$ call   : chr "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
-       ..  ..$ print  : chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degr"| __truncated__
-       ..  ..$ summary: chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coe"| __truncated__
+       @ params               :List of 12
+       .. $ model                        :List of 2
+       ..  ..$ class: chr [1:3] "gam" "glm" "lm"
+       ..  ..$ hash : chr "6cc8f48f47d9e482a122b14b023307f4"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1255,15 +1259,25 @@
        .. $ random_model_call_string     : NULL
        .. $ random_model_call_string_vars: chr(0) 
        .. $ positive                     : logi TRUE
+       .. $ aled_fun                     : chr "mad"
        .. $ seed                         : num 0
        .. $ rand_it_ok                   : int 100
        .. $ exactness                    : chr "surrogate"
       
+      attr(,"params")$require_same_p
+      [1] FALSE
+      
       attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$max_num_bins
       [1] 10
+      
+      attr(,"params")$fct_order
+      [1] "levels"
       
       attr(,"params")$boot_it
       [1] 0
@@ -1293,9 +1307,9 @@
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America    24     0     0       0         0     0
+      1 Asia             12     0     0       0         0     0
       2 Europe           28     0     0       0         0     0
-      3 Asia             12     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"ale")$boot$effect$vs$ale$d1$wt
       # A tibble: 10 x 7
@@ -1338,32 +1352,32 @@
       
       attr(,"ale")$boot$effect$vs$stats
       attr(,"ale")$boot$effect$vs$stats$d1
-      # A tibble: 12 x 7
-         term      statistic  estimate  conf.low    median      mean conf.high
-         <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 continent aled       0         0         0         0         0       
-       2 continent aler_min   0         0         0         0         0       
-       3 continent aler_max   0         0         0         0         0       
-       4 continent naled      0         0         0         0         0       
-       5 continent naler_min  0         0         0         0         0       
-       6 continent naler_max  0         0         0         0         0       
-       7 wt        aled       6.18e-20  9.77e-21  6.18e-20  6.18e-20  1.14e-19
-       8 wt        aler_min  -3.11e-19 -5.94e-19 -3.11e-19 -3.11e-19 -2.77e-20
-       9 wt        aler_max   1.01e-19  3.64e-20  1.01e-19  1.01e-19  1.66e-19
-      10 wt        naled      2.63e+ 1  2.32e+ 1  2.63e+ 1  2.63e+ 1  2.94e+ 1
-      11 wt        naler_min -4.92e+ 1 -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      12 wt        naler_max  7.58e+ 0  7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+      # A tibble: 12 x 8
+         term      statistic  estimate p.value  conf.low    median      mean conf.high
+         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 continent aled       0         1       0         0         0         0       
+       2 continent aler_min   0         1       0         0         0         0       
+       3 continent aler_max   0         1       0         0         0         0       
+       4 continent naled      0         1       0         0         0         0       
+       5 continent naler_min  0         1       0         0         0         0       
+       6 continent naler_max  0         1       0         0         0         0       
+       7 wt        aled       6.18e-20  0.0400  9.77e-21  6.18e-20  6.18e-20  1.14e-19
+       8 wt        aler_min  -3.11e-19  0.01   -5.94e-19 -3.11e-19 -3.11e-19 -2.77e-20
+       9 wt        aler_max   1.01e-19  0.0500  3.64e-20  1.01e-19  1.01e-19  1.66e-19
+      10 wt        naled      2.63e+ 1  0.54    2.32e+ 1  2.63e+ 1  2.63e+ 1  2.94e+ 1
+      11 wt        naler_min -4.92e+ 1  1      -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      12 wt        naler_max  7.58e+ 0  0       7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
       
       attr(,"ale")$boot$effect$vs$stats$d2
-      # A tibble: 6 x 7
-        term      statistic  estimate  conf.low    median      mean conf.high
-        <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       2.05e-21  1.56e-21  2.05e-21  2.05e-21  2.55e-21
-      2 gear:carb aler_min  -8.36e-21 -8.79e-21 -8.36e-21 -8.36e-21 -7.93e-21
-      3 gear:carb aler_max   1.43e-20  4.55e-21  1.43e-20  1.43e-20  2.41e-20
-      4 gear:carb naled      2.13e+ 1  5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
-      5 gear:carb naler_min -4.92e+ 1 -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      6 gear:carb naler_max  7.58e+ 0  7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+      # A tibble: 6 x 8
+        term      statistic  estimate p.value  conf.low    median      mean conf.high
+        <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 gear:carb aled       2.05e-21    0.34  1.56e-21  2.05e-21  2.05e-21  2.55e-21
+      2 gear:carb aler_min  -8.36e-21    0.3  -8.79e-21 -8.36e-21 -8.36e-21 -7.93e-21
+      3 gear:carb aler_max   1.43e-20    0.24  4.55e-21  1.43e-20  1.43e-20  2.41e-20
+      4 gear:carb naled      2.13e+ 1    1     5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
+      5 gear:carb naler_min -4.92e+ 1    1    -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      6 gear:carb naler_max  7.58e+ 0    0     7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
       
       
       
@@ -1377,6 +1391,9 @@
       2     1 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
       3     2 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
       attr(,"params")
+      attr(,"params")$class_model
+      [1] "gam" "glm" "lm" 
+      
       attr(,"params")$y_type
       [1] "binary"
       
@@ -1387,14 +1404,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n1  total = 34 \n\nUBRE score: 0.0625     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)              -9.522e+00  1.151e+07       0        1\nmodelCadillac Fleetwood  -1.999e-11  2.420e+07       0        1\nmodelCamaro Z28          -4.035e-12  5.648e+06       0        1\nmodelChrysler Imperial   -2.075e-11  2.550e+07       0        1\nmodelDatsun 710          -1.927e-05  9.376e+06       0        1\nmodelDodge Challenger    -1.376e-12  1.760e+06       0        1\nmodelDuster 360          -1.132e-12  2.390e+06       0        1\nmodelFerrari Dino         8.181e-12  1.044e+07       0        1\nmodelFiat 128            -1.846e-05  7.891e+06       0        1\nmodelFiat X1-9           -7.764e-07  4.293e+06       0        1\nmodelFord Pantera L       2.785e-12  5.414e+06       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout   -3.071e-13  1.054e+06       0        1\nmodelLincoln Continental -2.212e-11  2.680e+07       0        1\nmodelLotus Europa         5.713e+01  2.726e+07       0        1\nmodelMaserati Bora        0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -5.121e-09  3.989e+06       0        1\nmodelMerc 240D            4.167e-09  3.387e+06       0        1\nmodelMerc 280             0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280C           -8.888e-09  1.019e+06       0        1\nmodelMerc 450SE          -7.012e-12  8.472e+06       0        1\nmodelMerc 450SL          -2.793e-12  3.993e+06       0        1\nmodelMerc 450SLC         -3.853e-12  4.887e+06       0        1\nmodelPontiac Firebird    -4.567e-12  5.495e+06       0        1\nmodelPorsche 914-2        1.391e-11  1.889e+07       0        1\nmodelToyota Corolla       3.631e-09  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E          -8.364e-07  1.543e+07       0        1\namTRUE                    8.093e-07  2.420e+07       0        1\ngear.L                   -5.723e-07  1.836e+07       0        1\ngear.Q                   -4.665e+01  1.042e+07       0        1\ncarb                     -3.956e-13  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
+      attr(,"params")$model$hash
+      [1] "6cc8f48f47d9e482a122b14b023307f4"
       
       
       attr(,"params")$data
@@ -1504,7 +1515,10 @@
       [1] TRUE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function (object, newdata, type = pred_type) "                      
+      [2] "{"                                                                  
+      [3] "    stats::predict(object = object, newdata = newdata, type = type)"
+      [4] "}"                                                                  
       
       attr(,"params")$pred_type
       [1] "response"
@@ -1559,12 +1573,10 @@
        .. - attr(*, "default")= num [1:2] 0 1
        .. - attr(*, "continuous")= logi TRUE
        @ residuals            : NULL
-       @ params               :List of 11
-       .. $ model                        :List of 4
-       ..  ..$ class  : chr [1:3] "gam" "glm" "lm"
-       ..  ..$ call   : chr "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
-       ..  ..$ print  : chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degr"| __truncated__
-       ..  ..$ summary: chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coe"| __truncated__
+       @ params               :List of 12
+       .. $ model                        :List of 2
+       ..  ..$ class: chr [1:3] "gam" "glm" "lm"
+       ..  ..$ hash : chr "6cc8f48f47d9e482a122b14b023307f4"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1572,6 +1584,7 @@
        .. $ random_model_call_string     : NULL
        .. $ random_model_call_string_vars: chr(0) 
        .. $ positive                     : logi TRUE
+       .. $ aled_fun                     : chr "mad"
        .. $ seed                         : num 0
        .. $ rand_it_ok                   : int 100
        .. $ exactness                    : chr "surrogate"
@@ -1629,7 +1642,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -1856,14 +1869,8 @@
       attr(,"params")$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$call
-      [1] "nnet::multinom(formula = Species ~ ., data = btit.data, trace = FALSE)"
-      
-      attr(,"params")$model$print
-      [1] "Call:\nnnet::multinom(formula = Species ~ ., data = btit.data, trace = FALSE)\n\nCoefficients:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    18.69037    -5.458424   -8.707401     14.24477   -3.097684\nvirginica    -23.83628    -7.923634  -15.370769     23.65978   15.135301\n\nResidual Deviance: 11.89973 \nAIC: 31.89973 "
-      
-      attr(,"params")$model$summary
-      [1] "Call:\nnnet::multinom(formula = Species ~ ., data = btit.data, trace = FALSE)\n\nCoefficients:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    18.69037    -5.458424   -8.707401     14.24477   -3.097684\nvirginica    -23.83628    -7.923634  -15.370769     23.65978   15.135301\n\nStd. Errors:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    34.97116     89.89215    157.0415     60.19170    45.48852\nvirginica     35.76649     89.91153    157.1196     60.46753    45.93406\n\nResidual Deviance: 11.89973 \nAIC: 31.89973 "
+      attr(,"params")$model$hash
+      [1] "7107b1b82ecd641a060ff4188b00b939"
       
       
       attr(,"params")$data
@@ -2193,7 +2200,10 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function (object, newdata, type = pred_type) "                      
+      [2] "{"                                                                  
+      [3] "    stats::predict(object = object, newdata = newdata, type = type)"
+      [4] "}"                                                                  
       
       attr(,"params")$pred_type
       [1] "probs"
@@ -2201,11 +2211,20 @@
       attr(,"params")$p_values
       NULL
       
+      attr(,"params")$require_same_p
+      [1] FALSE
+      
       attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$max_num_bins
       [1] 10
+      
+      attr(,"params")$fct_order
+      [1] "levels"
       
       attr(,"params")$boot_it
       [1] 0
@@ -2393,6 +2412,9 @@
       
       
       attr(,"params")
+      attr(,"params")$class_model
+      [1] "multinom" "nnet"    
+      
       attr(,"params")$y_type
       [1] "categorical"
       
@@ -2403,14 +2425,8 @@
       attr(,"params")$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$call
-      [1] "nnet::multinom(formula = Species ~ ., data = iris, trace = FALSE)"
-      
-      attr(,"params")$model$print
-      [1] "Call:\nnnet::multinom(formula = Species ~ ., data = iris, trace = FALSE)\n\nCoefficients:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    18.69037    -5.458424   -8.707401     14.24477   -3.097684\nvirginica    -23.83628    -7.923634  -15.370769     23.65978   15.135301\n\nResidual Deviance: 11.89973 \nAIC: 31.89973 "
-      
-      attr(,"params")$model$summary
-      [1] "Call:\nnnet::multinom(formula = Species ~ ., data = iris, trace = FALSE)\n\nCoefficients:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    18.69037    -5.458424   -8.707401     14.24477   -3.097684\nvirginica    -23.83628    -7.923634  -15.370769     23.65978   15.135301\n\nStd. Errors:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    34.97116     89.89215    157.0415     60.19170    45.48852\nvirginica     35.76649     89.91153    157.1196     60.46753    45.93406\n\nResidual Deviance: 11.89973 \nAIC: 31.89973 "
+      attr(,"params")$model$hash
+      [1] "9c7064b27616df9811f36054369fa1f4"
       
       
       attr(,"params")$data
@@ -2743,7 +2759,10 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function (object, newdata, type = pred_type) "                      
+      [2] "{"                                                                  
+      [3] "    stats::predict(object = object, newdata = newdata, type = type)"
+      [4] "}"                                                                  
       
       attr(,"params")$pred_type
       [1] "probs"
@@ -2893,6 +2912,10 @@
 
     Code
       ale_plots_to_data(plot(mb, type = "boot"))
+    Message
+      `height` was translated to `width`.
+      `height` was translated to `width`.
+      `height` was translated to `width`.
     Output
       $setosa
       $setosa$d1
@@ -2948,17 +2971,17 @@
       
       $setosa$eff
       $setosa$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $setosa$eff[[2]]
-                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
-      1 -7.286821e-05 1.110021e-05 1     1     1 0.875 1.125  black       0.5
-      2 -6.712821e-05 3.055593e-05 2     1     2 1.875 2.125  black       0.5
-        linetype height alpha
-      1        1   0.25    NA
-      2        1   0.25    NA
+                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
+      1 -7.286821e-05 1.110021e-05 1     1     1        TRUE 0.875 1.125  black
+      2 -6.712821e-05 3.055593e-05 2     1     2        TRUE 1.875 2.125  black
+        linewidth linetype width alpha
+      1       0.5        1   0.9    NA
+      2       0.5        1   0.9    NA
       
       $setosa$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -2966,42 +2989,44 @@
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
       
       $setosa$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 23.9% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 27.5% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA NALED 23.9% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 27.5% 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
       
       $setosa$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $setosa$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $setosa$eff[[7]]
-         x  label y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA ALED 0 1     1     1  black    3     0   0.5     2    NA               1
-      2 NA ALED 0 2     1     2  black    3     0   0.5     2    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x  label y PANEL group nudge_x nudge_y colour family size angle hjust vjust
+      1 NA ALED 0 1     1     1       0       0  black           3     0   0.5     2
+      2 NA ALED 0 2     1     2       0       0  black           3     0   0.5     2
+        alpha fontface lineheight
+      1    NA        1        1.2
+      2    NA        1        1.2
       
       $setosa$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
+        lineheight linewidth linetype
+      1        1.2         0        1
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -3059,17 +3084,17 @@
       
       $versicolor$eff
       $versicolor$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $versicolor$eff[[2]]
-               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 -0.01865655 0.09522360 1     1     1 0.875 1.125  black       0.5        1
-      2 -0.12816837 0.06830227 2     1     2 1.875 2.125  black       0.5        1
-        height alpha
-      1   0.25    NA
-      2   0.25    NA
+               xmin       xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1 -0.01865655 0.09522360 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.12816837 0.06830227 2     1     2        TRUE 1.875 2.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
       
       $versicolor$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -3077,42 +3102,44 @@
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
       
       $versicolor$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 38.2% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 29.2% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA NALED 38.2% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 29.2% 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
       
       $versicolor$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $versicolor$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $versicolor$eff[[7]]
-         x      label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x      label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 0.076 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
       
       $versicolor$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 2     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
+      1 1 2     1    -1  black white           3     0     1   0.5    NA        1
+        lineheight linewidth linetype
+      1        1.2         0        1
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -3170,17 +3197,17 @@
       
       $virginica$eff
       $virginica$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $virginica$eff[[2]]
-               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 -0.09517397 0.01877892 1     1     1 0.875 1.125  black       0.5        1
-      2 -0.06817441 0.12819855 2     1     2 1.875 2.125  black       0.5        1
-        height alpha
-      1   0.25    NA
-      2   0.25    NA
+               xmin       xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1 -0.09517397 0.01877892 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.06817441 0.12819855 2     1     2        TRUE 1.875 2.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
       
       $virginica$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -3188,42 +3215,44 @@
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
       
       $virginica$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 23.6% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 35.3% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA NALED 23.6% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 35.3% 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
       
       $virginica$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $virginica$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $virginica$eff[[7]]
-         x      label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x      label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 0.076 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
       
       $virginica$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
+        lineheight linewidth linetype
+      1        1.2         0        1
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -3233,34 +3262,34 @@
       $.all_cats$d1$Sepal.Length$overlay
           colour linetype   x             y PANEL group flipped_aes linewidth alpha
       1  #F8766D    solid 4.3 -5.777243e-05     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 4.3 -1.867583e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 4.3  1.877892e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 4.9  1.324909e-05     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 4.9 -1.323015e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 4.9  1.326222e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 5.1  1.937735e-05     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 5.1 -1.323627e-02     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 5.1  1.326220e-02     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 5.4  1.939363e-05     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 5.4 -1.297786e-02     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 5.4  1.300378e-02     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 5.7  2.050916e-05     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 5.7 -1.273287e-02     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 5.7  1.275768e-02     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 6.0  2.059137e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 6.0 -3.869060e-03     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 6.0  3.893784e-03     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 6.3  2.089617e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 6.3  1.001801e-02     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 6.3 -9.993596e-03     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 6.5  2.089618e-05     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 6.5  1.141579e-02     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 6.5 -1.139137e-02     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 6.9  2.131105e-05     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 6.9  1.732663e-02     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 6.9 -1.730262e-02     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 7.9  2.619599e-05     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 7.9  9.519309e-02     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 4.3 -1.867583e-02     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 4.3  1.877892e-02     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 4.9  1.324909e-05     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 4.9 -1.323015e-02     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 4.9  1.326222e-02     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 5.1  1.937735e-05     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 5.1 -1.323627e-02     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 5.1  1.326220e-02     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 5.4  1.939363e-05     1     1       FALSE       0.5    NA
+      14 #F8766D    solid 5.4 -1.297786e-02     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 5.4  1.300378e-02     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 5.7  2.050916e-05     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 5.7 -1.273287e-02     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 5.7  1.275768e-02     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 6.0  2.059137e-05     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 6.0 -3.869060e-03     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 6.0  3.893784e-03     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 6.3  2.089617e-05     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 6.3  1.001801e-02     1     1       FALSE       0.5    NA
+      27 #F8766D    solid 6.3 -9.993596e-03     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 6.5  2.089618e-05     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 6.5  1.141579e-02     1     1       FALSE       0.5    NA
+      28 #F8766D    solid 6.5 -1.139137e-02     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 6.9  2.131105e-05     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 6.9  1.732663e-02     1     1       FALSE       0.5    NA
+      29 #F8766D    solid 6.9 -1.730262e-02     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 7.9  2.619599e-05     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 7.9  9.519309e-02     1     1       FALSE       0.5    NA
       30 #F8766D    solid 7.9 -9.517397e-02     1     1       FALSE       0.5    NA
       
       $.all_cats$d1$Sepal.Length$facet
@@ -3301,31 +3330,31 @@
       $.all_cats$d1$Petal.Width$overlay
           colour linetype   x             y PANEL group flipped_aes linewidth alpha
       1  #F8766D    solid 0.1 -5.203243e-05     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 0.1  6.827175e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 0.1 -6.817441e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 0.2 -4.334409e-05     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 0.2  6.826307e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 0.2 -6.817441e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 0.6 -7.462779e-06     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 0.6  6.822718e-02     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 0.6 -6.817441e-02     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 1.3  4.564000e-05     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 1.3  6.798841e-02     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 1.3 -6.798874e-02     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 1.4  4.565039e-05     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 0.1  6.827175e-02     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 0.1 -6.817441e-02     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 0.2 -4.334409e-05     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 0.2  6.826307e-02     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 0.2 -6.817441e-02     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 0.6 -7.462779e-06     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 0.6  6.822718e-02     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 0.6 -6.817441e-02     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 1.3  4.564000e-05     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 1.3  6.798841e-02     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 1.3 -6.798874e-02     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 1.4  4.565039e-05     1     1       FALSE       0.5    NA
       14 #F8766D    solid 1.4  6.732132e-02     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 1.4 -6.732165e-02     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 1.6  4.565172e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 1.6 -7.782745e-03     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 1.6  7.782409e-03     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 1.9  4.565171e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 1.9 -1.207708e-01     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 1.9  1.207705e-01     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 2.2  4.565171e-05     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 2.2 -1.279090e-01     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 2.2  1.279087e-01     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 2.5  4.565171e-05     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 2.5 -1.281989e-01     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 1.4 -6.732165e-02     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 1.6  4.565172e-05     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 1.6 -7.782745e-03     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 1.6  7.782409e-03     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 1.9  4.565171e-05     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 1.9 -1.207708e-01     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 1.9  1.207705e-01     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 2.2  4.565171e-05     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 2.2 -1.279090e-01     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 2.2  1.279087e-01     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 2.5  4.565171e-05     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 2.5 -1.281989e-01     1     1       FALSE       0.5    NA
       27 #F8766D    solid 2.5  1.281985e-01     1     1       FALSE       0.5    NA
       
       $.all_cats$d1$Petal.Width$facet
@@ -3372,6 +3401,10 @@
 
     Code
       ale_plots_to_data(plot(mb, type = "single"))
+    Message
+      `height` was translated to `width`.
+      `height` was translated to `width`.
+      `height` was translated to `width`.
     Output
       $setosa
       $setosa$d1
@@ -3427,17 +3460,17 @@
       
       $setosa$eff
       $setosa$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $setosa$eff[[2]]
-                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
-      1 -7.286821e-05 1.110021e-05 1     1     1 0.875 1.125  black       0.5
-      2 -6.712821e-05 3.055593e-05 2     1     2 1.875 2.125  black       0.5
-        linetype height alpha
-      1        1   0.25    NA
-      2        1   0.25    NA
+                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
+      1 -7.286821e-05 1.110021e-05 1     1     1        TRUE 0.875 1.125  black
+      2 -6.712821e-05 3.055593e-05 2     1     2        TRUE 1.875 2.125  black
+        linewidth linetype width alpha
+      1       0.5        1   0.9    NA
+      2       0.5        1   0.9    NA
       
       $setosa$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -3445,42 +3478,44 @@
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
       
       $setosa$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 23.9% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 27.5% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA NALED 23.9% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 27.5% 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
       
       $setosa$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $setosa$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $setosa$eff[[7]]
-         x  label y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA ALED 0 1     1     1  black    3     0   0.5     2    NA               1
-      2 NA ALED 0 2     1     2  black    3     0   0.5     2    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x  label y PANEL group nudge_x nudge_y colour family size angle hjust vjust
+      1 NA ALED 0 1     1     1       0       0  black           3     0   0.5     2
+      2 NA ALED 0 2     1     2       0       0  black           3     0   0.5     2
+        alpha fontface lineheight
+      1    NA        1        1.2
+      2    NA        1        1.2
       
       $setosa$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
+        lineheight linewidth linetype
+      1        1.2         0        1
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -3538,17 +3573,17 @@
       
       $versicolor$eff
       $versicolor$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $versicolor$eff[[2]]
-               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 -0.01865655 0.09522360 1     1     1 0.875 1.125  black       0.5        1
-      2 -0.12816837 0.06830227 2     1     2 1.875 2.125  black       0.5        1
-        height alpha
-      1   0.25    NA
-      2   0.25    NA
+               xmin       xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1 -0.01865655 0.09522360 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.12816837 0.06830227 2     1     2        TRUE 1.875 2.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
       
       $versicolor$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -3556,42 +3591,44 @@
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
       
       $versicolor$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 38.2% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 29.2% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA NALED 38.2% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 29.2% 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
       
       $versicolor$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $versicolor$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $versicolor$eff[[7]]
-         x      label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x      label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 0.076 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
       
       $versicolor$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 2     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
+      1 1 2     1    -1  black white           3     0     1   0.5    NA        1
+        lineheight linewidth linetype
+      1        1.2         0        1
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -3649,17 +3686,17 @@
       
       $virginica$eff
       $virginica$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $virginica$eff[[2]]
-               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 -0.09517397 0.01877892 1     1     1 0.875 1.125  black       0.5        1
-      2 -0.06817441 0.12819855 2     1     2 1.875 2.125  black       0.5        1
-        height alpha
-      1   0.25    NA
-      2   0.25    NA
+               xmin       xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1 -0.09517397 0.01877892 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.06817441 0.12819855 2     1     2        TRUE 1.875 2.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
       
       $virginica$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -3667,42 +3704,44 @@
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
       
       $virginica$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 23.6% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 35.3% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA NALED 23.6% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 35.3% 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
       
       $virginica$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $virginica$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
+         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $virginica$eff[[7]]
-         x      label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+         x      label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 0.076 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
       
       $virginica$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
+        lineheight linewidth linetype
+      1        1.2         0        1
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -3712,34 +3751,34 @@
       $.all_cats$d1$Sepal.Length$overlay
           colour linetype   x             y PANEL group flipped_aes linewidth alpha
       1  #F8766D    solid 4.3 -5.777243e-05     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 4.3 -1.867583e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 4.3  1.877892e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 4.9  1.324909e-05     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 4.9 -1.323015e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 4.9  1.326222e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 5.1  1.937735e-05     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 5.1 -1.323627e-02     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 5.1  1.326220e-02     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 5.4  1.939363e-05     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 5.4 -1.297786e-02     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 5.4  1.300378e-02     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 5.7  2.050916e-05     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 5.7 -1.273287e-02     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 5.7  1.275768e-02     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 6.0  2.059137e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 6.0 -3.869060e-03     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 6.0  3.893784e-03     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 6.3  2.089617e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 6.3  1.001801e-02     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 6.3 -9.993596e-03     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 6.5  2.089618e-05     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 6.5  1.141579e-02     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 6.5 -1.139137e-02     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 6.9  2.131105e-05     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 6.9  1.732663e-02     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 6.9 -1.730262e-02     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 7.9  2.619599e-05     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 7.9  9.519309e-02     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 4.3 -1.867583e-02     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 4.3  1.877892e-02     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 4.9  1.324909e-05     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 4.9 -1.323015e-02     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 4.9  1.326222e-02     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 5.1  1.937735e-05     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 5.1 -1.323627e-02     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 5.1  1.326220e-02     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 5.4  1.939363e-05     1     1       FALSE       0.5    NA
+      14 #F8766D    solid 5.4 -1.297786e-02     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 5.4  1.300378e-02     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 5.7  2.050916e-05     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 5.7 -1.273287e-02     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 5.7  1.275768e-02     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 6.0  2.059137e-05     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 6.0 -3.869060e-03     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 6.0  3.893784e-03     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 6.3  2.089617e-05     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 6.3  1.001801e-02     1     1       FALSE       0.5    NA
+      27 #F8766D    solid 6.3 -9.993596e-03     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 6.5  2.089618e-05     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 6.5  1.141579e-02     1     1       FALSE       0.5    NA
+      28 #F8766D    solid 6.5 -1.139137e-02     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 6.9  2.131105e-05     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 6.9  1.732663e-02     1     1       FALSE       0.5    NA
+      29 #F8766D    solid 6.9 -1.730262e-02     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 7.9  2.619599e-05     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 7.9  9.519309e-02     1     1       FALSE       0.5    NA
       30 #F8766D    solid 7.9 -9.517397e-02     1     1       FALSE       0.5    NA
       
       $.all_cats$d1$Sepal.Length$facet
@@ -3780,31 +3819,31 @@
       $.all_cats$d1$Petal.Width$overlay
           colour linetype   x             y PANEL group flipped_aes linewidth alpha
       1  #F8766D    solid 0.1 -5.203243e-05     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 0.1  6.827175e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 0.1 -6.817441e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 0.2 -4.334409e-05     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 0.2  6.826307e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 0.2 -6.817441e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 0.6 -7.462779e-06     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 0.6  6.822718e-02     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 0.6 -6.817441e-02     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 1.3  4.564000e-05     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 1.3  6.798841e-02     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 1.3 -6.798874e-02     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 1.4  4.565039e-05     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 0.1  6.827175e-02     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 0.1 -6.817441e-02     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 0.2 -4.334409e-05     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 0.2  6.826307e-02     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 0.2 -6.817441e-02     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 0.6 -7.462779e-06     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 0.6  6.822718e-02     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 0.6 -6.817441e-02     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 1.3  4.564000e-05     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 1.3  6.798841e-02     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 1.3 -6.798874e-02     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 1.4  4.565039e-05     1     1       FALSE       0.5    NA
       14 #F8766D    solid 1.4  6.732132e-02     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 1.4 -6.732165e-02     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 1.6  4.565172e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 1.6 -7.782745e-03     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 1.6  7.782409e-03     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 1.9  4.565171e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 1.9 -1.207708e-01     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 1.9  1.207705e-01     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 2.2  4.565171e-05     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 2.2 -1.279090e-01     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 2.2  1.279087e-01     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 2.5  4.565171e-05     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 2.5 -1.281989e-01     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 1.4 -6.732165e-02     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 1.6  4.565172e-05     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 1.6 -7.782745e-03     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 1.6  7.782409e-03     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 1.9  4.565171e-05     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 1.9 -1.207708e-01     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 1.9  1.207705e-01     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 2.2  4.565171e-05     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 2.2 -1.279090e-01     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 2.2  1.279087e-01     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 2.5  4.565171e-05     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 2.5 -1.281989e-01     1     1       FALSE       0.5    NA
       27 #F8766D    solid 2.5  1.281985e-01     1     1       FALSE       0.5    NA
       
       $.all_cats$d1$Petal.Width$facet

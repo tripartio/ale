@@ -1,6 +1,8 @@
+library(ggplot2)
+
 normal_ale_plot <-
   # Data for symmetrical normal curve, roughly shaped like an A
-  tibble(
+  tibble::tibble(
     x = seq(-1.5, 1.5, length.out = 100),
     y = dnorm(x, mean = 0, sd = 0.5)
   ) |>

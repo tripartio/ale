@@ -11,24 +11,24 @@ ALE(
   y_col = NULL,
   ...,
   exclude_cols = NULL,
-  parallel = "all",
+  parallel = 0,
   model_packages = NULL,
   output_stats = TRUE,
   output_boot_data = FALSE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
   p_values = "auto",
+  require_same_p = TRUE,
   aler_alpha = c(0.01, 0.05),
-  max_num_bins = 10,
-  boot_it = 0,
+  aled_fun = NULL,
+  max_num_bins = 10L,
+  fct_order = "levels",
+  boot_it = 0L,
   boot_alpha = 0.05,
   boot_centre = "mean",
   seed = 0,
   y_type = NULL,
-  sample_size = 500,
+  sample_size = 500L,
   silent = FALSE,
   .bins = NULL
 )
@@ -40,30 +40,56 @@ ALE(
 
 \item{data}{dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which \code{model} was trained. If not provided, \code{ALE()} will try to detect it automatically if it is included in the \code{model} object.}
 
-\item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically from the \code{model} object. For non-standard models, \code{y_col} should be provided. For time-to-event (survival) models, see details.}
+\item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically from the \code{model} object. If not found automatically, \code{y_col} should be provided. For time-to-event (survival) models, see details.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set \code{parallel = 0} to disable parallel processing. See details.}
+\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default \code{parallel = 0} disables parallel processing. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.}
 
-\item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
+\item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
 
 \item{output_stats}{logical(1). If \code{TRUE} (default), return ALE statistics.}
 
 \item{output_boot_data}{logical(1). If \code{TRUE}, return the raw ALE data for each bootstrap iteration. Default is \code{FALSE}.}
 
-\item{pred_fun, pred_type}{function,character(1). \code{pred_fun} is a function that returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}. See details.}
+\item{pred_fun, pred_type}{function,character(1). \code{pred_fun} is a function that returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}. The default \code{NULL} for \code{pred_fun} will often work; if you get an error message, see details.}
 
 \item{p_values}{instructions for calculating p-values. Possible values are:
 \itemize{
 \item \code{NULL}: p-values are not calculated.
 \item An \code{ALEpDist} object: the object will be used to calculate p-values.
-\item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an \code{\link[=ALEpDist]{ALEpDist()}} object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
+\item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an \code{\link[=ALEpDist]{ALEpDist()}} object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 }}
+
+\item{require_same_p}{logical(1). If \code{TRUE} (default), \code{p_values} must be generated with exactly the same \code{model} object, even in the case of surrogate p-values. Only disable this option with \code{FALSE} if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.}
 
 \item{aler_alpha}{numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{aler_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{aler_alpha[1]}. For example, in the ALE plots, for the default \code{aler_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
-\item{max_num_bins}{positive integer(1). Maximum number of ALE bins for numeric \code{x_cols} variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and \code{max_num_bins}. Non-numeric variables such as (binary or categorical) always use all their actual values for ALE bins.}
+\item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
+
+\item{max_num_bins}{integer(1) > 1 or list. For numeric \code{x_cols}, this sets an upper bound on
+the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins}. Valid formats are:
+\itemize{
+\item Single integer > 1: used for all numeric \code{x_cols}.
+\item List with overrides: a list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
+Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.
+An example of the list format would be
+\code{max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))}
+}
+
+The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions.}
+
+\item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
+\itemize{
+\item \code{"levels"} (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
+\item \code{"y_col"}: Sort based on the increasing mean values of the predictions of \code{y_col} for each factor level.
+\item \code{"ksd"}: Not recommended except for compatibility with the original ALEPlot reference implementation.
+\item List with overrides: a list with exactly two elements: \code{default} is a character string with one of the above as the default value; \code{except} is a named character vector with per-column orderings. Unknown names trigger an error.
+An example of the list format would be
+\code{fct_order = list(default = "levels", except = c(continent = "y_col"))}
+}
+
+See details.}
 
 \item{boot_it}{non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a \code{\link[=ModelBoot]{ModelBoot()}} class object. See details there. The default \code{boot_it = 0} turns off bootstrapping.}
 
@@ -71,9 +97,9 @@ ALE(
 
 \item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
 
-\item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with \code{parallel = 0}.}
+\item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with \code{parallel = 0}.}
 
-\item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.}
+\item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex model requires it.}
 
 \item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots in \code{\link[=ALEPlots]{ALEPlots()}}.}
 
@@ -135,9 +161,9 @@ As explained in the documentation above for the \code{p_values} argument, the de
 
 \section{Parallel processing}{
 
-Parallel processing using the \code{{furrr}} framework is enabled by default. The number of parallel threads (workers or cores) is specified with the \code{parallel} argument. By default (\code{parallel = "all"}), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set \verb{parallel = "all but one")}, which will only use faster physical cores and reserve one physical core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set \code{parallel = 0}.
+Parallel processing is possible using the \code{{furrr}} framework. The number of parallel threads (workers or cores) is specified with the \code{parallel} argument. By default (\code{parallel = 0}), it is disabled. \code{parallel = "all but one"} will use all the available physical CPU cores except for one, reserved so that your computer does not slow down as you continue working on other tasks while the procedure runs. The \code{parallel = "all"} option will use all physical and logical CPU cores reported by the system, but the result might sometimes be slower if inappropriate allocation of these parallel processors chokes the system.
 
-The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the \code{model} to the \code{model_packages} argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.
+The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled, some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the \code{model} to the \code{model_packages} argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.
 }
 
 \section{Time-to-event (survival) models}{
@@ -147,13 +173,24 @@ For time-to-event (survival) models, set the following arguments:
 \item \code{y_col} must be the set to the name of the binary event column.
 \item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated, e.g., \code{exclude_cols = 'time'}. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 \item \code{pred_type} must be specified according to the desired \code{type} argument for the \code{predict()} method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
-\item \code{pred_fun} might work fine without modification as long as the settings above are configured. However, for non-standard time-to-event models, a custom \code{pred_fun} as specified above might be needed.
+\item \code{pred_fun} might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom \code{pred_fun} as specified above might be needed.
 }
 }
 
 \section{Progress bars}{
 
 Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
+}
+
+\section{Sorting of unordered factors}{
+
+The ALE algorithm requires an order for the values of all variables. All basic datatypes have a natural order except for unordered factors and characters. \code{fct_order} specifies how unordered factors will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) Note that factor ordering has no effect on the discriminativeness of the ALE algorithm; it only affects which level is listed first, second, and so on in comparison with each other, which is relevant for interpretation. The first level according to \code{fct_order} is always calculated as having zero effect; ALE for all other levels are relative to the first level. We recommend that users explicitly set the levels of each factor in an order that is meaningful for interpretation and then leave \code{fct_order} at its default value (\code{"levels"}).
+
+Character columns treat their unique values as factor levels. With \code{fct_order = "levels"}, the order of values is alphabetical to make it easier to find results in plots.
+
+An alternative ordering is to set \code{fct_order = "y_col"}, which sorts levels based on the increasing mean values of the predictions of \code{y_col} for each factor level. Thus, the ALE results show how the isolated effects of each level of a factor might differ from the average effects when all other variables come into play.
+
+The original \code{ALEPlot} reference implementation sorts factor levels based on their similarity to each other, using an algorithm based on Kolmogorov-Smirnov distances and multidimensional scaling. However, that implementation calculates distances using all the data that happen to be in the dataset, even if some of that data is not used in the model at all. This results in arbitrary different sort orders unless all columns not used in the model are excluded from the dataset. We do not recommend this approach, but we include it with the \code{"ksd"} option for compatibility with the original \code{ALEPlot} reference implementation.
 }
 
 \examples{
@@ -200,7 +237,7 @@ ale_gam_diamonds <- retrieve_rds(
   c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(gam_diamonds)
   }
@@ -243,8 +280,8 @@ get(ale_plots, type = 'effect')  # ALE effects plot
 
 
 
-# If the predict function you want is non-standard, you may define a
-# custom predict function. It must return a single numeric vector.
+# If the predict function you want does not work automatically, you may
+# define a custom predict function. It must return a single numeric vector.
 custom_predict <- function(object, newdata, type = pred_type) {
   predict(object, newdata, type = type, se.fit = TRUE)$fit
 }
@@ -273,7 +310,7 @@ ale_diamonds_with_boot_data <- retrieve_rds(
   c(serialized_objects_site, 'ale_diamonds_with_boot_data.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(
       gam_diamonds,

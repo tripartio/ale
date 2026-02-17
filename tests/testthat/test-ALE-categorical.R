@@ -15,7 +15,6 @@ test_that(
       data = test_cars,
       pred_type = 'probs',
       boot_it = 2,
-      parallel = 0,
       p_values = 'auto',
       output_boot_data = TRUE,
       # sample_size = 25,  # test sampled rug plots

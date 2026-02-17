@@ -74,6 +74,106 @@ validate <- function(
 }
 
 
+#' Find Non-Character Elements in a Nested List
+#'
+#' Recursively traverses a nested list structure and returns all non-character
+#' elements found within a specified maximum recursion depth. The top-level of the
+#' list is considered depth 1. Any elements nested deeper than the specified
+#' `max_depth` are ignored.
+#'
+#' @noRd
+#'
+#' @param x A list (possibly nested) or an atomic element. If `x` is a list, the function
+#'   will recursively search its elements.
+#' @param max_depth An integer specifying the maximum depth to inspect. Elements at a
+#'   depth greater than `max_depth` will be ignored. The default value is 2.
+#' @param current_depth Internal parameter to track the current recursion depth.
+#'   This parameter is managed by the function and should not be supplied by the user.
+#'
+#' @returns A list of non-character elements found within the list at depths less than or
+#'   equal to `max_depth`. If no such elements are found, the function returns `NULL`.
+#'
+#' @details The function uses recursion to traverse the list. It starts with a default
+#'   `current_depth` of 0, meaning that the top-level elements are at depth 1. When
+#'   `max_depth` is set to 2, only elements in the top-level list and one level deep are inspected.
+#'
+#' @examples
+#' lst1 <- list("a", "b", list("c", "d"))            # All character – should return NULL
+#' lst2 <- list("a", 1, list("c", "d"))                # Contains a numeric – should return list(1)
+#' lst3 <- list("a", "b", list("c", 2))                # Numeric in nested list – should return list(2)
+#' lst4 <- list("a", 1, list("c", 2, list(3)))         # Numeric 3 is at depth 3 and should be ignored
+#' lst5 <- list(NULL, 1, list("c", "d"))                # Contains a numeric – should return list(1)
+#'
+#' extract_non_characters(lst1, max_depth = 2)
+#' extract_non_characters(lst2, max_depth = 2)
+#' extract_non_characters(lst3, max_depth = 2)
+#' extract_non_characters(lst4, max_depth = 2)
+#' extract_non_characters(lst5, max_depth = 2)
+#'
+extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
+  # validate(is.list(x))
+
+  # If x is atomic (not a list), then its "depth" is current_depth.
+  if (!is.list(x)) {
+    # If we are within the allowed depth and x is not a character, return it.
+    if (current_depth <= max_depth && !is.character(x)) {
+      return(list(x))
+    } else {
+      return(list())
+    }
+  }
+
+  # x is a list. If we are already at the max depth,
+  # then do not descend any further.
+  if (current_depth == max_depth) {
+    return(list())
+  }
+
+  # Otherwise, we are allowed to look inside this list.
+  # Increase the depth by 1 for its elements.
+  result <- x |>
+    map(\(it.el) extract_non_characters(it.el, max_depth, current_depth + 1)) |>
+    purrr::list_flatten()
+
+  # At the very top (current_depth == 0), if nothing was found, return NULL.
+  if (current_depth == 0 && length(result) == 0) {
+    return(NULL)
+  }
+
+  result
+}
+
+
+
+#' Check if a character vector contains any meaningful text
+#'
+#' This function tests whether a character vector contains at least one
+#' non-missing, non-empty, non-whitespace-only string.
+#'
+#' @noRd
+#'
+#' @param x A character vector, or `NULL`.
+#'
+#' @return A logical scalar (`TRUE` or `FALSE`) indicating whether the input
+#' contains any real, usable text. It returns `FALSE` for `NULL`, `character(0)`, strings consisting only of `""`, `NA`, or whitespace.
+#'
+#' @examples
+#' has_text(NULL)              # FALSE
+#' has_text(character(0))      # FALSE
+#' has_text(c(NA, ""))         # FALSE
+#' has_text(c("", "abc", NA))  # TRUE
+#' has_text("   ")             # FALSE
+#' has_text("word")            # TRUE
+#'
+has_text <- function(x) {
+  !is.null(x) &&
+    length(x) > 0 &&
+    # at least one non-NA, non-blank element
+    any(!is.na(x) & nzchar(trimws(x)))
+}
+
+
+
 
 
 #' Validate a scalar number
@@ -110,6 +210,11 @@ is_scalar_natural <- function(x) {
 #'
 is_scalar_whole <- function(x) {
   rlang::is_scalar_integerish(x) && x >= 0
+}
+
+
+is_date <- function(x) {
+  inherits(x, c("Date", "POSIXct", "POSIXlt"))
 }
 
 
@@ -392,3 +497,173 @@ retrieve_rds <- function(
   cli_abort('None of the provided options successfully retrieved an object.')
 }
 
+
+
+# Machine learning utilities -----------
+
+
+# # Assume set_seed() is already defined in your environment
+#
+# ## 1. Global seed stays intact after function with set_seed()
+# f1 <- function() {
+#   set_seed(123)           # inside f1: force seed
+#   runif(3)                # draw 3 numbers
+# }
+#
+# set.seed(999)
+# (before <- runif(3))        # global reference draw
+# set.seed(999)
+# (out1   <- f1() )           # call f1 with local seeding
+# (after  <- runif(3))        # continue global draws
+#
+# cat("Global unaffected?\n")
+# print(all.equal(before, after))  # should be TRUE
+# cat("Local output (f1):\n")
+# print(out1)
+#
+# ## 2. Different seeds give different outputs
+# f2 <- function(s) {
+#   set_seed(s)
+#   rnorm(2)
+# }
+# print(f2(1))
+# print(f2(2))  # should differ from f2(1)
+#
+# ## 3. Seed=NULL means 'don’t touch global'
+# f3 <- function() {
+#   set_seed(NULL)    # should not reset
+#   runif(2)
+# }
+#
+# set.seed(42)
+# x <- runif(2)       # reference
+# set.seed(42)
+# y <- f3()           # should match x
+# print(all.equal(x, y))   # should be TRUE
+#
+# ## 4. Error inside function still restores seed
+# f4 <- function() {
+#   set_seed(123)
+#   stop("Oops!")     # force an error
+# }
+#
+# set.seed(1234)
+# err <- try(f4(), silent = TRUE)  # catches error
+# post <- runif(2)
+# set.seed(1234)
+# ref  <- runif(2)
+# cat("After error, global still intact?\n")
+# print(all.equal(post, ref))  # should be TRUE
+
+set_seed <- function(
+    seed = 0,
+    .frame = parent.frame()
+) {
+  if (is.null(seed)) return(invisible(NULL))  # opt-out: leave RNG untouched
+
+  # Snapshot current RNG state
+  old_seed <- get0(".Random.seed", envir = .GlobalEnv, inherits = FALSE, ifnotfound = NULL)
+  had_seed <- !is.null(old_seed)
+
+  # Register restore in the caller's frame
+  substitute(
+    on.exit(
+      {
+        if (HAD) {
+          assign(".Random.seed", OLD, envir = .GlobalEnv)
+        } else {
+          if (exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) {
+            rm(".Random.seed", envir = .GlobalEnv)
+          }
+        }
+      },
+      add = TRUE
+    ),
+    list(HAD = had_seed, OLD = old_seed)
+  ) |>
+    eval(envir = .frame)
+
+  # Set the requested seed now
+  set.seed(seed)
+  invisible(NULL)
+}
+
+
+#' k-medoids across a range, returning all internal cluster-quality measures
+#'
+#' @param data          A data frame / tibble of numeric features.
+#' @param min_clusters  Smallest k to try (≥ 2 – silhouette is undefined for k = 1).
+#' @param max_clusters  Largest  k to try.
+#' @param metric        "euclidean", "manhattan", … as accepted by pam().
+#' @param sort_by       Which measure to sort on.
+#'                      Choices: "silhouette" (default),
+#'                               "dissimilarity",
+#'                               "isolation", "diameter",
+#'                               "separation".
+#' @param ...           Extra arguments forwarded to cluster::pam().
+#'
+#' @return A tibble with one row per k, containing:
+#'   • the scalar measures (columns above)
+#'   • `model`   – the pam object
+#'   • `data`    – original data + `.cluster` factor
+#'   • `clusinfo` and `silhouette_widths` for full drill-down
+#'
+x_medoids <- function(
+    data,
+    min_clusters = 2,
+    max_clusters = 10,
+    metric = "euclidean",
+    sort_by = c(
+      "silhouette",
+      "dissimilarity",
+      "isolation",
+      "diameter",
+      "separation"
+    ),
+    ...
+) {
+  # Validate arguments
+  max_clusters <- min(max_clusters, nrow(data) - 1)
+  sort_by <- match.arg(sort_by)
+  stopifnot(min_clusters >= 2L,
+            max_clusters >= min_clusters)
+
+  mtx <- data |>
+    mutate(across(everything(), as.numeric)) |>
+    as.matrix()
+
+  results <- min_clusters:max_clusters |>
+    map(\(it.k) {
+    fit <- cluster::pam(mtx, k = it.k, metric = metric, ...)          # core PAM fit
+
+    # cluster-level table :contentReference[oaicite:0]{index=0}
+    ci  <- as.data.frame(fit$clusinfo)
+    sep_col <- intersect(c("separation", "sep"), names(ci))
+
+    tibble(
+      k             = it.k,
+      # dataset-level silhouette :contentReference[oaicite:1]{index=1}
+      silhouette    = fit$silinfo$avg.width,
+      # PAM optimisation target  :contentReference[oaicite:2]{index=2}
+      dissimilarity = fit$objective[1],
+      diameter      = mean(ci$diameter),
+      separation    = mean(ci[[sep_col[1]]]),
+      model         = list(fit),
+      medoids       = list(fit$medoids),
+      data          = list(as_tibble(data) |>
+        mutate(.cluster = factor(fit$clustering))),
+      clusinfo      = list(ci),
+      silhouette_widths = list(fit$silinfo$widths)
+    )
+  }) |>
+    bind_rows()
+
+  ## Direction: “bigger is better” for silhouette & separation; otherwise smaller
+  desc_measures <- c("silhouette", "separation")
+
+  if (sort_by %in% desc_measures) {
+    arrange(results, desc(.data[[sort_by]]))
+  } else {
+    arrange(results, .data[[sort_by]])
+  }
+}

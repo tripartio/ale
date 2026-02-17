@@ -318,7 +318,7 @@ extract_2D_diags <- function(mx) {
 #' Intrapolate missing values of matrix
 #'
 #' This intrapolation algorithm replaces internal missing values in a matrix. It does so in the following steps:
-#' * Calculate separate intrapolations in four directions: rows, columns, NWSE diagonals (upper left down to lower right), and SWNE diagonals (lower left up to upper right). The intrapolations in each direction is based on the algorithm of [intrapolate_1D()]. (See details there.)
+#' * Calculate separate intrapolations in four directions: rows, columns, NWSE diagonals (upper left down to lower right), and SWNE diagonals (lower left up to upper right). The intrapolations in each direction is based on the algorithm of \code{[intrapolate_1D()]}. (See details there.)
 #' * The 2D intrapolation is the mean intrapolation from any of the four values. In taking the mean, missing intrapolations are removed.
 #' * When there is no intrapolation available from any of the four directions, the missing value remains missing.
 #'
@@ -574,9 +574,9 @@ extract_3D_diags <- function(ray) {
 
 #' Intrapolate missing values of a 3D array
 #'
-#' This intrapolation algorithm replaces internal missing values in a three-dimensional array. For how it works, see the details of [intrapolate_2D()]. Based on that,  [intrapolate_3D()] does the following:
+#' This intrapolation algorithm replaces internal missing values in a three-dimensional array. For how it works, see the details of \code{[intrapolate_2D()]}. Based on that, \code{[intrapolate_3D()]} does the following:
 #' * Slice the 3D array into 2D matrices along the rows, columns, and depth dimensions.
-#' * Use [intrapolate_2D()] to calculate 2D intrapolations based on the algorithm of [intrapolate_1D()]. See details in their documentation.
+#' * Use \code{[intrapolate_2D()]} to calculate 2D intrapolations based on the algorithm of \code{[intrapolate_1D()]}. See details in their documentation.
 #' * In addition, calculate intrapolations along the four directions of 3D diagonals: front northwest to back southeast, that is, front upper left down to back lower right  (FNWBSE), FSWBNE, FSEBNW, and FNEBSW.
 #' * The 3D intrapolation is the mean intrapolation from any of these 2D or 3D values. In taking the mean, missing intrapolations are removed.
 #' * When there is no intrapolation available from any of the directions, the missing value remains missing.

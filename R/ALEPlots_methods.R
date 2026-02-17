@@ -205,8 +205,10 @@ method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
 #' See [get.ALE()] for explanation of parameters not described here.
 #'
 #' @param x An object of class `ALEPlots`.
+#' @param x_cols,exclude_cols See documentation for [get.ALE()]
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param include_eff logical(1). `x_cols` and `exclude_cols` specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. `include_eff = TRUE` (default) includes the ALE effects plot in the subset rather than dropping it, if it is available.
+#' @param silent See documentation for [ALE()]
 #'
 #' @returns An `ALEPlots` object reduced to cover only variables and interactions specified by `x_cols` and `exclude_cols`. This is different from [get.ALEPlots()], which returns a list of `ggplot` objects and loses the special `ALEPlots` behaviour like plotting, printing, and summarizing multiple plots.
 #'
@@ -233,11 +235,15 @@ method(subset, ALEPlots) <- function(
   plots_obj <- x  # rename
   rm(x)
 
-  col_names <- plots_obj@params$requested_x_cols |>
+  req_x <- plots_obj@params$requested_x_cols
+  col_names <- req_x |>
     unlist() |>
+    unname() |>
     str_split(':') |>
-    unlist()
+    unlist() |>
+    unique()
 
+  # x_cols requested for the subset
   x_cols <- resolve_x_cols(
     x_cols = x_cols,
     col_names = col_names,
@@ -246,11 +252,18 @@ method(subset, ALEPlots) <- function(
     silent = silent
   )
 
+  # Valid x_cols for subsetting
+  subset_x_cols <- req_x |>
+    imap(\(it.d_terms, it.d) {
+      it.d_terms |>
+        intersect(x_cols[[it.d]])
+    })
+
   # Subset plots
   plots_obj@plots <- plots_obj@plots |>
     map(\(it.plot_cat) {
-      it.plot_cat$d1 <- it.plot_cat$d1[x_cols$d1]
-      it.plot_cat$d2 <- it.plot_cat$d2[x_cols$d2]
+      it.plot_cat$d1 <- it.plot_cat$d1[subset_x_cols$d1]
+      it.plot_cat$d2 <- it.plot_cat$d2[subset_x_cols$d2]
 
       if (!include_eff) {
         # Only removed if explicitly not included
@@ -261,7 +274,7 @@ method(subset, ALEPlots) <- function(
     })
 
   # Align params to the new subset
-  plots_obj@params$requested_x_cols <- x_cols
+  plots_obj@params$requested_x_cols <- subset_x_cols
 
   return(plots_obj)
 }

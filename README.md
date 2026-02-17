@@ -153,24 +153,24 @@ library(ale)
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
 serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+```
 
+``` r
 # Create ALE data
-ale_gam_diamonds <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(gam_diamonds, data = diamonds)
-  }
-)
-# saveRDS(ale_gam_diamonds, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds)
+
+ale_gam_diamonds <- serialized_objects_site |> 
+  file.path('ale_gam_diamonds.0.5.2.rds') |>
+  url() |> 
+  readRDS()
 
 # Plot the ALE data
 plot(ale_gam_diamonds) |> 
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-simple-ale-1.png" width="100%" />
+<img src="man/figures/README-simple-ale-rds-1.png" alt="" width="100%" />
 
 For an explanation of these basic features, see the [introductory
 vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
@@ -178,31 +178,30 @@ vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
 ### Statistical inference with ALE
 
 The statistical functionality of the `{ale}` package is rather slow
-because it typically involves 100 bootstrap iterations and sometimes a
+because it typically involves 100 bootstrap iterations and sometimes
 1,000 random simulations. Even though most functions in the package
-implement parallel processing by default, such procedures still take
-some time. So, this statistical demonstration gives you downloadable
-objects for a rapid demonstration.
+support parallel processing, such procedures still take some time. So,
+this statistical demonstration gives you downloadable objects for a
+rapid demonstration.
 
 First, we need to create a p-value distribution object so that the ALE
 statistics can be properly distinguished from random effects.
 
 ``` r
 # Create p_value distribution object
-p_dist_gam_diamonds_readme <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'p_dist_gam_diamonds_readme.0.5.2.rds'),
-  {
-    # Rather slow because it retrains the model 100 times.
-    # To run the code yourself, execute this code block directly.
-    ALEpDist(
-      gam_diamonds, diamonds,
-      # Normally should be default 1000, but just 100 for a quicker demo.
-      rand_it = 100
-    )
-  }
-)
-# saveRDS(p_dist_gam_diamonds_readme, file.choose())
+
+# # Rather slow because it retrains the model 100 times.
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# p_dist_gam_diamonds_readme <- ALEpDist(
+#   gam_diamonds, diamonds,
+#   # Normally should be default 1000, but just 100 for a quicker demo.
+#   rand_it = 100
+# )
+
+p_dist_gam_diamonds_readme <- serialized_objects_site |> 
+  file.path('p_dist_gam_diamonds_readme.0.5.2.rds') |>
+  url() |> 
+  readRDS()
 ```
 
 Now we can create bootstrapped ALE data and see some of the differences
@@ -211,24 +210,24 @@ in the plots of bootstrapped ALE with p-values:
 ``` r
 # Create ALE data with p-values
 
-ale_gam_diamonds_stats_readme <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_stats_readme.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      # generate ALE for all 1D variables and the carat:clarity 2D interaction
-      x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
-      data = diamonds,
-      p_values = p_dist_gam_diamonds_readme,
-      # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
-      boot_it = 10
-    )
-  }
-)
-# saveRDS(ale_gam_diamonds_stats_readme, file.choose())
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# ale_gam_diamonds_stats_readme <- ALE(
+#   gam_diamonds,
+#   # generate ALE for all 1D variables and the carat:clarity 2D interaction
+#   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
+#   data = diamonds,
+#   p_values = p_dist_gam_diamonds_readme,
+#   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
+#   boot_it = 10
+# )
 
+ale_gam_diamonds_stats_readme <- serialized_objects_site |> 
+  file.path('ale_gam_diamonds_stats_readme.0.5.2.rds') |>
+  url() |> 
+  readRDS()
+```
+
+``` r
 # Create an ALEPlots object for fine-tuned plotting
 ale_plots <- plot(ale_gam_diamonds_stats_readme)
 
@@ -241,7 +240,7 @@ ale_plots |>
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-ale-p-and-1D-plot-1.png" width="100%" />
+<img src="man/figures/README-ale-1D-plot-1.png" alt="" width="100%" />
 
 ``` r
 # Plot a selected 2D plot
@@ -250,7 +249,7 @@ ale_plots |>
   get('carat:clarity') 
 ```
 
-<img src="man/figures/README-2D-plot-1.png" width="100%" />
+<img src="man/figures/README-2D-plot-1.png" alt="" width="100%" />
 
 For a detailed explanation of how to interpret these plots, see the
 vignette on [ALE-based statistics for statistical inference and effect

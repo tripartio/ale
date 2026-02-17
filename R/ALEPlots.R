@@ -13,8 +13,14 @@
 #' @param obj `ALE` or `ModelBoot` object. The object containing ALE data to be plotted.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param ale_centre character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be centred relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are centred on zero.
+#' @param consolid_cats integer(1) > 1 or list. For 1D plots of categorical variables, only a maximum of `consolid_cats` distinct values (e.g., factor levels) are shown. The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. See details for the calculation. Valid formats are:
+#'   * Single integer > 1: Consolidate categories only if there are more than `consolid_cats` factor levels.
+#'   * List with required levels: a list with exactly two elements: `max` is the same as the single-integer option above: the maximum allowable levels before consolidation begins; `include` is a named list. Each sublist is a character vector of specific levels that must be included for the factor variable that it names. Unknown names or factor levels trigger an error.
+#'   An example of the list format would be:
+#'   `consolid_cats = list(max = 10, include = list(model = c("Cadillac Fleetwood", "Volvo 142E")))`
 #' @param y_1d_refs character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, `y_1d_refs` values are names from `obj@params$y_summary` (usually quantile names). If a numeric vector, `y_1d_refs` values must be values within the range of y, that is, between `obj@params$y_summary$min` and `obj@params$y_summary$max` inclusive.
 #' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows, otherwise they can be very slow for large datasets. By default, their size is the value of `obj@params$sample_size`. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf` (but then the `ALEPlots` object would store the entire dataset, so could become very large).
+#' @param min_col_width numeric(1) in \code{[0.01, 1]}. Column charts scale each column such that the column representing the category with the most elements has a scale of 1 and all other columns have a width that is a fraction of the largest category proportional to their numbers of elements. However, for visibility, no column is displayed narrower than a scale of `min_col_width`. To disable scaling by width, set `min_col_width = 1`.
 #' @param y_nonsig_band numeric(1) from 0 to 1. If there are no p-values, some plots (notably the 1D effects plot) will shade grey the inner `y_nonsig_band` quantile below and above the `ale_centre` average (the median, by default) to indicate nonsignificant effects.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
@@ -34,6 +40,19 @@
 #' }
 #'
 #'
+#' @section Consolidation of factors:
+#'
+#' When a categorical (unordered factor) variable has too many levels, the 1D column charts used to plot their ALE become unwieldy and hard to read. So, the `consolid_cats` argument sets a maximum number of categories (factor levels) to display. For example, for the default `consolid_cats = 10`:
+#'
+#' * If there are `consolid_cats` (default 10) or fewer categories, then there is no consolidation.
+#' * With more than `consolid_cats` categories, all categories are then ranked by decreasing absolute ALE `y` value. The top `consolid_cats - 1` (default 9) categories are retained.
+#' * All other categories are consolidated into one "other" category that reports the count of consolidated categories. Consolidated means are the weighted mean of all categories; consolidated medians, maximums, and minimums are the medians, maximums, and minimums, respectively, of all categories.
+#'
+#' Sometimes, we have specific factor levels that we always want to see; we don't want them consolidated even if their effects are very low. In that case, see the argument specification for how to list such levels that must always be included.
+#'
+#' Note that this consolidation is purely for visualization; the underlying ALE data is not consolidated. Only unordered factors are consolidated thus; ordered factors are never consolidated since their order is meaningful. Moreover, for now, only 1D ALE plots are consolidated.
+#'
+#'
 #' @examples
 #' # See examples with ALE() and ModelBoot() objects.
 #'
@@ -48,9 +67,11 @@ ALEPlots <- new_class(
     obj,
     ...,
     ale_centre = 'median',
+    consolid_cats = 10L,
     y_1d_refs = c('25%', '75%'),
     rug_sample_size = obj@params$sample_size,
-    min_rug_per_interval = 1,
+    min_rug_per_interval = 1L,
+    min_col_width = 0.05,
     y_nonsig_band = 0.05,
     seed = 0,
     silent = FALSE
@@ -66,6 +87,59 @@ ALEPlots <- new_class(
       is_string(ale_centre, c('median', 'mean', 'zero')),
       msg = '{.arg ale_centre} must be one of "median", "mean", or "zero".'
     )
+
+    # Validate consolid_cats
+    invalid_msg_consolid_cats <- c(
+      x = 'Invalid format for {.arg consolid_cats} .',
+      i = 'See documentation for the {.arg consolid_cats} argument for valid formats.'
+    )
+    validate(
+      # Typical valid format: integer > 1
+      (is_scalar_natural(consolid_cats) && (consolid_cats > 1)) ||
+        # List will be validated separately
+        is.list(consolid_cats),
+      msg = invalid_msg_consolid_cats
+    )
+    if (is.list(consolid_cats)) {
+      validate(
+        all(names(consolid_cats) %in% c('max', 'include')),
+        is_scalar_natural(consolid_cats$max) && (consolid_cats$max > 1),
+        msg = invalid_msg_consolid_cats
+      )
+
+      invalid_consolid_cats_col_names <- consolid_cats$include |>
+        names() |>
+        setdiff(obj@params$requested_x_cols$d1)
+      if (length(invalid_consolid_cats_col_names) > 0) {
+        # Fail early even for typos
+        cli_abort('The following columns listed for mandatory inclusions in {.arg consolid_cats} were not found in the ALE object: {invalid_consolid_cats_col_names}')
+      }
+
+      # All categories provided must be valid categories in their respective factors
+      for (it.fct in names(consolid_cats$include)) {
+        validate(
+          consolid_cats$include[[it.fct]] |> is.character(),
+          msg = 'The following factor levels listed for mandatory inclusion in the "{it.fct}" factor in the {.arg consolid_cats} argument were not found in "{it.fct}": {it.invalid_fct_levels}'
+        )
+        validate(
+          length(consolid_cats$include[[it.fct]]) < consolid_cats$max,
+          msg = c(
+            x = '{.arg consolid_cats} requests consolidation for factors with more than {consolid_cats$max} levels, but "{it.fct}" is asking for the inclusion of {length(consolid_cats$include[[it.fct]])} levels.',
+            i = 'You cannot request more than `max - 1` required inclusions.'
+          )
+        )
+
+        it.invalid_fct_levels <- consolid_cats$include[[it.fct]] |>
+          setdiff(get(obj, it.fct)[[1]])
+        if (length(it.invalid_fct_levels) > 0) {
+          # Fail early even for typos
+          cli_abort('The following factor levels listed for mandatory inclusion in the "{it.fct}" factor in the {.arg consolid_cats} argument were not found in "{it.fct}": {it.invalid_fct_levels}')
+        }
+      }
+    }
+
+    validate(min_col_width |> between(0.01, 1))
+
 
     ## Prepare settings and objects --------------
 
@@ -128,6 +202,7 @@ ALEPlots <- new_class(
 
     plots <- imap(obj@effect, \(it.cat_el, it.cat_name) {
       if (length(obj@params$requested_x_cols$d1) >= 1) {
+        # There is at least one 1D ALE data element
 
         it.all_cat_plot_types <- if (it.cat_name == '.all_cats') {
           c('overlay', 'facet')
@@ -135,9 +210,106 @@ ALEPlots <- new_class(
           'single'
         }
 
-        # There is at least 1 1D ALE data element
         plots_1D <-
           imap(it.cat_el$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
+
+            # Consolidate overly numerous categories
+            if (
+              var_type(obj@params$data$data_sample[[it.x_col_name]]) == 'categorical' &&
+              # attr(it.x_col_ale_data, 'x')[[1]]$type == 'categorical' &&
+              !isFALSE(consolid_cats) &&
+              (
+                (is_scalar_natural(consolid_cats) && nrow(it.x_col_ale_data) > consolid_cats) ||
+                (is.list(consolid_cats) && nrow(it.x_col_ale_data) > consolid_cats$max)
+              )
+            ) {
+              # Standardize consolid_cats as an integer
+              if (is.list(consolid_cats)) {
+                it.include <- consolid_cats$include
+                consolid_cats <- consolid_cats$max
+              } else {
+                it.include <- NULL
+              }
+
+              it.bin_col <- names(it.x_col_ale_data)[1]
+
+              # Convert it.x_col_ale_data to list format to be able to handle possible y_cats.
+              it.all_cats_x_col_ale_data <- if ('.cat' %in% names(it.x_col_ale_data)) {
+                it.x_col_ale_data |>
+                  split(it.x_col_ale_data$.cat)
+              } else {
+                list(it.x_col_ale_data)
+              }
+
+              # Consolidate categories one y_cat at a time
+              it.x_col_ale_data <- it.all_cats_x_col_ale_data |>
+                map(\(it.cat_x_col_ale_data) {
+                  it.sorted_ale_data <- it.cat_x_col_ale_data |>
+                    arrange(desc(abs(.data$.y)))
+
+                  # Get ALE data of the top (consolid_cats-1) categories
+                  it.top_cats <- c(
+                    it.include[[it.x_col_name]],
+                    it.sorted_ale_data[[it.bin_col]][
+                      1 : (consolid_cats - length(it.include[[it.x_col_name]]) - 1)
+                    ] |>
+                      as.character()
+                  )
+                  # it.top_cats <- it.sorted_ale_data[[it.bin_col]][1:(consolid_cats-1)]
+                  it.top_ale_data <- it.cat_x_col_ale_data |>
+                    filter(.data[[it.bin_col]] %in% it.top_cats)
+
+                  it.bottom_ale_data <- it.cat_x_col_ale_data |>
+                    filter(.data[[it.bin_col]] %notin% it.top_cats)
+
+                  it.other_row <- tibble(
+                    !!it.bin_col := str_glue('{nrow(it.bottom_ale_data)} others'),
+                    .n = sum(it.bottom_ale_data$.n),
+                    .y_lo = min(it.bottom_ale_data$.y_lo),
+                    # Mean ALE y is the weighted sum of all the other rows
+                    .y_mean = sum(it.bottom_ale_data$.y * it.bottom_ale_data$.n) / .data$.n,
+                    # Median ALE y is the median of all the other rows
+                    .y_median = it.bottom_ale_data$.y_median |>
+                      rep(it.bottom_ale_data$.n) |>
+                      median(),
+                    .y_hi = max(it.bottom_ale_data$.y_hi),
+                    .y = if (obj@params$boot_centre == 'mean') .data$.y_mean else .data$.y_median,
+                  )
+
+                  if ('.cat' %in% names(it.cat_x_col_ale_data)) {
+                    it.other_row$.cat <- it.cat_x_col_ale_data$.cat[1]
+                  }
+
+                  # Recreate it.bin_col as a consistent ordered factor
+                  it.consolid_bin_col_fct <- c(
+                    levels(it.top_ale_data[[it.bin_col]]),
+                    # it.top_ale_data[[it.bin_col]] |> as.character(),
+                    it.other_row[[it.bin_col]][1]
+                  )
+                  it.consolid_bin_col_fct <- factor(
+                    it.consolid_bin_col_fct,
+                    levels = it.consolid_bin_col_fct,
+                    ordered = TRUE
+                  )
+
+                  it.top_ale_data[[it.bin_col]] <- factor(
+                    it.top_ale_data[[it.bin_col]],
+                    levels = it.consolid_bin_col_fct,
+                    ordered = TRUE
+                  )
+                  it.other_row[[it.bin_col]] <- factor(
+                    it.other_row[[it.bin_col]],
+                    levels = it.consolid_bin_col_fct,
+                    ordered = TRUE
+                  )
+
+                  # Replace it.x_col_ale_data with the consolid_cats rows
+                  it.top_ale_data |>
+                    bind_rows(it.other_row)
+                }) |>
+                bind_rows()
+            }
+
             it.p <- map(it.all_cat_plot_types, \(it.cat_plot_type) {
               if (!is.null(it.x_col_ale_data)) {
                 plot_ale_1D(
@@ -161,6 +333,7 @@ ALEPlots <- new_class(
                   y_1d_refs   = y_1d_refs,
                   rug_sample_size = rug_sample_size,
                   min_rug_per_interval = min_rug_per_interval,
+                  min_col_width = min_col_width,
                   seed        = seed
                 )
               }
@@ -209,6 +382,7 @@ ALEPlots <- new_class(
       }
 
       if (obj@params$max_d >= 2) {
+        # There is at least one 2D ALE data element
         plots_2D <-
           imap(it.cat_el$ale$d2, \(it.x_cols_ale_data, it.x_cols_name) {
             it.x_cols_split <- it.x_cols_name |>

@@ -25,6 +25,7 @@
 #' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
 #' @param positive See documentation for [ModelBoot()]
 #' @param pred_fun,pred_type See documentation for [ALE()]
+#' @param aled_fun See documentation for [ALE()]
 #' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default `FALSE` does not return the residuals.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
@@ -66,7 +67,7 @@
 #' * The ALEs and ALE statistics are calculated for each random variable.
 #' * For each ALE statistic, the empirical cumulative distribution function (`stats::ecdf()`) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
 #'
-#' Because the `ale` package is model-agnostic (that is, it works with any kind of R model), the `ALEpDist()` constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all base R algorithms (like [stats::lm()] and [stats::glm()]) and many widely used statistics packages (like `mgcv` and `survival`), but which excludes most machine learning algorithms (like `tidymodels` and `caret`). For non-standard algorithms, the user needs to do a little work to help the `ALEpDist()` constructor correctly manipulate its model object:
+#' Because the `ale` package is model-agnostic (that is, it works with any kind of R model), the `ALEpDist()` constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow modelling conventions similar to those of base R algorithms (like [stats::lm()] and [stats::glm()]) and many widely used statistics packages (like `mgcv` and `survival`), but probably not for most machine learning algorithms (like `tidymodels` and `caret`). For algorithms that do not follow base R conventions, the user needs to do a little work to help the `ALEpDist()` constructor correctly manipulate its model object:
 #'
 #' * The full model call must be passed as a character string in the argument `random_model_call_string`, with two slight modifications as follows.
 #' * In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.
@@ -163,14 +164,14 @@
 #' plot(ale_gam_diamonds)
 #'
 #'
-#' # For non-standard models that give errors with the default settings,
+#' # For models that give errors with the default settings,
 #' # you can use 'random_model_call_string' to specify a model for the estimation
 #' # of p-values from random variables as in this example.
 #' # See details above for an explanation.
 #'
-#' pd_diamonds_non_standard <- retrieve_rds(
+#' pd_diamonds_special <- retrieve_rds(
 #'   # For speed, load a pre-created object by default.
-#'   c(serialized_objects_site, 'pd_diamonds_non_standard.0.5.2.rds'),
+#'   c(serialized_objects_site, 'pd_diamonds_special.0.5.2.rds'),
 #'   {
 #'     # To run the code yourself, execute this code block directly.
 #'     ALEpDist(
@@ -186,10 +187,10 @@
 #'     )
 #'   }
 #' )
-#' # saveRDS(pd_diamonds_non_standard, file.choose())
+#' # saveRDS(pd_diamonds_special, file.choose())
 #'
 #' # Examine the structure of the returned object
-#' print(pd_diamonds_non_standard)
+#' print(pd_diamonds_special)
 #'
 #'
 #' }
@@ -210,15 +211,14 @@ ALEpDist <- new_class(
     y_col = NULL,
     rand_it = NULL,
     surrogate = FALSE,
-    parallel = 'all',
+    parallel = 0,
     model_packages = NULL,
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
     positive = TRUE,
-    pred_fun = function(object, newdata, type = pred_type) {
-      stats::predict(object = object, newdata = newdata, type = type)
-    },
+    pred_fun = NULL,
     pred_type = "response",
+    aled_fun = 'mad',
     output_residuals = FALSE,
     seed = 0,
     silent = FALSE,
@@ -240,7 +240,7 @@ ALEpDist <- new_class(
 
       validate(is_bool(surrogate))
 
-      # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+      # If y_col is NULL, try to automatically detect it.
       # y_col must be set before y_preds is created so that y_preds columns can be properly named.
       y_col <- validate_y_col(
         y_col = y_col,
@@ -275,13 +275,15 @@ ALEpDist <- new_class(
 
     # Validate the prediction function with the model and the dataset
     # Note: y_preds will be used later in this function.
-    y_preds <- validate_y_preds(
+    val_pred <- validate_prediction(
       pred_fun = pred_fun,
       model = model,
       data = data,
       y_col = y_col,
       pred_type = pred_type
     )
+    pred_fun <- val_pred$pred_fun
+    y_preds <- val_pred$y_preds
 
     # Nip in the bud rubbish results due to identical predictions
     validate(
@@ -289,9 +291,12 @@ ALEpDist <- new_class(
       msg = cli_alert_danger('All predictions are identical. p-values cannot be created.')
     )
 
-    vp <- validate_parallel(parallel, model, model_packages)
-    parallel <- vp$parallel
-    model_packages <- vp$model_packages
+    if (missing(parallel)) {
+      parallel <- getOption("ale.parallel", parallel)
+    }
+    val_pll <- validate_parallel(parallel, model, model_packages)
+    parallel <- val_pll$parallel
+    model_packages <- val_pll$model_packages
 
     model_call <- NULL  # Initialize
     if (is.null(random_model_call_string)) {
@@ -440,6 +445,15 @@ ALEpDist <- new_class(
 
     if (!is.null(model_call)) {
       # Get the predictors when model_call is automatically detected
+
+      if (is.null(model_call$formula)) {
+        # Some models assign the formula as the default first argument without naming it.
+        # In such cases, element 1 is the function call and element 2 is the formula.
+        model_call$formula <- model_call[[2]]
+        # Element 2 must be subsequently deleted, or else it is passed to the next unnamed argument
+        model_call[[2]] <- NULL
+      }
+
       model_predictors <-
         model_call$formula |>
         # Regardless of the format of the formula (e.g., a symbol variable, evaluate it in the calling environment to convert it to a valid formula object)
@@ -453,8 +467,9 @@ ALEpDist <- new_class(
 
     # Enable parallel processing and restore former parallel plan on exit
     if (parallel > 0) {
-      original_parallel_plan <- future::plan(future::multisession, workers = parallel)
-      on.exit(future::plan(original_parallel_plan))
+      future::plan(future::multisession, workers = parallel) |>
+        # https://github.com/tripartio/ale/issues/17
+        with(local = TRUE)
     }
 
     # Create progress bar iterator
@@ -550,6 +565,7 @@ ALEpDist <- new_class(
               pred_fun = eval(pred_fun),
               pred_type = pred_type,
               p_values = NULL,  # avoid infinite recursion
+              aled_fun = aled_fun,
               max_num_bins = if (surrogate) {
                 10  # "quicker calculation" but tictoc says it's the same timing
               } else {
@@ -630,8 +646,8 @@ ALEpDist <- new_class(
               y = it.rand.cat$ale$d1$random_variable$.y,
               bin_n = it.rand.cat$ale$d1$random_variable$.n,
               ale_y_norm_fun = ale_y_norm_fun,
-              x_type = 'numeric' #,  # the random variables are always numeric
-              # zeroed_ale = TRUE
+              x_type = 'numeric', #,  # the random variables are always numeric
+              aled_fun = aled_fun
             )
           })
       }) |>
@@ -648,7 +664,7 @@ ALEpDist <- new_class(
     ]
     temp_objs <- c(
       'data', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
-      'pred_type', 'silent', 'surrogate', 'vp', 'y_preds'
+      'pred_type', 'silent', 'surrogate', 'val_pll', 'val_pred', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 

@@ -23,6 +23,7 @@
 #' @param y_vals numeric. Entire vector of y values. Needed for normalization. If not provided, ale_y_norm_fun must be provided.
 #' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `calc_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
 #' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
+#' @param aled_fun See documentation for [ALE()]
 #'
 #' @returns Named numeric vector:
 #' * aled: ALE deviation (ALED)
@@ -37,10 +38,11 @@ calc_stats <- function(
     bin_n,
     y_vals = NULL,
     ale_y_norm_fun = NULL,
-    x_type = 'numeric'
+    x_type = 'numeric',
+    aled_fun = 'mad'
 ) {
 
-  ## Validate data -------------
+  # Validate data -------------
 
   validate(
     !(is.null(y_vals) && is.null(ale_y_norm_fun)),
@@ -55,15 +57,40 @@ calc_stats <- function(
   bin_n <- bin_n[!na_y]
 
 
-  ## Prepare internally used functions and data ---------
+  # Prepare internally used functions and data ---------
 
   # ALED formula.
   # Internal function because it will be reused for both ALED and NALED.
   aled_score <- function(y, n) {
-    (y * n) |>
-      abs() |>
-      sum() |>
-      (`/`)(sum(n))
+    if (aled_fun == 'mad') {
+      (y * n) |>
+        abs() |>
+        sum() |>
+        (`/`)(sum(n))
+    } else if (aled_fun == 'sd') {
+      (y^2 * n) |>
+        sum() |>
+        (`/`)(sum(n)) |>
+        sqrt()
+    } else if (aled_fun == 'linear') {
+      # Although experimentally implemented here as a third ALE deviation function, this "linear" option will probably end up as an entirely new kind of ALE statistic, probably "ALE coefficient (ALEC)", which allows direct comparison of the relative strengths of effects from one variable to another in terms of linear weights.
+      # A future normalized version (scaled on 100% of linear weights) will require composite ALE.
+      sum_n <- sum(n)
+      min_y <- min(y, na.rm = TRUE)
+      max_y <- max(y, na.rm = TRUE)
+
+      pos_coef <- ((y - min_y) * n) |>
+        sum() |>
+        (`/`)(sum_n)
+      neg_coef <- ((y - max_y) * n) |>
+        sum() |>
+        (`/`)(sum_n)
+
+      # Both pos_coef and neg_coef are "correct"; they simply express the data as signed inverses one of the other.
+      # Choose to express the data as the simpler of the two: the coefficient with the smaller unsigned magnitude.
+      # Though this approach cannot reliably reproduce an artificially simulated linear weight, it accurately represents or rerepresents the empirical data.
+      if (abs(pos_coef) <= abs(neg_coef)) pos_coef else neg_coef
+    }
   }
 
   # Normalized scores
@@ -72,7 +99,7 @@ calc_stats <- function(
   }
 
 
-  ## Calculate the statistics ------------
+  # Calculate the statistics ------------
 
   # ALER and NALER: minimum negative and positive effects in units of y
   aler <- c(min(y), max(y))
@@ -112,7 +139,7 @@ calc_stats <- function(
   )
 
 
-  ## Return ----------
+  # Return ----------
 
   return(c(
     aled = aled,
@@ -129,7 +156,7 @@ calc_stats <- function(
 #'
 #' When calculating second-order (2D) ALE statistics, there is no difficulty if both variables are categorical. The regular formulas for ALE operate normally. However, if one or both variables is numeric, the calculation is complicated by the necessity to determine the ALE midpoints between the ALE bin ceilings of the numeric variables. This function calculates these ALE midpoints for the numeric variables and resets the ALE bins to these values. The ALE values for ordinal variables are not changed. As part of the adjustment, the lowest numeric bin is merged into the second: the ALE values are completely deleted (since they do not represent a midpoint) and their counts are added to the first true bin.
 #'
-#' After these possible adjustments, the ALE y values and bin counts are passed to [calc_stats()], which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
+#' After these possible adjustments, the ALE y values and bin counts are passed to \code{[calc_stats()]}, which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
 #'
 #' @noRd
 #'
@@ -137,18 +164,19 @@ calc_stats <- function(
 #' @param ale_data dataframe. ALE data
 #' @param x_cols character. Names of the x columns in `ale_data`.
 #' @param x_types character same length as `x_cols`. Variable types (output of var_type()) of corresponding `x_cols`.
-#' @param y_vals See documentation for [calc_stats()]
-#' @param ale_y_norm_fun See documentation for [calc_stats()]
-# @param zeroed_ale See documentation for [calc_stats()]
+#' @param y_vals See documentation for \code{[calc_stats()]}
+#' @param ale_y_norm_fun See documentation for \code{[calc_stats()]}
+#' @param aled_fun See documentation for [ALE()]
 #'
-#' @returns Same as [calc_stats()].
+#' @returns Same as \code{[calc_stats()]}.
 #'
 calc_stats_2D <- function(
     ale_data,
     x_cols,
     x_types,
     y_vals = NULL,
-    ale_y_norm_fun = NULL
+    ale_y_norm_fun = NULL,
+    aled_fun = 'mad'
 ) {
   # ale_data=boot_summary
 
@@ -222,7 +250,8 @@ calc_stats_2D <- function(
     y_vals = y_vals,
     ale_y_norm_fun = ale_y_norm_fun,
     # Now ALE stats can be calculated as ordinal ALE since all the necessary preprocessing has been done.
-    x_type = 'ordered'
+    x_type = 'ordered',
+    aled_fun = aled_fun
   ))
 }  # calc_stats_2D()
 
@@ -237,14 +266,16 @@ create_ale_y_norm_function <- function(y_vals) {
   # Find the values right below and right above median y (0 for centred_y)
 
   # Value right below the median
-  pre_median  <- if (median(centred_y) != max(centred_y)) {
-    max(centred_y[centred_y < 0])
+  neg_vals <- centred_y[centred_y < 0]
+  pre_median  <- if (length(neg_vals) > 0) {
+    max(neg_vals)
   } else {
     0
   }
   # Value right above the median
-  post_median <- if (median(centred_y) != min(centred_y)) {
-    min(centred_y[centred_y > 0])
+  pos_vals <- centred_y[centred_y > 0]
+  post_median <- if (length(pos_vals) > 0) {
+    min(pos_vals)
   } else {
     0
   }

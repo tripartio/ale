@@ -10,11 +10,13 @@ License: MIT + file LICENSE
 Language: en-ca
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Suggests: 
+    cluster,
     knitr,
     mgcv,
     nnet,
+    ranger,
     readr,
     rmarkdown,
     testthat (>= 3.0.0),
@@ -46,5 +48,5 @@ URL: https://github.com/tripartio/ale, https://tripartio.github.io/ale/
 BugReports: https://github.com/tripartio/ale/issues
 Config/testthat/edition: 3
 Config/testthat/parallel: true
-Config/testthat/start-first: ALE-numerical, ALE-binary, ALE-categorical, ModelBoot, ALEPlot-gold-standard, ALEpDist
+Config/testthat/start-first: ALE-numerical, ModelBoot, ALE-categorical, ALEpDist, ALE-binary, ALEPlot-gold-standard
 LazyData: true

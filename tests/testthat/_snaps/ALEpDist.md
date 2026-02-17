@@ -7,7 +7,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -39,14 +39,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      attr(,"params")$model$hash
+      [1] "80242e9f11c771db3d0e938012948846"
       
       
       attr(,"params")$y_col
@@ -70,6 +64,9 @@
       attr(,"params")$positive
       [1] TRUE
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$seed
       [1] 0
       
@@ -89,7 +86,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -109,9 +106,9 @@
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America    24     0     0       0         0     0
+      1 Asia             12     0     0       0         0     0
       2 Europe           28     0     0       0         0     0
-      3 Asia             12     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7
@@ -122,18 +119,18 @@
       
       attr(,"effect")$mpg$ale$d1$model
       # A tibble: 32 x 7
-         model.bin              .n     .y  .y_lo .y_mean .y_median .y_hi
-         <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-       1 Camaro Z28              2 -1.22  -3.83   -1.22     -1.74   2.27
-       2 Cadillac Fleetwood      2 -0.330 -9.42   -0.330     0.233  7.80
-       3 Lincoln Continental     2  7.05  -9.18    7.05      7.26  22.9 
-       4 Chrysler Imperial       2 15.5   -4.52   15.5      14.3   37.4 
-       5 Duster 360              2 21.7   -0.182  21.7      21.6   43.9 
-       6 Hornet Sportabout       2 31.8    5.16   31.8      37.6   48.4 
-       7 Pontiac Firebird        2 25.1    3.36   25.1      29.3   39.7 
-       8 Dodge Challenger        2 20.3    0.910  20.3      21.6   37.4 
-       9 AMC Javelin             2 20.4    1.16   20.4      22.0   36.9 
-      10 Merc 450SL              2 20.8    1.13   20.8      15.1   50.2 
+         model.bin             .n     .y   .y_lo .y_mean .y_median .y_hi
+         <ord>              <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin            2 -12.2  -17.5    -12.2    -11.7   -7.57
+       2 Cadillac Fleetwood     2 -15.1  -27.0    -15.1    -11.1   -9.98
+       3 Camaro Z28             2  -1.82 -20.8     -1.82     0.713 12.8 
+       4 Chrysler Imperial      2  -1.20 -10.3     -1.20    -0.746  7.15
+       5 Datsun 710             2  13.0   -0.747   13.0     11.1   30.1 
+       6 Dodge Challenger       2  20.5    5.86    20.5     21.0   34.2 
+       7 Duster 360             2  21.1    4.54    21.1     21.4   37.2 
+       8 Ferrari Dino           2  24.5   10.0     24.5     25.7   36.9 
+       9 Fiat 128               2  27.7   16.3     27.7     28.6   37.6 
+      10 Fiat X1-9              2  20.5    6.52    20.5     22.6   30.9 
       # i 22 more rows
       
       attr(,"effect")$mpg$ale$d1$gear
@@ -249,14 +246,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      attr(,"params")$model$hash
+      [1] "80242e9f11c771db3d0e938012948846"
       
       
       attr(,"params")$data
@@ -363,7 +354,10 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function (object, newdata, type = pred_type) "                      
+      [2] "{"                                                                  
+      [3] "    stats::predict(object = object, newdata = newdata, type = type)"
+      [4] "}"                                                                  
       
       attr(,"params")$pred_type
       [1] "response"
@@ -389,12 +383,10 @@
        .. - attr(*, "default")= num [1:2] 0 1
        .. - attr(*, "continuous")= logi TRUE
        @ residuals            : NULL
-       @ params               :List of 11
-       .. $ model                        :List of 4
-       ..  ..$ class  : chr [1:3] "gam" "glm" "lm"
-       ..  ..$ call   : chr "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
-       ..  ..$ print  : chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated "| __truncated__
-       ..  ..$ summary: chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric"| __truncated__
+       @ params               :List of 12
+       .. $ model                        :List of 2
+       ..  ..$ class: chr [1:3] "gam" "glm" "lm"
+       ..  ..$ hash : chr "80242e9f11c771db3d0e938012948846"
        .. $ y_col                        : chr "mpg"
        .. $ rand_it                      : num 10
        .. $ parallel                     : num 0
@@ -402,15 +394,25 @@
        .. $ random_model_call_string     : NULL
        .. $ random_model_call_string_vars: chr(0) 
        .. $ positive                     : logi TRUE
+       .. $ aled_fun                     : chr "mad"
        .. $ seed                         : num 0
        .. $ rand_it_ok                   : int 10
        .. $ exactness                    : chr "invalid"
       
+      attr(,"params")$require_same_p
+      [1] TRUE
+      
       attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$max_num_bins
       [1] 10
+      
+      attr(,"params")$fct_order
+      [1] "levels"
       
       attr(,"params")$boot_it
       [1] 3
@@ -466,7 +468,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -513,14 +515,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      attr(,"params")$model$hash
+      [1] "80242e9f11c771db3d0e938012948846"
       
       
       attr(,"params")$y_col
@@ -543,6 +539,9 @@
       
       attr(,"params")$positive
       [1] TRUE
+      
+      attr(,"params")$aled_fun
+      [1] "mad"
       
       attr(,"params")$seed
       [1] 0
@@ -601,7 +600,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -640,14 +639,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      attr(,"params")$model$hash
+      [1] "80242e9f11c771db3d0e938012948846"
       
       
       attr(,"params")$y_col
@@ -671,6 +664,9 @@
       attr(,"params")$positive
       [1] TRUE
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$seed
       [1] 0
       
@@ -690,7 +686,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -722,14 +718,8 @@
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$call
-      [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
-      
-      attr(,"params")$model$print
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n1  total = 34 \n\nUBRE score: 0.0625     rank: 42/45"
-      
-      attr(,"params")$model$summary
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)              -9.522e+00  1.151e+07       0        1\nmodelCadillac Fleetwood  -1.999e-11  2.420e+07       0        1\nmodelCamaro Z28          -4.035e-12  5.648e+06       0        1\nmodelChrysler Imperial   -2.075e-11  2.550e+07       0        1\nmodelDatsun 710          -1.927e-05  9.376e+06       0        1\nmodelDodge Challenger    -1.376e-12  1.760e+06       0        1\nmodelDuster 360          -1.132e-12  2.390e+06       0        1\nmodelFerrari Dino         8.181e-12  1.044e+07       0        1\nmodelFiat 128            -1.846e-05  7.891e+06       0        1\nmodelFiat X1-9           -7.764e-07  4.293e+06       0        1\nmodelFord Pantera L       2.785e-12  5.414e+06       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout   -3.071e-13  1.054e+06       0        1\nmodelLincoln Continental -2.212e-11  2.680e+07       0        1\nmodelLotus Europa         5.713e+01  2.726e+07       0        1\nmodelMaserati Bora        0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -5.121e-09  3.989e+06       0        1\nmodelMerc 240D            4.167e-09  3.387e+06       0        1\nmodelMerc 280             0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280C           -8.888e-09  1.019e+06       0        1\nmodelMerc 450SE          -7.012e-12  8.472e+06       0        1\nmodelMerc 450SL          -2.793e-12  3.993e+06       0        1\nmodelMerc 450SLC         -3.853e-12  4.887e+06       0        1\nmodelPontiac Firebird    -4.567e-12  5.495e+06       0        1\nmodelPorsche 914-2        1.391e-11  1.889e+07       0        1\nmodelToyota Corolla       3.631e-09  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E          -8.364e-07  1.543e+07       0        1\namTRUE                    8.093e-07  2.420e+07       0        1\ngear.L                   -5.723e-07  1.836e+07       0        1\ngear.Q                   -4.665e+01  1.042e+07       0        1\ncarb                     -3.956e-13  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
+      attr(,"params")$model$hash
+      [1] "dc94854dc391908c576686b596cde172"
       
       
       attr(,"params")$y_col
@@ -753,6 +743,9 @@
       attr(,"params")$positive
       [1] TRUE
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$seed
       [1] 0
       
@@ -772,7 +765,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -834,14 +827,8 @@
       attr(,"params")$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$call
-      [1] "nnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALSE)"
-      
-      attr(,"params")$model$print
-      [1] "Call:\nnnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALSE)\n\nCoefficients:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope          -21.86205               -2.222771       -6.526356\nNorth America   -12.29302               -2.006450       14.817906\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                    -3.5495185       -42.28844             -3.766810\nNorth America             -0.4119232       -22.35666              7.689393\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope              -7.046867          5.545836     42.144872      43.426334\nNorth America       20.851301         -3.241914      2.522922       2.870462\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                  -23.11127      -27.5878163           -2.495884\nNorth America            29.30682       -0.1513286            7.771946\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                     -5.036042                -1.780289         14.561696\nNorth America              12.103127                -2.891703         -1.631007\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                  6.999218      -33.61112          -35.88135\nNorth America          -7.857123       -3.27005          -10.72975\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope           14.2684900     14.2452958     11.590028     10.4496565\nNorth America    -0.5204999     -0.6708756      1.228568      0.8928993\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope               39.49499         34.5616         36.09627\nNorth America       -38.59611        -31.8537        -34.17067\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                    -3.057543          15.344405          -34.531039\nNorth America              4.399831          -4.102117           -8.804816\n              modelToyota Corona modelValiant modelVolvo 142E       wt\nEurope                 -44.72605    -2.073514       34.932615 4.534617\nNorth America          -52.77315     5.537827        2.626442 3.625818\n                 amTRUE     gear.L    gear.Q      carb\nEurope        -34.05607 40.7995829 -5.443825 10.524876\nNorth America -24.81811  0.6220113 39.516400  5.894396\n\nResidual Deviance: 0.0001161393 \nAIC: 136.0001 "
-      
-      attr(,"params")$model$summary
-      [1] "Call:\nnnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALSE)\n\nCoefficients:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope          -21.86205               -2.222771       -6.526356\nNorth America   -12.29302               -2.006450       14.817906\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                    -3.5495185       -42.28844             -3.766810\nNorth America             -0.4119232       -22.35666              7.689393\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope              -7.046867          5.545836     42.144872      43.426334\nNorth America       20.851301         -3.241914      2.522922       2.870462\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                  -23.11127      -27.5878163           -2.495884\nNorth America            29.30682       -0.1513286            7.771946\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                     -5.036042                -1.780289         14.561696\nNorth America              12.103127                -2.891703         -1.631007\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                  6.999218      -33.61112          -35.88135\nNorth America          -7.857123       -3.27005          -10.72975\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope           14.2684900     14.2452958     11.590028     10.4496565\nNorth America    -0.5204999     -0.6708756      1.228568      0.8928993\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope               39.49499         34.5616         36.09627\nNorth America       -38.59611        -31.8537        -34.17067\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                    -3.057543          15.344405          -34.531039\nNorth America              4.399831          -4.102117           -8.804816\n              modelToyota Corona modelValiant modelVolvo 142E       wt\nEurope                 -44.72605    -2.073514       34.932615 4.534617\nNorth America          -52.77315     5.537827        2.626442 3.625818\n                 amTRUE     gear.L    gear.Q      carb\nEurope        -34.05607 40.7995829 -5.443825 10.524876\nNorth America -24.81811  0.6220113 39.516400  5.894396\n\nStd. Errors:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope           35852.83                64.65729             NaN\nNorth America    12968.78                64.70730    2.870067e-08\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                      477.3874    1.590673e-08          2.857570e-08\nNorth America               477.3874    2.200012e-18          6.428719e+00\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope           5.397518e-10          2660.898  1.805399e+04   1.525317e+04\nNorth America    7.249665e-11          2660.898  1.192455e-12   4.867466e-13\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                 0.09603878     5.871595e-07        3.863891e-10\nNorth America          0.09624948     9.331882e-08        7.163294e+03\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                  4.655689e-09                 285.0759          32194.07\nNorth America           5.351209e-02                 285.1436          20099.45\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                0.01739745   644.72277405       1.000913e+02\nNorth America         0.01739745     0.04282998       3.394594e-05\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope         1.329222e+02   1.088958e+02  4.023889e-07   2.701645e-06\nNorth America  4.475756e-08   3.800080e-08  2.855911e-10   1.280090e-09\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope            92448.24826        22918.50        1179.3388\nNorth America        12.05893        21677.09         776.0876\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                 1.504060e-06           29024.38        9.393802e-15\nNorth America          6.422677e+01           62881.87        2.008891e-13\n              modelToyota Corona modelValiant modelVolvo 142E       wt   amTRUE\nEurope              2.042457e-17 7.332842e-09    5.751337e+04 26852.73 81773.79\nNorth America       1.689525e+01 3.329289e+04    5.749185e-12 97682.05 57698.40\n                 gear.L    gear.Q     carb\nEurope        120502.95 45794.583 77388.60\nNorth America  84695.32  5294.488 34719.66\n\nResidual Deviance: 0.0001161393 \nAIC: 136.0001 "
+      attr(,"params")$model$hash
+      [1] "ce898ec17be37969b45115a876039fac"
       
       
       attr(,"params")$y_col
@@ -864,6 +851,9 @@
       
       attr(,"params")$positive
       [1] TRUE
+      
+      attr(,"params")$aled_fun
+      [1] "mad"
       
       attr(,"params")$seed
       [1] 0
