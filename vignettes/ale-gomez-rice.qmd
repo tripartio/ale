@@ -1,0 +1,760 @@
+---
+title: "Analyzing a Small Rice Yield Dataset with ALE-Based Inference"
+
+author: "Chitu Okoli"
+date: 2026-02-17
+date-format: "MMMM D, YYYY"
+
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "Outline"
+    number-sections: true
+    code-fold: false
+    theme: cosmo
+    smooth-scroll: true
+
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+We’re working with a tiny, expensive kind of dataset: the sort you get when each data point costs fieldwork, fertilizer, and patience. These rice data come from the International Rice Research Institute (IRRI) and are discussed in Gomez & Gomez (1984).
+
+Our goal is simple: figure out how rice yield responds to nitrogen fertilizer in **dry** versus **wet** seasons, and whether the “best” nitrogen level should differ by season.
+
+We’ll analyze the data with three model families:
+
+1. **OLS regression** (classic linear regression).
+2. **Random forest** (mostly as a cautionary tale on tiny data).
+3. **Generalized additive model (GAM)**, which is usually the best fit for “small data + nonlinearity”.
+
+## Set up R environment
+
+First, let's set up our R environment. We begin by loading the packages we’ll use. Two quick notes:
+
+- The dataset comes from the {agridat} package (it doesn’t have to be loaded, but it does have to be installed).
+- The **{ale}** package is on CRAN, but for a few features used here we install the current development version from GitHub (the code shows how, via {pak}).
+
+```{r load-packages}
+#| echo: true
+#| eval: true
+#| results: false
+#| message: false
+
+library(dplyr)  # data manipulation
+library(staccuracy)  # performance metrics
+library(tictoc)  # performance timing
+library(mgcv)  # Generalized Additive Models
+library(ranger)  # random forest
+library(kableExtra)  # table formatting
+
+# Other packages that must be installed
+# Uncomment the following lines as needed.
+
+# # If needed, first install the pak advanced package manager (needed to easily install a package directly from GitHub):
+# install.packages('pak')
+# 
+# pak::pak('agridat')  # agricultural datasets
+# 
+# # Accumulated Local Effects: ale package
+# # Install the development version of ale for this workshop, which is more recent than the current CRAN version.
+# pak::pak('tripartio/ale')
+library(ale)  # load the ale package only after installing the development version
+```
+
+```{r serialized_objects_site}
+# For speed, these examples use retrieve_rds() to load pre-created objects 
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.  
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/rice_objects"
+```
+
+
+## Data preparation and description
+
+The data come from IRRI in the Philippines. Unfortunately, the book that describes it (Gomez & Gomez, 1984) does not give much context (country/year/site details) beyond this description:
+
+"We give the procedures for analyzing data of experiments over crop seasons using a fertilizer trial with five nitrogen rates tested on rice for two seasons, using a RCB design with three replications" (p. 317).
+
+Preparation is straightforward: we pull `gomez.wetdry` and convert it to a tibble. We also drop the `rep` column because it’s not a usable replication ID here. It uses labels like R1/R2/R3, but R1 in one row is not the same experimental block as R1 in another row, so treating it as a factor would invite nonsense, especially with a dataset this small.
+
+```{r data}
+
+data('gomez.wetdry', package = 'agridat')
+
+rice <- gomez.wetdry |> 
+  as_tibble() |> 
+  # rep is a false factor; it should be a unique ID:
+  # Each R1 has nothing to do with each other; likewise for R2 or R3.
+  select(-rep)
+
+# help('gomez.wetdry', package = 'agridat')
+```
+
+We’ll add more commentary later. For now, here’s the full dataset.
+```{r rice-print}
+rice |> print(n = 50)
+```
+
+After printing the data, we summarize it.
+```{r rice-summary}
+rice |> summary()
+```
+
+```{r nitrogen-table}
+rice$nitrogen |> table()
+```
+
+Three replications of five nitrogen rates were run in each of the dry and wet seasons, for a total of 30 plots.
+
+* `season` (factor): wet or dry season.
+* `nitrogen` (numeric): five nitrogen fertilizer rates applied to each agricultural plot, in kilograms per hectare (kg/ha).
+* `yield` (numeric): rice grain yield, in tonnes per hectare (t/ha), that is, 1,000 kg/ha.
+
+Notably, the outcome variable, rice `yield` has a mean of 5.5 t/ha and a mean absolute deviation (mad) of `r mad(rice$yield) |> round(3)`.
+
+## Model evaluation
+
+Before we train anything, we need to be clear about how we evaluate models. There are two particular principles of our evaluation approach: appropriate metrics for practical alignment and for predictive analysis.
+
+### Metrics for numeric prediction
+
+Classic statistics leans heavily on R² or adjusted R². These measure explained variance. That’s fine as far as it goes, but we want to be more deliberate about our metrics.
+
+Our outcome is a numeric, ratio, continuous variable: yield in t/ha. For tasks like this, the most appropriate metric is usually **mean absolute error (MAE)**.
+
+The problem with MAE--and most metrics--is interpretation. Smaller is better, yes—but how small is good? The standard comparison for MAE is the mean absolute deviation (MAD). For our dataset, the MAD for rice `yield` is `r mad(rice$yield) |> round(3)`. Thus, any "good" model should have an MAE smaller than that threshold
+
+To simplify such comparisons, we also use **standardized accuracy** (staccuracy or SA), from the {staccuracy} package. This rescales performance to a 0–100% range. A value of 100% means perfect prediction. A value of 50% corresponds to predicting the mean every time. So, for MAE staccuracy, 50% is the score of the MAD. Any staccuracy above 50% beats the mean; anything below 50% is worse than simply guessing the mean. We will report both MAE and standardized accuracy.
+
+### Descriptive versus predictive metrics
+
+Descriptive metrics are computed on the full dataset used to train the model. They tell us how well the model reproduces the data it already saw. That is useful, but it is still in-sample performance.
+
+Predictive metrics are more realistic. They train the model on part of the data and evaluate it on data not used in fitting. Common approaches include cross-validation and bootstrapping. Cross-validation is often used for very large datasets or slow models. Bootstrapping works well for small datasets and faster models.
+
+Our dataset is small, so we will use bootstrapping—specifically full-model bootstrapping. We explain the difference between bootstrap approaches in [an article on ALE statistics and inference](https://tripartio.github.io/ale/articles/ale-statistics.html).
+
+Here are the eventual results of our analyses. Note that lower MAE is better, and higher staccuracy (SA) is better. Descriptive metrics usually look better than predictive metrics because they tend to misleadingly overfit the data.
+
+```{r}
+#| label: perf-table
+#| echo: false
+#| message: false
+#| warning: false
+
+tab <- data.frame(
+  Model = c("OLS", "Random forest", "GAM"),
+  `MAE (t/ha)` = c(0.772, 0.548, 0.390),
+  `SA (%)`     = c(60.7, 72.1, 80.2),
+  `MAE (t/ha) `= c(0.918, 0.641, 0.531),  # trailing space keeps names unique
+  `SA (%) `    = c(48.8, 64.6, 70.1)      # trailing space keeps names unique
+)
+
+knitr::kable(
+  tab,
+  align = c("l", "r", "r", "r", "r"),
+  col.names = c("Model", "MAE (t/ha)", "SA (%)", "MAE (t/ha)", "SA (%)")
+) |>
+  kableExtra::add_header_above(c(" " = 1, "Descriptive" = 2, "Predictive (ModelBoot)" = 2)) |> 
+  kableExtra::kable_styling(
+  full_width = FALSE,
+  position = "center",
+  bootstrap_options = c("striped", "hover", "condensed")
+)
+
+```
+
+
+
+With evaluation clarified, we can now move on to the models themselves.
+
+
+## OLS regression
+
+### Model training
+
+We start with the most familiar tool in the toolbox: ordinary least squares (OLS) linear regression.
+
+We fit a model using both predictors, **season** and **nitrogen**, and we also include their interaction. That means we allow the effect of nitrogen to differ between wet and dry seasons rather than forcing one shared slope.
+
+After fitting the model, we print the summary to inspect coefficients, standard errors, and overall fit.
+
+
+```{r lm}
+
+lm_rice <- lm(
+  yield ~ season + nitrogen + season:nitrogen,
+  data = rice
+)
+sa_lm_rice  <- sa_wmae_mad(rice$yield, predict(lm_rice))  # 0.60739
+mae_lm_rice <- mae(rice$yield, predict(lm_rice))  # 0.7719829
+summary(lm_rice)
+
+```
+
+Before interpreting the OLS coefficients, we check whether the model is doing anything useful. The adjusted R^2^ is 0.284 (1.0 would be perfect), which is… not inspiring, and it’s also not a metric with a clean “good/bad” cutoff.
+
+In the coefficient table, the season effect is not statistically significant. Nitrogen is statistically significant (p ⩽ 0.05), but the estimated slope (0.015) is tiny, and the season × nitrogen interaction is also significant but tiny at -0.021.
+
+Using our preferred metrics, the OLS model has a descriptive MAE of `r mae_lm_rice |> round(3)` t/ha and standardized accuracy of `r (sa_lm_rice*100) |> round(1)`%. That staccuracy is better than coin-flip territory, but these are still *descriptive* metrics and can look deceptively good on small data.
+
+So we move to ALE to understand what the model is actually implying.
+
+### ALE analysis
+
+We start with a single ALE explanation (fast here because we only have two predictors and one interaction). We’ll focus on ALED (ALE deviation) as our main effect-size summary. We explain this and other [ALE statistics in detail in another article](https://tripartio.github.io/ale/articles/ale-statistics.html).
+
+```{r ale_lm_rice}
+# Single ALE description
+ale_lm_rice <- ALE(
+  lm_rice, 
+  x_cols = list(d1 = TRUE, d2 = TRUE),
+  data = rice,
+  # p_values = pd_lm_rice,
+  parallel = 0
+)
+
+summary(ale_lm_rice)
+```
+
+From the ALE summary, the season ALED effect is about 0.387 t/ha (≈ 387 kg/ha) and that for nitrogen is about 153 kg/ha. The season × nitrogen interaction ALED is about 391 kg/ha. However, note that without bootstrapping, these results shouldn't be considered reliable.
+
+Next we look at the ALE plots. With only three terms, we’ll inspect them all (in bigger studies, we’d be pickier).
+
+```{r plot-ale_lm_rice-1D}
+ale_lm_rice |> 
+  plot() |> 
+  subset(list(d1 = TRUE))
+```
+
+
+```{r plot-ale_lm_rice-2D}
+ale_lm_rice |> 
+  plot() |> 
+  subset(list(d2 = TRUE))
+```
+
+For the ALE analysis of the OLS model, we begin with the statistics before turning to the plots. Since ALE is run only once here, relying on p-values alone would not be very informative. We obtain ALED estimates, which we have already defined elsewhere.
+
+Looking at the plots again, the pattern is consistent: dry-season yield appears higher than wet-season yield, and the OLS model implies that more nitrogen increases yield overall. The interaction suggests that nitrogen may reduce yield in the wet season, but we'll hold off on interpreting the interaction plots until we come to the GAM further down.
+
+However, statistical results (ALE or otherwise) are generally not reliable until we bootstrap them.Because our dataset is tiny and the models train quickly, we use full model bootstrapping. There are two ways to bootstrap ALE. The faster approach resamples only the ALE calculation data without retraining the model. That approach is appropriate for very large datasets and very slow models that have already been validated by cross-validation.
+
+That is not our situation. We have a small dataset and fast models. So we must retrain the entire model for each bootstrap iteration. By default, we use 100 bootstrap iterations. For publication, we could increase that number, but for analysis, 100 iterations are typically sufficient and lead to the same conclusions. ALE itself is relatively stable compared to some other interpretability methods.
+
+Before bootstrapping, let's first generate an ALE p-value distribution. This is the slowest step in ALE analysis because it relies on simulation rather than parametric assumptions. Whenever procedures are slow in this demonstration, the code blocks are commented out and pre-saved objects are loaded instead, so the document runs quickly.
+
+We can then use the p-value distribution for the full-model bootstrapping procedure from the {ale} package, to create a `ModelBoot` object. We explicitly request ALE for season, nitrogen, and the season × nitrogen interaction. Only after this full bootstrap process do the ALE results become reliable
+
+
+```{r mb_lm_rice}
+#| eval: false
+#| echo: true
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # p-value distribution
+# # Default 1000 iterations for exact p-values
+# tic()
+# pd_lm_rice <- ALEpDist(lm_rice, rice, parallel = 0)
+# toc()  # 542.13 sec elapsed
+# # saveRDS(pd_lm_rice, file.choose())
+
+pd_lm_rice <- serialized_objects_site |> 
+  file.path("pd_lm_rice.rds") |>
+  url() |> 
+  readRDS()
+
+
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # Full-model bootstrapped ALE explanation
+# # Default 100 bootstrap iterations
+# tic()
+# mb_lm_rice <- ModelBoot(
+#   lm_rice, rice,
+#   ale_options = list(x_cols = c('season', 'nitrogen', 'season:nitrogen')),
+#   ale_p = pd_lm_rice,
+#   parallel = 0
+# )
+# toc()  # 113.02 sec elapsed
+# # saveRDS(mb_lm_rice, file.choose())
+
+mb_lm_rice <- serialized_objects_site |> 
+  file.path("mb_lm_rice.rds") |>
+  url() |> 
+  readRDS()
+```
+
+
+```{r mb_lm_rice-rds}
+#| eval: true
+#| echo: false
+
+# BACKGROUND SERIALIZED CODE
+
+pd_lm_rice <- retrieve_rds(
+  c(serialized_objects_site, 'pd_lm_rice.rds'),
+  {
+    ALEpDist(lm_rice, rice, parallel = 0)
+  }
+)
+
+mb_lm_rice <- retrieve_rds(
+  c(serialized_objects_site, 'mb_lm_rice.rds'),
+  {
+    ModelBoot(
+      lm_rice, rice,
+      ale_options = list(x_cols = c('season', 'nitrogen', 'season:nitrogen')),
+      ale_p = pd_lm_rice,
+      parallel = 0
+    )
+  }
+)
+```
+
+```{r mb_lm_rice-summary}
+summary(mb_lm_rice)  # boot_valid SA 48.8%: MAE 0.918
+```
+
+
+Bootstrapping gives us predictive metrics based on bootstrap validation on 100 hold-out samples. The OLS model has a predictive MAE of `r mb_lm_rice@model_stats$boot_valid[mb_lm_rice@model_stats$name == 'mae'] |> round(3)` t/ha and standardized accuracy of `r (mb_lm_rice@model_stats$boot_valid[mb_lm_rice@model_stats$name == 'sa_mae']*100) |> round(1)`%. Any staccuracy less than 50% counts as a "bad" model--it's worse than simply predicting the mean every time. So, our OLS model is pretty much useless. At least, we've learnt that we can't trust it.
+
+This is reinforced by the complete absence of statistically significan confidence regions--ALE-based inference is telling us that we can't trust anything this model says.
+
+```{r plot-mb_lm_rice-1D}
+mb_lm_rice |> 
+  plot() |> 
+  subset(list(d1 = TRUE))
+```
+
+```{r plot-mb_lm_rice-2D}
+mb_lm_rice |> 
+  plot() |> 
+  subset(list(d2 = TRUE))
+```
+
+Plotting the bootstrapped ALE reinforces our scepticism: all results fall within the middle grey ALER band, which indicates where random results live. Although the 2D interaction plot has some regions outside the ALER band, the statistics above indicate that the bootstrapped ranges nonetheless overlap the ALER band, which is not shown in this plot. 
+
+
+## Random forest
+
+Next we analyze the data using a random forest model. Let’s be honest upfront: random forest is not well suited for a dataset this small. We include it anyway for demonstration purposes—to show that machine learning is not automatically the best solution. Model choice should match the data, not the hype.
+
+We use {ranger}, a fast and easy-to-use random forest implementation in R. Tree-based models come in three main varieties:
+
+* Single decision trees.
+* Random forests build many decision trees on bootstrapped samples and average them with bootstrap aggregation (bagging).
+* Gradient boosted trees also builds multiple trees, but sequentially, each correcting the previous one, though a procedure called boosting.
+
+Gradient boosted trees often perform extremely well, but here we use {ranger} for random forests because it is fast, simple, and performs well with default settings.
+
+### Model training
+
+Because random forest is stochastic, we set a random seed. Otherwise, each run would produce slightly different results. Beyond that, we use the default settings.
+
+```{r ranger}
+# Precise performance metrics vary slightly for a random forest
+rf_rice <- ranger(
+  yield ~ ., 
+  data = rice,
+  seed = 1  # ensure that the same random forest is generated each time
+)
+sa_rf_rice  <- sa_wmae_mad(rice$yield, predict(rf_rice, rice)$predictions)  # 0.7222866
+mae_rf_rice <- mae(rice$yield, predict(rf_rice, rice)$predictions)  # 0.5429936
+rf_rice
+```
+
+The random forest has a descriptive MAE of `r mae_rf_rice |> round(3)` t/ha and standardized accuracy of `r (sa_rf_rice*100) |> round(1)`%. Descriptively, this looks much better than OLS. But descriptive performance is the easy part.
+
+### ALE analysis
+
+The {ale} package automatically recognizes the {ranger} package, so using default settings, it easily creates an ALE explanation. 
+
+```{r ale_rf_rice}
+# Single ALE description
+ale_rf_rice <- ALE(
+  rf_rice, 
+  x_cols = list(d1 = TRUE, d2 = TRUE),
+  data = rice,
+  # p_values = pd_rf_rice,
+  parallel = 0
+)
+
+summary(ale_rf_rice)
+```
+
+```{r plot-ale_rf_rice-1D}
+ale_rf_rice |> 
+  plot() |> 
+  subset(list(d1 = TRUE))
+```
+
+
+
+```{r plot-ale_rf_rice-2D}
+ale_rf_rice |> 
+  plot() |> 
+  subset(list(d2 = TRUE))
+```
+
+In the random forest ALE plots, the season effect is very similar to that of ordinary least squares, but the nitrogen fertilizer effect is quite different. Here, nitrogen shows an inverted-U pattern (peaking around 60–90 kg/ha), and the interaction again suggests different nitrogen behavior across seasons. Still, we shouldn’t get too excited until we check predictive stability.
+
+```{r mb_rf_rice}
+#| eval: false
+#| echo: true
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # p-value distribution
+# # Default 1000 iterations for exact p-values
+# tic()
+# pd_rf_rice <- ALEpDist(
+#   rf_rice, rice,
+#   parallel = 0
+# )
+# toc()  # 560.64 sec elapsed
+# # saveRDS(pd_rf_rice, file.choose())
+
+pd_rf_rice <- serialized_objects_site |> 
+  file.path("pd_rf_rice.rds") |>
+  url() |> 
+  readRDS()
+
+
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # Full-model bootstrapped ALE explanation
+# # Default 100 bootstrap iterations
+# tic()
+# mb_rf_rice <- ModelBoot(
+#   rf_rice, rice,
+#   ale_options = list(x_cols = c('season', 'nitrogen', 'season:nitrogen')),
+#   ale_p = pd_rf_rice,
+#   parallel = 0
+# )
+# toc()  # 70.89 sec elapsed
+# # saveRDS(mb_rf_rice, file.choose())
+
+mb_rf_rice <- serialized_objects_site |> 
+  file.path("mb_rf_rice.rds") |>
+  url() |> 
+  readRDS()
+```
+
+
+```{r mb_rf_rice-rds}
+#| eval: true
+#| echo: false
+
+# BACKGROUND SERIALIZED CODE
+
+pd_rf_rice <- retrieve_rds(
+  c(serialized_objects_site, 'pd_rf_rice.rds'),
+  {
+    ALEpDist(rf_rice, rice, parallel = 0)
+  }
+)
+
+mb_rf_rice <- retrieve_rds(
+  c(serialized_objects_site, 'mb_rf_rice.rds'),
+  {
+    ModelBoot(
+      rf_rice, rice,
+      ale_options = list(x_cols = c('season', 'nitrogen', 'season:nitrogen')),
+      ale_p = pd_rf_rice,
+      parallel = 0
+    )
+  }
+)
+```
+
+
+
+```{r mb_rf_rice-summary}
+summary(mb_rf_rice)  # boot_valid SA 64.6%; MAE 0.6400844
+```
+
+Once we bootstrap, the performance is less impressive than with purely descriptive metrics. The random forest has a predictive MAE of `r mb_rf_rice@model_stats$boot_valid[mb_rf_rice@model_stats$name == 'mae'] |> round(3)` t/ha and standardized accuracy of `r (mb_rf_rice@model_stats$boot_valid[mb_rf_rice@model_stats$name == 'sa_mae']*100) |> round(1)`%. That said, the staccuracy of above 50% indicates that this is at least a decent model. However, we will see that we can do better, as random forests don't shine best on small datasets like this.
+
+```{r plot-mb_rf_rice-1D}
+mb_rf_rice |> 
+  plot() |> 
+  subset(list(d1 = TRUE))
+```
+
+```{r plot-mb_rf_rice-2D}
+mb_rf_rice |> 
+  plot() |> 
+  subset(list(d2 = TRUE))
+```
+
+We’ll hold off deeper interpretation of the random forest plots and focus our main interpretation on the GAM.
+
+
+## GAM
+
+Now we move to generalized additive models (GAMs). A GAM sits within the broader generalized linear model (GLM) family, but unlike standard linear regression (OLS), it allows nonlinear relationships. Instead of forcing straight lines, it lets the data determine the shape of the relationship. When properly configured, GAMs work especially well on small datasets like ours. They offer flexibility without giving up structure.
+
+### Model training
+
+Appropriately configuring GAMs is as much an art as a science, and so we won't get into how we arrived at the specific configuration that we use here. However, its key structure is straightforward. We model yield as a function of season, and we include nitrogen through its interaction with season. That means nitrogen is not entered as a simple main effect; instead, its relationship with yield is allowed to differ by season. In this way, nitrogen is fully incorporated into the model. We use the {mgcv} package for the GAM.
+
+
+```{r gam}
+gam_rice <- gam(
+  yield ~ season + ti(nitrogen, by = season, bs = "ps"),
+  data = rice,
+  # REML is recommended for more accurate estimation, though slightly slower
+  method = 'REML'  
+)
+sa_gam_rice  <- sa_wmae_mad(rice$yield, predict(gam_rice))  # 0.8015714
+mae_gam_rice <- mae(rice$yield, predict(gam_rice))  # 0.3898126
+summary(gam_rice)
+
+```
+
+We won’t over-interpret the GAM coefficients; the more useful story here comes from performance and the ALE surfaces.
+
+The adjusted R-squared is 0.745, but we don’t compare that number directly to OLS or random forest, because different model classes compute “R-squared” in different ways. MAE and standardized accuracy are comparable across models, though.
+
+Using our preferred, comparable metrics, the GAM has a descriptive MAE of `r mae_gam_rice |> round(3)` t/ha and standardized accuracy of `r (sa_gam_rice*100) |> round(1)`%. So far, this is our best descriptive performance. We emphasize, though, that only prescriptive metrics are reliable.
+
+In the parametric part of the GAM summary, season shows a negative shift going from dry to wet (lower yield in wet), which is statistically significant. Nitrogen is included via its season-specific smooth interaction, so its effect isn’t summarized as a single tidy coefficient.
+
+There is no interpretable coefficient for the interaction between season and nitrogen. What we see instead is the estimated degrees of freedom (EDF), which tell us to what extent the interaction is nonlinear. The statistically significant EDFs confirm nonlinearity, but do not describe the direction or shape of the effect. GAM requires plots for that interpretive step.
+
+This is exactly why we turn to ALE. ALE incorporates the full structure of the model and allows us to visualize and quantify the effect of nitrogen even though it was not specified as a simple parametric term.
+
+### Single ALE on entire dataset
+
+Next, we use ALE to examine the shape of the fitted relationships and give us model-agnostic statistics.
+
+```{r ale_gam_rice}
+# Single ALE description
+ale_gam_rice <- ALE(
+  gam_rice, 
+  x_cols = list(d1 = TRUE, d2 = TRUE),
+  data = rice,
+  # p_values = pd_gam_rice,
+  parallel = 0
+)
+
+summary(ale_gam_rice)
+```
+
+In the ALE summary, the GAM shows larger ALED effects (roughly 400 kg/ha scale) for season, nitrogen, and their interaction than the earlier models. We’ll interpret these more carefully once we look at the plots.
+
+```{r plot-ale_gam_rice-1D}
+ale_gam_rice |> 
+  plot() |> 
+  subset(list(d1 = TRUE))
+```
+
+
+```{r plot-ale_gam_rice-2D}
+ale_gam_rice |> 
+  plot() |> 
+  subset(list(d2 = TRUE))
+```
+
+The season main-effect plot is identical to what we saw under OLS, as can be expected, since GAM treats simple factor variables the same way OLS does.
+
+Nitrogen is a different story. Under OLS, the effect looked roughly linear and increasing. Under the GAM, we see something more realistic. Yield is lowest at zero nitrogen, rises sharply, peaks around 60–75 kg/ha, and then declines at higher levels. At 120 and 150 kg/ha, yield drops relative to the peak. In other words, we see an inverted U-shape. This is consistent with what we observed in the {ranger} model.
+
+Now we turn to the nitrogen × season interaction. At first glance, the plot appears to suggest that less fertilizer gives better yields in the wet season, while more fertilizer benefits the dry season. That interpretation would be misleading.
+
+In fact, ALE has a structural quirk when interactions are present. With no interactions, 1D ALE plots reflect intuitive main effects. But once interactions exist:
+
+* 1D ALE (main effects) represent the total effect of that variable, including all its interaction effects.
+* 2D ALE interaction plots represent **only** the additional interaction component, after subtracting the composite main effects.
+
+So in our case:
+
+* The season ALE plot reflects the total season effect, including its interaction with nitrogen.
+* The nitrogen ALE plot reflects the total nitrogen effect, including its interaction with season.
+* The season × nitrogen plot shows **only** the extra interaction effect **beyond** those two main effects.
+
+This means the interaction surface is not saying that more nitrogen reduces yield in the wet season overall. Instead, given the inverted U-shape, it tells us that the dry season tolerates higher nitrogen better, while the wet season declines more sharply past the peak. The extremes of very low or very high nitrogen behave differently across seasons once the shared nonlinear pattern is removed.
+
+Admittedly, this decomposition is not especially intuitive. It is a known limitation of the ALE formulation and an area where interpretation requires care.
+
+### ALE on bootstrapped models
+
+So far, these are preliminary patterns. To assess reliability, we now generate a p-value distribution and perform full model bootstrapping of the GAM.
+
+
+```{r mb_gam_rice}
+#| eval: false
+#| echo: true
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # p-value distribution
+# # Default 1000 iterations for exact p-values
+# tic()
+# pd_gam_rice <- ALEpDist(gam_rice, rice, parallel = 0)
+# toc()  # 612.22 sec elapsed
+# # saveRDS(pd_gam_rice, file.choose())
+
+pd_gam_rice <- serialized_objects_site |> 
+  file.path("pd_gam_rice.rds") |>
+  url() |> 
+  readRDS()
+
+
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # Full-model bootstrapped ALE explanation
+# # Default 100 bootstrap iterations
+# tic()
+# mb_gam_rice <- ModelBoot(
+#   gam_rice, rice,
+#   ale_options = list(x_cols = c('season', 'nitrogen', 'season:nitrogen')),
+#   ale_p = pd_gam_rice,
+#   parallel = 0
+# )
+# toc()  # 83.5 sec elapsed
+# # saveRDS(mb_gam_rice, file.choose())
+
+mb_gam_rice <- serialized_objects_site |> 
+  file.path("mb_gam_rice.rds") |>
+  url() |> 
+  readRDS()
+```
+
+
+```{r mb_gam_rice-rds}
+#| eval: true
+#| echo: false
+
+# BACKGROUND SERIALIZED CODE
+
+pd_gam_rice <- retrieve_rds(
+  c(serialized_objects_site, 'pd_gam_rice.rds'),
+  {
+    ALEpDist(gam_rice, rice, parallel = 0)
+  }
+)
+
+mb_gam_rice <- retrieve_rds(
+  c(serialized_objects_site, 'mb_gam_rice.rds'),
+  {
+    ModelBoot(
+      gam_rice, rice,
+      ale_options = list(x_cols = c('season', 'nitrogen', 'season:nitrogen')),
+      ale_p = pd_gam_rice,
+      parallel = 0
+    )
+  }
+)
+```
+
+
+
+```{r mb_gam_rice-summary}
+summary(mb_gam_rice)  # boot_valid SA 70.0%; MAE 0.531
+
+```
+
+The GAM has a predictive MAE of `r mb_gam_rice@model_stats$boot_valid[mb_gam_rice@model_stats$name == 'mae'] |> round(3)` t/ha and standardized accuracy of `r (mb_gam_rice@model_stats$boot_valid[mb_gam_rice@model_stats$name == 'sa_mae']*100) |> round(1)`%. While this represents a drop of 10% staccuracy from the descriptive to the predictive model, as can be expected with such a small dataset, this nonetheless represents our most accurate model. Thus, we will interpret these bootstrapped results in earnest, since it's the best that we have.
+
+In the bootstrapped ALE results, all three relationships (season and nitrogen main effects and the season × nitrogen interaction effect) come out highly significant by p-values (p < 0.001), with effect sizes around 400 kg/ha.
+
+Notably, compared to the OLS and random forest results, our more accurate GAM is the only model to produce statistically significant confident regions, which it does for the season × nitrogen interaction. We can better interpret the implications of this when examining the bootstrapped plots.
+
+
+
+```{r plot-mb_gam_rice-1D}
+mb_gam_rice |> 
+  plot() |> 
+  subset(list(d1 = TRUE))
+```
+
+```{r plot-mb_gam_rice-2D}
+mb_gam_rice |> 
+  plot() |> 
+  subset(list(d2 = TRUE))
+```
+One caution: ALE “main effects” include interaction contributions by design. The season main effect includes the season–nitrogen interaction (excluding nitrogen-only effects), and the nitrogen main effect includes the interaction (excluding season-only effects). The 2D interaction surface is the part **beyond** the two main effects. That’s slightly awkward, but it’s the standard ALE definition, so we must carefully interpret results accordingly.
+
+---
+
+Let's look first at the main-effect plots. As with every model, dry-season yield appears higher than wet-season yield. And as with the random forest model, we see the inverted U-shape for nitrogen. However, in both cases, the ALER band is very wide. That tells us uncertainty is high. The ALER band represents the range of variation that could plausibly be random. In both main effects, the bootstrap confidence regions do not clearly exceed that band. In other words, even though the curves look different, the differences are not beyond what random fluctuation could produce. With only 30 observations, this is not surprising. It is not necessarily that the relationships do not exist; it is more likely that they would be borne out if we had more replications of this experiment.
+
+Turning to the interaction plot, most of the surface overlaps the ALER band, which is why much of it appears gray. At the extremes, however, there are strong indications of structure. In the dry season, the highest nitrogen level (150 kg/ha) slightly exceeds the ALER band, suggesting stronger response at high nitrogen. In contrast, in the wet season, the lowest yields occur at the highest nitrogen levels, and the strongest yields occur at lower nitrogen--these boundaries exceed the ALER band of randomness.
+
+The ALE statistics confirm that only the interaction effect meets the significance criterion under ALE-based inference, based on at least 10% of the surface falling outside the two-dimensional ALER band. The main effects remain within the band and therefore are not statistically significant.
+
+## Discussion
+
+### Comparison with Gomez and Gomez (1984)
+
+In Section 8.1.1, Gomez and Gomez (1984) analyze this dataset using a randomized complete block design and a combined ANOVA over seasons. They conclude that nitrogen significantly affects yield. The season × nitrogen interaction is highly significant. The overall nitrogen response is quadratic. And the seasonal difference lies mainly in the linear component of that quadratic curve. In practical terms, they conclude that yield increases more sharply with nitrogen in the dry season and compute separate yield-maximizing and profit-maximizing nitrogen rates for dry and wet seasons. They explicitly recommend different nitrogen applications by season.
+
+We should note that their modeling approach is not directly comparable to our initial OLS specification. They imposed a quadratic structure on nitrogen. That requires prior knowledge of the expected response shape. We avoided that assumption by using a GAM, which detects nonlinearities automatically and defaults to linear relationships when appropriate. The tradeoff is that flexibility reduces classical interpretability. GAM provides overall model reliability, but not direct parametric validation of each discovered curve. ALE fills that gap by providing confidence regions, p-values, and interpretable uncertainty bands.
+
+### Explicit Points of Agreement
+
+Our analysis agrees with Gomez and Gomez on several structural conclusions.
+
+1. **Nonlinear nitrogen response.**
+   Across models, nitrogen shows an inverted U-shape. This matches their finding that the quadratic component dominates the nitrogen sum of squares and adequately fits the data.
+
+2. **Season-dependent nitrogen response.**
+   Our ALE interaction surfaces indicate that nitrogen behaves differently in wet and dry seasons. That aligns with their significant season × nitrogen interaction.
+
+3. **Stronger nitrogen response in the dry season.**
+   Both the GAM and ALE suggest that yield increases more strongly with nitrogen in the dry season, especially in the lower to moderate range. This supports their interpretation that the linear component differs by season.
+
+Structurally, both analyses describe the same response surface: nonlinear nitrogen effects with season-specific slopes.
+
+### Direct Points of Disagreement
+
+The disagreement lies in inference, not in shape.
+
+1. **Strength of statistical evidence.**
+   Gomez and Gomez report highly significant nitrogen and interaction effects under pooled-error ANOVA. Under bootstrap-based ALE inference, our main effects do not clearly exceed uncertainty bands, and only parts of the interaction surface appear significant. The difference stems from methodology: fixed-form ANOVA contrasts versus resampling-based stability assessment. With only 30 cases, fragility is expected.
+
+2. **Strength of recommendation.**
+   Gomez and Gomez compute optimal nitrogen rates and recommend season-specific application levels. We stop short of firm recommendations because bootstrap uncertainty remains large relative to effect size.
+
+Classical ANOVA delivers decisive significance. ALE-based inference with bootstrap resampling yields more cautious conclusions.
+
+### Additional Nuances Beyond Gomez and Gomez
+
+Without contradicting their findings, our analysis adds two perspectives.
+
+1. **Predictive validation.**
+   Gomez and Gomez emphasize inferential ANOVA significance. We evaluate predictive performance using standardized accuracy and MAE. The GAM performs best under bootstrap validation, suggesting that flexible nonlinear modeling is well suited to this dataset.
+
+2. **Uncertainty visualization.**
+   ALE and ALER bands explicitly show how much variation could plausibly be random. While Gomez and Gomez rely on high R² to judge quadratic fit, the bootstrap perspective highlights how uncertain those relationships may be in small samples.
+
+## Conclusion
+
+From a methodological standpoint, we learn several things:
+
+* With nonlinear structure in small datasets, standard OLS performs poorly (SA < 50%).
+* Machine learning models like random forest offer no advantage at this scale.
+* GAM strikes a balance between flexibility and accuracy. If relationships are linear, it collapses to linear regression; if nonlinear, it adapts.
+
+Since the GAM achieves the best bootstrap-validated accuracy, we interpreted that model.
+
+Main effects suggest higher yield in the dry season than in the wet season, but the difference is not statistically significant under ALE-based inference. Nitrogen shows an inverted U-shape: lowest yield at zero nitrogen, peak around 60–75 kg/ha, and decline at higher levels. However, the main nitrogen effect is not statistically significant under bootstrap uncertainty.
+
+The interaction shows clearer structure, with the dry season showing increased yields, despite the inverted-U shape, and the wet season with a more attenuated inverted-U. This interaction effect, in contrast, is statistically significant.
+
+Overall:
+
+* Results are broadly consistent across models, but the GAM provides the strongest predictive performance.
+* Most effects remain statistically fragile, so conclusions should be tentative.
+* ALE is computationally slower than classical techniques but offers superior interpretability relative to many other interpretability methods.
+
+
+## References
+
+Gomez, Kwanchai A., and Arturo A. Gomez. 1984. Statistical Procedures for Agricultural Research. 2nd ed. Wiley. https://www.wiley.com/en-us/Statistical+Procedures+for+Agricultural+Research%2C+2nd+Edition-p-9780471870920.

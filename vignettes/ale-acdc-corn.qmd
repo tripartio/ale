@@ -1,0 +1,650 @@
+---
+title: "Analyzing a Large Corn Yield Dataset with ALE-Based Inference"
+
+author: "Chitu Okoli"
+date: 2026-02-17
+date-format: "MMMM D, YYYY"
+
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "Outline"
+    number-sections: true
+    code-fold: false
+    theme: cosmo
+    smooth-scroll: true
+
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+In this article, we analyze the **Agro-Climatic Data by County (ACDC)** dataset (Yun & Gramig 2017, licensed CC-BY), a county-level panel for the 48 contiguous U.S. states spanning 1981–2015, designed for agricultural production and climate research. It combines crop yields with key agro-climatic drivers, notably growing season degree days, total precipitation, and major soil characteristics, all pre-processed to focus on agricultural production areas. 
+
+Our focus here is predicting county-level corn yield per year (measured in bushels per acre) and then interpreting the factors that contribute to this prediction. The dataset’s structure matches the standard agro-climatic production framing, where output depends on temperature, precipitation, soils, and other controls. 
+
+
+
+## Setup R environment
+
+We begin by loading the packages used throughout the analysis. If any are not installed locally, the next step is to install them before running the rest of the document.
+
+Note that the **{ale}** package is on CRAN, but for a few features used here we install the current development version from GitHub (the code shows how, via {pak}).
+
+```{r load-packages}
+#| echo: true
+#| eval: true
+#| results: false
+#| message: false
+
+library(dplyr)  # data manipulation
+library(purrr)  # functional programming
+library(ranger)  # random forests
+library(tictoc)  # performance timing
+library(staccuracy)  # performance metrics
+library(rsample)  # cross-validation
+
+# Other packages accessed with :: direct access but not loaded (install them if needed):
+# * stringr: string processing
+# * readr: input CSV files
+# * tidyr: data manipulation
+# * cli: command line interface printing
+# * tuneRanger: tune ranger models
+# * mlr: general machine learning framework
+
+# Accumulated Local Effects: ale package
+# Install the development version of ale for this workshop, which is more recent than the current CRAN version.
+# If needed, first install the pak package manager to easily install a GitHub package:
+# install.packages('pak')
+# pak::pak('tripartio/ale')
+library(ale)  # load the ale package only after installing the development version
+
+```
+
+
+```{r serialized_objects_site}
+# For speed, these examples use retrieve_rds() to load pre-created objects 
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.  
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/corn_objects"
+```
+
+## Dataset: ACDC corn yields
+
+### Corn data preparation
+
+We work with the Agro-Climatic Data by County (ACDC), 1981–2015 (Yun & Gramig 2017). Rather than reproducing the full compilation code here, we summarize the key transformations used to assemble the analysis-ready dataset.
+
+The ACDC data arrive in several components and require harmonization. First, agricultural land area is reported on grids measured in different years. We normalize these measures to the county-year level and express agricultural land area as square kilometers (`ag_km2`).
+
+Temperature is the most involved transformation. ACDC stores temperatures as counts of days falling within one-degree Celsius bins (e.g., 2–3°C, 4–5°C, etc.). For modeling, we aggregate these bins into temperature ranges that are meaningful for corn (maize) growth, creating variables that count, for each county-year, how many days fall within each selected range. The data description below defines these ranges and notes why they are agronomically relevant.
+
+When defining “in-season” windows, we restrict attention to months that align with typical crop calendars. The table below records the windows used in this analysis (initially chosen based on quick background guidance).
+
+| Crop    | Recommended Window                                      |
+| ------- | ------------------------------------------------------- |
+| Corn    | Mar–Aug                                                 |
+| Soybean | Mar–Aug                                                 |
+| Cotton  | Apr–Oct                                                 |
+| Wheat   | Usually Apr–Oct (but depends if winter vs spring wheat) |
+
+Soil composition variables come from county-level surveys conducted in 1992, 2001, 2006, and 2011. We carry those soil attributes forward to the county-year panel and merge them with annual corn yield, measured as bushels per acre (`corn`). Because this is a U.S. dataset, we report values in bushels per acre and provide a metric conversion alongside them.
+
+After assembling the dataset, we inspect its structure (e.g., with `glimpse()`) to verify variable types and to see sample rows. We also compute summary statistics (min, max, mean, and interquartile values) for each variable. All variables used here are numeric; the next section defines each variable explicitly. The outcome of interest is `corn`, the corn yield (bushels per acre) for a given county in a given year.
+
+```{r data}
+corn_data <- serialized_objects_site |> 
+  file.path("corn_data.rds") |>
+  url() |> 
+  readRDS()
+```
+
+
+### Data description
+
+
+```{r corn-glimpse}
+corn_data |> glimpse()
+```
+
+```{r corn-summary}
+corn_data |> summary()
+
+```
+
+Each of the 90,010 rows of data is the record of one county in one year. Only county-years are recorded which produced corn in the specified year. All data is encoded as numeric except for `stco` (factor) and `year` (integer). The soil variables come from the Gridded Soil Survey Geographic Database (gSSURGO). Full details can be obtained in the manual provided in Yun & Gramig (2017).
+
+* `stco`: State-county code for 3,070 counties in the continental United States.
+* `year`: Year: 1981–2015 
+* `corn`: corn yields in bushels per acre (bu/ac)
+* `ag_km2`: total agricultural land in the county in km^2^, calculated from data in the ACDC gridInfo.csv file
+* `temp_lt_00`: growing season degree days (°C·days) for temperature interval below 0°C, constructed from 1°C intervals between −60°C and +60°C 
+* `temp_00_10`: growing season degree days (°C·days) for 0°C to 10°C interval, aggregated from 1°C bins 
+* `temp_11_20`: growing season degree days (°C·days) for 11°C to 20°C interval, aggregated from 1°C bins 
+* `temp_21_30`: growing season degree days (°C·days) for 21°C to 30°C interval, aggregated from 1°C bins 
+* `temp_31_35`: growing season degree days (°C·days) for 31°C to 35°C interval, aggregated from 1°C bins 
+* `temp_36_45`: growing season degree days (°C·days) for 36°C to 45°C interval, aggregated from 1°C bins 
+* `temp_gt_45`: growing season degree days (°C·days) for temperature interval above 45°C, aggregated from 1°C bins 
+* `ppt`: total precipitation during growing season (mm) 
+* `whc`: water holding capacity (cm/cm) (awc in gSSURGO) 
+* `sand`: sand proportion (%) (sandtotal in gSSURGO) 
+* `silt`: silt proportion (%) (silttotal in gSSURGO) 
+* `clay`: clay proportion (%) (claytotal in gSSURGO) 
+* `om`: organic matter in 2 mm top soil (%) (om in gSSURGO) 
+* `kwfactor`: soil erodibility factor by water adjusted for rock fragments (kwfact in gSSURGO) 
+* `kffactor`: soil erodibility factor by water (kffact in gSSURGO) 
+* `spH`: soil pH (ph1to1h2o_r in gSSURGO) 
+* `slope`: slope (m) (slopelenusle in gSSURGO) 
+* `tfactor`: soil loss tolerance factor (tons/acre/yr) (tfact in gSSURGO) 
+
+The target outcome variable, `corn` (maize), is measured in bushels of corn per acre (bu/ac, American units), where 1 bu/ac of corn is 62.8 kilograms per hectare (kg/ha) and 1 kg/ha is 0.016 bu/ac of corn. In this dataset, there is a mean of 106 bu/ac and a mean absolute deviation (mad) of `r mad(corn_data$corn) |> round(1)` bu/ac.
+
+### Removal of county identifier
+
+One consequential preprocessing choice is that we exclude the county identifier (`stco`) from the modeling dataset. In the raw data, county is represented by a state-county code spanning 3,070 counties across the 48 contiguous U.S. states. We initially included county as a predictor, but this created substantial computational problems with little benefit. In GLM-style models, treating county as a factor with 3,070 levels expands the design matrix dramatically (thousands of dummy variables) and can make estimation impractically slow, sometimes requiring mixed-model machinery and sparse-matrix handling. In our experiments, this slowed GLM estimation by orders of magnitude without improving predictive performance. Random forests, by contrast, performed essentially the same with or without county. For clarity and tractability, we therefore omit county, given that it neither improved performance in our best-performing model nor justified the computational cost in the GLM models.
+
+```{r remove-county}
+# stco processing is problematic for GLM models like OLS,
+# yet is not needed for the random forest model.
+corn_data$stco <- NULL
+
+```
+
+## Model evaluation
+
+We evaluate models on a dataset with roughly 90,000 county-year observations. At this scale, bootstrapping becomes prohibitively slow, while cross-validation is both feasible and reliable. We therefore use 10-fold cross-validation throughout.
+
+To keep evaluation consistent across models, we use a dedicated cross-validation function written for this analysis. It computes mean absolute error (MAE) and standardized accuracy on the same folds, so differences across models reflect modeling choices rather than differences in resampling.
+
+### Cross-validation function
+
+```{r cv_mae_sa}
+# Cross validate a model and calculate MAE and staccuracy
+cv_mae_sa <- function(data, y_col, folds, fit_fn, pred_fn) {
+  
+  fold_results <- folds |>
+    mutate(
+      metrics = splits |> 
+        map(\(it.split) {
+          it.id <- it.split$id
+          cli::cli_alert_info("Analyzing {it.id}...")
+          
+          it.train <- analysis(it.split)
+          it.test  <- assessment(it.split)
+          
+          it.fit  <- fit_fn(it.train)
+          it.pred <- pred_fn(it.fit, it.test) |> as.numeric()
+          
+          it.mae <- mae(actual = it.test[[y_col]], pred = it.pred)
+          it.sa  <- sa_wmae_mad(actual = it.test[[y_col]], pred = it.pred)
+          
+          cli::cli_alert_info("MAE: {it.mae |> round(3)} | SA: {round(it.sa * 100, 1)}%")
+          
+          tibble(
+            mae = it.mae,
+            sa  = it.sa
+          )
+        })
+    ) |>
+    tidyr::unnest(metrics)
+  
+  summary <- fold_results |>
+    summarise(
+      mean_mae = mean(mae),
+      sd_mae   = sd(mae),
+      mean_sa  = mean(sa),
+      sd_sa    = sd(sa)
+    )
+  
+  list(
+    fold_results = fold_results,
+    summary = summary
+  )
+}
+
+
+# Create folds for 10-fold cross-validation (used across all models)
+set.seed(0)
+corn_folds <- vfold_cv(corn_data, v = 10)
+
+
+```
+
+
+## OLS regression
+
+We begin with a standard ordinary least squares (OLS) regression using `lm()`, predicting `corn` from all available covariates. This gives us a familiar GLM baseline to compare against the machine-learning model later.
+
+A central limitation of GLM approaches like OLS is that they do not “discover” interactions. If interactions matter, we must anticipate them and include them explicitly. In our setting, that is tricky because (a) we have limited guidance about which interactions are truly important, and (b) adding interactions can make estimation dramatically slower.
+
+Given the panel structure of the data, one interaction is especially natural: county (`stco`) by year. This allows each county to have its own time trend, effectively fitting separate time-specific effects for each of the 3,070 counties.
+
+In exploratory analyses not shown here, we also experimented with including the county identifier more directly (`stco`). Accuracy was reasonably strong (about 78.2% standardized accuracy), but the model is extremely slow: with the county-year interaction, it takes roughly an hour to run on our machine. The bottleneck is the hyper-cardinality of `stco`. As a factor, it generates 3,069 dummy variables even before we add an interaction term. For comparison, modeling all variables without the interaction took “only” about 17 minutes. In short, GLM methods struggle when a predictor has thousands of levels, and interactions can make that struggle explode.
+
+Although the county-year interaction substantially improved accuracy (by roughly 12 percentage points of standardized accuracy), because it did so at an unacceptable computational cost, we do not report the full OLS-with-interaction output here. Instead, we summarize the timing and accuracy in the comparison table in the conclusion and focus interpretation on the better-performing, more tractable models.
+
+```{r lm}
+#| message: false
+
+tic()
+lm_corn <- lm(corn ~ ., data = corn_data)
+toc()  # 0.14 sec (with county 3539.29 sec elapsed (59 minutes = 1 hour))
+
+summary(lm_corn)
+```
+In GLM output, it is tempting to focus on coefficient p-values. For a dataset this large, that approach is mostly a distraction. With around 90,000 observations, essentially everything becomes statistically significant, so “significance” mainly tells us the estimates are stable, not that the effects are practically important.
+
+```{r cv-lm}
+#| message: false
+
+# Descriptive metrics (on the entire dataset; these evaluations overfit)
+sa_lm_corn  <- sa_wmae_mad(corn_data$corn, predict(lm_corn))  # 0.6466406 (with county 0.7823067)
+mae_lm_corn <- mae(corn_data$corn, predict(lm_corn))  # 21.36306
+
+# More realistic predictive MAE by cross-validation
+cv_lm <- cv_mae_sa(
+  data = corn_data, y_col = "corn", folds = corn_folds,
+  fit_fn = \(train) lm(corn ~ ., data = corn_data),
+  pred_fn = \(fit, newdata) predict(fit, newdata)
+)
+cv_lm$summary
+# $summary
+# # A tibble: 1 × 4
+#   mean_mae sd_mae mean_sa   sd_sa
+#      <dbl>  <dbl>   <dbl>   <dbl>
+# 1     21.4  0.178   0.647 0.00452
+
+
+```
+
+Before trying to interpret the coefficients, we check whether the model predicts well enough to be worth interpreting. The adjusted R-squared is 0.435, which is hard to evaluate in isolation, so we rely on our preferred accuracy metrics. With this large dataset, descriptive and cross-validated metrics are very similar, indicating little overfitting. The OLS model has a mean absolute error (MAE) of 21.4 bushels per acre (SD 0.178) and a standardized accuracy of 64.7% (SD 0.005). That is respectable, but it is clearly outperformed by the random forest model, so we do not pursue ALE-based interpretation for OLS.
+
+## Random forest
+
+We next fit a random forest using `{ranger}`. In principle, the first step is to tune hyperparameters to the dataset. We tested the {tuneRanger} package for this purpose. In our case, tuning produced only marginal accuracy gains, while slowing training substantially. Given that downstream interpretation is computationally heavy, we prioritize speed.
+
+We therefore use the default ranger settings with one key adjustment: we reduce the number of trees from the default 500 to 50. On a dataset of this size, that change yields an almost identical level of accuracy while cutting training time by roughly an order of magnitude.
+
+Training and prediction speed matter here for two reasons. First, estimating p-value distributions requires retraining the model with 1,000 refits. Second, ALE computation with bootstrapping and many variables requires thousands of full-dataset predictions. A faster model turns these steps from “nope” into “doable.”
+
+In the final model we report here, the defining choices are the reduced forest size (50 trees) along with ranger’s default settings (e.g., `mtry = 4`, `min.node.size = 5`, and the variance split rule). The only deviation from defaults is the tree count.
+
+```{r train-rf}
+# Default ranger model
+tic()
+rf_corn <- ranger(
+  corn ~ ., data = corn_data,
+  # 50 trees are much faster than default 500 trees, with almost identical accuracy on such a large dataset
+  num.trees = 50,
+  # Warning: original ranger object trained in other serialized data for this
+  # article did not use this seed. So, your version might randomly not match
+  # some details in this article.
+  seed = 1  
+)
+toc()  # 7.92  sec elapsed
+# default 500 trees: 86.52 sec elapsed
+# saveRDS(rf_corn, file.choose())
+
+```
+
+
+```{r rf-result}
+# Descriptive metrics (on the entire dataset; these evaluations overfit)
+sa_rf_corn  <- sa_wmae_mad(corn_data$corn, predict(rf_corn, corn_data)$predictions)  # 0.9305763
+mae_rf_corn <- mae(corn_data$corn, predict(rf_corn, corn_data)$predictions)  # 4.197151
+
+rf_corn
+```
+
+Whenever procedures are slow in this demonstration, the code blocks are commented out and pre-saved objects are loaded instead, so the document runs quickly.
+ 
+```{r cv-rf}
+#| eval: false
+#| echo: true
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # More realistic predictive MAE by cross-validation
+# tic()
+# cv_rf <- cv_mae_sa(
+#   data = corn_data, y_col = "corn", folds = corn_folds,
+#   fit_fn = \(train) ranger(corn ~ ., data = corn_data, num.trees = 50),
+#   pred_fn = \(fit, newdata) ranger:::predict.ranger(fit, newdata)$predictions
+# )
+# toc()  # 79.86 sec elapsed
+# # saveRDS(cv_rf, file.choose())
+# $summary
+# # A tibble: 1 × 4
+#   mean_mae sd_mae mean_sa   sd_sa
+#      <dbl>  <dbl>   <dbl>   <dbl>
+# 1     4.14 0.0565   0.931 0.00123
+
+cv_rf <- serialized_objects_site |> 
+  file.path("cv_rf.rds") |>
+  url() |> 
+  readRDS()
+
+cv_rf$summary
+```
+
+```{r cv-rf-rds}
+#| eval: true
+#| echo: false
+
+# BACKGROUND SERIALIZED CODE
+
+cv_rf <- retrieve_rds(
+  c(serialized_objects_site, 'cv_rf.rds'),
+  {
+    cv_mae_sa(
+      data = corn_data, y_col = "corn", folds = corn_folds,
+      fit_fn = \(train) ranger(corn ~ ., data = corn_data, num.trees = 50),
+      pred_fn = \(fit, newdata) ranger:::predict.ranger(fit, newdata)$predictions
+    )
+  }
+)
+
+cv_rf$summary
+```
+
+The `{ranger}` package reports out-of-bag MSE and R^2^ internally, but we evaluate with our cross-validated metrics for consistency. The random forest achieves a mean MAE of 4.1 bushels per acre (SD 0.05) and a mean standardized accuracy of 93.1%. Descriptive and cross-validated values are virtually identical, so even with only 50 trees the model does not overfit.
+
+On our machine, training is fast enough for repeated resampling runs (roughly on the order of 10 seconds per training round). Notably, including the county variable in additional tests yielded essentially the same cross-validated performance, reinforcing that we can proceed without it.
+
+With this level of performance, we treat the random forest as our primary model for interpretation, and we use it as the basis for the ALE analysis that follows
+
+## ALE analysis
+
+We now turn to the ALE analysis. The data set contains one outcome variable and 20 predictors. That structure immediately determines the scope of the exercise.
+
+### Full ALE results: all main effects and interactions
+
+First, we estimate the 20 main effects, one for each predictor. That part is straightforward. The computational weight comes from the interactions. With 20 predictors, the number of unique pairwise combinations is 190, giving a total of 210 ALE calculations. This takes the random forest around 17 minutes.
+
+It is worth emphasizing why this works in practice. Under the default `ranger` settings (500 trees), the same task would take roughly ten times longer; our reduction to 50 trees (feasible with such a large dataset) renders this type of comprehensive interaction analysis feasible.
+
+
+```{r ale-single-rf}
+#| eval: false
+#| echo: true
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # ALE for all 1D and 2D variables
+# tic()
+# ale_single_rf_corn <- ALE(
+#   rf_corn,
+#   # d1=TRUE: all 1D variables (main effects): d2=TRUE: all 2D interactions
+#   x_cols = list(d1 = TRUE, d2 = TRUE),
+#   data = corn_data,
+#   parallel = 0
+# )
+# toc()  
+# # 21 1D ALE + 210 2D ALE: 1032.01 sec elapsed (17.2 minutes)
+# # saveRDS(ale_single_rf_corn, file.choose())
+
+ale_single_rf_corn <- serialized_objects_site |> 
+  file.path("ale_single_rf_corn.rds") |>
+  url() |> 
+  readRDS()
+
+summary(ale_single_rf_corn)
+```
+
+```{r ale-single-rf-rds}
+#| eval: true
+#| echo: false
+
+# BACKGROUND SERIALIZED CODE
+
+ale_single_rf_corn <- retrieve_rds(
+  c(serialized_objects_site, 'ale_single_rf_corn.rds'),
+  {
+    ale_single_rf_corn <- ALE(
+      rf_corn,
+      # d1=TRUE: all 1D variables (main effects): d2=TRUE: all 2D interactions
+      x_cols = list(d1 = TRUE, d2 = TRUE),
+      data = corn_data,
+      parallel = 0
+    )
+  }
+)
+
+summary(ale_single_rf_corn)
+```
+
+The initial ALE run produces a large set of results (about 210 terms), so the immediate practical problem is triage: which effects are large enough to justify deeper inspection and bootstrapping? On a dataset this big, the non-bootstrapped results are often close to the bootstrapped ones, but for any analysis we want to stand behind, we still need bootstrapping.
+
+The catch is compute time. Even 100 bootstrap iterations (a bare minimum for stable inference, and still modest for publication) multiplies runtime by roughly 100. If a single pass takes on the order of minutes, blindly bootstrapping every term is not practical, especially when many effects are visibly tiny.
+
+This is where ALE summary statistics earn their keep. Instead of paging through 210 plots and guessing what matters, we use effect-size summaries of ALE deviation (ALED) to identify the small number of terms that are plausibly meaningful. We explain this and other [ALE statistics in detail in another article](https://tripartio.github.io/ale/articles/ale-statistics.html).
+
+### Statistical reliability vs practical importance
+
+```{r pd-rf}
+#| eval: false
+#| echo: true
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # p-value distribution
+# # Default 1000 iterations for exact p-values
+# tic()
+# pd_rf_corn <- ALEpDist(
+#   rf_corn, corn_data, 
+#   rand_it = 1000,
+#   parallel = 0
+# )
+# toc()
+# # My timing here is inaccurate because my computer kept on going to sleep.
+# # 33482.34 sec elapsed (558 minutes = 9.3 hours)
+# # It should probably have taken around 3 hours on my computer.
+# # saveRDS(pd_rf_corn, file.choose())
+
+pd_rf_corn <- serialized_objects_site |> 
+  file.path("pd_rf_corn.rds") |>
+  url() |> 
+  readRDS()
+```
+
+```{r pd-rf-rds}
+#| eval: true
+#| echo: false
+
+# BACKGROUND SERIALIZED CODE
+
+pd_rf_corn <- retrieve_rds(
+  c(serialized_objects_site, 'pd_rf_corn.rds'),
+  {
+    ALEpDist(
+      rf_corn, corn_data,
+      rand_it = 1000,
+      parallel = 0
+    )
+  }
+)
+```
+
+
+```{r lsd}
+lsd_rf <-  pd_rf_corn@rand_stats$corn |> 
+  ale:::p_to_random_value('aled', 0.05) |>
+  unname()
+
+lsd_vars <- ale_single_rf_corn |> 
+  get(stats = 'estimate') |> 
+  bind_rows() |> 
+  filter(aled >= lsd_rf) |> 
+  pull(term)
+
+```
+
+At this stage, the usual “is it statistically significant?” question is the wrong tool. With roughly 90,000 observations, most estimated effects will be statistically reliable (and therefore often statistically significant) whether or not they matter in the real world. Reliability tells us the estimate is stable; it does not tell us it is important.
+
+What we actually need is an effect-size yardstick. For corn yield, the managerial question is simple and stubborn: how large does a change in yield (in bushels per acre) have to be before we care? Is a 1 bushel/acre swing meaningful, or do we need something like 5 bushels/acre before it rises above the noise of real decisions? That is not something a p-value can answer.
+
+A common attempt to dodge this decision is the “least significant difference” (LSD) idea: translate a p-value threshold (often 0.05) into an equivalent difference on the y-scale. In large samples, this typically produces a vanishingly small threshold, which is mathematically consistent and practically useless. For example, the LSD for our 90,000-row `corn_data` dataset for the `rf_corn` model at the 0.05 p-value level is a piddling `r lsd_rf |> round(2)` bu/ac. In other words, it re-labels statistical reliability as “importance” without solving the real problem. Using the LSD as the criterion for our dataset would result in selecting `r length(lsd_vars)`out of 210 variables.
+
+In the end, domain expertise has to set the practical threshold. Our role here is to provide effect-size estimates that are interpretable on the original scale (bushels per acre), so experts can decide what counts as meaningful.
+
+In our case, we will somewhat arbitrarily assume that a threshold of 2 bu/ac (125.5 kg/ha) is a practically meaningful threshold. Since non-bootstrapped ALE results are not precise, we will use a cut-off of half that value (that is, 1 bu/ac) as the ALED for variables that we select for further analysis. This cutoff focuses on 14 main effects and 2 interactions.
+
+### Data-only bootstrapped ALE results on focal variables
+
+Statistical results (ALE or otherwise) are generally not reliable until we bootstrap them. Because our dataset is very large and training and ALE calculation times are lengthy, we use data-only bootstrapping, the faster approach that resamples only the ALE calculation data without retraining the model. This is the appropriate approach for very large datasets and very slow models that have already been validated by cross-validation, which is our case. We explain the difference between bootstrap approaches in [an article on ALE statistics and inference](https://tripartio.github.io/ale/articles/ale-statistics.html).
+
+By default, we use 100 bootstrap iterations. For publication, we could increase that number, but for analysis, 100 iterations are typically sufficient and lead to the same conclusions, especially for such a large dataset.
+
+Before bootstrapping, let's first generate an ALE p-value distribution. This is the slowest step in ALE analysis because it relies on simulation rather than parametric assumptions.
+
+We can then use the p-value distribution for the data-only bootstrapping procedure from the {ale} package, specifying the `boot_it` argument of the `ALE()` constructor. We specifically request ALE for the filtered set of variables that meet our 1 bu/ac threshold for ALED. Only after this bootstrap process do the ALE results become reliable.
+
+```{r vars_aled_1}
+# Create variable lists to focus on
+vars_aled_1 <- ale_single_rf_corn |> 
+  get(stats = 'estimate') |> 
+  bind_rows() |> 
+  filter(aled >= 1) |> 
+  pull(term)
+```
+
+
+```{r ale-boot-rf}
+#| eval: false
+#| echo: true
+# SLOW: uncomment to run yourself; load the saved object for rapid execution
+
+# # Data-only bootstrapping for a slow-training, cross-validated model.
+# # ALE only for focal variables
+# tic()
+# ale_boot_rf_corn <- ALE(
+#   rf_corn,
+#   # Compute ALE for terms (1D and 2D) with ALED >= 1
+#   x_cols = vars_aled_1,
+#   data = corn_data,
+#   p_values = pd_rf_corn,
+#   boot_it = 100,  # bootstrap iterations
+#   silent = FALSE,
+#   parallel = 0
+# )
+# toc()  # 6021.25 sec elapsed (100 minutes)
+# # saveRDS(ale_boot_rf_corn, file.choose())
+
+ale_boot_rf_corn <- serialized_objects_site |> 
+  file.path("ale_boot_rf_corn.rds") |>
+  url() |> 
+  readRDS()
+
+summary(ale_boot_rf_corn)
+```
+
+```{r ale-boot-rf-rds}
+#| eval: true
+#| echo: false
+
+# BACKGROUND SERIALIZED CODE
+
+ale_boot_rf_corn <- retrieve_rds(
+  c(serialized_objects_site, 'ale_boot_rf_corn.rds'),
+  {
+    ALE(
+      rf_corn,
+      # Compute ALE for terms (1D and 2D) with ALED >= 1
+      x_cols = vars_aled_1,
+      data = corn_data,
+      p_values = pd_rf_corn,
+      boot_it = 100,  # bootstrap iterations
+      silent = FALSE,
+      parallel = 0
+    )
+  }
+)
+
+summary(ale_boot_rf_corn)
+```
+
+The bootstrapped ALED results closely match the non-bootstrapped results, which is what we would expect with a dataset of this size: even a single ALE computation is usually quite reliable. Bootstrapping mainly serves two purposes here. First, it confirms that the ranking of the larger effects is stable. Second, it reassures us that the very small ALED values really are small, rather than being artifacts of a single run.
+
+With that confirmation, interpretation is fairly direct. Year is by far the strongest effect: across the roughly 35-year span of the study, the average range is about 11 bushels per acre. Next, several temperature ranges show the largest climate effects, notably 21–30°C, 31–35°C, and 36–45°C, each exceeding about 4 bushels per acre in effect size. Agricultural land area (`ag_km2`) is also practically important. Among soil variables, water holding capacity (`whc`), the K/W factor (`kwfactor`), and soil pH (`spH`) clear our practical-importance threshold of 2.
+
+For interactions, neither of the two bootstrapped interactions exceeds our practical threshold of 2. That matters because it means we can interpret the main-effect ALE plots largely on their own terms: interactions exist in the model, but they do not appear strong enough (on our scale) to meaningfully distort the main-effect conclusions.
+
+### ALE plots
+
+To make the ALE plots readable, we adjust the default output. We print 1D and 2D plots separately by subsetting the plot objects, and we apply a customization step to zoom the y-axis of the 1D ALE plots. The y-axis limits are chosen to improve visibility while keeping plots on a common scale, which makes relative effect sizes easier to compare across variables.
+
+
+```{r plot-1D-ale, fig.width=7, fig.height=18}
+ale_boot_rf_corn |> 
+  plot() |>  # create ALEPlots object
+  subset(list(d1 = TRUE)) |>  # subset only for 1D plots
+  customize(zoom_y = c(85, 135)) |>   # zoom on the y-axis
+  print(ncol = 2)
+```
+
+With this view, the plots align cleanly with the ALED rankings: year shows the largest range, followed by the key temperature ranges (especially 21–30°C and 31–35°C). We also interpret these plots with the rug marks in mind. Extreme x-values often have sparse support, so we put most interpretive weight on regions of the predictor where the data are dense and the ALE curve is well supported.
+
+```{r plot-2D-ale, fig.width=7, fig.height=9}
+ale_boot_rf_corn |> 
+  plot() |>  # create ALEPlots object
+  subset(list(d2 = TRUE)) |>   # subset only for 2D plots
+  print(ncol = 1)
+
+```
+
+Looking at the interaction plots, the most visible pattern involves year and the number of days with temperatures above 45°C. There appears to be a small regime shift: when there are roughly 1–2 such days, earlier years are associated with higher yield, while later years are associated with lower yield. However, the interaction heatmaps also display the fraction of observations in each cell (the size of the little grey squares within cells). In the “statistically significant” regions, those squares are tiny, often representing less than 1% of the data. In practice, we have very few county-years with days above 45°C, so the interaction, while real and statistically significant, is supported by little data.
+
+A similar caution applies to the interaction between days above 45°C and days in the 0–10°C range. The visual suggests conditional effects, but again the relevant cells are sparsely populated, so we treat these interaction signals as weak and not practically decisive.
+
+
+## Conclusion
+
+### Methodological comments
+
+Methodologically, a few lessons stand out.
+
+First, when we constrain all relationships to be linear and do not allow for automatic detection of even small interactions, standard OLS performs only moderately, with SA below 64.6%. The limitation is structural rather than incidental. OLS can only capture what we explicitly specify, and in this setting that restriction costs predictive accuracy.
+
+In contrast, machine learning models such as random forests are well suited to datasets of this size and complexity. Using `{ranger}`, we obtain excellent performance with minimal tuning. The model handles nonlinearities and potential interactions automatically, which is precisely what we need here.
+
+Given that performance gap, we focus our interpretation on the random forest model.
+
+A second important methodological result concerns interactions. Although we computed all pairwise ALE interactions, none of them are practically important. The interaction effects are small, and none exceed our threshold of two bushels per acre. This matters. Because interactions do not meaningfully distort the marginal relationships, we can interpret the main effects directly without worrying that strong interaction structure is hiding underneath.
+
+### Key findings
+
+With a dataset of this size, statistical significance is almost guaranteed. Indeed, all effects are statistically significant. That is not the interesting part.
+
+What matters is magnitude. Only eight variables exhibit ALED effects of at least two bushels per acre. These are the effects that clear our threshold for practical importance, and we display their ALE plots accordingly.
+
+
+```{r plot-sig-ale, fig.width=7, fig.height=9}
+# Create variable lists to focus on
+vars_aled_2 <- ale_boot_rf_corn |> 
+  get(stats = 'estimate') |> 
+  bind_rows() |> 
+  filter(aled >= 2) |> 
+  pull(term)
+
+ale_boot_rf_corn |> 
+  plot() |>  # create ALEPlots object
+  subset(vars_aled_2) |>  # subset only for 1D plots
+  customize(zoom_y = c(85, 135)) |>   # zoom on the y-axis
+  print(ncol = 2)
+```
+
+None of the relationships we observe is strictly linear. Still, the overall directions are clear. Corn yield is positively associated with later years, larger agricultural land area in a county (`ag_km2`), more days in the “ideal” 21–30°C range, and favorable soil characteristics including water holding capacity (`whc`), `kwfactor`, and soil pH (`spH`). In contrast, more days in the 31–35°C or 36–46°C ranges are associated with lower yields.
+
+Although ALE is computationally demanding, it gives us a way to interpret a complex, high-performing machine-learning model while keeping the results on a meaningful scale and attaching statistical confidence where appropriate.
+
+### A note on unsurprising results
+
+Nothing in these main-effect patterns is especially shocking, and that is largely expected. When we analyze a well-known, pre-assembled dataset, the “headline” relationships have usually been explored already. Where we can realistically expect more novel insights is by merging a rich panel like ACDC (corn, wheat, soybean, cotton, etc.) with other compatible datasets, for example additional county-, state-, or year-indexed measures with very different kinds of data that might not normally be expected to be related to corn, weather, or soil characteristics.
+
+If surprises emerge from such merges, they are likely to come from unexpected interactions rather than from the main effects already embedded in the original sources. That said, interactions also raise their own interpretability challenges, and further development of ALE-based tools for interaction explanation would make those future studies easier to unpack.
+
+## References
+
+Yun, Seong Do, and Benjamin M. Gramig. 2017. Agro-Climatic Data by County, 1981-2015. Dataset. Purdue University. https://doi.org/10.4231/R72F7KK2.
+
