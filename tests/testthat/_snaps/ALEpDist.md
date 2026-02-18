@@ -828,7 +828,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "ce898ec17be37969b45115a876039fac"
+      [1] "e5e2585dde022af9cf7207d12571a211"
       
       
       attr(,"params")$y_col

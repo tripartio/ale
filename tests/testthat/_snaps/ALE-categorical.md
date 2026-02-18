@@ -2890,7 +2890,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "ce898ec17be37969b45115a876039fac"
+      [1] "e5e2585dde022af9cf7207d12571a211"
       
       
       attr(,"params")$data
@@ -3043,7 +3043,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:2] "multinom" "nnet"
-       ..  ..$ hash : chr "ce898ec17be37969b45115a876039fac"
+       ..  ..$ hash : chr "e5e2585dde022af9cf7207d12571a211"
        .. $ y_col                        : chr "continent"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -61156,16 +61156,10 @@
 
     Code
       capture.output(print(cat_cars_ale))
-    Message
-      <ALE> object of a <multinom/nnet> model that predicts `continent` (a
-      categorical outcome) from a 64-row by 8-column dataset.
-      ALE data, statistics, surrogate p-values, and raw bootstrap data are provided
-      for the following terms:
-      7 1D terms: mpg, vs, am, model, gear, carb, and wt
-      21 2D terms: mpg:vs, mpg:am, mpg:model, mpg:gear, mpg:carb, mpg:wt, vs:am,
-      vs:model, vs:gear, vs:carb, vs:wt, am:model, am:gear, am:carb, am:wt,
-      model:gear, model:carb, model:wt, ..., gear:wt, and carb:wt
-      The results were bootstrapped with 2 iterations.
     Output
-      character(0)
+      [1] "<ALE> object of a <multinom/nnet> model that predicts `continent` (a categorical outcome) from a 64-row by 8-column dataset."                                                                                 
+      [2] "ALE data, statistics, surrogate p-values, and raw bootstrap data are provided for the following terms:"                                                                                                       
+      [3] "7  1D terms: mpg, vs, am, model, gear, carb, and wt"                                                                                                                                                          
+      [4] "21  2D terms: mpg:vs, mpg:am, mpg:model, mpg:gear, mpg:carb, mpg:wt, vs:am, vs:model, vs:gear, vs:carb, vs:wt, am:model, am:gear, am:carb, am:wt, model:gear, model:carb, model:wt, ..., gear:wt, and carb:wt"
+      [5] "The results were bootstrapped with 2 iterations."                                                                                                                                                             
 

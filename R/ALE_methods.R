@@ -392,15 +392,14 @@ method(print, ALE) <- function(
     details = TRUE,
     ...
 ) {
-
-  cli_text(
+  cat(format_inline(
     '{.cls ALE} object of a {.cls {x@params$model$class}} model that predicts {.var {x@params$y_col}} (a {x@params$y_type} outcome) from a {x@params$data$nrow}-row by {length(x@params$data$data_sample)}-column dataset.\n'
-  )
+  ))
 
   if (x@params$probs_inverted |> isTRUE()) {
-    cli_text(
+    cat(format_inline(
       'ALE probabilities have been inverted relative to the original model probability predictions.\n'
-    )
+    ))
   }
 
   if (details) {
@@ -411,24 +410,24 @@ method(print, ALE) <- function(
       if (x@params$output_boot_data) 'raw bootstrap data' else NULL
     )
 
-    cli_text(
-      '{output_string} {?is/are} provided for the following terms:'
-    )
-    cli_text(
-      '{cli::no(length(x@params$requested_x_cols$d1))}  1D term{?s}: {x@params$requested_x_cols$d1}'
-    )
-    cli_text(
-      '{cli::no(length(x@params$requested_x_cols$d2))}  2D term{?s}: {x@params$requested_x_cols$d2}'
-    )
+    cat(format_inline(
+      '{output_string} {?is/are} provided for the following terms:\n'
+    ))
+    cat(format_inline(
+      '{cli::no(length(x@params$requested_x_cols$d1))}  1D term{?s}: {x@params$requested_x_cols$d1}\n'
+    ))
+    cat(format_inline(
+      '{cli::no(length(x@params$requested_x_cols$d2))}  2D term{?s}: {x@params$requested_x_cols$d2}\n'
+    ))
   }
 
-  cli_text(
+  cat(format_inline(
     if (x@params$boot_it > 0) {
-      'The results were bootstrapped with {x@params$boot_it} iteration{?s}.'
+      'The results were bootstrapped with {x@params$boot_it} iteration{?s}.\n'
     } else {
-      'The results were not bootstrapped.'
+      'The results were not bootstrapped.\n'
     }
-  )
+  ))
 
   invisible(x)
 }
@@ -445,7 +444,7 @@ summary_ALE_stats <- function(
     max_rows = 100
 ) {
   cat('\n')
-  cli_text('M{str_sub(boot_centre, 2)} ALE statistics [get(object, stats = "estimate")]:')
+  cat(format_inline('M{str_sub(boot_centre, 2)} ALE statistics [get(object, stats = "estimate")]:\n'))
   ale_estimates <- object |>
     get(stats = 'estimate') |>
     bind_rows() |>
@@ -456,7 +455,7 @@ summary_ALE_stats <- function(
   )
 
   cat('\n')
-  cli_text(paste0(
+  cat(format_inline(paste0(
     'ALE statistic distributions ',
     if (!is.null(p_dist)) {
       '({p_dist@params$exactness} p-values, {p_dist@params$rand_it_ok} iterations)'
@@ -466,7 +465,8 @@ summary_ALE_stats <- function(
     ' [get(object, stats = c(',
     paste0('"', stats, '"', collapse = ', '),
     '))]:'
-  ))
+  )))
+  cat('\n')
   ale_stats <- object |>
     get(stats = stats) |>
     bind_rows() |>
@@ -481,7 +481,7 @@ summary_ALE_stats <- function(
   )
 
   cat('\n')
-  cli_text('Statistically significant confidence regions [get(object, stats = "conf_sig")]:')
+  cat(format_inline('Statistically significant confidence regions [get(object, stats = "conf_sig")]:\n'))
   conf_sig <- object |>
     get(stats = 'conf_sig') |>
     bind_rows()
@@ -492,7 +492,7 @@ summary_ALE_stats <- function(
 
   if (all_conf) {
     cat('\n')
-    cli_text('All confidence regions [get(object, stats = "conf_regions")]:')
+    cat(format_inline('All confidence regions [get(object, stats = "conf_regions")]:\n'))
     conf_regions <- object |>
       get(stats = 'conf_regions') |>
       bind_rows() |>

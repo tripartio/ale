@@ -2,25 +2,18 @@
 
     Code
       print(pll_mb)
-    Message
-      <ModelBoot> object of a <gam/glm/lm> model that predicts `mpg` (a numeric
-      outcome) from a 64-row by 8-column dataset.
-      * The model was retrained with 2 bootstrap iterations.
     Output
+      <ModelBoot> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome) from a 64-row by 8-column dataset.
+      * The model was retrained with 2 bootstrap iterations.
       
-    Message
       The following overall model summary statistics are available:
       * Overall average statistics: df, df.residual, nobs, adj.r.squared, and npar
       * Bootstrap-validated model accuracy: mae, sa_mae, rmse, and sa_rmse
-      Statistics for the following specific variables or interactions are available:
-      s(wt)
-    Output
+      Statistics for the following specific variables or interactions are available: s(wt)
       
-    Message
-      Accumulated local effects (ALE) data and statistics are provided for the
-      following terms:
-      1 1D term: wt
-      1 2D term: gear:carb
+      Accumulated local effects (ALE) data and statistics are provided for the following terms:
+      1  1D term: wt
+      1  2D term: gear:carb
 
 # numeric outcome with no bootstrapping
 
@@ -1251,7 +1244,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "6cc8f48f47d9e482a122b14b023307f4"
+       ..  ..$ hash : chr "dc94854dc391908c576686b596cde172"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1405,7 +1398,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "6cc8f48f47d9e482a122b14b023307f4"
+      [1] "dc94854dc391908c576686b596cde172"
       
       
       attr(,"params")$data
@@ -1576,7 +1569,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "6cc8f48f47d9e482a122b14b023307f4"
+       ..  ..$ hash : chr "dc94854dc391908c576686b596cde172"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1870,7 +1863,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "7107b1b82ecd641a060ff4188b00b939"
+      [1] "41af51ef8843c8faa5d949bb0bdfe750"
       
       
       attr(,"params")$data
@@ -2426,7 +2419,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "9c7064b27616df9811f36054369fa1f4"
+      [1] "1a32872a501437eeb49a2307b8ffe20a"
       
       
       attr(,"params")$data

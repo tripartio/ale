@@ -183,7 +183,7 @@ print(p_dist_gam_diamonds)
 # Calculate ALEs with p-values
 ale_gam_diamonds <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_stats_readme.0.5.2.rds'),
+  c(serialized_objects_site, 'ale_gam_diamonds_stats_readme.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
     ALE(

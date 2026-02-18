@@ -112,43 +112,44 @@ method(print, ModelBoot) <- function(
     details = TRUE,
     ...
 ) {
-  cli_text(
+  cat(format_inline(
     '{.cls ModelBoot} object of a {.cls {x@params$model$class}} model that predicts {.var {x@params$y_col}} (a {x@params$y_type} outcome) from a {x@params$data$nrow}-row by {length(x@params$data$data_sample)}-column dataset.\n'
-  )
+  ))
 
-  cli_text(
+  cat(format_inline(
     if (x@params$boot_it > 0) {
       '* The model was retrained with {x@params$boot_it} bootstrap iteration{?s}.' %+%
         (if (!is.null(x@boot_data)) ' The raw bootstrapped results are available.' else '')
     } else {
       '* The model was trained once on the entire dataset without bootstrapping.'
     }
-  )
+  ))
+  cat('\n')
 
   if (details) {
     cat('\n')
     if (!is.null(x@model_stats)) {
-      cli_text(
-        'The following overall model summary statistics are available:'
-      )
+      cat(format_inline(
+        'The following overall model summary statistics are available:\n'
+      ))
       average_stats <- x@model_stats |>
         filter(!is.na(mean)) |>
         pull(name)
-      cli_text(
-        '* Overall average statistics: {average_stats}'
-      )
+      cat(format_inline(
+        '* Overall average statistics: {average_stats}\n'
+      ))
       boot_valid_stats <- x@model_stats |>
         filter(!is.na(boot_valid)) |>
         pull(name)
-      cli_text(
-        '* Bootstrap-validated model accuracy: {boot_valid_stats}'
-      )
+      cat(format_inline(
+        '* Bootstrap-validated model accuracy: {boot_valid_stats}\n'
+      ))
     }
 
     if (!is.null(x@model_coefs)) {
-      cli_text(
-        'Statistics for the following specific variables or interactions are available: {x@model_coefs |> pull(term)}'
-      )
+      cat(format_inline(
+        'Statistics for the following specific variables or interactions are available: {x@model_coefs |> pull(term)}\n'
+      ))
     }
     cat('\n')
 
@@ -161,15 +162,15 @@ method(print, ModelBoot) <- function(
         if (ale_p) x@params$ale_p@params$exactness %+% ' ALE p-values' else NULL
       )
 
-      cli_text(
-        '{output_string} {?is/are} provided for the following terms:'
-      )
-      cli_text(
-        '{cli::no(length(x@ale$single@params$requested_x_cols$d1))}  1D term{?s}: {x@ale$single@params$requested_x_cols$d1}'
-      )
-      cli_text(
-        '{cli::no(length(x@ale$single@params$requested_x_cols$d2))}  2D term{?s}: {x@ale$single@params$requested_x_cols$d2}'
-      )
+      cat(format_inline(
+        '{output_string} {?is/are} provided for the following terms:\n'
+      ))
+      cat(format_inline(
+        '{cli::no(length(x@ale$single@params$requested_x_cols$d1))}  1D term{?s}: {x@ale$single@params$requested_x_cols$d1}\n'
+      ))
+      cat(format_inline(
+        '{cli::no(length(x@ale$single@params$requested_x_cols$d2))}  2D term{?s}: {x@ale$single@params$requested_x_cols$d2}\n'
+      ))
     }
   }
 
@@ -228,7 +229,7 @@ method(summary, ModelBoot) <- function(
   model_stats <- object@model_stats
   if (!is.null(model_stats)) {
     cat('\n')
-    cli_text('Overall model statistics (object@model_stats):')
+    cat(format_inline('Overall model statistics (object@model_stats):\n'))
     model_stats |>
       mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
       as_tibble() |>
@@ -240,7 +241,7 @@ method(summary, ModelBoot) <- function(
   model_coefs <- object@model_coefs
   if (!is.null(model_coefs)) {
     cat('\n')
-    cli_text('Summary model term estimates (object@model_coefs):')
+    cat(format_inline('Summary model term estimates (object@model_coefs):\n'))
     model_coefs |>
       mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
       print(n = min(nrow(model_coefs), max_rows))

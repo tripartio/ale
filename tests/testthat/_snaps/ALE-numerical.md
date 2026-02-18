@@ -2,13 +2,11 @@
 
     Code
       print(pll_ale)
-    Message
-      <ALE> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome)
-      from a 64-row by 8-column dataset.
-      ALE data, statistics, and surrogate p-values are provided for the following
-      terms:
-      2 1D terms: model and carb
-      1 2D term: am:wt
+    Output
+      <ALE> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome) from a 64-row by 8-column dataset.
+      ALE data, statistics, and surrogate p-values are provided for the following terms:
+      2  1D terms: model and carb
+      1  2D term: am:wt
       The results were bootstrapped with 2 iterations.
 
 # bootstrapped numeric outcome with full 1D and 2D ALE
