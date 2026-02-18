@@ -1,3 +1,31 @@
+# {ale} package
+
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/package=ale)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+## Versioning system
+
+The version numbering system for the {ale} package is an adaptation of the standard three-number system. So, in a version number of M.m.b (e.g., 0.5.3), the numbers mean:
+
+* **M** in M.m.b: the major package version (e.g., major version is 0 for 0.5.3). Changes in major version indicate major changes that are fundamentally incompatible with the previous major version.
+* **m** in M.m.b: the minor package version (e.g., minor version is 0.5 for 0.5.3). Minor versions add functionality without breaking backwards compatibility with previous releases of the same major version.
+* **b** in M.m.b: a bug-fix version (e.g., bug-fix version is 3 for 0.5.3). Bug-fix versions fix bugs in the minor version without adding new functionality.
+
+## Major version 0: beta or experimental status
+
+That said, major version 0 has special meaning: it indicates that the package is in beta, that is, still in experimental status, meaning that a stable interface has not yet been settled. New features might be written that break the functionality of previous 0.x versions. That said, every minor version is tested with {revdepcheck}. A notification or pull request will be sent to the maintainers of any affected packages.
+
+Normally, if new functionality is added along with bug fixes, then the bug fixes will be released with the next minor version. However, with the major version 0, small changes in functionality will sometimes be released in a bug-fix version. 
+
+## Development version numbering
+
+The numbering system described above is used for packages released to CRAN. For development versions after the CRAN release, the {ale} package adds a fourth component D, that is, an M.m.b.D format. The D is in YYYYMMDD date format, indicating the release date of the latest development version after the latest CRAN release. So, version 0.5.3.20260217 is a development version released on February 17, 2026, after the 0.5.3 CRAN version with no subsequent CRAN releases. However, as the specific date keeps on changing, the latest development version is simply indicated in the change log below as "ale (development version)".
+
 # ale (development version)
 
 ## New features
@@ -11,14 +39,18 @@
 * Parallelization can now be controlled with a global option `ale.parallel`. For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
 * The `{ranger}` package is now automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages.
 
-## Changed functionality
-
-* Parallelization has been disabled by default (`parallel` = 0) (#16).
-* The `pred_fun` argument in `ALE()` and other constructors now defaults to `NULL`. However, the functionality is the unchanged: the default still creates the same generic custom prediction function.
-
 ## Bug fixes
 
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
+
+## Changed functionality
+
+* Parallelization has been disabled by default (`parallel` = 0) (#16).
+* The `pred_fun` argument in `ALE()` and other constructors now defaults to `NULL`. However, the functionality is unchanged: the default still creates the same generic custom prediction function.
+
+## Other changes
+
+* Updated package logo.
 
 
 # ale (0.5.3)
