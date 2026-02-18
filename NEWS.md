@@ -48,8 +48,9 @@ The numbering system described above is used for packages released to CRAN. For 
 * Parallelization has been disabled by default (`parallel` = 0) (#16).
 * The `pred_fun` argument in `ALE()` and other constructors now defaults to `NULL`. However, the functionality is unchanged: the default still creates the same generic custom prediction function.
 
-## Other changes
+## Documentation
 
+* Added two Quarto vignettes: "Analyzing a Large Corn Yield Dataset with ALE-Based Inference" and "Analyzing a Small Rice Yield Dataset with ALE-Based Inference". They are available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>.
 * Updated package logo.
 
 

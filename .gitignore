@@ -8,3 +8,4 @@ scholar
 tests/testthat/Rplots.pdf
 tests/testthattest-ALEPlot-gold-standard.R
 vignettes/articles/ale-ALEPlot.Rmd
+vignettes/*_files

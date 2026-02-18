@@ -12,18 +12,22 @@ format:
     toc-title: "Outline"
     number-sections: true
     code-fold: false
-    theme: cosmo
     smooth-scroll: true
 
 execute:
   echo: true
   warning: false
   message: false
+  
+vignette: >
+  %\VignetteIndexEntry{Analyzing a Large Corn Yield Dataset with ALE-Based Inference}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ## Introduction
 
-In this article, we analyze the **Agro-Climatic Data by County (ACDC)** dataset (Yun & Gramig 2017, licensed CC-BY), a county-level panel for the 48 contiguous U.S. states spanning 1981–2015, designed for agricultural production and climate research. It combines crop yields with key agro-climatic drivers, notably growing season degree days, total precipitation, and major soil characteristics, all pre-processed to focus on agricultural production areas. 
+In this article, we analyze the **Agro-Climatic Data by County (ACDC)** dataset (Yun & Gramig 2017, licensed CC-BY), a county-level panel for the 48 contiguous U.S. states spanning 1981–2015, designed for agricultural production and climate research. It combines crop yields with key agro-climatic drivers, notably growing season degree days, total precipitation, and major soil characteristics, all preprocessed to focus on agricultural production areas. 
 
 Our focus here is predicting county-level corn yield per year (measured in bushels per acre) and then interpreting the factors that contribute to this prediction. The dataset’s structure matches the standard agro-climatic production framing, where output depends on temperature, precipitation, soils, and other controls. 
 
@@ -53,8 +57,6 @@ library(rsample)  # cross-validation
 # * readr: input CSV files
 # * tidyr: data manipulation
 # * cli: command line interface printing
-# * tuneRanger: tune ranger models
-# * mlr: general machine learning framework
 
 # Accumulated Local Effects: ale package
 # Install the development version of ale for this workshop, which is more recent than the current CRAN version.
@@ -67,7 +69,7 @@ library(ale)  # load the ale package only after installing the development versi
 
 
 ```{r serialized_objects_site}
-# For speed, these examples use retrieve_rds() to load pre-created objects 
+# For speed, these examples use retrieve_rds() to load precreated objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
 serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/corn_objects"
@@ -79,9 +81,9 @@ serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/c
 
 We work with the Agro-Climatic Data by County (ACDC), 1981–2015 (Yun & Gramig 2017). Rather than reproducing the full compilation code here, we summarize the key transformations used to assemble the analysis-ready dataset.
 
-The ACDC data arrive in several components and require harmonization. First, agricultural land area is reported on grids measured in different years. We normalize these measures to the county-year level and express agricultural land area as square kilometers (`ag_km2`).
+The ACDC data arrive in several components and require harmonization. First, agricultural land area is reported on grids measured in different years. We normalize these measures to the county-year level and express agricultural land area as square kilometres (`ag_km2`).
 
-Temperature is the most involved transformation. ACDC stores temperatures as counts of days falling within one-degree Celsius bins (e.g., 2–3°C, 4–5°C, etc.). For modeling, we aggregate these bins into temperature ranges that are meaningful for corn (maize) growth, creating variables that count, for each county-year, how many days fall within each selected range. The data description below defines these ranges and notes why they are agronomically relevant.
+Temperature is the most involved transformation. ACDC stores temperatures as counts of days falling within one-degree Celsius bins (e.g., 2–3°C, 4–5°C, etc.). For modelling, we aggregate these bins into temperature ranges that are meaningful for corn (maize) growth, creating variables that count, for each county-year, how many days fall within each selected range. The data description below defines these ranges and notes why they are agronomically relevant.
 
 When defining “in-season” windows, we restrict attention to months that align with typical crop calendars. The table below records the windows used in this analysis (initially chosen based on quick background guidance).
 
@@ -121,7 +123,7 @@ Each of the 90,010 rows of data is the record of one county in one year. Only co
 * `stco`: State-county code for 3,070 counties in the continental United States.
 * `year`: Year: 1981–2015 
 * `corn`: corn yields in bushels per acre (bu/ac)
-* `ag_km2`: total agricultural land in the county in km^2^, calculated from data in the ACDC gridInfo.csv file
+* `ag_km2`: total agricultural land in the county in km^2^, calculated from data in the ACDC "gridInfo.csv" file
 * `temp_lt_00`: growing season degree days (°C·days) for temperature interval below 0°C, constructed from 1°C intervals between −60°C and +60°C 
 * `temp_00_10`: growing season degree days (°C·days) for 0°C to 10°C interval, aggregated from 1°C bins 
 * `temp_11_20`: growing season degree days (°C·days) for 11°C to 20°C interval, aggregated from 1°C bins 
@@ -145,7 +147,7 @@ The target outcome variable, `corn` (maize), is measured in bushels of corn per 
 
 ### Removal of county identifier
 
-One consequential preprocessing choice is that we exclude the county identifier (`stco`) from the modeling dataset. In the raw data, county is represented by a state-county code spanning 3,070 counties across the 48 contiguous U.S. states. We initially included county as a predictor, but this created substantial computational problems with little benefit. In GLM-style models, treating county as a factor with 3,070 levels expands the design matrix dramatically (thousands of dummy variables) and can make estimation impractically slow, sometimes requiring mixed-model machinery and sparse-matrix handling. In our experiments, this slowed GLM estimation by orders of magnitude without improving predictive performance. Random forests, by contrast, performed essentially the same with or without county. For clarity and tractability, we therefore omit county, given that it neither improved performance in our best-performing model nor justified the computational cost in the GLM models.
+One consequential preprocessing choice is that we exclude the county identifier (`stco`) from the modelling dataset. In the raw data, county is represented by a state-county code spanning 3,070 counties across the 48 contiguous U.S. states. We initially included county as a predictor, but this created substantial computational problems with little benefit. In GLM-style models, treating county as a factor with 3,070 levels expands the design matrix dramatically (thousands of dummy variables) and can make estimation impractically slow, sometimes requiring mixed-model machinery and sparse-matrix handling. In our experiments, this slowed GLM estimation by orders of magnitude without improving predictive performance. Random forests, by contrast, performed essentially the same with or without county. For clarity and tractability, we therefore omit county, given that it neither improved performance in our best-performing model nor justified the computational cost in the GLM models.
 
 ```{r remove-county}
 # stco processing is problematic for GLM models like OLS,
@@ -158,7 +160,7 @@ corn_data$stco <- NULL
 
 We evaluate models on a dataset with roughly 90,000 county-year observations. At this scale, bootstrapping becomes prohibitively slow, while cross-validation is both feasible and reliable. We therefore use 10-fold cross-validation throughout.
 
-To keep evaluation consistent across models, we use a dedicated cross-validation function written for this analysis. It computes mean absolute error (MAE) and standardized accuracy on the same folds, so differences across models reflect modeling choices rather than differences in resampling.
+To keep evaluation consistent across models, we use a dedicated cross-validation function written for this analysis. It computes mean absolute error (MAE) and standardized accuracy on the same folds, so differences across models reflect modelling choices rather than differences in resampling.
 
 ### Cross-validation function
 
@@ -223,7 +225,7 @@ A central limitation of GLM approaches like OLS is that they do not “discover�
 
 Given the panel structure of the data, one interaction is especially natural: county (`stco`) by year. This allows each county to have its own time trend, effectively fitting separate time-specific effects for each of the 3,070 counties.
 
-In exploratory analyses not shown here, we also experimented with including the county identifier more directly (`stco`). Accuracy was reasonably strong (about 78.2% standardized accuracy), but the model is extremely slow: with the county-year interaction, it takes roughly an hour to run on our machine. The bottleneck is the hyper-cardinality of `stco`. As a factor, it generates 3,069 dummy variables even before we add an interaction term. For comparison, modeling all variables without the interaction took “only” about 17 minutes. In short, GLM methods struggle when a predictor has thousands of levels, and interactions can make that struggle explode.
+In exploratory analyses not shown here, we also experimented with including the county identifier more directly (`stco`). Accuracy was reasonably strong (about 78.2% standardized accuracy), but the model is extremely slow: with the county-year interaction, it takes roughly an hour to run on our machine. The bottleneck is the hyper-cardinality of `stco`. As a factor, it generates 3,069 dummy variables even before we add an interaction term. For comparison, modelling all variables without the interaction took “only” about 17 minutes. In short, GLM methods struggle when a predictor has thousands of levels, and interactions can make that struggle explode.
 
 Although the county-year interaction substantially improved accuracy (by roughly 12 percentage points of standardized accuracy), because it did so at an unacceptable computational cost, we do not report the full OLS-with-interaction output here. Instead, we summarize the timing and accuracy in the comparison table in the conclusion and focus interpretation on the better-performing, more tractable models.
 
@@ -300,7 +302,7 @@ mae_rf_corn <- mae(corn_data$corn, predict(rf_corn, corn_data)$predictions)  # 4
 rf_corn
 ```
 
-Whenever procedures are slow in this demonstration, the code blocks are commented out and pre-saved objects are loaded instead, so the document runs quickly.
+Whenever procedures are slow in this demonstration, the code blocks are commented out and presaved objects are loaded instead, so the document runs quickly.
  
 ```{r cv-rf}
 #| eval: false
@@ -634,13 +636,13 @@ ale_boot_rf_corn |>
   print(ncol = 2)
 ```
 
-None of the relationships we observe is strictly linear. Still, the overall directions are clear. Corn yield is positively associated with later years, larger agricultural land area in a county (`ag_km2`), more days in the “ideal” 21–30°C range, and favorable soil characteristics including water holding capacity (`whc`), `kwfactor`, and soil pH (`spH`). In contrast, more days in the 31–35°C or 36–46°C ranges are associated with lower yields.
+None of the relationships we observe is strictly linear. Still, the overall directions are clear. Corn yield is positively associated with later years, larger agricultural land area in a county (`ag_km2`), more days in the “ideal” 21–30°C range, and favourable soil characteristics including water holding capacity (`whc`), `kwfactor`, and soil pH (`spH`). In contrast, more days in the 31–35°C or 36–46°C ranges are associated with lower yields.
 
 Although ALE is computationally demanding, it gives us a way to interpret a complex, high-performing machine-learning model while keeping the results on a meaningful scale and attaching statistical confidence where appropriate.
 
 ### A note on unsurprising results
 
-Nothing in these main-effect patterns is especially shocking, and that is largely expected. When we analyze a well-known, pre-assembled dataset, the “headline” relationships have usually been explored already. Where we can realistically expect more novel insights is by merging a rich panel like ACDC (corn, wheat, soybean, cotton, etc.) with other compatible datasets, for example additional county-, state-, or year-indexed measures with very different kinds of data that might not normally be expected to be related to corn, weather, or soil characteristics.
+Nothing in these main-effect patterns is especially shocking, and that is largely expected. When we analyze a well-known, preassembled dataset, the “headline” relationships have usually been explored already. Where we can realistically expect more novel insights is by merging a rich panel like ACDC (corn, wheat, soybean, cotton, etc.) with other compatible datasets, for example additional county-, state-, or year-indexed measures with very different kinds of data that might not normally be expected to be related to corn, weather, or soil characteristics.
 
 If surprises emerge from such merges, they are likely to come from unexpected interactions rather than from the main effects already embedded in the original sources. That said, interactions also raise their own interpretability challenges, and further development of ALE-based tools for interaction explanation would make those future studies easier to unpack.
 
