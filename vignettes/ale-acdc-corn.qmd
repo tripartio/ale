@@ -222,6 +222,17 @@ Given the panel structure of the data, one interaction is especially natural: co
 
 In exploratory analyses not shown here, we also experimented with including the county identifier more directly (`stco`). Accuracy was reasonably strong (about 78.2% standardized accuracy), but the model is extremely slow: with the county-year interaction, it takes roughly an hour to run on our machine. The bottleneck is the hyper-cardinality of `stco`. As a factor, it generates 3,069 dummy variables even before we add an interaction term. For comparison, modelling all variables without the interaction took “only” about 17 minutes. In short, GLM methods struggle when a predictor has thousands of levels, and interactions can make that struggle explode.
 
+<!--
+| County setting   | Model          | SA (%) | Train time (s) | ALE single (s) | P-values (s) | ALE bootstrap (s) | Comment                                      |
+|------------------|---------------|--------|----------------|----------------|--------------|-------------------|----------------------------------------------|
+| with county      | OLS           | 78,2   | 3539           | N/A            | N/A          | N/A               | No CV                                        |
+| with county      | GLMM          | 78,1   | 59             | N/A            | N/A          | N/A               |                                              |
+| with county      | Random forest | 93,1   | 8              | 971            | 1136         | 26567             | ALE bootstrap had computer falling asleep    |
+| without county   | OLS           | 64,7   | 0,1            | N/A            | N/A          | N/A               |                                              |
+| without county   | Random forest | 93,1   | 8              | 1032           | 33482        | 6021              | p-values had computer falling asleep         |
+-->
+
+
 Although the county-year interaction substantially improved accuracy (by roughly 12 percentage points of standardized accuracy), because it did so at an unacceptable computational cost, we do not report the full OLS-with-interaction output here. Instead, we summarize the timing and accuracy in the comparison table in the conclusion and focus interpretation on the better-performing, more tractable models.
 
 ```{r lm}
