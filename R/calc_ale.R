@@ -1040,8 +1040,8 @@ prep_var_for_ale <- function(
         min(x_vals, na.rm = TRUE),  # first value is the min
         stats::quantile(
           x_vals,
-          # seq creates length.out + 1 bins, so set it to max_num_bins - 1
-          seq(1 / (max_num_bins - 1), 1, length.out = max_num_bins - 1),
+          # seq creates length.out + 1 bins, so set it to max_num_bins
+          seq(1 / max_num_bins, 1, length.out = max_num_bins),
           # keep quantile type = 1 for consistency with Apley & Zhu 2020
           type = 1,
           na.rm = TRUE

@@ -45,6 +45,7 @@ The numbering system described above is used for packages released to CRAN. For 
 
 ## Changed functionality
 
+* `max_num_bins` now creates `n+1` bins instead of exactly the specified `n` bins. The bottom bin is reserved for the minimum value in the data. This is a reversion to the original behaviour of the reference {ALEPlot} package.
 * Parallelization has been disabled by default (`parallel` = 0) (#16).
 * The `pred_fun` argument in `ALE()` and other constructors now defaults to `NULL`. However, the functionality is unchanged: the default still creates the same generic custom prediction function.
 
