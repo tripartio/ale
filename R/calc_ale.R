@@ -340,7 +340,7 @@ calc_ale <- function(
          pluck('n_bins')
       ),
       dimnames = c(
-        list(y_cats),
+        .cat = list(y_cats),
         xd |>
           map(\(it.x_col) {
             (if (!is.null(it.x_col$ceilings)) it.x_col$ceilings else it.x_col$bins) |>
