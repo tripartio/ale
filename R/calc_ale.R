@@ -4,7 +4,7 @@
 
 #' Calculate ALE data
 #'
-#' This is a complete reimplementation of the ALE algorithm relative to the reference in [ALEPlot::ALEPlot()]. In addition to adding bootstrapping and handling of categorical y variables, it reimplements categorical x interactions.
+#' This is a complete reimplementation of the ALE algorithm relative to the reference in [ALEPlot::ALEPlot()]. In addition to adding bootstrapping and handling of categorical y variables, it reimplements categorical interactions.
 #'
 #' For details about arguments not documented here, see [ALE()].
 #'
@@ -563,7 +563,8 @@ calc_ale <- function(
 
       # return from map
       list(
-        shift     = shift,
+        # shift must be a composite ALE (composite = TRUE) named vector
+        shift     = c('TRUE' = shift),
         distinct  = NULL,
         composite = NULL
       )
@@ -577,6 +578,7 @@ calc_ale <- function(
 
       # Extract the full 2D ALE effect for current category
       it.composite_x12 <- ale_y_full[it.cat, , ]
+
 
       ### Diff across x1 -------
 
@@ -598,6 +600,7 @@ calc_ale <- function(
       it.diff_x1 <- c(0, cumsum(it.avg_x1_delta))
       names(it.diff_x1)[1] <- rownames(it.composite_x12)[1]
 
+
       ### Diff across x2 -------
 
       # column-to-column differences (like a discrete derivative) along x2
@@ -618,6 +621,7 @@ calc_ale <- function(
       it.diff_x2 <- c(0, cumsum(it.avg_x2_delta))
       names(it.diff_x2)[1] <- colnames(it.composite_x12)[1]
 
+
       ### Subtract main effects from full 2D ALE --------
       it.distinct <- it.composite_x12 -
         # x1-only: x1 × x2 matrix where each row is x1 effect repeated across all x2 columns
@@ -625,22 +629,28 @@ calc_ale <- function(
         # x2-only: x1 × x2 matrix where each column is x2 effect repeated across all x1 rows
         outer(rep(1, x1$n_bins), it.diff_x2)
 
+
       ### Compute centering constant --------
       # overall mean of the interaction surface, weighted by data counts per cell
       it.centre_shift <-
-        sum(
-          # counts of each cell * ...
-          x12_counts *
-            # ... midpoint of four corners of each x1_x2 cell
-            (
-              it.distinct[c(1, 1:(x1$n_bins-1)), c(1, 1:(x2$n_bins-1))] +
-                it.distinct[c(1, 1:(x1$n_bins-1)), 1:x2$n_bins] +
-                it.distinct[1:x1$n_bins, c(1, 1:(x2$n_bins-1))] +
-                it.distinct[1:x1$n_bins, 1:x2$n_bins]
-            ) /
-            4
-        ) /  # divide by sum to get the mean
-        sum(x12_counts)
+        # list named by composite ALE status
+        list('TRUE' = it.composite_x12, 'FALSE' = it.distinct) |>
+        map_dbl(\(it.comp) {
+          sum(
+            # counts of each cell * ...
+            x12_counts *
+              # ... midpoint of four corners of each x1_x2 cell
+              (
+                it.comp[c(1, 1:(x1$n_bins-1)), c(1, 1:(x2$n_bins-1))] +
+                  it.comp[c(1, 1:(x1$n_bins-1)), 1:x2$n_bins] +
+                  it.comp[1:x1$n_bins, c(1, 1:(x2$n_bins-1))] +
+                  it.comp[1:x1$n_bins, 1:x2$n_bins]
+              ) /
+              4
+          ) /  # divide by sum to get the mean
+            sum(x12_counts)
+        })
+
 
       # return from map
       list(
@@ -700,35 +710,44 @@ calc_ale <- function(
 
   # By default, the ALE y calculated so far is composite y
   boot_ale_tbl <- boot_ale_tbl |>
-    rename(.y_composite = '.y')
+    mutate(.comp = TRUE)
 
   if (ixn_d == 2) {
     # Assign distinct ALE
-    boot_ale_tbl$.y_distinct <- ale_diff |>
-      map(\(it.cat) it.cat$distinct2_x12) |>
-      unlist() |>
-      unname() |>
-      # Replicate for each bootstrap iteration + for full dataset
-      rep(times = boot_it + 1)
+
+    # Create distinct ALE table
+    distinct_boot_ale_tbl <- boot_ale_tbl |>
+      mutate(
+        .comp = FALSE,
+        .y = ale_diff |>
+          map(\(it.cat) it.cat$distinct2_x12) |>
+          unlist() |>
+          unname() |>
+          # Replicate for each bootstrap iteration + for full dataset
+          rep(times = boot_it + 1)
+      )
+
+    boot_ale_tbl <- bind_rows(boot_ale_tbl, distinct_boot_ale_tbl)
   }
 
-  # When there is no distinct ALE, then composite ALE is the same
-  if ('.y_distinct' %notin% names(boot_ale_tbl)) {
-    boot_ale_tbl$.y_distinct <- boot_ale_tbl$.y_composite
-  }
-
-  # Extract the offset by which to shift to centre the ALE data
-  ale_y_shift <- map_dbl(ale_diff, \(it) it$shift)
+  # Extract the offset by which to shift to centre the ALE data.
+  # Structure is a matrix with categories as rownames;
+  # column names are TRUE or FALSE (composite ALE).
+  ale_y_shift <- map(ale_diff, \(it) it$shift) |>
+    do.call(what = rbind)
 
   # Apply the centring
   boot_ale_tbl <- boot_ale_tbl |>
     mutate(
-      across(starts_with('.y'), \(it.col) {
-        it.col - unname(ale_y_shift[.data$.cat])
-      }),
-      # By default, use distinct ALE when available
-      .y = .data$.y_distinct
-    )
+      .shift = ale_y_shift[
+        cbind(
+          match(as.character(.cat), rownames(ale_y_shift)),
+          match(as.character(.comp), colnames(ale_y_shift))
+        )
+      ],
+      .y = .y - .shift
+    ) |>
+    select(-.shift)
 
 
   # Summarize bootstrapped values -----------------
@@ -787,7 +806,7 @@ calc_ale <- function(
     # aggregate bootstrap results
     bsumm <- boot_ale_tbl |>
       summarize(
-        .by = c('.cat', all_of(x_cols)),
+        .by = c('.comp', '.cat', all_of(x_cols)),
         # Retrieve the lower, median, and upper quantiles in a single list column.
         # This is faster than calling quantile() or median() individually.
         .q = list(
@@ -848,7 +867,7 @@ calc_ale <- function(
         boot_centre == 'median' ~ .y_median,
       ),
     ) |>
-    select('.cat', all_of(x_cols), '.n', '.y', everything())
+    select('.comp', '.cat', all_of(x_cols), '.n', '.y', everything())
 
 
   # Calculate ALE statistics ------------------
@@ -859,68 +878,86 @@ calc_ale <- function(
   if (!is.null(ale_y_norm_funs)) {
     boot_stats_detailed <- boot_ale_tbl
     if (boot_it > 0) {
-      # Delete the first row (full data, not a bootstrap iteration)
+      # Delete .it == 0 (full data, not a bootstrap iteration).
+      # By now, this is probably done, but repeat just in case...
       boot_stats_detailed <- boot_stats_detailed[boot_stats_detailed$.it != 0, ]
     }
 
     boot_stats_detailed <- boot_stats_detailed |>
-      split(boot_stats_detailed$.cat) |>
-      imap(\(it.cat_ale_data, it.cat_name) {
-        it.cat_ale_data |>
-          split(it.cat_ale_data$.it) |>
-          map(\(btit.cat_ale_data) {
-            if (ixn_d == 1) {
-              calc_stats(
-                y = btit.cat_ale_data$.y,
-                bin_n = btit.cat_ale_data$.n,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                y_vals = NULL,
-                x_type = xd[[1]]$x_type,
-                aled_fun = aled_fun
-              )
-            }
-            else if (ixn_d == 2) {
-              calc_stats_2D(
-                ale_data = btit.cat_ale_data,
-                x_cols = x_cols,
-                x_types = x_types,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                y_vals = NULL,
-                aled_fun = aled_fun
-              )
-            }
-            else {
-              cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
-            }
+      split(boot_stats_detailed$.comp) |>
+      map(\(it.comp) {
+        it.comp |>
+        split(it.comp$.cat) |>
+        imap(\(it.cat_ale_data, it.cat_name) {
+          it.cat_ale_data |>
+            split(it.cat_ale_data$.it) |>
+            map(\(btit.cat_ale_data) {
+              if (ixn_d == 1) {
+                calc_stats(
+                  y = btit.cat_ale_data$.y,
+                  bin_n = btit.cat_ale_data$.n,
+                  ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
+                  y_vals = NULL,
+                  x_type = xd[[1]]$x_type,
+                  aled_fun = aled_fun
+                )
+              }
+              else if (ixn_d == 2) {
+                calc_stats_2D(
+                  ale_data = btit.cat_ale_data,
+                  x_cols = x_cols,
+                  x_types = x_types,
+                  ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
+                  y_vals = NULL,
+                  aled_fun = aled_fun
+                )
+              }
+              else {
+                cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
+              }
 
-          }) |>
-          bind_rows()
+            }) |>
+            bind_rows()
+        })
       })
 
     # Summarize stats across all bootstrap iterations
     boot_stats_summary <- boot_stats_detailed |>
-      map(\(it.cat_boot_stats) {
-        it.cbs <- as.matrix(it.cat_boot_stats)
+      map(\(it.comp) {
+        it.comp |>
+          map(\(it.cat_boot_stats) {
+            it.cbs <- as.matrix(it.cat_boot_stats)
 
-        tibble(
-          statistic = colnames(it.cbs),
-          conf.low = apply(
-            it.cbs, 2, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
-          ),
-          mean = apply(it.cbs, 2, mean, na.rm = TRUE),
-          median = apply(it.cbs, 2, stats::median, na.rm = TRUE),
-          conf.high = apply(
-            it.cbs, 2, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
-          ),
-          estimate = case_when(
-            boot_centre == 'mean' ~ mean,
-            boot_centre == 'median' ~ median,
-          ),
-        )  |>
-          mutate(
-            term = paste0(x_cols, collapse = ':'),
-          ) |>
-          select('term', 'statistic', 'estimate', everything())
+            tibble(
+              statistic = colnames(it.cbs),
+              conf.low = apply(
+                it.cbs, 2, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+              ),
+              mean = apply(it.cbs, 2, mean, na.rm = TRUE),
+              median = apply(it.cbs, 2, stats::median, na.rm = TRUE),
+              conf.high = apply(
+                it.cbs, 2, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+              ),
+              estimate = case_when(
+                boot_centre == 'mean' ~ mean,
+                boot_centre == 'median' ~ median,
+              ),
+            )  |>
+              mutate(
+                term = paste0(x_cols, collapse = ':'),
+              ) |>
+              select('term', 'statistic', 'estimate', everything())
+          })
+      }) |>
+      # Recombine by category, with composition as a column
+      list_transpose(simplify = FALSE) |>
+      map(\(it.cat_stats) {
+        it.cat_stats |>
+          imap(\(it.comp_stats, it.comp) {
+            it.comp_stats |>
+              mutate(composite = as.logical(it.comp))
+          }) |>
+          bind_rows()
       })
 
     # If p_dist is provided, calculate p-values
@@ -948,8 +985,8 @@ calc_ale <- function(
     # Transform boot_ale_tbl into a list of categories where each element is the bootstrapped ALE for each x interval.
     boot_ale_tbl <- boot_ale_tbl |>
       split(boot_ale_tbl$.cat) |>
+      # Remove the extraneous .cat column
       map(\(it.cat_boot) {
-        # Remove the extraneous .cat column
         select(it.cat_boot, -'.cat')
       })
   }
@@ -979,14 +1016,14 @@ calc_ale <- function(
   # Set .n to integer
   boot_summary$.n <- as.integer(boot_summary$.n)
 
+  # Make boot_summary a list of categories
   boot_summary <- boot_summary |>
-    select(-any_of(c('.y_composite', '.y_distinct'))) |>
     split(boot_summary$.cat) |>
     map(\(it.ale_data) {
       it.ale_data |> select(-'.cat')
     })
 
-  # Add attributes to ALE tibble that describe the column characteristics
+  # Add attributes to the ALE tibble that describe the column characteristics
   boot_summary <- boot_summary |>
     map(\(it.cat) {
       attr(it.cat, 'x') <- map(x_cols, \(it.x_col) {
