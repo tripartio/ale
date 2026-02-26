@@ -574,53 +574,81 @@ calc_ale <- function(
   ## 2D --------------
   else if (ixn_d == 2) {
     ale_diff <- map(y_cats, \(it.cat) {
-      # composite_ale[it.cat, , ] <- ale_y_full[it.cat, , ]
-      it.ale <- ale_y_full[it.cat, , ]
 
-      # Now subtract the lower-order ALE effects from this interaction ALE y.
-      # Comments here are adapted from ALEPlot.
+      # Extract the full 2D ALE effect for current category
+      it.composite_x12 <- ale_y_full[it.cat, , ]
 
-      # x1$n_bins by (x2$n_bins+1) matrix of differenced ALE y values, differenced across X[[x1_col]]
-      it.row_delta <- it.ale[2:x1$n_bins, , drop = FALSE] - it.ale[1:(x1$n_bins-1), , drop = FALSE]
-      x12_counts.it.row_delta <-
+      ### Diff across x1 -------
+
+      # row-to-row differences (like a discrete derivative) along x1
+      # Interpretation: for each x2-bin (column), how much ALE changes when moving one x1-bin
+      it.x1_delta <- it.composite_x12[2:x1$n_bins, , drop = FALSE] - it.composite_x12[1:(x1$n_bins-1), , drop = FALSE]
+      # Weight those x1 differences using data counts (trapezoid-ish averaging)
+      it.weighted.x1_delta <-
+        # counts of each cell minus the row of x1 minimums * ...
         x12_counts[-1, ] *
-        (it.row_delta[, c(1, 1:(x2$n_bins-1)), drop = FALSE] + it.row_delta[, 1:x2$n_bins, drop = FALSE]) /
+        # ... x1 midpoint of each x2 column
+        (it.x1_delta[, c(1, 1:(x2$n_bins-1)), drop = FALSE] + it.x1_delta[, 1:x2$n_bins, drop = FALSE]) /
         2
-      it.avg_row_delta <- rowSums(x12_counts.it.row_delta) / rowSums(x12_counts)[-1]
-      it.row_centre_shift <- c(0, cumsum(it.avg_row_delta))
+      # Average x1-delta across x2, using counts as weights
+      # Interpretation: “On average (across x2), how much does ALE change when x1 moves one bin?”
+      it.avg_x1_delta <- rowSums(it.weighted.x1_delta) / rowSums(x12_counts)[-1]
+      # Integrate those deltas to get an x1-only curve
+      # estimated x1 main-effect component embedded in the 2D surface
+      it.diff_x1 <- c(0, cumsum(it.avg_x1_delta))
+      names(it.diff_x1)[1] <- rownames(it.composite_x12)[1]
 
-      # (x1$n_bins+1) by x2$n_bins matrix of differenced ALE y values, differenced across X[[x2_col]]
-      it.col_delta <- it.ale[, 2:x2$n_bins, drop = FALSE] - it.ale[, 1:(x2$n_bins-1), drop = FALSE]
-      x12_counts.it.col_delta <-
+      ### Diff across x2 -------
+
+      # column-to-column differences (like a discrete derivative) along x2
+      # Interpretation: for each x1-bin (row), how much ALE changes when moving one x2-bin
+      it.x2_delta <- it.composite_x12[, 2:x2$n_bins, drop = FALSE] - it.composite_x12[, 1:(x2$n_bins-1), drop = FALSE]
+      # Weight those x2 differences using data counts (trapezoid-ish averaging)
+      it.weighted.x2_delta <-
+        # counts of each cell minus the column of x2 minimums * ...
         x12_counts[, -1] *
-        (it.col_delta[c(1, 1:(x1$n_bins-1)), , drop = FALSE] + it.col_delta[1:x1$n_bins, , drop = FALSE]) /
+        # ... x2 midpoint of each x1 column
+        (it.x2_delta[c(1, 1:(x1$n_bins-1)), , drop = FALSE] + it.x2_delta[1:x1$n_bins, , drop = FALSE]) /
         2
-      it.avg_col_delta <- colSums(x12_counts.it.col_delta) / colSums(x12_counts)[-1]
-      it.col_centre_shift <- c(0, cumsum(it.avg_col_delta))
+      # Average x2-delta across x1, using counts as weights
+      # Interpretation: “On average (across x1), how much does ALE change when x2 moves one bin?”
+      it.avg_x2_delta <- colSums(it.weighted.x2_delta) / colSums(x12_counts)[-1]
+      # Integrate those deltas to get an x2-only curve
+      # estimated x2 main-effect component embedded in the 2D surface
+      it.diff_x2 <- c(0, cumsum(it.avg_x2_delta))
+      names(it.diff_x2)[1] <- colnames(it.composite_x12)[1]
 
-      it.ale_diffed <- it.ale -
-        outer(it.row_centre_shift, rep(1, x2$n_bins)) -
-        outer(rep(1, x1$n_bins), it.col_centre_shift)
+      ### Subtract main effects from full 2D ALE --------
+      it.distinct <- it.composite_x12 -
+        # x1-only: x1 × x2 matrix where each row is x1 effect repeated across all x2 columns
+        outer(it.diff_x1, rep(1, x2$n_bins)) -
+        # x2-only: x1 × x2 matrix where each column is x2 effect repeated across all x1 rows
+        outer(rep(1, x1$n_bins), it.diff_x2)
+
+      ### Compute centering constant --------
+      # overall mean of the interaction surface, weighted by data counts per cell
       it.centre_shift <-
         sum(
+          # counts of each cell * ...
           x12_counts *
+            # ... midpoint of four corners of each x1_x2 cell
             (
-              it.ale_diffed[c(1, 1:(x1$n_bins-1)), c(1, 1:(x2$n_bins-1))] +
-                it.ale_diffed[c(1, 1:(x1$n_bins-1)), 1:x2$n_bins] +
-                it.ale_diffed[1:x1$n_bins, c(1, 1:(x2$n_bins-1))] +
-                it.ale_diffed[1:x1$n_bins, 1:x2$n_bins]
+              it.distinct[c(1, 1:(x1$n_bins-1)), c(1, 1:(x2$n_bins-1))] +
+                it.distinct[c(1, 1:(x1$n_bins-1)), 1:x2$n_bins] +
+                it.distinct[1:x1$n_bins, c(1, 1:(x2$n_bins-1))] +
+                it.distinct[1:x1$n_bins, 1:x2$n_bins]
             ) /
             4
-        ) /
+        ) /  # divide by sum to get the mean
         sum(x12_counts)
 
       # return from map
       list(
-        shift     = it.centre_shift,
-        distinct  = it.ale_diffed,
-        # # For now, disable distinct 2D ALE because bootstrapping is not yet properly handled
-        # distinct  = NULL,
-        composite = NULL
+        shift         = it.centre_shift,
+        diff12_x1     = it.diff_x1,
+        diff12_x2     = it.diff_x2,
+        distinct2_x12 = it.distinct,
+        composite_x12 = it.composite_x12
       )
     }) |>
       set_names(y_cats)
@@ -634,11 +662,13 @@ calc_ale <- function(
 
   ## Apply the centring ----------------
 
+  # Build boot_ale_tbl by flattening bootstrap ALE results
   boot_ale_tbl <- boot_ale$ale |>
     imap(\(btit.ale, btit.i) {
       btit.ale$y |>
         as.data.frame.table() |>
         set_names(c('.cat', x_cols, '.y')) |>
+        # .it = 0 is full dataset; each subsequent .it is a bootstrap iteration
         mutate(.it = btit.i - 1) |>
         # With left join, missing interactions will be NA
         left_join(
@@ -660,7 +690,8 @@ calc_ale <- function(
   for (it.x_col in x_cols) {
     if (xd[[it.x_col]]$x_type == 'numeric') {
       boot_ale_tbl[[it.x_col]] <- boot_ale_tbl[[it.x_col]] |>
-        # factors from table() must be first converted to character; otherwise, direct conversion to numeric converts to their integer positions.
+        # Factors from table() must be first converted to character;
+        # otherwise, direct conversion to numeric converts to their integer positions.
         as.character() |>
         # Cast to the precise original class (e.g., Date)
         cast(xd[[it.x_col]]$ceilings |> class())
@@ -672,34 +703,13 @@ calc_ale <- function(
     rename(.y_composite = '.y')
 
   if (ixn_d == 2) {
-    # Calculate the difference between composite and distinct ALE on the full dataset
-    diff_composite_distinct <- map(y_cats, \(it.cat) {
-      as.numeric(ale_y_full[it.cat, , ]) -       # composite ALE
-        as.numeric(ale_diff[[it.cat]]$distinct)  # distinct ALE
-    }) |>
-      set_names(y_cats)
-
-    # Extend diff_composite_distinct for all bootstrap iterations and flatten to a single vector
-    diff_composite_distinct <- diff_composite_distinct |>
-      map(\(it.cat) {
-        # Replicate boot_it + 1 times: all bootstrap iterations plus the full dataset
-        rep.int(it.cat, boot_it + 1)
-      }) |>
-      unlist()  # flatten in order of y_cats
-
-
-    # Calculate distinct ALE from bootstrapped .y_composite in boot_ale_tbl.
-    boot_ale_tbl$.y_distinct <- boot_ale_tbl$.y_composite -
-      as.numeric(diff_composite_distinct)  # remove names
-
-    # # Append distinct ALE to boot_ale_tbl
-    # boot_ale_tbl$.y_distinct <- ale_diff |>
-    #   map(\(it.cat) {
-    #     it.cat$distinct
-    #   }) |>
-    #   unlist() |>
-    #   unname()
-
+    # Assign distinct ALE
+    boot_ale_tbl$.y_distinct <- ale_diff |>
+      map(\(it.cat) it.cat$distinct2_x12) |>
+      unlist() |>
+      unname() |>
+      # Replicate for each bootstrap iteration + for full dataset
+      rep(times = boot_it + 1)
   }
 
   # When there is no distinct ALE, then composite ALE is the same
@@ -716,6 +726,7 @@ calc_ale <- function(
       across(starts_with('.y'), \(it.col) {
         it.col - unname(ale_y_shift[.data$.cat])
       }),
+      # By default, use distinct ALE when available
       .y = .data$.y_distinct
     )
 
