@@ -751,7 +751,7 @@ calc_ale <- function(
   # When bootstrapping, remove first iteration: ALE on full dataset
   if (boot_it > 0) {
     boot_ale_tbl <- boot_ale_tbl |>
-      filter('.it' != 0)
+      filter(.data$.it != 0)
   }
 
   #TODO: In the future, maybe return this boot_ray if users want it.
