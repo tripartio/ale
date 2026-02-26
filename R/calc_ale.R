@@ -576,7 +576,7 @@ calc_ale <- function(
   else if (ixn_d == 2) {
     ale_diff <- map(y_cats, \(it.cat) {
 
-      # Extract the full 2D ALE effect for current category
+      # Extract the full 2D ALE for current category
       it.composite_x12 <- ale_y_full[it.cat, , ]
 
 

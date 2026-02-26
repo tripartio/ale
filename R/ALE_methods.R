@@ -589,7 +589,7 @@ method(summary, ALE) <- function(
 #' @returns An updated `ALE` object with all probabilities and relevant statistics inverted.
 #'
 #' @details
-#' This function inverts the ALE y-values (i.e., `.y`, `.y_mean`, `.y_median`, etc.) for all terms, including the main ALE effects, bootstrap data, and ALE statistics (`aler_min`, `aler_max`, etc.).
+#' This function inverts the ALE y-values (i.e., `.y`, `.y_mean`, `.y_median`, etc.) for all terms, including the ALEs, bootstrap data, and ALE statistics (`aler_min`, `aler_max`, etc.).
 #' It also updates the `y_col` name and `y_summary` column names if `rename_y_col` is provided.
 #'
 #' If the `ALE` object has already been inverted (`probs_inverted = TRUE`), the function throws an error by default.
