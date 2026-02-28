@@ -11,6 +11,7 @@ ALE(
   y_col = NULL,
   ...,
   exclude_cols = NULL,
+  comp = "auto",
   parallel = 0,
   model_packages = NULL,
   output_stats = TRUE,
@@ -44,6 +45,8 @@ ALE(
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
+\item{comp}{logical(1) or string in c("auto", "composite", "distinct"). For \code{TRUE} or \code{"composite"}, composite ALE is requested for all terms. For \code{FALSE} or \code{"distinct"}, distinct ALE is requested for all terms. The default \code{"auto"} returns composite ALE for 1D variables and distinct ALE for interactions, which is the default behaviour of the reference {ALEPlot} package. For now, only \code{"auto"} is implemented.}
+
 \item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default \code{parallel = 0} disables parallel processing. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.}
 
 \item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
@@ -68,7 +71,7 @@ ALE(
 \item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
 
 \item{max_num_bins}{integer(1) > 1 or list. For numeric \code{x_cols}, this sets an upper bound on
-the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins}. Valid formats are:
+the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins+1}. Valid formats are:
 \itemize{
 \item Single integer > 1: used for all numeric \code{x_cols}.
 \item List with overrides: a list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
@@ -77,7 +80,7 @@ An example of the list format would be
 \code{max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))}
 }
 
-The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions.}
+The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions. When \code{n} bins are requested, there will actually be \code{n+1} bins, with the lowest bin dedicated to the minimum value of the dataset.}
 
 \item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{
@@ -108,7 +111,7 @@ See details.}
 \item{.bins}{Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (\code{NULL}), \code{\link[=ALE]{ALE()}} automatically calculates the bins. \code{.bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with \code{\link[=ModelBoot]{ModelBoot()}}).}
 }
 \value{
-An object of class \code{ALE} with properties \code{effect} and \code{params}.
+An object of class \code{ALE} with properties \code{composite}, \code{distinct}, and \code{params}.
 }
 \description{
 An \code{ALE} S7 object contains ALE data and statistics. For details, see \code{vignette('ale-intro')} or the details and examples below.
@@ -116,7 +119,8 @@ An \code{ALE} S7 object contains ALE data and statistics. For details, see \code
 \section{Properties}{
 
 \describe{
-\item{effect}{Stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories.}
+\item{composite}{Stores the composite ALE data and, optionally, ALE statistics and bootstrap data for one or more categories. Composite ALE is always provided for all requested variables and interactions.}
+\item{distinct}{Stores the distinct ALE data and, optionally, ALE statistics and bootstrap data for one or more categories. Distinct ALE is usually provided for all requested interactions, but it is not yet available for individual variables.}
 \item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the \code{ALE} object. These are either the values provided by the user or those used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{* `max_d`: the highest dimension of ALE data present. If only 1D ALE is present, then `max_d == 1`. If even one 2D ALE element is present (even with no 1D), then `max_d == 2`.
@@ -171,7 +175,7 @@ The \code{{ale}} package should be able to automatically recognize and load most
 For time-to-event (survival) models, set the following arguments:
 \itemize{
 \item \code{y_col} must be the set to the name of the binary event column.
-\item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated, e.g., \code{exclude_cols = 'time'}. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
+\item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated, e.g., \code{exclude_cols = 'time'}. This is not essential but if it is not excluded, it will always result in an exactly zero ALE because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 \item \code{pred_type} must be specified according to the desired \code{type} argument for the \code{predict()} method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
 \item \code{pred_fun} might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom \code{pred_fun} as specified above might be needed.
 }
@@ -224,7 +228,7 @@ summary(gam_diamonds)
 
 \donttest{
 
-# Simple ALE without bootstrapping: by default, all 1D ALE effects
+# Simple ALE without bootstrapping: by default, all are 1D ALE
 
 # For speed, these examples use retrieve_rds() to load pre-created objects
 # from an online repository.
@@ -258,7 +262,7 @@ ale_gam_diamonds_boot <- retrieve_rds(
     # To run the code yourself, execute this code block directly.
     ALE(
       gam_diamonds,
-      # request all 1D ALE effects and only the carat:clarity 2D effect
+      # request all 1D ALEs and only the carat:clarity 2D effect
       list(d1 = TRUE, d2 = 'carat:clarity'),
       boot_it = 100
     )

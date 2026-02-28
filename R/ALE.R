@@ -17,6 +17,7 @@
 #' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically if it is included in the `model` object.
 #' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically from the `model` object. If not found automatically, `y_col` should be provided. For time-to-event (survival) models, see details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param comp logical(1) or string in c("auto", "composite", "distinct"). For `TRUE` or `"composite"`, composite ALE is requested for all terms. For `FALSE` or `"distinct"`, distinct ALE is requested for all terms. The default `"auto"` returns composite ALE for 1D variables and distinct ALE for interactions, which is the default behaviour of the reference {ALEPlot} package. For now, only `"auto"` is implemented.
 #' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default `parallel = 0` disables parallel processing. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
 #' @param output_stats logical(1). If `TRUE` (default), return ALE statistics.
@@ -58,11 +59,12 @@
 # @param .skip_validation Internal use only. logical(1). Skip non-mutating data validation checks. Changing the default `FALSE` risks crashing with incomprehensible error messages.
 #'
 #'
-#' @returns An object of class `ALE` with properties `effect` and `params`.
+#' @returns An object of class `ALE` with properties `composite`, `distinct`, and `params`.
 #'
 #' @section Properties:
 #' \describe{
-#'   \item{effect}{Stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories.}
+#'   \item{composite}{Stores the composite ALE data and, optionally, ALE statistics and bootstrap data for one or more categories. Composite ALE is always provided for all requested variables and interactions.}
+#'   \item{distinct}{Stores the distinct ALE data and, optionally, ALE statistics and bootstrap data for one or more categories. Distinct ALE is usually provided for all requested interactions, but it is not yet available for individual variables.}
 #'   \item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the `ALE` object. These are either the values provided by the user or those used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 #'
 #'     * `max_d`: the highest dimension of ALE data present. If only 1D ALE is present, then `max_d == 1`. If even one 2D ALE element is present (even with no 1D), then `max_d == 2`.
@@ -275,8 +277,9 @@
 ALE <- new_class(
   'ALE',
   properties = list(
-    effect = class_list,
-    params   = class_list
+    composite = class_list,
+    distinct  = class_list | NULL,
+    params    = class_list
   ),
   constructor = function (
     model,
@@ -285,6 +288,7 @@ ALE <- new_class(
     y_col = NULL,
     ...,
     exclude_cols = NULL,
+    comp = 'auto',
     parallel = 0,
     model_packages = NULL,
     output_stats = TRUE,
@@ -322,6 +326,11 @@ ALE <- new_class(
       )
     )
     data <- validate_data(data, model)
+
+    validate(
+      is_string(comp, 'auto'),
+      msg = 'Only "auto" is currently supported for the {.arg comp} argument.'
+    )
 
     # Validate y_col.
     # If y_col is NULL, try to automatically detect it.
@@ -851,7 +860,7 @@ ALE <- new_class(
       split(ales$cat)
 
     # Initialize structure to store ALE results
-    ale_struc <- list(effect = list())
+    ale_struc <- list()
 
     for (it.cat in y_cats) {
       # Assign 1D ALE results to ale_struc
@@ -873,7 +882,29 @@ ALE <- new_class(
           setdiff(c('cat', 'x_cols', 'ale_d'))
       ]
 
-      ale_struc$effect[[it.cat]]$d1 <- it.ar_1D
+      # Rearrange it.ar_1D based on composite or distinct ALE elements
+      if (length(x_cols$d1) >= 1) {  # there are some 1D elements
+        it.ar_1D <- it.ar_1D |>
+          map(\(it.el) {
+            it.el |>
+              map(\(it.term) {
+                it.term |>
+                  split(it.term$.comp) |>
+                  map(\(it.comp_tbl) it.comp_tbl |> select(-'.comp'))
+              }) |>
+              list_transpose(simplify = FALSE)
+          }) |>
+          list_transpose(simplify = FALSE) |>
+          set_names(
+            \(nm) dplyr::recode(
+              nm,
+              "TRUE"  = "composite",
+              "FALSE" = "distinct"
+            )
+          )
+      }
+      ale_struc[['composite']][[it.cat]]$d1 <- it.ar_1D[['composite']]
+      ale_struc[['distinct']][[it.cat]]$d1  <- it.ar_1D[['distinct']]
 
       # Assign 2D ALE results to ale_struc
       if (length(x_cols) >= 2 && length(x_cols$d2) >= 1) {
@@ -894,65 +925,83 @@ ALE <- new_class(
           ) |>
           list_transpose(simplify = FALSE)
 
-        # Delete the now superfluous cat and x_cols elements
+        # Delete the superfluous elements
         it.ar_2D <- it.ar_2D[
           names(it.ar_2D) |>
             setdiff(c('cat', 'x_cols', 'ale_d'))
         ]
 
-        ale_2D_struc <- list()
-        for (it.el in names(it.ar_2D)) {
-          for (it.2D_x_cols in x_cols$d2) {
-            ale_2D_struc[[it.el]][[it.2D_x_cols]] <-
-              it.ar_2D[[it.el]][[it.2D_x_cols]]
-          }
-        }
+        # Rearrange it.ar_1D based on composite or distinct ALE elements
+        it.ar_2D <- it.ar_2D |>
+          map(\(it.el) {
+            it.el |>
+              map(\(it.term) {
+                it.term |>
+                  split(it.term$.comp) |>
+                  map(\(it.comp_tbl) it.comp_tbl |> select(-'.comp'))
+              }) |>
+              list_transpose(simplify = FALSE)
+          }) |>
+          list_transpose(simplify = FALSE) |>
+          set_names(
+            \(nm) dplyr::recode(
+              nm,
+              "TRUE"  = "composite",
+              "FALSE" = "distinct"
+            )
+          )
 
-        ale_struc$effect[[it.cat]]$d2 <- ale_2D_struc
+        ale_struc[['composite']][[it.cat]]$d2 <- it.ar_2D[['composite']]
+        ale_struc[['distinct']][[it.cat]]$d2  <- it.ar_2D[['distinct']]
       }  # if (length(x_cols) >= 2 && length(x_cols$d2) >= 2) {
 
     }
 
-    # Calculate summary statistics ---------------------
-
-    if (output_stats) {
-      for (it.cat in y_cats) {
-        # 1D ALE statistics
-        if (length(x_cols$d1) >= 1) {
-          ale_struc$effect[[it.cat]]$d1$stats <-
-            ale_struc$effect[[it.cat]]$d1$stats |>
-            bind_rows()
-        }  # if (length(x_cols$d1) >= 1) {
-
-        # 2D ALE statistics
-        if (length(x_cols$d2) >= 1) {
-          ale_struc$effect[[it.cat]]$d2$stats <-
-            ale_struc$effect[[it.cat]]$d2$stats |>
-            bind_rows()
-        }  # if (length(x_cols$d2) >= 1) {
-      }  # for (it.cat in y_cats)
-    }  # if (output_stats) {
-
     # Transpose the ALE elements with the ALE dimension
-    ale_struc$effect <- ale_struc$effect |>
-      map(\(it.cat_el) {
-        it.cat_el <- it.cat_el |>
-          list_transpose(simplify = FALSE)
+    ale_struc <- ale_struc |>
+      map(\(it.comp) {
+        it.comp |>
+          map(\(it.cat_el) {
+            it.cat_el <- it.cat_el |>
+              list_transpose(simplify = FALSE)
 
-        list(
-          ale       = it.cat_el$ale,
-          stats     = if (output_stats) it.cat_el$stats else NULL,
-          boot_data = if (output_boot_data) it.cat_el$boot_data else NULL
-        )
+            list(
+              ale       = it.cat_el$ale,
+              stats     = if (output_stats) it.cat_el$stats else NULL,
+              boot_data = if (output_boot_data) it.cat_el$boot_data else NULL
+            )
+          })
+
       })
+
+    # Consolidate statistics
+    if (output_stats) {
+      for (it.comp in c('composite', 'distinct')) {
+        for (it.cat in y_cats) {
+          it.stats <- ale_struc[[it.comp]][[it.cat]][['stats']]
+          ale_struc[[it.comp]][[it.cat]][['stats']] <- if (!is.null(it.stats)) {
+            ale_struc[[it.comp]][[it.cat]][['stats']] |>
+              imap(\(it.d, it.d_name) {
+                it.d |>
+                  bind_rows() |>
+                  mutate(d = str_sub(it.d_name, 2) |> as.integer())
+              }) |>
+              bind_rows()
+          } else {
+            NULL
+          }
+        }  # for (it.cat in y_cats)
+      }  # for (it.comp in c('composite', 'distinct'))
+    }  # if (output_stats) {
 
 
     # Create and return S7 ale object ----------------------
 
     new_object(
       S7_object(),
-      effect = ale_struc$effect,
-      params = params
+      composite = ale_struc$composite,
+      distinct  = ale_struc$distinct,
+      params    = params
     )
   }  # ALE constructor
 )  # ALE

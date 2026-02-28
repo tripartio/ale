@@ -40,7 +40,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "d6fc256a14e217f7af2be2f3cc62f0d1"
+      [1] "5f61b58be4c7b071d42eb7bda24d7727"
       
       
       attr(,"params")$y_col
@@ -86,23 +86,24 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$mpg
-      attr(,"effect")$mpg$ale
-      attr(,"effect")$mpg$ale$d1
-      attr(,"effect")$mpg$ale$d1$vs
+       $ composite: <list>          
+       $ distinct : <list> or <NULL>
+       $ params   : <list>          
+      attr(,"composite")
+      attr(,"composite")$mpg
+      attr(,"composite")$mpg$ale
+      attr(,"composite")$mpg$ale$d1
+      attr(,"composite")$mpg$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36     0     0       0         0     0
       2 TRUE      28     0     0       0         0     0
       
-      attr(,"effect")$mpg$ale$d1$continent
+      attr(,"composite")$mpg$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -110,38 +111,38 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"effect")$mpg$ale$d1$am
+      attr(,"composite")$mpg$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     38 -1.61 -5.01   -1.61    -1.01  0.775
-      2 TRUE      26  1.60 -1.75    1.60     0.219 7.28 
+        am.bin    .n     .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int>  <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     38 -0.378 -1.47  -0.378    -0.492 0.809
+      2 TRUE      26 -0.449 -1.76  -0.449    -1.28  1.57 
       
-      attr(,"effect")$mpg$ale$d1$model
+      attr(,"composite")$mpg$ale$d1$model
       # A tibble: 32 x 7
-         model.bin             .n     .y   .y_lo .y_mean .y_median .y_hi
-         <ord>              <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
-       1 AMC Javelin            2 -12.2  -17.5    -12.2    -11.7   -7.57
-       2 Cadillac Fleetwood     2 -15.1  -27.0    -15.1    -11.1   -9.98
-       3 Camaro Z28             2  -1.82 -20.8     -1.82     0.713 12.8 
-       4 Chrysler Imperial      2  -1.20 -10.3     -1.20    -0.746  7.15
-       5 Datsun 710             2  13.0   -0.747   13.0     11.1   30.1 
-       6 Dodge Challenger       2  20.5    5.86    20.5     21.0   34.2 
-       7 Duster 360             2  21.1    4.54    21.1     21.4   37.2 
-       8 Ferrari Dino           2  24.5   10.0     24.5     25.7   36.9 
-       9 Fiat 128               2  27.7   16.3     27.7     28.6   37.6 
-      10 Fiat X1-9              2  20.5    6.52    20.5     22.6   30.9 
+         model.bin             .n     .y  .y_lo .y_mean .y_median .y_hi
+         <ord>              <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin            2 -10.3  -12.7   -10.3     -10.7  -7.48
+       2 Cadillac Fleetwood     2 -10.7  -11.2   -10.7     -11.1  -9.95
+       3 Camaro Z28             2   4.94  -3.69    4.94      5.61 13.0 
+       4 Chrysler Imperial      2   2.02  -3.53    2.02      2.34  7.28
+       5 Datsun 710             2  17.9    9.88   17.9      12.5  30.6 
+       6 Dodge Challenger       2  25.7   17.4    25.7      25.1  34.4 
+       7 Duster 360             2  27.0   17.5    27.0      25.8  37.6 
+       8 Ferrari Dino           2  29.7   24.3    29.7      27.3  37.2 
+       9 Fiat 128               2  31.8   26.5    31.8      30.9  37.8 
+      10 Fiat X1-9              2  25.6   22.1    25.6      23.1  31.1 
       # i 22 more rows
       
-      attr(,"effect")$mpg$ale$d1$gear
+      attr(,"composite")$mpg$ale$d1$gear
       # A tibble: 3 x 7
-        gear.bin    .n    .y .y_lo .y_mean .y_median   .y_hi
-        <ord>    <int> <dbl> <dbl>   <dbl>     <dbl>   <dbl>
-      1 three       30 -1.06 -2.54   -1.06    -0.758 -0.0935
-      2 four        24  2.66  1.49    2.66     2.42   4.22  
-      3 five        10 -1.60 -2.46   -1.60    -1.85  -0.331 
+        gear.bin    .n     .y .y_lo .y_mean .y_median   .y_hi
+        <ord>    <int>  <dbl> <dbl>   <dbl>     <dbl>   <dbl>
+      1 three       30 -0.531 -1.18  -0.531    -0.287 -0.0883
+      2 four        24  2.11   1.49   2.11      1.69   3.08  
+      3 five        10 -1.33  -2.40  -1.33     -1.28  -0.306 
       
-      attr(,"effect")$mpg$ale$d1$carb
+      attr(,"composite")$mpg$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -151,7 +152,7 @@
       4         4    16 -0.000451 -0.000451 -0.000451 -0.000451 -0.000451
       5         8     6 -0.00170  -0.00170  -0.00170  -0.00170  -0.00170 
       
-      attr(,"effect")$mpg$ale$d1$wt
+      attr(,"composite")$mpg$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -169,25 +170,23 @@
       
       
       
-      attr(,"effect")$mpg$stats
-      attr(,"effect")$mpg$stats$d1
-      # A tibble: 42 x 8
-         statistic estimate p.value term      conf.low  mean median conf.high
-         <chr>        <dbl>   <dbl> <chr>        <dbl> <dbl>  <dbl>     <dbl>
-       1 aled             0     1   vs               0     0      0         0
-       2 aler_min         0     1   vs               0     0      0         0
-       3 aler_max         0     1   vs               0     0      0         0
-       4 naled            0     0.6 vs               0     0      0         0
-       5 naler_min        0     1   vs               0     0      0         0
-       6 naler_max        0     0.6 vs               0     0      0         0
-       7 aled             0     1   continent        0     0      0         0
-       8 aler_min         0     1   continent        0     0      0         0
-       9 aler_max         0     1   continent        0     0      0         0
-      10 naled            0     0.6 continent        0     0      0         0
+      attr(,"composite")$mpg$stats
+      # A tibble: 42 x 9
+         statistic estimate p.value term      conf.low  mean median conf.high     d
+         <chr>        <dbl>   <dbl> <chr>        <dbl> <dbl>  <dbl>     <dbl> <int>
+       1 aled             0     1   vs               0     0      0         0     1
+       2 aler_min         0     1   vs               0     0      0         0     1
+       3 aler_max         0     1   vs               0     0      0         0     1
+       4 naled            0     0.6 vs               0     0      0         0     1
+       5 naler_min        0     1   vs               0     0      0         0     1
+       6 naler_max        0     0.6 vs               0     0      0         0     1
+       7 aled             0     1   continent        0     0      0         0     1
+       8 aler_min         0     1   continent        0     0      0         0     1
+       9 aler_max         0     1   continent        0     0      0         0     1
+      10 naled            0     0.6 continent        0     0      0         0     1
       # i 32 more rows
       
-      
-      attr(,"effect")$mpg$boot_data
+      attr(,"composite")$mpg$boot_data
       NULL
       
       
@@ -248,7 +247,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "d6fc256a14e217f7af2be2f3cc62f0d1"
+      [1] "5f61b58be4c7b071d42eb7bda24d7727"
       
       
       attr(,"params")$data
@@ -342,6 +341,9 @@
       attr(,"params")$y_col
       [1] "mpg"
       
+      attr(,"params")$comp
+      [1] "auto"
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -387,7 +389,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "d6fc256a14e217f7af2be2f3cc62f0d1"
+       ..  ..$ hash : chr "5f61b58be4c7b071d42eb7bda24d7727"
        .. $ y_col                        : chr "mpg"
        .. $ rand_it                      : num 10
        .. $ parallel                     : num 0
@@ -517,7 +519,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "d6fc256a14e217f7af2be2f3cc62f0d1"
+      [1] "5f61b58be4c7b071d42eb7bda24d7727"
       
       
       attr(,"params")$y_col
@@ -641,7 +643,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "d6fc256a14e217f7af2be2f3cc62f0d1"
+      [1] "5f61b58be4c7b071d42eb7bda24d7727"
       
       
       attr(,"params")$y_col
@@ -720,7 +722,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "f2fa16ad742b1f97311ac9acf2037e8d"
+      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
       
       
       attr(,"params")$y_col
@@ -829,7 +831,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "e5e2585dde022af9cf7207d12571a211"
+      [1] "d9d0442ac3829c2b2e010e5e47dc6255"
       
       
       attr(,"params")$y_col

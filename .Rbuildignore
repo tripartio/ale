@@ -16,6 +16,7 @@
 ^README\.Rmd$
 ^revdep$
 ^scholar$
+^tests/testthat/_snaps$
 ^tests/testthat/test-ALEPlot-gold-standard\.R$
 ^vignettes/.*_auto$
 ^vignettes/.*_cache$

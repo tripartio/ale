@@ -20,7 +20,7 @@ An updated \code{ALE} object with all probabilities and relevant statistics inve
 Inverts the predicted probabilities in an \code{ALE} object to reflect complementary outcomes (i.e., \code{1 - p}). This is particularly useful when the model probability predictions are opposite to what is desired for easy interpretability. With \code{\link[=invert_probs]{invert_probs()}}, there is no need to change the original data or retrain the model; the ALE data, p-values, and subsequent ALE plots will reflect the desired inverted probabilities.
 }
 \details{
-This function inverts the ALE y-values (i.e., \code{.y}, \code{.y_mean}, \code{.y_median}, etc.) for all terms, including the main ALE effects, bootstrap data, and ALE statistics (\code{aler_min}, \code{aler_max}, etc.).
+This function inverts the ALE y-values (i.e., \code{.y}, \code{.y_mean}, \code{.y_median}, etc.) for all terms, including the ALEs, bootstrap data, and ALE statistics (\code{aler_min}, \code{aler_max}, etc.).
 It also updates the \code{y_col} name and \code{y_summary} column names if \code{rename_y_col} is provided.
 
 If the \code{ALE} object has already been inverted (\code{probs_inverted = TRUE}), the function throws an error by default.

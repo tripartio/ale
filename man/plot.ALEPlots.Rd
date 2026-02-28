@@ -8,6 +8,8 @@
 
 \item{max_print}{integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed on separate pages, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.}
 
+\item{comp}{See documentation for \code{\link[=get.ALE]{get.ALE()}}}
+
 \item{...}{Arguments to pass to \code{\link[patchwork:wrap_plots]{patchwork::wrap_plots()}}}
 }
 \value{

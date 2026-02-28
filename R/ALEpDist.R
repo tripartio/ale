@@ -559,6 +559,10 @@ ALEpDist <- new_class(
               x_cols = 'random_variable',
               data = eval(it.rand_data),
               y_col = y_col,
+              # Conservatively use composite ALE: give random variables the maximum chance to become significant.
+              # Uncomment if a future version can be faster by calculating only composite ALE without superfluously calculating distinct ALE, which is not used.
+              #
+              # comp = 'composite',
               parallel = 0,  # avoid recursive parallelization
               model_packages = model_packages,
               output_stats = FALSE,
@@ -640,13 +644,14 @@ ALEpDist <- new_class(
     rand_stats <-
       rand_ales |>
       map(\(it.rand) {  # iterate by random ALE iteration
-        it.rand@effect |>
+        # Conservatively use composite ALE: give random variables the maximum chance to become significant.
+        it.rand@composite |>
           map(\(it.rand.cat) {  # iterate by categorical class or just by the single y_col
             calc_stats(
               y = it.rand.cat$ale$d1$random_variable$.y,
               bin_n = it.rand.cat$ale$d1$random_variable$.n,
               ale_y_norm_fun = ale_y_norm_fun,
-              x_type = 'numeric', #,  # the random variables are always numeric
+              x_type = 'numeric',  # the random variables are always numeric
               aled_fun = aled_fun
             )
           })

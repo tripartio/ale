@@ -78,6 +78,20 @@ ALEPlots <- new_class(
   ) {
 
     ## Validate arguments -------------
+
+    # Check for known common erroneous arguments
+    validate(
+      'comp' %notin% names(list(...)),
+      msg = c(
+        x = 'The {.arg comp} argument for ALE composition cannot be used directly with the {.fn plot} method of an {.cls ALE} or {.cls ModelBoot} object, or the {.cls ALEPlot} constructor, because these create all possible plots regardless.',
+        i = 'You can specify {.arg comp} in the {.fn plot} or {.fn print} methods of an {.cls ALEPlot} object.'
+      )
+    )
+
+    # Error if any other unlisted argument is used (captured in ...).
+    # Never skip this validation step!
+    rlang::check_dots_empty()
+
     validate(
       obj |> S7_inherits(ALE) || obj |> S7_inherits(ModelBoot),
       msg = '{.arg obj} must be an {.cls ALE} or {.cls ModelBoot} object.'
@@ -154,7 +168,8 @@ ALEPlots <- new_class(
         # Start with the single ALE object to give it the right ALE object type.
         alt_obj <- obj@ale$single
         # Replace the ALE data with the bootstrapped version
-        alt_obj@effect <- obj@ale$boot$effect
+        alt_obj@composite <- obj@ale$boot$composite
+        alt_obj@distinct <- obj@ale$boot$distinct
 
         obj <- alt_obj
       }
@@ -183,230 +198,255 @@ ALEPlots <- new_class(
 
     y_cats <- obj@params$y_cats
     if (length(y_cats) > 1) {
-      # Create composite .all_cats ALE data
-      obj@effect$.all_cats <- list(
-        ale = imap(obj@params$requested_x_cols, \(it.x_cols_d, it.d) {
-          map(it.x_cols_d, \(it.x_cols) {
-            map(y_cats, \(it.cat_name) {
-              obj@effect[[it.cat_name]]$ale[[it.d]][[it.x_cols]] |>
-                mutate(.cat = it.cat_name)
-            }) |>
-              bind_rows()
-          }) |>
-            set_names(it.x_cols_d)
+      # Create .all_cats ALE data
+      all_cats_data <- c('composite', 'distinct') |>
+        map(\(it.comp) {
+          list(
+            ale = imap(obj@params$requested_x_cols, \(it.x_cols_d, it.d) {
+              # obtain the first cateogry ALE to ensure that its composition
+              # has data in this dimension.
+              # Distinct ALE might not have data for a given dimension.
+              it.d_ale <- prop(obj, it.comp)[[1]]$ale[[it.d]]
+
+              if (!is.null(it.d_ale)) {
+                map(it.x_cols_d, \(it.x_cols) {
+                  map(y_cats, \(it.cat_name) {
+                    it.d_ale[[it.x_cols]] |>
+                      mutate(.cat = it.cat_name)
+                  }) |>
+                    bind_rows()
+                }) |>
+                  set_names(it.x_cols_d)
+              } else {
+                # No ALE data for this dimension for this composition
+                NULL
+              }
+            })
+          )
         })
-      )
+
+      obj@composite$.all_cats <- all_cats_data$composite
+      obj@distinct$.all_cats <- all_cats_data$distinct
 
       y_cats <- c(y_cats, '.all_cats')
     }
 
-    plots <- imap(obj@effect, \(it.cat_el, it.cat_name) {
-      if (length(obj@params$requested_x_cols$d1) >= 1) {
-        # There is at least one 1D ALE data element
+    plots <- map(c('composite', 'distinct'), \(it.comp) {
+      imap(prop(obj, it.comp), \(it.cat_el, it.cat_name) {
+        if (length(it.cat_el$ale$d1) >= 1) {
+          # There is at least one 1D ALE data element
 
-        it.all_cat_plot_types <- if (it.cat_name == '.all_cats') {
-          c('overlay', 'facet')
-        } else {
-          'single'
-        }
+          it.all_cat_plot_types <- if (it.cat_name == '.all_cats') {
+            c('overlay', 'facet')
+          } else {
+            'single'
+          }
 
-        plots_1D <-
-          imap(it.cat_el$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
+          plots_1D <-
+            imap(it.cat_el$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
 
-            # Consolidate overly numerous categories
-            if (
-              var_type(obj@params$data$data_sample[[it.x_col_name]]) == 'categorical' &&
-              # attr(it.x_col_ale_data, 'x')[[1]]$type == 'categorical' &&
-              !isFALSE(consolid_cats) &&
-              (
-                (is_scalar_natural(consolid_cats) && nrow(it.x_col_ale_data) > consolid_cats) ||
-                (is.list(consolid_cats) && nrow(it.x_col_ale_data) > consolid_cats$max)
-              )
-            ) {
-              # Standardize consolid_cats as an integer
-              if (is.list(consolid_cats)) {
-                it.include <- consolid_cats$include
-                consolid_cats <- consolid_cats$max
-              } else {
-                it.include <- NULL
-              }
-
-              it.bin_col <- names(it.x_col_ale_data)[1]
-
-              # Convert it.x_col_ale_data to list format to be able to handle possible y_cats.
-              it.all_cats_x_col_ale_data <- if ('.cat' %in% names(it.x_col_ale_data)) {
-                it.x_col_ale_data |>
-                  split(it.x_col_ale_data$.cat)
-              } else {
-                list(it.x_col_ale_data)
-              }
-
-              # Consolidate categories one y_cat at a time
-              it.x_col_ale_data <- it.all_cats_x_col_ale_data |>
-                map(\(it.cat_x_col_ale_data) {
-                  it.sorted_ale_data <- it.cat_x_col_ale_data |>
-                    arrange(desc(abs(.data$.y)))
-
-                  # Get ALE data of the top (consolid_cats-1) categories
-                  it.top_cats <- c(
-                    it.include[[it.x_col_name]],
-                    it.sorted_ale_data[[it.bin_col]][
-                      1 : (consolid_cats - length(it.include[[it.x_col_name]]) - 1)
-                    ] |>
-                      as.character()
-                  )
-                  # it.top_cats <- it.sorted_ale_data[[it.bin_col]][1:(consolid_cats-1)]
-                  it.top_ale_data <- it.cat_x_col_ale_data |>
-                    filter(.data[[it.bin_col]] %in% it.top_cats)
-
-                  it.bottom_ale_data <- it.cat_x_col_ale_data |>
-                    filter(.data[[it.bin_col]] %notin% it.top_cats)
-
-                  it.other_row <- tibble(
-                    !!it.bin_col := str_glue('{nrow(it.bottom_ale_data)} others'),
-                    .n = sum(it.bottom_ale_data$.n),
-                    .y_lo = min(it.bottom_ale_data$.y_lo),
-                    # Mean ALE y is the weighted sum of all the other rows
-                    .y_mean = sum(it.bottom_ale_data$.y * it.bottom_ale_data$.n) / .data$.n,
-                    # Median ALE y is the median of all the other rows
-                    .y_median = it.bottom_ale_data$.y_median |>
-                      rep(it.bottom_ale_data$.n) |>
-                      median(),
-                    .y_hi = max(it.bottom_ale_data$.y_hi),
-                    .y = if (obj@params$boot_centre == 'mean') .data$.y_mean else .data$.y_median,
-                  )
-
-                  if ('.cat' %in% names(it.cat_x_col_ale_data)) {
-                    it.other_row$.cat <- it.cat_x_col_ale_data$.cat[1]
-                  }
-
-                  # Recreate it.bin_col as a consistent ordered factor
-                  it.consolid_bin_col_fct <- c(
-                    levels(it.top_ale_data[[it.bin_col]]),
-                    # it.top_ale_data[[it.bin_col]] |> as.character(),
-                    it.other_row[[it.bin_col]][1]
-                  )
-                  it.consolid_bin_col_fct <- factor(
-                    it.consolid_bin_col_fct,
-                    levels = it.consolid_bin_col_fct,
-                    ordered = TRUE
-                  )
-
-                  it.top_ale_data[[it.bin_col]] <- factor(
-                    it.top_ale_data[[it.bin_col]],
-                    levels = it.consolid_bin_col_fct,
-                    ordered = TRUE
-                  )
-                  it.other_row[[it.bin_col]] <- factor(
-                    it.other_row[[it.bin_col]],
-                    levels = it.consolid_bin_col_fct,
-                    ordered = TRUE
-                  )
-
-                  # Replace it.x_col_ale_data with the consolid_cats rows
-                  it.top_ale_data |>
-                    bind_rows(it.other_row)
-                }) |>
-                bind_rows()
-            }
-
-            it.p <- map(it.all_cat_plot_types, \(it.cat_plot_type) {
-              if (!is.null(it.x_col_ale_data)) {
-                plot_ale_1D(
-                  ale_data    = it.x_col_ale_data,
-                  x_col       = it.x_col_name,
-                  y_col       = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
-                  cat_plot    = if (it.cat_plot_type == 'single') NULL else it.cat_plot_type,
-                  y_type      = obj@params$y_type,
-                  y_summary   = obj@params$y_summary[
-                    ,
-                    if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name
-                  ],
-                  p_exactness = if (is.null(obj@params$p_values)) {
-                    NULL
-                  } else {
-                    obj@params$p_values@params$exactness
-                  },
-                  x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
-                  ale_centre  = ale_centre,
-                  aler_alpha      = obj@params$aler_alpha,
-                  y_1d_refs   = y_1d_refs,
-                  rug_sample_size = rug_sample_size,
-                  min_rug_per_interval = min_rug_per_interval,
-                  min_col_width = min_col_width,
-                  seed        = seed
+              # Consolidate overly numerous categories
+              if (
+                var_type(obj@params$data$data_sample[[it.x_col_name]]) == 'categorical' &&
+                # attr(it.x_col_ale_data, 'x')[[1]]$type == 'categorical' &&
+                !isFALSE(consolid_cats) &&
+                (
+                  (is_scalar_natural(consolid_cats) && nrow(it.x_col_ale_data) > consolid_cats) ||
+                  (is.list(consolid_cats) && nrow(it.x_col_ale_data) > consolid_cats$max)
                 )
-              }
-              else {  # it.x_col_ale_data is NULL. But why might it be?
-                NULL  # nocov
-              }
-            }) |>
-              set_names(it.all_cat_plot_types)
+              ) {
+                # Standardize consolid_cats as an integer
+                if (is.list(consolid_cats)) {
+                  it.include <- consolid_cats$include
+                  consolid_cats <- consolid_cats$max
+                } else {
+                  it.include <- NULL
+                }
 
-            it.p <- if (length(it.p) == 1 && names(it.p) == 'single') {
-              # Remove the extra layer for single plots
-              it.p[[1]]
-            } else {
+                it.bin_col <- names(it.x_col_ale_data)[1]
+
+                # Convert it.x_col_ale_data to list format to be able to handle possible y_cats.
+                it.all_cats_x_col_ale_data <- if ('.cat' %in% names(it.x_col_ale_data)) {
+                  it.x_col_ale_data |>
+                    split(it.x_col_ale_data$.cat)
+                } else {
+                  list(it.x_col_ale_data)
+                }
+
+                # Consolidate categories one y_cat at a time
+                it.x_col_ale_data <- it.all_cats_x_col_ale_data |>
+                  map(\(it.cat_x_col_ale_data) {
+                    it.sorted_ale_data <- it.cat_x_col_ale_data |>
+                      arrange(desc(abs(.data$.y)))
+
+                    # Get ALE data of the top (consolid_cats-1) categories
+                    it.top_cats <- c(
+                      it.include[[it.x_col_name]],
+                      it.sorted_ale_data[[it.bin_col]][
+                        1 : (consolid_cats - length(it.include[[it.x_col_name]]) - 1)
+                      ] |>
+                        as.character()
+                    )
+                    # it.top_cats <- it.sorted_ale_data[[it.bin_col]][1:(consolid_cats-1)]
+                    it.top_ale_data <- it.cat_x_col_ale_data |>
+                      filter(.data[[it.bin_col]] %in% it.top_cats)
+
+                    it.bottom_ale_data <- it.cat_x_col_ale_data |>
+                      filter(.data[[it.bin_col]] %notin% it.top_cats)
+
+                    it.other_row <- tibble(
+                      !!it.bin_col := str_glue('{nrow(it.bottom_ale_data)} others'),
+                      .n = sum(it.bottom_ale_data$.n),
+                      .y_lo = min(it.bottom_ale_data$.y_lo),
+                      # Mean ALE y is the weighted sum of all the other rows
+                      .y_mean = sum(it.bottom_ale_data$.y * it.bottom_ale_data$.n) / .data$.n,
+                      # Median ALE y is the median of all the other rows
+                      .y_median = it.bottom_ale_data$.y_median |>
+                        rep(it.bottom_ale_data$.n) |>
+                        median(),
+                      .y_hi = max(it.bottom_ale_data$.y_hi),
+                      .y = if (obj@params$boot_centre == 'mean') .data$.y_mean else .data$.y_median,
+                    )
+
+                    if ('.cat' %in% names(it.cat_x_col_ale_data)) {
+                      it.other_row$.cat <- it.cat_x_col_ale_data$.cat[1]
+                    }
+
+                    # Recreate it.bin_col as a consistent ordered factor
+                    it.consolid_bin_col_fct <- c(
+                      levels(it.top_ale_data[[it.bin_col]]),
+                      # it.top_ale_data[[it.bin_col]] |> as.character(),
+                      it.other_row[[it.bin_col]][1]
+                    )
+                    it.consolid_bin_col_fct <- factor(
+                      it.consolid_bin_col_fct,
+                      levels = it.consolid_bin_col_fct,
+                      ordered = TRUE
+                    )
+
+                    it.top_ale_data[[it.bin_col]] <- factor(
+                      it.top_ale_data[[it.bin_col]],
+                      levels = it.consolid_bin_col_fct,
+                      ordered = TRUE
+                    )
+                    it.other_row[[it.bin_col]] <- factor(
+                      it.other_row[[it.bin_col]],
+                      levels = it.consolid_bin_col_fct,
+                      ordered = TRUE
+                    )
+
+                    # Replace it.x_col_ale_data with the consolid_cats rows
+                    it.top_ale_data |>
+                      bind_rows(it.other_row)
+                  }) |>
+                  bind_rows()
+              }
+
+              it.p <- map(it.all_cat_plot_types, \(it.cat_plot_type) {
+                if (!is.null(it.x_col_ale_data)) {
+                  plot_ale_1D(
+                    ale_data    = it.x_col_ale_data,
+                    x_col       = it.x_col_name,
+                    y_col       = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
+                    cat_plot    = if (it.cat_plot_type == 'single') NULL else it.cat_plot_type,
+                    y_type      = obj@params$y_type,
+                    y_summary   = obj@params$y_summary[
+                      ,
+                      if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name
+                    ],
+                    p_exactness = if (is.null(obj@params$p_values)) {
+                      NULL
+                    } else {
+                      obj@params$p_values@params$exactness
+                    },
+                    x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
+                    ale_centre  = ale_centre,
+                    aler_alpha      = obj@params$aler_alpha,
+                    y_1d_refs   = y_1d_refs,
+                    rug_sample_size = rug_sample_size,
+                    min_rug_per_interval = min_rug_per_interval,
+                    min_col_width = min_col_width,
+                    seed        = seed
+                  )
+                }
+                else {  # it.x_col_ale_data is NULL. But why might it be?
+                  NULL  # nocov
+                }
+              }) |>
+                set_names(it.all_cat_plot_types)
+
+              it.p <- if (length(it.p) == 1 && names(it.p) == 'single') {
+                # Remove the extra layer for single plots
+                it.p[[1]]
+              } else {
+                it.p
+              }
+
               it.p
+            })
+
+          # Create a 1D effects plot when 1D stats are available
+          if (obj@params$output_stats && it.cat_name != '.all_cats') {
+            estimates <- it.cat_el$stats |>
+              filter(.data$d == 1) |>
+              pivot_wider(
+                id_cols = 'term',
+                names_from = 'statistic',
+                values_from = 'estimate'
+              )
+
+            if (nrow(estimates) > 0) {
+              # Stats are available.
+              # Notably, they might not be available here for distinct ALE.
+              eff_plot <- plot_effects(
+                estimates = estimates,
+                y_summary = obj@params$y_summary[, it.cat_name],
+                y_col = it.cat_name,
+                y_nonsig_band = if (is.null(obj@params$p_values)) {
+                  y_nonsig_band
+                } else {
+                  # Use p_value of NALED:
+                  # like y_nonsig_band, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
+                  # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
+                  obj@params$p_values@rand_stats[[it.cat_name]] |>
+                    p_to_random_value('naled', y_nonsig_band) |>
+                    unname() |>
+                    (`/`)(100)  # scale NALED from percentage to 0 to 1
+                }
+              )
             }
-
-            it.p
-          })
-
-        # Create a 1D effects plot when 1D stats are available
-        if (obj@params$output_stats && it.cat_name != '.all_cats') {
-          estimates <- it.cat_el$stats$d1 |>
-            pivot_wider(
-              id_cols = 'term',
-              names_from = 'statistic',
-              values_from = 'estimate'
-            )
-
-          eff_plot <- plot_effects(
-            estimates = estimates,
-            y_summary = obj@params$y_summary[, it.cat_name],
-            y_col = it.cat_name,
-            y_nonsig_band = if (is.null(obj@params$p_values)) {
-              y_nonsig_band
-            } else {
-              # Use p_value of NALED:
-              # like y_nonsig_band, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
-              # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-              obj@params$p_values@rand_stats[[it.cat_name]] |>
-                p_to_random_value('naled', y_nonsig_band) |>
-                unname() |>
-                (`/`)(100)  # scale NALED from percentage to 0 to 1
-            }
-          )
+          }
         }
-      }
 
-      if (obj@params$max_d >= 2) {
-        # There is at least one 2D ALE data element
-        plots_2D <-
-          imap(it.cat_el$ale$d2, \(it.x_cols_ale_data, it.x_cols_name) {
-            it.x_cols_split <- it.x_cols_name |>
-              strsplit(":", fixed = TRUE) |>
-              unlist()
+        if (length(it.cat_el$ale$d2) >= 1) {
+        # if (obj@params$max_d >= 2) {
+          # There is at least one 2D ALE data element
+          plots_2D <-
+            imap(it.cat_el$ale$d2, \(it.x_cols_ale_data, it.x_cols_name) {
+              it.x_cols_split <- it.x_cols_name |>
+                strsplit(":", fixed = TRUE) |>
+                unlist()
 
-            plot_ale_2D(
-              ale_data  = it.x_cols_ale_data,
-              x1_col    = it.x_cols_split[1],
-              x2_col    = it.x_cols_split[2],
-              y_col     = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
-              params    = obj@params,
-              cat_plot  = if (it.cat_name == '.all_cats') 'facet' else 'single',
-              ale_centre = ale_centre
-            )
-          })
-      }
+              plot_ale_2D(
+                ale_data  = it.x_cols_ale_data,
+                x1_col    = it.x_cols_split[1],
+                x2_col    = it.x_cols_split[2],
+                y_col     = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
+                params    = obj@params,
+                cat_plot  = if (it.cat_name == '.all_cats') 'facet' else 'single',
+                ale_centre = ale_centre
+              )
+            })
+        }
 
-      list(
-        d1  = plots_1D,
-        d2  = plots_2D,
-        eff = eff_plot
-      )
-    })
+        list(
+          d1  = plots_1D,
+          d2  = plots_2D,
+          eff = eff_plot
+        )
+      })
+    }) |>   # map(c('composite', 'distinct'), \(it.comp)
+      set_names(c('composite', 'distinct'))
 
 
     # Create S7 ALEPlots object ----------------------

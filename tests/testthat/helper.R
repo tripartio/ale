@@ -74,9 +74,10 @@ test_nn_categorical <- nnet::multinom(
 ale_plots_to_data <- function(
     ale_plots  # ALEPlots object
 ) {
-  purrr::imap(ale_plots@plots, \(it.cat_plots, it.cat_name) {
+  # Only save composite ALE plots (which are always available)
+  purrr::imap(ale_plots@plots$composite, \(it.cat_plots, it.cat_name) {
     list(
-      d1  = if (it.cat_name != '.all_cats') {
+      d1 = if (it.cat_name != '.all_cats') {
         it.cat_plots$d1 |>
           purrr::map(\(it.plot) {
             ggplot2::ggplot_build(it.plot)$data[[1]]
@@ -90,7 +91,7 @@ ale_plots_to_data <- function(
               })
           })
       },
-      d2  = if (it.cat_name != '.all_cats') {
+      d2 = if (it.cat_name != '.all_cats') {
         it.cat_plots$d2 |>
           purrr::map(\(it.plot) {
             ggplot2::ggplot_build(it.plot)$data[[1]]

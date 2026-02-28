@@ -22,12 +22,17 @@ method(get, ModelBoot) <- function(
     exclude_cols = NULL,
     type = 'auto',
     stats = NULL,
+    comp = 'composite',
     cats = NULL,
     ale_centre = 'median',
     simplify = TRUE
 ) {
 
-  ## Validate arguments unique to get.ModelBoot (relative to get.ALE -------------
+  # Validate arguments unique to get.ModelBoot (relative to get.ALE -------------
+
+  # Error if any unlisted argument is used (captured in ...).
+  # Never skip this validation step!
+  rlang::check_dots_empty()
 
   valid_type <- c('auto', 'boot', 'single')
   validate(
@@ -35,7 +40,7 @@ method(get, ModelBoot) <- function(
     msg = 'The {.arg type} argument must be one (and only one) of the following values: {valid_type}.'
   )
 
-  ## Pass to get.ALE for retrieval --------------
+  # Pass to get.ALE for retrieval --------------
 
   if (type == 'auto') {
     type <- if (is.null(obj@ale$boot)) 'single' else 'boot'
@@ -46,7 +51,8 @@ method(get, ModelBoot) <- function(
 
   if (type == 'boot') {
     # Replace the base structure with the bootstrapped data
-    obj_type@effect <- obj@ale$boot$effect
+    obj_type@composite <- obj@ale$boot$composite
+    obj_type@distinct <- obj@ale$boot$distinct
     obj_type@params <- obj@params
 
     # Correct params that differ between ModelBoot and ALE objects
@@ -62,6 +68,7 @@ method(get, ModelBoot) <- function(
     exclude_cols = exclude_cols,
     what = what,
     stats = stats,
+    comp = comp,
     cats = cats,
     ale_centre = ale_centre,
     simplify = simplify
@@ -154,7 +161,9 @@ method(print, ModelBoot) <- function(
     cat('\n')
 
     if (!is.null(x@ale)) {
-      ale_stats <- !is.null(x@ale$boot$effect[[1]]$stats) || x@ale$single@params$output_stats
+      ale_stats <- x@ale$single@params$output_stats ||
+        # alternatively, at least composite stats should be present
+        !is.null(x@ale$boot$composite[[1]]$stats)
       ale_p <- !is.null(x@params$ale_p)
       output_string <- c(
         'Accumulated local effects (ALE) data',

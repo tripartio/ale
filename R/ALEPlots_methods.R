@@ -134,6 +134,7 @@ method(get, ALEPlots) <- function(
 #'
 #' @param x An object of class `ALEPlots`.
 #' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed on separate pages, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
+#' @param comp See documentation for [get.ALE()]
 #' @param ... Arguments to pass to [patchwork::wrap_plots()]
 #'
 #' @return Invisibly returns `x`.
@@ -142,10 +143,36 @@ method(get, ALEPlots) <- function(
 method(plot, ALEPlots) <- function(
     x,
     max_print = 20L,
+    comp = 'composite',
     ...
 ) {
+  # Validate arguments -----------
+
+  # x is automatically validated by method dispatch
   plots_obj <- x  # rename internally
   rm(x)
+
+  validate(is_scalar_natural(max_print))
+
+  validate(
+    is_string(comp, c('composite', 'distinct')) || is_bool(comp),
+    msg = '{.arg comp} may be "composite", "distinct", or logical.'
+  )
+  if (is_bool(comp)) {
+    comp <- if (comp) 'composite' else 'distinct'
+  }
+
+
+  # Plot -----------
+
+  # Terminate early if the requested composition has no plots.
+  # Check only the first category; that's sufficient.
+  if (is.null(unlist(plots_obj@plots[[comp]][[1]]))) {
+    cli_warn('There are no {comp} ALE plots available.')
+
+    return(invisible(plots_obj))
+  }
+
 
   n_1D <- length(plots_obj@params$requested_x_cols$d1)
   n_2D <- length(plots_obj@params$requested_x_cols$d2)
@@ -153,22 +180,27 @@ method(plot, ALEPlots) <- function(
   # Print one page per category per dimension.
   # Skip .all_cats; silently just don't print it.
   plots_obj@plots[names(plots_obj@plots) |> setdiff('.all_cats')] |>
+    (`[[`)(comp) |>
     purrr::iwalk(\(it.cat_plots, i.cat_name) {
       purrr::iwalk(c(n_1D, n_2D), \(it.n, i.d) {
-        if ((0 < it.n) && (it.n <= max_print)) {
-          it.cat_plots[['d' %+% i.d]] |>
-            patchwork::wrap_plots(...) |>
-            print()
-        }
-        else if (
-          it.n > max_print &&
-          # issue the warning only for the 1st category; don't repeat it
-          i.cat_name == plots_obj@params$y_cats[1]
-        ) {
-          cli_warn(c(
-            '!' = 'With more than {max_print} {i.d}D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
-            'i' = 'The {.cls ALEPlots} object contains {it.n} {i.d}D plots.'
-          ))
+        # Only plot non-null dimensions.
+        # In particular, discrete ALE might have NULL dimensions
+        if (!is.null(it.cat_plots[['d' %+% i.d]])) {
+          if ((0 < it.n) && (it.n <= max_print)) {
+            it.cat_plots[['d' %+% i.d]] |>
+              patchwork::wrap_plots(...) |>
+              print()
+          }
+          else if (
+            it.n > max_print &&
+            # issue the warning only for the 1st category; don't repeat it
+            i.cat_name == plots_obj@params$y_cats[1]
+          ) {
+            cli_warn(c(
+              '!' = 'With more than {max_print} {i.d}D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
+              'i' = 'The {.cls ALEPlots} object contains {it.n} {i.d}D plots.'
+            ))
+          }
         }
       })
     })
@@ -185,13 +217,24 @@ method(plot, ALEPlots) <- function(
 #'
 #' @param x An object of class `ALEPlots`.
 #' @param max_print See documentation for [plot.ALEPlots()]
+#' @param comp See documentation for [get.ALE()]
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
 #'
 #' @method print ALEPlots
-method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
-  getS3method("plot", "ale::ALEPlots")(x, max_print = max_print, ...)
+method(print, ALEPlots) <- function(
+    x,
+    max_print = 20L,
+    comp = 'composite',
+    ...
+  ) {
+  getS3method("plot", "ale::ALEPlots")(
+    x,
+    max_print = max_print,
+    comp = comp,
+    ...
+  )
 }
 
 
@@ -305,9 +348,9 @@ method(summary, ALEPlots) <- function(
   }
 
   summ <- str_glue(
-    '"ALEPlots" object with {cats_text}',
+    '"ALEPlots" object with {cats_text} plots for ',
     '{length(object@params$requested_x_cols$d1)} 1D and ',
-    '{length(object@params$requested_x_cols$d2)} 2D ALE plots.'
+    '{length(object@params$requested_x_cols$d2)} 2D ALE objects.'
   )
 
   return(summ)
@@ -503,8 +546,6 @@ customize <- function(
                 if (it.el_name %in% names(x_cols)) {
                   for (it.term in x_cols[[it.el_name]]) {
                     it.el[[it.term]] <- add_layers(it.el[[it.term]], custom_layers)
-                    # it.el[[it.term]] <- it.el[[it.term]] +
-                    #   custom_layers
                   }
 
                   it.el

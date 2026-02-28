@@ -28,6 +28,8 @@ The numbering system described above is used for packages released to CRAN. For 
 
 # ale (development version)
 
+A major change in this version is the formal distinction between composite and distinct ALE. Composite ALE is the total effect of a term (a variable or interaction), including any and all composite effects of the individual constituent variables and any possible interactions that term might have with others. This has always been the classic form of ALE for 1D ALE (main variable effects). Distinct ALE is the effect of a term when related main effects and all associated interaction effects are removed. This has always been the classic form of ALE for 2D ALE interactions. What is new is that the ALE() constructor automatically calculates both composite and distinct ALE for 2D terms. Functions that retrieve ALE (notably [get()] and [plot()]) now return composite ALE by default (both for 1D and 2D terms), though distinct ALE can be explicitly requested when available with the `comp` argument. Distinct ALE is not yet available for 1D ALE; this should come in a future version.
+
 ## New features
 
 * `summary()` methods have now been implemented for `ALE` and `ModelBoot` objects. They print a summary of ALE statistics to the console. When there are no ALE statistics available, they print a message saying so.
@@ -39,15 +41,16 @@ The numbering system described above is used for packages released to CRAN. For 
 * Parallelization can now be controlled with a global option `ale.parallel`. For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
 * The `{ranger}` package is now automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages.
 
-## Bug fixes
-
-* Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
-
 ## Changed functionality
 
+* [ALE()] now calculates composite ALE (including statistics) for 2D interactions, along with the distinct ALE it originally calculated. 1D ALE still calculates only composite ALE. A consequence of this mixture of all composition is that `get()` and `plot()` now return composite ALE by default, even for 2D interactions. Distinct ALE must now be requested explicitly with the `comp` argument.
 * `max_num_bins` now creates `n+1` bins instead of exactly the specified `n` bins. The bottom bin is reserved for the minimum value in the data. This is a reversion to the original behaviour of the reference {ALEPlot} package.
 * Parallelization has been disabled by default (`parallel` = 0) (#16).
 * The `pred_fun` argument in `ALE()` and other constructors now defaults to `NULL`. However, the functionality is unchanged: the default still creates the same generic custom prediction function.
+
+## Bug fixes
+
+* Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
 
 ## Documentation
 

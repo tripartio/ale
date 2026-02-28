@@ -514,7 +514,7 @@ get(mb_gam_math, 'rand_norm', stats = 'all')
 
 Here we summarize some general principles for interpreting normalized ALE effect sizes.
 
--   **Normalized ALE deviation (NALED):** this is the average variation of ALE effect of the input variable.
+-   **Normalized ALE deviation (NALED):** this is the average variation of ALE of the input variable.
     -   Values range from 0 to 100%:
         -   0% means no effect at all.
         -   100% means the maximum possible effect any variable could have: for a binary variable, one value (50% of the data) sets the outcome at its minimum value and the other value (the other 50% of the data) sets the outcome at its maximum value.
@@ -532,7 +532,7 @@ A common question for interpreting effect sizes is, "How strong does an effect n
 
 On the other hand, we do consider it very important to delineate the threshold between random effects and non-random effects. It is always important to distinguish between a weak but real effect from one that is just a statistical artifact due to random chance. For that, we can offer some general guidelines based on whether or not we have p-values.
 
-When we have p-values for ALE statistics, then the boundaries of ALER should generally be used to determine the acceptable risk of considering a statistic to be meaningful. Statistically significant ALE effects are those that are less than the 0.05 p-value of ALER minimum of a random variable and greater than the 0.05 p-value ALER maximum of a random variable. As we explained above when introducing the ALER band, this is precisely what the `ale` package does, especially in the plots that highlight the ALER band and the confidence region tables that use the specified ALER p-value threshold. 
+When we have p-values for ALE statistics, then the boundaries of ALER should generally be used to determine the acceptable risk of considering a statistic to be meaningful. Statistically significant ALEs are those that are less than the 0.05 p-value of ALER minimum of a random variable and greater than the 0.05 p-value ALER maximum of a random variable. As we explained above when introducing the ALER band, this is precisely what the `ale` package does, especially in the plots that highlight the ALER band and the confidence region tables that use the specified ALER p-value threshold. 
 
 In the absence of p-values, we suggest that NALED can be a general guide for non-random values. In our informal tests, we find that NALED values below 5% have the same average effect as a random variable. That is, such an average effect is not reliable; it might be random. However, regardless of the average effect indicated by NALED, large NALER effects indicate that the ALE plot should be inspected to interpret the exceptional cases. This caveat is very important; unlike GLM coefficients, ALE analysis is sufficiently sensitive to detect exceptions to the overall trend. This is precisely what makes it valuable for detecting non-linear effects. 
 

@@ -41,8 +41,11 @@ test_that(
       silent = TRUE
     )
 
-    plot(mb, type = 'boot') |>
+    mb |>
+      plot() |>  # create ALEPlots object
+      # plot(type = 'boot') |>  # invoke ALEPlots object
       ale_plots_to_data() |>
+      suppressMessages() |>
       expect_snapshot()
 
     # Create serializable snapshot
@@ -70,8 +73,11 @@ test_that(
       silent = TRUE
     )
 
-    plot(mb, type = 'boot') |>
+    mb |>
+      plot() |>  # create ALEPlots object
+      # plot(type = 'boot') |>  # invoke ALEPlots object
       ale_plots_to_data() |>
+      suppressMessages() |>
       expect_snapshot()
 
     # Create serializable snapshot
@@ -135,13 +141,13 @@ test_that(
     get(mb, 'Sepal.Length') |> expect_snapshot()
     get(mb, 'Petal.Width', type = 'single') |> expect_snapshot()
 
-    plot(mb, type = 'boot') |>
+    mb |>
+      plot() |>  # create ALEPlots object
+      # plot(type = 'boot') |>  # invoke ALEPlots object
       ale_plots_to_data() |>
+      suppressMessages() |>
       expect_snapshot()
 
-    plot(mb, type = 'single') |>
-      ale_plots_to_data() |>
-      expect_snapshot()
   }
 )
 

@@ -665,7 +665,7 @@ ModelBoot <- new_class(
                     pred_oob |> as.vector(),
                     na.rm = TRUE
                   ) |>
-                    (`$`)('auc')
+                    (`[[`)('auc')
                 )
               }
               else if (y_type == 'categorical') {
@@ -773,12 +773,13 @@ ModelBoot <- new_class(
               # Super-assignment needed to set bins and ns for all iterations, not just the current one
 
               ale_bins <<- list(
-                d1 = boot_ale@effect[[1]]$ale$d1 |>
+                # Use composite ALE because it is always present
+                d1 = boot_ale@composite[[1]]$ale$d1 |>
                   map(\(it.x) list(
                     bins = it.x[[1]],
                     ns   = it.x[['.n']]
                   )),
-                d2 = boot_ale@effect[[1]]$ale$d2 |>
+                d2 = boot_ale@composite[[1]]$ale$d2 |>
                   map(\(it.x1_x2) list(
                     x1_bins = it.x1_x2[[1]] |>
                       unique() |>
@@ -1048,154 +1049,151 @@ ModelBoot <- new_class(
         boot_data_ale <- boot_data$ale[1]
       }
 
-      # Use only one loop across the categories
-      map(y_cats, \(it.cat) {
-        # Summarize bootstrapped ALE data, grouped by variable
-        it.ale_summary_data <-
-          boot_data_ale |>
-          # extract data from each iteration
-          map(\(it.ale) {
-            it.ale@effect[[it.cat]]$ale
-          }) |>
-          # rearrange list to group all data and iterations by y_col category
-          list_transpose(simplify = FALSE) |>
-          imap(\(it.d_ale, it.d) {
-            if (length(full_ale@params$requested_x_cols[[it.d]]) > 0) {
-              it.d_ale |>
-                list_transpose(simplify = FALSE) |>
-                imap(\(it.term_ale_its, it.term_name) {
-                  it.ordinal_x_col <- names(it.term_ale_its[[1]]) |>
-                    endsWith('.bin')
+      # Loop across composition and categories
+      map(c('composite', 'distinct'), \(it.comp) {
+        map(y_cats, \(it.cat) {
+          # Summarize bootstrapped ALE data, grouped by variable
+          it.ale_summary_data <-
+            boot_data_ale |>
+            # extract data from each iteration
+            map(\(it.ale) {
+              prop(it.ale, it.comp)[[it.cat]]$ale
+            }) |>
+            # rearrange list to group all data and iterations by y_col category
+            list_transpose(simplify = FALSE) |>
+            imap(\(it.d_ale, it.d) {
+              if (length(full_ale@params$requested_x_cols[[it.d]]) > 0) {
+                it.d_ale |>
+                  list_transpose(simplify = FALSE) |>
+                  imap(\(it.term_ale_its, it.term_name) {
+                    it.ordinal_x_col <- names(it.term_ale_its[[1]]) |>
+                      endsWith('.bin')
 
-                  # If it.term_ale_its is ordinal, harmonize the levels across bootstrap iterations, otherwise binding rows will fail
-                  if (any(it.ordinal_x_col)) {
-                    # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
-                    # Note: column 1 is the x column
-                    bin_levels <- full_ale@effect[[it.cat]]$ale[[it.d]][[it.term_name]][
-                      , it.ordinal_x_col
-                    ] |>
-                      map(\(it.col) {
-                        it.col |>
-                          unique() |>
-                          sort()
-                      })
+                    # If it.term_ale_its is ordinal, harmonize the levels across bootstrap iterations, otherwise binding rows will fail
+                    if (any(it.ordinal_x_col)) {
+                      # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
+                      # Note: column 1 is the x column
+                      bin_levels <- prop(full_ale, it.comp)[[it.cat]]$ale[[it.d]][[it.term_name]][
+                        , it.ordinal_x_col
+                      ] |>
+                        map(\(it.col) {
+                          it.col |>
+                            unique() |>
+                            sort()
+                        })
+
+                      it.term_ale_its <- it.term_ale_its |>
+                        map(\(it.ale_tbl) {
+                          for (it.col_name in names(it.ale_tbl)[it.ordinal_x_col]) {
+                            it.ale_tbl[[it.col_name]] <-
+                              ordered(
+                                it.ale_tbl[[it.col_name]],
+                                levels = bin_levels[[it.col_name]]
+                              )
+                          }
+
+                          it.ale_tbl
+                        })
+                    }
+
+                    # Get current dimension as an integer
+                    i.d <- str_sub(it.d, -1) |> as.integer()
+
+                    # Get names of term columns from the first iteration element
+                    it.term_col_names <- names(it.term_ale_its[[1]])[1:i.d]
 
                     it.term_ale_its <- it.term_ale_its |>
-                      map(\(it.ale_tbl) {
-                        for (it.col_name in names(it.ale_tbl)[it.ordinal_x_col]) {
-                          it.ale_tbl[[it.col_name]] <-
-                            ordered(
-                              it.ale_tbl[[it.col_name]],
-                              levels = bin_levels[[it.col_name]]
-                            )
-                        }
+                      bind_rows() |>
+                      summarize(
+                        .by = all_of(it.term_col_names),
+                        .y_lo = quantile(.data$.y, probs = (boot_alpha / 2), na.rm = TRUE),
+                        .y_mean = mean(.data$.y, na.rm = TRUE),
+                        .y_median = median(.data$.y, na.rm = TRUE),
+                        .y_hi = quantile(.data$.y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+                        .y = if_else(boot_centre == 'mean', .data$.y_mean, .data$.y_median),
+                      ) |>
+                      right_join(
+                        prop(full_ale, it.comp)[[it.cat]]$ale[[it.d]][[it.term_name]][
+                          , c(it.term_col_names, '.n')
+                        ],
+                        by = it.term_col_names
+                      ) |>
+                      select(all_of(it.term_col_names), '.n', '.y', everything())
 
-                        it.ale_tbl
-                      })
-                  }
+                    # Return it.term_ale_its
+                    it.term_ale_its
+                  })  # imap(\(it.term_ale_its, it.term_name)
+              }
+              else {
+                # length(full_ale@params$requested_x_cols[[it.d]]) is zero
+                NULL  # nocov
+              }
+            })  # map(\(it.d_ale) {
 
-                  # Get current dimension as an integer
-                  i.d <- str_sub(it.d, -1) |> as.integer()
-
-                  # Get names of term columns from the first iteration element
-                  it.term_col_names <- names(it.term_ale_its[[1]])[1:i.d]
-
-                  it.term_ale_its <- it.term_ale_its |>
-                    bind_rows() |>
-                    summarize(
-                      .by = all_of(it.term_col_names),
-                      .y_lo = quantile(.data$.y, probs = (boot_alpha / 2), na.rm = TRUE),
-                      .y_mean = mean(.data$.y, na.rm = TRUE),
-                      .y_median = median(.data$.y, na.rm = TRUE),
-                      .y_hi = quantile(.data$.y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-                      .y = if_else(boot_centre == 'mean', .data$.y_mean, .data$.y_median),
-                    ) |>
-                    right_join(
-                      full_ale@effect[[it.cat]]$ale[[it.d]][[it.term_name]][
-                        , c(it.term_col_names, '.n')
-                      ],
-                      by = it.term_col_names
-                    ) |>
-                    select(all_of(it.term_col_names), '.n', '.y', everything())
-
-                  # Return it.term_ale_its
-                  it.term_ale_its
-                })  # imap(\(it.term_ale_its, it.term_name)
-            }
-            else {
-              # length(full_ale@params$requested_x_cols[[it.d]]) is zero
-              NULL  # nocov
-            }
-          })  # map(\(it.d_ale) {
-
-        # Summarize bootstrapped ALE statistics.
-        # By default, when ALE is requested, statistics are requested.
-        # output_stats is FALSE only when the user explicitly disables statistics with ale_options.
-        it.ale_summary_stats <- if (full_ale@params$output_stats) {
-          iass <- boot_data_ale |>
-            imap(\(it.ale, i) {
-              it.ale@effect[[it.cat]]$stats |>
-                imap(\(it.stats, it.d) {
-                  if (length(full_ale@params$requested_x_cols[[it.d]]) > 0) {
-                    it.stats |>
-                      select('term', 'statistic', 'estimate') |>
-                      mutate(
-                        d = it.d,
-                        it = i
-                      )
-                  } else {
-                    NULL  # nocov
-                  }
-                }) |>
-                  bind_rows()
+          # Summarize bootstrapped ALE statistics.
+          # By default, when ALE is requested, statistics are requested.
+          # output_stats is FALSE only when the user explicitly disables statistics with ale_options.
+          it.ale_summary_stats <- if (full_ale@params$output_stats) {
+            iass <- boot_data_ale |>
+              imap(\(it.ale, i) {
+                prop(it.ale, it.comp)[[it.cat]]$stats
               }) |>
-            bind_rows() |>
-            summarize(
-              .by = c('term', 'statistic', 'd'),
-              conf.low = quantile(.data$estimate, probs = (boot_alpha / 2), na.rm = TRUE),
-              median = median(.data$estimate, na.rm = TRUE),
-              mean = mean(.data$estimate, na.rm = TRUE),
-              conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-              estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
-            )
+              bind_rows()
 
-          if (!is.null(ale_p)) {
-            # Add p-values if p distribution is available
-            iass$p.value <- as.numeric(NA)
-            for (i.r in 1:nrow(iass)) {
-              iass$p.value[i.r] <- value_to_p(
-                p_dist_cat = ale_p@rand_stats[[it.cat]],
-                stat = iass$statistic[i.r],
-                x = iass$estimate[i.r]
-              )
+            iass <- if (nrow(iass) > 0) {
+              iass <- iass |>
+                summarize(
+                  .by = c('term', 'statistic', 'd'),
+                  conf.low = quantile(.data$estimate, probs = (boot_alpha / 2), na.rm = TRUE),
+                  median = median(.data$estimate, na.rm = TRUE),
+                  mean = mean(.data$estimate, na.rm = TRUE),
+                  conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+                  estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
+                )
+
+              if (!is.null(ale_p)) {
+                # Add p-values if p distribution is available
+                iass$p.value <- as.numeric(NA)
+                for (i.r in 1:nrow(iass)) {
+                  iass$p.value[i.r] <- value_to_p(
+                    p_dist_cat = ale_p@rand_stats[[it.cat]],
+                    stat = iass$statistic[i.r],
+                    x = iass$estimate[i.r]
+                  )
+                }
+              }
+
+              iass |>
+                select(
+                  any_of(c('term', 'statistic', 'estimate', 'p.value')),
+                  everything(),
+                  -'d',
+                  'd'
+                ) |>
+                mutate(across(
+                  c('term', 'statistic'), factor
+                ))
+            } else {
+              # No statistics available (e.g., no data for discrete ALE)
+              NULL
             }
+
+            iass
+          }
+          else {
+            # full_ale@params$output_stats is FALSE
+            NULL  # nocov
           }
 
-          iass <- iass |>
-            select(any_of(c('term', 'statistic', 'estimate', 'p.value')), everything()) |>
-            mutate(across(
-              c('term', 'statistic'), factor
-            )) |>
-            split(iass$d) |>
-            map(\(it.d_stats) {
-              it.d_stats |>
-                select(-'d')
-            })
-
-          iass
-        }
-        else {
-          # full_ale@params$output_stats is FALSE
-          NULL  # nocov
-        }
-
-        # Return ALE results
-        list(
-          ale   = it.ale_summary_data,
-          stats = it.ale_summary_stats
-        )
-      }) |>
+          # Return ALE results
+          list(
+            ale   = it.ale_summary_data,
+            stats = it.ale_summary_stats
+          )
+        }) |>  # map(y_cats, \(it.cat)
         set_names(y_cats)
+      }) |>  # imap(c('composite', 'distinct'), \(it.comp_data, it.comp)
+        set_names(c('composite', 'distinct'))
     }
     else {
       # output_ale is FALSE
@@ -1251,7 +1249,7 @@ ModelBoot <- new_class(
 
       if (boot_it != 0) {
         for (it.cat in names(ale_summary)) {
-          ar$boot$effect <- ale_summary
+          ar$boot <- ale_summary
         }
       }
 

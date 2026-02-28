@@ -1,26 +1,7 @@
-# Parallelized ModelBoot prints
-
-    Code
-      print(pll_mb)
-    Output
-      <ModelBoot> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome) from a 64-row by 8-column dataset.
-      * The model was retrained with 2 bootstrap iterations.
-      
-      The following overall model summary statistics are available:
-      * Overall average statistics: df, df.residual, nobs, adj.r.squared, and npar
-      * Bootstrap-validated model accuracy: mae, sa_mae, rmse, and sa_rmse
-      Statistics for the following specific variables or interactions are available: s(wt)
-      
-      Accumulated local effects (ALE) data and statistics are provided for the following terms:
-      1  1D term: wt
-      1  2D term: gear:carb
-
 # numeric outcome with no bootstrapping
 
     Code
-      ale_plots_to_data(plot(mb, type = "boot"))
-    Message
-      `height` was translated to `width`.
+      suppressMessages(ale_plots_to_data(plot(mb)))
     Output
       $mpg
       $mpg$d1
@@ -254,23 +235,24 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$mpg
-      attr(,"effect")$mpg$ale
-      attr(,"effect")$mpg$ale$d1
-      attr(,"effect")$mpg$ale$d1$am
+       $ composite: <list>          
+       $ distinct : <list> or <NULL>
+       $ params   : <list>          
+      attr(,"composite")
+      attr(,"composite")$mpg
+      attr(,"composite")$mpg$ale
+      attr(,"composite")$mpg$ale$d1
+      attr(,"composite")$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -5.29 -5.29   -5.29     -5.29 -5.29
       2 TRUE      26  7.73  7.73    7.73      7.73  7.73
       
-      attr(,"effect")$mpg$ale$d1$wt
+      attr(,"composite")$mpg$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -287,8 +269,61 @@
       11    5.45     6   8.98   8.98    8.98      8.98   8.98
       
       
-      attr(,"effect")$mpg$ale$d2
-      attr(,"effect")$mpg$ale$d2$`gear:carb`
+      attr(,"composite")$mpg$ale$d2
+      attr(,"composite")$mpg$ale$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three            1     6  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
+       2 four             1     8  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
+       3 five             1     0  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
+       4 three            2     8  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
+       5 four             2     7 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15
+       6 five             2     4 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15
+       7 three            3     7  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
+       8 four             3     2 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15
+       9 five             3     0 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15
+      10 three            4     8  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
+      11 four             4     6 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15
+      12 five             4     2  2.04e-15  2.04e-15  2.04e-15  2.04e-15  2.04e-15
+      13 three            8     1  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
+      14 four             8     1 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15
+      15 five             8     4  1.16e-15  1.16e-15  1.16e-15  1.16e-15  1.16e-15
+      
+      
+      
+      attr(,"composite")$mpg$stats
+      # A tibble: 18 x 8
+         term      statistic  estimate  conf.low      mean    median conf.high     d
+         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl> <int>
+       1 am        aled       6.28e+ 0  6.28e+ 0  6.28e+ 0  6.28e+ 0  6.28e+ 0     1
+       2 am        aler_min  -5.29e+ 0 -5.29e+ 0 -5.29e+ 0 -5.29e+ 0 -5.29e+ 0     1
+       3 am        aler_max   7.73e+ 0  7.73e+ 0  7.73e+ 0  7.73e+ 0  7.73e+ 0     1
+       4 am        naled      3.84e+ 1  3.84e+ 1  3.84e+ 1  3.84e+ 1  3.84e+ 1     1
+       5 am        naler_min -4.09e+ 1 -4.09e+ 1 -4.09e+ 1 -4.09e+ 1 -4.09e+ 1     1
+       6 am        naler_max  3.48e+ 1  3.48e+ 1  3.48e+ 1  3.48e+ 1  3.48e+ 1     1
+       7 wt        aled       5.28e+ 0  5.28e+ 0  5.28e+ 0  5.28e+ 0  5.28e+ 0     1
+       8 wt        aler_min  -1.82e+ 1 -1.82e+ 1 -1.82e+ 1 -1.82e+ 1 -1.82e+ 1     1
+       9 wt        aler_max   8.98e+ 0  8.98e+ 0  8.98e+ 0  8.98e+ 0  8.98e+ 0     1
+      10 wt        naled      2.79e+ 1  2.79e+ 1  2.79e+ 1  2.79e+ 1  2.79e+ 1     1
+      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1     1
+      12 wt        naler_max  3.79e+ 1  3.79e+ 1  3.79e+ 1  3.79e+ 1  3.79e+ 1     1
+      13 gear:carb aled       9.34e-16  9.34e-16  9.34e-16  9.34e-16  9.34e-16     2
+      14 gear:carb aler_min  -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15     2
+      15 gear:carb aler_max   1.60e-15  1.60e-15  1.60e-15  1.60e-15  1.60e-15     2
+      16 gear:carb naled      0         0         0         0         0            2
+      17 gear:carb naler_min  0         0         0         0         0            2
+      18 gear:carb naler_max  0         0         0         0         0            2
+      
+      attr(,"composite")$mpg$boot_data
+      NULL
+      
+      
+      attr(,"distinct")
+      attr(,"distinct")$mpg
+      attr(,"distinct")$mpg$ale
+      attr(,"distinct")$mpg$ale$d2
+      attr(,"distinct")$mpg$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -310,37 +345,18 @@
       
       
       
-      attr(,"effect")$mpg$stats
-      attr(,"effect")$mpg$stats$d1
-      # A tibble: 12 x 7
-         term  statistic estimate conf.low   mean median conf.high
-         <chr> <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 am    aled          6.28     6.28   6.28   6.28      6.28
-       2 am    aler_min     -5.29    -5.29  -5.29  -5.29     -5.29
-       3 am    aler_max      7.73     7.73   7.73   7.73      7.73
-       4 am    naled        38.4     38.4   38.4   38.4      38.4 
-       5 am    naler_min   -40.9    -40.9  -40.9  -40.9     -40.9 
-       6 am    naler_max    34.8     34.8   34.8   34.8      34.8 
-       7 wt    aled          5.28     5.28   5.28   5.28      5.28
-       8 wt    aler_min    -18.2    -18.2  -18.2  -18.2     -18.2 
-       9 wt    aler_max      8.98     8.98   8.98   8.98      8.98
-      10 wt    naled        27.9     27.9   27.9   27.9      27.9 
-      11 wt    naler_min   -50      -50    -50    -50       -50   
-      12 wt    naler_max    37.9     37.9   37.9   37.9      37.9 
+      attr(,"distinct")$mpg$stats
+      # A tibble: 6 x 8
+        term      statistic  estimate  conf.low      mean    median conf.high     d
+        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl> <int>
+      1 gear:carb aled       6.71e-16  6.71e-16  6.71e-16  6.71e-16  6.71e-16     2
+      2 gear:carb aler_min  -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15     2
+      3 gear:carb aler_max   6.44e-16  6.44e-16  6.44e-16  6.44e-16  6.44e-16     2
+      4 gear:carb naled      0         0         0         0         0            2
+      5 gear:carb naler_min  0         0         0         0         0            2
+      6 gear:carb naler_max  0         0         0         0         0            2
       
-      attr(,"effect")$mpg$stats$d2
-      # A tibble: 6 x 7
-        term      statistic  estimate  conf.low      mean    median conf.high
-        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       6.71e-16  6.71e-16  6.71e-16  6.71e-16  6.71e-16
-      2 gear:carb aler_min  -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15
-      3 gear:carb aler_max   6.44e-16  6.44e-16  6.44e-16  6.44e-16  6.44e-16
-      4 gear:carb naled      0         0         0         0         0       
-      5 gear:carb naler_min  0         0         0         0         0       
-      6 gear:carb naler_max  0         0         0         0         0       
-      
-      
-      attr(,"effect")$mpg$boot_data
+      attr(,"distinct")$mpg$boot_data
       NULL
       
       
@@ -395,7 +411,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "59a2199780473b2f0d0135b23b2fa604"
+      [1] "35370b95d970d597e729f52543869ba2"
       
       
       attr(,"params")$data
@@ -489,6 +505,9 @@
       attr(,"params")$y_col
       [1] "mpg"
       
+      attr(,"params")$comp
+      [1] "auto"
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -556,7 +575,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "d6fc256a14e217f7af2be2f3cc62f0d1"
+      [1] "5f61b58be4c7b071d42eb7bda24d7727"
       
       
       attr(,"params")$data
@@ -713,7 +732,7 @@
 # binary outcome with p-values and confidence regions
 
     Code
-      ale_plots_to_data(plot(mb, type = "boot"))
+      suppressMessages(ale_plots_to_data(plot(mb)))
     Condition
       Warning:
       Position guide is perpendicular to the intended axis.
@@ -721,8 +740,6 @@
       Warning:
       Position guide is perpendicular to the intended axis.
       i Did you mean to specify a different guide `position`?
-    Message
-      `height` was translated to `width`.
     Output
       $vs
       $vs$d1
@@ -965,16 +982,17 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$vs
-      attr(,"effect")$vs$ale
-      attr(,"effect")$vs$ale$d1
-      attr(,"effect")$vs$ale$d1$continent
+       $ composite: <list>          
+       $ distinct : <list> or <NULL>
+       $ params   : <list>          
+      attr(,"composite")
+      attr(,"composite")$vs
+      attr(,"composite")$vs$ale
+      attr(,"composite")$vs$ale$d1
+      attr(,"composite")$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -982,7 +1000,7 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$wt
+      attr(,"composite")$vs$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -999,8 +1017,61 @@
       11    5.45     6  8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24
       
       
-      attr(,"effect")$vs$ale$d2
-      attr(,"effect")$vs$ale$d2$`gear:carb`
+      attr(,"composite")$vs$ale$d2
+      attr(,"composite")$vs$ale$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three            1     6 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+       2 four             1     8 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+       3 five             1     0 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+       4 three            2     8 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+       5 four             2     7  1.12e-25  1.12e-25  1.12e-25  1.12e-25  1.12e-25
+       6 five             2     4  4.12e-26  4.12e-26  4.12e-26  4.12e-26  4.12e-26
+       7 three            3     7 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+       8 four             3     2  1.12e-25  1.12e-25  1.12e-25  1.12e-25  1.12e-25
+       9 five             3     0 -6.41e-26 -6.41e-26 -6.41e-26 -6.41e-26 -6.41e-26
+      10 three            4     8 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+      11 four             4     6  1.12e-25  1.12e-25  1.12e-25  1.12e-25  1.12e-25
+      12 five             4     2 -2.04e-25 -2.04e-25 -2.04e-25 -2.04e-25 -2.04e-25
+      13 three            8     1 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+      14 four             8     1  6.72e-25  6.72e-25  6.72e-25  6.72e-25  6.72e-25
+      15 five             8     4 -2.03e-25 -2.03e-25 -2.03e-25 -2.03e-25 -2.03e-25
+      
+      
+      
+      attr(,"composite")$vs$stats
+      # A tibble: 18 x 8
+         term      statistic  estimate  conf.low      mean    median conf.high     d
+         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl> <int>
+       1 continent aled       0         0         0         0         0            1
+       2 continent aler_min   0         0         0         0         0            1
+       3 continent aler_max   0         0         0         0         0            1
+       4 continent naled      0         0         0         0         0            1
+       5 continent naler_min  0         0         0         0         0            1
+       6 continent naler_max  0         0         0         0         0            1
+       7 wt        aled       1.70e-24  1.70e-24  1.70e-24  1.70e-24  1.70e-24     1
+       8 wt        aler_min  -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24     1
+       9 wt        aler_max   8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24     1
+      10 wt        naled      3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1     1
+      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1     1
+      12 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0     1
+      13 gear:carb aled       6.02e-26  6.02e-26  6.02e-26  6.02e-26  6.02e-26     2
+      14 gear:carb aler_min  -2.03e-25 -2.03e-25 -2.03e-25 -2.03e-25 -2.03e-25     2
+      15 gear:carb aler_max   3.92e-25  3.92e-25  3.92e-25  3.92e-25  3.92e-25     2
+      16 gear:carb naled      9.74e+ 0  9.74e+ 0  9.74e+ 0  9.74e+ 0  9.74e+ 0     2
+      17 gear:carb naler_min -4.53e+ 1 -4.53e+ 1 -4.53e+ 1 -4.53e+ 1 -4.53e+ 1     2
+      18 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0     2
+      
+      attr(,"composite")$vs$boot_data
+      NULL
+      
+      
+      attr(,"distinct")
+      attr(,"distinct")$vs
+      attr(,"distinct")$vs$ale
+      attr(,"distinct")$vs$ale$d2
+      attr(,"distinct")$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1022,37 +1093,18 @@
       
       
       
-      attr(,"effect")$vs$stats
-      attr(,"effect")$vs$stats$d1
-      # A tibble: 12 x 7
-         term      statistic  estimate  conf.low      mean    median conf.high
-         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 continent aled       0         0         0         0         0       
-       2 continent aler_min   0         0         0         0         0       
-       3 continent aler_max   0         0         0         0         0       
-       4 continent naled      0         0         0         0         0       
-       5 continent naler_min  0         0         0         0         0       
-       6 continent naler_max  0         0         0         0         0       
-       7 wt        aled       1.70e-24  1.70e-24  1.70e-24  1.70e-24  1.70e-24
-       8 wt        aler_min  -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       9 wt        aler_max   8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24
-      10 wt        naled      3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1
-      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      12 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
+      attr(,"distinct")$vs$stats
+      # A tibble: 6 x 8
+        term      statistic  estimate  conf.low      mean    median conf.high     d
+        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl> <int>
+      1 gear:carb aled       4.56e-26  4.56e-26  4.56e-26  4.56e-26  4.56e-26     2
+      2 gear:carb aler_min  -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25     2
+      3 gear:carb aler_max   2.45e-25  2.45e-25  2.45e-25  2.45e-25  2.45e-25     2
+      4 gear:carb naled      7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0     2
+      5 gear:carb naler_min -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1     2
+      6 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0     2
       
-      attr(,"effect")$vs$stats$d2
-      # A tibble: 6 x 7
-        term      statistic  estimate  conf.low      mean    median conf.high
-        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       4.56e-26  4.56e-26  4.56e-26  4.56e-26  4.56e-26
-      2 gear:carb aler_min  -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25
-      3 gear:carb aler_max   2.45e-25  2.45e-25  2.45e-25  2.45e-25  2.45e-25
-      4 gear:carb naled      7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0
-      5 gear:carb naler_min -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1
-      6 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
-      
-      
-      attr(,"effect")$vs$boot_data
+      attr(,"distinct")$vs$boot_data
       NULL
       
       
@@ -1111,7 +1163,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "ccb6b3eb28d97e09b625e326e48f6808"
+      [1] "5af9c0df73d460a6004a26ffbe67a081"
       
       
       attr(,"params")$data
@@ -1205,6 +1257,9 @@
       attr(,"params")$y_col
       [1] "vs"
       
+      attr(,"params")$comp
+      [1] "auto"
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -1250,7 +1305,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "f2fa16ad742b1f97311ac9acf2037e8d"
+       ..  ..$ hash : chr "9a9ce6b31df30a04ef54ba6e3e33112b"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1298,11 +1353,11 @@
       
       
       attr(,"ale")$boot
-      attr(,"ale")$boot$effect
-      attr(,"ale")$boot$effect$vs
-      attr(,"ale")$boot$effect$vs$ale
-      attr(,"ale")$boot$effect$vs$ale$d1
-      attr(,"ale")$boot$effect$vs$ale$d1$continent
+      attr(,"ale")$boot$composite
+      attr(,"ale")$boot$composite$vs
+      attr(,"ale")$boot$composite$vs$ale
+      attr(,"ale")$boot$composite$vs$ale$d1
+      attr(,"ale")$boot$composite$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1310,7 +1365,7 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"ale")$boot$effect$vs$ale$d1$wt
+      attr(,"ale")$boot$composite$vs$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
@@ -1327,8 +1382,60 @@
       11    5.45     6 -2.88e-19 -5.93e-19 -2.88e-19 -2.88e-19 1.70e-20
       
       
-      attr(,"ale")$boot$effect$vs$ale$d2
-      attr(,"ale")$boot$effect$vs$ale$d2$`gear:carb`
+      attr(,"ale")$boot$composite$vs$ale$d2
+      attr(,"ale")$boot$composite$vs$ale$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
+       1 three            1     6  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
+       2 four             1     8  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
+       3 five             1     0  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
+       4 three            2     8  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
+       5 four             2     7 -8.11e-21 -1.79e-20 -8.11e-21 -8.11e-21 1.71e-21
+       6 five             2     4 -8.11e-21 -1.79e-20 -8.11e-21 -8.11e-21 1.71e-21
+       7 three            3     7  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
+       8 four             3     2  4.82e-21  3.02e-21  4.82e-21  4.82e-21 6.63e-21
+       9 five             3     0  4.82e-21  3.02e-21  4.82e-21  4.82e-21 6.63e-21
+      10 three            4     8  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
+      11 four             4     6  4.37e-21  2.99e-21  4.37e-21  4.37e-21 5.75e-21
+      12 five             4     2  4.37e-21  2.99e-21  4.37e-21  4.37e-21 5.75e-21
+      13 three            8     1  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
+      14 four             8     1 -2.94e-20 -7.99e-20 -2.94e-20 -2.94e-20 2.12e-20
+      15 five             8     4 -2.94e-20 -7.99e-20 -2.94e-20 -2.94e-20 2.12e-20
+      
+      
+      
+      attr(,"ale")$boot$composite$vs$stats
+      # A tibble: 18 x 9
+         term      statistic  estimate p.value  conf.low    median      mean conf.high
+         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 continent aled       0         1       0         0         0         0       
+       2 continent aler_min   0         1       0         0         0         0       
+       3 continent aler_max   0         1       0         0         0         0       
+       4 continent naled      0         1       0         0         0         0       
+       5 continent naler_min  0         1       0         0         0         0       
+       6 continent naler_max  0         1       0         0         0         0       
+       7 wt        aled       5.13e-20  0.0500  8.06e-21  5.13e-20  5.13e-20  9.46e-20
+       8 wt        aler_min  -3.10e-19  0.01   -5.94e-19 -3.10e-19 -3.10e-19 -2.65e-20
+       9 wt        aler_max   9.11e-20  0.0500  3.60e-20  9.11e-20  9.11e-20  1.46e-19
+      10 wt        naled      2.40e+ 1  0.92    2.06e+ 1  2.40e+ 1  2.40e+ 1  2.74e+ 1
+      11 wt        naler_min -4.92e+ 1  1      -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      12 wt        naler_max  7.58e+ 0  0       7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+      13 gear:carb aled       5.10e-21  0.28    3.28e-21  5.10e-21  5.10e-21  6.92e-21
+      14 gear:carb aler_min  -2.10e-20  0.19   -3.89e-20 -2.10e-20 -2.10e-20 -3.21e-21
+      15 gear:carb aler_max   8.87e-21  0.3     3.22e-21  8.87e-21  8.87e-21  1.45e-20
+      16 gear:carb naled      1.93e+ 1  1       1.62e+ 1  1.93e+ 1  1.93e+ 1  2.25e+ 1
+      17 gear:carb naler_min -4.53e+ 1  1      -4.98e+ 1 -4.53e+ 1 -4.53e+ 1 -4.09e+ 1
+      18 gear:carb naler_max  3.91e+ 0  1       1.95e- 1  3.91e+ 0  3.91e+ 0  7.62e+ 0
+      # i 1 more variable: d <int>
+      
+      
+      
+      attr(,"ale")$boot$distinct
+      attr(,"ale")$boot$distinct$vs
+      attr(,"ale")$boot$distinct$vs$ale
+      attr(,"ale")$boot$distinct$vs$ale$d2
+      attr(,"ale")$boot$distinct$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1350,26 +1457,8 @@
       
       
       
-      attr(,"ale")$boot$effect$vs$stats
-      attr(,"ale")$boot$effect$vs$stats$d1
-      # A tibble: 12 x 8
-         term      statistic  estimate p.value  conf.low    median      mean conf.high
-         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 continent aled       0         1       0         0         0         0       
-       2 continent aler_min   0         1       0         0         0         0       
-       3 continent aler_max   0         1       0         0         0         0       
-       4 continent naled      0         1       0         0         0         0       
-       5 continent naler_min  0         1       0         0         0         0       
-       6 continent naler_max  0         1       0         0         0         0       
-       7 wt        aled       5.13e-20  0.0500  8.06e-21  5.13e-20  5.13e-20  9.46e-20
-       8 wt        aler_min  -3.10e-19  0.01   -5.94e-19 -3.10e-19 -3.10e-19 -2.65e-20
-       9 wt        aler_max   9.11e-20  0.0500  3.60e-20  9.11e-20  9.11e-20  1.46e-19
-      10 wt        naled      2.40e+ 1  0.92    2.06e+ 1  2.40e+ 1  2.40e+ 1  2.74e+ 1
-      11 wt        naler_min -4.92e+ 1  1      -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      12 wt        naler_max  7.58e+ 0  0       7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
-      
-      attr(,"ale")$boot$effect$vs$stats$d2
-      # A tibble: 6 x 8
+      attr(,"ale")$boot$distinct$vs$stats
+      # A tibble: 6 x 9
         term      statistic  estimate p.value  conf.low    median      mean conf.high
         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 gear:carb aled       2.05e-21    0.34  1.56e-21  2.05e-21  2.05e-21  2.55e-21
@@ -1378,7 +1467,7 @@
       4 gear:carb naled      2.13e+ 1    1     5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
       5 gear:carb naler_min -4.92e+ 1    1    -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
       6 gear:carb naler_max  7.58e+ 0    0     7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
-      
+      # i 1 more variable: d <int>
       
       
       
@@ -1405,7 +1494,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "f2fa16ad742b1f97311ac9acf2037e8d"
+      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
       
       
       attr(,"params")$data
@@ -1576,7 +1665,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "f2fa16ad742b1f97311ac9acf2037e8d"
+       ..  ..$ hash : chr "9a9ce6b31df30a04ef54ba6e3e33112b"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1642,16 +1731,17 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$setosa
-      attr(,"effect")$setosa$ale
-      attr(,"effect")$setosa$ale$d1
-      attr(,"effect")$setosa$ale$d1$Sepal.Length
+       $ composite: <list>          
+       $ distinct : <list> or <NULL>
+       $ params   : <list>          
+      attr(,"composite")
+      attr(,"composite")$setosa
+      attr(,"composite")$setosa$ale
+      attr(,"composite")$setosa$ale$d1
+      attr(,"composite")$setosa$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n         .y      .y_lo    .y_mean  .y_median     .y_hi
                      <dbl> <int>      <dbl>      <dbl>      <dbl>      <dbl>     <dbl>
@@ -1667,7 +1757,7 @@
       10               6.9    17  0.0000154  0.0000154  0.0000154  0.0000154   1.54e-5
       11               7.9    13  0.0000179  0.0000179  0.0000179  0.0000179   1.79e-5
       
-      attr(,"effect")$setosa$ale$d1$Petal.Width
+      attr(,"composite")$setosa$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
                     <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
@@ -1684,33 +1774,31 @@
       
       
       
-      attr(,"effect")$setosa$stats
-      attr(,"effect")$setosa$stats$d1
-      # A tibble: 12 x 7
-         term         statistic     estimate     conf.low      mean   median conf.high
-         <chr>        <chr>            <dbl>        <dbl>     <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0000206    0.0000206    2.06e-5  2.06e-5   2.06e-5
-       2 Sepal.Length aler_min   -0.000104    -0.000104    -1.04e-4 -1.04e-4  -1.04e-4
-       3 Sepal.Length aler_max    0.0000179    0.0000179    1.79e-5  1.79e-5   1.79e-5
-       4 Sepal.Length naled      26.0         26.0          2.60e+1  2.60e+1   2.60e+1
-       5 Sepal.Length naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
-       6 Sepal.Length naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
-       7 Petal.Width  aled        0.0000117    0.0000117    1.17e-5  1.17e-5   1.17e-5
-       8 Petal.Width  aler_min   -0.0000204   -0.0000204   -2.04e-5 -2.04e-5  -2.04e-5
-       9 Petal.Width  aler_max    0.00000989   0.00000989   9.89e-6  9.89e-6   9.89e-6
-      10 Petal.Width  naled      25.7         25.7          2.57e+1  2.57e+1   2.57e+1
-      11 Petal.Width  naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
-      12 Petal.Width  naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
+      attr(,"composite")$setosa$stats
+      # A tibble: 12 x 8
+         term         statistic    estimate conf.low     mean   median conf.high     d
+         <chr>        <chr>           <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
+       1 Sepal.Length aled          2.06e-5  2.06e-5  2.06e-5  2.06e-5   2.06e-5     1
+       2 Sepal.Length aler_min     -1.04e-4 -1.04e-4 -1.04e-4 -1.04e-4  -1.04e-4     1
+       3 Sepal.Length aler_max      1.79e-5  1.79e-5  1.79e-5  1.79e-5   1.79e-5     1
+       4 Sepal.Length naled         2.60e+1  2.60e+1  2.60e+1  2.60e+1   2.60e+1     1
+       5 Sepal.Length naler_min    -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1     1
+       6 Sepal.Length naler_max     1.53e+1  1.53e+1  1.53e+1  1.53e+1   1.53e+1     1
+       7 Petal.Width  aled          1.17e-5  1.17e-5  1.17e-5  1.17e-5   1.17e-5     1
+       8 Petal.Width  aler_min     -2.04e-5 -2.04e-5 -2.04e-5 -2.04e-5  -2.04e-5     1
+       9 Petal.Width  aler_max      9.89e-6  9.89e-6  9.89e-6  9.89e-6   9.89e-6     1
+      10 Petal.Width  naled         2.57e+1  2.57e+1  2.57e+1  2.57e+1   2.57e+1     1
+      11 Petal.Width  naler_min    -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1     1
+      12 Petal.Width  naler_max     1.53e+1  1.53e+1  1.53e+1  1.53e+1   1.53e+1     1
       
-      
-      attr(,"effect")$setosa$boot_data
+      attr(,"composite")$setosa$boot_data
       NULL
       
       
-      attr(,"effect")$versicolor
-      attr(,"effect")$versicolor$ale
-      attr(,"effect")$versicolor$ale$d1
-      attr(,"effect")$versicolor$ale$d1$Sepal.Length
+      attr(,"composite")$versicolor
+      attr(,"composite")$versicolor$ale
+      attr(,"composite")$versicolor$ale$d1
+      attr(,"composite")$versicolor$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1726,7 +1814,7 @@
       10               6.9    17  0.0496  0.0496  0.0496    0.0496  0.0496
       11               7.9    13  0.0597  0.0597  0.0597    0.0597  0.0597
       
-      attr(,"effect")$versicolor$ale$d1$Petal.Width
+      attr(,"composite")$versicolor$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1743,33 +1831,31 @@
       
       
       
-      attr(,"effect")$versicolor$stats
-      attr(,"effect")$versicolor$stats$d1
-      # A tibble: 12 x 7
-         term         statistic estimate conf.low     mean   median conf.high
-         <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298
-       2 Sepal.Length aler_min   -0.0289  -0.0289  -0.0289  -0.0289   -0.0289
-       3 Sepal.Length aler_max    0.0597   0.0597   0.0597   0.0597    0.0597
-       4 Sepal.Length naled      36.0     36.0     36.0     36.0      36.0   
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       6 Sepal.Length naler_max  12.7     12.7     12.7     12.7      12.7   
-       7 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185 
-       8 Petal.Width  aler_min   -0.343   -0.343   -0.343   -0.343    -0.343 
-       9 Petal.Width  aler_max    0.149    0.149    0.149    0.149     0.149 
-      10 Petal.Width  naled      26.8     26.8     26.8     26.8      26.8   
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      12 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7   
+      attr(,"composite")$versicolor$stats
+      # A tibble: 12 x 8
+         term         statistic estimate conf.low     mean   median conf.high     d
+         <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
+       1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298     1
+       2 Sepal.Length aler_min   -0.0289  -0.0289  -0.0289  -0.0289   -0.0289     1
+       3 Sepal.Length aler_max    0.0597   0.0597   0.0597   0.0597    0.0597     1
+       4 Sepal.Length naled      36.0     36.0     36.0     36.0      36.0        1
+       5 Sepal.Length naler_min -50      -50      -50      -50       -50          1
+       6 Sepal.Length naler_max  12.7     12.7     12.7     12.7      12.7        1
+       7 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185      1
+       8 Petal.Width  aler_min   -0.343   -0.343   -0.343   -0.343    -0.343      1
+       9 Petal.Width  aler_max    0.149    0.149    0.149    0.149     0.149      1
+      10 Petal.Width  naled      26.8     26.8     26.8     26.8      26.8        1
+      11 Petal.Width  naler_min -50      -50      -50      -50       -50          1
+      12 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7        1
       
-      
-      attr(,"effect")$versicolor$boot_data
+      attr(,"composite")$versicolor$boot_data
       NULL
       
       
-      attr(,"effect")$virginica
-      attr(,"effect")$virginica$ale
-      attr(,"effect")$virginica$ale$d1
-      attr(,"effect")$virginica$ale$d1$Sepal.Length
+      attr(,"composite")$virginica
+      attr(,"composite")$virginica$ale
+      attr(,"composite")$virginica$ale$d1
+      attr(,"composite")$virginica$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1785,7 +1871,7 @@
       10               6.9    17 -0.0496 -0.0496 -0.0496   -0.0496 -0.0496
       11               7.9    13 -0.0597 -0.0597 -0.0597   -0.0597 -0.0597
       
-      attr(,"effect")$virginica$ale$d1$Petal.Width
+      attr(,"composite")$virginica$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1802,26 +1888,24 @@
       
       
       
-      attr(,"effect")$virginica$stats
-      attr(,"effect")$virginica$stats$d1
-      # A tibble: 12 x 7
-         term         statistic estimate conf.low     mean   median conf.high
-         <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298
-       2 Sepal.Length aler_min   -0.0597  -0.0597  -0.0597  -0.0597   -0.0597
-       3 Sepal.Length aler_max    0.0289   0.0289   0.0289   0.0289    0.0289
-       4 Sepal.Length naled      26.8     26.8     26.8     26.8      26.8   
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       6 Sepal.Length naler_max  13.3     13.3     13.3     13.3      13.3   
-       7 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185 
-       8 Petal.Width  aler_min   -0.149   -0.149   -0.149   -0.149    -0.149 
-       9 Petal.Width  aler_max    0.343    0.343    0.343    0.343     0.343 
-      10 Petal.Width  naled      38.0     38.0     38.0     38.0      38.0   
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      12 Petal.Width  naler_max  16       16       16       16        16     
+      attr(,"composite")$virginica$stats
+      # A tibble: 12 x 8
+         term         statistic estimate conf.low     mean   median conf.high     d
+         <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
+       1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298     1
+       2 Sepal.Length aler_min   -0.0597  -0.0597  -0.0597  -0.0597   -0.0597     1
+       3 Sepal.Length aler_max    0.0289   0.0289   0.0289   0.0289    0.0289     1
+       4 Sepal.Length naled      26.8     26.8     26.8     26.8      26.8        1
+       5 Sepal.Length naler_min -50      -50      -50      -50       -50          1
+       6 Sepal.Length naler_max  13.3     13.3     13.3     13.3      13.3        1
+       7 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185      1
+       8 Petal.Width  aler_min   -0.149   -0.149   -0.149   -0.149    -0.149      1
+       9 Petal.Width  aler_max    0.343    0.343    0.343    0.343     0.343      1
+      10 Petal.Width  naled      38.0     38.0     38.0     38.0      38.0        1
+      11 Petal.Width  naler_min -50      -50      -50      -50       -50          1
+      12 Petal.Width  naler_max  16       16       16       16        16          1
       
-      
-      attr(,"effect")$virginica$boot_data
+      attr(,"composite")$virginica$boot_data
       NULL
       
       
@@ -1876,7 +1960,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "41af51ef8843c8faa5d949bb0bdfe750"
+      [1] "8d5e3635350e54c0e8f64908ae593e42"
       
       
       attr(,"params")$data
@@ -2193,6 +2277,9 @@
       attr(,"params")$y_col
       [1] "Species"
       
+      attr(,"params")$comp
+      [1] "auto"
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -2252,11 +2339,11 @@
       
       
       attr(,"ale")$boot
-      attr(,"ale")$boot$effect
-      attr(,"ale")$boot$effect$setosa
-      attr(,"ale")$boot$effect$setosa$ale
-      attr(,"ale")$boot$effect$setosa$ale$d1
-      attr(,"ale")$boot$effect$setosa$ale$d1$Sepal.Length
+      attr(,"ale")$boot$composite
+      attr(,"ale")$boot$composite$setosa
+      attr(,"ale")$boot$composite$setosa$ale
+      attr(,"ale")$boot$composite$setosa$ale$d1
+      attr(,"ale")$boot$composite$setosa$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
                      <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
@@ -2272,7 +2359,7 @@
       10               6.9    17  0.00000963  0.00000466    9.63e-6   9.63e-6  1.46e-5
       11               7.9    13  0.0000145   0.00000515    1.45e-5   1.45e-5  2.39e-5
       
-      attr(,"ale")$boot$effect$setosa$ale$d1$Petal.Width
+      attr(,"ale")$boot$composite$setosa$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
                     <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
@@ -2289,30 +2376,28 @@
       
       
       
-      attr(,"ale")$boot$effect$setosa$stats
-      attr(,"ale")$boot$effect$setosa$stats$d1
-      # A tibble: 12 x 7
-         term         statistic    estimate     conf.low     median     mean conf.high
-         <fct>        <fct>           <dbl>        <dbl>      <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0000132   0.00000638    1.32e-5  1.32e-5   2.00e-5
-       2 Sepal.Length aler_min   -0.000127   -0.000210     -1.27e-4 -1.27e-4  -4.27e-5
-       3 Sepal.Length aler_max    0.0000145   0.00000515    1.45e-5  1.45e-5   2.39e-5
-       4 Sepal.Length naled      28.5        27.8           2.85e+1  2.85e+1   2.91e+1
-       5 Sepal.Length naler_min -50         -50            -5   e+1 -5   e+1  -5   e+1
-       6 Sepal.Length naler_max  20.1        19.8           2.01e+1  2.01e+1   2.04e+1
-       7 Petal.Width  aled        0.0000172   0.00000335    1.72e-5  1.72e-5   3.11e-5
-       8 Petal.Width  aler_min   -0.0000402  -0.0000735    -4.02e-5 -4.02e-5  -6.91e-6
-       9 Petal.Width  aler_max    0.0000125   0.00000254    1.25e-5  1.25e-5   2.24e-5
-      10 Petal.Width  naled      28.8        28.8           2.88e+1  2.88e+1   2.89e+1
-      11 Petal.Width  naler_min -50         -50            -5   e+1 -5   e+1  -5   e+1
-      12 Petal.Width  naler_max  18.4        16.6           1.84e+1  1.84e+1   2.02e+1
+      attr(,"ale")$boot$composite$setosa$stats
+      # A tibble: 12 x 8
+         term         statistic    estimate conf.low   median     mean conf.high     d
+         <fct>        <fct>           <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
+       1 Sepal.Length aled        0.0000132  6.38e-6  1.32e-5  1.32e-5   2.00e-5     1
+       2 Sepal.Length aler_min   -0.000127  -2.10e-4 -1.27e-4 -1.27e-4  -4.27e-5     1
+       3 Sepal.Length aler_max    0.0000145  5.15e-6  1.45e-5  1.45e-5   2.39e-5     1
+       4 Sepal.Length naled      28.5        2.78e+1  2.85e+1  2.85e+1   2.91e+1     1
+       5 Sepal.Length naler_min -50         -5   e+1 -5   e+1 -5   e+1  -5   e+1     1
+       6 Sepal.Length naler_max  20.1        1.98e+1  2.01e+1  2.01e+1   2.04e+1     1
+       7 Petal.Width  aled        0.0000172  3.35e-6  1.72e-5  1.72e-5   3.11e-5     1
+       8 Petal.Width  aler_min   -0.0000402 -7.35e-5 -4.02e-5 -4.02e-5  -6.91e-6     1
+       9 Petal.Width  aler_max    0.0000125  2.54e-6  1.25e-5  1.25e-5   2.24e-5     1
+      10 Petal.Width  naled      28.8        2.88e+1  2.88e+1  2.88e+1   2.89e+1     1
+      11 Petal.Width  naler_min -50         -5   e+1 -5   e+1 -5   e+1  -5   e+1     1
+      12 Petal.Width  naler_max  18.4        1.66e+1  1.84e+1  1.84e+1   2.02e+1     1
       
       
-      
-      attr(,"ale")$boot$effect$versicolor
-      attr(,"ale")$boot$effect$versicolor$ale
-      attr(,"ale")$boot$effect$versicolor$ale$d1
-      attr(,"ale")$boot$effect$versicolor$ale$d1$Sepal.Length
+      attr(,"ale")$boot$composite$versicolor
+      attr(,"ale")$boot$composite$versicolor$ale
+      attr(,"ale")$boot$composite$versicolor$ale$d1
+      attr(,"ale")$boot$composite$versicolor$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
                      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
@@ -2328,7 +2413,7 @@
       10               6.9    17  0.0189    0.0108    0.0189    0.0189    0.0270 
       11               7.9    13  0.0967    0.0358    0.0967    0.0967    0.158  
       
-      attr(,"ale")$boot$effect$versicolor$ale$d1$Petal.Width
+      attr(,"ale")$boot$composite$versicolor$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y     .y_lo .y_mean .y_median   .y_hi
                     <dbl> <int>   <dbl>     <dbl>   <dbl>     <dbl>   <dbl>
@@ -2345,30 +2430,28 @@
       
       
       
-      attr(,"ale")$boot$effect$versicolor$stats
-      attr(,"ale")$boot$effect$versicolor$stats$d1
-      # A tibble: 12 x 7
-         term         statistic estimate conf.low   median     mean conf.high
-         <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180
-       2 Sepal.Length aler_min   -0.0177  -0.0212  -0.0177  -0.0177   -0.0141
-       3 Sepal.Length aler_max    0.0967   0.0358   0.0967   0.0967    0.158 
-       4 Sepal.Length naled      38.8     35.9     38.8     38.8      41.7   
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       6 Sepal.Length naler_max  16.0     14.5     16.0     16.0      17.6   
-       7 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109 
-       8 Petal.Width  aler_min   -0.145   -0.165   -0.145   -0.145    -0.124 
-       9 Petal.Width  aler_max    0.0855   0.0678   0.0855   0.0855    0.103 
-      10 Petal.Width  naled      30.5     30.4     30.5     30.5      30.6   
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      12 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7   
+      attr(,"ale")$boot$composite$versicolor$stats
+      # A tibble: 12 x 8
+         term         statistic estimate conf.low   median     mean conf.high     d
+         <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
+       1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180     1
+       2 Sepal.Length aler_min   -0.0177  -0.0212  -0.0177  -0.0177   -0.0141     1
+       3 Sepal.Length aler_max    0.0967   0.0358   0.0967   0.0967    0.158      1
+       4 Sepal.Length naled      38.8     35.9     38.8     38.8      41.7        1
+       5 Sepal.Length naler_min -50      -50      -50      -50       -50          1
+       6 Sepal.Length naler_max  16.0     14.5     16.0     16.0      17.6        1
+       7 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109      1
+       8 Petal.Width  aler_min   -0.145   -0.165   -0.145   -0.145    -0.124      1
+       9 Petal.Width  aler_max    0.0855   0.0678   0.0855   0.0855    0.103      1
+      10 Petal.Width  naled      30.5     30.4     30.5     30.5      30.6        1
+      11 Petal.Width  naler_min -50      -50      -50      -50       -50          1
+      12 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7        1
       
       
-      
-      attr(,"ale")$boot$effect$virginica
-      attr(,"ale")$boot$effect$virginica$ale
-      attr(,"ale")$boot$effect$virginica$ale$d1
-      attr(,"ale")$boot$effect$virginica$ale$d1$Sepal.Length
+      attr(,"ale")$boot$composite$virginica
+      attr(,"ale")$boot$composite$virginica$ale
+      attr(,"ale")$boot$composite$virginica$ale$d1
+      attr(,"ale")$boot$composite$virginica$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n        .y    .y_lo   .y_mean .y_median     .y_hi
                      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>     <dbl>
@@ -2384,7 +2467,7 @@
       10               6.9    17 -0.0189   -0.0270  -0.0189   -0.0189   -0.0108  
       11               7.9    13 -0.0968   -0.158   -0.0968   -0.0968   -0.0358  
       
-      attr(,"ale")$boot$effect$virginica$ale$d1$Petal.Width
+      attr(,"ale")$boot$composite$virginica$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median     .y_hi
                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>     <dbl>
@@ -2401,24 +2484,48 @@
       
       
       
-      attr(,"ale")$boot$effect$virginica$stats
-      attr(,"ale")$boot$effect$virginica$stats$d1
-      # A tibble: 12 x 7
-         term         statistic estimate conf.low   median     mean conf.high
-         <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0163   0.0145   0.0163   0.0163    0.0180
-       2 Sepal.Length aler_min   -0.0968  -0.158   -0.0968  -0.0968   -0.0358
-       3 Sepal.Length aler_max    0.0177   0.0141   0.0177   0.0177    0.0213
-       4 Sepal.Length naled      23.2     21.6     23.2     23.2      24.9   
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       6 Sepal.Length naler_max  10.3      8.73    10.3     10.3      11.8   
-       7 Petal.Width  aled        0.0945   0.0804   0.0945   0.0945    0.109 
-       8 Petal.Width  aler_min   -0.0855  -0.103   -0.0855  -0.0855   -0.0678
-       9 Petal.Width  aler_max    0.145    0.124    0.145    0.145     0.165 
-      10 Petal.Width  naled      33.8     33.0     33.8     33.8      34.7   
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      12 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8   
+      attr(,"ale")$boot$composite$virginica$stats
+      # A tibble: 12 x 8
+         term         statistic estimate conf.low   median     mean conf.high     d
+         <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
+       1 Sepal.Length aled        0.0163   0.0145   0.0163   0.0163    0.0180     1
+       2 Sepal.Length aler_min   -0.0968  -0.158   -0.0968  -0.0968   -0.0358     1
+       3 Sepal.Length aler_max    0.0177   0.0141   0.0177   0.0177    0.0213     1
+       4 Sepal.Length naled      23.2     21.6     23.2     23.2      24.9        1
+       5 Sepal.Length naler_min -50      -50      -50      -50       -50          1
+       6 Sepal.Length naler_max  10.3      8.73    10.3     10.3      11.8        1
+       7 Petal.Width  aled        0.0945   0.0804   0.0945   0.0945    0.109      1
+       8 Petal.Width  aler_min   -0.0855  -0.103   -0.0855  -0.0855   -0.0678     1
+       9 Petal.Width  aler_max    0.145    0.124    0.145    0.145     0.165      1
+      10 Petal.Width  naled      33.8     33.0     33.8     33.8      34.7        1
+      11 Petal.Width  naler_min -50      -50      -50      -50       -50          1
+      12 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8        1
       
+      
+      
+      attr(,"ale")$boot$distinct
+      attr(,"ale")$boot$distinct$setosa
+      attr(,"ale")$boot$distinct$setosa$ale
+      list()
+      
+      attr(,"ale")$boot$distinct$setosa$stats
+      NULL
+      
+      
+      attr(,"ale")$boot$distinct$versicolor
+      attr(,"ale")$boot$distinct$versicolor$ale
+      list()
+      
+      attr(,"ale")$boot$distinct$versicolor$stats
+      NULL
+      
+      
+      attr(,"ale")$boot$distinct$virginica
+      attr(,"ale")$boot$distinct$virginica$ale
+      list()
+      
+      attr(,"ale")$boot$distinct$virginica$stats
+      NULL
       
       
       
@@ -2438,7 +2545,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "1a32872a501437eeb49a2307b8ffe20a"
+      [1] "98d0d7300ac98af905946ebc87cbd59b"
       
       
       attr(,"params")$data
@@ -2929,11 +3036,7 @@
 ---
 
     Code
-      ale_plots_to_data(plot(mb, type = "boot"))
-    Message
-      `height` was translated to `width`.
-      `height` was translated to `width`.
-      `height` was translated to `width`.
+      suppressMessages(ale_plots_to_data(plot(mb)))
     Output
       $setosa
       $setosa$d1
@@ -3284,671 +3387,6 @@
                                                                      label
       1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
-      
-      
-      $.all_cats
-      $.all_cats$d1
-      $.all_cats$d1$Sepal.Length
-      $.all_cats$d1$Sepal.Length$overlay
-          colour linetype   x             y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 4.3 -1.114566e-04     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 4.3 -1.756549e-02     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 4.3  1.772227e-02     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 4.8  2.164638e-06     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 4.8 -1.767911e-02     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 4.8  1.772227e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 5.0  3.194346e-06     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 5.0 -1.488093e-02     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 5.0  1.492305e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 5.3  2.217479e-05     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 5.3 -1.489181e-02     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 5.3  1.491495e-02     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 5.6  2.227531e-05     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 5.6 -1.258919e-02     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 5.6  1.261223e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 5.8  2.415262e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 5.8 -1.252427e-02     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 5.8  1.254543e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 6.1  2.431041e-05     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 6.1  3.177250e-04     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 6.1 -2.967203e-04     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 6.3  2.431908e-05     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 6.3  1.157589e-02     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 6.3 -1.155489e-02     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 6.5  2.431910e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 6.5  1.297366e-02     1     1       FALSE       0.5    NA
-      31 #F8766D    solid 6.5 -1.295266e-02     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 6.9  2.473396e-05     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 6.9  1.888450e-02     1     1       FALSE       0.5    NA
-      32 #F8766D    solid 6.9 -1.886392e-02     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 7.9  2.961891e-05     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 7.9  9.675096e-02     1     1       FALSE       0.5    NA
-      33 #F8766D    solid 7.9 -9.673526e-02     1     1       FALSE       0.5    NA
-      
-      $.all_cats$d1$Sepal.Length$facet
-           x             y PANEL group flipped_aes colour linewidth linetype alpha
-      1  4.3 -1.114566e-04     1    -1       FALSE  black       0.5        1    NA
-      12 4.3 -1.756549e-02     1    -1       FALSE  black       0.5        1    NA
-      23 4.3  1.772227e-02     1    -1       FALSE  black       0.5        1    NA
-      2  4.8  2.164638e-06     1    -1       FALSE  black       0.5        1    NA
-      13 4.8 -1.767911e-02     1    -1       FALSE  black       0.5        1    NA
-      24 4.8  1.772227e-02     1    -1       FALSE  black       0.5        1    NA
-      3  5.0  3.194346e-06     1    -1       FALSE  black       0.5        1    NA
-      14 5.0 -1.488093e-02     1    -1       FALSE  black       0.5        1    NA
-      25 5.0  1.492305e-02     1    -1       FALSE  black       0.5        1    NA
-      4  5.3  2.217479e-05     1    -1       FALSE  black       0.5        1    NA
-      15 5.3 -1.489181e-02     1    -1       FALSE  black       0.5        1    NA
-      26 5.3  1.491495e-02     1    -1       FALSE  black       0.5        1    NA
-      5  5.6  2.227531e-05     1    -1       FALSE  black       0.5        1    NA
-      16 5.6 -1.258919e-02     1    -1       FALSE  black       0.5        1    NA
-      27 5.6  1.261223e-02     1    -1       FALSE  black       0.5        1    NA
-      6  5.8  2.415262e-05     1    -1       FALSE  black       0.5        1    NA
-      17 5.8 -1.252427e-02     1    -1       FALSE  black       0.5        1    NA
-      28 5.8  1.254543e-02     1    -1       FALSE  black       0.5        1    NA
-      7  6.1  2.431041e-05     1    -1       FALSE  black       0.5        1    NA
-      18 6.1  3.177250e-04     1    -1       FALSE  black       0.5        1    NA
-      29 6.1 -2.967203e-04     1    -1       FALSE  black       0.5        1    NA
-      8  6.3  2.431908e-05     1    -1       FALSE  black       0.5        1    NA
-      19 6.3  1.157589e-02     1    -1       FALSE  black       0.5        1    NA
-      30 6.3 -1.155489e-02     1    -1       FALSE  black       0.5        1    NA
-      9  6.5  2.431910e-05     1    -1       FALSE  black       0.5        1    NA
-      20 6.5  1.297366e-02     1    -1       FALSE  black       0.5        1    NA
-      31 6.5 -1.295266e-02     1    -1       FALSE  black       0.5        1    NA
-      10 6.9  2.473396e-05     1    -1       FALSE  black       0.5        1    NA
-      21 6.9  1.888450e-02     1    -1       FALSE  black       0.5        1    NA
-      32 6.9 -1.886392e-02     1    -1       FALSE  black       0.5        1    NA
-      11 7.9  2.961891e-05     1    -1       FALSE  black       0.5        1    NA
-      22 7.9  9.675096e-02     1    -1       FALSE  black       0.5        1    NA
-      33 7.9 -9.673526e-02     1    -1       FALSE  black       0.5        1    NA
-      
-      
-      $.all_cats$d1$Petal.Width
-      $.all_cats$d1$Petal.Width$overlay
-          colour linetype   x             y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 0.1 -2.507955e-05     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 0.1  8.553889e-02     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 0.1 -8.546849e-02     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 0.2 -1.639121e-05     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 0.2  8.553020e-02     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 0.2 -8.546849e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 0.4  2.053206e-05     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 0.4  8.549328e-02     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 0.4 -8.546849e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 1.1  2.741008e-05     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 1.1  8.548467e-02     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 1.1 -8.546677e-02     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 1.3  2.757698e-05     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 1.3  8.519712e-02     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 1.3 -8.517938e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 1.5  2.758339e-05     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 1.5  3.079324e-02     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 1.5 -3.077551e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 1.8  2.759953e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 1.8 -1.349598e-01     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 1.8  1.349775e-01     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 1.9  2.759953e-05     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 1.9 -1.371285e-01     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 1.9  1.371462e-01     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 2.2  2.759953e-05     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 2.2 -1.442667e-01     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 2.2  1.442844e-01     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 2.5  2.759953e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 2.5 -1.445566e-01     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 2.5  1.445743e-01     1     1       FALSE       0.5    NA
-      
-      $.all_cats$d1$Petal.Width$facet
-           x             y PANEL group flipped_aes colour linewidth linetype alpha
-      1  0.1 -2.507955e-05     1    -1       FALSE  black       0.5        1    NA
-      11 0.1  8.553889e-02     1    -1       FALSE  black       0.5        1    NA
-      21 0.1 -8.546849e-02     1    -1       FALSE  black       0.5        1    NA
-      2  0.2 -1.639121e-05     1    -1       FALSE  black       0.5        1    NA
-      12 0.2  8.553020e-02     1    -1       FALSE  black       0.5        1    NA
-      22 0.2 -8.546849e-02     1    -1       FALSE  black       0.5        1    NA
-      3  0.4  2.053206e-05     1    -1       FALSE  black       0.5        1    NA
-      13 0.4  8.549328e-02     1    -1       FALSE  black       0.5        1    NA
-      23 0.4 -8.546849e-02     1    -1       FALSE  black       0.5        1    NA
-      4  1.1  2.741008e-05     1    -1       FALSE  black       0.5        1    NA
-      14 1.1  8.548467e-02     1    -1       FALSE  black       0.5        1    NA
-      24 1.1 -8.546677e-02     1    -1       FALSE  black       0.5        1    NA
-      5  1.3  2.757698e-05     1    -1       FALSE  black       0.5        1    NA
-      15 1.3  8.519712e-02     1    -1       FALSE  black       0.5        1    NA
-      25 1.3 -8.517938e-02     1    -1       FALSE  black       0.5        1    NA
-      6  1.5  2.758339e-05     1    -1       FALSE  black       0.5        1    NA
-      16 1.5  3.079324e-02     1    -1       FALSE  black       0.5        1    NA
-      26 1.5 -3.077551e-02     1    -1       FALSE  black       0.5        1    NA
-      7  1.8  2.759953e-05     1    -1       FALSE  black       0.5        1    NA
-      17 1.8 -1.349598e-01     1    -1       FALSE  black       0.5        1    NA
-      27 1.8  1.349775e-01     1    -1       FALSE  black       0.5        1    NA
-      8  1.9  2.759953e-05     1    -1       FALSE  black       0.5        1    NA
-      18 1.9 -1.371285e-01     1    -1       FALSE  black       0.5        1    NA
-      28 1.9  1.371462e-01     1    -1       FALSE  black       0.5        1    NA
-      9  2.2  2.759953e-05     1    -1       FALSE  black       0.5        1    NA
-      19 2.2 -1.442667e-01     1    -1       FALSE  black       0.5        1    NA
-      29 2.2  1.442844e-01     1    -1       FALSE  black       0.5        1    NA
-      10 2.5  2.759953e-05     1    -1       FALSE  black       0.5        1    NA
-      20 2.5 -1.445566e-01     1    -1       FALSE  black       0.5        1    NA
-      30 2.5  1.445743e-01     1    -1       FALSE  black       0.5        1    NA
-      
-      
-      
-      $.all_cats$d2
-      list()
-      
-      $.all_cats$eff
-      NULL
-      
-      
-
----
-
-    Code
-      ale_plots_to_data(plot(mb, type = "single"))
-    Message
-      `height` was translated to `width`.
-      `height` was translated to `width`.
-      `height` was translated to `width`.
-    Output
-      $setosa
-      $setosa$d1
-      $setosa$d1$Sepal.Length
-                  ymin          ymax   x             y PANEL group flipped_aes colour
-      1  -2.104544e-04 -4.265046e-05 4.3 -2.104544e-04     1    -1       FALSE     NA
-      2  -1.998976e-05 -5.872532e-06 4.8 -1.998976e-05     1    -1       FALSE     NA
-      3  -1.827810e-05 -5.524773e-06 5.0 -1.827810e-05     1    -1       FALSE     NA
-      4   4.248271e-06  9.909734e-06 5.3  4.248271e-06     1    -1       FALSE     NA
-      5   4.420385e-06  9.938662e-06 5.6  4.420385e-06     1    -1       FALSE     NA
-      6   4.608129e-06  1.350554e-05 5.8  4.608129e-06     1    -1       FALSE     NA
-      7   4.624938e-06  1.380432e-05 6.1  4.624938e-06     1    -1       FALSE     NA
-      8   4.625805e-06  1.382079e-05 6.3  4.625805e-06     1    -1       FALSE     NA
-      9   4.625830e-06  1.382080e-05 6.5  4.625830e-06     1    -1       FALSE     NA
-      10  4.667335e-06  1.460902e-05 6.9  4.667335e-06     1    -1       FALSE     NA
-      11  5.155830e-06  2.389042e-05 7.9  5.155830e-06     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
-      
-      $setosa$d1$Petal.Width
-                  ymin          ymax   x             y PANEL group flipped_aes colour
-      1  -7.344934e-05 -6.901325e-06 0.1 -7.344934e-05     1    -1       FALSE     NA
-      2  -5.701848e-05 -5.955499e-06 0.2 -5.701848e-05     1    -1       FALSE     NA
-      3  -1.312030e-06  1.218459e-05 0.4 -1.312030e-06     1    -1       FALSE     NA
-      4   2.499154e-06  2.212945e-05 1.1  2.499154e-06     1    -1       FALSE     NA
-      5   2.535712e-06  2.242669e-05 1.3  2.535712e-06     1    -1       FALSE     NA
-      6   2.547290e-06  2.242791e-05 1.5  2.547290e-06     1    -1       FALSE     NA
-      7   2.549764e-06  2.245772e-05 1.8  2.549764e-06     1    -1       FALSE     NA
-      8   2.549764e-06  2.245772e-05 1.9  2.549764e-06     1    -1       FALSE     NA
-      9   2.549761e-06  2.245772e-05 2.2  2.549761e-06     1    -1       FALSE     NA
-      10  2.549761e-06  2.245772e-05 2.5  2.549761e-06     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      
-      
-      $setosa$d2
-      list()
-      
-      $setosa$eff
-      $setosa$eff[[1]]
-        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
-      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
-      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
-      
-      $setosa$eff[[2]]
-                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1 -1.265524e-04 1.452312e-05 1     1     1        TRUE 0.875 1.125  black
-      2 -4.017533e-05 1.250374e-05 2     1     2        TRUE 1.875 2.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      
-      $setosa$eff[[3]]
-        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
-      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
-      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
-      
-      $setosa$eff[[4]]
-         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 28.5% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 28.8% 2     1     2       0       0  black           3     0   0.5
-        vjust alpha fontface lineheight
-      1    -1    NA        1        1.2
-      2    -1    NA        1        1.2
-      
-      $setosa$eff[[5]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
-        vjust alpha fontface lineheight
-      1   0.5    NA        1        1.2
-      2   0.5    NA        1        1.2
-      
-      $setosa$eff[[6]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
-        vjust alpha fontface lineheight
-      1   0.5    NA        1        1.2
-      2   0.5    NA        1        1.2
-      
-      $setosa$eff[[7]]
-         x  label y PANEL group nudge_x nudge_y colour family size angle hjust vjust
-      1 NA ALED 0 1     1     1       0       0  black           3     0   0.5     2
-      2 NA ALED 0 2     1     2       0       0  black           3     0   0.5     2
-        alpha fontface lineheight
-      1    NA        1        1.2
-      2    NA        1        1.2
-      
-      $setosa$eff[[8]]
-        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
-      1 1 2     1    -1  black white           3     0     1   0.5    NA        1
-        lineheight linewidth linetype
-      1        1.2         0        1
-                                                                     label
-      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
-      
-      
-      
-      $versicolor
-      $versicolor$d1
-      $versicolor$d1$Sepal.Length
-                  ymin         ymax   x             y PANEL group flipped_aes colour
-      1  -0.0210108497 -0.014059110 4.3 -0.0210108497     1    -1       FALSE     NA
-      2  -0.0212013143 -0.014095888 4.8 -0.0212013143     1    -1       FALSE     NA
-      3  -0.0158845179 -0.013816315 5.0 -0.0158845179     1    -1       FALSE     NA
-      4  -0.0159094865 -0.013813103 5.3 -0.0159094865     1    -1       FALSE     NA
-      5  -0.0150620537 -0.010055297 5.6 -0.0150620537     1    -1       FALSE     NA
-      6  -0.0149387090 -0.010048805 5.8 -0.0149387090     1    -1       FALSE     NA
-      7  -0.0022607818  0.002957259 6.1 -0.0022607818     1    -1       FALSE     NA
-      8   0.0003502068  0.022862592 6.3  0.0003502068     1    -1       FALSE     NA
-      9   0.0004902782  0.025518067 6.5  0.0004902782     1    -1       FALSE     NA
-      10  0.0107970382  0.027032987 6.9  0.0107970382     1    -1       FALSE     NA
-      11  0.0358124368  0.157750506 7.9  0.0358124368     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
-      
-      $versicolor$d1$Petal.Width
-                  ymin        ymax   x             y PANEL group flipped_aes colour
-      1   0.0678790387  0.10325976 0.1  0.0678790387     1    -1       FALSE     NA
-      2   0.0678626078  0.10325882 0.2  0.0678626078     1    -1       FALSE     NA
-      3   0.0677934048  0.10325417 0.4  0.0677934048     1    -1       FALSE     NA
-      4   0.0677832873  0.10324708 1.1  0.0677832873     1    -1       FALSE     NA
-      5   0.0674208075  0.10303446 1.3  0.0674208075     1    -1       FALSE     NA
-      6  -0.0003124206  0.06195992 1.5 -0.0003124206     1    -1       FALSE     NA
-      7  -0.1466535923 -0.12320501 1.8 -0.1466535923     1    -1       FALSE     NA
-      8  -0.1507740790 -0.12342188 1.9 -0.1507740790     1    -1       FALSE     NA
-      9  -0.1643243692 -0.12414797 2.2 -0.1643243692     1    -1       FALSE     NA
-      10 -0.1648598430 -0.12419229 2.5 -0.1648598430     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      
-      
-      $versicolor$d2
-      list()
-      
-      $versicolor$eff
-      $versicolor$eff[[1]]
-        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
-      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
-      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
-      
-      $versicolor$eff[[2]]
-               xmin       xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.01764874 0.09678147 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.14452607 0.08556940 2     1     2        TRUE 1.875 2.125  black       0.5
-        linetype width alpha
-      1        1   0.9    NA
-      2        1   0.9    NA
-      
-      $versicolor$eff[[3]]
-        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
-      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
-      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
-      
-      $versicolor$eff[[4]]
-         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 38.8% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 30.5% 2     1     2       0       0  black           3     0   0.5
-        vjust alpha fontface lineheight
-      1    -1    NA        1        1.2
-      2    -1    NA        1        1.2
-      
-      $versicolor$eff[[5]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
-        vjust alpha fontface lineheight
-      1   0.5    NA        1        1.2
-      2   0.5    NA        1        1.2
-      
-      $versicolor$eff[[6]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
-        vjust alpha fontface lineheight
-      1   0.5    NA        1        1.2
-      2   0.5    NA        1        1.2
-      
-      $versicolor$eff[[7]]
-         x      label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
-      2 NA ALED 0.095 2     1     2       0       0  black           3     0   0.5
-        vjust alpha fontface lineheight
-      1     2    NA        1        1.2
-      2     2    NA        1        1.2
-      
-      $versicolor$eff[[8]]
-        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
-      1 1 2     1    -1  black white           3     0     1   0.5    NA        1
-        lineheight linewidth linetype
-      1        1.2         0        1
-                                                                     label
-      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
-      
-      
-      
-      $virginica
-      $virginica$d1
-      $virginica$d1$Sepal.Length
-                ymin          ymax   x           y PANEL group flipped_aes colour
-      1   0.01416249  0.0212820369 4.3  0.01416249     1    -1       FALSE     NA
-      2   0.01416249  0.0212820369 4.8  0.01416249     1    -1       FALSE     NA
-      3   0.01388257  0.0159635288 5.0  0.01388257     1    -1       FALSE     NA
-      4   0.01386959  0.0159603096 5.3  0.01386959     1    -1       FALSE     NA
-      5   0.01011161  0.0151128479 5.6  0.01011161     1    -1       FALSE     NA
-      6   0.01010493  0.0149859363 5.8  0.01010493     1    -1       FALSE     NA
-      7  -0.00291033  0.0023168897 6.1 -0.00291033     1    -1       FALSE     NA
-      8  -0.02281568 -0.0002940998 6.3 -0.02281568     1    -1       FALSE     NA
-      9  -0.02547116 -0.0004341712 6.5 -0.02547116     1    -1       FALSE     NA
-      10 -0.02698686 -0.0107409727 6.9 -0.02698686     1    -1       FALSE     NA
-      11 -0.15769493 -0.0357755944 7.9 -0.15769493     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
-      
-      $virginica$d1$Petal.Width
-                ymin          ymax   x           y PANEL group flipped_aes colour
-      1  -0.10319213 -0.0677448565 0.1 -0.10319213     1    -1       FALSE     NA
-      2  -0.10319213 -0.0677448565 0.2 -0.10319213     1    -1       FALSE     NA
-      3  -0.10319213 -0.0677448565 0.4 -0.10319213     1    -1       FALSE     NA
-      4  -0.10318885 -0.0677446839 1.1 -0.10318885     1    -1       FALSE     NA
-      5  -0.10297627 -0.0673825014 1.3 -0.10297627     1    -1       FALSE     NA
-      6  -0.06192162  0.0003706061 1.5 -0.06192162     1    -1       FALSE     NA
-      7   0.12324328  0.1467117754 1.8  0.12324328     1    -1       FALSE     NA
-      8   0.12346016  0.1508322621 1.9  0.12346016     1    -1       FALSE     NA
-      9   0.12418625  0.1643825523 2.2  0.12418625     1    -1       FALSE     NA
-      10  0.12423057  0.1649180261 2.5  0.12423057     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      
-      
-      $virginica$d2
-      list()
-      
-      $virginica$eff
-      $virginica$eff[[1]]
-        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
-      1 1     1     1   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
-      2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
-      
-      $virginica$eff[[2]]
-               xmin       xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.09673526 0.01772227 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.08546849 0.14457430 2     1     2        TRUE 1.875 2.125  black       0.5
-        linetype width alpha
-      1        1   0.9    NA
-      2        1   0.9    NA
-      
-      $virginica$eff[[3]]
-        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
-      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
-      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
-      
-      $virginica$eff[[4]]
-         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 23.2% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 33.8% 2     1     2       0       0  black           3     0   0.5
-        vjust alpha fontface lineheight
-      1    -1    NA        1        1.2
-      2    -1    NA        1        1.2
-      
-      $virginica$eff[[5]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
-        vjust alpha fontface lineheight
-      1   0.5    NA        1        1.2
-      2   0.5    NA        1        1.2
-      
-      $virginica$eff[[6]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
-        vjust alpha fontface lineheight
-      1   0.5    NA        1        1.2
-      2   0.5    NA        1        1.2
-      
-      $virginica$eff[[7]]
-         x      label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
-      2 NA ALED 0.095 2     1     2       0       0  black           3     0   0.5
-        vjust alpha fontface lineheight
-      1     2    NA        1        1.2
-      2     2    NA        1        1.2
-      
-      $virginica$eff[[8]]
-        x y PANEL group colour  fill family size angle hjust vjust alpha fontface
-      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
-        lineheight linewidth linetype
-      1        1.2         0        1
-                                                                     label
-      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
-      
-      
-      
-      $.all_cats
-      $.all_cats$d1
-      $.all_cats$d1$Sepal.Length
-      $.all_cats$d1$Sepal.Length$overlay
-          colour linetype   x             y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 4.3 -1.114566e-04     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 4.3 -1.756549e-02     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 4.3  1.772227e-02     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 4.8  2.164638e-06     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 4.8 -1.767911e-02     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 4.8  1.772227e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 5.0  3.194346e-06     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 5.0 -1.488093e-02     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 5.0  1.492305e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 5.3  2.217479e-05     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 5.3 -1.489181e-02     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 5.3  1.491495e-02     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 5.6  2.227531e-05     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 5.6 -1.258919e-02     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 5.6  1.261223e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 5.8  2.415262e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 5.8 -1.252427e-02     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 5.8  1.254543e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 6.1  2.431041e-05     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 6.1  3.177250e-04     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 6.1 -2.967203e-04     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 6.3  2.431908e-05     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 6.3  1.157589e-02     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 6.3 -1.155489e-02     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 6.5  2.431910e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 6.5  1.297366e-02     1     1       FALSE       0.5    NA
-      31 #F8766D    solid 6.5 -1.295266e-02     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 6.9  2.473396e-05     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 6.9  1.888450e-02     1     1       FALSE       0.5    NA
-      32 #F8766D    solid 6.9 -1.886392e-02     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 7.9  2.961891e-05     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 7.9  9.675096e-02     1     1       FALSE       0.5    NA
-      33 #F8766D    solid 7.9 -9.673526e-02     1     1       FALSE       0.5    NA
-      
-      $.all_cats$d1$Sepal.Length$facet
-           x             y PANEL group flipped_aes colour linewidth linetype alpha
-      1  4.3 -1.114566e-04     1    -1       FALSE  black       0.5        1    NA
-      12 4.3 -1.756549e-02     1    -1       FALSE  black       0.5        1    NA
-      23 4.3  1.772227e-02     1    -1       FALSE  black       0.5        1    NA
-      2  4.8  2.164638e-06     1    -1       FALSE  black       0.5        1    NA
-      13 4.8 -1.767911e-02     1    -1       FALSE  black       0.5        1    NA
-      24 4.8  1.772227e-02     1    -1       FALSE  black       0.5        1    NA
-      3  5.0  3.194346e-06     1    -1       FALSE  black       0.5        1    NA
-      14 5.0 -1.488093e-02     1    -1       FALSE  black       0.5        1    NA
-      25 5.0  1.492305e-02     1    -1       FALSE  black       0.5        1    NA
-      4  5.3  2.217479e-05     1    -1       FALSE  black       0.5        1    NA
-      15 5.3 -1.489181e-02     1    -1       FALSE  black       0.5        1    NA
-      26 5.3  1.491495e-02     1    -1       FALSE  black       0.5        1    NA
-      5  5.6  2.227531e-05     1    -1       FALSE  black       0.5        1    NA
-      16 5.6 -1.258919e-02     1    -1       FALSE  black       0.5        1    NA
-      27 5.6  1.261223e-02     1    -1       FALSE  black       0.5        1    NA
-      6  5.8  2.415262e-05     1    -1       FALSE  black       0.5        1    NA
-      17 5.8 -1.252427e-02     1    -1       FALSE  black       0.5        1    NA
-      28 5.8  1.254543e-02     1    -1       FALSE  black       0.5        1    NA
-      7  6.1  2.431041e-05     1    -1       FALSE  black       0.5        1    NA
-      18 6.1  3.177250e-04     1    -1       FALSE  black       0.5        1    NA
-      29 6.1 -2.967203e-04     1    -1       FALSE  black       0.5        1    NA
-      8  6.3  2.431908e-05     1    -1       FALSE  black       0.5        1    NA
-      19 6.3  1.157589e-02     1    -1       FALSE  black       0.5        1    NA
-      30 6.3 -1.155489e-02     1    -1       FALSE  black       0.5        1    NA
-      9  6.5  2.431910e-05     1    -1       FALSE  black       0.5        1    NA
-      20 6.5  1.297366e-02     1    -1       FALSE  black       0.5        1    NA
-      31 6.5 -1.295266e-02     1    -1       FALSE  black       0.5        1    NA
-      10 6.9  2.473396e-05     1    -1       FALSE  black       0.5        1    NA
-      21 6.9  1.888450e-02     1    -1       FALSE  black       0.5        1    NA
-      32 6.9 -1.886392e-02     1    -1       FALSE  black       0.5        1    NA
-      11 7.9  2.961891e-05     1    -1       FALSE  black       0.5        1    NA
-      22 7.9  9.675096e-02     1    -1       FALSE  black       0.5        1    NA
-      33 7.9 -9.673526e-02     1    -1       FALSE  black       0.5        1    NA
-      
-      
-      $.all_cats$d1$Petal.Width
-      $.all_cats$d1$Petal.Width$overlay
-          colour linetype   x             y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 0.1 -2.507955e-05     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 0.1  8.553889e-02     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 0.1 -8.546849e-02     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 0.2 -1.639121e-05     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 0.2  8.553020e-02     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 0.2 -8.546849e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 0.4  2.053206e-05     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 0.4  8.549328e-02     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 0.4 -8.546849e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 1.1  2.741008e-05     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 1.1  8.548467e-02     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 1.1 -8.546677e-02     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 1.3  2.757698e-05     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 1.3  8.519712e-02     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 1.3 -8.517938e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 1.5  2.758339e-05     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 1.5  3.079324e-02     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 1.5 -3.077551e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 1.8  2.759953e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 1.8 -1.349598e-01     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 1.8  1.349775e-01     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 1.9  2.759953e-05     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 1.9 -1.371285e-01     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 1.9  1.371462e-01     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 2.2  2.759953e-05     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 2.2 -1.442667e-01     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 2.2  1.442844e-01     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 2.5  2.759953e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 2.5 -1.445566e-01     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 2.5  1.445743e-01     1     1       FALSE       0.5    NA
-      
-      $.all_cats$d1$Petal.Width$facet
-           x             y PANEL group flipped_aes colour linewidth linetype alpha
-      1  0.1 -2.507955e-05     1    -1       FALSE  black       0.5        1    NA
-      11 0.1  8.553889e-02     1    -1       FALSE  black       0.5        1    NA
-      21 0.1 -8.546849e-02     1    -1       FALSE  black       0.5        1    NA
-      2  0.2 -1.639121e-05     1    -1       FALSE  black       0.5        1    NA
-      12 0.2  8.553020e-02     1    -1       FALSE  black       0.5        1    NA
-      22 0.2 -8.546849e-02     1    -1       FALSE  black       0.5        1    NA
-      3  0.4  2.053206e-05     1    -1       FALSE  black       0.5        1    NA
-      13 0.4  8.549328e-02     1    -1       FALSE  black       0.5        1    NA
-      23 0.4 -8.546849e-02     1    -1       FALSE  black       0.5        1    NA
-      4  1.1  2.741008e-05     1    -1       FALSE  black       0.5        1    NA
-      14 1.1  8.548467e-02     1    -1       FALSE  black       0.5        1    NA
-      24 1.1 -8.546677e-02     1    -1       FALSE  black       0.5        1    NA
-      5  1.3  2.757698e-05     1    -1       FALSE  black       0.5        1    NA
-      15 1.3  8.519712e-02     1    -1       FALSE  black       0.5        1    NA
-      25 1.3 -8.517938e-02     1    -1       FALSE  black       0.5        1    NA
-      6  1.5  2.758339e-05     1    -1       FALSE  black       0.5        1    NA
-      16 1.5  3.079324e-02     1    -1       FALSE  black       0.5        1    NA
-      26 1.5 -3.077551e-02     1    -1       FALSE  black       0.5        1    NA
-      7  1.8  2.759953e-05     1    -1       FALSE  black       0.5        1    NA
-      17 1.8 -1.349598e-01     1    -1       FALSE  black       0.5        1    NA
-      27 1.8  1.349775e-01     1    -1       FALSE  black       0.5        1    NA
-      8  1.9  2.759953e-05     1    -1       FALSE  black       0.5        1    NA
-      18 1.9 -1.371285e-01     1    -1       FALSE  black       0.5        1    NA
-      28 1.9  1.371462e-01     1    -1       FALSE  black       0.5        1    NA
-      9  2.2  2.759953e-05     1    -1       FALSE  black       0.5        1    NA
-      19 2.2 -1.442667e-01     1    -1       FALSE  black       0.5        1    NA
-      29 2.2  1.442844e-01     1    -1       FALSE  black       0.5        1    NA
-      10 2.5  2.759953e-05     1    -1       FALSE  black       0.5        1    NA
-      20 2.5 -1.445566e-01     1    -1       FALSE  black       0.5        1    NA
-      30 2.5  1.445743e-01     1    -1       FALSE  black       0.5        1    NA
-      
-      
-      
-      $.all_cats$d2
-      list()
-      
-      $.all_cats$eff
-      NULL
       
       
 

@@ -955,7 +955,7 @@ calc_ale <- function(
         it.cat_stats |>
           imap(\(it.comp_stats, it.comp) {
             it.comp_stats |>
-              mutate(composite = as.logical(it.comp))
+              mutate(.comp = as.logical(it.comp))
           }) |>
           bind_rows()
       })

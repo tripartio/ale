@@ -8,6 +8,8 @@
 
 \item{max_print}{See documentation for \code{\link[=plot.ALEPlots]{plot.ALEPlots()}}}
 
+\item{comp}{See documentation for \code{\link[=get.ALE]{get.ALE()}}}
+
 \item{...}{Additional arguments (currently not used).}
 }
 \value{

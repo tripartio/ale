@@ -64,7 +64,7 @@ ALEpDist(
 An object of class \code{ALEpDist} with properties \code{rand_stats}, \code{residual_distribution}, \code{residuals}, and \code{params}.
 }
 \description{
-ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE effects and ALE statistics to give a range of the possible ALE values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. An \code{ALEpDist} S7 object contains the necessary distribution data for generating such p-values.
+ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALEs and ALE statistics to give a range of the possible ALE values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. An \code{ALEpDist} S7 object contains the necessary distribution data for generating such p-values.
 }
 \section{Properties}{
 

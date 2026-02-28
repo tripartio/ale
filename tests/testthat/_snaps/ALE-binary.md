@@ -7,16 +7,17 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$vs
-      attr(,"effect")$vs$ale
-      attr(,"effect")$vs$ale$d1
-      attr(,"effect")$vs$ale$d1$mpg
+       $ composite: <list>          
+       $ distinct : <list> or <NULL>
+       $ params   : <list>          
+      attr(,"composite")
+      attr(,"composite")$vs
+      attr(,"composite")$vs$ale
+      attr(,"composite")$vs$ale$d1
+      attr(,"composite")$vs$ale$d1$mpg
       # A tibble: 11 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -32,7 +33,7 @@
       10     30.4     7     0     0       0         0     0
       11     33.9     5     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$continent
+      attr(,"composite")$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -40,66 +41,66 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$am
+      attr(,"composite")$vs$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
         <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 FALSE     38 -2.60e-20 -5.72e-20 -2.60e-20 -1.77e-20 -1.87e-21
-      2 TRUE      26  2.58e-20 -3.19e-20  2.58e-20  2.58e-20  8.36e-20
+      1 FALSE     38 -9.36e-21 -1.73e-20 -9.36e-21 -9.36e-21 -1.46e-21
+      2 TRUE      26 -4.56e-21 -3.34e-20 -4.56e-21 -4.56e-21  2.43e-20
       
-      attr(,"effect")$vs$ale$d1$model
+      attr(,"composite")$vs$ale$d1$model
       # A tibble: 32 x 7
-         model.bin             .n        .y   .y_lo   .y_mean .y_median .y_hi
-         <ord>              <int>     <dbl>   <dbl>     <dbl>     <dbl> <dbl>
-       1 AMC Javelin            2 -1.67e- 1 -0.950  -1.67e- 1 1.23 e-14 0.475
-       2 Cadillac Fleetwood     2 -5.00e- 1 -1.90   -5.00e- 1 1.23 e-14 0.475
-       3 Camaro Z28             2 -3.33e- 1 -1.87   -3.33e- 1 5.00 e- 1 0.500
-       4 Chrysler Imperial      2  1.22e-14 -0.925   1.22e-14 5.00 e- 1 0.500
-       5 Datsun 710             2  1.67e- 1 -0.925   1.67e- 1 5.00 e- 1 0.975
-       6 Dodge Challenger       2  6.67e- 1  0.0500  6.67e- 1 1.000e+ 0 1.000
-       7 Duster 360             2  8.33e- 1  0.0500  8.33e- 1 1.000e+ 0 1.47 
-       8 Ferrari Dino           2  8.33e- 1  0.0500  8.33e- 1 1.000e+ 0 1.47 
-       9 Fiat 128               2  8.33e- 1  0.0500  8.33e- 1 1.000e+ 0 1.47 
-      10 Fiat X1-9              2  8.33e- 1  0.0500  8.33e- 1 1.000e+ 0 1.47 
+         model.bin             .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>              <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin            2 0.250 0.0125   0.250     0.250 0.487
+       2 Cadillac Fleetwood     2 0.250 0.0125   0.250     0.250 0.487
+       3 Camaro Z28             2 0.500 0.500    0.500     0.500 0.500
+       4 Chrysler Imperial      2 0.500 0.500    0.500     0.500 0.500
+       5 Datsun 710             2 0.750 0.512    0.750     0.750 0.987
+       6 Dodge Challenger       2 1.000 1.000    1.000     1.000 1.000
+       7 Duster 360             2 1.25  1.01     1.25      1.25  1.49 
+       8 Ferrari Dino           2 1.25  1.01     1.25      1.25  1.49 
+       9 Fiat 128               2 1.25  1.01     1.25      1.25  1.49 
+      10 Fiat X1-9              2 1.25  1.01     1.25      1.25  1.49 
       # i 22 more rows
       
-      attr(,"effect")$vs$ale$d1$gear
+      attr(,"composite")$vs$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y  .y_lo .y_mean .y_median   .y_hi
         <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
-      1 three       30 -0.173 -0.311  -0.173    -0.184 -0.0260
-      2 four        24  0.355  0.199   0.355     0.357  0.508 
-      3 five        10 -0.179 -0.277  -0.179    -0.143 -0.111 
+      1 three       30 -0.101 -0.180  -0.101    -0.101 -0.0219
+      2 four        24  0.274  0.195   0.274     0.274  0.353 
+      3 five        10 -0.126 -0.142  -0.126    -0.126 -0.110 
       
-      attr(,"effect")$vs$ale$d1$carb
+      attr(,"composite")$vs$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1         1    14  1.53e-25  1.53e-25  1.53e-25  1.53e-25  1.53e-25
-      2         2    19  6.34e-26  4.66e-26  6.34e-26  6.49e-26  7.87e-26
-      3         3     9 -4.71e-26 -6.17e-26 -4.71e-26 -4.58e-26 -3.35e-26
-      4         4    16 -1.56e-25 -1.73e-25 -1.56e-25 -1.59e-25 -1.36e-25
-      5         8     6 -6.22e-25 -6.90e-25 -6.22e-25 -6.25e-25 -5.50e-25
+      2         2    19  5.53e-26  4.61e-26  5.53e-26  5.53e-26  6.45e-26
+      3         3     9 -4.77e-26 -6.18e-26 -4.77e-26 -4.77e-26 -3.36e-26
+      4         4    16 -1.55e-25 -1.73e-25 -1.55e-25 -1.55e-25 -1.36e-25
+      5         8     6 -6.20e-25 -6.90e-25 -6.20e-25 -6.20e-25 -5.50e-25
       
-      attr(,"effect")$vs$ale$d1$wt
+      attr(,"composite")$vs$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
        1    1.50     1 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
        2    1.93     6 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       3    2.31     6 -2.08e-24 -2.29e-24 -2.08e-24 -2.15e-24 -1.81e-24
-       4    2.78     7 -1.41e-24 -1.66e-24 -1.41e-24 -1.28e-24 -1.28e-24
-       5    3.16     6 -6.71e-25 -8.41e-25 -6.71e-25 -7.24e-25 -4.56e-25
-       6    3.22     6 -4.96e-25 -6.61e-25 -4.96e-25 -4.62e-25 -3.60e-25
-       7    3.44     7 -3.22e-25 -5.59e-25 -3.22e-25 -4.62e-25  3.34e-26
-       8    3.56     6 -2.17e-27 -2.60e-25 -2.17e-27 -1.47e-25  3.79e-25
-       9    3.79     7  1.03e-24  7.73e-25  1.03e-24  8.86e-25  1.41e-24
-      10    4.07     6  2.24e-24  1.98e-24  2.24e-24  2.10e-24  2.62e-24
-      11    5.45     6  8.32e-24  8.06e-24  8.32e-24  8.17e-24  8.70e-24
+       3    2.31     6 -2.04e-24 -2.28e-24 -2.04e-24 -2.04e-24 -1.81e-24
+       4    2.78     7 -1.48e-24 -1.67e-24 -1.48e-24 -1.48e-24 -1.29e-24
+       5    3.16     6 -7.85e-25 -8.44e-25 -7.85e-25 -7.85e-25 -7.27e-25
+       6    3.22     6 -5.67e-25 -6.67e-25 -5.67e-25 -5.67e-25 -4.67e-25
+       7    3.44     7 -5.13e-25 -5.62e-25 -5.13e-25 -5.13e-25 -4.65e-25
+       8    3.56     6 -2.07e-25 -2.63e-25 -2.07e-25 -2.07e-25 -1.50e-25
+       9    3.79     7  8.27e-25  7.70e-25  8.27e-25  8.27e-25  8.83e-25
+      10    4.07     6  2.04e-24  1.98e-24  2.04e-24  2.04e-24  2.10e-24
+      11    5.45     6  8.11e-24  8.06e-24  8.11e-24  8.11e-24  8.17e-24
       
       
-      attr(,"effect")$vs$ale$d2
-      attr(,"effect")$vs$ale$d2$`mpg:continent`
+      attr(,"composite")$vs$ale$d2
+      attr(,"composite")$vs$ale$d2$`mpg:continent`
       # A tibble: 33 x 8
          mpg.ceil continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -115,7 +116,7 @@
       10     30.4 Asia              1     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:am`
+      attr(,"composite")$vs$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -131,7 +132,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:model`
+      attr(,"composite")$vs$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -147,7 +148,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:gear`
+      attr(,"composite")$vs$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -163,7 +164,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:carb`
+      attr(,"composite")$vs$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -179,7 +180,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:wt`
+      attr(,"composite")$vs$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -195,7 +196,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"effect")$vs$ale$d2$`continent:am`
+      attr(,"composite")$vs$ale$d2$`continent:am`
       # A tibble: 6 x 8
         continent.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -206,7 +207,7 @@
       5 Europe        TRUE      14     0     0       0         0     0
       6 North America TRUE       2     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`continent:model`
+      attr(,"composite")$vs$ale$d2$`continent:model`
       # A tibble: 96 x 8
          continent.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>         <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -222,7 +223,7 @@
       10 Asia          Chrysler Imperial      0     0     0       0         0     0
       # i 86 more rows
       
-      attr(,"effect")$vs$ale$d2$`continent:gear`
+      attr(,"composite")$vs$ale$d2$`continent:gear`
       # A tibble: 9 x 8
         continent.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -236,7 +237,7 @@
       8 Europe        five         8     0     0       0         0     0
       9 North America five         2     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`continent:carb`
+      attr(,"composite")$vs$ale$d2$`continent:carb`
       # A tibble: 15 x 8
          continent.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -256,7 +257,7 @@
       14 Europe                8     5     0     0       0         0     0
       15 North America         8     1     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`continent:wt`
+      attr(,"composite")$vs$ale$d2$`continent:wt`
       # A tibble: 33 x 8
          continent.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -272,49 +273,406 @@
       10 Asia             2.78     5     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$vs$ale$d2$`am:model`
+      attr(,"composite")$vs$ale$d2$`am:model`
+      # A tibble: 64 x 8
+         am.bin model.bin         .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>  <ord>          <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 FALSE  AMC Javelin        0  7.30e-30  7.30e-30  7.30e-30  7.30e-30  7.30e-30
+       2 TRUE   AMC Javelin        2  1.99e-29  7.93e-30  1.99e-29  1.99e-29  3.19e-29
+       3 FALSE  Cadillac Flee~     0  7.30e-30  7.30e-30  7.30e-30  7.30e-30  7.30e-30
+       4 TRUE   Cadillac Flee~     2  1.99e-29  7.93e-30  1.99e-29  1.99e-29  3.19e-29
+       5 FALSE  Camaro Z28         0  7.30e-30  7.30e-30  7.30e-30  7.30e-30  7.30e-30
+       6 TRUE   Camaro Z28         2  1.99e-29  7.93e-30  1.99e-29  1.99e-29  3.19e-29
+       7 FALSE  Chrysler Impe~     2  7.30e-30  7.30e-30  7.30e-30  7.30e-30  7.30e-30
+       8 TRUE   Chrysler Impe~     0  1.99e-29  7.93e-30  1.99e-29  1.99e-29  3.19e-29
+       9 FALSE  Datsun 710         2 -3.33e-28 -6.57e-28 -3.33e-28 -3.33e-28 -9.74e-30
+      10 TRUE   Datsun 710         0 -3.21e-28 -6.33e-28 -3.21e-28 -3.21e-28 -9.11e-30
+      # i 54 more rows
+      
+      attr(,"composite")$vs$ale$d2$`am:gear`
+      # A tibble: 6 x 8
+        am.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       30 9.96e-21 9.96e-21 9.96e-21  9.96e-21 9.96e-21
+      2 TRUE   three        0 9.96e-21 9.96e-21 9.96e-21  9.96e-21 9.96e-21
+      3 FALSE  four         8 4.95e-20 4.95e-20 4.95e-20  4.95e-20 4.95e-20
+      4 TRUE   four        16 5.93e-20 5.00e-20 5.93e-20  5.93e-20 6.87e-20
+      5 FALSE  five         0 4.95e-20 4.95e-20 4.95e-20  4.95e-20 4.95e-20
+      6 TRUE   five        10 5.93e-20 5.00e-20 5.93e-20  5.93e-20 6.87e-20
+      
+      attr(,"composite")$vs$ale$d2$`am:carb`
+      # A tibble: 10 x 8
+         am.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 FALSE          1     6  7.02e-29  7.02e-29  7.02e-29  7.02e-29  7.02e-29
+       2 TRUE           1     8  7.02e-29  7.02e-29  7.02e-29  7.02e-29  7.02e-29
+       3 FALSE          2    12 -4.75e-28 -6.17e-28 -4.75e-28 -4.75e-28 -3.34e-28
+       4 TRUE           2     7 -1.17e-27 -1.97e-27 -1.17e-27 -1.17e-27 -3.69e-28
+       5 FALSE          3     7 -4.75e-28 -6.17e-28 -4.75e-28 -4.75e-28 -3.34e-28
+       6 TRUE           3     2 -1.17e-27 -1.97e-27 -1.17e-27 -1.17e-27 -3.69e-28
+       7 FALSE          4    11 -4.77e-28 -6.17e-28 -4.77e-28 -4.77e-28 -3.38e-28
+       8 TRUE           4     5 -1.17e-27 -1.98e-27 -1.17e-27 -1.17e-27 -3.66e-28
+       9 FALSE          8     2 -4.77e-28 -6.17e-28 -4.77e-28 -4.77e-28 -3.38e-28
+      10 TRUE           8     4  9.48e-28  8.14e-28  9.48e-28  9.48e-28  1.08e-27
+      
+      attr(,"composite")$vs$ale$d2$`am:wt`
+      # A tibble: 22 x 8
+         am.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>    <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 FALSE     1.50     0  2.70e-30  2.70e-30  2.70e-30  2.70e-30  2.70e-30
+       2 TRUE      1.50     1  2.70e-30  2.70e-30  2.70e-30  2.70e-30  2.70e-30
+       3 FALSE     1.93     0  2.70e-30  2.70e-30  2.70e-30  2.70e-30  2.70e-30
+       4 TRUE      1.93     6  2.70e-30  2.70e-30  2.70e-30  2.70e-30  2.70e-30
+       5 FALSE     2.31     0 -1.58e-29 -1.74e-29 -1.58e-29 -1.58e-29 -1.42e-29
+       6 TRUE      2.31     6 -3.26e-29 -5.02e-29 -3.26e-29 -3.26e-29 -1.51e-29
+       7 FALSE     2.78     2 -1.58e-29 -1.74e-29 -1.58e-29 -1.58e-29 -1.42e-29
+       8 TRUE      2.78     5 -3.26e-29 -5.02e-29 -3.26e-29 -3.26e-29 -1.51e-29
+       9 FALSE     3.16     2 -1.58e-29 -1.74e-29 -1.58e-29 -1.58e-29 -1.42e-29
+      10 TRUE      3.16     4 -3.26e-29 -5.02e-29 -3.26e-29 -3.26e-29 -1.51e-29
+      # i 12 more rows
+      
+      attr(,"composite")$vs$ale$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin          gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
+         <ord>              <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1 AMC Javelin        three        0 -0.448 -0.448  -0.448    -0.448 -0.448
+       2 Cadillac Fleetwood three        0 -0.448 -0.448  -0.448    -0.448 -0.448
+       3 Camaro Z28         three        0 -0.448 -0.448  -0.448    -0.448 -0.448
+       4 Chrysler Imperial  three        2 -0.448 -0.448  -0.448    -0.448 -0.448
+       5 Datsun 710         three        2 -0.448 -0.448  -0.448    -0.448 -0.448
+       6 Dodge Challenger   three        2 -0.448 -0.448  -0.448    -0.448 -0.448
+       7 Duster 360         three        2 -0.448 -0.448  -0.448    -0.448 -0.448
+       8 Ferrari Dino       three        0 -0.498 -0.545  -0.498    -0.498 -0.450
+       9 Fiat 128           three        0 -0.598 -0.740  -0.598    -0.598 -0.455
+      10 Fiat X1-9          three        0 -0.748 -1.03   -0.748    -0.748 -0.463
+      # i 86 more rows
+      
+      attr(,"composite")$vs$ale$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin       carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 AMC Javelin             1     0 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+       2 Cadillac Fleet~         1     0 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+       3 Camaro Z28              1     2 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+       4 Chrysler Imper~         1     2 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+       5 Datsun 710              1     0 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+       6 Dodge Challeng~         1     2 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+       7 Duster 360              1     0 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+       8 Ferrari Dino            1     0 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+       9 Fiat 128                1     0 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+      10 Fiat X1-9               1     0 4.09e-25 4.09e-25 4.09e-25  4.09e-25 4.09e-25
+      # i 150 more rows
+      
+      attr(,"composite")$vs$ale$d2$`model:wt`
+      # A tibble: 352 x 8
+         model.bin         wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 AMC Javelin          1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+       2 Cadillac Fleetwo~    1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+       3 Camaro Z28           1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+       4 Chrysler Imperial    1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+       5 Datsun 710           1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+       6 Dodge Challenger     1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+       7 Duster 360           1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+       8 Ferrari Dino         1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+       9 Fiat 128             1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+      10 Fiat X1-9            1.50     0 4.10e-24 4.10e-24 4.10e-24  4.10e-24 4.10e-24
+      # i 342 more rows
+      
+      attr(,"composite")$vs$ale$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three            1     6 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+       2 four             1     8 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+       3 five             1     0 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
+       4 three            2     8  9.80e-27  1.19e-27  9.80e-27  9.80e-27  1.84e-26
+       5 four             2     7  3.21e-26  2.39e-26  3.21e-26  3.21e-26  4.03e-26
+       6 five             2     4 -5.57e-26 -6.48e-26 -5.57e-26 -5.57e-26 -4.67e-26
+       7 three            3     7  4.37e-26  1.76e-26  4.37e-26  4.37e-26  6.98e-26
+       8 four             3     2  1.30e-25  1.28e-25  1.30e-25  1.30e-25  1.32e-25
+       9 five             3     0 -9.95e-26 -1.19e-25 -9.95e-26 -9.95e-26 -7.97e-26
+      10 three            4     8  2.68e-26  3.50e-27  2.68e-26  2.68e-26  5.00e-26
+      11 four             4     6  1.23e-25  1.09e-25  1.23e-25  1.23e-25  1.37e-25
+      12 five             4     2 -1.65e-25 -2.08e-25 -1.65e-25 -1.65e-25 -1.21e-25
+      13 three            8     1  2.68e-26  3.50e-27  2.68e-26  2.68e-26  5.00e-26
+      14 four             8     1  1.23e-25  1.09e-25  1.23e-25  1.23e-25  1.37e-25
+      15 five             8     4 -1.65e-25 -2.08e-25 -1.65e-25 -1.65e-25 -1.21e-25
+      
+      attr(,"composite")$vs$ale$d2$`gear:wt`
+      # A tibble: 33 x 8
+         gear.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three       1.50     0  8.44e-25  8.44e-25  8.44e-25  8.44e-25  8.44e-25
+       2 four        1.50     0  8.44e-25  8.44e-25  8.44e-25  8.44e-25  8.44e-25
+       3 five        1.50     1  8.44e-25  8.44e-25  8.44e-25  8.44e-25  8.44e-25
+       4 three       1.93     0 -9.51e-26 -9.87e-25 -9.51e-26 -9.51e-26  7.97e-25
+       5 four        1.93     5 -1.50e-24 -1.95e-24 -1.50e-24 -1.50e-24 -1.06e-24
+       6 five        1.93     1 -1.50e-24 -1.95e-24 -1.50e-24 -1.50e-24 -1.06e-24
+       7 three       2.31     0 -6.63e-25 -2.10e-24 -6.63e-25 -6.63e-25  7.69e-25
+       8 four        2.31     4 -3.05e-24 -3.75e-24 -3.05e-24 -3.05e-24 -2.35e-24
+       9 five        2.31     2 -2.48e-24 -2.65e-24 -2.48e-24 -2.48e-24 -2.32e-24
+      10 three       2.78     2 -9.18e-25 -2.59e-24 -9.18e-25 -9.18e-25  7.56e-25
+      # i 23 more rows
+      
+      attr(,"composite")$vs$ale$d2$`carb:wt`
+      # A tibble: 55 x 8
+         carb.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+             <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1         1    1.50     0 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+       2         2    1.50     1 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+       3         3    1.50     0 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+       4         4    1.50     0 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+       5         8    1.50     0 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+       6         1    1.93     3 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+       7         2    1.93     3 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+       8         3    1.93     0 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+       9         4    1.93     0 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+      10         8    1.93     0 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29 -5.42e-29
+      # i 45 more rows
+      
+      
+      
+      attr(,"composite")$vs$stats
+      # A tibble: 168 x 8
+         term      statistic estimate conf.low  mean median conf.high     d
+         <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl> <int>
+       1 mpg       aled             0        0     0      0         0     1
+       2 mpg       aler_min         0        0     0      0         0     1
+       3 mpg       aler_max         0        0     0      0         0     1
+       4 mpg       naled            0        0     0      0         0     1
+       5 mpg       naler_min        0        0     0      0         0     1
+       6 mpg       naler_max        0        0     0      0         0     1
+       7 continent aled             0        0     0      0         0     1
+       8 continent aler_min         0        0     0      0         0     1
+       9 continent aler_max         0        0     0      0         0     1
+      10 continent naled            0        0     0      0         0     1
+      # i 158 more rows
+      
+      attr(,"composite")$vs$boot_data
+      NULL
+      
+      
+      attr(,"distinct")
+      attr(,"distinct")$vs
+      attr(,"distinct")$vs$ale
+      attr(,"distinct")$vs$ale$d2
+      attr(,"distinct")$vs$ale$d2$`mpg:continent`
+      # A tibble: 33 x 8
+         mpg.ceil continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Asia              0     0     0       0         0     0
+       2     14.3 Asia              0     0     0       0         0     0
+       3     15.1 Asia              0     0     0       0         0     0
+       4     15.8 Asia              0     0     0       0         0     0
+       5     17.8 Asia              0     0     0       0         0     0
+       6     19.2 Asia              0     0     0       0         0     0
+       7     21   Asia              3     0     0       0         0     0
+       8     21.5 Asia              2     0     0       0         0     0
+       9     24.6 Asia              3     0     0       0         0     0
+      10     30.4 Asia              1     0     0       0         0     0
+      # i 23 more rows
+      
+      attr(,"distinct")$vs$ale$d2$`mpg:am`
+      # A tibble: 22 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.3 FALSE      6     0     0       0         0     0
+       3     15.1 FALSE      4     0     0       0         0     0
+       4     15.8 FALSE      5     0     0       0         0     0
+       5     17.8 FALSE      6     0     0       0         0     0
+       6     19.2 FALSE      7     0     0       0         0     0
+       7     21   FALSE      1     0     0       0         0     0
+       8     21.5 FALSE      3     0     0       0         0     0
+       9     24.6 FALSE      5     0     0       0         0     0
+      10     30.4 FALSE      0     0     0       0         0     0
+      # i 12 more rows
+      
+      attr(,"distinct")$vs$ale$d2$`mpg:model`
+      # A tibble: 352 x 8
+         mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 AMC Javelin     0     0     0       0         0     0
+       2     14.3 AMC Javelin     0     0     0       0         0     0
+       3     15.1 AMC Javelin     0     0     0       0         0     0
+       4     15.8 AMC Javelin     0     0     0       0         0     0
+       5     17.8 AMC Javelin     0     0     0       0         0     0
+       6     19.2 AMC Javelin     0     0     0       0         0     0
+       7     21   AMC Javelin     1     0     0       0         0     0
+       8     21.5 AMC Javelin     1     0     0       0         0     0
+       9     24.6 AMC Javelin     0     0     0       0         0     0
+      10     30.4 AMC Javelin     0     0     0       0         0     0
+      # i 342 more rows
+      
+      attr(,"distinct")$vs$ale$d2$`mpg:gear`
+      # A tibble: 33 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.3 three        6     0     0       0         0     0
+       3     15.1 three        4     0     0       0         0     0
+       4     15.8 three        5     0     0       0         0     0
+       5     17.8 three        4     0     0       0         0     0
+       6     19.2 three        6     0     0       0         0     0
+       7     21   three        0     0     0       0         0     0
+       8     21.5 three        3     0     0       0         0     0
+       9     24.6 three        1     0     0       0         0     0
+      10     30.4 three        0     0     0       0         0     0
+      # i 23 more rows
+      
+      attr(,"distinct")$vs$ale$d2$`mpg:carb`
+      # A tibble: 55 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.3         1     0     0     0       0         0     0
+       3     15.1         1     0     0     0       0         0     0
+       4     15.8         1     0     0     0       0         0     0
+       5     17.8         1     0     0     0       0         0     0
+       6     19.2         1     2     0     0       0         0     0
+       7     21           1     0     0     0       0         0     0
+       8     21.5         1     3     0     0       0         0     0
+       9     24.6         1     3     0     0       0         0     0
+      10     30.4         1     2     0     0       0         0     0
+      # i 45 more rows
+      
+      attr(,"distinct")$vs$ale$d2$`mpg:wt`
+      # A tibble: 121 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.3    1.50     0     0     0       0         0     0
+       3     15.1    1.50     0     0     0       0         0     0
+       4     15.8    1.50     0     0     0       0         0     0
+       5     17.8    1.50     0     0     0       0         0     0
+       6     19.2    1.50     0     0     0       0         0     0
+       7     21      1.50     0     0     0       0         0     0
+       8     21.5    1.50     0     0     0       0         0     0
+       9     24.6    1.50     0     0     0       0         0     0
+      10     30.4    1.50     1     0     0       0         0     0
+      # i 111 more rows
+      
+      attr(,"distinct")$vs$ale$d2$`continent:am`
+      # A tibble: 6 x 8
+        continent.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 Asia          FALSE      2     0     0       0         0     0
+      2 Europe        FALSE     14     0     0       0         0     0
+      3 North America FALSE     22     0     0       0         0     0
+      4 Asia          TRUE      10     0     0       0         0     0
+      5 Europe        TRUE      14     0     0       0         0     0
+      6 North America TRUE       2     0     0       0         0     0
+      
+      attr(,"distinct")$vs$ale$d2$`continent:model`
+      # A tibble: 96 x 8
+         continent.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>         <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 Asia          AMC Javelin            2     0     0       0         0     0
+       2 Europe        AMC Javelin            0     0     0       0         0     0
+       3 North America AMC Javelin            0     0     0       0         0     0
+       4 Asia          Cadillac Fleetwood     2     0     0       0         0     0
+       5 Europe        Cadillac Fleetwood     0     0     0       0         0     0
+       6 North America Cadillac Fleetwood     0     0     0       0         0     0
+       7 Asia          Camaro Z28             2     0     0       0         0     0
+       8 Europe        Camaro Z28             0     0     0       0         0     0
+       9 North America Camaro Z28             0     0     0       0         0     0
+      10 Asia          Chrysler Imperial      0     0     0       0         0     0
+      # i 86 more rows
+      
+      attr(,"distinct")$vs$ale$d2$`continent:gear`
+      # A tibble: 9 x 8
+        continent.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 Asia          three        2     0     0       0         0     0
+      2 Europe        three        6     0     0       0         0     0
+      3 North America three       22     0     0       0         0     0
+      4 Asia          four        10     0     0       0         0     0
+      5 Europe        four        14     0     0       0         0     0
+      6 North America four         0     0     0       0         0     0
+      7 Asia          five         0     0     0       0         0     0
+      8 Europe        five         8     0     0       0         0     0
+      9 North America five         2     0     0       0         0     0
+      
+      attr(,"distinct")$vs$ale$d2$`continent:carb`
+      # A tibble: 15 x 8
+         continent.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 Asia                  1     6     0     0       0         0     0
+       2 Europe                1     4     0     0       0         0     0
+       3 North America         1     4     0     0       0         0     0
+       4 Asia                  2     2     0     0       0         0     0
+       5 Europe                2    10     0     0       0         0     0
+       6 North America         2     7     0     0       0         0     0
+       7 Asia                  3     1     0     0       0         0     0
+       8 Europe                3     5     0     0       0         0     0
+       9 North America         3     3     0     0       0         0     0
+      10 Asia                  4     3     0     0       0         0     0
+      11 Europe                4     4     0     0       0         0     0
+      12 North America         4     9     0     0       0         0     0
+      13 Asia                  8     0     0     0       0         0     0
+      14 Europe                8     5     0     0       0         0     0
+      15 North America         8     1     0     0       0         0     0
+      
+      attr(,"distinct")$vs$ale$d2$`continent:wt`
+      # A tibble: 33 x 8
+         continent.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 Asia             1.50     0     0     0       0         0     0
+       2 Europe           1.50     1     0     0       0         0     0
+       3 North America    1.50     0     0     0       0         0     0
+       4 Asia             1.93     4     0     0       0         0     0
+       5 Europe           1.93     2     0     0       0         0     0
+       6 North America    1.93     0     0     0       0         0     0
+       7 Asia             2.31     1     0     0       0         0     0
+       8 Europe           2.31     5     0     0       0         0     0
+       9 North America    2.31     0     0     0       0         0     0
+      10 Asia             2.78     5     0     0       0         0     0
+      # i 23 more rows
+      
+      attr(,"distinct")$vs$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin         .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>  <ord>          <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
        1 FALSE  AMC Javelin        0 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
-       2 TRUE   AMC Javelin        2  3.70e-29  2.86e-29  3.70e-29  2.86e-29  5.26e-29
+       2 TRUE   AMC Javelin        2  2.86e-29  2.86e-29  2.86e-29  2.86e-29  2.86e-29
        3 FALSE  Cadillac Flee~     0 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
-       4 TRUE   Cadillac Flee~     2  3.70e-29  2.86e-29  3.70e-29  2.86e-29  5.26e-29
+       4 TRUE   Cadillac Flee~     2  2.86e-29  2.86e-29  2.86e-29  2.86e-29  2.86e-29
        5 FALSE  Camaro Z28         0 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
-       6 TRUE   Camaro Z28         2  3.70e-29  2.86e-29  3.70e-29  2.86e-29  5.26e-29
+       6 TRUE   Camaro Z28         2  2.86e-29  2.86e-29  2.86e-29  2.86e-29  2.86e-29
        7 FALSE  Chrysler Impe~     2 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
-       8 TRUE   Chrysler Impe~     0  3.70e-29  2.86e-29  3.70e-29  2.86e-29  5.26e-29
-       9 FALSE  Datsun 710         2 -2.34e-28 -6.55e-28 -2.34e-28 -7.30e-30 -7.30e-30
-      10 TRUE   Datsun 710         0 -1.90e-28 -5.95e-28 -1.90e-28  2.86e-29  2.86e-29
+       8 TRUE   Chrysler Impe~     0  2.86e-29  2.86e-29  2.86e-29  2.86e-29  2.86e-29
+       9 FALSE  Datsun 710         2 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
+      10 TRUE   Datsun 710         0  2.86e-29  2.86e-29  2.86e-29  2.86e-29  2.86e-29
       # i 54 more rows
       
-      attr(,"effect")$vs$ale$d2$`am:gear`
+      attr(,"distinct")$vs$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
         <ord>  <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 FALSE  three       30  2.31e-20  1.01e-20  2.31e-20  3.01e-20  3.01e-20
-      2 TRUE   three        0 -3.16e-20 -4.46e-20 -3.16e-20 -2.46e-20 -2.46e-20
-      3 FALSE  four         8  2.31e-20 -1.43e-20  2.31e-20  4.33e-20  4.33e-20
-      4 TRUE   four        16  1.32e-21 -1.05e-20  1.32e-21  7.03e-21  8.28e-21
-      5 FALSE  five         0  2.31e-20 -1.43e-20  2.31e-20  4.33e-20  4.33e-20
-      6 TRUE   five        10  1.32e-21 -1.05e-20  1.32e-21  7.03e-21  8.28e-21
+      1 FALSE  three       30  9.05e-21  9.05e-21  9.05e-21  9.05e-21  9.05e-21
+      2 TRUE   three        0 -4.57e-20 -4.57e-20 -4.57e-20 -4.57e-20 -4.57e-20
+      3 FALSE  four         8 -1.73e-20 -1.73e-20 -1.73e-20 -1.73e-20 -1.73e-20
+      4 TRUE   four        16  7.03e-21  7.03e-21  7.03e-21  7.03e-21  7.03e-21
+      5 FALSE  five         0 -1.73e-20 -1.73e-20 -1.73e-20 -1.73e-20 -1.73e-20
+      6 TRUE   five        10  7.03e-21  7.03e-21  7.03e-21  7.03e-21  7.03e-21
       
-      attr(,"effect")$vs$ale$d2$`am:carb`
+      attr(,"distinct")$vs$ale$d2$`am:carb`
       # A tibble: 10 x 8
          am.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
        1 FALSE          1     6 -7.20e-29 -7.20e-29 -7.20e-29 -7.20e-29 -7.20e-29
        2 TRUE           1     8  2.73e-28  2.73e-28  2.73e-28  2.73e-28  2.73e-28
-       3 FALSE          2    12 -2.89e-28 -6.05e-28 -2.89e-28 -3.22e-28  5.44e-29
-       4 TRUE           2     7 -6.71e-28 -1.60e-27 -6.71e-28 -3.74e-28  3.04e-30
-       5 FALSE          3     7 -2.87e-28 -6.02e-28 -2.87e-28 -3.20e-28  5.72e-29
-       6 TRUE           3     2 -6.77e-28 -1.60e-27 -6.77e-28 -3.96e-28  4.58e-30
-       7 FALSE          4    11 -2.88e-28 -6.03e-28 -2.88e-28 -3.24e-28  5.70e-29
-       8 TRUE           4     5 -6.79e-28 -1.61e-27 -6.79e-28 -3.96e-28  7.75e-30
-       9 FALSE          8     2 -7.51e-28 -1.07e-27 -7.51e-28 -7.86e-28 -4.06e-28
-      10 TRUE           8     4  7.35e-28  5.38e-28  7.35e-28  6.96e-28  9.66e-28
+       3 FALSE          2    12  7.42e-29  7.42e-29  7.42e-29  7.42e-29  7.42e-29
+       4 TRUE           2     7 -3.74e-28 -3.74e-28 -3.74e-28 -3.74e-28 -3.74e-28
+       5 FALSE          3     7  7.70e-29  7.70e-29  7.70e-29  7.70e-29  7.70e-29
+       6 TRUE           3     2 -3.96e-28 -3.96e-28 -3.96e-28 -3.96e-28 -3.96e-28
+       7 FALSE          4    11  7.70e-29  7.70e-29  7.70e-29  7.70e-29  7.70e-29
+       8 TRUE           4     5 -3.96e-28 -3.96e-28 -3.96e-28 -3.96e-28 -3.96e-28
+       9 FALSE          8     2 -3.86e-28 -3.86e-28 -3.86e-28 -3.86e-28 -3.86e-28
+      10 TRUE           8     4  5.29e-28  5.29e-28  5.29e-28  5.29e-28  5.29e-28
       
-      attr(,"effect")$vs$ale$d2$`am:wt`
+      attr(,"distinct")$vs$ale$d2$`am:wt`
       # A tibble: 22 x 8
          am.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>    <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -322,15 +680,15 @@
        2 TRUE      1.50     1  3.47e-30  3.47e-30  3.47e-30  3.47e-30  3.47e-30
        3 FALSE     1.93     0 -9.80e-30 -9.80e-30 -9.80e-30 -9.80e-30 -9.80e-30
        4 TRUE      1.93     6  3.47e-30  3.47e-30  3.47e-30  3.47e-30  3.47e-30
-       5 FALSE     2.31     0 -1.37e-29 -2.14e-29 -1.37e-29 -1.82e-29 -2.22e-30
-       6 TRUE      2.31     6 -1.73e-29 -4.01e-29 -1.73e-29 -4.94e-30 -4.94e-30
-       7 FALSE     2.78     2 -1.37e-29 -2.14e-29 -1.37e-29 -1.82e-29 -2.22e-30
-       8 TRUE      2.78     5 -1.73e-29 -4.01e-29 -1.73e-29 -4.94e-30 -4.94e-30
-       9 FALSE     3.16     2 -9.51e-30 -1.72e-29 -9.51e-30 -1.40e-29  1.99e-30
-      10 TRUE      3.16     4 -1.73e-29 -3.65e-29 -1.73e-29 -1.34e-29 -1.36e-30
+       5 FALSE     2.31     0 -1.38e-30 -1.38e-30 -1.38e-30 -1.38e-30 -1.38e-30
+       6 TRUE      2.31     6 -4.94e-30 -4.94e-30 -4.94e-30 -4.94e-30 -4.94e-30
+       7 FALSE     2.78     2 -1.38e-30 -1.38e-30 -1.38e-30 -1.38e-30 -1.38e-30
+       8 TRUE      2.78     5 -4.94e-30 -4.94e-30 -4.94e-30 -4.94e-30 -4.94e-30
+       9 FALSE     3.16     2  2.83e-30  2.83e-30  2.83e-30  2.83e-30  2.83e-30
+      10 TRUE      3.16     4 -1.34e-29 -1.34e-29 -1.34e-29 -1.34e-29 -1.34e-29
       # i 12 more rows
       
-      attr(,"effect")$vs$ale$d2$`model:gear`
+      attr(,"distinct")$vs$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>              <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -341,12 +699,12 @@
        5 Datsun 710         three        2  0.0612  0.0612  0.0612    0.0612  0.0612
        6 Dodge Challenger   three        2  0.0612  0.0612  0.0612    0.0612  0.0612
        7 Duster 360         three        2  0.0612  0.0612  0.0612    0.0612  0.0612
-       8 Ferrari Dino       three        0  0.0279 -0.0338  0.0279    0.0612  0.0612
-       9 Fiat 128           three        0 -0.0388 -0.224  -0.0388    0.0612  0.0612
-      10 Fiat X1-9          three        0 -0.139  -0.509  -0.139     0.0612  0.0612
+       8 Ferrari Dino       three        0  0.0612  0.0612  0.0612    0.0612  0.0612
+       9 Fiat 128           three        0  0.0612  0.0612  0.0612    0.0612  0.0612
+      10 Fiat X1-9          three        0  0.0612  0.0612  0.0612    0.0612  0.0612
       # i 86 more rows
       
-      attr(,"effect")$vs$ale$d2$`model:carb`
+      attr(,"distinct")$vs$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin   carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -362,7 +720,7 @@
       10 Fiat X1-9           1     0  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
       # i 150 more rows
       
-      attr(,"effect")$vs$ale$d2$`model:wt`
+      attr(,"distinct")$vs$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin     wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -378,43 +736,43 @@
       10 Fiat X1-9        1.50     0 -7.76e-24 -7.76e-24 -7.76e-24 -7.76e-24 -7.76e-24
       # i 342 more rows
       
-      attr(,"effect")$vs$ale$d2$`gear:carb`
+      attr(,"distinct")$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
        1 three            1     6  1.74e-26  1.74e-26  1.74e-26  1.74e-26  1.74e-26
        2 four             1     8 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26
        3 five             1     0  2.35e-25  2.35e-25  2.35e-25  2.35e-25  2.35e-25
-       4 three            2     8 -5.54e-27 -2.88e-26 -5.54e-27 -2.29e-27  1.49e-26
-       5 four             2     7 -2.85e-26 -6.29e-26 -2.85e-26 -4.66e-26  2.14e-26
-       6 five             2     4  1.91e-25  1.50e-25  1.91e-25  1.68e-25  2.51e-25
-       7 three            3     7  1.71e-26 -2.80e-26  1.71e-26  1.32e-26  6.54e-26
-       8 four             3     2  3.67e-26  2.58e-26  3.67e-26  4.06e-26  4.45e-26
-       9 five             3     0  1.27e-25  9.59e-26  1.27e-25  1.36e-25  1.49e-25
-      10 three            4     8  1.45e-26 -2.00e-26  1.45e-26  7.97e-27  5.45e-26
-      11 four             4     6  4.08e-26  2.96e-26  4.08e-26  3.37e-26  5.81e-26
-      12 five             4     2  4.53e-26  1.32e-26  4.53e-26  1.93e-26  9.96e-26
-      13 three            8     1 -2.19e-25 -2.53e-25 -2.19e-25 -2.25e-25 -1.79e-25
-      14 four             8     1 -6.02e-27 -2.02e-25 -6.02e-27 -1.74e-25  3.33e-25
-      15 five             8     4 -1.88e-25 -2.20e-25 -1.88e-25 -2.13e-25 -1.34e-25
+       4 three            2     8 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26
+       5 four             2     7  2.50e-26  2.50e-26  2.50e-26  2.50e-26  2.50e-26
+       6 five             2     4  2.55e-25  2.55e-25  2.55e-25  2.55e-25  2.55e-25
+       7 three            3     7 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26
+       8 four             3     2  2.50e-26  2.50e-26  2.50e-26  2.50e-26  2.50e-26
+       9 five             3     0  1.50e-25  1.50e-25  1.50e-25  1.50e-25  1.50e-25
+      10 three            4     8 -2.15e-26 -2.15e-26 -2.15e-26 -2.15e-26 -2.15e-26
+      11 four             4     6  3.37e-26  3.37e-26  3.37e-26  3.37e-26  3.37e-26
+      12 five             4     2  1.93e-26  1.93e-26  1.93e-26  1.93e-26  1.93e-26
+      13 three            8     1 -2.55e-25 -2.55e-25 -2.55e-25 -2.55e-25 -2.55e-25
+      14 four             8     1  3.60e-25  3.60e-25  3.60e-25  3.60e-25  3.60e-25
+      15 five             8     4 -2.13e-25 -2.13e-25 -2.13e-25 -2.13e-25 -2.13e-25
       
-      attr(,"effect")$vs$ale$d2$`gear:wt`
+      attr(,"distinct")$vs$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
        1 three       1.50     0 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24
        2 four        1.50     0  1.38e-24  1.38e-24  1.38e-24  1.38e-24  1.38e-24
        3 five        1.50     1 -1.98e-24 -1.98e-24 -1.98e-24 -1.98e-24 -1.98e-24
-       4 three       1.93     0 -1.33e-24 -2.49e-24 -1.33e-24 -7.02e-25 -7.02e-25
-       5 four        1.93     5  2.82e-25 -2.98e-25  2.82e-25  5.95e-25  5.95e-25
-       6 five        1.93     1 -3.07e-24 -3.65e-24 -3.07e-24 -2.76e-24 -2.76e-24
-       7 three       2.31     0 -8.54e-25 -2.71e-24 -8.54e-25  1.51e-25  1.51e-25
-       8 four        2.31     4 -4.66e-25 -1.26e-24 -4.66e-25 -2.57e-25  1.47e-25
-       9 five        2.31     2 -2.88e-24 -3.51e-24 -2.88e-24 -3.19e-24 -1.97e-24
-      10 three       2.78     2 -1.17e-24 -3.34e-24 -1.17e-24  4.78e-27  4.78e-27
+       4 three       1.93     0 -7.02e-25 -7.02e-25 -7.02e-25 -7.02e-25 -7.02e-25
+       5 four        1.93     5  5.95e-25  5.95e-25  5.95e-25  5.95e-25  5.95e-25
+       6 five        1.93     1 -2.76e-24 -2.76e-24 -2.76e-24 -2.76e-24 -2.76e-24
+       7 three       2.31     0  1.51e-25  1.51e-25  1.51e-25  1.51e-25  1.51e-25
+       8 four        2.31     4 -2.57e-25 -2.57e-25 -2.57e-25 -2.57e-25 -2.57e-25
+       9 five        2.31     2 -1.91e-24 -1.91e-24 -1.91e-24 -1.91e-24 -1.91e-24
+      10 three       2.78     2  4.78e-27  4.78e-27  4.78e-27  4.78e-27  4.78e-27
       # i 23 more rows
       
-      attr(,"effect")$vs$ale$d2$`carb:wt`
+      attr(,"distinct")$vs$ale$d2$`carb:wt`
       # A tibble: 55 x 8
          carb.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -425,48 +783,30 @@
        5         8    1.50     0 -1.81e-28 -1.81e-28 -1.81e-28 -1.81e-28 -1.81e-28
        6         1    1.93     3  2.24e-29  2.24e-29  2.24e-29  2.24e-29  2.24e-29
        7         2    1.93     3  7.81e-30  7.81e-30  7.81e-30  7.81e-30  7.81e-30
-       8         3    1.93     0 -1.21e-29 -1.77e-29 -1.21e-29 -1.77e-29 -1.68e-30
-       9         4    1.93     0 -1.08e-28 -1.13e-28 -1.08e-28 -1.13e-28 -9.72e-29
-      10         8    1.93     0 -1.75e-28 -1.81e-28 -1.75e-28 -1.81e-28 -1.65e-28
+       8         3    1.93     0 -8.42e-31 -8.42e-31 -8.42e-31 -8.42e-31 -8.42e-31
+       9         4    1.93     0 -9.64e-29 -9.64e-29 -9.64e-29 -9.64e-29 -9.64e-29
+      10         8    1.93     0 -1.64e-28 -1.64e-28 -1.64e-28 -1.64e-28 -1.64e-28
       # i 45 more rows
       
       
       
-      attr(,"effect")$vs$stats
-      attr(,"effect")$vs$stats$d1
-      # A tibble: 42 x 7
-         term      statistic estimate conf.low  mean median conf.high
-         <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 mpg       aled             0        0     0      0         0
-       2 mpg       aler_min         0        0     0      0         0
-       3 mpg       aler_max         0        0     0      0         0
-       4 mpg       naled            0        0     0      0         0
-       5 mpg       naler_min        0        0     0      0         0
-       6 mpg       naler_max        0        0     0      0         0
-       7 continent aled             0        0     0      0         0
-       8 continent aler_min         0        0     0      0         0
-       9 continent aler_max         0        0     0      0         0
-      10 continent naled            0        0     0      0         0
-      # i 32 more rows
-      
-      attr(,"effect")$vs$stats$d2
-      # A tibble: 126 x 7
-         term          statistic estimate conf.low  mean median conf.high
-         <chr>         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 mpg:continent aled             0        0     0      0         0
-       2 mpg:continent aler_min         0        0     0      0         0
-       3 mpg:continent aler_max         0        0     0      0         0
-       4 mpg:continent naled            0        0     0      0         0
-       5 mpg:continent naler_min        0        0     0      0         0
-       6 mpg:continent naler_max        0        0     0      0         0
-       7 mpg:am        aled             0        0     0      0         0
-       8 mpg:am        aler_min         0        0     0      0         0
-       9 mpg:am        aler_max         0        0     0      0         0
-      10 mpg:am        naled            0        0     0      0         0
+      attr(,"distinct")$vs$stats
+      # A tibble: 126 x 8
+         term          statistic estimate conf.low  mean median conf.high     d
+         <chr>         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl> <int>
+       1 mpg:continent aled             0        0     0      0         0     2
+       2 mpg:continent aler_min         0        0     0      0         0     2
+       3 mpg:continent aler_max         0        0     0      0         0     2
+       4 mpg:continent naled            0        0     0      0         0     2
+       5 mpg:continent naler_min        0        0     0      0         0     2
+       6 mpg:continent naler_max        0        0     0      0         0     2
+       7 mpg:am        aled             0        0     0      0         0     2
+       8 mpg:am        aler_min         0        0     0      0         0     2
+       9 mpg:am        aler_max         0        0     0      0         0     2
+      10 mpg:am        naled            0        0     0      0         0     2
       # i 116 more rows
       
-      
-      attr(,"effect")$vs$boot_data
+      attr(,"distinct")$vs$boot_data
       NULL
       
       
@@ -533,7 +873,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "f2fa16ad742b1f97311ac9acf2037e8d"
+      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
       
       
       attr(,"params")$data
@@ -626,6 +966,9 @@
       
       attr(,"params")$y_col
       [1] "vs"
+      
+      attr(,"params")$comp
+      [1] "auto"
       
       attr(,"params")$parallel
       [1] 0
@@ -733,23 +1076,23 @@
       $vs$d1$am
         x            y PANEL group flipped_aes ymin         ymax     xmin     xmax
       1 1 3.925672e-13     1     1       FALSE    0 3.925672e-13 0.500000 1.500000
-      2 2 3.925673e-13     1     2       FALSE    0 3.925673e-13 1.657895 2.342105
+      2 2 3.925672e-13     1     2       FALSE    0 3.925672e-13 1.657895 2.342105
         order xid newx new_width colour fill linewidth linetype alpha     width
       1     1   1    1 1.0000000     NA grey       0.5        1    NA 1.0000000
       2     1   2    2 0.6842105     NA grey       0.5        1    NA 0.6842105
       
       $vs$d1$model
           x         y PANEL group flipped_aes ymin      ymax  xmin   xmax order xid
-      1   1 1.0000000     1     1       FALSE    0 1.0000000 0.975  1.025     1   1
-      2   2 1.0000000     1     2       FALSE    0 1.0000000 1.975  2.025     1   2
-      3   3 1.0000000     1     3       FALSE    0 1.0000000 2.975  3.025     1   3
-      4   4 1.1666667     1     4       FALSE    0 1.1666667 3.975  4.025     1   4
-      5   5 1.1666667     1     5       FALSE    0 1.1666667 4.975  5.025     1   5
-      6   6 1.5000000     1     6       FALSE    0 1.5000000 5.975  6.025     1   6
-      7   7 1.6666667     1     7       FALSE    0 1.6666667 6.975  7.025     1   7
-      8   8 1.8333333     1     8       FALSE    0 1.8333333 7.975  8.025     1   8
-      9   9 1.1666667     1     9       FALSE    0 1.1666667 8.975  9.025     1   9
-      10 10 0.2536232     1    10       FALSE    0 0.2536232 9.500 10.500     1  10
+      1   1 1.2500000     1     1       FALSE    0 1.2500000 0.975  1.025     1   1
+      2   2 1.2500000     1     2       FALSE    0 1.2500000 1.975  2.025     1   2
+      3   3 1.2500000     1     3       FALSE    0 1.2500000 2.975  3.025     1   3
+      4   4 1.2500000     1     4       FALSE    0 1.2500000 3.975  4.025     1   4
+      5   5 1.2500000     1     5       FALSE    0 1.2500000 4.975  5.025     1   5
+      6   6 1.2500000     1     6       FALSE    0 1.2500000 5.975  6.025     1   6
+      7   7 1.5000000     1     7       FALSE    0 1.5000000 6.975  7.025     1   7
+      8   8 1.7500000     1     8       FALSE    0 1.7500000 7.975  8.025     1   8
+      9   9 1.2500000     1     9       FALSE    0 1.2500000 8.975  9.025     1   9
+      10 10 0.6086957     1    10       FALSE    0 0.6086957 9.500 10.500     1  10
          newx new_width colour fill linewidth linetype alpha width
       1     1      0.05     NA grey       0.5        1    NA  0.05
       2     2      0.05     NA grey       0.5        1    NA  0.05
@@ -764,9 +1107,9 @@
       
       $vs$d1$gear
         x          y PANEL group flipped_aes       ymin      ymax     xmin     xmax
-      1 1 -0.1732639     1     1       FALSE -0.1732639 0.0000000 0.500000 1.500000
-      2 2  0.3545139     1     2       FALSE  0.0000000 0.3545139 1.600000 2.400000
-      3 3 -0.1788194     1     3       FALSE -0.1788194 0.0000000 2.833333 3.166667
+      1 1 -0.1010417     1     1       FALSE -0.1010417 0.0000000 0.500000 1.500000
+      2 2  0.2739583     1     2       FALSE  0.0000000 0.2739583 1.600000 2.400000
+      3 3 -0.1260417     1     3       FALSE -0.1260417 0.0000000 2.833333 3.166667
         order xid newx new_width colour fill linewidth linetype alpha     width
       1     1   1    1 1.0000000     NA grey       0.5        1    NA 1.0000000
       2     1   2    2 0.8000000     NA grey       0.5        1    NA 0.8000000
@@ -6138,294 +6481,294 @@
       
       $vs$d2$`model:gear`
            x y    fill PANEL group xmin xmax ymin ymax colour linewidth linetype
-      1    1 1 #DEC3BC     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
-      2    1 1 #DEC3BC     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
-      3    1 1 #DEC3BC     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
-      4    2 1 #D1CFD3     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
-      5    2 1 #D1CFD3     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
-      6    2 1 #D1CFD3     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
-      7    3 1 #D1CFD3     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
-      8    3 1 #D1CFD3     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
-      9    3 1 #D1CFD3     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
-      10   4 1 #D1CFD3     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
-      11   4 1 #D1CFD3     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
-      12   4 1 #D1CFD3     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
-      13   5 1 #D1CFD3     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
-      14   5 1 #D1CFD3     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
-      15   5 1 #D1CFD3     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
-      16   6 1 #D1CFD3     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
-      17   6 1 #D1CFD3     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
-      18   6 1 #D1CFD3     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
-      19   7 1 #D1CFD3     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
-      20   7 1 #D1CFD3     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
-      21   7 1 #D1CFD3     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
-      22   8 1 #D3D1D0     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
-      23   8 1 #D1D1D2     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
-      24   8 1 #D1CFD3     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
-      25   9 1 #D9CBC7     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
-      26   9 1 #D3D1D0     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
-      27   9 1 #D1CFD3     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
-      28  10 1 #E0C1B9     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
-      29  10 1 #D6CDCB     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
-      30  10 1 #D1CFD3     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
-      31  11 1 #E8B4A6     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
-      32  11 1 #DAC9C4     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
-      33  11 1 #D1CFD3     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
-      34  12 1 #F0A38F     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
-      35  12 1 #DEC3BC     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
-      36  12 1 #D1CFD3     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
-      37  13 1 #F0A38F     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
-      38  13 1 #DEC3BC     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
-      39  13 1 #D1CFD3     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
-      40  14 1 #E8B4A6     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
-      41  14 1 #DAC9C4     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
-      42  14 1 #D1CFD3     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
-      43  15 1 #E9B3A5     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
-      44  15 1 #DEC3BC     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
-      45  15 1 #D1D0D3     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
-      46  16 1 #E9B2A4     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
-      47  16 1 #E2BEB4     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
-      48  16 1 #D2D2D2     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
-      49  17 1 #DEC3BC     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
-      50  17 1 #DAC9C4     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
-      51  17 1 #D1D0D3     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
-      52  18 1 #D4D0CF     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
-      53  18 1 #D3D1D1     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
-      54  18 1 #D1D0D3     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
-      55  19 1 #DEC3BC     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
-      56  19 1 #DCC6C0     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
-      57  19 1 #DBC7C2     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
-      58  20 1 #E9B3A4     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
-      59  20 1 #E6B8AC     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
-      60  20 1 #E4BBB0     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
-      61  21 1 #E9B3A4     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
-      62  21 1 #E6B8AC     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
-      63  21 1 #E4BBB0     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
-      64  22 1 #E9B3A4     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
-      65  22 1 #E6B8AC     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
-      66  22 1 #E4BBB0     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
-      67  23 1 #EDAA98     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
-      68  23 1 #E9B2A4     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
-      69  23 1 #E4BAAF     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
-      70  24 1 #EDAA98     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
-      71  24 1 #E9B2A4     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
-      72  24 1 #E4BAAF     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
-      73  25 1 #EDAA98     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
-      74  25 1 #E9B2A4     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
-      75  25 1 #E4BAAF     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
-      76  26 1 #EDAA98     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
-      77  26 1 #E9B2A4     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
-      78  26 1 #E4BAAF     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
-      79  27 1 #F0A490     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
-      80  27 1 #ECAC9C     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
-      81  27 1 #E8B5A7     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
-      82  28 1 #F98569     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
-      83  28 1 #F78E74     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
-      84  28 1 #F5977F     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
-      85  29 1 #FD7152     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
-      86  29 1 #FB7B5D     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
-      87  29 1 #FA8468     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
-      88  30 1 #FF5233     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
-      89  30 1 #FE5E3E     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
-      90  30 1 #FE6949     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
-      91  31 1 #FF3E22     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
-      92  31 1 #FF4C2E     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
-      93  31 1 #FF5939     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
-      94  32 1 #FF0000     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
-      95  32 1 #FF2913     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
-      96  32 1 #FF3C21     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
-      97   1 2 #E4BBB0     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
-      98   1 2 #D4D0CF     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
-      99   1 2 #CDC6D6     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
-      100  2 2 #EDAB9A     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
-      101  2 2 #D0CDD3     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
-      102  2 2 #C1B0DC     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
-      103  3 2 #EDAB9A     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
-      104  3 2 #D0CDD3     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
-      105  3 2 #C1B0DC     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
-      106  4 2 #EDAB9A     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
-      107  4 2 #D1CFD3     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
-      108  4 2 #C2B0DC     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
-      109  5 2 #EDAB9A     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
-      110  5 2 #D2D2D2     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
-      111  5 2 #C2B1DC     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
-      112  6 2 #EDAA99     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
-      113  6 2 #D5CFCD     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
-      114  6 2 #C2B2DC     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
-      115  7 2 #EDAA98     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
-      116  7 2 #D9CAC7     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
-      117  7 2 #C3B2DC     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
-      118  8 2 #EEA997     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
-      119  8 2 #DEC4BD     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
-      120  8 2 #C3B4DB     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
-      121  9 2 #EEA896     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
-      122  9 2 #E0C1B9     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
-      123  9 2 #C4B4DB     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
-      124 10 2 #F0A591     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
-      125 10 2 #E2BEB4     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
-      126 10 2 #C4B5DB     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
-      127 11 2 #F5977F     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
-      128 11 2 #E8B4A6     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
-      129 11 2 #CEC9D5     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
-      130 12 2 #F98569     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
-      131 12 2 #EEA997     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
-      132 12 2 #D8CBC7     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
-      133 13 2 #F98569     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
-      134 13 2 #F0A591     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
-      135 13 2 #E1BFB7     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
-      136 14 2 #F5977F     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
-      137 14 2 #EFA795     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
-      138 14 2 #E7B6A9     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
-      139 15 2 #F5967E     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
-      140 15 2 #F29F89     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
-      141 15 2 #EEA795     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
-      142 16 2 #F9876B     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
-      143 16 2 #F5977F     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
-      144 16 2 #EFA794     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
-      145 17 2 #F5977F     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
-      146 17 2 #F1A28E     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
-      147 17 2 #EEA896     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
-      148 18 2 #F0A490     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
-      149 18 2 #EDAB9A     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
-      150 18 2 #E8B4A7     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
-      151 19 2 #F39B85     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
-      152 19 2 #EDAB9A     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
-      153 19 2 #E5B9AD     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
-      154 20 2 #F78E73     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
-      155 20 2 #EEA896     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
-      156 20 2 #DBC8C3     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
-      157 21 2 #F78E73     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
-      158 21 2 #E9B2A3     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
-      159 21 2 #C8BCD9     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
-      160 22 2 #F78E73     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
-      161 22 2 #E5B9AE     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
-      162 22 2 #B8A0E1     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
-      163 23 2 #F88D72     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
-      164 23 2 #E5B9AE     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
-      165 23 2 #AC8DE6     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
-      166 24 2 #F88D72     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
-      167 24 2 #E3BDB3     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
-      168 24 2 #A37FE9     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
-      169 25 2 #F88D72     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
-      170 25 2 #E1BFB6     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
-      171 25 2 #9D78EB     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
-      172 26 2 #F88D72     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
-      173 26 2 #E1BFB6     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
-      174 26 2 #9D78EB     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
-      175 27 2 #F88A6E     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
-      176 27 2 #E2BEB5     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
-      177 27 2 #9D78EB     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
-      178 28 2 #FD6F50     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
-      179 28 2 #EDAB9A     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
-      180 28 2 #AD8EE6     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
-      181 29 2 #FE6545     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
-      182 29 2 #EEA896     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
-      183 29 2 #AD8EE6     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
-      184 30 2 #FF5536     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
-      185 30 2 #F0A490     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
-      186 30 2 #AD8EE6     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
-      187 31 2 #FF5B3B     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
-      188 31 2 #EAB1A2     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
-      189 31 2 #9D78EB     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
-      190 32 2 #FF5C3C     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
-      191 32 2 #E3BCB2     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
-      192 32 2 #8B62F0     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
-      193  1 3 #EFA693     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
-      194  1 3 #E4BCB1     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
-      195  1 3 #DCC7C2     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
-      196  2 3 #F5967E     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
-      197  2 3 #E0C1B9     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
-      198  2 3 #CFCBD4     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
-      199  3 3 #F5967E     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
-      200  3 3 #E0C1B9     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
-      201  3 3 #CFCBD4     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
-      202  4 3 #F5967E     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
-      203  4 3 #E1C0B8     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
-      204  4 3 #CFCBD4     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
-      205  5 3 #F5957D     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
-      206  5 3 #E2BEB4     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
-      207  5 3 #CFCBD4     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
-      208  6 3 #F5957D     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
-      209  6 3 #E4BAB0     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
-      210  6 3 #CFCCD4     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
-      211  7 3 #F6947C     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
-      212  7 3 #E7B6A9     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
-      213  7 3 #D0CDD4     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
-      214  8 3 #F6937A     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
-      215  8 3 #EBAF9F     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
-      216  8 3 #D0CED3     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
-      217  9 3 #F6937A     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
-      218  9 3 #ECAD9C     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
-      219  9 3 #D0CED3     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
-      220 10 3 #F78F75     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
-      221 10 3 #EEA997     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
-      222 10 3 #D1CFD3     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
-      223 11 3 #FA8063     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
-      224 11 3 #F29E89     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
-      225 11 3 #DEC4BE     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
-      226 12 3 #FD6C4D     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
-      227 12 3 #F6937A     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
-      228 12 3 #E7B7AA     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
-      229 13 3 #FD6C4D     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
-      230 13 3 #F78F75     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
-      231 13 3 #EDAB99     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
-      232 14 3 #FA8063     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
-      233 14 3 #F69178     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
-      234 14 3 #F1A18C     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
-      235 15 3 #FB8062     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
-      236 15 3 #F9886D     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
-      237 15 3 #F69279     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
-      238 16 3 #FD6E4F     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
-      239 16 3 #FA8063     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
-      240 16 3 #F69178     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
-      241 17 3 #FA8063     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
-      242 17 3 #F88C71     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
-      243 17 3 #F69279     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
-      244 18 3 #F78E74     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
-      245 18 3 #F5957D     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
-      246 18 3 #F29F8A     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
-      247 19 3 #F98569     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
-      248 19 3 #F5957D     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
-      249 19 3 #F0A490     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
-      250 20 3 #FC7657     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
-      251 20 3 #F69279     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
-      252 20 3 #E8B4A6     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
-      253 21 3 #FC7657     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
-      254 21 3 #F39C86     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
-      255 21 3 #D5CFCD     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
-      256 22 3 #FC7657     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
-      257 22 3 #F0A491     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
-      258 22 3 #C7BBD9     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
-      259 23 3 #FC7556     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
-      260 23 3 #F0A491     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
-      261 23 3 #BCA7DF     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
-      262 24 3 #FC7556     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
-      263 24 3 #EEA896     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
-      264 24 3 #B499E3     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
-      265 25 3 #FC7556     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
-      266 25 3 #EDAA99     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
-      267 25 3 #B092E4     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
-      268 26 3 #FC7556     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
-      269 26 3 #EDAA99     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
-      270 26 3 #B092E4     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
-      271 27 3 #FC7657     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
-      272 27 3 #EBAFA0     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
-      273 27 3 #AF91E5     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
-      274 28 3 #FE5F40     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
-      275 28 3 #EEA795     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
-      276 28 3 #A27EE9     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
-      277 29 3 #FE6040     1    87 28.5 29.5  2.5  3.5     NA       0.2        1
+      1    1 1 #E1C0B7     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      2    1 1 #E1C0B7     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      3    1 1 #E1C0B7     1     1  0.5  1.5  0.5  1.5     NA       0.2        1
+      4    2 1 #E1C0B7     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
+      5    2 1 #E1C0B7     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
+      6    2 1 #E1C0B7     1     4  1.5  2.5  0.5  1.5     NA       0.2        1
+      7    3 1 #E1C0B7     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
+      8    3 1 #E1C0B7     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
+      9    3 1 #E1C0B7     1     7  2.5  3.5  0.5  1.5     NA       0.2        1
+      10   4 1 #E1C0B7     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
+      11   4 1 #E1C0B7     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
+      12   4 1 #E1C0B7     1    10  3.5  4.5  0.5  1.5     NA       0.2        1
+      13   5 1 #E1C0B7     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
+      14   5 1 #E1C0B7     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
+      15   5 1 #E1C0B7     1    13  4.5  5.5  0.5  1.5     NA       0.2        1
+      16   6 1 #E1C0B7     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
+      17   6 1 #E1C0B7     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
+      18   6 1 #E1C0B7     1    16  5.5  6.5  0.5  1.5     NA       0.2        1
+      19   7 1 #E1C0B7     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
+      20   7 1 #E1C0B7     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
+      21   7 1 #E1C0B7     1    19  6.5  7.5  0.5  1.5     NA       0.2        1
+      22   8 1 #E4BBB1     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
+      23   8 1 #E2BDB4     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
+      24   8 1 #E1BFB7     1    22  7.5  8.5  0.5  1.5     NA       0.2        1
+      25   9 1 #E9B3A5     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
+      26   9 1 #E5B9AE     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
+      27   9 1 #E1BFB6     1    25  8.5  9.5  0.5  1.5     NA       0.2        1
+      28  10 1 #EFA794     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
+      29  10 1 #E9B3A5     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
+      30  10 1 #E1BFB6     1    28  9.5 10.5  0.5  1.5     NA       0.2        1
+      31  11 1 #F5957D     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
+      32  11 1 #EDAA99     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
+      33  11 1 #E2BEB5     1    31 10.5 11.5  0.5  1.5     NA       0.2        1
+      34  12 1 #FB7F61     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
+      35  12 1 #F29F8A     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
+      36  12 1 #E2BEB4     1    34 11.5 12.5  0.5  1.5     NA       0.2        1
+      37  13 1 #FB7F61     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
+      38  13 1 #F29F8A     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
+      39  13 1 #E2BEB4     1    37 12.5 13.5  0.5  1.5     NA       0.2        1
+      40  14 1 #F5957D     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
+      41  14 1 #EDAA99     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
+      42  14 1 #E2BEB5     1    40 13.5 14.5  0.5  1.5     NA       0.2        1
+      43  15 1 #F5957D     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
+      44  15 1 #F29F8A     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
+      45  15 1 #EDAA98     1    43 14.5 15.5  0.5  1.5     NA       0.2        1
+      46  16 1 #F6947C     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
+      47  16 1 #F6947C     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
+      48  16 1 #F6947C     1    46 15.5 16.5  0.5  1.5     NA       0.2        1
+      49  17 1 #EDAA99     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
+      50  17 1 #EDAA99     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
+      51  17 1 #EDAA99     1    49 16.5 17.5  0.5  1.5     NA       0.2        1
+      52  18 1 #E4BAAF     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
+      53  18 1 #E4BAAF     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
+      54  18 1 #E4BAAF     1    52 17.5 18.5  0.5  1.5     NA       0.2        1
+      55  19 1 #DDC5BE     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
+      56  19 1 #DDC5BE     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
+      57  19 1 #DDC5BE     1    55 18.5 19.5  0.5  1.5     NA       0.2        1
+      58  20 1 #D9CAC6     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
+      59  20 1 #D9CAC6     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
+      60  20 1 #D9CAC6     1    58 19.5 20.5  0.5  1.5     NA       0.2        1
+      61  21 1 #D9CAC6     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
+      62  21 1 #D9CAC6     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
+      63  21 1 #D9CAC6     1    61 20.5 21.5  0.5  1.5     NA       0.2        1
+      64  22 1 #D9CAC6     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
+      65  22 1 #D9CAC6     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
+      66  22 1 #D9CAC6     1    64 21.5 22.5  0.5  1.5     NA       0.2        1
+      67  23 1 #E7B6A9     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
+      68  23 1 #E1C0B7     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
+      69  23 1 #DAC9C5     1    67 22.5 23.5  0.5  1.5     NA       0.2        1
+      70  24 1 #E7B6A9     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
+      71  24 1 #E1C0B7     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
+      72  24 1 #DAC9C5     1    70 23.5 24.5  0.5  1.5     NA       0.2        1
+      73  25 1 #E7B6A9     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
+      74  25 1 #E1C0B7     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
+      75  25 1 #DAC9C5     1    73 24.5 25.5  0.5  1.5     NA       0.2        1
+      76  26 1 #E7B6A9     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
+      77  26 1 #E1C0B7     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
+      78  26 1 #DAC9C5     1    76 25.5 26.5  0.5  1.5     NA       0.2        1
+      79  27 1 #E7B6A9     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
+      80  27 1 #E1C0B7     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
+      81  27 1 #DAC9C5     1    79 26.5 27.5  0.5  1.5     NA       0.2        1
+      82  28 1 #E7B6A9     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
+      83  28 1 #E1C0B7     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
+      84  28 1 #DAC9C5     1    82 27.5 28.5  0.5  1.5     NA       0.2        1
+      85  29 1 #E7B6A9     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
+      86  29 1 #E1C0B7     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
+      87  29 1 #DAC9C5     1    85 28.5 29.5  0.5  1.5     NA       0.2        1
+      88  30 1 #E7B6A9     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
+      89  30 1 #E1C0B7     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
+      90  30 1 #DAC9C5     1    88 29.5 30.5  0.5  1.5     NA       0.2        1
+      91  31 1 #E7B6A9     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
+      92  31 1 #E1C0B7     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
+      93  31 1 #DAC9C5     1    91 30.5 31.5  0.5  1.5     NA       0.2        1
+      94  32 1 #E7B6A9     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
+      95  32 1 #E1C0B7     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
+      96  32 1 #DAC9C5     1    94 31.5 32.5  0.5  1.5     NA       0.2        1
+      97   1 2 #E1C0B7     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      98   1 2 #E1C0B7     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      99   1 2 #E1C0B7     1     2  0.5  1.5  1.5  2.5     NA       0.2        1
+      100  2 2 #E1C0B7     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
+      101  2 2 #E1C0B7     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
+      102  2 2 #E1C0B7     1     5  1.5  2.5  1.5  2.5     NA       0.2        1
+      103  3 2 #E1C0B7     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
+      104  3 2 #E1C0B7     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
+      105  3 2 #E1C0B7     1     8  2.5  3.5  1.5  2.5     NA       0.2        1
+      106  4 2 #E4BBB1     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
+      107  4 2 #E2BDB4     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
+      108  4 2 #E1BFB7     1    11  3.5  4.5  1.5  2.5     NA       0.2        1
+      109  5 2 #E9B3A5     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
+      110  5 2 #E5B9AE     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
+      111  5 2 #E1BFB6     1    14  4.5  5.5  1.5  2.5     NA       0.2        1
+      112  6 2 #EFA794     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
+      113  6 2 #E9B3A5     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
+      114  6 2 #E1BFB6     1    17  5.5  6.5  1.5  2.5     NA       0.2        1
+      115  7 2 #F5957D     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
+      116  7 2 #EDAA99     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
+      117  7 2 #E2BEB5     1    20  6.5  7.5  1.5  2.5     NA       0.2        1
+      118  8 2 #FB7A5C     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
+      119  8 2 #F39D87     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
+      120  8 2 #E2BEB4     1    23  7.5  8.5  1.5  2.5     NA       0.2        1
+      121  9 2 #FD7051     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
+      122  9 2 #F49982     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
+      123  9 2 #E2BEB4     1    26  8.5  9.5  1.5  2.5     NA       0.2        1
+      124 10 2 #FE6040     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
+      125 10 2 #F69279     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
+      126 10 2 #E2BDB4     1    29  9.5 10.5  1.5  2.5     NA       0.2        1
+      127 11 2 #FF4628     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
+      128 11 2 #FB7D5F     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
+      129 11 2 #EEA896     1    32 10.5 11.5  1.5  2.5     NA       0.2        1
+      130 12 2 #FF0301     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
+      131 12 2 #FE6545     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
+      132 12 2 #F5957D     1    35 11.5 12.5  1.5  2.5     NA       0.2        1
+      133 13 2 #FF0000     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
+      134 13 2 #FF5A3A     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
+      135 13 2 #F98569     1    38 12.5 13.5  1.5  2.5     NA       0.2        1
+      136 14 2 #FF4427     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
+      137 14 2 #FE6041     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
+      138 14 2 #FC785A     1    41 13.5 14.5  1.5  2.5     NA       0.2        1
+      139 15 2 #FF4225     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
+      140 15 2 #FF4A2C     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
+      141 15 2 #FF5132     1    44 14.5 15.5  1.5  2.5     NA       0.2        1
+      142 16 2 #FF0E04     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
+      143 16 2 #FF2E16     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
+      144 16 2 #FF4124     1    47 15.5 16.5  1.5  2.5     NA       0.2        1
+      145 17 2 #FF4326     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
+      146 17 2 #FF5334     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
+      147 17 2 #FE6242     1    50 16.5 17.5  1.5  2.5     NA       0.2        1
+      148 18 2 #FF5C3C     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
+      149 18 2 #FE694A     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
+      150 18 2 #FC7657     1    53 17.5 18.5  1.5  2.5     NA       0.2        1
+      151 19 2 #FD6A4B     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
+      152 19 2 #FC7758     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
+      153 19 2 #FA8266     1    56 18.5 19.5  1.5  2.5     NA       0.2        1
+      154 20 2 #FD7152     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
+      155 20 2 #FB7D5F     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
+      156 20 2 #F9886D     1    59 19.5 20.5  1.5  2.5     NA       0.2        1
+      157 21 2 #FD7152     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
+      158 21 2 #FB7D5F     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
+      159 21 2 #F9886D     1    62 20.5 21.5  1.5  2.5     NA       0.2        1
+      160 22 2 #FD7152     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
+      161 22 2 #FB7D5F     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
+      162 22 2 #F9886D     1    65 21.5 22.5  1.5  2.5     NA       0.2        1
+      163 23 2 #FD7051     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
+      164 23 2 #FD7051     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
+      165 23 2 #FD7051     1    68 22.5 23.5  1.5  2.5     NA       0.2        1
+      166 24 2 #FD7051     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
+      167 24 2 #FD7051     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
+      168 24 2 #FD7051     1    71 23.5 24.5  1.5  2.5     NA       0.2        1
+      169 25 2 #FD7051     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
+      170 25 2 #FD7051     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
+      171 25 2 #FD7051     1    74 24.5 25.5  1.5  2.5     NA       0.2        1
+      172 26 2 #FD7051     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
+      173 26 2 #FD7051     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
+      174 26 2 #FD7051     1    77 25.5 26.5  1.5  2.5     NA       0.2        1
+      175 27 2 #FC7556     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
+      176 27 2 #FC7758     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
+      177 27 2 #FC795A     1    80 26.5 27.5  1.5  2.5     NA       0.2        1
+      178 28 2 #FB7D60     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
+      179 28 2 #FA8366     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
+      180 28 2 #F9896D     1    83 27.5 28.5  1.5  2.5     NA       0.2        1
+      181 29 2 #F8896E     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
+      182 29 2 #F6947C     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
+      183 29 2 #F29F8A     1    86 28.5 29.5  1.5  2.5     NA       0.2        1
+      184 30 2 #F49982     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
+      185 30 2 #EDAA99     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
+      186 30 2 #E4BBB0     1    89 29.5 30.5  1.5  2.5     NA       0.2        1
+      187 31 2 #ECAC9B     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
+      188 31 2 #DDC5BE     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
+      189 31 2 #CBC3D7     1    92 30.5 31.5  1.5  2.5     NA       0.2        1
+      190 32 2 #E0C1B9     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
+      191 32 2 #C7BBD9     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
+      192 32 2 #AD8EE5     1    95 31.5 32.5  1.5  2.5     NA       0.2        1
+      193  1 3 #E1C0B7     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      194  1 3 #E1C0B7     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      195  1 3 #E1C0B7     1     3  0.5  1.5  2.5  3.5     NA       0.2        1
+      196  2 3 #E1C0B7     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
+      197  2 3 #E1C0B7     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
+      198  2 3 #E1C0B7     1     6  1.5  2.5  2.5  3.5     NA       0.2        1
+      199  3 3 #E1C0B7     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
+      200  3 3 #E1C0B7     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
+      201  3 3 #E1C0B7     1     9  2.5  3.5  2.5  3.5     NA       0.2        1
+      202  4 3 #E4BBB1     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
+      203  4 3 #E2BDB4     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
+      204  4 3 #E1BFB7     1    12  3.5  4.5  2.5  3.5     NA       0.2        1
+      205  5 3 #E9B3A5     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
+      206  5 3 #E5B9AE     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
+      207  5 3 #E1BFB6     1    15  4.5  5.5  2.5  3.5     NA       0.2        1
+      208  6 3 #EFA794     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
+      209  6 3 #E9B3A5     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
+      210  6 3 #E1BFB6     1    18  5.5  6.5  2.5  3.5     NA       0.2        1
+      211  7 3 #F5957D     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
+      212  7 3 #EDAA99     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
+      213  7 3 #E2BEB5     1    21  6.5  7.5  2.5  3.5     NA       0.2        1
+      214  8 3 #FB7A5C     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
+      215  8 3 #F39D87     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
+      216  8 3 #E2BEB4     1    24  7.5  8.5  2.5  3.5     NA       0.2        1
+      217  9 3 #FD7051     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
+      218  9 3 #F49982     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
+      219  9 3 #E2BEB4     1    27  8.5  9.5  2.5  3.5     NA       0.2        1
+      220 10 3 #FE6040     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
+      221 10 3 #F69279     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
+      222 10 3 #E2BDB4     1    30  9.5 10.5  2.5  3.5     NA       0.2        1
+      223 11 3 #FF4628     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
+      224 11 3 #FB7D5F     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
+      225 11 3 #EEA896     1    33 10.5 11.5  2.5  3.5     NA       0.2        1
+      226 12 3 #FF0301     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
+      227 12 3 #FE6545     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
+      228 12 3 #F5957D     1    36 11.5 12.5  2.5  3.5     NA       0.2        1
+      229 13 3 #FF0000     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
+      230 13 3 #FF5A3A     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
+      231 13 3 #F98569     1    39 12.5 13.5  2.5  3.5     NA       0.2        1
+      232 14 3 #FF4427     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
+      233 14 3 #FE6041     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
+      234 14 3 #FC785A     1    42 13.5 14.5  2.5  3.5     NA       0.2        1
+      235 15 3 #FF4225     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
+      236 15 3 #FF4A2C     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
+      237 15 3 #FF5132     1    45 14.5 15.5  2.5  3.5     NA       0.2        1
+      238 16 3 #FF0E04     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
+      239 16 3 #FF2E16     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
+      240 16 3 #FF4124     1    48 15.5 16.5  2.5  3.5     NA       0.2        1
+      241 17 3 #FF4326     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
+      242 17 3 #FF5334     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
+      243 17 3 #FE6242     1    51 16.5 17.5  2.5  3.5     NA       0.2        1
+      244 18 3 #FF5C3C     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
+      245 18 3 #FE694A     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
+      246 18 3 #FC7657     1    54 17.5 18.5  2.5  3.5     NA       0.2        1
+      247 19 3 #FD6A4B     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
+      248 19 3 #FC7758     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
+      249 19 3 #FA8266     1    57 18.5 19.5  2.5  3.5     NA       0.2        1
+      250 20 3 #FD7152     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
+      251 20 3 #FB7D5F     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
+      252 20 3 #F9886D     1    60 19.5 20.5  2.5  3.5     NA       0.2        1
+      253 21 3 #FD7152     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
+      254 21 3 #FB7D5F     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
+      255 21 3 #F9886D     1    63 20.5 21.5  2.5  3.5     NA       0.2        1
+      256 22 3 #FD7152     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
+      257 22 3 #FB7D5F     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
+      258 22 3 #F9886D     1    66 21.5 22.5  2.5  3.5     NA       0.2        1
+      259 23 3 #FD7051     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
+      260 23 3 #FD7051     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
+      261 23 3 #FD7051     1    69 22.5 23.5  2.5  3.5     NA       0.2        1
+      262 24 3 #FD7051     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
+      263 24 3 #FD7051     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
+      264 24 3 #FD7051     1    72 23.5 24.5  2.5  3.5     NA       0.2        1
+      265 25 3 #FD7051     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
+      266 25 3 #FD7051     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
+      267 25 3 #FD7051     1    75 24.5 25.5  2.5  3.5     NA       0.2        1
+      268 26 3 #FD7051     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
+      269 26 3 #FD7051     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
+      270 26 3 #FD7051     1    78 25.5 26.5  2.5  3.5     NA       0.2        1
+      271 27 3 #FC795B     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
+      272 27 3 #FA8366     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
+      273 27 3 #F88C72     1    81 26.5 27.5  2.5  3.5     NA       0.2        1
+      274 28 3 #F9896E     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
+      275 28 3 #F78F75     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
+      276 28 3 #F6947B     1    84 27.5 28.5  2.5  3.5     NA       0.2        1
+      277 29 3 #F2A08B     1    87 28.5 29.5  2.5  3.5     NA       0.2        1
       278 29 3 #EDAA99     1    87 28.5 29.5  2.5  3.5     NA       0.2        1
-      279 29 3 #A27DEA     1    87 28.5 29.5  2.5  3.5     NA       0.2        1
-      280 30 3 #FE6041     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
-      281 30 3 #ECAC9C     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
-      282 30 3 #A17DEA     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
-      283 31 3 #FE5F40     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
-      284 31 3 #F1A18D     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
-      285 31 3 #B093E4     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
-      286 32 3 #FD6B4B     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
-      287 32 3 #ECAD9D     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
-      288 32 3 #A27DEA     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
+      279 29 3 #E8B4A7     1    87 28.5 29.5  2.5  3.5     NA       0.2        1
+      280 30 3 #E3BDB3     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
+      281 30 3 #D9CAC6     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
+      282 30 3 #CFCCD4     1    90 29.5 30.5  2.5  3.5     NA       0.2        1
+      283 31 3 #D9CAC6     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
+      284 31 3 #D5CFCE     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
+      285 31 3 #D1D0D3     1    93 30.5 31.5  2.5  3.5     NA       0.2        1
+      286 32 3 #C3B4DB     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
+      287 32 3 #C0AEDD     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
+      288 32 3 #BCA7DF     1    96 31.5 32.5  2.5  3.5     NA       0.2        1
           alpha width height
       1      NA     1      1
       2      NA     1      1
@@ -10558,23 +10901,24 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$vs
-      attr(,"effect")$vs$ale
-      attr(,"effect")$vs$ale$d1
-      attr(,"effect")$vs$ale$d1$am
+       $ composite: <list>          
+       $ distinct : <list> or <NULL>
+       $ params   : <list>          
+      attr(,"composite")
+      attr(,"composite")$vs
+      attr(,"composite")$vs$ale
+      attr(,"composite")$vs$ale$d1
+      attr(,"composite")$vs$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n           .y         .y_lo      .y_mean    .y_median        .y_hi
-        <ord>  <int>        <dbl>         <dbl>        <dbl>        <dbl>        <dbl>
-      1 FALSE     38 -0.000000179 -0.000000326  -0.000000179 -0.000000179     -3.19e-8
-      2 TRUE      26  0.000000246  0.0000000159  0.000000246  0.000000246      4.76e-7
+        am.bin    .n            .y         .y_lo       .y_mean     .y_median     .y_hi
+        <ord>  <int>         <dbl>         <dbl>         <dbl>         <dbl>     <dbl>
+      1 FALSE     38 -0.0000000305 -0.0000000305 -0.0000000305 -0.0000000305  -3.05e-8
+      2 TRUE      26  0.0000000135  0.0000000135  0.0000000135  0.0000000135   1.35e-8
       
-      attr(,"effect")$vs$ale$d1$wt
+      attr(,"composite")$vs$ale$d1$wt
       # A tibble: 13 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -10593,79 +10937,146 @@
       13    5.45     5  2.51e-11  2.51e-11  2.51e-11  2.51e-11  2.51e-11
       
       
-      attr(,"effect")$vs$ale$d2
-      attr(,"effect")$vs$ale$d2$`gear:carb`
+      attr(,"composite")$vs$ale$d2
+      attr(,"composite")$vs$ale$d2$`gear:carb`
+      # A tibble: 18 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three            1     6 -9.95e-16 -9.95e-16 -9.95e-16 -9.95e-16 -9.95e-16
+       2 four             1     8 -9.95e-16 -9.95e-16 -9.95e-16 -9.95e-16 -9.95e-16
+       3 five             1     0 -9.95e-16 -9.95e-16 -9.95e-16 -9.95e-16 -9.95e-16
+       4 three            2     8 -1.59e-15 -1.59e-15 -1.59e-15 -1.59e-15 -1.59e-15
+       5 four             2     7 -4.55e-15 -4.55e-15 -4.55e-15 -4.55e-15 -4.55e-15
+       6 five             2     4 -4.55e-15 -4.55e-15 -4.55e-15 -4.55e-15 -4.55e-15
+       7 three            3     7  1.97e-15  1.97e-15  1.97e-15  1.97e-15  1.97e-15
+       8 four             3     2 -9.95e-16 -9.95e-16 -9.95e-16 -9.95e-16 -9.95e-16
+       9 five             3     0 -4.55e-15 -4.55e-15 -4.55e-15 -4.55e-15 -4.55e-15
+      10 three            4     8 -6.18e-16 -6.18e-16 -6.18e-16 -6.18e-16 -6.18e-16
+      11 four             4     6 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15
+      12 five             4     2 -5.10e-15 -5.10e-15 -5.10e-15 -5.10e-15 -5.10e-15
+      13 three            5     1 -6.18e-16 -6.18e-16 -6.18e-16 -6.18e-16 -6.18e-16
+      14 four             5     1 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15
+      15 five             5     0 -6.88e-15 -6.88e-15 -6.88e-15 -6.88e-15 -6.88e-15
+      16 three            8     0 -6.18e-16 -6.18e-16 -6.18e-16 -6.18e-16 -6.18e-16
+      17 four             8     0 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15
+      18 five             8     4 -1.04e-14 -1.04e-14 -1.04e-14 -1.04e-14 -1.04e-14
+      
+      
+      
+      attr(,"composite")$vs$stats
+      NULL
+      
+      attr(,"composite")$vs$boot_data
+      attr(,"composite")$vs$boot_data$d1
+      attr(,"composite")$vs$boot_data$d1$am
+      # A tibble: 2 x 4
+          .it am               .y    .n
+        <dbl> <fct>         <dbl> <dbl>
+      1     1 FALSE -0.0000000305    38
+      2     1 TRUE   0.0000000135    26
+      
+      attr(,"composite")$vs$boot_data$d1$wt
+      # A tibble: 13 x 4
+           .it    wt        .y    .n
+         <dbl> <dbl>     <dbl> <dbl>
+       1     1  1.50 -1.91e-11     1
+       2     1  1.84 -1.53e-11     3
+       3     1  2.2  -1.13e-11     5
+       4     1  2.48 -8.14e-12     7
+       5     1  2.79 -4.65e-12     4
+       6     1  3.16 -4.86e-13     7
+       7     1  3.22  1.53e-13     5
+       8     1  3.44  2.62e-12     5
+       9     1  3.52  3.51e-12     4
+      10     1  3.60  4.39e-12     3
+      11     1  3.84  7.09e-12     4
+      12     1  5.24  2.27e-11     6
+      13     1  5.45  2.51e-11    10
+      
+      
+      attr(,"composite")$vs$boot_data$d2
+      attr(,"composite")$vs$boot_data$d2$`gear:carb`
+      # A tibble: 18 x 5
+           .it gear   carb        .y    .n
+         <dbl> <fct> <dbl>     <dbl> <dbl>
+       1     1 three     1 -9.95e-16     6
+       2     1 four      1 -9.95e-16     5
+       3     1 five      1 -9.95e-16     3
+       4     1 three     2 -1.59e-15     6
+       5     1 four      2 -4.55e-15     6
+       6     1 five      2 -4.55e-15     2
+       7     1 three     3  1.97e-15     4
+       8     1 four      3 -9.95e-16     4
+       9     1 five      3 -4.55e-15     1
+      10     1 three     4 -6.18e-16    11
+      11     1 four      4 -1.55e-15     7
+      12     1 five      4 -5.10e-15     3
+      13     1 three     5 -6.18e-16     2
+      14     1 four      5 -1.55e-15     1
+      15     1 five      5 -6.88e-15     0
+      16     1 three     8 -6.18e-16     1
+      17     1 four      8 -1.55e-15     1
+      18     1 five      8 -1.04e-14     1
+      
+      
+      
+      
+      attr(,"distinct")
+      attr(,"distinct")$vs
+      attr(,"distinct")$vs$ale
+      attr(,"distinct")$vs$ale$d2
+      attr(,"distinct")$vs$ale$d2$`gear:carb`
       # A tibble: 18 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
        1 three            1     6  4.42e-16  4.42e-16  4.42e-16  4.42e-16  4.42e-16
        2 four             1     8 -2.17e-15 -2.17e-15 -2.17e-15 -2.17e-15 -2.17e-15
        3 five             1     0 -3.42e-15 -3.42e-15 -3.42e-15 -3.42e-15 -3.42e-15
-       4 three            2     8 -4.09e-17 -3.34e-16 -4.09e-17 -4.09e-17  2.52e-16
-       5 four             2     7 -4.14e-15 -5.89e-15 -4.14e-15 -4.14e-15 -2.38e-15
-       6 five             2     4 -4.49e-15 -7.13e-15 -4.49e-15 -4.49e-15 -1.85e-15
-       7 three            3     7  9.46e-16 -5.20e-16  9.46e-16  9.46e-16  2.41e-15
-       8 four             3     2  4.03e-16 -3.11e-15  4.03e-16  4.03e-16  3.92e-15
-       9 five             3     0 -1.28e-15 -7.88e-15 -1.28e-15 -1.28e-15  5.31e-15
-      10 three            4     8 -1.09e-15 -1.27e-15 -1.09e-15 -1.09e-15 -9.00e-16
-      11 four             4     6  5.70e-16 -4.39e-15  5.70e-16  5.70e-16  5.53e-15
-      12 five             4     2 -1.12e-15 -9.16e-15 -1.12e-15 -1.12e-15  6.92e-15
-      13 three            5     1  6.90e-16  5.04e-16  6.90e-16  6.90e-16  8.77e-16
-      14 four             5     1 -1.21e-15 -2.65e-15 -1.21e-15 -1.21e-15  2.41e-16
-      15 five             5     0 -4.23e-15 -9.19e-15 -4.23e-15 -4.23e-15  7.38e-16
-      16 three            8     0  1.58e-15  1.39e-15  1.58e-15  1.58e-15  1.76e-15
-      17 four             8     0 -3.18e-16 -1.76e-15 -3.18e-16 -3.18e-16  1.13e-15
-      18 five             8     4 -6.00e-15 -1.18e-14 -6.00e-15 -6.00e-15 -1.59e-16
+       4 three            2     8  2.55e-16  2.55e-16  2.55e-16  2.55e-16  2.55e-16
+       5 four             2     7 -2.36e-15 -2.36e-15 -2.36e-15 -2.36e-15 -2.36e-15
+       6 five             2     4 -1.83e-15 -1.83e-15 -1.83e-15 -1.83e-15 -1.83e-15
+       7 three            3     7 -5.34e-16 -5.34e-16 -5.34e-16 -5.34e-16 -5.34e-16
+       8 four             3     2  3.96e-15  3.96e-15  3.96e-15  3.96e-15  3.96e-15
+       9 five             3     0  5.38e-15  5.38e-15  5.38e-15  5.38e-15  5.38e-15
+      10 three            4     8 -1.27e-15 -1.27e-15 -1.27e-15 -1.27e-15 -1.27e-15
+      11 four             4     6  5.58e-15  5.58e-15  5.58e-15  5.58e-15  5.58e-15
+      12 five             4     2  7.01e-15  7.01e-15  7.01e-15  7.01e-15  7.01e-15
+      13 three            5     1  5.02e-16  5.02e-16  5.02e-16  5.02e-16  5.02e-16
+      14 four             5     1  2.55e-16  2.55e-16  2.55e-16  2.55e-16  2.55e-16
+      15 five             5     0  7.88e-16  7.88e-16  7.88e-16  7.88e-16  7.88e-16
+      16 three            8     0  1.39e-15  1.39e-15  1.39e-15  1.39e-15  1.39e-15
+      17 four             8     0  1.14e-15  1.14e-15  1.14e-15  1.14e-15  1.14e-15
+      18 five             8     4 -1.00e-16 -1.00e-16 -1.00e-16 -1.00e-16 -1.00e-16
       
       
       
-      attr(,"effect")$vs$stats
+      attr(,"distinct")$vs$stats
       NULL
       
-      attr(,"effect")$vs$boot_data
-      attr(,"effect")$vs$boot_data$d1
-      attr(,"effect")$vs$boot_data$d1$am
-      # A tibble: 4 x 6
-          .it am     .y_composite    .n   .y_distinct            .y
-        <dbl> <fct>         <dbl> <dbl>         <dbl>         <dbl>
-      1     0 FALSE -0.000000327     38 -0.000000327  -0.000000327 
-      2     0 TRUE   0.000000478     26  0.000000478   0.000000478 
-      3     1 FALSE -0.0000000305    38 -0.0000000305 -0.0000000305
-      4     1 TRUE   0.0000000135    26  0.0000000135  0.0000000135
-      
-      attr(,"effect")$vs$boot_data$d1$wt
-      # A tibble: 26 x 6
-           .it    wt .y_composite    .n .y_distinct        .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
-       1     0  1.50    -1.91e-11     1   -1.91e-11 -1.91e-11
-       2     0  1.84    -1.53e-11     5   -1.53e-11 -1.53e-11
-       3     0  2.2     -1.13e-11     5   -1.13e-11 -1.13e-11
-       4     0  2.48    -8.14e-12     5   -8.14e-12 -8.14e-12
-       5     0  2.79    -4.65e-12     6   -4.65e-12 -4.65e-12
-       6     0  3.16    -4.86e-13     5   -4.86e-13 -4.86e-13
-       7     0  3.22     1.53e-13     5    1.53e-13  1.53e-13
-       8     0  3.44     2.62e-12     7    2.62e-12  2.62e-12
-       9     0  3.52     3.51e-12     4    3.51e-12  3.51e-12
-      10     0  3.60     4.39e-12     5    4.39e-12  4.39e-12
-      # i 16 more rows
-      
-      
-      attr(,"effect")$vs$boot_data$d2
-      attr(,"effect")$vs$boot_data$d2$`gear:carb`
-      # A tibble: 36 x 7
-           .it gear   carb .y_composite    .n .y_distinct        .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
-       1     0 three     1     4.42e-16     6    4.42e-16  4.42e-16
-       2     0 four      1     4.42e-16     8   -2.17e-15 -2.17e-15
-       3     0 five      1     4.42e-16     0   -3.42e-15 -3.42e-15
-       4     0 three     2     4.42e-16     8    2.55e-16  2.55e-16
-       5     0 four      2     4.42e-16     7   -2.36e-15 -2.36e-15
-       6     0 five      2     2.22e-15     4   -1.83e-15 -1.83e-15
-       7     0 three     3     4.42e-16     7   -5.34e-16 -5.34e-16
-       8     0 four      3     7.55e-15     2    3.96e-15  3.96e-15
-       9     0 five      3     1.02e-14     0    5.38e-15  5.38e-15
-      10     0 three     4     4.42e-16     8   -1.27e-15 -1.27e-15
-      # i 26 more rows
+      attr(,"distinct")$vs$boot_data
+      attr(,"distinct")$vs$boot_data$d2
+      attr(,"distinct")$vs$boot_data$d2$`gear:carb`
+      # A tibble: 18 x 5
+           .it gear   carb        .y    .n
+         <dbl> <fct> <dbl>     <dbl> <dbl>
+       1     1 three     1  4.42e-16     6
+       2     1 four      1 -2.17e-15     5
+       3     1 five      1 -3.42e-15     3
+       4     1 three     2  2.55e-16     6
+       5     1 four      2 -2.36e-15     6
+       6     1 five      2 -1.83e-15     2
+       7     1 three     3 -5.34e-16     4
+       8     1 four      3  3.96e-15     4
+       9     1 five      3  5.38e-15     1
+      10     1 three     4 -1.27e-15    11
+      11     1 four      4  5.58e-15     7
+      12     1 five      4  7.01e-15     3
+      13     1 three     5  5.02e-16     2
+      14     1 four      5  2.55e-16     1
+      15     1 five      5  7.88e-16     0
+      16     1 three     8  1.39e-15     1
+      17     1 four      8  1.14e-15     1
+      18     1 five      8 -1.00e-16     1
       
       
       
@@ -10721,7 +11132,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "f2fa16ad742b1f97311ac9acf2037e8d"
+      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
       
       
       attr(,"params")$data
@@ -10775,6 +11186,9 @@
       
       attr(,"params")$y_col
       [1] "vs"
+      
+      attr(,"params")$comp
+      [1] "auto"
       
       attr(,"params")$parallel
       [1] 0

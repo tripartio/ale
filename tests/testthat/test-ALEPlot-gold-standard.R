@@ -242,7 +242,11 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_2D_to_ALEPlot <-
-    get(nnet_2D, ale_centre = 'zero') |>
+    get(
+      nnet_2D,
+      ale_centre = 'zero',
+      comp = 'distinct'  # classic 2D ALEPlot is distinct ALE
+    ) |>
     map(\(it.ale) {
       it.ale <- it.ale |>
         select(1, 2, .y) |>
@@ -332,7 +336,11 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_2D_to_ALEPlot <-
-    get(gbm_2D, ale_centre = 'zero') |>
+    get(
+      gbm_2D,
+      ale_centre = 'zero',
+      comp = 'distinct'  # classic 2D ALEPlot is distinct ALE
+    ) |>
     map(\(it.ale) {
       it.ale <- it.ale |>
         select(1, 2, .y) |>

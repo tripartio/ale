@@ -64,7 +64,7 @@ nn_na_delta_pred <- function(dp, xd) {
       k = 1,
       verbose = FALSE
     ) |>
-      (`$`)(knnIndexDist) |>
+      (`[[`)(knnIndexDist) |>
       (`[`)(, 1)
 
     # drop = FALSE needed to prevent occasionally collapsing into a vector

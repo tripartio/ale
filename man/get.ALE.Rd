@@ -14,6 +14,8 @@
 
 \item{stats}{character(1). Retrieve ALE statistics. If \code{stats} is specified, then \code{what} must be left at the default ("ale"). Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value. See the return value details below for valid values for \code{stats}.}
 
+\item{comp}{logical(1) or string in c("composite", "distinct"). ALE composition to return (see  \code{\link[=ALE]{ALE()}} for details). The default \code{"composite"} returns composite ALE because it is always available. \code{\link[=get]{get()}} can only return one composition at a time; for multiple compositions, call it multiple times. If \code{comp = "distinct"}, only available data is returned.}
+
 \item{cats}{character. Optional category names to retrieve if the ALE is for a categorical y outcome model.}
 
 \item{ale_centre}{Same as in documentation for \code{\link[=ALEPlots]{ALEPlots()}}}
