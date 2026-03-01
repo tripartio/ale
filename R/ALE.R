@@ -829,10 +829,11 @@ ALE <- new_class(
             imap(\(it.cat_ar, it.cat_name) {
               it.rtn <- list(
                 cat = it.cat_name,
-                x_cols = list(it.x_cols),
+                x_cols = it.x_cols,
                 # dimension of ALE (1D or 2D)
                 ale_d = it.len_x_cols_split,
-                ale = list(it.cat_ar$summary)
+                ale = list(it.cat_ar$summary),
+                ale_diff = list(it.cat_ar$ale_diff)
               )
 
               if (!is.null(it.cat_ar$boot_ale_y)) {
@@ -853,6 +854,12 @@ ALE <- new_class(
       set_names(NULL) |>
       bind_rows()
 
+    #TODO: From here, calculate distinct ALE by extracting the diff12_x1 and diff12_x2
+    # from ales$ale_diff
+    # For now, disable by deleting ale_diff until ready to go ahead with it:
+    ales$ale_diff <- NULL
+
+
     # Organize results -------------
 
     # Organize by categories
@@ -863,27 +870,27 @@ ALE <- new_class(
     ale_struc <- list()
 
     for (it.cat in y_cats) {
-      # Assign 1D ALE results to ale_struc
-      it.ales_1D <- ales[[it.cat]] |>
-        filter(.data$ale_d == 1)
-
-      it.ar_1D <- 1:nrow(it.ales_1D) |>
-        map(\(i.1D) {
-          it.ales_1D[i.1D, ] |>
-            as.list() |>
-            purrr::list_flatten()
-        }) |>
-        set_names(it.ales_1D$x_cols |> unlist()) |>
-        list_transpose(simplify = FALSE)
-
-      # Delete the now superfluous x_cols element
-      it.ar_1D <- it.ar_1D[
-        names(it.ar_1D) |>
-          setdiff(c('cat', 'x_cols', 'ale_d'))
-      ]
-
-      # Rearrange it.ar_1D based on composite or distinct ALE elements
       if (length(x_cols$d1) >= 1) {  # there are some 1D elements
+        # Assign 1D ALE results to ale_struc
+        it.ales_1D <- ales[[it.cat]] |>
+          filter(.data$ale_d == 1)
+
+        it.ar_1D <- 1:nrow(it.ales_1D) |>
+          map(\(i.1D) {
+            it.ales_1D[i.1D, ] |>
+              as.list() |>
+              purrr::list_flatten()
+          }) |>
+          set_names(it.ales_1D$x_cols |> unlist()) |>
+          list_transpose(simplify = FALSE)
+
+        # Delete the now superfluous x_cols element
+        it.ar_1D <- it.ar_1D[
+          names(it.ar_1D) |>
+            setdiff(c('cat', 'x_cols', 'ale_d'))
+        ]
+
+        # Rearrange it.ar_1D based on composite or distinct ALE elements
         it.ar_1D <- it.ar_1D |>
           map(\(it.el) {
             it.el |>
@@ -902,9 +909,10 @@ ALE <- new_class(
               "FALSE" = "distinct"
             )
           )
+
+        ale_struc[['composite']][[it.cat]]$d1 <- it.ar_1D[['composite']]
+        ale_struc[['distinct']][[it.cat]]$d1  <- it.ar_1D[['distinct']]
       }
-      ale_struc[['composite']][[it.cat]]$d1 <- it.ar_1D[['composite']]
-      ale_struc[['distinct']][[it.cat]]$d1  <- it.ar_1D[['distinct']]
 
       # Assign 2D ALE results to ale_struc
       if (length(x_cols) >= 2 && length(x_cols$d2) >= 1) {

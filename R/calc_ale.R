@@ -1047,6 +1047,9 @@ calc_ale <- function(
     rtn_list$boot_ale_y <- boot_ale_tbl
   }
 
+  # Return ALE differencing data for calculating lower dimension distinct ALE
+  rtn_list$ale_diff <- ale_diff
+
   return(rtn_list)
 }  # calc_ale()
 
