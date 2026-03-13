@@ -832,10 +832,11 @@ calc_ale <- function(
 
   boot_summary <- boot_summary |>
     mutate(
-      .y = case_when(
-        boot_centre == 'mean' ~   .y_mean,
-        boot_centre == 'median' ~ .y_median,
-      ),
+      .y = if (boot_centre == 'mean') {
+        .y_mean
+      } else if (boot_centre == 'median') {
+        .y_median
+      },
     ) |>
     select('.cat', all_of(x_cols), '.n', '.y', everything())
 
@@ -901,10 +902,11 @@ calc_ale <- function(
           conf.high = apply(
             it.cbs, 2, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
           ),
-          estimate = case_when(
-            boot_centre == 'mean' ~ mean,
-            boot_centre == 'median' ~ median,
-          ),
+          estimate = if (boot_centre == 'mean') {
+            mean
+          } else if (boot_centre == 'median') {
+            median
+          },
         )  |>
           mutate(
             term = paste0(x_cols, collapse = ':'),

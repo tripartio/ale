@@ -165,7 +165,7 @@ method(get, ALE) <- function(
 
   # Shift ale_data and y_summary by ale_centre.
   # Calculate shift amount.
-  y_shift <- ale_centre |> case_match(
+  y_shift <- ale_centre |> recode_values(
     'median' ~ obj@params$y_summary['50%', cats, drop = FALSE],
     'mean' ~ obj@params$y_summary['mean', cats, drop = FALSE],
     'zero' ~ matrix(
