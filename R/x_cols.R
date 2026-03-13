@@ -326,10 +326,14 @@ validate_x_cols <- function(
       }
     }
 
-    # I'm not sure why someone would deliberately do this but alert them just in case it's a mistake:
-    if (!silent && (y_col %in% all_x_cols)) {
-      cli_alert_info('{.arg y_col} ({y_col}) was requested in {x_cols_arg_name}.')
-    }
+    validate(
+      y_col %notin% all_x_cols,
+      msg = '{.arg y_col} ({y_col}) was requested in {x_cols_arg_name}, which is not allowed.'
+    )
+  #   # I'm not sure why someone would deliberately do this but alert them just in case it's a mistake:
+  #   if (!silent && (y_col %in% all_x_cols)) {
+  #     cli_alert_info('{.arg y_col} ({y_col}) was requested in {x_cols_arg_name}.')
+  #   }
   }
 
   validate(is_string(y_col))

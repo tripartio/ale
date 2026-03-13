@@ -80,20 +80,23 @@ test_that("resolve_x_cols detects missing columns based on allow_missing_cols", 
 
 test_that("resolve_x_cols removes y_col and duplicate entries", {
   expect_equal(
-    resolve_x_cols(c("y", "a", "b", "b"), col_names, y_col) |>
-      suppressMessages(),
-    list(d1 = c('y', "a", "b"), d2 = character())
+    resolve_x_cols(c("a", "b", "b"), col_names, y_col),
+    list(d1 = c("a", "b"), d2 = character())
+  )
+
+  expect_error(
+    resolve_x_cols(c("y", "a", "b"), col_names, y_col),
+    'was requested in x_cols, which is not allowed'
   )
 
   # Inverted interactions in exclude_cols are NOT considered duplicates
   expect_equal(
     resolve_x_cols(
-      list(d1 = c("y", "a", "b"), d2 = c('a:b', 'b:a')),
+      list(d1 = c("a", "b"), d2 = c('a:b', 'b:a')),
       col_names,
       y_col
-    ) |>
-      suppressMessages(),
-    list(d1 = c('y', "a", "b"), d2 = c("a:b", "b:a"))
+    ),
+    list(d1 = c("a", "b"), d2 = c("a:b", "b:a"))
   )
 })
 
