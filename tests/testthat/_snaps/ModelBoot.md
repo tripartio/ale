@@ -395,7 +395,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "59a2199780473b2f0d0135b23b2fa604"
+      [1] "35370b95d970d597e729f52543869ba2"
       
       
       attr(,"params")$data
@@ -556,7 +556,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "d6fc256a14e217f7af2be2f3cc62f0d1"
+      [1] "5f61b58be4c7b071d42eb7bda24d7727"
       
       
       attr(,"params")$data
@@ -1111,7 +1111,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "ccb6b3eb28d97e09b625e326e48f6808"
+      [1] "5af9c0df73d460a6004a26ffbe67a081"
       
       
       attr(,"params")$data
@@ -1250,7 +1250,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "f2fa16ad742b1f97311ac9acf2037e8d"
+       ..  ..$ hash : chr "9a9ce6b31df30a04ef54ba6e3e33112b"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1405,7 +1405,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "f2fa16ad742b1f97311ac9acf2037e8d"
+      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
       
       
       attr(,"params")$data
@@ -1576,7 +1576,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "f2fa16ad742b1f97311ac9acf2037e8d"
+       ..  ..$ hash : chr "9a9ce6b31df30a04ef54ba6e3e33112b"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1876,7 +1876,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "41af51ef8843c8faa5d949bb0bdfe750"
+      [1] "1c81c74b1ab29c2d2dc2f414aa25b8eb"
       
       
       attr(,"params")$data
@@ -2438,7 +2438,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "1a32872a501437eeb49a2307b8ffe20a"
+      [1] "98d0d7300ac98af905946ebc87cbd59b"
       
       
       attr(,"params")$data

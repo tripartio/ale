@@ -5,6 +5,7 @@ docs
 inst/doc
 R/refALEPlot.R
 scholar
+tests/testthat/_snaps
 tests/testthat/Rplots.pdf
 tests/testthattest-ALEPlot-gold-standard.R
 vignettes/articles/ale-ALEPlot.Rmd
