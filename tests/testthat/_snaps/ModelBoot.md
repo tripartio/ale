@@ -395,7 +395,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "35370b95d970d597e729f52543869ba2"
+      [1] "51da80b948c83007e6548cffef12131f"
       
       
       attr(,"params")$data
@@ -556,7 +556,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "5f61b58be4c7b071d42eb7bda24d7727"
+      [1] "af60feb9f54098b33af8c19dd88bfd30"
       
       
       attr(,"params")$data
@@ -1111,7 +1111,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "5af9c0df73d460a6004a26ffbe67a081"
+      [1] "9384afa1c1f8642590fd2dbd6b5ccca5"
       
       
       attr(,"params")$data
@@ -1231,7 +1231,7 @@
        @ rand_stats           :List of 1
        .. $ vs: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
        ..  ..$ aled     : num [1:100] 2.79e-23 3.31e-23 9.74e-25 1.72e-24 1.28e-23 ...
-       ..  ..$ aler_min : num [1:100] -5.61e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
+       ..  ..$ aler_min : num [1:100] -5.60e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
        ..  ..$ aler_max : num [1:100] 6.74e-23 6.93e-23 2.12e-24 2.92e-24 2.77e-23 ...
        ..  ..$ naled    : num [1:100] 28.1 32.2 24 27.6 28.1 ...
        ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
@@ -1250,7 +1250,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "9a9ce6b31df30a04ef54ba6e3e33112b"
+       ..  ..$ hash : chr "27ea058c13e211416fb2354f6279afbd"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1405,7 +1405,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
+      [1] "27ea058c13e211416fb2354f6279afbd"
       
       
       attr(,"params")$data
@@ -1557,7 +1557,7 @@
        @ rand_stats           :List of 1
        .. $ vs: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
        ..  ..$ aled     : num [1:100] 2.79e-23 3.31e-23 9.74e-25 1.72e-24 1.28e-23 ...
-       ..  ..$ aler_min : num [1:100] -5.61e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
+       ..  ..$ aler_min : num [1:100] -5.60e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
        ..  ..$ aler_max : num [1:100] 6.74e-23 6.93e-23 2.12e-24 2.92e-24 2.77e-23 ...
        ..  ..$ naled    : num [1:100] 28.1 32.2 24 27.6 28.1 ...
        ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
@@ -1576,7 +1576,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "9a9ce6b31df30a04ef54ba6e3e33112b"
+       ..  ..$ hash : chr "27ea058c13e211416fb2354f6279afbd"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1876,7 +1876,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "1c81c74b1ab29c2d2dc2f414aa25b8eb"
+      [1] "2def10a5f8c9cb469de0431217107e01"
       
       
       attr(,"params")$data
@@ -2438,7 +2438,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "98d0d7300ac98af905946ebc87cbd59b"
+      [1] "fa62027cd1c4b187e80bf1f6d7703097"
       
       
       attr(,"params")$data

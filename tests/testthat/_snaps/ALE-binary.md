@@ -533,7 +533,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
+      [1] "27ea058c13e211416fb2354f6279afbd"
       
       
       attr(,"params")$data
@@ -10721,7 +10721,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
+      [1] "27ea058c13e211416fb2354f6279afbd"
       
       
       attr(,"params")$data

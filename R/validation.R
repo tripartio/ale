@@ -261,23 +261,80 @@ validate_parallel <- function(parallel, model, model_packages) {
 }
 
 
+# Returns TRUE if it appears safe to call progressr::handlers(global = TRUE).
+#
+# This is a heuristic workaround for the error
+# "should not be called with handlers on the stack".
+#
+# Since R does not expose the active condition-handler stack, inspect the call
+# stack for functions known to establish condition handlers.
+can_set_global_progressr_handlers <- function() {
+
+  # Global progress handlers are only useful in interactive sessions.
+  if (!interactive()) {
+    return(FALSE)
+  }
+
+  # Avoid enabling handlers when executing inside an RStudio notebook.
+  if (isTRUE(getOption("rstudio.notebook.executing"))) {
+    return(FALSE)
+  }
+
+  # progressr::handlers(global = TRUE) can fail with
+  # "should not be called with handlers on the stack".
+  #
+  # R does not expose the active condition-handler stack, so inspect the
+  # call stack for functions that commonly establish condition handlers.
+  # This is a heuristic, not a guarantee.
+  calls <- sys.calls() |>
+    map_chr(\(x) paste(deparse(x), collapse = " "))
+
+  suspicious_calls <- c(
+
+    # Base condition-handling mechanisms.
+    "\\btryCatch\\b",
+    "\\bwithCallingHandlers\\b",
+
+    # Restarts often accompany condition-handling infrastructure.
+    "\\bwithRestarts\\b",
+
+    # progressr installs condition handlers via with_progress().
+    "\\bwith_progress\\b"
+  )
+
+  # Return FALSE if any suspicious function appears in the current call stack.
+  !any(
+    map_lgl(
+      suspicious_calls,
+      \(pattern) any(str_detect(calls, pattern))
+    )
+  )
+}
+
 # Validate silent output flag.
 # Mainly enables or disables progress bars.
 validate_silent <- function(silent) {
   validate(is_bool(silent))
 
-  if (!silent) {  # nocov start
+  # Enable progress bars by default if possible and silent not requested
+  if (!silent && can_set_global_progressr_handlers()) {
     if (!progressr::handlers(global = NA)) {
-      # If no progressr bar settings are configured, then set cli as the default.
-      # rstudio_notebook: TRUE when execution context is an RStudio notebook.
-      # For non-RStudio environments, returns NULL, so set as FALSE.
-      rstudio_notebook <- getOption("rstudio.notebook.executing") %||% FALSE
-      if (interactive() && !rstudio_notebook) {
-        # if (interactive() && !getOption("rstudio.notebook.executing")) {
-        # interactive execution outside of Rmd knitr context: enable progress bars
-        progressr::handlers(global = TRUE)
-        progressr::handlers('cli')
-      }
+      progressr::handlers(global = TRUE)
+      progressr::handlers("cli")
     }
-  }  # nocov end
+  }
+  # if (!silent) {  # nocov start
+  #   if (!progressr::handlers(global = NA)) {
+  #     # If no progressr bar settings are configured, then set cli as the default.
+  #     # rstudio_notebook: TRUE when execution context is an RStudio notebook.
+  #     # For non-RStudio environments, returns NULL, so set as FALSE.
+  #     rstudio_notebook <- getOption("rstudio.notebook.executing") %||% FALSE
+  #     if (interactive() && !rstudio_notebook) {
+  #       # if (interactive() && !getOption("rstudio.notebook.executing")) {
+  #       # interactive execution outside of Rmd knitr context: enable progress bars
+  #       progressr::handlers(global = TRUE)
+  #       progressr::handlers('cli')
+  #     }
+  #   }
+  # }  # nocov end
 }
