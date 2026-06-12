@@ -1,5 +1,6 @@
 .Rhistory
 .Rproj.user
+.vscode
 ale.Rproj
 docs
 inst/doc
