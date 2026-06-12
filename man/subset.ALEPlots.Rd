@@ -3,6 +3,17 @@
 \name{subset.ALEPlots}
 \alias{subset.ALEPlots}
 \title{subset method for ALEPlots object}
+\usage{
+## S7 method for class <ale::ALEPlots>
+subset(
+  x,
+  x_cols = NULL,
+  ...,
+  exclude_cols = NULL,
+  include_eff = TRUE,
+  silent = FALSE
+)
+}
 \arguments{
 \item{x}{An object of class \code{ALEPlots}.}
 

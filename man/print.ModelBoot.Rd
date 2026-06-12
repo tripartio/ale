@@ -3,6 +3,10 @@
 \name{print.ModelBoot}
 \alias{print.ModelBoot}
 \title{print method for ModelBoot object}
+\usage{
+## S7 method for class <ale::ModelBoot>
+print(x, details = TRUE, ...)
+}
 \arguments{
 \item{x}{An object of class \code{ModelBoot}.}
 

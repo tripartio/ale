@@ -3,6 +3,17 @@
 \name{summary.ALE}
 \alias{summary.ALE}
 \title{summary Method for ALE object}
+\usage{
+## S7 method for class <ale::ALE>
+summary(
+  object,
+  stats = c("aled", "naled"),
+  all_conf = FALSE,
+  round_digits = 4L,
+  max_rows = 100,
+  ...
+)
+}
 \arguments{
 \item{object}{An object of class \code{ALE}.}
 

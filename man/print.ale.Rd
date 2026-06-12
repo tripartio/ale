@@ -3,6 +3,10 @@
 \name{print.ALE}
 \alias{print.ALE}
 \title{print Method for ALE object}
+\usage{
+## S7 method for class <ale::ALE>
+print(x, details = TRUE, ...)
+}
 \arguments{
 \item{x}{An object of class \code{ALE}.}
 

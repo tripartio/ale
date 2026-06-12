@@ -3,6 +3,19 @@
 \name{get.ALEPlots}
 \alias{get.ALEPlots}
 \title{get method for ALEPlots objects}
+\usage{
+## S7 method for class <ale::ALEPlots>
+get(
+  obj,
+  x_cols = NULL,
+  ...,
+  exclude_cols = NULL,
+  type = "ale",
+  cats = NULL,
+  simplify = TRUE,
+  silent = FALSE
+)
+}
 \arguments{
 \item{obj}{ALEPlots object from which to retrieve ALE elements.}
 

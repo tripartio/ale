@@ -10,7 +10,6 @@ License: MIT + file LICENSE
 Language: en-ca
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Suggests: 
     agridat,
     cluster,
@@ -57,3 +56,4 @@ Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/testthat/start-first: ALE-categorical, ModelBoot, ALEpDist, ALE-numerical, ALE-binary, ALEPlot-gold-standard
 LazyData: true
+Config/roxygen2/version: 8.0.0

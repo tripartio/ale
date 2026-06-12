@@ -56,15 +56,15 @@ ModelBoot(
 
 \item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for \code{\link[=ALE]{ALE()}} for further details.}
 
-\item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics using \code{\link[broom:reexports]{broom::glance()}} (if available for \code{model}) and bootstrap-validated statistics if \code{boot_it > 0}.}
+\item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics using \code{\link[broom:glance]{broom::glance()}} (if available for \code{model}) and bootstrap-validated statistics if \code{boot_it > 0}.}
 
-\item{output_model_coefs}{logical(1). If \code{TRUE} (default), return model coefficients using \code{\link[broom:reexports]{broom::tidy()}} (if available for \code{model}).}
+\item{output_model_coefs}{logical(1). If \code{TRUE} (default), return model coefficients using \code{\link[broom:tidy]{broom::tidy()}} (if available for \code{model}).}
 
 \item{output_ale}{logical(1). If \code{TRUE} (default), return ALE data and statistics.}
 
 \item{output_boot_data}{logical(1). If \code{TRUE}, return the full raw data for each bootstrap iteration, specifically, the bootstrapped models and the model row indices. Default \code{FALSE} does not return this large, detailed data.}
 
-\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} constructor when \code{ale = TRUE}, \code{\link[broom:reexports]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:reexports]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. Note: to obtain p-values for ALE statistics, see the \code{ale_p} argument.}
+\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} constructor when \code{ale = TRUE}, \code{\link[broom:tidy]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:glance]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. Note: to obtain p-values for ALE statistics, see the \code{ale_p} argument.}
 
 \item{ale_p}{Same as the \code{p_values} argument for the \code{\link[=ALE]{ALE()}} constructor; see documentation there. This argument overrides the \code{p_values} element of the \code{ale_options} argument.}
 
@@ -80,7 +80,7 @@ A \code{ModelBoot} S7 object contains full-model bootstrapped statistics and ALE
 
 \describe{
 \item{model_stats}{
-\code{tibble} of bootstrapped results from \code{\link[broom:reexports]{broom::glance()}}. \code{NULL} if \code{model_stats} argument is \code{FALSE}. In general, only \code{\link[broom:reexports]{broom::glance()}} results that make sense when bootstrapped are included, such as \code{df} and \code{adj.r.squared}. Results that are incomparable across bootstrapped datasets (such as \code{aic}) are excluded. In addition, certain model performance measures are included; these are bootstrap-validated with the .632 correction (Efron & Tibshirani 1986) (NOT the .632+ correction):
+\code{tibble} of bootstrapped results from \code{\link[broom:glance]{broom::glance()}}. \code{NULL} if \code{model_stats} argument is \code{FALSE}. In general, only \code{\link[broom:glance]{broom::glance()}} results that make sense when bootstrapped are included, such as \code{df} and \code{adj.r.squared}. Results that are incomparable across bootstrapped datasets (such as \code{aic}) are excluded. In addition, certain model performance measures are included; these are bootstrap-validated with the .632 correction (Efron & Tibshirani 1986) (NOT the .632+ correction):
 \itemize{
 \item For regression (numeric prediction) models:
 \itemize{
@@ -97,7 +97,7 @@ A \code{ModelBoot} S7 object contains full-model bootstrapped statistics and ALE
 }
 
 \item{model_coefs}{
-A \code{tibble} of bootstrapped results from \code{\link[broom:reexports]{broom::tidy()}}.
+A \code{tibble} of bootstrapped results from \code{\link[broom:tidy]{broom::tidy()}}.
 \code{NULL} if \code{model_coefs} argument is \code{FALSE}.
 }
 \item{ale}{

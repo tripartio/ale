@@ -3,6 +3,17 @@
 \name{summary.ModelBoot}
 \alias{summary.ModelBoot}
 \title{summary Method for ModelBoot object}
+\usage{
+## S7 method for class <ale::ModelBoot>
+summary(
+  object,
+  stats = c("aled", "naled"),
+  all_conf = FALSE,
+  round_digits = 4L,
+  max_rows = 100,
+  ...
+)
+}
 \arguments{
 \item{object}{An object of class \code{ModelBoot}.}
 

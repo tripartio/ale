@@ -68,7 +68,7 @@ ALE(
 \item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
 
 \item{max_num_bins}{integer(1) > 1 or list. For numeric \code{x_cols}, this sets an upper bound on
-the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins}. Valid formats are:
+the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins+1}. Valid formats are:
 \itemize{
 \item Single integer > 1: used for all numeric \code{x_cols}.
 \item List with overrides: a list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
@@ -77,7 +77,7 @@ An example of the list format would be
 \code{max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))}
 }
 
-The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions.}
+The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions. When \code{n} bins are requested, there will actually be \code{n+1} bins, with the lowest bin dedicated to the minimum value of the dataset.}
 
 \item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{

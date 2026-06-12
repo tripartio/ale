@@ -180,7 +180,7 @@ has_text <- function(x) {
 #'
 #' @noRd
 #'
-#' @param x
+#' @param x Any R object to be validated
 #'
 #' @returns `TRUE` if `x` is length 1 and is either a double or an integer
 #'
@@ -192,7 +192,7 @@ is_scalar_number <- function(x) {
 #'
 #' @noRd
 #'
-#' @param x
+#' @param x Any R object to be validated
 #'
 #' @returns `TRUE` if `x` is length 1, is either a double or an integer R type, is effectively an integer (mathematically), and is a strictly positive whole number (zero excluded); `FALSE` otherwise.
 #'
@@ -204,7 +204,7 @@ is_scalar_natural <- function(x) {
 #'
 #' @noRd
 #'
-#' @param x
+#' @param x Any R object to be validated
 #'
 #' @returns `TRUE` if `x` is length 1, is either a double or an integer R type, is effectively an integer (mathematically), and is a non-negative whole number (zero included); `FALSE` otherwise.
 #'

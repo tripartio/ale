@@ -3,6 +3,10 @@
 \name{print.ALEPlots}
 \alias{print.ALEPlots}
 \title{Print method for ALEPlots object}
+\usage{
+## S7 method for class <ale::ALEPlots>
+print(x, max_print = 20L, ...)
+}
 \arguments{
 \item{x}{An object of class \code{ALEPlots}.}
 

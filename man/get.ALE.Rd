@@ -3,6 +3,21 @@
 \name{get.ALE}
 \alias{get.ALE}
 \title{get method for ALE objects}
+\usage{
+## S7 method for class <ale::ALE>
+get(
+  obj,
+  x_cols = NULL,
+  what = "ale",
+  ...,
+  exclude_cols = NULL,
+  stats = NULL,
+  cats = NULL,
+  ale_centre = "median",
+  simplify = TRUE,
+  silent = FALSE
+)
+}
 \arguments{
 \item{obj}{ALE object from which to retrieve elements.}
 

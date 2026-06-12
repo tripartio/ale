@@ -3,6 +3,21 @@
 \name{get.ModelBoot}
 \alias{get.ModelBoot}
 \title{get method for ModelBoot objects}
+\usage{
+## S7 method for class <ale::ModelBoot>
+get(
+  obj,
+  x_cols = NULL,
+  what = "ale",
+  ...,
+  exclude_cols = NULL,
+  type = "auto",
+  stats = NULL,
+  cats = NULL,
+  ale_centre = "median",
+  simplify = TRUE
+)
+}
 \arguments{
 \item{obj}{ModelBoot object from which to retrieve ALE elements.}
 

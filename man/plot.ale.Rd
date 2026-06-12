@@ -3,6 +3,10 @@
 \name{plot.ALE}
 \alias{plot.ALE}
 \title{plot method for \code{ALE} objects}
+\usage{
+## S7 method for class <ale::ALE>
+plot(x, ...)
+}
 \arguments{
 \item{x}{ALE object.}
 

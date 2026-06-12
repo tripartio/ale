@@ -3,6 +3,10 @@
 \name{plot.ModelBoot}
 \alias{plot.ModelBoot}
 \title{plot method for \code{ModelBoot} objects}
+\usage{
+## S7 method for class <ale::ModelBoot>
+plot(x, ...)
+}
 \arguments{
 \item{x}{ModelBoot object.}
 

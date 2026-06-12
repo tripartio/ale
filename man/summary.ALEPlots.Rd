@@ -3,6 +3,10 @@
 \name{summary.ALEPlots}
 \alias{summary.ALEPlots}
 \title{summary method for ALEPlots object}
+\usage{
+## S7 method for class <ale::ALEPlots>
+summary(object, ...)
+}
 \arguments{
 \item{object}{An object of class \code{ALEPlots}.}
 
