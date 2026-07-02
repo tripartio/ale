@@ -254,7 +254,7 @@ calc_ale <- function(
       btit.X_lo[[x_cols]] <- btit.x_vars[[x_cols]]$lo
 
       # Difference between low and high boundary predictions
-      pred_fun(model, btit.X_hi, pred_type) - pred_fun(model, btit.X_lo, pred_type)
+      pred_fun(object = model, newdata = btit.X_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_lo, type = pred_type)
     }
     else if (ixn_d == 2) {
       # Initialize border datasets
@@ -271,8 +271,8 @@ calc_ale <- function(
       btit.X_lo_lo[[x_cols[2]]] <- btit.x_vars[[x_cols[2]]]$lo
 
       # Difference between boundary predictions
-      (pred_fun(model, btit.X_hi_hi, pred_type) - pred_fun(model, btit.X_hi_lo, pred_type)) -
-        (pred_fun(model, btit.X_lo_hi, pred_type) - pred_fun(model, btit.X_lo_lo, pred_type))
+      (pred_fun(object = model, newdata = btit.X_hi_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_hi_lo, type = pred_type)) -
+        (pred_fun(object = model, newdata = btit.X_lo_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_lo_lo, type = pred_type))
     }
     else {
       stop('Interactions beyond 2 are not yet supported.')  # nocov
