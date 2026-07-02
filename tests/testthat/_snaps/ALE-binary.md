@@ -434,36 +434,36 @@
       
       attr(,"effect")$vs$stats
       attr(,"effect")$vs$stats$d1
-      # A tibble: 42 x 7
+      # A tibble: 56 x 7
          term      statistic estimate conf.low  mean median conf.high
          <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
        1 mpg       aled             0        0     0      0         0
        2 mpg       aler_min         0        0     0      0         0
-       3 mpg       aler_max         0        0     0      0         0
-       4 mpg       naled            0        0     0      0         0
-       5 mpg       naler_min        0        0     0      0         0
-       6 mpg       naler_max        0        0     0      0         0
-       7 continent aled             0        0     0      0         0
-       8 continent aler_min         0        0     0      0         0
-       9 continent aler_max         0        0     0      0         0
-      10 continent naled            0        0     0      0         0
-      # i 32 more rows
+       3 mpg       aler             0        0     0      0         0
+       4 mpg       aler_max         0        0     0      0         0
+       5 mpg       naled            0        0     0      0         0
+       6 mpg       naler_min        0        0     0      0         0
+       7 mpg       naler            0        0     0      0         0
+       8 mpg       naler_max        0        0     0      0         0
+       9 continent aled             0        0     0      0         0
+      10 continent aler_min         0        0     0      0         0
+      # i 46 more rows
       
       attr(,"effect")$vs$stats$d2
-      # A tibble: 126 x 7
+      # A tibble: 168 x 7
          term          statistic estimate conf.low  mean median conf.high
          <chr>         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
        1 mpg:continent aled             0        0     0      0         0
        2 mpg:continent aler_min         0        0     0      0         0
-       3 mpg:continent aler_max         0        0     0      0         0
-       4 mpg:continent naled            0        0     0      0         0
-       5 mpg:continent naler_min        0        0     0      0         0
-       6 mpg:continent naler_max        0        0     0      0         0
-       7 mpg:am        aled             0        0     0      0         0
-       8 mpg:am        aler_min         0        0     0      0         0
-       9 mpg:am        aler_max         0        0     0      0         0
-      10 mpg:am        naled            0        0     0      0         0
-      # i 116 more rows
+       3 mpg:continent aler             0        0     0      0         0
+       4 mpg:continent aler_max         0        0     0      0         0
+       5 mpg:continent naled            0        0     0      0         0
+       6 mpg:continent naler_min        0        0     0      0         0
+       7 mpg:continent naler            0        0     0      0         0
+       8 mpg:continent naler_max        0        0     0      0         0
+       9 mpg:am        aled             0        0     0      0         0
+      10 mpg:am        aler_min         0        0     0      0         0
+      # i 158 more rows
       
       
       attr(,"effect")$vs$boot_data

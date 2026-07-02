@@ -312,32 +312,38 @@
       
       attr(,"effect")$mpg$stats
       attr(,"effect")$mpg$stats$d1
-      # A tibble: 12 x 7
+      # A tibble: 16 x 7
          term  statistic estimate conf.low   mean median conf.high
          <chr> <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
        1 am    aled          6.28     6.28   6.28   6.28      6.28
        2 am    aler_min     -5.29    -5.29  -5.29  -5.29     -5.29
-       3 am    aler_max      7.73     7.73   7.73   7.73      7.73
-       4 am    naled        38.4     38.4   38.4   38.4      38.4 
-       5 am    naler_min   -40.9    -40.9  -40.9  -40.9     -40.9 
-       6 am    naler_max    34.8     34.8   34.8   34.8      34.8 
-       7 wt    aled          5.28     5.28   5.28   5.28      5.28
-       8 wt    aler_min    -18.2    -18.2  -18.2  -18.2     -18.2 
-       9 wt    aler_max      8.98     8.98   8.98   8.98      8.98
-      10 wt    naled        27.9     27.9   27.9   27.9      27.9 
-      11 wt    naler_min   -50      -50    -50    -50       -50   
-      12 wt    naler_max    37.9     37.9   37.9   37.9      37.9 
+       3 am    aler         13.0     13.0   13.0   13.0      13.0 
+       4 am    aler_max      7.73     7.73   7.73   7.73      7.73
+       5 am    naled        38.4     38.4   38.4   38.4      38.4 
+       6 am    naler_min   -40.9    -40.9  -40.9  -40.9     -40.9 
+       7 am    naler        75.8     75.8   75.8   75.8      75.8 
+       8 am    naler_max    34.8     34.8   34.8   34.8      34.8 
+       9 wt    aled          5.28     5.28   5.28   5.28      5.28
+      10 wt    aler_min    -18.2    -18.2  -18.2  -18.2     -18.2 
+      11 wt    aler         27.2     27.2   27.2   27.2      27.2 
+      12 wt    aler_max      8.98     8.98   8.98   8.98      8.98
+      13 wt    naled        27.9     27.9   27.9   27.9      27.9 
+      14 wt    naler_min   -50      -50    -50    -50       -50   
+      15 wt    naler        87.9     87.9   87.9   87.9      87.9 
+      16 wt    naler_max    37.9     37.9   37.9   37.9      37.9 
       
       attr(,"effect")$mpg$stats$d2
-      # A tibble: 6 x 7
+      # A tibble: 8 x 7
         term      statistic  estimate  conf.low      mean    median conf.high
         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 gear:carb aled       6.71e-16  6.71e-16  6.71e-16  6.71e-16  6.71e-16
       2 gear:carb aler_min  -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15
-      3 gear:carb aler_max   6.44e-16  6.44e-16  6.44e-16  6.44e-16  6.44e-16
-      4 gear:carb naled      0         0         0         0         0       
-      5 gear:carb naler_min  0         0         0         0         0       
-      6 gear:carb naler_max  0         0         0         0         0       
+      3 gear:carb aler       3.18e-15  3.18e-15  3.18e-15  3.18e-15  3.18e-15
+      4 gear:carb aler_max   6.44e-16  6.44e-16  6.44e-16  6.44e-16  6.44e-16
+      5 gear:carb naled      0         0         0         0         0       
+      6 gear:carb naler_min  0         0         0         0         0       
+      7 gear:carb naler      0         0         0         0         0       
+      8 gear:carb naler_max  0         0         0         0         0       
       
       
       attr(,"effect")$mpg$boot_data
@@ -1024,32 +1030,38 @@
       
       attr(,"effect")$vs$stats
       attr(,"effect")$vs$stats$d1
-      # A tibble: 12 x 7
+      # A tibble: 16 x 7
          term      statistic  estimate  conf.low      mean    median conf.high
          <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
        1 continent aled       0         0         0         0         0       
        2 continent aler_min   0         0         0         0         0       
-       3 continent aler_max   0         0         0         0         0       
-       4 continent naled      0         0         0         0         0       
-       5 continent naler_min  0         0         0         0         0       
-       6 continent naler_max  0         0         0         0         0       
-       7 wt        aled       1.70e-24  1.70e-24  1.70e-24  1.70e-24  1.70e-24
-       8 wt        aler_min  -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       9 wt        aler_max   8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24
-      10 wt        naled      3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1
-      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      12 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
+       3 continent aler       0         0         0         0         0       
+       4 continent aler_max   0         0         0         0         0       
+       5 continent naled      0         0         0         0         0       
+       6 continent naler_min  0         0         0         0         0       
+       7 continent naler      0         0         0         0         0       
+       8 continent naler_max  0         0         0         0         0       
+       9 wt        aled       1.70e-24  1.70e-24  1.70e-24  1.70e-24  1.70e-24
+      10 wt        aler_min  -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
+      11 wt        aler       1.14e-23  1.14e-23  1.14e-23  1.14e-23  1.14e-23
+      12 wt        aler_max   8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24
+      13 wt        naled      3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1
+      14 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
+      15 wt        naler      5.63e+ 1  5.63e+ 1  5.63e+ 1  5.63e+ 1  5.63e+ 1
+      16 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
       attr(,"effect")$vs$stats$d2
-      # A tibble: 6 x 7
+      # A tibble: 8 x 7
         term      statistic  estimate  conf.low      mean    median conf.high
         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 gear:carb aled       4.56e-26  4.56e-26  4.56e-26  4.56e-26  4.56e-26
       2 gear:carb aler_min  -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25
-      3 gear:carb aler_max   2.45e-25  2.45e-25  2.45e-25  2.45e-25  2.45e-25
-      4 gear:carb naled      7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0
-      5 gear:carb naler_min -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1
-      6 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
+      3 gear:carb aler       3.83e-25  3.83e-25  3.83e-25  3.83e-25  3.83e-25
+      4 gear:carb aler_max   2.45e-25  2.45e-25  2.45e-25  2.45e-25  2.45e-25
+      5 gear:carb naled      7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0
+      6 gear:carb naler_min -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1
+      7 gear:carb naler      4.38e+ 1  4.38e+ 1  4.38e+ 1  4.38e+ 1  4.38e+ 1
+      8 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
       
       attr(,"effect")$vs$boot_data
@@ -1229,12 +1241,14 @@
       attr(,"params")$p_values
       <ale::ALEpDist>
        @ rand_stats           :List of 1
-       .. $ vs: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
+       .. $ vs: tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
        ..  ..$ aled     : num [1:100] 2.79e-23 3.31e-23 9.74e-25 1.72e-24 1.28e-23 ...
        ..  ..$ aler_min : num [1:100] -5.60e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
+       ..  ..$ aler     : num [1:100] 1.23e-22 1.37e-22 4.58e-24 6.11e-24 5.15e-23 ...
        ..  ..$ aler_max : num [1:100] 6.74e-23 6.93e-23 2.12e-24 2.92e-24 2.77e-23 ...
        ..  ..$ naled    : num [1:100] 28.1 32.2 24 27.6 28.1 ...
        ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
+       ..  ..$ naler    : num [1:100] 56.2 56.2 56.2 56.2 56.2 ...
        ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
        @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
        .. - attr(*, "logLik")= num 1784
@@ -1352,32 +1366,38 @@
       
       attr(,"ale")$boot$effect$vs$stats
       attr(,"ale")$boot$effect$vs$stats$d1
-      # A tibble: 12 x 8
+      # A tibble: 16 x 8
          term      statistic  estimate p.value  conf.low    median      mean conf.high
          <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
        1 continent aled       0         1       0         0         0         0       
        2 continent aler_min   0         1       0         0         0         0       
-       3 continent aler_max   0         1       0         0         0         0       
-       4 continent naled      0         1       0         0         0         0       
-       5 continent naler_min  0         1       0         0         0         0       
-       6 continent naler_max  0         1       0         0         0         0       
-       7 wt        aled       5.13e-20  0.0500  8.06e-21  5.13e-20  5.13e-20  9.46e-20
-       8 wt        aler_min  -3.10e-19  0.01   -5.94e-19 -3.10e-19 -3.10e-19 -2.65e-20
-       9 wt        aler_max   9.11e-20  0.0500  3.60e-20  9.11e-20  9.11e-20  1.46e-19
-      10 wt        naled      2.40e+ 1  0.92    2.06e+ 1  2.40e+ 1  2.40e+ 1  2.74e+ 1
-      11 wt        naler_min -4.92e+ 1  1      -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      12 wt        naler_max  7.58e+ 0  0       7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+       3 continent aler       0         1       0         0         0         0       
+       4 continent aler_max   0         1       0         0         0         0       
+       5 continent naled      0         1       0         0         0         0       
+       6 continent naler_min  0         1       0         0         0         0       
+       7 continent naler      0         1       0         0         0         0       
+       8 continent naler_max  0         1       0         0         0         0       
+       9 wt        aled       5.13e-20  0.0500  8.06e-21  5.13e-20  5.13e-20  9.46e-20
+      10 wt        aler_min  -3.10e-19  0.01   -5.94e-19 -3.10e-19 -3.10e-19 -2.65e-20
+      11 wt        aler       4.01e-19  0.0200  6.25e-20  4.01e-19  4.01e-19  7.40e-19
+      12 wt        aler_max   9.11e-20  0.0500  3.60e-20  9.11e-20  9.11e-20  1.46e-19
+      13 wt        naled      2.40e+ 1  0.92    2.06e+ 1  2.40e+ 1  2.40e+ 1  2.74e+ 1
+      14 wt        naler_min -4.92e+ 1  1      -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      15 wt        naler      5.68e+ 1  0       5.59e+ 1  5.68e+ 1  5.68e+ 1  5.78e+ 1
+      16 wt        naler_max  7.58e+ 0  0       7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
       
       attr(,"ale")$boot$effect$vs$stats$d2
-      # A tibble: 6 x 8
+      # A tibble: 8 x 8
         term      statistic  estimate p.value  conf.low    median      mean conf.high
         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 gear:carb aled       2.05e-21    0.34  1.56e-21  2.05e-21  2.05e-21  2.55e-21
       2 gear:carb aler_min  -8.36e-21    0.29 -8.79e-21 -8.36e-21 -8.36e-21 -7.93e-21
-      3 gear:carb aler_max   1.43e-20    0.24  4.55e-21  1.43e-20  1.43e-20  2.41e-20
-      4 gear:carb naled      2.13e+ 1    1     5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
-      5 gear:carb naler_min -4.92e+ 1    1    -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      6 gear:carb naler_max  7.58e+ 0    0     7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+      3 gear:carb aler       2.27e-20    0.28  1.33e-20  2.27e-20  2.27e-20  3.20e-20
+      4 gear:carb aler_max   1.43e-20    0.24  4.55e-21  1.43e-20  1.43e-20  2.41e-20
+      5 gear:carb naled      2.13e+ 1    1     5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
+      6 gear:carb naler_min -4.92e+ 1    1    -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      7 gear:carb naler      5.68e+ 1    0     5.59e+ 1  5.68e+ 1  5.68e+ 1  5.78e+ 1
+      8 gear:carb naler_max  7.58e+ 0    0     7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
       
       
       
@@ -1555,12 +1575,14 @@
       attr(,"params")$ale_p
       <ale::ALEpDist>
        @ rand_stats           :List of 1
-       .. $ vs: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
+       .. $ vs: tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
        ..  ..$ aled     : num [1:100] 2.79e-23 3.31e-23 9.74e-25 1.72e-24 1.28e-23 ...
        ..  ..$ aler_min : num [1:100] -5.60e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
+       ..  ..$ aler     : num [1:100] 1.23e-22 1.37e-22 4.58e-24 6.11e-24 5.15e-23 ...
        ..  ..$ aler_max : num [1:100] 6.74e-23 6.93e-23 2.12e-24 2.92e-24 2.77e-23 ...
        ..  ..$ naled    : num [1:100] 28.1 32.2 24 27.6 28.1 ...
        ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
+       ..  ..$ naler    : num [1:100] 56.2 56.2 56.2 56.2 56.2 ...
        ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
        @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
        .. - attr(*, "logLik")= num 1784
@@ -1686,21 +1708,25 @@
       
       attr(,"effect")$setosa$stats
       attr(,"effect")$setosa$stats$d1
-      # A tibble: 12 x 7
+      # A tibble: 16 x 7
          term         statistic     estimate     conf.low      mean   median conf.high
          <chr>        <chr>            <dbl>        <dbl>     <dbl>    <dbl>     <dbl>
        1 Sepal.Length aled        0.0000206    0.0000206    2.06e-5  2.06e-5   2.06e-5
        2 Sepal.Length aler_min   -0.000104    -0.000104    -1.04e-4 -1.04e-4  -1.04e-4
-       3 Sepal.Length aler_max    0.0000179    0.0000179    1.79e-5  1.79e-5   1.79e-5
-       4 Sepal.Length naled      26.0         26.0          2.60e+1  2.60e+1   2.60e+1
-       5 Sepal.Length naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
-       6 Sepal.Length naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
-       7 Petal.Width  aled        0.0000117    0.0000117    1.17e-5  1.17e-5   1.17e-5
-       8 Petal.Width  aler_min   -0.0000204   -0.0000204   -2.04e-5 -2.04e-5  -2.04e-5
-       9 Petal.Width  aler_max    0.00000989   0.00000989   9.89e-6  9.89e-6   9.89e-6
-      10 Petal.Width  naled      25.7         25.7          2.57e+1  2.57e+1   2.57e+1
-      11 Petal.Width  naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
-      12 Petal.Width  naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
+       3 Sepal.Length aler        0.000122     0.000122     1.22e-4  1.22e-4   1.22e-4
+       4 Sepal.Length aler_max    0.0000179    0.0000179    1.79e-5  1.79e-5   1.79e-5
+       5 Sepal.Length naled      26.0         26.0          2.60e+1  2.60e+1   2.60e+1
+       6 Sepal.Length naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
+       7 Sepal.Length naler      65.3         65.3          6.53e+1  6.53e+1   6.53e+1
+       8 Sepal.Length naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
+       9 Petal.Width  aled        0.0000117    0.0000117    1.17e-5  1.17e-5   1.17e-5
+      10 Petal.Width  aler_min   -0.0000204   -0.0000204   -2.04e-5 -2.04e-5  -2.04e-5
+      11 Petal.Width  aler        0.0000302    0.0000302    3.02e-5  3.02e-5   3.02e-5
+      12 Petal.Width  aler_max    0.00000989   0.00000989   9.89e-6  9.89e-6   9.89e-6
+      13 Petal.Width  naled      25.7         25.7          2.57e+1  2.57e+1   2.57e+1
+      14 Petal.Width  naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
+      15 Petal.Width  naler      65.3         65.3          6.53e+1  6.53e+1   6.53e+1
+      16 Petal.Width  naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
       
       
       attr(,"effect")$setosa$boot_data
@@ -1745,21 +1771,25 @@
       
       attr(,"effect")$versicolor$stats
       attr(,"effect")$versicolor$stats$d1
-      # A tibble: 12 x 7
+      # A tibble: 16 x 7
          term         statistic estimate conf.low     mean   median conf.high
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
        1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298
        2 Sepal.Length aler_min   -0.0289  -0.0289  -0.0289  -0.0289   -0.0289
-       3 Sepal.Length aler_max    0.0597   0.0597   0.0597   0.0597    0.0597
-       4 Sepal.Length naled      36.0     36.0     36.0     36.0      36.0   
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       6 Sepal.Length naler_max  12.7     12.7     12.7     12.7      12.7   
-       7 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185 
-       8 Petal.Width  aler_min   -0.343   -0.343   -0.343   -0.343    -0.343 
-       9 Petal.Width  aler_max    0.149    0.149    0.149    0.149     0.149 
-      10 Petal.Width  naled      26.8     26.8     26.8     26.8      26.8   
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      12 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7   
+       3 Sepal.Length aler        0.0886   0.0886   0.0886   0.0886    0.0886
+       4 Sepal.Length aler_max    0.0597   0.0597   0.0597   0.0597    0.0597
+       5 Sepal.Length naled      36.0     36.0     36.0     36.0      36.0   
+       6 Sepal.Length naler_min -50      -50      -50      -50       -50     
+       7 Sepal.Length naler      62.7     62.7     62.7     62.7      62.7   
+       8 Sepal.Length naler_max  12.7     12.7     12.7     12.7      12.7   
+       9 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185 
+      10 Petal.Width  aler_min   -0.343   -0.343   -0.343   -0.343    -0.343 
+      11 Petal.Width  aler        0.492    0.492    0.492    0.492     0.492 
+      12 Petal.Width  aler_max    0.149    0.149    0.149    0.149     0.149 
+      13 Petal.Width  naled      26.8     26.8     26.8     26.8      26.8   
+      14 Petal.Width  naler_min -50      -50      -50      -50       -50     
+      15 Petal.Width  naler      64.7     64.7     64.7     64.7      64.7   
+      16 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7   
       
       
       attr(,"effect")$versicolor$boot_data
@@ -1804,21 +1834,25 @@
       
       attr(,"effect")$virginica$stats
       attr(,"effect")$virginica$stats$d1
-      # A tibble: 12 x 7
+      # A tibble: 16 x 7
          term         statistic estimate conf.low     mean   median conf.high
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
        1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298
        2 Sepal.Length aler_min   -0.0597  -0.0597  -0.0597  -0.0597   -0.0597
-       3 Sepal.Length aler_max    0.0289   0.0289   0.0289   0.0289    0.0289
-       4 Sepal.Length naled      26.8     26.8     26.8     26.8      26.8   
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       6 Sepal.Length naler_max  13.3     13.3     13.3     13.3      13.3   
-       7 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185 
-       8 Petal.Width  aler_min   -0.149   -0.149   -0.149   -0.149    -0.149 
-       9 Petal.Width  aler_max    0.343    0.343    0.343    0.343     0.343 
-      10 Petal.Width  naled      38.0     38.0     38.0     38.0      38.0   
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      12 Petal.Width  naler_max  16       16       16       16        16     
+       3 Sepal.Length aler        0.0886   0.0886   0.0886   0.0886    0.0886
+       4 Sepal.Length aler_max    0.0289   0.0289   0.0289   0.0289    0.0289
+       5 Sepal.Length naled      26.8     26.8     26.8     26.8      26.8   
+       6 Sepal.Length naler_min -50      -50      -50      -50       -50     
+       7 Sepal.Length naler      63.3     63.3     63.3     63.3      63.3   
+       8 Sepal.Length naler_max  13.3     13.3     13.3     13.3      13.3   
+       9 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185 
+      10 Petal.Width  aler_min   -0.149   -0.149   -0.149   -0.149    -0.149 
+      11 Petal.Width  aler        0.492    0.492    0.492    0.492     0.492 
+      12 Petal.Width  aler_max    0.343    0.343    0.343    0.343     0.343 
+      13 Petal.Width  naled      38.0     38.0     38.0     38.0      38.0   
+      14 Petal.Width  naler_min -50      -50      -50      -50       -50     
+      15 Petal.Width  naler      66       66       66       66        66     
+      16 Petal.Width  naler_max  16       16       16       16        16     
       
       
       attr(,"effect")$virginica$boot_data
@@ -2291,21 +2325,25 @@
       
       attr(,"ale")$boot$effect$setosa$stats
       attr(,"ale")$boot$effect$setosa$stats$d1
-      # A tibble: 12 x 7
+      # A tibble: 16 x 7
          term         statistic    estimate     conf.low     median     mean conf.high
          <fct>        <fct>           <dbl>        <dbl>      <dbl>    <dbl>     <dbl>
        1 Sepal.Length aled        0.0000132   0.00000638    1.32e-5  1.32e-5   2.00e-5
        2 Sepal.Length aler_min   -0.000127   -0.000210     -1.27e-4 -1.27e-4  -4.27e-5
-       3 Sepal.Length aler_max    0.0000145   0.00000515    1.45e-5  1.45e-5   2.39e-5
-       4 Sepal.Length naled      28.5        27.8           2.85e+1  2.85e+1   2.91e+1
-       5 Sepal.Length naler_min -50         -50            -5   e+1 -5   e+1  -5   e+1
-       6 Sepal.Length naler_max  20.1        19.8           2.01e+1  2.01e+1   2.04e+1
-       7 Petal.Width  aled        0.0000172   0.00000335    1.72e-5  1.72e-5   3.11e-5
-       8 Petal.Width  aler_min   -0.0000402  -0.0000735    -4.02e-5 -4.02e-5  -6.91e-6
-       9 Petal.Width  aler_max    0.0000125   0.00000254    1.25e-5  1.25e-5   2.24e-5
-      10 Petal.Width  naled      28.8        28.8           2.88e+1  2.88e+1   2.89e+1
-      11 Petal.Width  naler_min -50         -50            -5   e+1 -5   e+1  -5   e+1
-      12 Petal.Width  naler_max  18.4        16.6           1.84e+1  1.84e+1   2.02e+1
+       3 Sepal.Length aler        0.000141    0.0000478     1.41e-4  1.41e-4   2.34e-4
+       4 Sepal.Length aler_max    0.0000145   0.00000515    1.45e-5  1.45e-5   2.39e-5
+       5 Sepal.Length naled      28.5        27.8           2.85e+1  2.85e+1   2.91e+1
+       6 Sepal.Length naler_min -50         -50            -5   e+1 -5   e+1  -5   e+1
+       7 Sepal.Length naler      70.1        69.8           7.01e+1  7.01e+1   7.04e+1
+       8 Sepal.Length naler_max  20.1        19.8           2.01e+1  2.01e+1   2.04e+1
+       9 Petal.Width  aled        0.0000172   0.00000335    1.72e-5  1.72e-5   3.11e-5
+      10 Petal.Width  aler_min   -0.0000402  -0.0000735    -4.02e-5 -4.02e-5  -6.91e-6
+      11 Petal.Width  aler        0.0000527   0.00000945    5.27e-5  5.27e-5   9.59e-5
+      12 Petal.Width  aler_max    0.0000125   0.00000254    1.25e-5  1.25e-5   2.24e-5
+      13 Petal.Width  naled      28.8        28.8           2.88e+1  2.88e+1   2.89e+1
+      14 Petal.Width  naler_min -50         -50            -5   e+1 -5   e+1  -5   e+1
+      15 Petal.Width  naler      68.4        66.6           6.84e+1  6.84e+1   7.02e+1
+      16 Petal.Width  naler_max  18.4        16.6           1.84e+1  1.84e+1   2.02e+1
       
       
       
@@ -2347,21 +2385,25 @@
       
       attr(,"ale")$boot$effect$versicolor$stats
       attr(,"ale")$boot$effect$versicolor$stats$d1
-      # A tibble: 12 x 7
+      # A tibble: 16 x 7
          term         statistic estimate conf.low   median     mean conf.high
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
        1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180
        2 Sepal.Length aler_min   -0.0177  -0.0212  -0.0177  -0.0177   -0.0141
-       3 Sepal.Length aler_max    0.0967   0.0358   0.0967   0.0967    0.158 
-       4 Sepal.Length naled      38.8     35.9     38.8     38.8      41.7   
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       6 Sepal.Length naler_max  16.0     14.5     16.0     16.0      17.6   
-       7 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109 
-       8 Petal.Width  aler_min   -0.145   -0.165   -0.145   -0.145    -0.124 
-       9 Petal.Width  aler_max    0.0855   0.0678   0.0855   0.0855    0.103 
-      10 Petal.Width  naled      30.5     30.4     30.5     30.5      30.6   
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      12 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7   
+       3 Sepal.Length aler        0.114    0.0570   0.114    0.114     0.172 
+       4 Sepal.Length aler_max    0.0967   0.0358   0.0967   0.0967    0.158 
+       5 Sepal.Length naled      38.8     35.9     38.8     38.8      41.7   
+       6 Sepal.Length naler_min -50      -50      -50      -50       -50     
+       7 Sepal.Length naler      66.0     64.5     66.0     66.0      67.6   
+       8 Sepal.Length naler_max  16.0     14.5     16.0     16.0      17.6   
+       9 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109 
+      10 Petal.Width  aler_min   -0.145   -0.165   -0.145   -0.145    -0.124 
+      11 Petal.Width  aler        0.230    0.192    0.230    0.230     0.268 
+      12 Petal.Width  aler_max    0.0855   0.0678   0.0855   0.0855    0.103 
+      13 Petal.Width  naled      30.5     30.4     30.5     30.5      30.6   
+      14 Petal.Width  naler_min -50      -50      -50      -50       -50     
+      15 Petal.Width  naler      67.3     66.9     67.3     67.3      67.7   
+      16 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7   
       
       
       
@@ -2403,21 +2445,25 @@
       
       attr(,"ale")$boot$effect$virginica$stats
       attr(,"ale")$boot$effect$virginica$stats$d1
-      # A tibble: 12 x 7
+      # A tibble: 16 x 7
          term         statistic estimate conf.low   median     mean conf.high
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
        1 Sepal.Length aled        0.0163   0.0145   0.0163   0.0163    0.0180
        2 Sepal.Length aler_min   -0.0968  -0.158   -0.0968  -0.0968   -0.0358
-       3 Sepal.Length aler_max    0.0177   0.0141   0.0177   0.0177    0.0213
-       4 Sepal.Length naled      23.2     21.6     23.2     23.2      24.9   
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       6 Sepal.Length naler_max  10.3      8.73    10.3     10.3      11.8   
-       7 Petal.Width  aled        0.0945   0.0804   0.0945   0.0945    0.109 
-       8 Petal.Width  aler_min   -0.0855  -0.103   -0.0855  -0.0855   -0.0678
-       9 Petal.Width  aler_max    0.145    0.124    0.145    0.145     0.165 
-      10 Petal.Width  naled      33.8     33.0     33.8     33.8      34.7   
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      12 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8   
+       3 Sepal.Length aler        0.114    0.0571   0.114    0.114     0.172 
+       4 Sepal.Length aler_max    0.0177   0.0141   0.0177   0.0177    0.0213
+       5 Sepal.Length naled      23.2     21.6     23.2     23.2      24.9   
+       6 Sepal.Length naler_min -50      -50      -50      -50       -50     
+       7 Sepal.Length naler      60.3     58.7     60.3     60.3      61.8   
+       8 Sepal.Length naler_max  10.3      8.73    10.3     10.3      11.8   
+       9 Petal.Width  aled        0.0945   0.0804   0.0945   0.0945    0.109 
+      10 Petal.Width  aler_min   -0.0855  -0.103   -0.0855  -0.0855   -0.0678
+      11 Petal.Width  aler        0.230    0.192    0.230    0.230     0.268 
+      12 Petal.Width  aler_max    0.145    0.124    0.145    0.145     0.165 
+      13 Petal.Width  naled      33.8     33.0     33.8     33.8      34.7   
+      14 Petal.Width  naler_min -50      -50      -50      -50       -50     
+      15 Petal.Width  naler      60.3     58.7     60.3     60.3      61.8   
+      16 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8   
       
       
       

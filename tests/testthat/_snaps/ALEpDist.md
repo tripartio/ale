@@ -16,19 +16,19 @@
        $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 10 x 6
-             aled aler_min aler_max  naled naler_min naler_max
-            <dbl>    <dbl>    <dbl>  <dbl>     <dbl>     <dbl>
-       1 0.000484 -0.00330  0.00201 0           0         0   
-       2 0.00211  -0.00659  0.00835 0.342      -1.56      1.56
-       3 0.00196  -0.00644  0.00866 0.220      -1.56      1.56
-       4 0.000908 -0.00363  0.00524 0.0244     -1.56      1.56
-       5 0.000352 -0.00166  0.00139 0           0         0   
-       6 0.000389 -0.00192  0.00158 0           0         0   
-       7 0.00136  -0.00551  0.00407 0.0977     -1.56      1.56
-       8 0.000976 -0.00361  0.00715 0.0488     -1.56      1.56
-       9 0.00280  -0.0136   0.00822 0.439      -1.56      1.56
-      10 0.000472 -0.00171  0.00149 0           0         0   
+      # A tibble: 10 x 8
+             aled aler_min    aler aler_max  naled naler_min naler naler_max
+            <dbl>    <dbl>   <dbl>    <dbl>  <dbl>     <dbl> <dbl>     <dbl>
+       1 0.000484 -0.00330 0.00531  0.00201 0           0     0         0   
+       2 0.00211  -0.00659 0.0149   0.00835 0.342      -1.56  3.12      1.56
+       3 0.00196  -0.00644 0.0151   0.00866 0.220      -1.56  3.12      1.56
+       4 0.000908 -0.00363 0.00887  0.00524 0.0244     -1.56  3.12      1.56
+       5 0.000352 -0.00166 0.00305  0.00139 0           0     0         0   
+       6 0.000389 -0.00192 0.00350  0.00158 0           0     0         0   
+       7 0.00136  -0.00551 0.00958  0.00407 0.0977     -1.56  3.12      1.56
+       8 0.000976 -0.00361 0.0108   0.00715 0.0488     -1.56  3.12      1.56
+       9 0.00280  -0.0136  0.0219   0.00822 0.439      -1.56  3.12      1.56
+      10 0.000472 -0.00171 0.00321  0.00149 0           0     0         0   
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
@@ -171,20 +171,20 @@
       
       attr(,"effect")$mpg$stats
       attr(,"effect")$mpg$stats$d1
-      # A tibble: 42 x 8
+      # A tibble: 56 x 8
          statistic estimate p.value term      conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>        <dbl> <dbl>  <dbl>     <dbl>
        1 aled             0     1   vs               0     0      0         0
        2 aler_min         0     1   vs               0     0      0         0
-       3 aler_max         0     1   vs               0     0      0         0
-       4 naled            0     0.6 vs               0     0      0         0
-       5 naler_min        0     1   vs               0     0      0         0
-       6 naler_max        0     0.6 vs               0     0      0         0
-       7 aled             0     1   continent        0     0      0         0
-       8 aler_min         0     1   continent        0     0      0         0
-       9 aler_max         0     1   continent        0     0      0         0
-      10 naled            0     0.6 continent        0     0      0         0
-      # i 32 more rows
+       3 aler             0     1   vs               0     0      0         0
+       4 aler_max         0     1   vs               0     0      0         0
+       5 naled            0     0.6 vs               0     0      0         0
+       6 naler_min        0     1   vs               0     0      0         0
+       7 naler            0     0.6 vs               0     0      0         0
+       8 naler_max        0     0.6 vs               0     0      0         0
+       9 aled             0     1   continent        0     0      0         0
+      10 aler_min         0     1   continent        0     0      0         0
+      # i 46 more rows
       
       
       attr(,"effect")$mpg$boot_data
@@ -366,12 +366,14 @@
       attr(,"params")$p_values
       <ale::ALEpDist>
        @ rand_stats           :List of 1
-       .. $ mpg: tibble [10 x 6] (S3: tbl_df/tbl/data.frame)
+       .. $ mpg: tibble [10 x 8] (S3: tbl_df/tbl/data.frame)
        ..  ..$ aled     : num [1:10] 0.000484 0.002108 0.001961 0.000908 0.000352 ...
        ..  ..$ aler_min : num [1:10] -0.0033 -0.00659 -0.00644 -0.00363 -0.00166 ...
+       ..  ..$ aler     : num [1:10] 0.00531 0.01494 0.01509 0.00887 0.00305 ...
        ..  ..$ aler_max : num [1:10] 0.00201 0.00835 0.00866 0.00524 0.00139 ...
        ..  ..$ naled    : num [1:10] 0 0.3418 0.2197 0.0244 0 ...
        ..  ..$ naler_min: num [1:10] 0 -1.56 -1.56 -1.56 0 ...
+       ..  ..$ naler    : num [1:10] 0 3.12 3.12 3.12 0 ...
        ..  ..$ naler_max: num [1:10] 0 1.56 1.56 1.56 0 ...
        @ residual_distribution: 'univariateML' Named num [1:2] 1.31e-11 3.59e-03
        .. - attr(*, "logLik")= num 252
@@ -447,6 +449,9 @@
       $aler_min
        [1] 0 0 0 0 1 1 1 1 1 1 1
       
+      $aler
+       [1] 1 1 1 1 1 0 0 0 0 0 0
+      
       $aler_max
        [1] 1 1 1 1 1 0 0 0 0 0 0
       
@@ -455,6 +460,9 @@
       
       $naler_min
        [1] 0.0 0.0 0.6 0.6 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+      
+      $naler
+       [1] 1.0 1.0 1.0 1.0 0.6 0.6 0.6 0.6 0.6 0.6 0.0
       
       $naler_max
        [1] 1.0 1.0 1.0 1.0 0.6 0.6 0.6 0.6 0.6 0.0 0.0
@@ -478,19 +486,19 @@
        $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 100 x 6
-            aled aler_min aler_max naled naler_min naler_max
-           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 0.00192  -0.0113  0.00721 0.317     -1.56      1.56
-       2 0.00384  -0.0116  0.0150  0.610     -1.56      1.56
-       3 0.00415  -0.0169  0.0127  0.610     -1.56      1.56
-       4 0.00634  -0.0217  0.0302  0.952     -1.56      1.56
-       5 0.00348  -0.0150  0.0124  0.610     -1.56      1.56
-       6 0.00265  -0.0121  0.0100  0.317     -1.56      1.56
-       7 0.00597  -0.0171  0.0228  0.952     -1.56      1.56
-       8 0.00566  -0.0332  0.0176  0.781     -1.56      1.56
-       9 0.00747  -0.0321  0.0203  1.10      -1.56      1.56
-      10 0.00706  -0.0226  0.0259  0.952     -1.56      1.56
+      # A tibble: 100 x 8
+            aled aler_min   aler aler_max naled naler_min naler naler_max
+           <dbl>    <dbl>  <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 0.00192  -0.0113 0.0185  0.00721 0.317     -1.56  3.12      1.56
+       2 0.00384  -0.0116 0.0266  0.0150  0.610     -1.56  3.12      1.56
+       3 0.00415  -0.0169 0.0296  0.0127  0.610     -1.56  3.12      1.56
+       4 0.00634  -0.0217 0.0519  0.0302  0.952     -1.56  3.12      1.56
+       5 0.00348  -0.0150 0.0274  0.0124  0.610     -1.56  3.12      1.56
+       6 0.00265  -0.0121 0.0221  0.0100  0.317     -1.56  3.12      1.56
+       7 0.00597  -0.0171 0.0399  0.0228  0.952     -1.56  3.12      1.56
+       8 0.00566  -0.0332 0.0508  0.0176  0.781     -1.56  3.12      1.56
+       9 0.00747  -0.0321 0.0525  0.0203  1.10      -1.56  3.12      1.56
+      10 0.00706  -0.0226 0.0485  0.0259  0.952     -1.56  3.12      1.56
       # i 90 more rows
       
       attr(,"residual_distribution")
@@ -573,6 +581,12 @@
                 0.1           0.5             1 
       -0.0430344882 -0.0196285290 -0.0000848743 
       
+      $aler
+                 0        0.001         0.01         0.01         0.05          0.1 
+      0.1456572517 0.1428044040 0.1171287748 0.1171287748 0.0998121222 0.0885115702 
+               0.5            1 
+      0.0425687162 0.0001617357 
+      
       $aler_max
                  0        0.001         0.01         0.01         0.05          0.1 
       6.718166e-02 6.693562e-02 6.472121e-02 6.472121e-02 5.421360e-02 5.012718e-02 
@@ -586,6 +600,10 @@
       $naler_min
             0   0.001    0.01    0.01    0.05     0.1     0.5       1 
       -1.5625 -1.5625 -1.5625 -1.5625 -1.5625 -1.5625 -1.5625  0.0000 
+      
+      $naler
+           0  0.001   0.01   0.01   0.05    0.1    0.5      1 
+      4.6875 4.6875 4.6875 4.6875 4.6875 4.6875 3.1250 0.0000 
       
       $naler_max
            0  0.001   0.01   0.01   0.05    0.1    0.5      1 
@@ -610,12 +628,12 @@
        $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 3 x 6
-            aled aler_min aler_max naled naler_min naler_max
-           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 0.000484 -0.00330  0.00201 0          0         0   
-      2 0.00211  -0.00659  0.00835 0.342     -1.56      1.56
-      3 0.00196  -0.00644  0.00866 0.220     -1.56      1.56
+      # A tibble: 3 x 8
+            aled aler_min    aler aler_max naled naler_min naler naler_max
+           <dbl>    <dbl>   <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+      1 0.000484 -0.00330 0.00531  0.00201 0          0     0         0   
+      2 0.00211  -0.00659 0.0149   0.00835 0.342     -1.56  3.12      1.56
+      3 0.00196  -0.00644 0.0151   0.00866 0.220     -1.56  3.12      1.56
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
@@ -696,19 +714,19 @@
        $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$vs
-      # A tibble: 10 x 6
-             aled  aler_min aler_max naled naler_min naler_max
-            <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 6.32e-27 -1.34e-26 1.72e-26  2.05     -3.12      4.69
-       2 1.45e-25 -3.61e-25 3.50e-25 17.3     -50         6.25
-       3 1.18e-22 -2.94e-22 2.97e-22 32.2     -50         6.25
-       4 4.84e-25 -8.52e-25 8.05e-25 27.8     -50         6.25
-       5 6.30e-25 -1.23e-24 1.10e-24 23.1     -50         6.25
-       6 2.22e-24 -5.25e-24 5.34e-24 29.5     -50         6.25
-       7 1.54e-24 -3.57e-24 2.84e-24 25.4     -50         6.25
-       8 2.77e-24 -6.13e-24 4.41e-24 29.2     -50         6.25
-       9 3.77e-26 -7.87e-26 6.65e-26  7.15    -18.8       6.25
-      10 2.12e-23 -3.77e-23 3.74e-23 27.4     -50         6.25
+      # A tibble: 10 x 8
+             aled  aler_min     aler aler_max naled naler_min naler naler_max
+            <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 6.32e-27 -1.34e-26 3.06e-26 1.72e-26  2.05     -3.12  7.81      4.69
+       2 1.45e-25 -3.61e-25 7.11e-25 3.50e-25 17.3     -50    56.2       6.25
+       3 1.18e-22 -2.94e-22 5.91e-22 2.97e-22 32.2     -50    56.2       6.25
+       4 4.84e-25 -8.52e-25 1.66e-24 8.05e-25 27.8     -50    56.2       6.25
+       5 6.30e-25 -1.23e-24 2.33e-24 1.10e-24 23.1     -50    56.2       6.25
+       6 2.22e-24 -5.25e-24 1.06e-23 5.34e-24 29.5     -50    56.2       6.25
+       7 1.54e-24 -3.57e-24 6.42e-24 2.84e-24 25.4     -50    56.2       6.25
+       8 2.77e-24 -6.13e-24 1.05e-23 4.41e-24 29.2     -50    56.2       6.25
+       9 3.77e-26 -7.87e-26 1.45e-25 6.65e-26  7.15    -18.8  25         6.25
+      10 2.12e-23 -3.77e-23 7.50e-23 3.74e-23 27.4     -50    56.2       6.25
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Uniform model 
@@ -775,49 +793,49 @@
        $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$Asia
-      # A tibble: 10 x 6
-          aled aler_min aler_max naled naler_min naler_max
-         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1     0        0        0     0         0         0
-       2     0        0        0     0         0         0
-       3     0        0        0     0         0         0
-       4     0        0        0     0         0         0
-       5     0        0        0     0         0         0
-       6     0        0        0     0         0         0
-       7     0        0        0     0         0         0
-       8     0        0        0     0         0         0
-       9     0        0        0     0         0         0
-      10     0        0        0     0         0         0
+      # A tibble: 10 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
       
       attr(,"rand_stats")$Europe
-      # A tibble: 10 x 6
-          aled aler_min aler_max naled naler_min naler_max
-         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1     0        0        0     0         0         0
-       2     0        0        0     0         0         0
-       3     0        0        0     0         0         0
-       4     0        0        0     0         0         0
-       5     0        0        0     0         0         0
-       6     0        0        0     0         0         0
-       7     0        0        0     0         0         0
-       8     0        0        0     0         0         0
-       9     0        0        0     0         0         0
-      10     0        0        0     0         0         0
+      # A tibble: 10 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
       
       attr(,"rand_stats")$`North America`
-      # A tibble: 10 x 6
-          aled aler_min aler_max naled naler_min naler_max
-         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1     0        0        0     0         0         0
-       2     0        0        0     0         0         0
-       3     0        0        0     0         0         0
-       4     0        0        0     0         0         0
-       5     0        0        0     0         0         0
-       6     0        0        0     0         0         0
-       7     0        0        0     0         0         0
-       8     0        0        0     0         0         0
-       9     0        0        0     0         0         0
-      10     0        0        0     0         0         0
+      # A tibble: 10 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 

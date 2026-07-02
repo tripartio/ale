@@ -423,36 +423,36 @@
       
       attr(,"effect")$Asia$stats
       attr(,"effect")$Asia$stats$d1
-      # A tibble: 42 x 8
+      # A tibble: 56 x 8
          statistic estimate p.value term  conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl>
        1 aled             0       1 mpg          0     0      0         0
        2 aler_min         0       1 mpg          0     0      0         0
-       3 aler_max         0       1 mpg          0     0      0         0
-       4 naled            0       0 mpg          0     0      0         0
-       5 naler_min        0       1 mpg          0     0      0         0
-       6 naler_max        0       0 mpg          0     0      0         0
-       7 aled             0       1 vs           0     0      0         0
-       8 aler_min         0       1 vs           0     0      0         0
-       9 aler_max         0       1 vs           0     0      0         0
-      10 naled            0       0 vs           0     0      0         0
-      # i 32 more rows
+       3 aler             0       1 mpg          0     0      0         0
+       4 aler_max         0       1 mpg          0     0      0         0
+       5 naled            0       0 mpg          0     0      0         0
+       6 naler_min        0       1 mpg          0     0      0         0
+       7 naler            0       0 mpg          0     0      0         0
+       8 naler_max        0       0 mpg          0     0      0         0
+       9 aled             0       1 vs           0     0      0         0
+      10 aler_min         0       1 vs           0     0      0         0
+      # i 46 more rows
       
       attr(,"effect")$Asia$stats$d2
-      # A tibble: 126 x 8
+      # A tibble: 168 x 8
          statistic estimate p.value term   conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl>
        1 aled             0       1 mpg:vs        0     0      0         0
        2 aler_min         0       1 mpg:vs        0     0      0         0
-       3 aler_max         0       1 mpg:vs        0     0      0         0
-       4 naled            0       0 mpg:vs        0     0      0         0
-       5 naler_min        0       1 mpg:vs        0     0      0         0
-       6 naler_max        0       0 mpg:vs        0     0      0         0
-       7 aled             0       1 mpg:am        0     0      0         0
-       8 aler_min         0       1 mpg:am        0     0      0         0
-       9 aler_max         0       1 mpg:am        0     0      0         0
-      10 naled            0       0 mpg:am        0     0      0         0
-      # i 116 more rows
+       3 aler             0       1 mpg:vs        0     0      0         0
+       4 aler_max         0       1 mpg:vs        0     0      0         0
+       5 naled            0       0 mpg:vs        0     0      0         0
+       6 naler_min        0       1 mpg:vs        0     0      0         0
+       7 naler            0       0 mpg:vs        0     0      0         0
+       8 naler_max        0       0 mpg:vs        0     0      0         0
+       9 aled             0       1 mpg:am        0     0      0         0
+      10 aler_min         0       1 mpg:am        0     0      0         0
+      # i 158 more rows
       
       
       attr(,"effect")$Asia$boot_data
@@ -1327,36 +1327,36 @@
       
       attr(,"effect")$Europe$stats
       attr(,"effect")$Europe$stats$d1
-      # A tibble: 42 x 8
+      # A tibble: 56 x 8
          statistic estimate p.value term  conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl>
        1 aled             0       1 mpg          0     0      0         0
        2 aler_min         0       1 mpg          0     0      0         0
-       3 aler_max         0       1 mpg          0     0      0         0
-       4 naled            0       0 mpg          0     0      0         0
-       5 naler_min        0       1 mpg          0     0      0         0
-       6 naler_max        0       0 mpg          0     0      0         0
-       7 aled             0       1 vs           0     0      0         0
-       8 aler_min         0       1 vs           0     0      0         0
-       9 aler_max         0       1 vs           0     0      0         0
-      10 naled            0       0 vs           0     0      0         0
-      # i 32 more rows
+       3 aler             0       1 mpg          0     0      0         0
+       4 aler_max         0       1 mpg          0     0      0         0
+       5 naled            0       0 mpg          0     0      0         0
+       6 naler_min        0       1 mpg          0     0      0         0
+       7 naler            0       0 mpg          0     0      0         0
+       8 naler_max        0       0 mpg          0     0      0         0
+       9 aled             0       1 vs           0     0      0         0
+      10 aler_min         0       1 vs           0     0      0         0
+      # i 46 more rows
       
       attr(,"effect")$Europe$stats$d2
-      # A tibble: 126 x 8
+      # A tibble: 168 x 8
          statistic estimate p.value term   conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl>
        1 aled             0       1 mpg:vs        0     0      0         0
        2 aler_min         0       1 mpg:vs        0     0      0         0
-       3 aler_max         0       1 mpg:vs        0     0      0         0
-       4 naled            0       0 mpg:vs        0     0      0         0
-       5 naler_min        0       1 mpg:vs        0     0      0         0
-       6 naler_max        0       0 mpg:vs        0     0      0         0
-       7 aled             0       1 mpg:am        0     0      0         0
-       8 aler_min         0       1 mpg:am        0     0      0         0
-       9 aler_max         0       1 mpg:am        0     0      0         0
-      10 naled            0       0 mpg:am        0     0      0         0
-      # i 116 more rows
+       3 aler             0       1 mpg:vs        0     0      0         0
+       4 aler_max         0       1 mpg:vs        0     0      0         0
+       5 naled            0       0 mpg:vs        0     0      0         0
+       6 naler_min        0       1 mpg:vs        0     0      0         0
+       7 naler            0       0 mpg:vs        0     0      0         0
+       8 naler_max        0       0 mpg:vs        0     0      0         0
+       9 aled             0       1 mpg:am        0     0      0         0
+      10 aler_min         0       1 mpg:am        0     0      0         0
+      # i 158 more rows
       
       
       attr(,"effect")$Europe$boot_data
@@ -2231,36 +2231,36 @@
       
       attr(,"effect")$`North America`$stats
       attr(,"effect")$`North America`$stats$d1
-      # A tibble: 42 x 8
+      # A tibble: 56 x 8
          statistic estimate p.value term  conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl>
        1 aled             0       1 mpg          0     0      0         0
        2 aler_min         0       1 mpg          0     0      0         0
-       3 aler_max         0       1 mpg          0     0      0         0
-       4 naled            0       0 mpg          0     0      0         0
-       5 naler_min        0       1 mpg          0     0      0         0
-       6 naler_max        0       0 mpg          0     0      0         0
-       7 aled             0       1 vs           0     0      0         0
-       8 aler_min         0       1 vs           0     0      0         0
-       9 aler_max         0       1 vs           0     0      0         0
-      10 naled            0       0 vs           0     0      0         0
-      # i 32 more rows
+       3 aler             0       1 mpg          0     0      0         0
+       4 aler_max         0       1 mpg          0     0      0         0
+       5 naled            0       0 mpg          0     0      0         0
+       6 naler_min        0       1 mpg          0     0      0         0
+       7 naler            0       0 mpg          0     0      0         0
+       8 naler_max        0       0 mpg          0     0      0         0
+       9 aled             0       1 vs           0     0      0         0
+      10 aler_min         0       1 vs           0     0      0         0
+      # i 46 more rows
       
       attr(,"effect")$`North America`$stats$d2
-      # A tibble: 126 x 8
+      # A tibble: 168 x 8
          statistic estimate p.value term   conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl>
        1 aled             0       1 mpg:vs        0     0      0         0
        2 aler_min         0       1 mpg:vs        0     0      0         0
-       3 aler_max         0       1 mpg:vs        0     0      0         0
-       4 naled            0       0 mpg:vs        0     0      0         0
-       5 naler_min        0       1 mpg:vs        0     0      0         0
-       6 naler_max        0       0 mpg:vs        0     0      0         0
-       7 aled             0       1 mpg:am        0     0      0         0
-       8 aler_min         0       1 mpg:am        0     0      0         0
-       9 aler_max         0       1 mpg:am        0     0      0         0
-      10 naled            0       0 mpg:am        0     0      0         0
-      # i 116 more rows
+       3 aler             0       1 mpg:vs        0     0      0         0
+       4 aler_max         0       1 mpg:vs        0     0      0         0
+       5 naled            0       0 mpg:vs        0     0      0         0
+       6 naler_min        0       1 mpg:vs        0     0      0         0
+       7 naler            0       0 mpg:vs        0     0      0         0
+       8 naler_max        0       0 mpg:vs        0     0      0         0
+       9 aled             0       1 mpg:am        0     0      0         0
+      10 aler_min         0       1 mpg:am        0     0      0         0
+      # i 158 more rows
       
       
       attr(,"effect")$`North America`$boot_data
@@ -2788,7 +2788,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "2def35d36b7a156aae1f7f98d519064e"
+      [1] "4ecbca046618c108e6d5334aaae5b038"
       
       
       attr(,"params")$data
@@ -2906,26 +2906,32 @@
       attr(,"params")$p_values
       <ale::ALEpDist>
        @ rand_stats           :List of 3
-       .. $ Asia         : tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
+       .. $ Asia         : tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
        ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.44e-22 ...
        ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.69e-21 ...
+       ..  ..$ aler     : num [1:100] 3.58e-19 1.73e-21 1.00e-20 7.89e-22 4.13e-21 ...
        ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.44e-21 ...
        ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
        ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
+       ..  ..$ naler    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
        ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       .. $ Europe       : tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
+       .. $ Europe       : tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
        ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.44e-22 ...
        ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.69e-21 ...
+       ..  ..$ aler     : num [1:100] 3.58e-19 1.73e-21 1.00e-20 7.89e-22 4.13e-21 ...
        ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.44e-21 ...
        ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
        ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
+       ..  ..$ naler    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
        ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       .. $ North America: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
+       .. $ North America: tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
        ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.44e-22 ...
        ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.69e-21 ...
+       ..  ..$ aler     : num [1:100] 3.58e-19 1.73e-21 1.00e-20 7.89e-22 4.13e-21 ...
        ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.44e-21 ...
        ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
        ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
+       ..  ..$ naler    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
        ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
        @ residual_distribution: 'univariateML' Named num [1:2] -2.04e-23 1.50e-17
        .. - attr(*, "logLik")= num 2371
@@ -2941,7 +2947,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:2] "multinom" "nnet"
-       ..  ..$ hash : chr "2def35d36b7a156aae1f7f98d519064e"
+       ..  ..$ hash : chr "4ecbca046618c108e6d5334aaae5b038"
        .. $ y_col                        : chr "continent"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -5611,91 +5617,91 @@
     Output
       $Asia
       $Asia$d1
-      # A tibble: 7 x 7
-        term       aled    aler_min   aler_max naled naler_min naler_max
-        <chr>     <dbl>       <dbl>      <dbl> <dbl>     <dbl>     <dbl>
-      1 mpg   0          0           0           0         0        0   
-      2 vs    0          0           0           0         0        0   
-      3 am    0.0218    -0.00838     0.0309     38.9     -50       31.2 
-      4 model 2.16      -3.57       -0.283      49.4     -50       -9.38
-      5 gear  0.140     -0.232       0.119      37.7     -50       31.2 
-      6 carb  0.00172   -0.00189     0.00549    40.9     -50       31.2 
-      7 wt    0.0000154 -0.00000952  0.0000259  37.3     -12.5     31.2 
+      # A tibble: 7 x 9
+        term       aled    aler_min      aler aler_max naled naler_min naler naler_max
+        <chr>     <dbl>       <dbl>     <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+      1 mpg   0          0          0          0         0         0     0        0   
+      2 vs    0          0          0          0         0         0     0        0   
+      3 am    0.0218    -0.00838    0.0393     3.09e-2  38.9     -50    81.2     31.2 
+      4 model 2.16      -3.57       3.28      -2.83e-1  49.4     -50    40.6     -9.38
+      5 gear  0.140     -0.232      0.351      1.19e-1  37.7     -50    81.2     31.2 
+      6 carb  0.00172   -0.00189    0.00738    5.49e-3  40.9     -50    81.2     31.2 
+      7 wt    0.0000154 -0.00000952 0.0000354  2.59e-5  37.3     -12.5  43.8     31.2 
       
       $Asia$d2
-      # A tibble: 21 x 7
-         term       aled aler_min aler_max naled naler_min naler_max
-         <chr>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 mpg:vs        0        0        0     0         0         0
-       2 mpg:am        0        0        0     0         0         0
-       3 mpg:model     0        0        0     0         0         0
-       4 mpg:gear      0        0        0     0         0         0
-       5 mpg:carb      0        0        0     0         0         0
-       6 mpg:wt        0        0        0     0         0         0
-       7 vs:am         0        0        0     0         0         0
-       8 vs:model      0        0        0     0         0         0
-       9 vs:gear       0        0        0     0         0         0
-      10 vs:carb       0        0        0     0         0         0
+      # A tibble: 21 x 9
+         term       aled aler_min  aler aler_max naled naler_min naler naler_max
+         <chr>     <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 mpg:vs        0        0     0        0     0         0     0         0
+       2 mpg:am        0        0     0        0     0         0     0         0
+       3 mpg:model     0        0     0        0     0         0     0         0
+       4 mpg:gear      0        0     0        0     0         0     0         0
+       5 mpg:carb      0        0     0        0     0         0     0         0
+       6 mpg:wt        0        0     0        0     0         0     0         0
+       7 vs:am         0        0     0        0     0         0     0         0
+       8 vs:model      0        0     0        0     0         0     0         0
+       9 vs:gear       0        0     0        0     0         0     0         0
+      10 vs:carb       0        0     0        0     0         0     0         0
       # i 11 more rows
       
       
       $Europe
       $Europe$d1
-      # A tibble: 7 x 7
-        term       aled   aler_min   aler_max naled naler_min naler_max
-        <chr>     <dbl>      <dbl>      <dbl> <dbl>     <dbl>     <dbl>
-      1 mpg   0          0         0            0           0      0   
-      2 vs    0          0         0            0           0      0   
-      3 am    0.0218    -0.0309    0.00838     32.2       -50      6.25
-      4 model 2.52      -0.555     4.53        45.2       -50     50   
-      5 gear  0.232     -0.172     0.365       30.2       -50      6.25
-      6 carb  0.00172   -0.00549   0.00189     27.4       -50      6.25
-      7 wt    0.0000154 -0.0000259 0.00000952  29.2       -50    -21.9 
+      # A tibble: 7 x 9
+        term       aled   aler_min      aler  aler_max naled naler_min naler naler_max
+        <chr>     <dbl>      <dbl>     <dbl>     <dbl> <dbl>     <dbl> <dbl>     <dbl>
+      1 mpg   0          0         0           0         0           0   0        0   
+      2 vs    0          0         0           0         0           0   0        0   
+      3 am    0.0218    -0.0309    0.0393      8.38e-3  32.2       -50  56.2      6.25
+      4 model 2.52      -0.555     5.08        4.53e+0  45.2       -50 100       50   
+      5 gear  0.232     -0.172     0.537       3.65e-1  30.2       -50  56.2      6.25
+      6 carb  0.00172   -0.00549   0.00738     1.89e-3  27.4       -50  56.2      6.25
+      7 wt    0.0000154 -0.0000259 0.0000354   9.52e-6  29.2       -50  28.1    -21.9 
       
       $Europe$d2
-      # A tibble: 21 x 7
-         term       aled aler_min aler_max naled naler_min naler_max
-         <chr>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 mpg:vs        0        0        0     0         0         0
-       2 mpg:am        0        0        0     0         0         0
-       3 mpg:model     0        0        0     0         0         0
-       4 mpg:gear      0        0        0     0         0         0
-       5 mpg:carb      0        0        0     0         0         0
-       6 mpg:wt        0        0        0     0         0         0
-       7 vs:am         0        0        0     0         0         0
-       8 vs:model      0        0        0     0         0         0
-       9 vs:gear       0        0        0     0         0         0
-      10 vs:carb       0        0        0     0         0         0
+      # A tibble: 21 x 9
+         term       aled aler_min  aler aler_max naled naler_min naler naler_max
+         <chr>     <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 mpg:vs        0        0     0        0     0         0     0         0
+       2 mpg:am        0        0     0        0     0         0     0         0
+       3 mpg:model     0        0     0        0     0         0     0         0
+       4 mpg:gear      0        0     0        0     0         0     0         0
+       5 mpg:carb      0        0     0        0     0         0     0         0
+       6 mpg:wt        0        0     0        0     0         0     0         0
+       7 vs:am         0        0     0        0     0         0     0         0
+       8 vs:model      0        0     0        0     0         0     0         0
+       9 vs:gear       0        0     0        0     0         0     0         0
+      10 vs:carb       0        0     0        0     0         0     0         0
       # i 11 more rows
       
       
       $`North America`
       $`North America`$d1
-      # A tibble: 7 x 7
-        term      aled  aler_min aler_max naled naler_min naler_max
-        <chr>    <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 mpg   0         0        0          0         0        0   
-      2 vs    0         0        0          0         0        0   
-      3 am    7.01e-10 -9.12e-10 3.46e-10  41.7     -50      -20.3 
-      4 model 1.11e+ 0 -1.65e+ 0 1.64e+ 0  42.4     -50       50   
-      5 gear  1.28e- 1 -2.32e- 1 6.02e- 2  29.5     -50       12.5 
-      6 carb  3.40e- 8 -4.13e- 8 1.08e- 7  20.4     -20.3     12.5 
-      7 wt    4.15e-10  3.29e-10 7.56e-10  27.5     -20.3      9.38
+      # A tibble: 7 x 9
+        term      aled  aler_min     aler aler_max naled naler_min naler naler_max
+        <chr>    <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+      1 mpg   0         0        0        0          0         0     0        0   
+      2 vs    0         0        0        0          0         0     0        0   
+      3 am    7.01e-10 -9.12e-10 1.26e- 9 3.46e-10  41.7     -50    29.7    -20.3 
+      4 model 1.11e+ 0 -1.65e+ 0 3.30e+ 0 1.64e+ 0  42.4     -50   100       50   
+      5 gear  1.28e- 1 -2.32e- 1 2.93e- 1 6.02e- 2  29.5     -50    62.5     12.5 
+      6 carb  3.40e- 8 -4.13e- 8 1.49e- 7 1.08e- 7  20.4     -20.3  32.8     12.5 
+      7 wt    4.15e-10  3.29e-10 4.28e-10 7.56e-10  27.5     -20.3  29.7      9.38
       
       $`North America`$d2
-      # A tibble: 21 x 7
-         term       aled aler_min aler_max naled naler_min naler_max
-         <chr>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 mpg:vs        0        0        0     0         0         0
-       2 mpg:am        0        0        0     0         0         0
-       3 mpg:model     0        0        0     0         0         0
-       4 mpg:gear      0        0        0     0         0         0
-       5 mpg:carb      0        0        0     0         0         0
-       6 mpg:wt        0        0        0     0         0         0
-       7 vs:am         0        0        0     0         0         0
-       8 vs:model      0        0        0     0         0         0
-       9 vs:gear       0        0        0     0         0         0
-      10 vs:carb       0        0        0     0         0         0
+      # A tibble: 21 x 9
+         term       aled aler_min  aler aler_max naled naler_min naler naler_max
+         <chr>     <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 mpg:vs        0        0     0        0     0         0     0         0
+       2 mpg:am        0        0     0        0     0         0     0         0
+       3 mpg:model     0        0     0        0     0         0     0         0
+       4 mpg:gear      0        0     0        0     0         0     0         0
+       5 mpg:carb      0        0     0        0     0         0     0         0
+       6 mpg:wt        0        0     0        0     0         0     0         0
+       7 vs:am         0        0     0        0     0         0     0         0
+       8 vs:model      0        0     0        0     0         0     0         0
+       9 vs:gear       0        0     0        0     0         0     0         0
+      10 vs:carb       0        0     0        0     0         0     0         0
       # i 11 more rows
       
       

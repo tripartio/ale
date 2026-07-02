@@ -418,36 +418,36 @@
       
       attr(,"effect")$mpg$stats
       attr(,"effect")$mpg$stats$d1
-      # A tibble: 42 x 7
+      # A tibble: 56 x 7
          term      statistic estimate conf.low  mean median conf.high
          <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
        1 vs        aled             0        0     0      0         0
        2 vs        aler_min         0        0     0      0         0
-       3 vs        aler_max         0        0     0      0         0
-       4 vs        naled            0        0     0      0         0
-       5 vs        naler_min        0        0     0      0         0
-       6 vs        naler_max        0        0     0      0         0
-       7 continent aled             0        0     0      0         0
-       8 continent aler_min         0        0     0      0         0
-       9 continent aler_max         0        0     0      0         0
-      10 continent naled            0        0     0      0         0
-      # i 32 more rows
+       3 vs        aler             0        0     0      0         0
+       4 vs        aler_max         0        0     0      0         0
+       5 vs        naled            0        0     0      0         0
+       6 vs        naler_min        0        0     0      0         0
+       7 vs        naler            0        0     0      0         0
+       8 vs        naler_max        0        0     0      0         0
+       9 continent aled             0        0     0      0         0
+      10 continent aler_min         0        0     0      0         0
+      # i 46 more rows
       
       attr(,"effect")$mpg$stats$d2
-      # A tibble: 126 x 7
+      # A tibble: 168 x 7
          term         statistic estimate conf.low  mean median conf.high
          <chr>        <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
        1 vs:continent aled             0        0     0      0         0
        2 vs:continent aler_min         0        0     0      0         0
-       3 vs:continent aler_max         0        0     0      0         0
-       4 vs:continent naled            0        0     0      0         0
-       5 vs:continent naler_min        0        0     0      0         0
-       6 vs:continent naler_max        0        0     0      0         0
-       7 vs:am        aled             0        0     0      0         0
-       8 vs:am        aler_min         0        0     0      0         0
-       9 vs:am        aler_max         0        0     0      0         0
-      10 vs:am        naled            0        0     0      0         0
-      # i 116 more rows
+       3 vs:continent aler             0        0     0      0         0
+       4 vs:continent aler_max         0        0     0      0         0
+       5 vs:continent naled            0        0     0      0         0
+       6 vs:continent naler_min        0        0     0      0         0
+       7 vs:continent naler            0        0     0      0         0
+       8 vs:continent naler_max        0        0     0      0         0
+       9 vs:am        aled             0        0     0      0         0
+      10 vs:am        aler_min         0        0     0      0         0
+      # i 158 more rows
       
       
       attr(,"effect")$mpg$boot_data

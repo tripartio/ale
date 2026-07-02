@@ -26,12 +26,14 @@
 #' @param aled_fun See documentation for [ALE()]
 #'
 #' @returns Named numeric vector:
-#' * aled: ALE deviation (ALED)
-#' * aler_min: Minimum (lower value) of the ALE range (ALER)
-#' * aler_max: Maximum (upper value) of the ALE range (ALER)
-#' * naled: Normalized ALE deviation (ALED)
-#' * naler_min: Normalized minimum (lower value) of the ALE range (ALER)
-#' * naler_max: Normalized maximum (upper value) of the ALE range (ALER)
+#' * `aled`: ALE deviation (ALED)
+#' * `aler_min`: Minimum (lower value) of the ALE range (ALER)
+#' * `aler`: ALE range (ALER) (`aler_max` - `aler_min`)
+#' * `aler_max`: Maximum (upper value) of the ALE range (ALER)
+#' * `naled`: Normalized ALE deviation (ALED)
+#' * `naler_min`: Normalized minimum (lower value) of the ALE range (ALER)
+#' * `naler`: Normalized ALE range (NALER) (`naler_max` - `naler_min`)
+#' * `naler_max`: Normalized maximum (upper value) of the ALE range (ALER)
 #'
 calc_stats <- function(
     y,
@@ -144,9 +146,11 @@ calc_stats <- function(
   return(c(
     aled = aled,
     aler_min = aler[1],
+    aler = aler[2] - aler[1],
     aler_max = aler[2],
     naled = naled,
     naler_min = naler[1],
+    naler = naler[2] - naler[1],
     naler_max = naler[2]
   ))
 }  # calc_stats()

@@ -44,10 +44,10 @@
 #'
 #'   \item{`what = 'ale'` (default) and `stats = 'estimate'`}{A list with elements `d1` and `d2` with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
 #'     * `term`: The variables or columns for the 1D or 2D ALE statistic.
-#'     * `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`: the respective ALE statistic for the variable or interaction.
+#'     * `aled`, `aler_min`, `aler`, `aler_max`, `naled`, `naler_min`, `naler`, `naler_max`: the respective ALE statistic for the variable or interaction.
 #'   }
 #'
-#'   \item{`what = 'ale'` (default) and `stats` is one or more values in `c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')`}{A list with elements `d1` and `d2` with the distribution value of the single requested ALE statistic. Each element `d1` and `d2` is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
+#'   \item{`what = 'ale'` (default) and `stats` is one or more values in `c('aled', 'aler_min', 'aler', 'aler_max', 'naled', 'naler_min', 'naler', 'naler_max')`}{A list with elements `d1` and `d2` with the distribution value of the single requested ALE statistic. Each element `d1` and `d2` is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
 #'     * `term`: Same as for `stats = 'estimate'`.
 #'     * `statistic`: The requested ALE statistic(s).
 #'     * `estimate`, `mean`, `median`: The average of the bootstrapped value of the requested statistic. `estimate` is equal to either `mean` or `median` depending on the `boot_centre` argument in the [ALE()] constructor. If ALE is not bootstrapped, then `estimate`, `mean`, and `median` are equal.
@@ -108,7 +108,7 @@ method(get, ALE) <- function(
     msg = 'The {.arg what} argument must be one (and only one) of the following values: {valid_what}.'
   )
 
-  stats_names <- c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')
+  stats_names <- c('aled', 'aler_min', 'aler', 'aler_max', 'naled', 'naler_min', 'naler', 'naler_max')
   valid_stats <- c(
     'estimate',
     'all',
@@ -514,7 +514,7 @@ summary_ALE_stats <- function(
 #' Prints out a statistical summary of an `ALE` object. If there are no ALE statistics, a message says so. Summarized statistics are mean or median depending on the `boot_centre` argument used for [ALE()] bootstrapping.
 #'
 #' @param object An object of class `ALE`.
-#' @param stats character. One or more values in c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
+#' @param stats character. One or more values in c("aled", "aler_min", "aler", "aler_max", "naled", "naler_min", "naler", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
 #' @param all_conf logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
 #' @param round_digits integer(1). Numbers in tables will be rounded to `round_digits` decimal places.
 #' @param max_rows natural number. Maximum number of rows to print for any component.
@@ -532,7 +532,7 @@ summary_ALE_stats <- function(
 #' @method summary ALE
 method(summary, ALE) <- function(
     object,
-    stats = c('aled', 'naled'),
+    stats = c('aled', 'aler', 'naled', 'naler'),
     all_conf = FALSE,
     round_digits = 4L,
     max_rows = 100,
@@ -540,7 +540,7 @@ method(summary, ALE) <- function(
 ) {
   # Validate inputs -------------
 
-  stats_names <- c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')
+  stats_names <- c('aled', 'aler_min', 'aler', 'aler_max', 'naled', 'naler_min', 'naler', 'naler_max')
   validate(
     is.character(stats) && all(stats %in% stats_names),
     msg = 'Values in the {.arg stats} argument must be one or more of the following: {stats_names}.'

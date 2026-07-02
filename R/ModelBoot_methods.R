@@ -185,7 +185,7 @@ method(print, ModelBoot) <- function(
 #' Prints out a statistical summary of an `ModelBoot` object. If there are no ALE statistics, a message says so. Summarized statistics are mean or median depending on the `boot_centre` argument used for [ALE()] bootstrapping.
 #'
 #' @param object An object of class `ModelBoot`.
-#' @param stats character. One or more values in c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
+#' @param stats character. One or more values in c("aled", "aler_min", "aler", "aler_max", "naled", "naler_min", "naler", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
 #' @param all_conf logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
 #' @param round_digits integer(1). Numbers in tables will be rounded to `round_digits` decimal places.
 #' @param max_rows natural number. Maximum number of rows to print for any component.
@@ -203,7 +203,7 @@ method(print, ModelBoot) <- function(
 #' @method summary ModelBoot
 method(summary, ModelBoot) <- function(
     object,
-    stats = c('aled', 'naled'),
+    stats = c('aled', 'aler', 'naled', 'naler'),
     all_conf = FALSE,
     round_digits = 4L,
     max_rows = 100,
@@ -211,7 +211,7 @@ method(summary, ModelBoot) <- function(
 ) {
   # Validate inputs -------------
 
-  stats_names <- c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')
+  stats_names <- c('aled', 'aler_min', 'aler', 'aler_max', 'naled', 'naler_min', 'naler', 'naler_max')
   validate(
     is.character(stats) && all(stats %in% stats_names),
     msg = 'Values in the {.arg stats} argument must be one or more of the following: {stats_names}.'
