@@ -40,7 +40,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "af60feb9f54098b33af8c19dd88bfd30"
+      [1] "0566e24d41b2e04348d2951b07df6805"
       
       
       attr(,"params")$y_col
@@ -248,7 +248,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "af60feb9f54098b33af8c19dd88bfd30"
+      [1] "0566e24d41b2e04348d2951b07df6805"
       
       
       attr(,"params")$data
@@ -389,7 +389,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "af60feb9f54098b33af8c19dd88bfd30"
+       ..  ..$ hash : chr "0566e24d41b2e04348d2951b07df6805"
        .. $ y_col                        : chr "mpg"
        .. $ rand_it                      : num 10
        .. $ parallel                     : num 0
@@ -525,7 +525,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "af60feb9f54098b33af8c19dd88bfd30"
+      [1] "0566e24d41b2e04348d2951b07df6805"
       
       
       attr(,"params")$y_col
@@ -659,7 +659,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "af60feb9f54098b33af8c19dd88bfd30"
+      [1] "0566e24d41b2e04348d2951b07df6805"
       
       
       attr(,"params")$y_col
@@ -738,7 +738,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "27ea058c13e211416fb2354f6279afbd"
+      [1] "dc3c7295e768b7054e90b9dec2ddb01a"
       
       
       attr(,"params")$y_col
@@ -847,7 +847,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "2def35d36b7a156aae1f7f98d519064e"
+      [1] "75be03dac2edc3366dcc0aa4bdf6f5ed"
       
       
       attr(,"params")$y_col

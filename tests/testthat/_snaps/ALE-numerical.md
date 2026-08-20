@@ -517,7 +517,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "af60feb9f54098b33af8c19dd88bfd30"
+      [1] "0566e24d41b2e04348d2951b07df6805"
       
       
       attr(,"params")$data

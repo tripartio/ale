@@ -43,6 +43,7 @@ The numbering system described above is used for packages released to CRAN. For 
 ## Bug fixes
 
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
+* Handle missing 1D ALE bins during model bootstrapping (#19).
 
 ## Changed functionality
 
