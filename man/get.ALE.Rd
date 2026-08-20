@@ -66,10 +66,10 @@ While all results follow the general structure just described, the specific type
 
 \item{\code{what = 'ale'} (default) and \code{stats = 'estimate'}}{A list with elements \code{d1} and \code{d2} with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
 * \code{term}: The variables or columns for the 1D or 2D ALE statistic.
-* \code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}: the respective ALE statistic for the variable or interaction.
+* \code{aled}, \code{aler_min}, \code{aler}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler}, \code{naler_max}: the respective ALE statistic for the variable or interaction.
 }
 
-\item{\code{what = 'ale'} (default) and \code{stats} is one or more values in \code{c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')}}{A list with elements \code{d1} and \code{d2} with the distribution value of the single requested ALE statistic. Each element \code{d1} and \code{d2} is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
+\item{\code{what = 'ale'} (default) and \code{stats} is one or more values in \code{c('aled', 'aler_min', 'aler', 'aler_max', 'naled', 'naler_min', 'naler', 'naler_max')}}{A list with elements \code{d1} and \code{d2} with the distribution value of the single requested ALE statistic. Each element \code{d1} and \code{d2} is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
 * \code{term}: Same as for \code{stats = 'estimate'}.
 * \code{statistic}: The requested ALE statistic(s).
 * \code{estimate}, \code{mean}, \code{median}: The average of the bootstrapped value of the requested statistic. \code{estimate} is equal to either \code{mean} or \code{median} depending on the \code{boot_centre} argument in the \code{\link[=ALE]{ALE()}} constructor. If ALE is not bootstrapped, then \code{estimate}, \code{mean}, and \code{median} are equal.

@@ -7,7 +7,7 @@
 ## S7 method for class <ale::ModelBoot>
 summary(
   object,
-  stats = c("aled", "naled"),
+  stats = c("aled", "aler", "naled", "naler"),
   all_conf = FALSE,
   round_digits = 4L,
   max_rows = 100,
@@ -17,7 +17,7 @@ summary(
 \arguments{
 \item{object}{An object of class \code{ModelBoot}.}
 
-\item{stats}{character. One or more values in c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.}
+\item{stats}{character. One or more values in c("aled", "aler_min", "aler", "aler_max", "naled", "naler_min", "naler", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.}
 
 \item{all_conf}{logical(1). By default (\code{FALSE}), only statistically significant confidence regions are reported. If \code{TRUE}, all regions are reported as well.}
 
