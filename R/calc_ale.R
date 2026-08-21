@@ -384,7 +384,8 @@ calc_ale <- function(
               cli_abort('There should be no other missing values in 1D ALE at this point. Please submit a bug report.')
             } else {
               # Full-model bootstrapping might occasionally leave missing bins here, so just impute them with zero accumulation
-              btit.local_eff_ray[it.cat, it.na_idx] <- 0
+              btit.local_eff_ray[it.cat, it.na_idx] <- btit.local_eff_ray[it.cat, it.na_idx] |>
+                intrapolate_1D()
             }
           }
         }
