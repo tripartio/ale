@@ -18,13 +18,13 @@ The version numbering system for the {ale} package is an adaptation of the stand
 
 ## Major version 0: beta or experimental status
 
-That said, major version 0 has special meaning: it indicates that the package is in beta, that is, still in experimental status, meaning that a stable interface has not yet been settled. New features might be written that break the functionality of previous 0.x versions. That said, every minor version is tested with {revdepcheck}. A notification or pull request will be sent to the maintainers of any affected packages.
+That said, major version 0 has special meaning: it indicates that the package is in beta, that is, still in experimental status, meaning that a stable interface has not yet been settled. New features might be written that break the functionality of previous 0.x versions. That said, every minor version is tested with {revdepcheck}. A notification or pull request will be sent to the maintainers of any packages whose functionality might be broken due to a change in {ale} functionality.
 
 Normally, if new functionality is added along with bug fixes, then the bug fixes will be released with the next minor version. However, with the major version 0, small changes in functionality will sometimes be released in a bug-fix version. 
 
 ## Development version numbering
 
-The numbering system described above is used for packages released to CRAN. For development versions after the CRAN release, the {ale} package adds a fourth component D, that is, an M.m.b.D format. The D is in YYYYMMDD date format, indicating the release date of the latest development version after the latest CRAN release. So, version 0.5.3.20260217 is a development version released on February 17, 2026, after the 0.5.3 CRAN version with no subsequent CRAN releases. However, as the specific date keeps on changing, the latest development version is simply indicated in the change log below as "ale (development version)".
+The numbering system described above is used for packages released to CRAN. For development versions in between CRAN releases, the {ale} package adds a fourth component D, that is, an M.m.b.D format. The D is in YYYYMMDD date format, indicating the release date of the latest development version after the latest CRAN release. So, version 0.5.3.20260217 is a development version released on February 17, 2026, after the 0.5.3 CRAN version. However, as the specific date keeps on changing, the latest development version is simply indicated in the change log below as "ale (development version)".
 
 # ale (development version)
 
@@ -38,7 +38,7 @@ The numbering system described above is used for packages released to CRAN. For 
 * The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with a default for columns not named. For details, see documentation for `ALE()`.
 * Parallelization can be controlled with a global option `ale.parallel`. For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
 * The `{ranger}` package is automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages.
-* ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER max – NALER min) directly, not just the _max and _min versions.
+* ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER max – NALER min) directly, not just the _max and _min versions, which are retained.
 
 ## Bug fixes
 

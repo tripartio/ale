@@ -63,6 +63,9 @@ calc_ale <- function(
   n_row <- nrow(X)
   ixn_d <- length(x_cols)  # number of dimensions of interaction
 
+  # There should be no missing ALE values except perhaps in the case of full-model bootstrapping
+  allow_bootstrap_na <- boot_it > 0 || !is.null(.bins)
+
   # Create bootstrap tbl
   original_seed <- if (exists('.Random.seed')) .Random.seed else seed
   on.exit(set.seed(original_seed))
@@ -377,16 +380,15 @@ calc_ale <- function(
           # For 1D ALE, set origin effect for minimum numeric value to zero
           btit.local_eff_ray[it.cat, 1] <- 0
 
-          # There should be no other missing values except perhaps in the case of full-model bootstrapping
           it.na_idx <- is.na(btit.local_eff_ray[it.cat, ])
           if (any(it.na_idx)) {
-            if (is.null(.bins)) {
+            if (!allow_bootstrap_na) {
               cli_abort('There should be no other missing values in 1D ALE at this point. Please submit a bug report.')
-            } else {
-              # Full-model bootstrapping might occasionally leave missing bins here, so just impute them with zero accumulation
-              btit.local_eff_ray[it.cat, it.na_idx] <- btit.local_eff_ray[it.cat, it.na_idx] |>
-                intrapolate_1D()
             }
+
+            # Full-model bootstrapping might occasionally leave missing bins here, so interpolate them
+            btit.local_eff_ray[it.cat, ] <- btit.local_eff_ray[it.cat, ] |>
+                intrapolate_1D()
           }
         }
 
@@ -731,6 +733,9 @@ calc_ale <- function(
       .y = .data$.y_distinct
     )
 
+  if (!allow_bootstrap_na && anyNA(boot_ale_tbl$.y)) {
+    cli_abort('Missing ALE values occurred without bootstrapping. Please submit a bug report.')
+  }
 
   # Summarize bootstrapped values -----------------
 
