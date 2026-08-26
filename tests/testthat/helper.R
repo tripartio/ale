@@ -60,6 +60,7 @@ test_gam_binary <- mgcv::gam(
   family = stats::binomial()
 )
 
+set.seed(0)
 test_nn_categorical <- nnet::multinom(
   # Remove mpg (typical target) and country (perfectly determines continent) from the model
   continent ~ model + wt + am + gear + carb,

@@ -88,6 +88,7 @@ test_that(
     skip_on_ci()
 
     # Regular test_nn_categorical is too small a dataset; bootstrapping turns up problems. So, use iris here.
+    set.seed(0)
     test_nn_iris <- nnet::multinom(
       Species ~ .,
       data = iris,

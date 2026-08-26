@@ -1910,7 +1910,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "600488a1c4d6021c923aa07b9653a5d2"
+      [1] "a49367cd78ae537a4dd97001dc75cde9"
       
       
       attr(,"params")$data
@@ -2484,7 +2484,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "bde430309e1cf72004139c3567f0df16"
+      [1] "3fac274ff98f797f54f2bc844b14791d"
       
       
       attr(,"params")$data

@@ -2788,7 +2788,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "75be03dac2edc3366dcc0aa4bdf6f5ed"
+      [1] "618a910f9f636a0d673e03eeae7cf86d"
       
       
       attr(,"params")$data
@@ -2947,7 +2947,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:2] "multinom" "nnet"
-       ..  ..$ hash : chr "75be03dac2edc3366dcc0aa4bdf6f5ed"
+       ..  ..$ hash : chr "618a910f9f636a0d673e03eeae7cf86d"
        .. $ y_col                        : chr "continent"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
