@@ -467,7 +467,7 @@ ALEpDist <- new_class(
 
     # Enable parallel processing and restore former parallel plan on exit
     if (parallel > 0) {
-      future::plan(future::multisession, workers = parallel) |>
+      future::plan(future_session(), workers = parallel) |>
         # https://github.com/tripartio/ale/issues/17
         with(local = TRUE)
     }

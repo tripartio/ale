@@ -84,3 +84,13 @@ test_that("params_model returns an unnamed scalar hash", {
   expect_length(params$hash, 1)
   expect_null(names(params$hash))
 })
+
+
+test_that("future_session accepts another package and session strategy", {
+  strategy <- future_session(
+    pkg = "future",
+    session_fn = future::sequential
+  )
+
+  expect_identical(strategy, future::sequential)
+})

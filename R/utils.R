@@ -2,6 +2,47 @@
 
 
 
+# Select a future strategy that can load a pkgload development package.
+#
+# future normally records functions from a package namespace as package
+# dependencies rather than serializing them. A package loaded from its source
+# tree by pkgload is not available to a clean multisession worker through
+# library(), so ask each worker to load that same source tree at startup.
+# Installed packages retain future's standard multisession behaviour.
+#
+# @param pkg Name of the package whose development source should be loaded.
+# @param session_fn The future strategy to use.
+# @return A future strategy function.
+# @noRd
+future_session <- function(
+    pkg = 'ale',
+    session_fn = future::multisession
+) {
+  if (
+    "pkgload" %in% loadedNamespaces() &&
+      pkgload::is_dev_package(pkg)
+  ) {
+    package_path <- find.package(pkg)
+    worker_startup <- bquote(
+      quote(
+        pkgload::load_all(
+          .(package_path),
+          helpers = FALSE,
+          quiet = TRUE
+        )
+      )
+    )
+
+    return(future::tweak(
+      session_fn,
+      rscript_startup = worker_startup
+    ))
+  }
+
+  session_fn
+}
+
+
 
 # Mathematical operations ------------
 
@@ -192,4 +233,3 @@ extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
 
   result
 }
-
