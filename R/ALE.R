@@ -719,7 +719,7 @@ ALE <- new_class(
     # https://cran.r-project.org/web/packages/future/vignettes/future-7-for-package-developers.html
     # However, don't presume that all users will use future, so just use on.exit strategy.
     if (parallel > 0) {
-      future::plan(future::multisession, workers = parallel) |>
+      future::plan(future_session(), workers = parallel) |>
         # https://github.com/tripartio/ale/issues/17
         with(local = TRUE)
     }
