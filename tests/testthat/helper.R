@@ -17,6 +17,35 @@ options(ale.parallel = 0)
 options(progressr.enable = FALSE)
 
 
+# Create stable snapshots of S7 objects -------------------
+
+# S7 stores properties as attributes alongside class-definition metadata. That
+# metadata is an implementation detail (and its printed representation can
+# change between S7 releases), so snapshots should contain only the object's
+# substantive properties. Recursing also handles S7 objects nested in list
+# properties, such as the ALE object stored by ModelBoot.
+s7_snapshot <- function(object) {
+  stopifnot(inherits(object, "S7_object"))
+
+  normalize <- function(value) {
+    if (inherits(value, "S7_object")) {
+      return(s7_snapshot(value))
+    }
+
+    if (is.list(value) && !inherits(value, "data.frame")) {
+      normalized <- lapply(value, normalize)
+      names(normalized) <- names(value)
+      return(normalized)
+    }
+
+    value
+  }
+
+  S7::props(object) |>
+    lapply(normalize)
+}
+
+
 # Train a GAM on var_cars dataset -------------------
 
 

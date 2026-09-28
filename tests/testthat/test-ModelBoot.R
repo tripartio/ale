@@ -45,10 +45,9 @@ test_that(
       ale_plots_to_data() |>
       expect_snapshot()
 
-    # Create serializable snapshot
-    mb@ale$single <- unclass(mb@ale$single)
+    expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
-      unclass() |>
+      s7_snapshot() |>
       expect_snapshot()
   }
 )
@@ -74,10 +73,9 @@ test_that(
       ale_plots_to_data() |>
       expect_snapshot()
 
-    # Create serializable snapshot
-    mb@ale$single <- unclass(mb@ale$single)
+    expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
-      unclass() |>
+      s7_snapshot() |>
       expect_snapshot()
   }
 )
@@ -123,11 +121,9 @@ test_that(
       silent = TRUE
     )
 
-    # Create serializable snapshot
-    snap_mb <- mb
-    snap_mb@ale$single <- unclass(mb@ale$single)
-    snap_mb |>
-      unclass() |>
+    expect_true(S7::S7_inherits(mb, ModelBoot))
+    mb |>
+      s7_snapshot() |>
       expect_snapshot()
 
 
@@ -145,6 +141,5 @@ test_that(
       expect_snapshot()
   }
 )
-
 
 

@@ -37,8 +37,9 @@ test_that(
       silent = TRUE
     )
 
+    expect_true(S7::S7_inherits(cars_ale, ALE))
     cars_ale |>
-      unclass() |>
+      s7_snapshot() |>
       expect_snapshot()
 
     plot(cars_ale) |>

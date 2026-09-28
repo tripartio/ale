@@ -220,21 +220,9 @@
 ---
 
     Code
-      unclass(mb)
+      s7_snapshot(mb)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ModelBoot> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ model_stats: <list> or <NULL>
-       $ model_coefs: <list> or <NULL>
-       $ ale        : <list> or <NULL>
-       $ boot_data  : <list> or <NULL>
-       $ params     : <list>          
-      attr(,"model_stats")
+      $model_stats
       # A tibble: 5 x 6
         name          conf.low median   mean conf.high    sd
         <chr>            <dbl>  <dbl>  <dbl>     <dbl> <dbl>
@@ -243,34 +231,27 @@
       3 nobs            64     64     64        64        NA
       4 adj.r.squared    1.000  1.000  1.000     1.000    NA
       5 npar            45     45     45        45        NA
-      attr(,"model_coefs")
+      
+      $model_coefs
       # A tibble: 1 x 6
         term  conf.low median  mean conf.high std.error
         <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
       1 s(wt)     8.03   8.03  8.03      8.03        NA
-      attr(,"ale")
-      attr(,"ale")$single
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$mpg
-      attr(,"effect")$mpg$ale
-      attr(,"effect")$mpg$ale$d1
-      attr(,"effect")$mpg$ale$d1$am
+      
+      $ale
+      $ale$single
+      $ale$single$effect
+      $ale$single$effect$mpg
+      $ale$single$effect$mpg$ale
+      $ale$single$effect$mpg$ale$d1
+      $ale$single$effect$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -5.29 -5.29   -5.29     -5.29 -5.29
       2 TRUE      26  7.73  7.73    7.73      7.73  7.73
       
-      attr(,"effect")$mpg$ale$d1$wt
+      $ale$single$effect$mpg$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -287,31 +268,31 @@
       11    5.45     6   8.98   8.98    8.98      8.98   8.98
       
       
-      attr(,"effect")$mpg$ale$d2
-      attr(,"effect")$mpg$ale$d2$`gear:carb`
+      $ale$single$effect$mpg$ale$d2
+      $ale$single$effect$mpg$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -3.92e-16 -3.92e-16 -3.92e-16 -3.92e-16 -3.92e-16
-       2 four             1     8  1.26e-15  1.26e-15  1.26e-15  1.26e-15  1.26e-15
-       3 five             1     0 -1.41e-15 -1.41e-15 -1.41e-15 -1.41e-15 -1.41e-15
-       4 three            2     8  4.10e-16  4.10e-16  4.10e-16  4.10e-16  4.10e-16
-       5 four             2     7  2.91e-17  2.91e-17  2.91e-17  2.91e-17  2.91e-17
-       6 five             2     4 -2.64e-15 -2.64e-15 -2.64e-15 -2.64e-15 -2.64e-15
-       7 three            3     7  6.07e-16  6.07e-16  6.07e-16  6.07e-16  6.07e-16
-       8 four             3     2 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15
-       9 five             3     0 -2.44e-15 -2.44e-15 -2.44e-15 -2.44e-15 -2.44e-15
-      10 three            4     8  3.85e-16  3.85e-16  3.85e-16  3.85e-16  3.85e-16
-      11 four             4     6 -1.77e-15 -1.77e-15 -1.77e-15 -1.77e-15 -1.77e-15
-      12 five             4     2  8.93e-16  8.93e-16  8.93e-16  8.93e-16  8.93e-16
-      13 three            8     1  6.81e-16  6.81e-16  6.81e-16  6.81e-16  6.81e-16
-      14 four             8     1 -1.48e-15 -1.48e-15 -1.48e-15 -1.48e-15 -1.48e-15
-      15 five             8     4  3.01e-16  3.01e-16  3.01e-16  3.01e-16  3.01e-16
+       1 three            1     6  3.25e-16  3.25e-16  3.25e-16  3.25e-16  3.25e-16
+       2 four             1     8  3.14e-16  3.14e-16  3.14e-16  3.14e-16  3.14e-16
+       3 five             1     0  8.47e-16  8.47e-16  8.47e-16  8.47e-16  8.47e-16
+       4 three            2     8 -2.63e-16 -2.63e-16 -2.63e-16 -2.63e-16 -2.63e-16
+       5 four             2     7  7.41e-16  7.41e-16  7.41e-16  7.41e-16  7.41e-16
+       6 five             2     4  3.05e-15  3.05e-15  3.05e-15  3.05e-15  3.05e-15
+       7 three            3     7 -6.58e-17 -6.58e-17 -6.58e-17 -6.58e-17 -6.58e-17
+       8 four             3     2 -8.38e-16 -8.38e-16 -8.38e-16 -8.38e-16 -8.38e-16
+       9 five             3     0  5.83e-16  5.83e-16  5.83e-16  5.83e-16  5.83e-16
+      10 three            4     8  1.56e-16  1.56e-16  1.56e-16  1.56e-16  1.56e-16
+      11 four             4     6 -6.16e-16 -6.16e-16 -6.16e-16 -6.16e-16 -6.16e-16
+      12 five             4     2 -2.75e-15 -2.75e-15 -2.75e-15 -2.75e-15 -2.75e-15
+      13 three            8     1 -3.10e-15 -3.10e-15 -3.10e-15 -3.10e-15 -3.10e-15
+      14 four             8     1 -3.20e-16 -3.20e-16 -3.20e-16 -3.20e-16 -3.20e-16
+      15 five             8     4 -6.75e-16 -6.75e-16 -6.75e-16 -6.75e-16 -6.75e-16
       
       
       
-      attr(,"effect")$mpg$stats
-      attr(,"effect")$mpg$stats$d1
+      $ale$single$effect$mpg$stats
+      $ale$single$effect$mpg$stats$d1
       # A tibble: 16 x 7
          term  statistic estimate conf.low   mean median conf.high
          <chr> <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -332,48 +313,49 @@
       15 wt    naler        87.9     87.9   87.9   87.9      87.9 
       16 wt    naler_max    37.9     37.9   37.9   37.9      37.9 
       
-      attr(,"effect")$mpg$stats$d2
+      $ale$single$effect$mpg$stats$d2
       # A tibble: 8 x 7
         term      statistic  estimate  conf.low      mean    median conf.high
         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       6.71e-16  6.71e-16  6.71e-16  6.71e-16  6.71e-16
-      2 gear:carb aler_min  -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15
-      3 gear:carb aler       3.18e-15  3.18e-15  3.18e-15  3.18e-15  3.18e-15
-      4 gear:carb aler_max   6.44e-16  6.44e-16  6.44e-16  6.44e-16  6.44e-16
+      1 gear:carb aled       5.16e-16  5.16e-16  5.16e-16  5.16e-16  5.16e-16
+      2 gear:carb aler_min  -1.71e-15 -1.71e-15 -1.71e-15 -1.71e-15 -1.71e-15
+      3 gear:carb aler       3.66e-15  3.66e-15  3.66e-15  3.66e-15  3.66e-15
+      4 gear:carb aler_max   1.95e-15  1.95e-15  1.95e-15  1.95e-15  1.95e-15
       5 gear:carb naled      0         0         0         0         0       
       6 gear:carb naler_min  0         0         0         0         0       
       7 gear:carb naler      0         0         0         0         0       
       8 gear:carb naler_max  0         0         0         0         0       
       
       
-      attr(,"effect")$mpg$boot_data
+      $ale$single$effect$mpg$boot_data
       NULL
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 2
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $ale$single$params$ordered_x_cols
+      $ale$single$params$ordered_x_cols$d1
       [1] "am" "wt"
       
-      attr(,"params")$ordered_x_cols$d2
+      $ale$single$params$ordered_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $ale$single$params$requested_x_cols
+      $ale$single$params$requested_x_cols$d1
       [1] "wt" "am"
       
-      attr(,"params")$requested_x_cols$d2
+      $ale$single$params$requested_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$y_cats
+      $ale$single$params$y_cats
       [1] "mpg"
       
-      attr(,"params")$y_summary
+      $ale$single$params$y_summary
                  mpg
       min   10.39108
       1%    10.39108
@@ -396,16 +378,16 @@
       99%   33.84876
       max   33.84876
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $ale$single$params$model
+      $ale$single$params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "6cfcac1b699578a01d7556ea415a4cca"
+      $ale$single$params$model$hash
+      [1] "3b057bfcd7f7edfbb3b617a6396ea1a8"
       
       
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $ale$single$params$data
+      $ale$single$params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -421,7 +403,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                  mpg
        [1,] 21.00000
        [2,] 21.00000
@@ -488,85 +470,90 @@
       [63,] 14.95210
       [64,] 21.39233
       
-      attr(,"params")$data$nrow
+      $ale$single$params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $ale$single$params$y_col
       [1] "mpg"
       
-      attr(,"params")$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $ale$single$params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $ale$single$params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $ale$single$params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $ale$single$params$pred_type
       [1] "response"
       
-      attr(,"params")$p_values
+      $ale$single$params$p_values
       NULL
       
-      attr(,"params")$require_same_p
+      $ale$single$params$require_same_p
       [1] FALSE
       
-      attr(,"params")$aler_alpha
+      $ale$single$params$aler_alpha
       [1] 0.01 0.05
       
-      attr(,"params")$aled_fun
+      $ale$single$params$aled_fun
       [1] "mad"
       
-      attr(,"params")$max_num_bins
+      $ale$single$params$max_num_bins
       [1] 10
       
-      attr(,"params")$fct_order
+      $ale$single$params$fct_order
       [1] "levels"
       
-      attr(,"params")$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      attr(,"params")$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $ale$single$params$seed
       [1] 0
       
-      attr(,"params")$y_type
+      $ale$single$params$y_type
       [1] "numeric"
       
-      attr(,"params")$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
       
-      attr(,"params")
-      attr(,"params")$class_model
+      
+      
+      $boot_data
+      NULL
+      
+      $params
+      $params$class_model
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "0566e24d41b2e04348d2951b07df6805"
+      $params$model$hash
+      [1] "d207a86e2d709930900c0cd65e89dda4"
       
       
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -582,7 +569,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                  mpg
        [1,] 21.00000
        [2,] 21.00000
@@ -649,71 +636,72 @@
       [63,] 14.95210
       [64,] 21.39233
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$model_call_string
+      $params$model_call_string
       NULL
       
-      attr(,"params")$model_call_string_vars
+      $params$model_call_string_vars
       character(0)
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$y_col
+      $params$y_col
       NULL
       
-      attr(,"params")$positive
+      $params$positive
       [1] TRUE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "NULL"
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "response"
       
-      attr(,"params")$boot_it
+      $params$boot_it
       [1] 0
       
-      attr(,"params")$boot_alpha
+      $params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$output_model_stats
+      $params$output_model_stats
       [1] TRUE
       
-      attr(,"params")$output_model_coefs
+      $params$output_model_coefs
       [1] TRUE
       
-      attr(,"params")$output_ale
+      $params$output_ale
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$ale_options
-      attr(,"params")$ale_options$x_cols
+      $params$ale_options
+      $params$ale_options$x_cols
       [1] "wt"        "am"        "gear:carb"
       
       
-      attr(,"params")$ale_p
+      $params$ale_p
       NULL
       
-      attr(,"params")$tidy_options
+      $params$tidy_options
       list()
       
-      attr(,"params")$glance_options
+      $params$glance_options
       list()
+      
       
 
 # binary outcome with p-values and confidence regions
@@ -751,10 +739,10 @@
       5  3.160130 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
       6  3.219684 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
       7  3.440000 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      8  3.558601 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      9  3.794139 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      10 4.070000 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      11 5.453272 3.925670e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      8  3.558601 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      9  3.794139 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      10 4.070000 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      11 5.453272 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
               fill linewidth linetype alpha
       1  lightgrey       0.5        1    NA
       2  lightgrey       0.5        1    NA
@@ -877,7 +865,7 @@
       $vs$eff[[2]]
                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
       1 3.925673e-13 3.925673e-13 1     1     1        TRUE 0.875 1.125  black
-      2 3.925669e-13 3.925673e-13 2     1     2        TRUE 1.875 2.125  black
+      2 3.925673e-13 3.925673e-13 2     1     2        TRUE 1.875 2.125  black
         linewidth linetype width alpha
       1       0.5        1   0.9    NA
       2       0.5        1   0.9    NA
@@ -885,23 +873,23 @@
       $vs$eff[[3]]
                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
       1 3.925673e-13 3.925673e-13  0.7  1.3 1     1     1     NA white       0.5
-      2 3.925672e-13 3.925673e-13  1.7  2.3 2     1     2     NA white       0.5
+      2 3.925673e-13 3.925673e-13  1.7  2.3 2     1     2     NA white       0.5
         linetype alpha
       1        1    NA
       2        1    NA
       
       $vs$eff[[4]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 3.925673e-13 NALED  0% 1     1     1       0       0  black           3     0
-      2 3.925673e-13 NALED 24% 2     1     2       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5    -1    NA        1        1.2
-      2   0.5    -1    NA        1        1.2
+                   x       label y PANEL group nudge_x nudge_y colour family size
+      1 3.925673e-13 NALED  0.0% 1     1     1       0       0  black           3
+      2 3.925673e-13 NALED 28.9% 2     1     2       0       0  black           3
+        angle hjust vjust alpha fontface lineheight
+      1     0   0.5    -1    NA        1        1.2
+      2     0   0.5    -1    NA        1        1.2
       
       $vs$eff[[5]]
                    x label    y PANEL group nudge_x nudge_y colour family     size
       1 3.925673e-13     ( 1.02     1     1       0    0.02  black        3.866058
-      2 3.925672e-13     ( 2.02     1     2       0    0.02  black        3.866058
+      2 3.925673e-13     ( 2.02     1     2       0    0.02  black        3.866058
         angle hjust vjust alpha fontface lineheight
       1     0   0.5   0.5    NA        1        1.2
       2     0   0.5   0.5    NA        1        1.2
@@ -936,21 +924,9 @@
 ---
 
     Code
-      unclass(mb)
+      s7_snapshot(mb)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ModelBoot> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ model_stats: <list> or <NULL>
-       $ model_coefs: <list> or <NULL>
-       $ ale        : <list> or <NULL>
-       $ boot_data  : <list> or <NULL>
-       $ params     : <list>          
-      attr(,"model_stats")
+      $model_stats
       # A tibble: 6 x 7
         name          boot_valid conf.low median  mean conf.high    sd
         <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl> <dbl>
@@ -960,27 +936,20 @@
       4 adj.r.squared         NA      1      1     1         1   0    
       5 npar                  NA     40.0   40.5  40.5      41.0 0.707
       6 auc                    1      1     NA    NA         1   0    
-      attr(,"model_coefs")
+      
+      $model_coefs
       # A tibble: 1 x 6
         term  conf.low median  mean conf.high std.error
         <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(wt)    1.000  1.000 1.000     1.000  5.02e-15
-      attr(,"ale")
-      attr(,"ale")$single
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$vs
-      attr(,"effect")$vs$ale
-      attr(,"effect")$vs$ale$d1
-      attr(,"effect")$vs$ale$d1$continent
+      1 s(wt)     1.00   1.00  1.00      1.00  2.10e-14
+      
+      $ale
+      $ale$single
+      $ale$single$effect
+      $ale$single$effect$vs
+      $ale$single$effect$vs$ale
+      $ale$single$effect$vs$ale$d1
+      $ale$single$effect$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -988,48 +957,48 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$wt
+      $ale$single$effect$vs$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50     1 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       2    1.93     6 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       3    2.31     6 -2.15e-24 -2.15e-24 -2.15e-24 -2.15e-24 -2.15e-24
-       4    2.78     7 -1.28e-24 -1.28e-24 -1.28e-24 -1.28e-24 -1.28e-24
-       5    3.16     6 -4.42e-25 -4.42e-25 -4.42e-25 -4.42e-25 -4.42e-25
-       6    3.22     6 -3.55e-25 -3.55e-25 -3.55e-25 -3.55e-25 -3.55e-25
-       7    3.44     7  5.94e-26  5.94e-26  5.94e-26  5.94e-26  5.94e-26
-       8    3.56     6  4.07e-25  4.07e-25  4.07e-25  4.07e-25  4.07e-25
-       9    3.79     7  1.44e-24  1.44e-24  1.44e-24  1.44e-24  1.44e-24
-      10    4.07     6  2.65e-24  2.65e-24  2.65e-24  2.65e-24  2.65e-24
-      11    5.45     6  8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24
+       1    1.50     1  8.01e-24  8.01e-24  8.01e-24  8.01e-24  8.01e-24
+       2    1.93     6  8.01e-24  8.01e-24  8.01e-24  8.01e-24  8.01e-24
+       3    2.31     6  6.34e-24  6.34e-24  6.34e-24  6.34e-24  6.34e-24
+       4    2.78     7  3.76e-24  3.76e-24  3.76e-24  3.76e-24  3.76e-24
+       5    3.16     6  1.30e-24  1.30e-24  1.30e-24  1.30e-24  1.30e-24
+       6    3.22     6  1.04e-24  1.04e-24  1.04e-24  1.04e-24  1.04e-24
+       7    3.44     7 -1.75e-25 -1.75e-25 -1.75e-25 -1.75e-25 -1.75e-25
+       8    3.56     6 -1.20e-24 -1.20e-24 -1.20e-24 -1.20e-24 -1.20e-24
+       9    3.79     7 -4.24e-24 -4.24e-24 -4.24e-24 -4.24e-24 -4.24e-24
+      10    4.07     6 -7.80e-24 -7.80e-24 -7.80e-24 -7.80e-24 -7.80e-24
+      11    5.45     6 -2.57e-23 -2.57e-23 -2.57e-23 -2.57e-23 -2.57e-23
       
       
-      attr(,"effect")$vs$ale$d2
-      attr(,"effect")$vs$ale$d2$`gear:carb`
+      $ale$single$effect$vs$ale$d2
+      $ale$single$effect$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  1.74e-26  1.74e-26  1.74e-26  1.74e-26  1.74e-26
-       2 four             1     8 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26
-       3 five             1     0  2.35e-25  2.35e-25  2.35e-25  2.35e-25  2.35e-25
-       4 three            2     8 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26
-       5 four             2     7  2.50e-26  2.50e-26  2.50e-26  2.50e-26  2.50e-26
-       6 five             2     4  2.55e-25  2.55e-25  2.55e-25  2.55e-25  2.55e-25
-       7 three            3     7 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26
-       8 four             3     2  2.50e-26  2.50e-26  2.50e-26  2.50e-26  2.50e-26
-       9 five             3     0  1.50e-25  1.50e-25  1.50e-25  1.50e-25  1.50e-25
-      10 three            4     8 -2.15e-26 -2.15e-26 -2.15e-26 -2.15e-26 -2.15e-26
-      11 four             4     6  3.37e-26  3.37e-26  3.37e-26  3.37e-26  3.37e-26
-      12 five             4     2  1.93e-26  1.93e-26  1.93e-26  1.93e-26  1.93e-26
-      13 three            8     1 -2.55e-25 -2.55e-25 -2.55e-25 -2.55e-25 -2.55e-25
-      14 four             8     1  3.60e-25  3.60e-25  3.60e-25  3.60e-25  3.60e-25
-      15 five             8     4 -2.13e-25 -2.13e-25 -2.13e-25 -2.13e-25 -2.13e-25
+       1 three            1     6  1.96e-27  1.96e-27  1.96e-27  1.96e-27  1.96e-27
+       2 four             1     8 -3.08e-27 -3.08e-27 -3.08e-27 -3.08e-27 -3.08e-27
+       3 five             1     0 -3.05e-27 -3.05e-27 -3.05e-27 -3.05e-27 -3.05e-27
+       4 three            2     8 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27
+       5 four             2     7  2.00e-27  2.00e-27  2.00e-27  2.00e-27  2.00e-27
+       6 five             2     4  2.00e-27  2.00e-27  2.00e-27  2.00e-27  2.00e-27
+       7 three            3     7 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27
+       8 four             3     2  2.00e-27  2.00e-27  2.00e-27  2.00e-27  2.00e-27
+       9 five             3     0  1.99e-27  1.99e-27  1.99e-27  1.99e-27  1.99e-27
+      10 three            4     8 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27
+      11 four             4     6  2.00e-27  2.00e-27  2.00e-27  2.00e-27  2.00e-27
+      12 five             4     2  1.99e-27  1.99e-27  1.99e-27  1.99e-27  1.99e-27
+      13 three            8     1 -2.54e-26 -2.54e-26 -2.54e-26 -2.54e-26 -2.54e-26
+      14 four             8     1  1.00e-26  1.00e-26  1.00e-26  1.00e-26  1.00e-26
+      15 five             8     4  1.00e-26  1.00e-26  1.00e-26  1.00e-26  1.00e-26
       
       
       
-      attr(,"effect")$vs$stats
-      attr(,"effect")$vs$stats$d1
+      $ale$single$effect$vs$stats
+      $ale$single$effect$vs$stats$d1
       # A tibble: 16 x 7
          term      statistic  estimate  conf.low      mean    median conf.high
          <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1041,57 +1010,58 @@
        6 continent naler_min  0         0         0         0         0       
        7 continent naler      0         0         0         0         0       
        8 continent naler_max  0         0         0         0         0       
-       9 wt        aled       1.70e-24  1.70e-24  1.70e-24  1.70e-24  1.70e-24
-      10 wt        aler_min  -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-      11 wt        aler       1.14e-23  1.14e-23  1.14e-23  1.14e-23  1.14e-23
-      12 wt        aler_max   8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24
-      13 wt        naled      3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1
+       9 wt        aled       4.99e-24  4.99e-24  4.99e-24  4.99e-24  4.99e-24
+      10 wt        aler_min  -2.57e-23 -2.57e-23 -2.57e-23 -2.57e-23 -2.57e-23
+      11 wt        aler       3.37e-23  3.37e-23  3.37e-23  3.37e-23  3.37e-23
+      12 wt        aler_max   8.01e-24  8.01e-24  8.01e-24  8.01e-24  8.01e-24
+      13 wt        naled      2.33e+ 1  2.33e+ 1  2.33e+ 1  2.33e+ 1  2.33e+ 1
       14 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       15 wt        naler      5.63e+ 1  5.63e+ 1  5.63e+ 1  5.63e+ 1  5.63e+ 1
       16 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"effect")$vs$stats$d2
+      $ale$single$effect$vs$stats$d2
       # A tibble: 8 x 7
         term      statistic  estimate  conf.low      mean    median conf.high
         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       4.56e-26  4.56e-26  4.56e-26  4.56e-26  4.56e-26
-      2 gear:carb aler_min  -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25
-      3 gear:carb aler       3.83e-25  3.83e-25  3.83e-25  3.83e-25  3.83e-25
-      4 gear:carb aler_max   2.45e-25  2.45e-25  2.45e-25  2.45e-25  2.45e-25
-      5 gear:carb naled      7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0
-      6 gear:carb naler_min -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1
-      7 gear:carb naler      4.38e+ 1  4.38e+ 1  4.38e+ 1  4.38e+ 1  4.38e+ 1
-      8 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
+      1 gear:carb aled       1.53e-27  1.53e-27  1.53e-27  1.53e-27  1.53e-27
+      2 gear:carb aler_min  -1.34e-26 -1.34e-26 -1.34e-26 -1.34e-26 -1.34e-26
+      3 gear:carb aler       1.94e-26  1.94e-26  1.94e-26  1.94e-26  1.94e-26
+      4 gear:carb aler_max   6.01e-27  6.01e-27  6.01e-27  6.01e-27  6.01e-27
+      5 gear:carb naled      4.88e- 2  4.88e- 2  4.88e- 2  4.88e- 2  4.88e- 2
+      6 gear:carb naler_min -3.13e+ 0 -3.13e+ 0 -3.13e+ 0 -3.13e+ 0 -3.13e+ 0
+      7 gear:carb naler      3.13e+ 0  3.13e+ 0  3.13e+ 0  3.13e+ 0  3.13e+ 0
+      8 gear:carb naler_max  0         0         0         0         0       
       
       
-      attr(,"effect")$vs$boot_data
+      $ale$single$effect$vs$boot_data
       NULL
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 2
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $ale$single$params$ordered_x_cols
+      $ale$single$params$ordered_x_cols$d1
       [1] "continent" "wt"       
       
-      attr(,"params")$ordered_x_cols$d2
+      $ale$single$params$ordered_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $ale$single$params$requested_x_cols
+      $ale$single$params$requested_x_cols$d1
       [1] "wt"        "continent"
       
-      attr(,"params")$requested_x_cols$d2
+      $ale$single$params$requested_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$y_cats
+      $ale$single$params$y_cats
       [1] "vs"
       
-      attr(,"params")$y_summary
+      $ale$single$params$y_summary
                            vs
       min        0.000000e+00
       1%         3.925673e-13
@@ -1102,12 +1072,12 @@
       25%        3.925673e-13
       30%        3.925673e-13
       40%        3.925673e-13
-      aler_lo_lo 3.925669e-13
+      aler_lo_lo 3.925668e-13
       aler_lo    3.925671e-13
       50%        3.925673e-13
       mean       4.375000e-01
       aler_hi    3.925674e-13
-      aler_hi_hi 3.925676e-13
+      aler_hi_hi 3.925677e-13
       60%        1.000000e+00
       70%        1.000000e+00
       75%        1.000000e+00
@@ -1118,16 +1088,16 @@
       99%        1.000000e+00
       max        1.000000e+00
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $ale$single$params$model
+      $ale$single$params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "6ced82a10030957bb286e303c9db4619"
+      $ale$single$params$model$hash
+      [1] "22b902b02f440efad3859c4d44bf4d45"
       
       
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $ale$single$params$data
+      $ale$single$params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -1143,7 +1113,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                       vs
        [1,] 3.925673e-13
        [2,] 3.925673e-13
@@ -1210,113 +1180,146 @@
       [63,] 3.925673e-13
       [64,] 1.000000e+00
       
-      attr(,"params")$data$nrow
+      $ale$single$params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $ale$single$params$y_col
       [1] "vs"
       
-      attr(,"params")$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $ale$single$params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $ale$single$params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $ale$single$params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $ale$single$params$pred_type
       [1] "response"
       
-      attr(,"params")$p_values
-      <ale::ALEpDist>
-       @ rand_stats           :List of 1
-       .. $ vs: tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 2.79e-23 3.31e-23 9.74e-25 1.72e-24 1.28e-23 ...
-       ..  ..$ aler_min : num [1:100] -5.60e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
-       ..  ..$ aler     : num [1:100] 1.23e-22 1.37e-22 4.58e-24 6.11e-24 5.15e-23 ...
-       ..  ..$ aler_max : num [1:100] 6.74e-23 6.93e-23 2.12e-24 2.92e-24 2.77e-23 ...
-       ..  ..$ naled    : num [1:100] 28.1 32.2 24 27.6 28.1 ...
-       ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
-       ..  ..$ naler    : num [1:100] 56.2 56.2 56.2 56.2 56.2 ...
-       ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
-       @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
-       .. - attr(*, "logLik")= num 1784
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
-       .. - attr(*, "n")= int 64
-       .. - attr(*, "model")= chr "Uniform"
-       .. - attr(*, "density")= chr "stats::dunif"
-       .. - attr(*, "support")= num [1:2] -3.93e-13 3.93e-13
-       .. - attr(*, "names")= chr [1:2] "min" "max"
-       .. - attr(*, "default")= num [1:2] 0 1
-       .. - attr(*, "continuous")= logi TRUE
-       @ residuals            : NULL
-       @ params               :List of 12
-       .. $ model                        :List of 2
-       ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "dc3c7295e768b7054e90b9dec2ddb01a"
-       .. $ y_col                        : chr "vs"
-       .. $ rand_it                      : NULL
-       .. $ parallel                     : num 0
-       .. $ model_packages               : NULL
-       .. $ random_model_call_string     : NULL
-       .. $ random_model_call_string_vars: chr(0) 
-       .. $ positive                     : logi TRUE
-       .. $ aled_fun                     : chr "mad"
-       .. $ seed                         : num 0
-       .. $ rand_it_ok                   : int 100
-       .. $ exactness                    : chr "surrogate"
+      $ale$single$params$p_values
+      $ale$single$params$p_values$rand_stats
+      $ale$single$params$p_values$rand_stats$vs
+      # A tibble: 100 x 8
+             aled  aler_min     aler aler_max naled naler_min naler naler_max
+            <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 1.34e-22 -3.24e-22 5.93e-22 2.69e-22  28.1       -50  56.2      6.25
+       2 2.70e-23 -5.65e-23 1.12e-22 5.52e-23  24.0       -50  56.2      6.25
+       3 5.85e-23 -1.27e-22 2.75e-22 1.48e-22  28.1       -50  56.2      6.25
+       4 8.88e-21 -1.65e-20 3.16e-20 1.51e-20  28.1       -50  56.2      6.25
+       5 5.78e-23 -1.08e-22 2.32e-22 1.25e-22  28.1       -50  56.2      6.25
+       6 6.94e-21 -1.43e-20 3.11e-20 1.68e-20  28.1       -50  56.2      6.25
+       7 6.44e-23 -1.39e-22 2.48e-22 1.10e-22  28.1       -50  56.2      6.25
+       8 5.68e-23 -1.17e-22 2.15e-22 9.81e-23  28.1       -50  56.2      6.25
+       9 6.90e-20 -1.34e-19 2.85e-19 1.51e-19  32.9       -50  56.2      6.25
+      10 5.58e-21 -9.86e-21 2.27e-20 1.29e-20  28.1       -50  56.2      6.25
+      # i 90 more rows
       
-      attr(,"params")$require_same_p
-      [1] FALSE
       
-      attr(,"params")$aler_alpha
-      [1] 0.01 0.05
+      $ale$single$params$p_values$residual_distribution
+      Maximum likelihood estimates for the Uniform model 
+             min         max  
+      -3.926e-13   3.926e-13  
       
-      attr(,"params")$aled_fun
+      $ale$single$params$p_values$residuals
+      NULL
+      
+      $ale$single$params$p_values$params
+      $ale$single$params$p_values$params$model
+      $ale$single$params$p_values$params$model$class
+      [1] "gam" "glm" "lm" 
+      
+      $ale$single$params$p_values$params$model$hash
+      [1] "3ab10bf93b7754ade81eedd75ca0b319"
+      
+      
+      $ale$single$params$p_values$params$y_col
+      [1] "vs"
+      
+      $ale$single$params$p_values$params$rand_it
+      NULL
+      
+      $ale$single$params$p_values$params$parallel
+      [1] 0
+      
+      $ale$single$params$p_values$params$model_packages
+      NULL
+      
+      $ale$single$params$p_values$params$random_model_call_string
+      NULL
+      
+      $ale$single$params$p_values$params$random_model_call_string_vars
+      character(0)
+      
+      $ale$single$params$p_values$params$positive
+      [1] TRUE
+      
+      $ale$single$params$p_values$params$aled_fun
       [1] "mad"
       
-      attr(,"params")$max_num_bins
+      $ale$single$params$p_values$params$seed
+      [1] 0
+      
+      $ale$single$params$p_values$params$rand_it_ok
+      [1] 100
+      
+      $ale$single$params$p_values$params$exactness
+      [1] "surrogate"
+      
+      
+      
+      $ale$single$params$require_same_p
+      [1] FALSE
+      
+      $ale$single$params$aler_alpha
+      [1] 0.01 0.05
+      
+      $ale$single$params$aled_fun
+      [1] "mad"
+      
+      $ale$single$params$max_num_bins
       [1] 10
       
-      attr(,"params")$fct_order
+      $ale$single$params$fct_order
       [1] "levels"
       
-      attr(,"params")$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      attr(,"params")$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $ale$single$params$seed
       [1] 0
       
-      attr(,"params")$y_type
+      $ale$single$params$y_type
       [1] "binary"
       
-      attr(,"params")$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
       
-      attr(,"ale")$boot
-      attr(,"ale")$boot$effect
-      attr(,"ale")$boot$effect$vs
-      attr(,"ale")$boot$effect$vs$ale
-      attr(,"ale")$boot$effect$vs$ale$d1
-      attr(,"ale")$boot$effect$vs$ale$d1$continent
+      
+      $ale$boot
+      $ale$boot$effect
+      $ale$boot$effect$vs
+      $ale$boot$effect$vs$ale
+      $ale$boot$effect$vs$ale$d1
+      $ale$boot$effect$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1324,48 +1327,48 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"ale")$boot$effect$vs$ale$d1$wt
+      $ale$boot$effect$vs$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1    1.50     1  6.87e-20 -7.57e-21  6.87e-20  6.87e-20 1.45e-19
-       2    1.93     6  6.87e-20 -7.57e-21  6.87e-20  6.87e-20 1.45e-19
-       3    2.31     6  6.98e-20 -5.48e-21  6.98e-20  6.98e-20 1.45e-19
-       4    2.78     7  2.88e-20 -3.86e-21  2.88e-20  2.88e-20 6.15e-20
-       5    3.16     6  1.65e-20  2.71e-23  1.65e-20  1.65e-20 3.30e-20
-       6    3.22     6  1.27e-20  7.16e-23  1.27e-20  1.27e-20 2.54e-20
-       7    3.44     7 -1.03e-21 -2.93e-21 -1.03e-21 -1.03e-21 8.73e-22
-       8    3.56     6 -1.21e-20 -2.52e-20 -1.21e-20 -1.21e-20 9.42e-22
-       9    3.79     7 -4.64e-20 -9.57e-20 -4.64e-20 -4.64e-20 2.94e-21
-      10    4.07     6 -8.66e-20 -1.78e-19 -8.66e-20 -8.66e-20 5.28e-21
-      11    5.45     6 -2.88e-19 -5.93e-19 -2.88e-19 -2.88e-19 1.70e-20
+       1    1.50     1  5.73e-23 -3.78e-23  5.73e-23  5.73e-23 1.52e-22
+       2    1.93     6  5.73e-23 -3.78e-23  5.73e-23  5.73e-23 1.52e-22
+       3    2.31     6  4.27e-23 -3.85e-23  4.27e-23  4.27e-23 1.24e-22
+       4    2.78     7  2.89e-23 -1.58e-23  2.89e-23  2.89e-23 7.35e-23
+       5    3.16     6  8.51e-25 -9.19e-24  8.51e-25  8.51e-25 1.09e-23
+       6    3.22     6  3.00e-25 -7.08e-24  3.00e-25  3.00e-25 7.68e-24
+       7    3.44     7 -6.17e-24 -1.29e-23 -6.17e-24 -6.17e-24 5.17e-25
+       8    3.56     6 -7.35e-24 -2.14e-23 -7.35e-24 -7.35e-24 6.68e-24
+       9    3.79     7 -2.35e-23 -7.26e-23 -2.35e-23 -2.35e-23 2.56e-23
+      10    4.07     6 -4.24e-23 -1.33e-22 -4.24e-23 -4.24e-23 4.78e-23
+      11    5.45     6 -1.37e-22 -4.33e-22 -1.37e-22 -1.37e-22 1.59e-22
       
       
-      attr(,"ale")$boot$effect$vs$ale$d2
-      attr(,"ale")$boot$effect$vs$ale$d2$`gear:carb`
+      $ale$boot$effect$vs$ale$d2
+      $ale$boot$effect$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -1.46e-21 -3.61e-21 -1.46e-21 -1.46e-21  6.89e-22
-       2 four             1     8  1.53e-21 -3.19e-21  1.53e-21  1.53e-21  6.26e-21
-       3 five             1     0  1.54e-21 -3.19e-21  1.54e-21  1.54e-21  6.26e-21
-       4 three            2     8  1.58e-22 -7.16e-22  1.58e-22  1.58e-22  1.03e-21
-       5 four             2     7 -5.28e-21 -9.81e-21 -5.28e-21 -5.28e-21 -7.44e-22
-       6 five             2     4 -5.28e-21 -9.81e-21 -5.28e-21 -5.28e-21 -7.44e-22
-       7 three            3     7 -1.03e-21 -1.06e-21 -1.03e-21 -1.03e-21 -1.01e-21
-       8 four             3     2  6.46e-21  3.88e-21  6.46e-21  6.46e-21  9.04e-21
-       9 five             3     0  6.46e-21  3.88e-21  6.46e-21  6.46e-21  9.04e-21
-      10 three            4     8 -8.89e-22 -1.05e-21 -8.89e-22 -8.89e-22 -7.30e-22
-      11 four             4     6  6.16e-21  3.28e-21  6.16e-21  6.16e-21  9.03e-21
-      12 five             4     2  6.16e-21  3.28e-21  6.16e-21  6.16e-21  9.03e-21
-      13 three            8     1  1.66e-20 -1.52e-20  1.66e-20  1.66e-20  4.85e-20
-      14 four             8     1 -1.00e-20 -2.43e-20 -1.00e-20 -1.00e-20  4.18e-21
-      15 five             8     4 -1.00e-20 -2.43e-20 -1.00e-20 -1.00e-20  4.18e-21
+       1 three            1     6 -2.11e-23 -4.10e-23 -2.11e-23 -2.11e-23 -1.23e-24
+       2 four             1     8  3.72e-23  2.61e-24  3.72e-23  3.72e-23  7.17e-23
+       3 five             1     0  3.72e-23  2.61e-24  3.72e-23  3.72e-23  7.17e-23
+       4 three            2     8  6.18e-24  4.77e-25  6.18e-24  6.18e-24  1.19e-23
+       5 four             2     7 -5.67e-23 -1.11e-22 -5.67e-23 -5.67e-23 -2.72e-24
+       6 five             2     4 -5.67e-23 -1.11e-22 -5.67e-23 -5.67e-23 -2.72e-24
+       7 three            3     7 -5.85e-24 -1.16e-23 -5.85e-24 -5.85e-24 -7.01e-26
+       8 four             3     2  5.14e-23  1.75e-24  5.14e-23  5.14e-23  1.01e-22
+       9 five             3     0  5.14e-23  1.75e-24  5.14e-23  5.14e-23  1.01e-22
+      10 three            4     8 -5.89e-24 -1.16e-23 -5.89e-24 -5.89e-24 -1.36e-25
+      11 four             4     6  5.15e-23  1.88e-24  5.15e-23  5.15e-23  1.01e-22
+      12 five             4     2  5.15e-23  1.88e-24  5.15e-23  5.15e-23  1.01e-22
+      13 three            8     1  2.85e-22  1.80e-23  2.85e-22  2.85e-22  5.53e-22
+      14 four             8     1 -1.42e-22 -2.75e-22 -1.42e-22 -1.42e-22 -8.17e-24
+      15 five             8     4 -1.42e-22 -2.75e-22 -1.42e-22 -1.42e-22 -8.17e-24
       
       
       
-      attr(,"ale")$boot$effect$vs$stats
-      attr(,"ale")$boot$effect$vs$stats$d1
+      $ale$boot$effect$vs$stats
+      $ale$boot$effect$vs$stats$d1
       # A tibble: 16 x 8
          term      statistic  estimate p.value  conf.low    median      mean conf.high
          <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1377,59 +1380,61 @@
        6 continent naler_min  0         1       0         0         0         0       
        7 continent naler      0         1       0         0         0         0       
        8 continent naler_max  0         1       0         0         0         0       
-       9 wt        aled       5.13e-20  0.0500  8.06e-21  5.13e-20  5.13e-20  9.46e-20
-      10 wt        aler_min  -3.10e-19  0.01   -5.94e-19 -3.10e-19 -3.10e-19 -2.65e-20
-      11 wt        aler       4.01e-19  0.0200  6.25e-20  4.01e-19  4.01e-19  7.40e-19
-      12 wt        aler_max   9.11e-20  0.0500  3.60e-20  9.11e-20  9.11e-20  1.46e-19
-      13 wt        naled      2.40e+ 1  0.92    2.06e+ 1  2.40e+ 1  2.40e+ 1  2.74e+ 1
-      14 wt        naler_min -4.92e+ 1  1      -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      15 wt        naler      5.68e+ 1  0       5.59e+ 1  5.68e+ 1  5.68e+ 1  5.78e+ 1
-      16 wt        naler_max  7.58e+ 0  0       7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+       9 wt        aled       5.32e-23  0.69    2.91e-23  5.32e-23  5.32e-23  7.73e-23
+      10 wt        aler_min  -2.46e-22  0.5    -4.39e-22 -2.46e-22 -2.46e-22 -5.29e-23
+      11 wt        aler       4.12e-22  0.51    2.27e-22  4.12e-22  4.12e-22  5.97e-22
+      12 wt        aler_max   1.66e-22  0.53    1.58e-22  1.66e-22  1.66e-22  1.74e-22
+      13 wt        naled      2.89e+ 1  0.0600  2.70e+ 1  2.89e+ 1  2.89e+ 1  3.07e+ 1
+      14 wt        naler_min -5   e+ 1  1      -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
+      15 wt        naler      5.69e+ 1  0       5.48e+ 1  5.69e+ 1  5.69e+ 1  5.90e+ 1
+      16 wt        naler_max  6.89e+ 0  0       4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
       
-      attr(,"ale")$boot$effect$vs$stats$d2
+      $ale$boot$effect$vs$stats$d2
       # A tibble: 8 x 8
         term      statistic  estimate p.value  conf.low    median      mean conf.high
         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       2.05e-21    0.34  1.56e-21  2.05e-21  2.05e-21  2.55e-21
-      2 gear:carb aler_min  -8.36e-21    0.29 -8.79e-21 -8.36e-21 -8.36e-21 -7.93e-21
-      3 gear:carb aler       2.27e-20    0.28  1.33e-20  2.27e-20  2.27e-20  3.20e-20
-      4 gear:carb aler_max   1.43e-20    0.24  4.55e-21  1.43e-20  1.43e-20  2.41e-20
-      5 gear:carb naled      2.13e+ 1    1     5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
-      6 gear:carb naler_min -4.92e+ 1    1    -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      7 gear:carb naler      5.68e+ 1    0     5.59e+ 1  5.68e+ 1  5.68e+ 1  5.78e+ 1
-      8 gear:carb naler_max  7.58e+ 0    0     7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+      1 gear:carb aled       1.47e-23    0.87  1.07e-24  1.47e-23  1.47e-23  2.84e-23
+      2 gear:carb aler_min  -4.51e-23    0.85 -8.71e-23 -4.51e-23 -4.51e-23 -3.14e-24
+      3 gear:carb aler       1.85e-22    0.71  1.21e-23  1.85e-22  1.85e-22  3.58e-22
+      4 gear:carb aler_max   1.40e-22    0.56  8.93e-24  1.40e-22  1.40e-22  2.71e-22
+      5 gear:carb naled      2.37e+ 1    0.92  1.09e+ 1  2.37e+ 1  2.37e+ 1  3.64e+ 1
+      6 gear:carb naler_min -4.24e+ 1    1    -4.81e+ 1 -4.24e+ 1 -4.24e+ 1 -3.67e+ 1
+      7 gear:carb naler      4.93e+ 1    1     4.56e+ 1  4.93e+ 1  4.93e+ 1  5.29e+ 1
+      8 gear:carb naler_max  6.89e+ 0    0     4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
       
       
       
       
       
-      attr(,"boot_data")
+      
+      $boot_data
       # A tibble: 3 x 7
            it row_idxs   model  ale        tidy             stats            perf    
         <int> <list>     <list> <list>     <list>           <list>           <list>  
       1     0 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <NULL>  
       2     1 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
       3     2 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
-      attr(,"params")
-      attr(,"params")$class_model
+      
+      $params
+      $params$class_model
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$y_type
+      $params$y_type
       [1] "binary"
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "vs"
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "dc3c7295e768b7054e90b9dec2ddb01a"
+      $params$model$hash
+      [1] "3ab10bf93b7754ade81eedd75ca0b319"
       
       
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -1445,7 +1450,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                       vs
        [1,] 3.925673e-13
        [2,] 3.925673e-13
@@ -1512,130 +1517,151 @@
       [63,] 3.925673e-13
       [64,] 1.000000e+00
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$model_call_string
+      $params$model_call_string
       NULL
       
-      attr(,"params")$model_call_string_vars
+      $params$model_call_string_vars
       character(0)
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "vs"
       
-      attr(,"params")$positive
+      $params$positive
       [1] TRUE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "response"
       
-      attr(,"params")$boot_it
+      $params$boot_it
       [1] 2
       
-      attr(,"params")$boot_alpha
+      $params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$output_model_stats
+      $params$output_model_stats
       [1] TRUE
       
-      attr(,"params")$output_model_coefs
+      $params$output_model_coefs
       [1] TRUE
       
-      attr(,"params")$output_ale
+      $params$output_ale
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] TRUE
       
-      attr(,"params")$ale_options
-      attr(,"params")$ale_options$x_cols
+      $params$ale_options
+      $params$ale_options$x_cols
       [1] "wt"        "continent" "gear:carb"
       
       
-      attr(,"params")$ale_p
-      <ale::ALEpDist>
-       @ rand_stats           :List of 1
-       .. $ vs: tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 2.79e-23 3.31e-23 9.74e-25 1.72e-24 1.28e-23 ...
-       ..  ..$ aler_min : num [1:100] -5.60e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
-       ..  ..$ aler     : num [1:100] 1.23e-22 1.37e-22 4.58e-24 6.11e-24 5.15e-23 ...
-       ..  ..$ aler_max : num [1:100] 6.74e-23 6.93e-23 2.12e-24 2.92e-24 2.77e-23 ...
-       ..  ..$ naled    : num [1:100] 28.1 32.2 24 27.6 28.1 ...
-       ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
-       ..  ..$ naler    : num [1:100] 56.2 56.2 56.2 56.2 56.2 ...
-       ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
-       @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
-       .. - attr(*, "logLik")= num 1784
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
-       .. - attr(*, "n")= int 64
-       .. - attr(*, "model")= chr "Uniform"
-       .. - attr(*, "density")= chr "stats::dunif"
-       .. - attr(*, "support")= num [1:2] -3.93e-13 3.93e-13
-       .. - attr(*, "names")= chr [1:2] "min" "max"
-       .. - attr(*, "default")= num [1:2] 0 1
-       .. - attr(*, "continuous")= logi TRUE
-       @ residuals            : NULL
-       @ params               :List of 12
-       .. $ model                        :List of 2
-       ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "dc3c7295e768b7054e90b9dec2ddb01a"
-       .. $ y_col                        : chr "vs"
-       .. $ rand_it                      : NULL
-       .. $ parallel                     : num 0
-       .. $ model_packages               : NULL
-       .. $ random_model_call_string     : NULL
-       .. $ random_model_call_string_vars: chr(0) 
-       .. $ positive                     : logi TRUE
-       .. $ aled_fun                     : chr "mad"
-       .. $ seed                         : num 0
-       .. $ rand_it_ok                   : int 100
-       .. $ exactness                    : chr "surrogate"
+      $params$ale_p
+      $params$ale_p$rand_stats
+      $params$ale_p$rand_stats$vs
+      # A tibble: 100 x 8
+             aled  aler_min     aler aler_max naled naler_min naler naler_max
+            <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 1.34e-22 -3.24e-22 5.93e-22 2.69e-22  28.1       -50  56.2      6.25
+       2 2.70e-23 -5.65e-23 1.12e-22 5.52e-23  24.0       -50  56.2      6.25
+       3 5.85e-23 -1.27e-22 2.75e-22 1.48e-22  28.1       -50  56.2      6.25
+       4 8.88e-21 -1.65e-20 3.16e-20 1.51e-20  28.1       -50  56.2      6.25
+       5 5.78e-23 -1.08e-22 2.32e-22 1.25e-22  28.1       -50  56.2      6.25
+       6 6.94e-21 -1.43e-20 3.11e-20 1.68e-20  28.1       -50  56.2      6.25
+       7 6.44e-23 -1.39e-22 2.48e-22 1.10e-22  28.1       -50  56.2      6.25
+       8 5.68e-23 -1.17e-22 2.15e-22 9.81e-23  28.1       -50  56.2      6.25
+       9 6.90e-20 -1.34e-19 2.85e-19 1.51e-19  32.9       -50  56.2      6.25
+      10 5.58e-21 -9.86e-21 2.27e-20 1.29e-20  28.1       -50  56.2      6.25
+      # i 90 more rows
       
-      attr(,"params")$tidy_options
+      
+      $params$ale_p$residual_distribution
+      Maximum likelihood estimates for the Uniform model 
+             min         max  
+      -3.926e-13   3.926e-13  
+      
+      $params$ale_p$residuals
+      NULL
+      
+      $params$ale_p$params
+      $params$ale_p$params$model
+      $params$ale_p$params$model$class
+      [1] "gam" "glm" "lm" 
+      
+      $params$ale_p$params$model$hash
+      [1] "3ab10bf93b7754ade81eedd75ca0b319"
+      
+      
+      $params$ale_p$params$y_col
+      [1] "vs"
+      
+      $params$ale_p$params$rand_it
+      NULL
+      
+      $params$ale_p$params$parallel
+      [1] 0
+      
+      $params$ale_p$params$model_packages
+      NULL
+      
+      $params$ale_p$params$random_model_call_string
+      NULL
+      
+      $params$ale_p$params$random_model_call_string_vars
+      character(0)
+      
+      $params$ale_p$params$positive
+      [1] TRUE
+      
+      $params$ale_p$params$aled_fun
+      [1] "mad"
+      
+      $params$ale_p$params$seed
+      [1] 0
+      
+      $params$ale_p$params$rand_it_ok
+      [1] 100
+      
+      $params$ale_p$params$exactness
+      [1] "surrogate"
+      
+      
+      
+      $params$tidy_options
       list()
       
-      attr(,"params")$glance_options
+      $params$glance_options
       list()
+      
       
 
 # bootstrapped categorical outcome with full 1D and all variables set
 
     Code
-      unclass(snap_mb)
+      s7_snapshot(mb)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ModelBoot> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ model_stats: <list> or <NULL>
-       $ model_coefs: <list> or <NULL>
-       $ ale        : <list> or <NULL>
-       $ boot_data  : <list> or <NULL>
-       $ params     : <list>          
-      attr(,"model_stats")
+      $model_stats
       # A tibble: 5 x 7
         name             boot_valid conf.low median  mean conf.high      sd
         <chr>                 <dbl>    <dbl>  <dbl> <dbl>     <dbl>   <dbl>
@@ -1644,7 +1670,8 @@
       3 auc (setosa)          0.632    1         NA    NA     1     0      
       4 auc (versicolor)      0.624    0.974     NA    NA     0.999 0.0191 
       5 auc (virginica)       0.630    0.992     NA    NA     1.000 0.00567
-      attr(,"model_coefs")
+      
+      $model_coefs
       # A tibble: 10 x 7
          y.level    term         conf.low median   mean conf.high std.error
          <chr>      <chr>           <dbl>  <dbl>  <dbl>     <dbl>     <dbl>
@@ -1658,22 +1685,14 @@
        8 virginica  Sepal.Width    -27.8  -20.9  -20.9     -14.1      10.8 
        9 virginica  Petal.Length    25.3   44.0   44.0      62.7      29.4 
       10 virginica  Petal.Width     10.9   17.5   17.5      24.1      10.4 
-      attr(,"ale")
-      attr(,"ale")$single
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$setosa
-      attr(,"effect")$setosa$ale
-      attr(,"effect")$setosa$ale$d1
-      attr(,"effect")$setosa$ale$d1$Sepal.Length
+      
+      $ale
+      $ale$single
+      $ale$single$effect
+      $ale$single$effect$setosa
+      $ale$single$effect$setosa$ale
+      $ale$single$effect$setosa$ale$d1
+      $ale$single$effect$setosa$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n         .y      .y_lo    .y_mean  .y_median     .y_hi
                      <dbl> <int>      <dbl>      <dbl>      <dbl>      <dbl>     <dbl>
@@ -1689,7 +1708,7 @@
       10               6.9    17  0.0000154  0.0000154  0.0000154  0.0000154   1.54e-5
       11               7.9    13  0.0000179  0.0000179  0.0000179  0.0000179   1.79e-5
       
-      attr(,"effect")$setosa$ale$d1$Petal.Width
+      $ale$single$effect$setosa$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
                     <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
@@ -1706,8 +1725,8 @@
       
       
       
-      attr(,"effect")$setosa$stats
-      attr(,"effect")$setosa$stats$d1
+      $ale$single$effect$setosa$stats
+      $ale$single$effect$setosa$stats$d1
       # A tibble: 16 x 7
          term         statistic     estimate     conf.low      mean   median conf.high
          <chr>        <chr>            <dbl>        <dbl>     <dbl>    <dbl>     <dbl>
@@ -1729,14 +1748,14 @@
       16 Petal.Width  naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
       
       
-      attr(,"effect")$setosa$boot_data
+      $ale$single$effect$setosa$boot_data
       NULL
       
       
-      attr(,"effect")$versicolor
-      attr(,"effect")$versicolor$ale
-      attr(,"effect")$versicolor$ale$d1
-      attr(,"effect")$versicolor$ale$d1$Sepal.Length
+      $ale$single$effect$versicolor
+      $ale$single$effect$versicolor$ale
+      $ale$single$effect$versicolor$ale$d1
+      $ale$single$effect$versicolor$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1752,7 +1771,7 @@
       10               6.9    17  0.0496  0.0496  0.0496    0.0496  0.0496
       11               7.9    13  0.0597  0.0597  0.0597    0.0597  0.0597
       
-      attr(,"effect")$versicolor$ale$d1$Petal.Width
+      $ale$single$effect$versicolor$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1769,8 +1788,8 @@
       
       
       
-      attr(,"effect")$versicolor$stats
-      attr(,"effect")$versicolor$stats$d1
+      $ale$single$effect$versicolor$stats
+      $ale$single$effect$versicolor$stats$d1
       # A tibble: 16 x 7
          term         statistic estimate conf.low     mean   median conf.high
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1792,14 +1811,14 @@
       16 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7   
       
       
-      attr(,"effect")$versicolor$boot_data
+      $ale$single$effect$versicolor$boot_data
       NULL
       
       
-      attr(,"effect")$virginica
-      attr(,"effect")$virginica$ale
-      attr(,"effect")$virginica$ale$d1
-      attr(,"effect")$virginica$ale$d1$Sepal.Length
+      $ale$single$effect$virginica
+      $ale$single$effect$virginica$ale
+      $ale$single$effect$virginica$ale$d1
+      $ale$single$effect$virginica$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1815,7 +1834,7 @@
       10               6.9    17 -0.0496 -0.0496 -0.0496   -0.0496 -0.0496
       11               7.9    13 -0.0597 -0.0597 -0.0597   -0.0597 -0.0597
       
-      attr(,"effect")$virginica$ale$d1$Petal.Width
+      $ale$single$effect$virginica$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1832,8 +1851,8 @@
       
       
       
-      attr(,"effect")$virginica$stats
-      attr(,"effect")$virginica$stats$d1
+      $ale$single$effect$virginica$stats
+      $ale$single$effect$virginica$stats$d1
       # A tibble: 16 x 7
          term         statistic estimate conf.low     mean   median conf.high
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1855,34 +1874,35 @@
       16 Petal.Width  naler_max  16       16       16       16        16     
       
       
-      attr(,"effect")$virginica$boot_data
+      $ale$single$effect$virginica$boot_data
       NULL
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 1
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $ale$single$params$ordered_x_cols
+      $ale$single$params$ordered_x_cols$d1
       [1] "Sepal.Length" "Petal.Width" 
       
-      attr(,"params")$ordered_x_cols$d2
+      $ale$single$params$ordered_x_cols$d2
       character(0)
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $ale$single$params$requested_x_cols
+      $ale$single$params$requested_x_cols$d1
       [1] "Sepal.Length" "Petal.Width" 
       
-      attr(,"params")$requested_x_cols$d2
+      $ale$single$params$requested_x_cols$d2
       character(0)
       
       
-      attr(,"params")$y_cats
+      $ale$single$params$y_cats
       [1] "setosa"     "versicolor" "virginica" 
       
-      attr(,"params")$y_summary
+      $ale$single$params$y_summary
                  Species       setosa   versicolor    virginica
       min   0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00
       1%    4.169110e-26 4.169110e-26 2.159110e-13 3.712741e-42
@@ -1905,16 +1925,16 @@
       99%   1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       max   1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $ale$single$params$model
+      $ale$single$params$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$hash
-      [1] "a49367cd78ae537a4dd97001dc75cde9"
+      $ale$single$params$model$hash
+      [1] "bc7fe49d32c9b376788f717dd0faab9c"
       
       
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $ale$single$params$data
+      $ale$single$params$data$data_sample
           Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
       1            5.1         3.5          1.4         0.2     setosa
       2            4.9         3.0          1.4         0.2     setosa
@@ -2067,7 +2087,7 @@
       149          6.2         3.4          5.4         2.3  virginica
       150          5.9         3.0          5.1         1.8  virginica
       
-      attr(,"params")$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                 setosa   versicolor    virginica
       1   1.000000e+00 1.526406e-09 2.716417e-36
       2   9.999996e-01 3.536476e-07 2.883729e-32
@@ -2220,77 +2240,78 @@
       149 6.009635e-17 4.504137e-06 9.999955e-01
       150 2.726745e-14 2.243538e-02 9.775646e-01
       
-      attr(,"params")$data$nrow
+      $ale$single$params$data$nrow
       [1] 150
       
       
-      attr(,"params")$y_col
+      $ale$single$params$y_col
       [1] "Species"
       
-      attr(,"params")$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $ale$single$params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $ale$single$params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $ale$single$params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $ale$single$params$pred_type
       [1] "probs"
       
-      attr(,"params")$p_values
+      $ale$single$params$p_values
       NULL
       
-      attr(,"params")$require_same_p
+      $ale$single$params$require_same_p
       [1] FALSE
       
-      attr(,"params")$aler_alpha
+      $ale$single$params$aler_alpha
       [1] 0.01 0.05
       
-      attr(,"params")$aled_fun
+      $ale$single$params$aled_fun
       [1] "mad"
       
-      attr(,"params")$max_num_bins
+      $ale$single$params$max_num_bins
       [1] 10
       
-      attr(,"params")$fct_order
+      $ale$single$params$fct_order
       [1] "levels"
       
-      attr(,"params")$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      attr(,"params")$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $ale$single$params$seed
       [1] 0
       
-      attr(,"params")$y_type
+      $ale$single$params$y_type
       [1] "categorical"
       
-      attr(,"params")$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
       
-      attr(,"ale")$boot
-      attr(,"ale")$boot$effect
-      attr(,"ale")$boot$effect$setosa
-      attr(,"ale")$boot$effect$setosa$ale
-      attr(,"ale")$boot$effect$setosa$ale$d1
-      attr(,"ale")$boot$effect$setosa$ale$d1$Sepal.Length
+      
+      $ale$boot
+      $ale$boot$effect
+      $ale$boot$effect$setosa
+      $ale$boot$effect$setosa$ale
+      $ale$boot$effect$setosa$ale$d1
+      $ale$boot$effect$setosa$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
                      <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
@@ -2306,7 +2327,7 @@
       10               6.9    17  0.00000963  0.00000466    9.63e-6   9.63e-6  1.46e-5
       11               7.9    13  0.0000145   0.00000515    1.45e-5   1.45e-5  2.39e-5
       
-      attr(,"ale")$boot$effect$setosa$ale$d1$Petal.Width
+      $ale$boot$effect$setosa$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
                     <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
@@ -2323,8 +2344,8 @@
       
       
       
-      attr(,"ale")$boot$effect$setosa$stats
-      attr(,"ale")$boot$effect$setosa$stats$d1
+      $ale$boot$effect$setosa$stats
+      $ale$boot$effect$setosa$stats$d1
       # A tibble: 16 x 7
          term         statistic    estimate     conf.low     median     mean conf.high
          <fct>        <fct>           <dbl>        <dbl>      <dbl>    <dbl>     <dbl>
@@ -2347,10 +2368,10 @@
       
       
       
-      attr(,"ale")$boot$effect$versicolor
-      attr(,"ale")$boot$effect$versicolor$ale
-      attr(,"ale")$boot$effect$versicolor$ale$d1
-      attr(,"ale")$boot$effect$versicolor$ale$d1$Sepal.Length
+      $ale$boot$effect$versicolor
+      $ale$boot$effect$versicolor$ale
+      $ale$boot$effect$versicolor$ale$d1
+      $ale$boot$effect$versicolor$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
                      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
@@ -2366,7 +2387,7 @@
       10               6.9    17  0.0189    0.0108    0.0189    0.0189    0.0270 
       11               7.9    13  0.0967    0.0358    0.0967    0.0967    0.158  
       
-      attr(,"ale")$boot$effect$versicolor$ale$d1$Petal.Width
+      $ale$boot$effect$versicolor$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y     .y_lo .y_mean .y_median   .y_hi
                     <dbl> <int>   <dbl>     <dbl>   <dbl>     <dbl>   <dbl>
@@ -2383,8 +2404,8 @@
       
       
       
-      attr(,"ale")$boot$effect$versicolor$stats
-      attr(,"ale")$boot$effect$versicolor$stats$d1
+      $ale$boot$effect$versicolor$stats
+      $ale$boot$effect$versicolor$stats$d1
       # A tibble: 16 x 7
          term         statistic estimate conf.low   median     mean conf.high
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2407,10 +2428,10 @@
       
       
       
-      attr(,"ale")$boot$effect$virginica
-      attr(,"ale")$boot$effect$virginica$ale
-      attr(,"ale")$boot$effect$virginica$ale$d1
-      attr(,"ale")$boot$effect$virginica$ale$d1$Sepal.Length
+      $ale$boot$effect$virginica
+      $ale$boot$effect$virginica$ale
+      $ale$boot$effect$virginica$ale$d1
+      $ale$boot$effect$virginica$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n        .y    .y_lo   .y_mean .y_median     .y_hi
                      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>     <dbl>
@@ -2426,7 +2447,7 @@
       10               6.9    17 -0.0189   -0.0270  -0.0189   -0.0189   -0.0108  
       11               7.9    13 -0.0968   -0.158   -0.0968   -0.0968   -0.0358  
       
-      attr(,"ale")$boot$effect$virginica$ale$d1$Petal.Width
+      $ale$boot$effect$virginica$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median     .y_hi
                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>     <dbl>
@@ -2443,8 +2464,8 @@
       
       
       
-      attr(,"ale")$boot$effect$virginica$stats
-      attr(,"ale")$boot$effect$virginica$stats$d1
+      $ale$boot$effect$virginica$stats
+      $ale$boot$effect$virginica$stats$d1
       # A tibble: 16 x 7
          term         statistic estimate conf.low   median     mean conf.high
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2469,26 +2490,30 @@
       
       
       
-      attr(,"params")
-      attr(,"params")$class_model
+      
+      $boot_data
+      NULL
+      
+      $params
+      $params$class_model
       [1] "multinom" "nnet"    
       
-      attr(,"params")$y_type
+      $params$y_type
       [1] "categorical"
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "setosa"     "versicolor" "virginica" 
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$hash
-      [1] "3fac274ff98f797f54f2bc844b14791d"
+      $params$model$hash
+      [1] "d9c4f93fe160acc47cbcf9e8cef80497"
       
       
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
           Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
       1            5.1         3.5          1.4         0.2     setosa
       2            4.9         3.0          1.4         0.2     setosa
@@ -2641,7 +2666,7 @@
       149          6.2         3.4          5.4         2.3  virginica
       150          5.9         3.0          5.1         1.8  virginica
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                 setosa   versicolor    virginica
       1   1.000000e+00 1.526406e-09 2.716417e-36
       2   9.999996e-01 3.536476e-07 2.883729e-32
@@ -2794,77 +2819,78 @@
       149 6.009635e-17 4.504137e-06 9.999955e-01
       150 2.726745e-14 2.243538e-02 9.775646e-01
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 150
       
       
-      attr(,"params")$model_call_string
+      $params$model_call_string
       [1] "nnet::multinom(Species ~ ., data = btit.data, trace = FALSE)"
       
-      attr(,"params")$model_call_string_vars
+      $params$model_call_string_vars
       character(0)
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       [1] "nnet"
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "Species"
       
-      attr(,"params")$positive
+      $params$positive
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "probs"
       
-      attr(,"params")$boot_it
+      $params$boot_it
       [1] 2
       
-      attr(,"params")$boot_alpha
+      $params$boot_alpha
       [1] 0.1
       
-      attr(,"params")$boot_centre
+      $params$boot_centre
       [1] "median"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 1234
       
-      attr(,"params")$output_model_stats
+      $params$output_model_stats
       [1] TRUE
       
-      attr(,"params")$output_model_coefs
+      $params$output_model_coefs
       [1] TRUE
       
-      attr(,"params")$output_ale
+      $params$output_ale
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$ale_options
-      attr(,"params")$ale_options$x_cols
+      $params$ale_options
+      $params$ale_options$x_cols
       [1] "Sepal.Length" "Petal.Width" 
       
-      attr(,"params")$ale_options$pred_type
+      $params$ale_options$pred_type
       [1] "probs"
       
       
-      attr(,"params")$ale_p
+      $params$ale_p
       NULL
       
-      attr(,"params")$tidy_options
+      $params$tidy_options
       list()
       
-      attr(,"params")$glance_options
+      $params$glance_options
       list()
+      
       
 
 ---
