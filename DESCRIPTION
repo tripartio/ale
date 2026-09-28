@@ -13,6 +13,7 @@ Roxygen: list(markdown = TRUE)
 Suggests: 
     agridat,
     cluster,
+    gbm,
     kableExtra,
     knitr,
     mgcv,
