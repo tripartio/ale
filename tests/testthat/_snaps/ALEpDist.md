@@ -1,21 +1,10 @@
 # ALEpDist works with default inputs (exact) on ALE()
 
     Code
-      unclass(pd)
+      s7_snapshot(pd)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALEpDist> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ rand_stats           : <list>            
-       $ residual_distribution: S3<univariateML>  
-       $ residuals            : <double> or <NULL>
-       $ params               : <list>            
-      attr(,"rand_stats")
-      attr(,"rand_stats")$mpg
+      $rand_stats
+      $rand_stats$mpg
       # A tibble: 10 x 8
              aled aler_min    aler aler_max  naled naler_min naler naler_max
             <dbl>    <dbl>   <dbl>    <dbl>  <dbl>     <dbl> <dbl>     <dbl>
@@ -30,79 +19,76 @@
        9 0.00280  -0.0136  0.0219   0.00822 0.439      -1.56  3.12      1.56
       10 0.000472 -0.00171 0.00321  0.00149 0           0     0         0   
       
-      attr(,"residual_distribution")
+      
+      $residual_distribution
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.310e-11  3.587e-03  
-      attr(,"params")
-      attr(,"params")$model
-      attr(,"params")$model$class
+      1.300e-11  3.587e-03  
+      
+      $residuals
+      NULL
+      
+      $params
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "0566e24d41b2e04348d2951b07df6805"
+      $params$model$hash
+      [1] "d207a86e2d709930900c0cd65e89dda4"
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "mpg"
       
-      attr(,"params")$rand_it
+      $params$rand_it
       [1] 10
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$random_model_call_string
+      $params$random_model_call_string
       NULL
       
-      attr(,"params")$random_model_call_string_vars
+      $params$random_model_call_string_vars
       character(0)
       
-      attr(,"params")$positive
+      $params$positive
       [1] TRUE
       
-      attr(,"params")$aled_fun
+      $params$aled_fun
       [1] "mad"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$rand_it_ok
+      $params$rand_it_ok
       [1] 10
       
-      attr(,"params")$exactness
+      $params$exactness
       [1] "invalid"
+      
       
 
 ---
 
     Code
-      unclass(cars_ale)
+      s7_snapshot(cars_ale)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$mpg
-      attr(,"effect")$mpg$ale
-      attr(,"effect")$mpg$ale$d1
-      attr(,"effect")$mpg$ale$d1$vs
+      $effect
+      $effect$mpg
+      $effect$mpg$ale
+      $effect$mpg$ale$d1
+      $effect$mpg$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36     0     0       0         0     0
       2 TRUE      28     0     0       0         0     0
       
-      attr(,"effect")$mpg$ale$d1$continent
+      $effect$mpg$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -110,14 +96,14 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"effect")$mpg$ale$d1$am
+      $effect$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -1.61 -5.01   -1.61    -1.01  0.775
       2 TRUE      26  1.60 -1.75    1.60     0.219 7.28 
       
-      attr(,"effect")$mpg$ale$d1$model
+      $effect$mpg$ale$d1$model
       # A tibble: 32 x 7
          model.bin             .n     .y   .y_lo .y_mean .y_median .y_hi
          <ord>              <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
@@ -133,7 +119,7 @@
       10 Fiat X1-9              2  20.5    6.52    20.5     22.6   30.9 
       # i 22 more rows
       
-      attr(,"effect")$mpg$ale$d1$gear
+      $effect$mpg$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n    .y .y_lo .y_mean .y_median   .y_hi
         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl>   <dbl>
@@ -141,7 +127,7 @@
       2 four        24  2.66  1.49    2.66     2.42   4.22  
       3 five        10 -1.60 -2.46   -1.60    -1.85  -0.331 
       
-      attr(,"effect")$mpg$ale$d1$carb
+      $effect$mpg$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -151,7 +137,7 @@
       4         4    16 -0.000451 -0.000451 -0.000451 -0.000451 -0.000451
       5         8     6 -0.00170  -0.00170  -0.00170  -0.00170  -0.00170 
       
-      attr(,"effect")$mpg$ale$d1$wt
+      $effect$mpg$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -169,8 +155,8 @@
       
       
       
-      attr(,"effect")$mpg$stats
-      attr(,"effect")$mpg$stats$d1
+      $effect$mpg$stats
+      $effect$mpg$stats$d1
       # A tibble: 56 x 8
          statistic estimate p.value term      conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>        <dbl> <dbl>  <dbl>     <dbl>
@@ -187,36 +173,37 @@
       # i 46 more rows
       
       
-      attr(,"effect")$mpg$boot_data
+      $effect$mpg$boot_data
       NULL
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $params
+      $params$max_d
       [1] 1
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $params$ordered_x_cols
+      $params$ordered_x_cols$d1
       [1] "vs"        "continent" "am"        "model"     "gear"      "carb"     
       [7] "wt"       
       
-      attr(,"params")$ordered_x_cols$d2
+      $params$ordered_x_cols$d2
       character(0)
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $params$requested_x_cols
+      $params$requested_x_cols$d1
       [1] "vs"        "continent" "am"        "model"     "gear"      "carb"     
       [7] "wt"       
       
-      attr(,"params")$requested_x_cols$d2
+      $params$requested_x_cols$d2
       character(0)
       
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "mpg"
       
-      attr(,"params")$y_summary
+      $params$y_summary
                       mpg
       min        10.39108
       1%         10.39108
@@ -243,16 +230,16 @@
       99%        33.84876
       max        33.84876
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "0566e24d41b2e04348d2951b07df6805"
+      $params$model$hash
+      [1] "d207a86e2d709930900c0cd65e89dda4"
       
       
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -268,7 +255,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                  mpg
        [1,] 21.00000
        [2,] 21.00000
@@ -335,105 +322,137 @@
       [63,] 14.95210
       [64,] 21.39233
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "mpg"
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "response"
       
-      attr(,"params")$p_values
-      <ale::ALEpDist>
-       @ rand_stats           :List of 1
-       .. $ mpg: tibble [10 x 8] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:10] 0.000484 0.002108 0.001961 0.000908 0.000352 ...
-       ..  ..$ aler_min : num [1:10] -0.0033 -0.00659 -0.00644 -0.00363 -0.00166 ...
-       ..  ..$ aler     : num [1:10] 0.00531 0.01494 0.01509 0.00887 0.00305 ...
-       ..  ..$ aler_max : num [1:10] 0.00201 0.00835 0.00866 0.00524 0.00139 ...
-       ..  ..$ naled    : num [1:10] 0 0.3418 0.2197 0.0244 0 ...
-       ..  ..$ naler_min: num [1:10] 0 -1.56 -1.56 -1.56 0 ...
-       ..  ..$ naler    : num [1:10] 0 3.12 3.12 3.12 0 ...
-       ..  ..$ naler_max: num [1:10] 0 1.56 1.56 1.56 0 ...
-       @ residual_distribution: 'univariateML' Named num [1:2] 1.31e-11 3.59e-03
-       .. - attr(*, "logLik")= num 252
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
-       .. - attr(*, "n")= int 64
-       .. - attr(*, "model")= chr "Laplace"
-       .. - attr(*, "density")= chr "extraDistr::dlaplace"
-       .. - attr(*, "support")= num [1:2] -Inf Inf
-       .. - attr(*, "names")= chr [1:2] "mu" "sigma"
-       .. - attr(*, "default")= num [1:2] 0 1
-       .. - attr(*, "continuous")= logi TRUE
-       @ residuals            : NULL
-       @ params               :List of 12
-       .. $ model                        :List of 2
-       ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "0566e24d41b2e04348d2951b07df6805"
-       .. $ y_col                        : chr "mpg"
-       .. $ rand_it                      : num 10
-       .. $ parallel                     : num 0
-       .. $ model_packages               : NULL
-       .. $ random_model_call_string     : NULL
-       .. $ random_model_call_string_vars: chr(0) 
-       .. $ positive                     : logi TRUE
-       .. $ aled_fun                     : chr "mad"
-       .. $ seed                         : num 0
-       .. $ rand_it_ok                   : int 10
-       .. $ exactness                    : chr "invalid"
+      $params$p_values
+      $params$p_values$rand_stats
+      $params$p_values$rand_stats$mpg
+      # A tibble: 10 x 8
+             aled aler_min    aler aler_max  naled naler_min naler naler_max
+            <dbl>    <dbl>   <dbl>    <dbl>  <dbl>     <dbl> <dbl>     <dbl>
+       1 0.000484 -0.00330 0.00531  0.00201 0           0     0         0   
+       2 0.00211  -0.00659 0.0149   0.00835 0.342      -1.56  3.12      1.56
+       3 0.00196  -0.00644 0.0151   0.00866 0.220      -1.56  3.12      1.56
+       4 0.000908 -0.00363 0.00887  0.00524 0.0244     -1.56  3.12      1.56
+       5 0.000352 -0.00166 0.00305  0.00139 0           0     0         0   
+       6 0.000389 -0.00192 0.00350  0.00158 0           0     0         0   
+       7 0.00136  -0.00551 0.00958  0.00407 0.0977     -1.56  3.12      1.56
+       8 0.000976 -0.00361 0.0108   0.00715 0.0488     -1.56  3.12      1.56
+       9 0.00280  -0.0136  0.0219   0.00822 0.439      -1.56  3.12      1.56
+      10 0.000472 -0.00171 0.00321  0.00149 0           0     0         0   
       
-      attr(,"params")$require_same_p
-      [1] TRUE
       
-      attr(,"params")$aler_alpha
-      [1] 0.01 0.05
+      $params$p_values$residual_distribution
+      Maximum likelihood estimates for the Laplace model 
+             mu      sigma  
+      1.300e-11  3.587e-03  
       
-      attr(,"params")$aled_fun
-      [1] "mad"
+      $params$p_values$residuals
+      NULL
       
-      attr(,"params")$max_num_bins
+      $params$p_values$params
+      $params$p_values$params$model
+      $params$p_values$params$model$class
+      [1] "gam" "glm" "lm" 
+      
+      $params$p_values$params$model$hash
+      [1] "d207a86e2d709930900c0cd65e89dda4"
+      
+      
+      $params$p_values$params$y_col
+      [1] "mpg"
+      
+      $params$p_values$params$rand_it
       [1] 10
       
-      attr(,"params")$fct_order
-      [1] "levels"
-      
-      attr(,"params")$boot_it
-      [1] 3
-      
-      attr(,"params")$boot_alpha
-      [1] 0.05
-      
-      attr(,"params")$boot_centre
-      [1] "mean"
-      
-      attr(,"params")$seed
+      $params$p_values$params$parallel
       [1] 0
       
-      attr(,"params")$y_type
+      $params$p_values$params$model_packages
+      NULL
+      
+      $params$p_values$params$random_model_call_string
+      NULL
+      
+      $params$p_values$params$random_model_call_string_vars
+      character(0)
+      
+      $params$p_values$params$positive
+      [1] TRUE
+      
+      $params$p_values$params$aled_fun
+      [1] "mad"
+      
+      $params$p_values$params$seed
+      [1] 0
+      
+      $params$p_values$params$rand_it_ok
+      [1] 10
+      
+      $params$p_values$params$exactness
+      [1] "invalid"
+      
+      
+      
+      $params$require_same_p
+      [1] TRUE
+      
+      $params$aler_alpha
+      [1] 0.01 0.05
+      
+      $params$aled_fun
+      [1] "mad"
+      
+      $params$max_num_bins
+      [1] 10
+      
+      $params$fct_order
+      [1] "levels"
+      
+      $params$boot_it
+      [1] 3
+      
+      $params$boot_alpha
+      [1] 0.05
+      
+      $params$boot_centre
+      [1] "mean"
+      
+      $params$seed
+      [1] 0
+      
+      $params$y_type
       [1] "numeric"
       
-      attr(,"params")$sample_size
+      $params$sample_size
       [1] 500
+      
       
 
 ---
@@ -471,21 +490,10 @@
 # Surrogate ALEpDist works
 
     Code
-      unclass(pd)
+      s7_snapshot(pd)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALEpDist> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ rand_stats           : <list>            
-       $ residual_distribution: S3<univariateML>  
-       $ residuals            : <double> or <NULL>
-       $ params               : <list>            
-      attr(,"rand_stats")
-      attr(,"rand_stats")$mpg
+      $rand_stats
+      $rand_stats$mpg
       # A tibble: 100 x 8
             aled aler_min   aler aler_max naled naler_min naler naler_max
            <dbl>    <dbl>  <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
@@ -501,11 +509,13 @@
       10 0.00706  -0.0226 0.0485  0.0259  0.952     -1.56  3.12      1.56
       # i 90 more rows
       
-      attr(,"residual_distribution")
+      
+      $residual_distribution
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.310e-11  3.587e-03  
-      attr(,"residuals")
+      1.300e-11  3.587e-03  
+      
+      $residuals
        [1] -9.470697e-04 -1.130145e-03 -3.078035e-03  7.415332e-04 -4.678952e-03
        [6]  7.516518e-04  2.728091e-03 -8.853029e-03 -3.016706e-04 -1.794893e-03
       [11] -3.673897e-03 -2.816578e-03  5.414042e-03  2.979146e-03  2.219206e-03
@@ -519,47 +529,49 @@
       [51] -1.437735e-03 -2.200997e-03 -2.625747e-03 -5.178720e-04  9.802341e-03
       [56] -7.118944e-03 -5.255702e-03  9.746617e-03  2.976337e-03 -6.542735e-03
       [61]  8.071930e-03 -4.016990e-03  2.747836e-04  6.032702e-05
-      attr(,"params")
-      attr(,"params")$model
-      attr(,"params")$model$class
+      
+      $params
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "0566e24d41b2e04348d2951b07df6805"
+      $params$model$hash
+      [1] "d207a86e2d709930900c0cd65e89dda4"
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "mpg"
       
-      attr(,"params")$rand_it
+      $params$rand_it
       [1] 3
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$random_model_call_string
+      $params$random_model_call_string
       NULL
       
-      attr(,"params")$random_model_call_string_vars
+      $params$random_model_call_string_vars
       character(0)
       
-      attr(,"params")$positive
+      $params$positive
       [1] TRUE
       
-      attr(,"params")$aled_fun
+      $params$aled_fun
       [1] "mad"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$rand_it_ok
+      $params$rand_it_ok
       [1] 100
       
-      attr(,"params")$exactness
+      $params$exactness
       [1] "surrogate"
+      
       
 
 ---
@@ -613,21 +625,10 @@
 # ALEpDist works with custom random_model_call_string
 
     Code
-      unclass(pd)
+      s7_snapshot(pd)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALEpDist> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ rand_stats           : <list>            
-       $ residual_distribution: S3<univariateML>  
-       $ residuals            : <double> or <NULL>
-       $ params               : <list>            
-      attr(,"rand_stats")
-      attr(,"rand_stats")$mpg
+      $rand_stats
+      $rand_stats$mpg
       # A tibble: 3 x 8
             aled aler_min    aler aler_max naled naler_min naler naler_max
            <dbl>    <dbl>   <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
@@ -635,11 +636,13 @@
       2 0.00211  -0.00659 0.0149   0.00835 0.342     -1.56  3.12      1.56
       3 0.00196  -0.00644 0.0151   0.00866 0.220     -1.56  3.12      1.56
       
-      attr(,"residual_distribution")
+      
+      $residual_distribution
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.310e-11  3.587e-03  
-      attr(,"residuals")
+      1.300e-11  3.587e-03  
+      
+      $residuals
        [1] -9.470697e-04 -1.130145e-03 -3.078035e-03  7.415332e-04 -4.678952e-03
        [6]  7.516518e-04  2.728091e-03 -8.853029e-03 -3.016706e-04 -1.794893e-03
       [11] -3.673897e-03 -2.816578e-03  5.414042e-03  2.979146e-03  2.219206e-03
@@ -653,146 +656,132 @@
       [51] -1.437735e-03 -2.200997e-03 -2.625747e-03 -5.178720e-04  9.802341e-03
       [56] -7.118944e-03 -5.255702e-03  9.746617e-03  2.976337e-03 -6.542735e-03
       [61]  8.071930e-03 -4.016990e-03  2.747836e-04  6.032702e-05
-      attr(,"params")
-      attr(,"params")$model
-      attr(,"params")$model$class
+      
+      $params
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "0566e24d41b2e04348d2951b07df6805"
+      $params$model$hash
+      [1] "d207a86e2d709930900c0cd65e89dda4"
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "mpg"
       
-      attr(,"params")$rand_it
+      $params$rand_it
       [1] 3
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$random_model_call_string
+      $params$random_model_call_string
       [1] "mgcv::gam(\n        mpg ~ model + s(wt) + am + gear + carb + random_variable,\n        data = it.rand_data\n      )"
       
-      attr(,"params")$random_model_call_string_vars
+      $params$random_model_call_string_vars
       [1] "rmcsv"
       
-      attr(,"params")$positive
+      $params$positive
       [1] TRUE
       
-      attr(,"params")$aled_fun
+      $params$aled_fun
       [1] "mad"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$rand_it_ok
+      $params$rand_it_ok
       [1] 3
       
-      attr(,"params")$exactness
+      $params$exactness
       [1] "invalid"
+      
       
 
 # ALEpDist works with binary outcome
 
     Code
-      unclass(pd)
+      s7_snapshot(pd)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALEpDist> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ rand_stats           : <list>            
-       $ residual_distribution: S3<univariateML>  
-       $ residuals            : <double> or <NULL>
-       $ params               : <list>            
-      attr(,"rand_stats")
-      attr(,"rand_stats")$vs
+      $rand_stats
+      $rand_stats$vs
       # A tibble: 10 x 8
              aled  aler_min     aler aler_max naled naler_min naler naler_max
             <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
-       1 6.32e-27 -1.34e-26 3.06e-26 1.72e-26  2.05     -3.12  7.81      4.69
-       2 1.45e-25 -3.61e-25 7.11e-25 3.50e-25 17.3     -50    56.2       6.25
-       3 1.18e-22 -2.94e-22 5.91e-22 2.97e-22 32.2     -50    56.2       6.25
-       4 4.84e-25 -8.52e-25 1.66e-24 8.05e-25 27.8     -50    56.2       6.25
-       5 6.30e-25 -1.23e-24 2.33e-24 1.10e-24 23.1     -50    56.2       6.25
-       6 2.22e-24 -5.25e-24 1.06e-23 5.34e-24 29.5     -50    56.2       6.25
-       7 1.54e-24 -3.57e-24 6.42e-24 2.84e-24 25.4     -50    56.2       6.25
-       8 2.77e-24 -6.13e-24 1.05e-23 4.41e-24 29.2     -50    56.2       6.25
-       9 3.77e-26 -7.87e-26 1.45e-25 6.65e-26  7.15    -18.8  25         6.25
-      10 2.12e-23 -3.77e-23 7.50e-23 3.74e-23 27.4     -50    56.2       6.25
+       1 6.27e-26 -1.21e-25 2.80e-25 1.59e-25  6.93     -20.3  26.6      6.25
+       2 1.21e-25 -3.04e-25 5.98e-25 2.94e-25 10.9      -35.9  42.2      6.25
+       3 2.07e-25 -5.18e-25 1.04e-24 5.24e-25 14.7      -50    56.2      6.25
+       4 2.78e-25 -4.63e-25 9.52e-25 4.90e-25 20.3      -50    56.2      6.25
+       5 2.67e-23 -4.65e-23 9.89e-23 5.24e-23 25.3      -50    56.2      6.25
+       6 3.10e-24 -7.46e-24 1.48e-23 7.32e-24 26.3      -50    56.2      6.25
+       7 5.59e-25 -1.29e-24 2.32e-24 1.03e-24 23.3      -50    56.2      6.25
+       8 3.10e-24 -6.85e-24 1.18e-23 4.92e-24 28.7      -50    56.2      6.25
+       9 0         0        0        0         0          0     0        0   
+      10 3.65e-24 -6.43e-24 1.29e-23 6.49e-24 28.4      -50    56.2      6.25
       
-      attr(,"residual_distribution")
+      
+      $residual_distribution
       Maximum likelihood estimates for the Uniform model 
              min         max  
       -3.926e-13   3.926e-13  
-      attr(,"params")
-      attr(,"params")$model
-      attr(,"params")$model$class
+      
+      $residuals
+      NULL
+      
+      $params
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "dc3c7295e768b7054e90b9dec2ddb01a"
+      $params$model$hash
+      [1] "3ab10bf93b7754ade81eedd75ca0b319"
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "vs"
       
-      attr(,"params")$rand_it
+      $params$rand_it
       [1] 10
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$random_model_call_string
+      $params$random_model_call_string
       NULL
       
-      attr(,"params")$random_model_call_string_vars
+      $params$random_model_call_string_vars
       character(0)
       
-      attr(,"params")$positive
+      $params$positive
       [1] TRUE
       
-      attr(,"params")$aled_fun
+      $params$aled_fun
       [1] "mad"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$rand_it_ok
+      $params$rand_it_ok
       [1] 10
       
-      attr(,"params")$exactness
+      $params$exactness
       [1] "invalid"
+      
       
 
 # ALEpDist works with categorical outcome
 
     Code
-      unclass(pd)
+      s7_snapshot(pd)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALEpDist> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, aled_fun, output_residuals, seed, silent, .skip_validation) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ rand_stats           : <list>            
-       $ residual_distribution: S3<univariateML>  
-       $ residuals            : <double> or <NULL>
-       $ params               : <list>            
-      attr(,"rand_stats")
-      attr(,"rand_stats")$Asia
+      $rand_stats
+      $rand_stats$Asia
       # A tibble: 10 x 8
           aled aler_min  aler aler_max naled naler_min naler naler_max
          <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
@@ -807,7 +796,7 @@
        9     0        0     0        0     0         0     0         0
       10     0        0     0        0     0         0     0         0
       
-      attr(,"rand_stats")$Europe
+      $rand_stats$Europe
       # A tibble: 10 x 8
           aled aler_min  aler aler_max naled naler_min naler naler_max
          <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
@@ -822,7 +811,7 @@
        9     0        0     0        0     0         0     0         0
       10     0        0     0        0     0         0     0         0
       
-      attr(,"rand_stats")$`North America`
+      $rand_stats$`North America`
       # A tibble: 10 x 8
           aled aler_min  aler aler_max naled naler_min naler naler_max
          <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
@@ -837,50 +826,56 @@
        9     0        0     0        0     0         0     0         0
       10     0        0     0        0     0         0     0         0
       
-      attr(,"residual_distribution")
+      
+      $residual_distribution
       Maximum likelihood estimates for the Laplace model 
               mu       sigma  
       -2.043e-23   1.503e-17  
-      attr(,"params")
-      attr(,"params")$model
-      attr(,"params")$model$class
-      [1] "multinom" "nnet"    
       
-      attr(,"params")$model$hash
-      [1] "618a910f9f636a0d673e03eeae7cf86d"
-      
-      
-      attr(,"params")$y_col
-      [1] "continent"
-      
-      attr(,"params")$rand_it
-      [1] 10
-      
-      attr(,"params")$parallel
-      [1] 0
-      
-      attr(,"params")$model_packages
-      [1] "nnet"
-      
-      attr(,"params")$random_model_call_string
+      $residuals
       NULL
       
-      attr(,"params")$random_model_call_string_vars
-      character(0)
+      $params
+      $params$model
+      $params$model$class
+      [1] "multinom" "nnet"    
       
-      attr(,"params")$positive
-      [1] TRUE
+      $params$model$hash
+      [1] "a7afc8a2794f2493c69b883286b6b223"
       
-      attr(,"params")$aled_fun
-      [1] "mad"
       
-      attr(,"params")$seed
-      [1] 0
+      $params$y_col
+      [1] "continent"
       
-      attr(,"params")$rand_it_ok
+      $params$rand_it
       [1] 10
       
-      attr(,"params")$exactness
+      $params$parallel
+      [1] 0
+      
+      $params$model_packages
+      [1] "nnet"
+      
+      $params$random_model_call_string
+      NULL
+      
+      $params$random_model_call_string_vars
+      character(0)
+      
+      $params$positive
+      [1] TRUE
+      
+      $params$aled_fun
+      [1] "mad"
+      
+      $params$seed
+      [1] 0
+      
+      $params$rand_it_ok
+      [1] 10
+      
+      $params$exactness
       [1] "invalid"
+      
       
 
