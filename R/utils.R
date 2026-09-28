@@ -98,20 +98,30 @@ params_data <- function(
 }
 
 
-# Reduce a model to text descriptions of its key elements
-params_model <- function(model) {
-  raw <- serialize(model, NULL)
-
+# Calculate an MD5 hash from a raw vector across supported R versions
+md5sum_raw <- function(raw, md5sum = tools::md5sum) {
   # R versions before 4.5.1 don't support the tools::md5sum(bytes) argument,
-  # so create a fallback for older verions
-  hash <- if ("bytes" %in% names(formals(tools::md5sum))) {
-    tools::md5sum(bytes = raw)
+  # so create a temporary-file fallback for older versions.
+  hash <- if ("bytes" %in% names(formals(md5sum))) {
+    md5sum(bytes = raw)
   } else {
     tf <- tempfile(fileext = ".bin")
     on.exit(unlink(tf), add = TRUE)
     writeBin(raw, tf)
-    tools::md5sum(tf)
+    md5sum(tf)
   }
+
+  # md5sum() names file-based results with the input path. Do not let that
+  # transient path become part of package objects or their snapshots.
+  unname(hash)
+}
+
+
+# Reduce a model to text descriptions of its key elements
+params_model <- function(model) {
+  hash <- model |>
+    serialize(NULL) |>
+    md5sum_raw()
 
   list(
     class = class(model),
@@ -182,5 +192,4 @@ extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
 
   result
 }
-
 
