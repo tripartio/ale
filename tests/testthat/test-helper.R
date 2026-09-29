@@ -140,3 +140,31 @@ test_that("snapshot data frames leave numeric S3 columns unchanged", {
 
   expect_identical(normalize_snapshot_data_frame(input), input)
 })
+
+test_that("snapshot normalization recursively handles ggplot layer data", {
+  classed_numeric <- structure(
+    c(1.234567, -0.000001),
+    class = "snapshot_numeric"
+  )
+  layer <- data.frame(
+    double = c(1.234567, -0.000001),
+    integer = c(1L, 2L),
+    factor = factor(c("a", "b")),
+    ordered = ordered(c("low", "high"), levels = c("low", "high")),
+    character = c("one", "two"),
+    logical = c(TRUE, FALSE)
+  )
+  layer$classed_numeric <- classed_numeric
+  mock_build_data <- list(first = layer, nested = list(second = layer))
+
+  result <- normalize_snapshot_value(mock_build_data)
+
+  expect_identical(result$first$double, c(1.23457, 0))
+  expect_identical(result$nested$second$double, c(1.23457, 0))
+  for (column in c(
+    "integer", "factor", "ordered", "character", "logical", "classed_numeric"
+  )) {
+    expect_identical(result$first[[column]], layer[[column]])
+    expect_identical(result$nested$second[[column]], layer[[column]])
+  }
+})
