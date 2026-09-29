@@ -18,10 +18,12 @@ options(progressr.enable = FALSE)
 
 # Use platform-specific snapshot variants while preserving the expression passed
 # by each test for testthat's snapshot labels and diagnostics.
-snap_variant <- Sys.info()["sysname"] |> unname()
-
 expect_snap_variant <- function(x, ...) {
-  testthat::expect_snapshot({{ x }}, ..., variant = snap_variant)
+  testthat::expect_snapshot(
+    {{ x }},
+    ...,
+    variant = Sys.info()["sysname"] |> unname()
+  )
 }
 
 
