@@ -17,7 +17,7 @@ test_that(
 
     # Test the ModelBoot print method
     print(pll_mb) |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -43,12 +43,12 @@ test_that(
 
     plot(mb, type = 'boot') |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
 
     expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
       s7_snapshot() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -71,12 +71,12 @@ test_that(
 
     plot(mb, type = 'boot') |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
 
     expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
       s7_snapshot() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -124,21 +124,21 @@ test_that(
     expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
       s7_snapshot() |>
-      expect_snapshot()
+      expect_snap_variant()
 
 
     # Test methods
 
-    get(mb, 'Sepal.Length') |> expect_snapshot()
-    get(mb, 'Petal.Width', type = 'single') |> expect_snapshot()
+    get(mb, 'Sepal.Length') |> expect_snap_variant()
+    get(mb, 'Petal.Width', type = 'single') |> expect_snap_variant()
 
     plot(mb, type = 'boot') |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
 
     plot(mb, type = 'single') |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
