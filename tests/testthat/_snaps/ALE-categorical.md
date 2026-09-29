@@ -2759,12 +2759,12 @@
       25%        3.199266e-24 8.785222e-20 8.693125e-25  3.199266e-24
       30%        6.827727e-23 2.256763e-18 6.827727e-23  2.889855e-23
       40%        7.271081e-18 8.144755e-16 5.332080e-18  7.271081e-18
-      aler_lo_lo 1.197295e-14 1.197295e-14 1.305069e-14  2.637657e-14
-      aler_lo    1.197321e-14 1.197321e-14 1.305096e-14  2.637684e-14
+      aler_lo_lo 1.197323e-14 1.197323e-14 1.305098e-14  2.637686e-14
+      aler_lo    1.197351e-14 1.197351e-14 1.305126e-14  2.637714e-14
       50%        1.305186e-14 1.197411e-14 1.305186e-14  2.637774e-14
       mean       3.333333e-01 3.333333e-01 3.333333e-01  3.333333e-01
-      aler_hi    2.637866e-14 1.197503e-14 1.305278e-14  2.637866e-14
-      aler_hi_hi 2.637878e-14 1.197515e-14 1.305290e-14  2.637878e-14
+      aler_hi    2.637804e-14 1.197441e-14 1.305216e-14  2.637804e-14
+      aler_hi_hi 2.637877e-14 1.197515e-14 1.305290e-14  2.637877e-14
       60%        1.134760e-08 9.938550e-13 9.999865e-01  1.134760e-08
       70%        1.000000e+00 5.030736e-08 1.000000e+00  1.000000e+00
       75%        1.000000e+00 4.755457e-06 1.000000e+00  1.000000e+00
@@ -8225,120 +8225,117 @@
       $Asia
       $Asia$d1
       $Asia$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2  14.30000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3  15.11249 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4  15.80000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5  17.80000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      6  19.20000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      7  21.00000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      8  21.50000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      9  24.61700 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      10 30.40000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      11 33.90000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $Asia$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.197411e-14     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 1.197411e-14     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $Asia$d1$am
-        x           y PANEL group xmin xmax         ymin         ymax colour
-      1 1 0.006188871     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 0.015482442     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x       y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype
+      1 1 0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1
+      2 2 0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1
+        alpha
+      1    NA
+      2    NA
       
       $Asia$d1$model
-          x         y PANEL group xmin xmax         ymin         ymax colour
-      1   1 -1.673149     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2   2 -1.673149     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3   3 -1.671227     1     3 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4   4 -1.832682     1     4 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5   5 -1.819256     1     5 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      6   6 -1.703513     1     6 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      7   7 -1.703513     1     7 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      8   8 -1.870184     1     8 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      9   9 -1.994674     1     9 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      10 10 -1.299275     1    10 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1 -1.67315     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2 -1.67315     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3 -1.67123     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4 -1.83268     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 -1.81926     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 -1.70351     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 -1.70351     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 -1.87018     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 -1.99467     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 -1.29927     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $Asia$d1$gear
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.118437865     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2  0.001975945     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3 3 -0.330118650     1     3 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.11844     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00198     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.33012     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $Asia$d1$carb
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.005489234     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 -0.001898356     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3 3 -0.001898365     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4 4 -0.001898365     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5 8 -0.001898365     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 4 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 8 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
       
       $Asia$d1$wt
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275  2.589681e-05     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      2  1.925991  3.346877e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      3  2.314067 -7.391920e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      4  2.779004 -7.391922e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      5  3.160130 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      6  3.219684 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      7  3.440000 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      8  3.558601 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      9  3.794139 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      10 4.070000 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      11 5.453272 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828  3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $Asia$d2
@@ -17573,130 +17570,122 @@
       
       $Asia$eff
       $Asia$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $Asia$eff[[2]]
-                 xmin          xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  1.197411e-14  1.197411e-14 1     1     1        TRUE 0.875 1.125  black
-      2  1.197411e-14  1.197411e-14 2     1     2        TRUE 1.875 2.125  black
-      3 -9.521731e-06  2.589681e-05 3     1     3        TRUE 2.875 3.125  black
-      4 -1.894153e-03  5.489234e-03 4     1     4        TRUE 3.875 4.125  black
-      5 -8.380929e-03  3.090750e-02 5     1     5        TRUE 4.875 5.125  black
-      6 -2.322303e-01  1.187455e-01 6     1     6        TRUE 5.875 6.125  black
-      7 -3.567085e+00 -2.829877e-01 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin     xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000  0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000  0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3 -0.00001  0.00003 3     1     3        TRUE 2.875 3.125  black       0.5
+      4 -0.00189  0.00549 4     1     4        TRUE 3.875 4.125  black       0.5
+      5 -0.00838  0.03091 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.23223  0.11875 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -3.56709 -0.28299 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $Asia$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  1.197396e-14 1.197396e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  1.197396e-14 1.197396e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -7.686611e-06 7.686611e-06  2.7  3.3 3     1     3     NA white       0.5
-      4 -8.579039e-04 8.579039e-04  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.087804e-02 1.087804e-02  4.7  5.3 5     1     5     NA white       0.5
-      6 -7.015474e-02 7.015474e-02  5.7  6.3 6     1     6     NA white       0.5
-      7 -1.080418e+00           NA  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3 -0.00001 0.00001  2.7  3.3 3     1     3     NA white       0.5        1
+      4 -0.00086 0.00086  3.7  4.3 4     1     4     NA white       0.5        1
+      5 -0.01088 0.01088  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.07015 0.07015  5.7  6.3 6     1     6     NA white       0.5        1
+      7 -1.08042      NA  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $Asia$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 1.197396e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 1.197396e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 1.197396e-14 NALED 37.3% 3     1     3       0       0  black           3
-      4 1.197396e-14 NALED 40.9% 4     1     4       0       0  black           3
-      5 1.197396e-14 NALED 38.9% 5     1     5       0       0  black           3
-      6 1.197396e-14 NALED 37.7% 6     1     6       0       0  black           3
-      7 1.197396e-14 NALED 49.4% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 37.3% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 40.9% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 38.9% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 37.7% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 49.4% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $Asia$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  1.197396e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  1.197396e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -7.686611e-06     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -8.579039e-04     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.087804e-02     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -7.015474e-02     ( 6.02     1     6       0    0.02  black        3.866058
-      7 -1.080418e+00     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3 -0.00001     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4 -0.00086     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5 -0.01088     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.07015     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7 -1.08042     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Asia$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 1.197396e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 1.197396e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 7.686611e-06     ) 3.02     1     3       0    0.02  black        3.866058
-      4 8.579039e-04     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.087804e-02     ) 5.02     1     5       0    0.02  black        3.866058
-      6 7.015474e-02     ) 6.02     1     6       0    0.02  black        3.866058
-      7           NA     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00001     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00086     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.01088     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.07015     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7      NA     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Asia$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 1.197396e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 1.197396e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 1.197396e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 1.197396e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 1.197396e-14 ALED 0.02 5     1     5       0       0  black           3     0
-      6 1.197396e-14 ALED 0.14 6     1     6       0       0  black           3     0
-      7 1.197396e-14 ALED 2.16 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.02 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.14 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 2.16 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $Asia$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -17711,120 +17700,117 @@
       $Europe
       $Europe$d1
       $Europe$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2  14.30000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      3  15.11249 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      4  15.80000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      5  17.80000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      6  19.20000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      7  21.00000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      8  21.50000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      9  24.61700 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      10 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      11 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $Europe$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.305186e-14     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2 1.305186e-14     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $Europe$d1$am
-        x           y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -0.00618887     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2 -0.01548244     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
       
       $Europe$d1$model
-          x        y PANEL group xmin xmax         ymin         ymax colour      fill
-      1   1 2.886207     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      2   2 2.886207     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      3   3 3.077681     1     3 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      4   4 2.911014     1     4 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      5   5 3.077681     1     5 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      6   6 3.077679     1     6 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      7   7 3.084509     1     7 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      8   8 2.946479     1     8 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      9   9 3.446463     1     9 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      10 10 1.089378     1    10 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-         linewidth linetype alpha
-      1        0.5        1    NA
-      2        0.5        1    NA
-      3        0.5        1    NA
-      4        0.5        1    NA
-      5        0.5        1    NA
-      6        0.5        1    NA
-      7        0.5        1    NA
-      8        0.5        1    NA
-      9        0.5        1    NA
-      10       0.5        1    NA
+          x       y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1 2.88621     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2 2.88621     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3 3.07768     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4 2.91101     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 3.07768     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 3.07768     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 3.08451     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 2.94648     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 3.44646     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 1.08938     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $Europe$d1$gear
-        x          y PANEL group xmin xmax         ymin         ymax colour      fill
-      1 1 -0.2389154     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      2 2  0.2471940     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      3 3  0.3799475     1     3 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.23892     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.24719     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3  0.37995     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $Europe$d1$carb
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -0.005489341     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2  0.001898392     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      3 3  0.001898401     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      4 4  0.001898401     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      5 8  0.001898406     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 4  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 8  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
       
       $Europe$d1$wt
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275 -2.589756e-05     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      2  1.925991 -3.347122e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      3  2.314067  7.391717e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      4  2.779004  7.391719e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      5  3.160130  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      6  3.219684  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      7  3.440000  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      8  3.558601  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      9  3.794139  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      10 4.070000  7.396801e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      11 5.453272  7.396801e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828 -3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $Europe$d2
@@ -27059,130 +27045,122 @@
       
       $Europe$eff
       $Europe$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $Europe$eff[[2]]
-                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  1.305186e-14 1.305186e-14 1     1     1        TRUE 0.875 1.125  black
-      2  1.305186e-14 1.305186e-14 2     1     2        TRUE 1.875 2.125  black
-      3 -2.589756e-05 9.521402e-06 3     1     3        TRUE 2.875 3.125  black
-      4 -5.489341e-03 1.894194e-03 4     1     4        TRUE 3.875 4.125  black
-      5 -3.090750e-02 8.380929e-03 5     1     5        TRUE 4.875 5.125  black
-      6 -1.722488e-01 3.647938e-01 6     1     6        TRUE 5.875 6.125  black
-      7 -5.554874e-01           NA 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000 0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000 0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3 -0.00003 0.00001 3     1     3        TRUE 2.875 3.125  black       0.5
+      4 -0.00549 0.00189 4     1     4        TRUE 3.875 4.125  black       0.5
+      5 -0.03091 0.00838 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.17225 0.36479 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -0.55549      NA 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $Europe$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  1.305171e-14 1.305171e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  1.305171e-14 1.305171e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -7.686441e-06 7.686441e-06  2.7  3.3 3     1     3     NA white       0.5
-      4 -8.579205e-04 8.579205e-04  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.087804e-02 1.087804e-02  4.7  5.3 5     1     5     NA white       0.5
-      6 -1.157814e-01 1.157814e-01  5.7  6.3 6     1     6     NA white       0.5
-      7            NA 1.258276e+00  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3 -0.00001 0.00001  2.7  3.3 3     1     3     NA white       0.5        1
+      4 -0.00086 0.00086  3.7  4.3 4     1     4     NA white       0.5        1
+      5 -0.01088 0.01088  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.11578 0.11578  5.7  6.3 6     1     6     NA white       0.5        1
+      7       NA 1.25828  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $Europe$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 1.305171e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 1.305171e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 1.305171e-14 NALED 29.2% 3     1     3       0       0  black           3
-      4 1.305171e-14 NALED 27.4% 4     1     4       0       0  black           3
-      5 1.305171e-14 NALED 32.2% 5     1     5       0       0  black           3
-      6 1.305171e-14 NALED 30.2% 6     1     6       0       0  black           3
-      7 1.305171e-14 NALED 45.2% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 29.2% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 27.4% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 32.2% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 30.2% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 45.2% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $Europe$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  1.305171e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  1.305171e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -7.686441e-06     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -8.579205e-04     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.087804e-02     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -1.157814e-01     ( 6.02     1     6       0    0.02  black        3.866058
-      7            NA     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3 -0.00001     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4 -0.00086     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5 -0.01088     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.11578     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7       NA     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Europe$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 1.305171e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 1.305171e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 7.686441e-06     ) 3.02     1     3       0    0.02  black        3.866058
-      4 8.579205e-04     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.087804e-02     ) 5.02     1     5       0    0.02  black        3.866058
-      6 1.157814e-01     ) 6.02     1     6       0    0.02  black        3.866058
-      7 1.258276e+00     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00001     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00086     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.01088     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.11578     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7 1.25828     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Europe$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 1.305171e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 1.305171e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 1.305171e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 1.305171e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 1.305171e-14 ALED 0.02 5     1     5       0       0  black           3     0
-      6 1.305171e-14 ALED 0.23 6     1     6       0       0  black           3     0
-      7 1.305171e-14 ALED 2.52 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.02 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.23 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 2.52 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $Europe$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -27197,120 +27175,108 @@
       $`North America`
       $`North America`$d1
       $`North America`$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2  14.30000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3  15.11249 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4  15.80000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5  17.80000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6  19.20000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7  21.00000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8  21.50000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9  24.61700 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 30.40000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      11 33.90000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $`North America`$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 2.637774e-14     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 2.637774e-14     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$am
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -5.571100e-10     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2  1.565414e-10     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$model
-          x          y PANEL group xmin xmax         ymin         ymax colour
-      1   1  1.5376698     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2   2  1.5376698     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3   3  1.4901105     1     3 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4   4  1.4901105     1     4 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5   5 -1.5408301     1     5 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6   6 -1.7074968     1     6 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7   7 -1.7074968     1     7 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8   8 -1.4517884     1     8 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9   9 -1.4517884     1     9 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 10 -0.2096134     1    10 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1  1.53767     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2  1.53767     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3  1.49011     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4  1.49011     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 -1.54083     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 -1.70750     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 -1.70750     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 -1.45179     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 -1.45179     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 -0.20961     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $`North America`$d1$gear
-        x           y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.12047749     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 -0.24916998     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3 3 -0.04982882     1     3 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.12048     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.24917     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.04983     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $`North America`$d1$carb
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1  1.076012e-07     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 -3.593976e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3 3 -3.594862e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4 4 -3.594871e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5 8 -4.130466e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      3 3 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      4 4 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      5 8 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$wt
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  1.498275 7.565048e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2  1.925991 2.448790e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3  2.314067 2.030132e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4  2.779004 2.030121e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5  3.160130 2.030094e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6  3.219684 2.030271e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7  3.440000 2.035159e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8  3.558601 2.036598e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9  3.794139 2.036234e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 4.070000 2.036243e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      11 5.453272 2.036202e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+               x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $`North America`$d2
@@ -36545,130 +36511,122 @@
       
       $`North America`$eff
       $`North America`$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $`North America`$eff[[2]]
-                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  2.637774e-14 2.637774e-14 1     1     1        TRUE 0.875 1.125  black
-      2  2.637774e-14 2.637774e-14 2     1     2        TRUE 1.875 2.125  black
-      3  3.285293e-10 7.565048e-10 3     1     3        TRUE 2.875 3.125  black
-      4 -9.118766e-10 3.461658e-10 4     1     4        TRUE 3.875 4.125  black
-      5 -4.132864e-08 1.076012e-07 5     1     5        TRUE 4.875 5.125  black
-      6 -2.322912e-01 6.023659e-02 6     1     6        TRUE 5.875 6.125  black
-      7 -1.653106e+00           NA 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000 0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000 0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3  0.00000 0.00000 3     1     3        TRUE 2.875 3.125  black       0.5
+      4  0.00000 0.00000 4     1     4        TRUE 3.875 4.125  black       0.5
+      5  0.00000 0.00000 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.23229 0.06024 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -1.65311      NA 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $`North America`$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  2.637759e-14 2.637759e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  2.637759e-14 2.637759e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -2.076332e-10 2.076860e-10  2.7  3.3 3     1     3     NA white       0.5
-      4 -3.505835e-10 3.506362e-10  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.701125e-08 1.701130e-08  4.7  5.3 5     1     5     NA white       0.5
-      6 -6.394821e-02 6.394821e-02  5.7  6.3 6     1     6     NA white       0.5
-      7 -5.527189e-01 5.527189e-01  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3  0.00000 0.00000  2.7  3.3 3     1     3     NA white       0.5        1
+      4  0.00000 0.00000  3.7  4.3 4     1     4     NA white       0.5        1
+      5  0.00000 0.00000  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.06395 0.06395  5.7  6.3 6     1     6     NA white       0.5        1
+      7 -0.55272 0.55272  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $`North America`$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 2.637759e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 2.637759e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 2.637759e-14 NALED 27.5% 3     1     3       0       0  black           3
-      4 2.637759e-14 NALED 41.7% 4     1     4       0       0  black           3
-      5 2.637759e-14 NALED 20.4% 5     1     5       0       0  black           3
-      6 2.637759e-14 NALED 29.5% 6     1     6       0       0  black           3
-      7 2.637759e-14 NALED 42.4% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 27.5% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 41.7% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 20.4% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 29.5% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 42.4% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $`North America`$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  2.637759e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  2.637759e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -2.076332e-10     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -3.505835e-10     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.701125e-08     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -6.394821e-02     ( 6.02     1     6       0    0.02  black        3.866058
-      7 -5.527189e-01     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3  0.00000     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4  0.00000     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5  0.00000     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.06395     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7 -0.55272     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $`North America`$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 2.637759e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 2.637759e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 2.076860e-10     ) 3.02     1     3       0    0.02  black        3.866058
-      4 3.506362e-10     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.701130e-08     ) 5.02     1     5       0    0.02  black        3.866058
-      6 6.394821e-02     ) 6.02     1     6       0    0.02  black        3.866058
-      7 5.527189e-01     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00000     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00000     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.00000     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.06395     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7 0.55272     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $`North America`$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 2.637759e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 2.637759e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 2.637759e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 2.637759e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 2.637759e-14 ALED 0.00 5     1     5       0       0  black           3     0
-      6 2.637759e-14 ALED 0.13 6     1     6       0       0  black           3     0
-      7 2.637759e-14 ALED 1.11 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.00 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.13 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 1.11 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $`North America`$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -36684,600 +36642,586 @@
       $.all_cats$d1
       $.all_cats$d1$mpg
       $.all_cats$d1$mpg$overlay
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2  14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3  15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4  15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5  17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6  19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7  21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12 10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      16 17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      17 19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      18 21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      19 21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      20 24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      21 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      22 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      23 10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      24 14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      25 15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      26 15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      27 17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      28 19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      29 21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      30 21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      31 24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      32 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      33 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
-      16 lightgrey       0.5        1    NA
-      17 lightgrey       0.5        1    NA
-      18 lightgrey       0.5        1    NA
-      19 lightgrey       0.5        1    NA
-      20 lightgrey       0.5        1    NA
-      21 lightgrey       0.5        1    NA
-      22 lightgrey       0.5        1    NA
-      23 lightgrey       0.5        1    NA
-      24 lightgrey       0.5        1    NA
-      25 lightgrey       0.5        1    NA
-      26 lightgrey       0.5        1    NA
-      27 lightgrey       0.5        1    NA
-      28 lightgrey       0.5        1    NA
-      29 lightgrey       0.5        1    NA
-      30 lightgrey       0.5        1    NA
-      31 lightgrey       0.5        1    NA
-      32 lightgrey       0.5        1    NA
-      33 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
       
       $.all_cats$d1$mpg$facet
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2  14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3  15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4  15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5  17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6  19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7  21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12 10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      16 17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      17 19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      18 21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      19 21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      20 24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      21 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      22 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      23 10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      24 14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      25 15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      26 15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      27 17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      28 19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      29 21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      30 21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      31 24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      32 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      33 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
-      16 lightgrey       0.5        1    NA
-      17 lightgrey       0.5        1    NA
-      18 lightgrey       0.5        1    NA
-      19 lightgrey       0.5        1    NA
-      20 lightgrey       0.5        1    NA
-      21 lightgrey       0.5        1    NA
-      22 lightgrey       0.5        1    NA
-      23 lightgrey       0.5        1    NA
-      24 lightgrey       0.5        1    NA
-      25 lightgrey       0.5        1    NA
-      26 lightgrey       0.5        1    NA
-      27 lightgrey       0.5        1    NA
-      28 lightgrey       0.5        1    NA
-      29 lightgrey       0.5        1    NA
-      30 lightgrey       0.5        1    NA
-      31 lightgrey       0.5        1    NA
-      32 lightgrey       0.5        1    NA
-      33 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
       
       
       $.all_cats$d1$vs
       $.all_cats$d1$vs$overlay
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      3 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      4 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      5 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      6 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $.all_cats$d1$vs$facet
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      3 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      4 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      5 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      6 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       
       $.all_cats$d1$am
       $.all_cats$d1$am$overlay
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1  6.188871e-03     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2  1.548244e-02     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 1 -6.188870e-03     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 2 -1.548244e-02     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 1 -5.571233e-10     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 2  1.565281e-10     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 1 -0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 2 -0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 1  0.00000     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6 2  0.00000     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
+      6        1    NA
       
       $.all_cats$d1$am$facet
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1  6.188871e-03     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2  1.548244e-02     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 1 -6.188870e-03     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 2 -1.548244e-02     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 1 -5.571233e-10     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 2  1.565281e-10     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 1 -0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 2 -0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 1  0.00000     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6 2  0.00000     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
+      6        1    NA
       
       
       $.all_cats$d1$model
       $.all_cats$d1$model$overlay
-          x          y PANEL group xmin xmax         ymin         ymax colour
-      1   3 -1.6731489     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2   4 -1.6731489     1     4 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3   5 -1.6712272     1     5 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4   6 -1.8326822     1     6 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5   7 -1.8192565     1     7 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6   8 -1.7035135     1     8 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7   9 -1.7035135     1     9 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  10 -1.8701840     1    10 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  16 -1.9946743     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 17 -1.2992749     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11  8  2.8862073     1     8 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12  9  2.8862073     1     9 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 10  3.0776810     1    10 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 11  2.9110141     1    11 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 12  3.0776807     1    12 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      16 13  3.0776786     1    13 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      17 14  3.0845086     1    14 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      18 15  2.9464791     1    15 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      19 16  3.4464627     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      20 17  1.0893783     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      21  1  1.5376698     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      22  2  1.5376698     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      23  3  1.4901105     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      24  4  1.4901105     1     4 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      25 12 -1.5408301     1    12 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      26 13 -1.7074968     1    13 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      27 14 -1.7074968     1    14 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      28 15 -1.4517884     1    15 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      29 16 -1.4517884     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      30 17 -0.2096134     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
-      16 lightgrey       0.5        1    NA
-      17 lightgrey       0.5        1    NA
-      18 lightgrey       0.5        1    NA
-      19 lightgrey       0.5        1    NA
-      20 lightgrey       0.5        1    NA
-      21 lightgrey       0.5        1    NA
-      22 lightgrey       0.5        1    NA
-      23 lightgrey       0.5        1    NA
-      24 lightgrey       0.5        1    NA
-      25 lightgrey       0.5        1    NA
-      26 lightgrey       0.5        1    NA
-      27 lightgrey       0.5        1    NA
-      28 lightgrey       0.5        1    NA
-      29 lightgrey       0.5        1    NA
-      30 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   3 -1.67315     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   4 -1.67315     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   5 -1.67123     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   6 -1.83268     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   7 -1.81926     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   8 -1.70351     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   9 -1.70351     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  10 -1.87018     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  16 -1.99467     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 17 -1.29927     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+      11  8  2.88621     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      12  9  2.88621     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 10  3.07768     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 11  2.91101     1    11 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 12  3.07768     1    12 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 13  3.07768     1    13 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 14  3.08451     1    14 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 15  2.94648     1    15 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 16  3.44646     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 17  1.08938     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+      21  1  1.53767     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22  2  1.53767     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      23  3  1.49011     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      24  4  1.49011     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 12 -1.54083     1    12 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 13 -1.70750     1    13 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 14 -1.70750     1    14 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 15 -1.45179     1    15 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 16 -1.45179     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 17 -0.20961     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
       
       $.all_cats$d1$model$facet
-          x          y PANEL group xmin xmax         ymin         ymax colour
-      1   3 -1.6731489     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2   4 -1.6731489     1     4 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3   5 -1.6712272     1     5 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4   6 -1.8326822     1     6 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5   7 -1.8192565     1     7 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6   8 -1.7035135     1     8 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7   9 -1.7035135     1     9 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  10 -1.8701840     1    10 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  16 -1.9946743     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 17 -1.2992749     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11  8  2.8862073     1     8 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12  9  2.8862073     1     9 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 10  3.0776810     1    10 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 11  2.9110141     1    11 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 12  3.0776807     1    12 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      16 13  3.0776786     1    13 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      17 14  3.0845086     1    14 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      18 15  2.9464791     1    15 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      19 16  3.4464627     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      20 17  1.0893783     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      21  1  1.5376698     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      22  2  1.5376698     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      23  3  1.4901105     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      24  4  1.4901105     1     4 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      25 12 -1.5408301     1    12 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      26 13 -1.7074968     1    13 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      27 14 -1.7074968     1    14 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      28 15 -1.4517884     1    15 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      29 16 -1.4517884     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      30 17 -0.2096134     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
-      16 lightgrey       0.5        1    NA
-      17 lightgrey       0.5        1    NA
-      18 lightgrey       0.5        1    NA
-      19 lightgrey       0.5        1    NA
-      20 lightgrey       0.5        1    NA
-      21 lightgrey       0.5        1    NA
-      22 lightgrey       0.5        1    NA
-      23 lightgrey       0.5        1    NA
-      24 lightgrey       0.5        1    NA
-      25 lightgrey       0.5        1    NA
-      26 lightgrey       0.5        1    NA
-      27 lightgrey       0.5        1    NA
-      28 lightgrey       0.5        1    NA
-      29 lightgrey       0.5        1    NA
-      30 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   3 -1.67315     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   4 -1.67315     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   5 -1.67123     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   6 -1.83268     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   7 -1.81926     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   8 -1.70351     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   9 -1.70351     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  10 -1.87018     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  16 -1.99467     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 17 -1.29927     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+      11  8  2.88621     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      12  9  2.88621     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 10  3.07768     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 11  2.91101     1    11 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 12  3.07768     1    12 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 13  3.07768     1    13 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 14  3.08451     1    14 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 15  2.94648     1    15 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 16  3.44646     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 17  1.08938     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+      21  1  1.53767     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22  2  1.53767     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      23  3  1.49011     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      24  4  1.49011     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 12 -1.54083     1    12 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 13 -1.70750     1    13 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 14 -1.70750     1    14 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 15 -1.45179     1    15 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 16 -1.45179     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 17 -0.20961     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
       
       
       $.all_cats$d1$gear
       $.all_cats$d1$gear$overlay
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.118437865     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2  0.001975945     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 3 -0.330118650     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 1 -0.238915351     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 2  0.247194038     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 3  0.379947472     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7 1  0.120477486     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8 2 -0.249169983     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9 3 -0.049828823     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
-      7 lightgrey       0.5        1    NA
-      8 lightgrey       0.5        1    NA
-      9 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.11844     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00198     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.33012     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 1 -0.23892     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 2  0.24719     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      6 3  0.37995     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      7 1  0.12048     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8 2 -0.24917     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      9 3 -0.04983     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
+      6        1    NA
+      7        1    NA
+      8        1    NA
+      9        1    NA
       
       $.all_cats$d1$gear$facet
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.118437865     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2  0.001975945     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 3 -0.330118650     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 1 -0.238915351     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 2  0.247194038     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 3  0.379947472     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7 1  0.120477486     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8 2 -0.249169983     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9 3 -0.049828823     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
-      7 lightgrey       0.5        1    NA
-      8 lightgrey       0.5        1    NA
-      9 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.11844     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00198     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.33012     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 1 -0.23892     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 2  0.24719     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      6 3  0.37995     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      7 1  0.12048     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8 2 -0.24917     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      9 3 -0.04983     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
+      6        1    NA
+      7        1    NA
+      8        1    NA
+      9        1    NA
       
       
       $.all_cats$d1$carb
       $.all_cats$d1$carb$overlay
-         x             y PANEL group xmin xmax         ymin         ymax colour
-      1  1  5.489234e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2  2 -1.898356e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3  3 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4  4 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5  8 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6  1 -5.489341e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7  2  1.898392e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  3  1.898401e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  4  1.898401e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 8  1.898406e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11 1  1.076012e-07     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12 2 -3.593977e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 3 -3.594863e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 4 -3.594873e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 8 -4.130468e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
+         x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1  0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  2 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  3 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  4 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  8 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  1 -0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  2  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  4  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 8  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 1  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 2  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 3  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 4  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 8  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
       
       $.all_cats$d1$carb$facet
-         x             y PANEL group xmin xmax         ymin         ymax colour
-      1  1  5.489234e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2  2 -1.898356e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3  3 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4  4 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5  8 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6  1 -5.489341e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7  2  1.898392e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  3  1.898401e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  4  1.898401e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 8  1.898406e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11 1  1.076012e-07     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12 2 -3.593977e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 3 -3.594863e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 4 -3.594873e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 8 -4.130468e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
+         x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1  0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  2 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  3 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  4 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  8 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  1 -0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  2  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  4  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 8  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 1  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 2  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 3  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 4  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 8  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
       
       
       $.all_cats$d1$wt
       $.all_cats$d1$wt$overlay
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275  2.589681e-05     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      2  1.925991  3.346877e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      3  2.314067 -7.391920e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      4  2.779004 -7.391922e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      5  3.160130 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      6  3.219684 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      7  3.440000 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      8  3.558601 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      9  3.794139 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      10 4.070000 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      11 5.453272 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      12 1.498275 -2.589756e-05     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      13 1.925991 -3.347122e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      14 2.314067  7.391717e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      15 2.779004  7.391719e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      16 3.160130  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      17 3.219684  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      18 3.440000  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      19 3.558601  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      20 3.794139  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      21 4.070000  7.396801e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      22 5.453272  7.396801e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      23 1.498275  7.564915e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      24 1.925991  2.448657e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      25 2.314067  2.029998e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      26 2.779004  2.029988e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      27 3.160130  2.029961e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      28 3.219684  2.030138e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      29 3.440000  2.035025e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      30 3.558601  2.036465e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      31 3.794139  2.036101e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      32 4.070000  2.036110e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      33 5.453272  2.036069e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
-      12     NA lightgrey       0.5        1    NA
-      13     NA lightgrey       0.5        1    NA
-      14     NA lightgrey       0.5        1    NA
-      15     NA lightgrey       0.5        1    NA
-      16     NA lightgrey       0.5        1    NA
-      17     NA lightgrey       0.5        1    NA
-      18     NA lightgrey       0.5        1    NA
-      19     NA lightgrey       0.5        1    NA
-      20     NA lightgrey       0.5        1    NA
-      21     NA lightgrey       0.5        1    NA
-      22     NA lightgrey       0.5        1    NA
-      23     NA lightgrey       0.5        1    NA
-      24     NA lightgrey       0.5        1    NA
-      25     NA lightgrey       0.5        1    NA
-      26     NA lightgrey       0.5        1    NA
-      27     NA lightgrey       0.5        1    NA
-      28     NA lightgrey       0.5        1    NA
-      29     NA lightgrey       0.5        1    NA
-      30     NA lightgrey       0.5        1    NA
-      31     NA lightgrey       0.5        1    NA
-      32     NA lightgrey       0.5        1    NA
-      33     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828  3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 1.49828 -3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 2.31407  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 2.77900  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 3.16013  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 3.21968  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 3.44000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 3.55860  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 3.79414  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 4.07000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 5.45327  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 1.49828  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 2.31407  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 2.77900  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 3.16013  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 3.21968  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 3.44000  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 3.55860  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 3.79414  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 4.07000  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 5.45327  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
       
       $.all_cats$d1$wt$facet
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275  2.589681e-05     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      2  1.925991  3.346877e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      3  2.314067 -7.391920e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      4  2.779004 -7.391922e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      5  3.160130 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      6  3.219684 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      7  3.440000 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      8  3.558601 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      9  3.794139 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      10 4.070000 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      11 5.453272 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      12 1.498275 -2.589756e-05     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      13 1.925991 -3.347122e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      14 2.314067  7.391717e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      15 2.779004  7.391719e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      16 3.160130  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      17 3.219684  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      18 3.440000  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      19 3.558601  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      20 3.794139  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      21 4.070000  7.396801e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      22 5.453272  7.396801e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      23 1.498275  7.564915e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      24 1.925991  2.448657e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      25 2.314067  2.029998e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      26 2.779004  2.029988e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      27 3.160130  2.029961e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      28 3.219684  2.030138e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      29 3.440000  2.035025e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      30 3.558601  2.036465e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      31 3.794139  2.036101e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      32 4.070000  2.036110e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      33 5.453272  2.036069e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
-      12     NA lightgrey       0.5        1    NA
-      13     NA lightgrey       0.5        1    NA
-      14     NA lightgrey       0.5        1    NA
-      15     NA lightgrey       0.5        1    NA
-      16     NA lightgrey       0.5        1    NA
-      17     NA lightgrey       0.5        1    NA
-      18     NA lightgrey       0.5        1    NA
-      19     NA lightgrey       0.5        1    NA
-      20     NA lightgrey       0.5        1    NA
-      21     NA lightgrey       0.5        1    NA
-      22     NA lightgrey       0.5        1    NA
-      23     NA lightgrey       0.5        1    NA
-      24     NA lightgrey       0.5        1    NA
-      25     NA lightgrey       0.5        1    NA
-      26     NA lightgrey       0.5        1    NA
-      27     NA lightgrey       0.5        1    NA
-      28     NA lightgrey       0.5        1    NA
-      29     NA lightgrey       0.5        1    NA
-      30     NA lightgrey       0.5        1    NA
-      31     NA lightgrey       0.5        1    NA
-      32     NA lightgrey       0.5        1    NA
-      33     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828  3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 1.49828 -3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 2.31407  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 2.77900  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 3.16013  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 3.21968  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 3.44000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 3.55860  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 3.79414  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 4.07000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 5.45327  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 1.49828  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 2.31407  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 2.77900  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 3.16013  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 3.21968  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 3.44000  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 3.55860  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 3.79414  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 4.07000  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 5.45327  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
       
       
       

@@ -710,8 +710,8 @@
       
       $residual_distribution
       Maximum likelihood estimates for the Uniform model 
-             min         max  
-      -3.926e-13   3.926e-13  
+      min  max  
+        0    0  
       
       $residuals
       NULL
@@ -811,8 +811,8 @@
       
       $residual_distribution
       Maximum likelihood estimates for the Laplace model 
-        mu  sigma  
-         0      0  
+         mu  sigma  
+          0      0  
       
       $residuals
       NULL

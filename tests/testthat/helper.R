@@ -63,7 +63,7 @@ s7_snapshot <- function(object) {
   }
 
   properties |>
-    lapply(normalize_snapshot_value)
+    lapply(normalize)
 }
 
 
