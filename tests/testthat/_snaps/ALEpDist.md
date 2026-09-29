@@ -22,8 +22,8 @@
       
       $residual_distribution
       Maximum likelihood estimates for the Laplace model 
-             mu      sigma  
-      1.310e-11  3.587e-03  
+           mu    sigma  
+      0.00000  0.00359  
       
       $residuals
       NULL
@@ -364,8 +364,8 @@
       
       $params$p_values$residual_distribution
       Maximum likelihood estimates for the Laplace model 
-             mu      sigma  
-      1.310e-11  3.587e-03  
+           mu    sigma  
+      0.00000  0.00359  
       
       $params$p_values$residuals
       NULL
@@ -503,8 +503,8 @@
       
       $residual_distribution
       Maximum likelihood estimates for the Laplace model 
-             mu      sigma  
-      1.310e-11  3.587e-03  
+           mu    sigma  
+      0.00000  0.00359  
       
       $residuals
        [1] -9.470697e-04 -1.130145e-03 -3.078035e-03  7.415332e-04 -4.678952e-03
@@ -627,8 +627,8 @@
       
       $residual_distribution
       Maximum likelihood estimates for the Laplace model 
-             mu      sigma  
-      1.310e-11  3.587e-03  
+           mu    sigma  
+      0.00000  0.00359  
       
       $residuals
        [1] -9.470697e-04 -1.130145e-03 -3.078035e-03  7.415332e-04 -4.678952e-03
@@ -811,8 +811,8 @@
       
       $residual_distribution
       Maximum likelihood estimates for the Laplace model 
-              mu       sigma  
-      -2.043e-23   1.503e-17  
+        mu  sigma  
+         0      0  
       
       $residuals
       NULL

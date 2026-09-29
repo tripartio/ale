@@ -106,6 +106,34 @@ test_that("s7 snapshots normalize nested data frames but not other numerics", {
   expect_identical(result$numeric_s3, numeric_s3)
 })
 
+test_that("s7 snapshots normalize univariateML parameters without mutation", {
+  distribution <- structure(
+    c(mu = 1.234567, sigma = -0.000001),
+    logLik = -42.123456,
+    call = quote(mlnorm(x = values)),
+    n = 100L,
+    model = "Normal",
+    density = "stats::dnorm",
+    support = c(-Inf, Inf),
+    default = c(0, 1),
+    class = "univariateML",
+    continuous = TRUE
+  )
+  original <- distribution
+  snapshot_container <- S7::new_class(
+    "univariate_snapshot_container",
+    properties = list(distribution = S7::class_any)
+  )
+
+  result <- s7_snapshot(snapshot_container(distribution = distribution))$distribution
+
+  expect_identical(as.numeric(result), c(1.23457, 0))
+  expect_identical(names(result), c("mu", "sigma"))
+  expect_identical(attributes(result), attributes(distribution))
+  expect_identical(distribution, original)
+  expect_identical(1 / result[["sigma"]], Inf)
+})
+
 test_that("snapshot data frames leave numeric S3 columns unchanged", {
   numeric_s3 <- structure(c(1.234567, -0.000001), class = "snapshot_numeric")
   input <- structure(list(value = numeric_s3), class = "data.frame", row.names = 1:2)
