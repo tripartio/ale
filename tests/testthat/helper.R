@@ -27,24 +27,6 @@ options(progressr.enable = FALSE)
 s7_snapshot <- function(object) {
   stopifnot(inherits(object, "S7_object"))
 
-  normalize <- function(value) {
-    if (inherits(value, "S7_object")) {
-      return(s7_snapshot(value))
-    }
-
-    if (inherits(value, "data.frame")) {
-      return(normalize_snapshot_data_frame(value))
-    }
-
-    if (is.list(value) && !inherits(value, "data.frame")) {
-      normalized <- lapply(value, normalize)
-      names(normalized) <- names(value)
-      return(normalized)
-    }
-
-    value
-  }
-
   properties <- S7::props(object)
 
   # The model hash is useful at runtime, but is not stable snapshot data. Remove
@@ -59,7 +41,7 @@ s7_snapshot <- function(object) {
   }
 
   properties |>
-    lapply(normalize)
+    lapply(normalize_snapshot_value)
 }
 
 
@@ -150,6 +132,37 @@ normalize_snapshot_data_frame <- function(x, tolerance = 1e-5) {
   x
 }
 
+# Recursively prepare snapshot values while leaving non-data-frame vectors
+# untouched. This supports both nested S7 properties and ggplot builds with
+# one or several layer data frames.
+normalize_snapshot_value <- function(value) {
+  if (inherits(value, "S7_object")) {
+    return(s7_snapshot(value))
+  }
+
+  if (inherits(value, "data.frame")) {
+    return(normalize_snapshot_data_frame(value))
+  }
+
+  if (is.list(value)) {
+    normalized <- lapply(value, normalize_snapshot_value)
+    names(normalized) <- names(value)
+    return(normalized)
+  }
+
+  value
+}
+
+ggplot_snapshot_data <- function(plot, first_layer = FALSE) {
+  data <- ggplot2::ggplot_build(plot)$data
+
+  if (first_layer) {
+    data <- data[[1]]
+  }
+
+  normalize_snapshot_value(data)
+}
+
 # Returns list of ALE plots converted to ggplot data format ---------------
 ale_plots_to_data <- function(
     ale_plots  # ALEPlots object
@@ -159,33 +172,32 @@ ale_plots_to_data <- function(
       d1  = if (it.cat_name != '.all_cats') {
         it.cat_plots$d1 |>
           purrr::map(\(it.plot) {
-            ggplot2::ggplot_build(it.plot)$data[[1]]
+            ggplot_snapshot_data(it.plot, first_layer = TRUE)
           })
       } else {
         it.cat_plots$d1 |>
           purrr::map(\(it.x_col) {
             it.x_col |>
               purrr::map(\(it.plot) {
-                ggplot2::ggplot_build(it.plot)$data[[1]]
+                ggplot_snapshot_data(it.plot, first_layer = TRUE)
               })
           })
       },
       d2  = if (it.cat_name != '.all_cats') {
         it.cat_plots$d2 |>
           purrr::map(\(it.plot) {
-            ggplot2::ggplot_build(it.plot)$data[[1]]
+            ggplot_snapshot_data(it.plot, first_layer = TRUE)
           })
       } else {
         it.cat_plots$d2 |>
           purrr::map(\(it.plot) {
-            ggplot2::ggplot_build(it.plot)$data[[1]]
+            ggplot_snapshot_data(it.plot, first_layer = TRUE)
           })
       },
       eff = if (it.cat_name != '.all_cats') {
         if (!is.null(it.cat_plots$eff)) {
           it.cat_plots$eff |>
-            ggplot2::ggplot_build() |>
-            (`[[`)('data')
+            ggplot_snapshot_data()
         } else {
           # No effects plot if no 1D data or no statistics
           NULL
