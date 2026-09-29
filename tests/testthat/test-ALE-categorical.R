@@ -22,7 +22,7 @@ test_that(
     )
 
     cat_cars_ale |>
-      unclass() |>
+      s7_snapshot() |>
       expect_snapshot()
 
 
