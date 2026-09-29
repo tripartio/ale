@@ -17,7 +17,7 @@ test_that(
     )
 
     cars_ale |>
-      unclass() |>
+      s7_snapshot() |>
       expect_snapshot()
 
     plot(cars_ale) |>
@@ -56,7 +56,7 @@ test_that(
     )
 
     cars_ale |>
-      unclass() |>
+      s7_snapshot() |>
       expect_snapshot()
 
     plot(cars_ale) |>

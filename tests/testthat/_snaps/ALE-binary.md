@@ -1,22 +1,13 @@
 # bootstrapped binary outcome with full 1D and 2D ALE
 
     Code
-      unclass(cars_ale)
+      s7_snapshot(cars_ale)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$vs
-      attr(,"effect")$vs$ale
-      attr(,"effect")$vs$ale$d1
-      attr(,"effect")$vs$ale$d1$mpg
+      $effect
+      $effect$vs
+      $effect$vs$ale
+      $effect$vs$ale$d1
+      $effect$vs$ale$d1$mpg
       # A tibble: 11 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -32,7 +23,7 @@
       10     30.4     7     0     0       0         0     0
       11     33.9     5     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$continent
+      $effect$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -40,66 +31,66 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$am
+      $effect$vs$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 FALSE     38 -2.60e-20 -5.72e-20 -2.60e-20 -1.77e-20 -1.87e-21
-      2 TRUE      26  2.58e-20 -3.19e-20  2.58e-20  2.58e-20  8.36e-20
+        am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     38     0     0       0         0     0
+      2 TRUE      26     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$model
+      $effect$vs$ale$d1$model
       # A tibble: 32 x 7
-         model.bin             .n        .y   .y_lo   .y_mean .y_median .y_hi
-         <ord>              <int>     <dbl>   <dbl>     <dbl>     <dbl> <dbl>
-       1 AMC Javelin            2 -1.67e- 1 -0.950  -1.67e- 1 1.23 e-14 0.475
-       2 Cadillac Fleetwood     2 -5.00e- 1 -1.90   -5.00e- 1 1.23 e-14 0.475
-       3 Camaro Z28             2 -3.33e- 1 -1.87   -3.33e- 1 5.00 e- 1 0.500
-       4 Chrysler Imperial      2  1.22e-14 -0.925   1.22e-14 5.00 e- 1 0.500
-       5 Datsun 710             2  1.67e- 1 -0.925   1.67e- 1 5.00 e- 1 0.975
-       6 Dodge Challenger       2  6.67e- 1  0.0500  6.67e- 1 1.000e+ 0 1.000
-       7 Duster 360             2  8.33e- 1  0.0500  8.33e- 1 1.000e+ 0 1.47 
-       8 Ferrari Dino           2  8.33e- 1  0.0500  8.33e- 1 1.000e+ 0 1.47 
-       9 Fiat 128               2  8.33e- 1  0.0500  8.33e- 1 1.000e+ 0 1.47 
-      10 Fiat X1-9              2  8.33e- 1  0.0500  8.33e- 1 1.000e+ 0 1.47 
+         model.bin             .n     .y .y_lo .y_mean .y_median  .y_hi
+         <ord>              <int>  <dbl> <dbl>   <dbl>     <dbl>  <dbl>
+       1 AMC Javelin            2 -1.61  -2.26  -1.61     -1.78  -0.831
+       2 Cadillac Fleetwood     2 -1.95  -3.21  -1.95     -1.78  -0.831
+       3 Camaro Z28             2 -1.95  -3.21  -1.95     -1.78  -0.831
+       4 Chrysler Imperial      2 -1.61  -2.26  -1.61     -1.78  -0.831
+       5 Datsun 710             2 -1.61  -2.28  -1.61     -2.28  -0.381
+       6 Dodge Challenger       2 -1.11  -1.76  -1.11     -1.28  -0.331
+       7 Duster 360             2 -0.948 -1.28  -0.948    -1.28  -0.331
+       8 Ferrari Dino           2 -1.28  -2.23  -1.28     -1.28  -0.331
+       9 Fiat 128               2 -0.615 -1.71  -0.615    -0.281  0.194
+      10 Fiat X1-9              2 -0.615 -1.71  -0.615    -0.281  0.194
       # i 22 more rows
       
-      attr(,"effect")$vs$ale$d1$gear
+      $effect$vs$ale$d1$gear
       # A tibble: 3 x 7
-        gear.bin    .n     .y  .y_lo .y_mean .y_median   .y_hi
-        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
-      1 three       30 -0.173 -0.311  -0.173    -0.184 -0.0260
-      2 four        24  0.355  0.199   0.355     0.357  0.508 
-      3 five        10 -0.179 -0.277  -0.179    -0.143 -0.111 
+        gear.bin    .n      .y   .y_lo .y_mean .y_median  .y_hi
+        <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+      1 three       30 -0.287  -0.436  -0.287     -0.309 -0.119
+      2 four        24  0.255   0.0777  0.255      0.307  0.386
+      3 five        10  0.0878 -0.217   0.0878     0.107  0.376
       
-      attr(,"effect")$vs$ale$d1$carb
+      $effect$vs$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1         1    14  1.53e-25  1.53e-25  1.53e-25  1.53e-25  1.53e-25
-      2         2    19  6.34e-26  4.66e-26  6.34e-26  6.49e-26  7.87e-26
-      3         3     9 -4.71e-26 -6.17e-26 -4.71e-26 -4.58e-26 -3.35e-26
-      4         4    16 -1.56e-25 -1.73e-25 -1.56e-25 -1.59e-25 -1.36e-25
-      5         8     6 -6.22e-25 -6.90e-25 -6.22e-25 -6.25e-25 -5.50e-25
+        carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1         1    14     0     0       0         0     0
+      2         2    19     0     0       0         0     0
+      3         3     9     0     0       0         0     0
+      4         4    16     0     0       0         0     0
+      5         8     6     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$wt
+      $effect$vs$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50     1 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       2    1.93     6 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       3    2.31     6 -2.08e-24 -2.29e-24 -2.08e-24 -2.15e-24 -1.81e-24
-       4    2.78     7 -1.41e-24 -1.66e-24 -1.41e-24 -1.28e-24 -1.28e-24
-       5    3.16     6 -6.71e-25 -8.41e-25 -6.71e-25 -7.24e-25 -4.56e-25
-       6    3.22     6 -4.96e-25 -6.61e-25 -4.96e-25 -4.62e-25 -3.60e-25
-       7    3.44     7 -3.22e-25 -5.59e-25 -3.22e-25 -4.62e-25  3.34e-26
-       8    3.56     6 -2.17e-27 -2.60e-25 -2.17e-27 -1.47e-25  3.79e-25
-       9    3.79     7  1.03e-24  7.73e-25  1.03e-24  8.86e-25  1.41e-24
-      10    4.07     6  2.24e-24  1.98e-24  2.24e-24  2.10e-24  2.62e-24
-      11    5.45     6  8.32e-24  8.06e-24  8.32e-24  8.17e-24  8.70e-24
+         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1    1.50     1     0     0       0         0     0
+       2    1.93     6     0     0       0         0     0
+       3    2.31     6     0     0       0         0     0
+       4    2.78     7     0     0       0         0     0
+       5    3.16     6     0     0       0         0     0
+       6    3.22     6     0     0       0         0     0
+       7    3.44     7     0     0       0         0     0
+       8    3.56     6     0     0       0         0     0
+       9    3.79     7     0     0       0         0     0
+      10    4.07     6     0     0       0         0     0
+      11    5.45     6     0     0       0         0     0
       
       
-      attr(,"effect")$vs$ale$d2
-      attr(,"effect")$vs$ale$d2$`mpg:continent`
+      $effect$vs$ale$d2
+      $effect$vs$ale$d2$`mpg:continent`
       # A tibble: 33 x 8
          mpg.ceil continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -115,7 +106,7 @@
       10     30.4 Asia              1     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:am`
+      $effect$vs$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -131,7 +122,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:model`
+      $effect$vs$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -147,7 +138,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:gear`
+      $effect$vs$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -163,7 +154,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:carb`
+      $effect$vs$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -179,7 +170,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"effect")$vs$ale$d2$`mpg:wt`
+      $effect$vs$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -195,7 +186,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"effect")$vs$ale$d2$`continent:am`
+      $effect$vs$ale$d2$`continent:am`
       # A tibble: 6 x 8
         continent.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -206,7 +197,7 @@
       5 Europe        TRUE      14     0     0       0         0     0
       6 North America TRUE       2     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`continent:model`
+      $effect$vs$ale$d2$`continent:model`
       # A tibble: 96 x 8
          continent.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>         <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -222,7 +213,7 @@
       10 Asia          Chrysler Imperial      0     0     0       0         0     0
       # i 86 more rows
       
-      attr(,"effect")$vs$ale$d2$`continent:gear`
+      $effect$vs$ale$d2$`continent:gear`
       # A tibble: 9 x 8
         continent.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -236,7 +227,7 @@
       8 Europe        five         8     0     0       0         0     0
       9 North America five         2     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`continent:carb`
+      $effect$vs$ale$d2$`continent:carb`
       # A tibble: 15 x 8
          continent.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -256,7 +247,7 @@
       14 Europe                8     5     0     0       0         0     0
       15 North America         8     1     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`continent:wt`
+      $effect$vs$ale$d2$`continent:wt`
       # A tibble: 33 x 8
          continent.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -272,168 +263,168 @@
       10 Asia             2.78     5     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$vs$ale$d2$`am:model`
+      $effect$vs$ale$d2$`am:model`
       # A tibble: 64 x 8
-         am.bin model.bin         .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>  <ord>          <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 FALSE  AMC Javelin        0 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
-       2 TRUE   AMC Javelin        2  3.70e-29  2.86e-29  3.70e-29  2.86e-29  5.26e-29
-       3 FALSE  Cadillac Flee~     0 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
-       4 TRUE   Cadillac Flee~     2  3.70e-29  2.86e-29  3.70e-29  2.86e-29  5.26e-29
-       5 FALSE  Camaro Z28         0 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
-       6 TRUE   Camaro Z28         2  3.70e-29  2.86e-29  3.70e-29  2.86e-29  5.26e-29
-       7 FALSE  Chrysler Impe~     2 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30 -7.30e-30
-       8 TRUE   Chrysler Impe~     0  3.70e-29  2.86e-29  3.70e-29  2.86e-29  5.26e-29
-       9 FALSE  Datsun 710         2 -2.34e-28 -6.55e-28 -2.34e-28 -7.30e-30 -7.30e-30
-      10 TRUE   Datsun 710         0 -1.90e-28 -5.95e-28 -1.90e-28  2.86e-29  2.86e-29
+         am.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  AMC Javelin            0     0     0       0         0     0
+       2 TRUE   AMC Javelin            2     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood     0     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood     2     0     0       0         0     0
+       5 FALSE  Camaro Z28             0     0     0       0         0     0
+       6 TRUE   Camaro Z28             2     0     0       0         0     0
+       7 FALSE  Chrysler Imperial      2     0     0       0         0     0
+       8 TRUE   Chrysler Imperial      0     0     0       0         0     0
+       9 FALSE  Datsun 710             2     0     0       0         0     0
+      10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"effect")$vs$ale$d2$`am:gear`
+      $effect$vs$ale$d2$`am:gear`
       # A tibble: 6 x 8
-        am.bin gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-        <ord>  <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 FALSE  three       30  2.31e-20  1.01e-20  2.31e-20  3.01e-20  3.01e-20
-      2 TRUE   three        0 -3.16e-20 -4.46e-20 -3.16e-20 -2.46e-20 -2.46e-20
-      3 FALSE  four         8  2.31e-20 -1.43e-20  2.31e-20  4.33e-20  4.33e-20
-      4 TRUE   four        16  1.32e-21 -1.05e-20  1.32e-21  7.03e-21  8.28e-21
-      5 FALSE  five         0  2.31e-20 -1.43e-20  2.31e-20  4.33e-20  4.33e-20
-      6 TRUE   five        10  1.32e-21 -1.05e-20  1.32e-21  7.03e-21  8.28e-21
+        am.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       30     0     0       0         0     0
+      2 TRUE   three        0     0     0       0         0     0
+      3 FALSE  four         8     0     0       0         0     0
+      4 TRUE   four        16     0     0       0         0     0
+      5 FALSE  five         0     0     0       0         0     0
+      6 TRUE   five        10     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`am:carb`
+      $effect$vs$ale$d2$`am:carb`
       # A tibble: 10 x 8
-         am.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 FALSE          1     6 -7.20e-29 -7.20e-29 -7.20e-29 -7.20e-29 -7.20e-29
-       2 TRUE           1     8  2.73e-28  2.73e-28  2.73e-28  2.73e-28  2.73e-28
-       3 FALSE          2    12 -2.89e-28 -6.05e-28 -2.89e-28 -3.22e-28  5.44e-29
-       4 TRUE           2     7 -6.71e-28 -1.60e-27 -6.71e-28 -3.74e-28  3.04e-30
-       5 FALSE          3     7 -2.87e-28 -6.02e-28 -2.87e-28 -3.20e-28  5.72e-29
-       6 TRUE           3     2 -6.77e-28 -1.60e-27 -6.77e-28 -3.96e-28  4.58e-30
-       7 FALSE          4    11 -2.88e-28 -6.03e-28 -2.88e-28 -3.24e-28  5.70e-29
-       8 TRUE           4     5 -6.79e-28 -1.61e-27 -6.79e-28 -3.96e-28  7.75e-30
-       9 FALSE          8     2 -7.51e-28 -1.07e-27 -7.51e-28 -7.86e-28 -4.06e-28
-      10 TRUE           8     4  7.35e-28  5.38e-28  7.35e-28  6.96e-28  9.66e-28
+         am.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     6     0     0       0         0     0
+       2 TRUE           1     8     0     0       0         0     0
+       3 FALSE          2    12     0     0       0         0     0
+       4 TRUE           2     7     0     0       0         0     0
+       5 FALSE          3     7     0     0       0         0     0
+       6 TRUE           3     2     0     0       0         0     0
+       7 FALSE          4    11     0     0       0         0     0
+       8 TRUE           4     5     0     0       0         0     0
+       9 FALSE          8     2     0     0       0         0     0
+      10 TRUE           8     4     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`am:wt`
+      $effect$vs$ale$d2$`am:wt`
       # A tibble: 22 x 8
-         am.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>    <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 FALSE     1.50     0 -9.80e-30 -9.80e-30 -9.80e-30 -9.80e-30 -9.80e-30
-       2 TRUE      1.50     1  3.47e-30  3.47e-30  3.47e-30  3.47e-30  3.47e-30
-       3 FALSE     1.93     0 -9.80e-30 -9.80e-30 -9.80e-30 -9.80e-30 -9.80e-30
-       4 TRUE      1.93     6  3.47e-30  3.47e-30  3.47e-30  3.47e-30  3.47e-30
-       5 FALSE     2.31     0 -1.37e-29 -2.14e-29 -1.37e-29 -1.82e-29 -2.22e-30
-       6 TRUE      2.31     6 -1.73e-29 -4.01e-29 -1.73e-29 -4.94e-30 -4.94e-30
-       7 FALSE     2.78     2 -1.37e-29 -2.14e-29 -1.37e-29 -1.82e-29 -2.22e-30
-       8 TRUE      2.78     5 -1.73e-29 -4.01e-29 -1.73e-29 -4.94e-30 -4.94e-30
-       9 FALSE     3.16     2 -9.51e-30 -1.72e-29 -9.51e-30 -1.40e-29  1.99e-30
-      10 TRUE      3.16     4 -1.73e-29 -3.65e-29 -1.73e-29 -1.34e-29 -1.36e-30
+         am.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.93     0     0     0       0         0     0
+       4 TRUE      1.93     6     0     0       0         0     0
+       5 FALSE     2.31     0     0     0       0         0     0
+       6 TRUE      2.31     6     0     0       0         0     0
+       7 FALSE     2.78     2     0     0       0         0     0
+       8 TRUE      2.78     5     0     0       0         0     0
+       9 FALSE     3.16     2     0     0       0         0     0
+      10 TRUE      3.16     4     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$vs$ale$d2$`model:gear`
+      $effect$vs$ale$d2$`model:gear`
       # A tibble: 96 x 8
-         model.bin          gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
-         <ord>              <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1 AMC Javelin        three        0 -0.439  -0.439  -0.439    -0.439  -0.439 
-       2 Cadillac Fleetwood three        0  0.0612  0.0612  0.0612    0.0612  0.0612
-       3 Camaro Z28         three        0  0.0612  0.0612  0.0612    0.0612  0.0612
-       4 Chrysler Imperial  three        2  0.0612  0.0612  0.0612    0.0612  0.0612
-       5 Datsun 710         three        2  0.0612  0.0612  0.0612    0.0612  0.0612
-       6 Dodge Challenger   three        2  0.0612  0.0612  0.0612    0.0612  0.0612
-       7 Duster 360         three        2  0.0612  0.0612  0.0612    0.0612  0.0612
-       8 Ferrari Dino       three        0  0.0279 -0.0338  0.0279    0.0612  0.0612
-       9 Fiat 128           three        0 -0.0388 -0.224  -0.0388    0.0612  0.0612
-      10 Fiat X1-9          three        0 -0.139  -0.509  -0.139     0.0612  0.0612
+         model.bin          gear.bin    .n      .y  .y_lo .y_mean .y_median  .y_hi
+         <ord>              <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1 AMC Javelin        three        0 -0.322  -0.322 -0.322     -0.322 -0.322
+       2 Cadillac Fleetwood three        0  0.178   0.178  0.178      0.178  0.178
+       3 Camaro Z28         three        0  0.178   0.178  0.178      0.178  0.178
+       4 Chrysler Imperial  three        2  0.178   0.178  0.178      0.178  0.178
+       5 Datsun 710         three        2  0.0117 -0.297  0.0117     0.178  0.178
+       6 Dodge Challenger   three        2  0.0117 -0.297  0.0117     0.178  0.178
+       7 Duster 360         three        2  0.0117 -0.297  0.0117     0.178  0.178
+       8 Ferrari Dino       three        0  0.0117 -0.297  0.0117     0.178  0.178
+       9 Fiat 128           three        0 -0.488  -0.797 -0.488     -0.322 -0.322
+      10 Fiat X1-9          three        0 -0.488  -0.797 -0.488     -0.322 -0.322
       # i 86 more rows
       
-      attr(,"effect")$vs$ale$d2$`model:carb`
+      $effect$vs$ale$d2$`model:carb`
       # A tibble: 160 x 8
-         model.bin   carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 AMC Javelin         1     0 -2.31e-26 -2.31e-26 -2.31e-26 -2.31e-26 -2.31e-26
-       2 Cadillac F~         1     0  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
-       3 Camaro Z28          1     2  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
-       4 Chrysler I~         1     2  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
-       5 Datsun 710          1     0  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
-       6 Dodge Chal~         1     2  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
-       7 Duster 360          1     0  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
-       8 Ferrari Di~         1     0  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
-       9 Fiat 128            1     0  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
-      10 Fiat X1-9           1     0  1.16e-25  1.16e-25  1.16e-25  1.16e-25  1.16e-25
+         model.bin          carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>                  <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin                1     0     0     0       0         0     0
+       2 Cadillac Fleetwood         1     0     0     0       0         0     0
+       3 Camaro Z28                 1     2     0     0       0         0     0
+       4 Chrysler Imperial          1     2     0     0       0         0     0
+       5 Datsun 710                 1     0     0     0       0         0     0
+       6 Dodge Challenger           1     2     0     0       0         0     0
+       7 Duster 360                 1     0     0     0       0         0     0
+       8 Ferrari Dino               1     0     0     0       0         0     0
+       9 Fiat 128                   1     0     0     0       0         0     0
+      10 Fiat X1-9                  1     0     0     0       0         0     0
       # i 150 more rows
       
-      attr(,"effect")$vs$ale$d2$`model:wt`
+      $effect$vs$ale$d2$`model:wt`
       # A tibble: 352 x 8
-         model.bin     wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 AMC Javelin      1.50     0 -8.74e-24 -8.74e-24 -8.74e-24 -8.74e-24 -8.74e-24
-       2 Cadillac Fle~    1.50     0 -1.06e-23 -1.06e-23 -1.06e-23 -1.06e-23 -1.06e-23
-       3 Camaro Z28       1.50     0 -1.06e-23 -1.06e-23 -1.06e-23 -1.06e-23 -1.06e-23
-       4 Chrysler Imp~    1.50     0 -1.08e-23 -1.08e-23 -1.08e-23 -1.08e-23 -1.08e-23
-       5 Datsun 710       1.50     0 -1.11e-23 -1.11e-23 -1.11e-23 -1.11e-23 -1.11e-23
-       6 Dodge Challe~    1.50     0 -1.05e-23 -1.05e-23 -1.05e-23 -1.05e-23 -1.05e-23
-       7 Duster 360       1.50     0 -9.56e-24 -9.56e-24 -9.56e-24 -9.56e-24 -9.56e-24
-       8 Ferrari Dino     1.50     0 -9.23e-24 -9.23e-24 -9.23e-24 -9.23e-24 -9.23e-24
-       9 Fiat 128         1.50     0 -8.55e-24 -8.55e-24 -8.55e-24 -8.55e-24 -8.55e-24
-      10 Fiat X1-9        1.50     0 -7.76e-24 -7.76e-24 -7.76e-24 -7.76e-24 -7.76e-24
+         model.bin          wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>                <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin           1.50     0     0     0       0         0     0
+       2 Cadillac Fleetwood    1.50     0     0     0       0         0     0
+       3 Camaro Z28            1.50     0     0     0       0         0     0
+       4 Chrysler Imperial     1.50     0     0     0       0         0     0
+       5 Datsun 710            1.50     0     0     0       0         0     0
+       6 Dodge Challenger      1.50     0     0     0       0         0     0
+       7 Duster 360            1.50     0     0     0       0         0     0
+       8 Ferrari Dino          1.50     0     0     0       0         0     0
+       9 Fiat 128              1.50     0     0     0       0         0     0
+      10 Fiat X1-9             1.50     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"effect")$vs$ale$d2$`gear:carb`
+      $effect$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  1.74e-26  1.74e-26  1.74e-26  1.74e-26  1.74e-26
-       2 four             1     8 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26
-       3 five             1     0  2.35e-25  2.35e-25  2.35e-25  2.35e-25  2.35e-25
-       4 three            2     8 -5.54e-27 -2.88e-26 -5.54e-27 -2.29e-27  1.49e-26
-       5 four             2     7 -2.85e-26 -6.29e-26 -2.85e-26 -4.66e-26  2.14e-26
-       6 five             2     4  1.91e-25  1.50e-25  1.91e-25  1.68e-25  2.51e-25
-       7 three            3     7  1.71e-26 -2.80e-26  1.71e-26  1.32e-26  6.54e-26
-       8 four             3     2  3.67e-26  2.58e-26  3.67e-26  4.06e-26  4.45e-26
-       9 five             3     0  1.27e-25  9.59e-26  1.27e-25  1.36e-25  1.49e-25
-      10 three            4     8  1.45e-26 -2.00e-26  1.45e-26  7.97e-27  5.45e-26
-      11 four             4     6  4.08e-26  2.96e-26  4.08e-26  3.37e-26  5.81e-26
-      12 five             4     2  4.53e-26  1.32e-26  4.53e-26  1.93e-26  9.96e-26
-      13 three            8     1 -2.19e-25 -2.53e-25 -2.19e-25 -2.25e-25 -1.79e-25
-      14 four             8     1 -6.02e-27 -2.02e-25 -6.02e-27 -1.74e-25  3.33e-25
-      15 five             8     4 -1.88e-25 -2.20e-25 -1.88e-25 -2.13e-25 -1.34e-25
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d2$`gear:wt`
+      $effect$vs$ale$d2$`gear:wt`
       # A tibble: 33 x 8
-         gear.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three       1.50     0 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24
-       2 four        1.50     0  1.38e-24  1.38e-24  1.38e-24  1.38e-24  1.38e-24
-       3 five        1.50     1 -1.98e-24 -1.98e-24 -1.98e-24 -1.98e-24 -1.98e-24
-       4 three       1.93     0 -1.33e-24 -2.49e-24 -1.33e-24 -7.02e-25 -7.02e-25
-       5 four        1.93     5  2.82e-25 -2.98e-25  2.82e-25  5.95e-25  5.95e-25
-       6 five        1.93     1 -3.07e-24 -3.65e-24 -3.07e-24 -2.76e-24 -2.76e-24
-       7 three       2.31     0 -8.54e-25 -2.71e-24 -8.54e-25  1.51e-25  1.51e-25
-       8 four        2.31     4 -4.66e-25 -1.26e-24 -4.66e-25 -2.57e-25  1.47e-25
-       9 five        2.31     2 -2.88e-24 -3.51e-24 -2.88e-24 -3.19e-24 -1.97e-24
-      10 three       2.78     2 -1.17e-24 -3.34e-24 -1.17e-24  4.78e-27  4.78e-27
+         gear.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three       1.50     0     0     0       0         0     0
+       2 four        1.50     0     0     0       0         0     0
+       3 five        1.50     1     0     0       0         0     0
+       4 three       1.93     0     0     0       0         0     0
+       5 four        1.93     5     0     0       0         0     0
+       6 five        1.93     1     0     0       0         0     0
+       7 three       2.31     0     0     0       0         0     0
+       8 four        2.31     4     0     0       0         0     0
+       9 five        2.31     2     0     0       0         0     0
+      10 three       2.78     2     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$vs$ale$d2$`carb:wt`
+      $effect$vs$ale$d2$`carb:wt`
       # A tibble: 55 x 8
-         carb.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-             <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1         1    1.50     0  2.24e-29  2.24e-29  2.24e-29  2.24e-29  2.24e-29
-       2         2    1.50     1  7.81e-30  7.81e-30  7.81e-30  7.81e-30  7.81e-30
-       3         3    1.50     0 -1.77e-29 -1.77e-29 -1.77e-29 -1.77e-29 -1.77e-29
-       4         4    1.50     0 -1.13e-28 -1.13e-28 -1.13e-28 -1.13e-28 -1.13e-28
-       5         8    1.50     0 -1.81e-28 -1.81e-28 -1.81e-28 -1.81e-28 -1.81e-28
-       6         1    1.93     3  2.24e-29  2.24e-29  2.24e-29  2.24e-29  2.24e-29
-       7         2    1.93     3  7.81e-30  7.81e-30  7.81e-30  7.81e-30  7.81e-30
-       8         3    1.93     0 -1.21e-29 -1.77e-29 -1.21e-29 -1.77e-29 -1.68e-30
-       9         4    1.93     0 -1.08e-28 -1.13e-28 -1.08e-28 -1.13e-28 -9.72e-29
-      10         8    1.93     0 -1.75e-28 -1.81e-28 -1.75e-28 -1.81e-28 -1.65e-28
+         carb.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1         1    1.50     0     0     0       0         0     0
+       2         2    1.50     1     0     0       0         0     0
+       3         3    1.50     0     0     0       0         0     0
+       4         4    1.50     0     0     0       0         0     0
+       5         8    1.50     0     0     0       0         0     0
+       6         1    1.93     3     0     0       0         0     0
+       7         2    1.93     3     0     0       0         0     0
+       8         3    1.93     0     0     0       0         0     0
+       9         4    1.93     0     0     0       0         0     0
+      10         8    1.93     0     0     0       0         0     0
       # i 45 more rows
       
       
       
-      attr(,"effect")$vs$stats
-      attr(,"effect")$vs$stats$d1
+      $effect$vs$stats
+      $effect$vs$stats$d1
       # A tibble: 56 x 7
          term      statistic estimate conf.low  mean median conf.high
          <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -449,7 +440,7 @@
       10 continent aler_min         0        0     0      0         0
       # i 46 more rows
       
-      attr(,"effect")$vs$stats$d2
+      $effect$vs$stats$d2
       # A tibble: 168 x 7
          term          statistic estimate conf.low  mean median conf.high
          <chr>         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -466,20 +457,21 @@
       # i 158 more rows
       
       
-      attr(,"effect")$vs$boot_data
+      $effect$vs$boot_data
       NULL
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $params
+      $params$max_d
       [1] 2
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $params$ordered_x_cols
+      $params$ordered_x_cols$d1
       [1] "mpg"       "continent" "am"        "model"     "gear"      "carb"     
       [7] "wt"       
       
-      attr(,"params")$ordered_x_cols$d2
+      $params$ordered_x_cols$d2
        [1] "mpg:continent"   "mpg:am"          "mpg:model"       "mpg:gear"       
        [5] "mpg:carb"        "mpg:wt"          "continent:am"    "continent:model"
        [9] "continent:gear"  "continent:carb"  "continent:wt"    "am:model"       
@@ -488,12 +480,12 @@
       [21] "carb:wt"        
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $params$requested_x_cols
+      $params$requested_x_cols$d1
       [1] "mpg"       "continent" "am"        "model"     "gear"      "carb"     
       [7] "wt"       
       
-      attr(,"params")$requested_x_cols$d2
+      $params$requested_x_cols$d2
        [1] "mpg:continent"   "mpg:am"          "mpg:model"       "mpg:gear"       
        [5] "mpg:carb"        "mpg:wt"          "continent:am"    "continent:model"
        [9] "continent:gear"  "continent:carb"  "continent:wt"    "am:model"       
@@ -502,10 +494,10 @@
       [21] "carb:wt"        
       
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "vs"
       
-      attr(,"params")$y_summary
+      $params$y_summary
                       vs
       min   0.000000e+00
       1%    3.925673e-13
@@ -528,16 +520,13 @@
       99%   1.000000e+00
       max   1.000000e+00
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "dc3c7295e768b7054e90b9dec2ddb01a"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -553,7 +542,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                       vs
        [1,] 3.925673e-13
        [2,] 3.925673e-13
@@ -620,69 +609,70 @@
       [63,] 3.925673e-13
       [64,] 1.000000e+00
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "vs"
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "response"
       
-      attr(,"params")$p_values
+      $params$p_values
       NULL
       
-      attr(,"params")$require_same_p
+      $params$require_same_p
       [1] TRUE
       
-      attr(,"params")$aler_alpha
+      $params$aler_alpha
       [1] 0.01 0.05
       
-      attr(,"params")$aled_fun
+      $params$aled_fun
       [1] "mad"
       
-      attr(,"params")$max_num_bins
+      $params$max_num_bins
       [1] 10
       
-      attr(,"params")$fct_order
+      $params$fct_order
       [1] "levels"
       
-      attr(,"params")$boot_it
+      $params$boot_it
       [1] 2
       
-      attr(,"params")$boot_alpha
+      $params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$y_type
+      $params$y_type
       [1] "binary"
       
-      attr(,"params")$sample_size
+      $params$sample_size
       [1] 500
+      
       
 
 ---
@@ -10552,148 +10542,140 @@
 # binary outcome works with every parameter set to something
 
     Code
-      unclass(cars_ale)
+      s7_snapshot(cars_ale)
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$vs
-      attr(,"effect")$vs$ale
-      attr(,"effect")$vs$ale$d1
-      attr(,"effect")$vs$ale$d1$am
+      $effect
+      $effect$vs
+      $effect$vs$ale
+      $effect$vs$ale$d1
+      $effect$vs$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n           .y         .y_lo      .y_mean    .y_median        .y_hi
-        <ord>  <int>        <dbl>         <dbl>        <dbl>        <dbl>        <dbl>
-      1 FALSE     38 -0.000000179 -0.000000326  -0.000000179 -0.000000179     -3.19e-8
-      2 TRUE      26  0.000000246  0.0000000159  0.000000246  0.000000246      4.76e-7
+        am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     38     0     0       0         0     0
+      2 TRUE      26     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$wt
+      $effect$vs$ale$d1$wt
       # A tibble: 13 x 7
-         wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50     1 -1.91e-11 -1.91e-11 -1.91e-11 -1.91e-11 -1.91e-11
-       2    1.84     5 -1.53e-11 -1.53e-11 -1.53e-11 -1.53e-11 -1.53e-11
-       3    2.2      5 -1.13e-11 -1.13e-11 -1.13e-11 -1.13e-11 -1.13e-11
-       4    2.48     5 -8.14e-12 -8.14e-12 -8.14e-12 -8.14e-12 -8.14e-12
-       5    2.79     6 -4.65e-12 -4.65e-12 -4.65e-12 -4.65e-12 -4.65e-12
-       6    3.16     5 -4.86e-13 -4.86e-13 -4.86e-13 -4.86e-13 -4.86e-13
-       7    3.22     5  1.53e-13  1.53e-13  1.53e-13  1.53e-13  1.53e-13
-       8    3.44     7  2.62e-12  2.62e-12  2.62e-12  2.62e-12  2.62e-12
-       9    3.52     4  3.51e-12  3.51e-12  3.51e-12  3.51e-12  3.51e-12
-      10    3.60     5  4.39e-12  4.39e-12  4.39e-12  4.39e-12  4.39e-12
-      11    3.84     6  7.09e-12  7.09e-12  7.09e-12  7.09e-12  7.09e-12
-      12    5.24     5  2.27e-11  2.27e-11  2.27e-11  2.27e-11  2.27e-11
-      13    5.45     5  2.51e-11  2.51e-11  2.51e-11  2.51e-11  2.51e-11
+         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1    1.50     1     0     0       0         0     0
+       2    1.84     5     0     0       0         0     0
+       3    2.2      5     0     0       0         0     0
+       4    2.48     5     0     0       0         0     0
+       5    2.79     6     0     0       0         0     0
+       6    3.16     5     0     0       0         0     0
+       7    3.22     5     0     0       0         0     0
+       8    3.44     7     0     0       0         0     0
+       9    3.52     4     0     0       0         0     0
+      10    3.60     5     0     0       0         0     0
+      11    3.84     6     0     0       0         0     0
+      12    5.24     5     0     0       0         0     0
+      13    5.45     5     0     0       0         0     0
       
       
-      attr(,"effect")$vs$ale$d2
-      attr(,"effect")$vs$ale$d2$`gear:carb`
+      $effect$vs$ale$d2
+      $effect$vs$ale$d2$`gear:carb`
       # A tibble: 18 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  4.42e-16  4.42e-16  4.42e-16  4.42e-16  4.42e-16
-       2 four             1     8 -2.17e-15 -2.17e-15 -2.17e-15 -2.17e-15 -2.17e-15
-       3 five             1     0 -3.42e-15 -3.42e-15 -3.42e-15 -3.42e-15 -3.42e-15
-       4 three            2     8 -4.09e-17 -3.34e-16 -4.09e-17 -4.09e-17  2.52e-16
-       5 four             2     7 -4.14e-15 -5.89e-15 -4.14e-15 -4.14e-15 -2.38e-15
-       6 five             2     4 -4.49e-15 -7.13e-15 -4.49e-15 -4.49e-15 -1.85e-15
-       7 three            3     7  9.46e-16 -5.20e-16  9.46e-16  9.46e-16  2.41e-15
-       8 four             3     2  4.03e-16 -3.11e-15  4.03e-16  4.03e-16  3.92e-15
-       9 five             3     0 -1.28e-15 -7.88e-15 -1.28e-15 -1.28e-15  5.31e-15
-      10 three            4     8 -1.09e-15 -1.27e-15 -1.09e-15 -1.09e-15 -9.00e-16
-      11 four             4     6  5.70e-16 -4.39e-15  5.70e-16  5.70e-16  5.53e-15
-      12 five             4     2 -1.12e-15 -9.16e-15 -1.12e-15 -1.12e-15  6.92e-15
-      13 three            5     1  6.90e-16  5.04e-16  6.90e-16  6.90e-16  8.77e-16
-      14 four             5     1 -1.21e-15 -2.65e-15 -1.21e-15 -1.21e-15  2.41e-16
-      15 five             5     0 -4.23e-15 -9.19e-15 -4.23e-15 -4.23e-15  7.38e-16
-      16 three            8     0  1.58e-15  1.39e-15  1.58e-15  1.58e-15  1.76e-15
-      17 four             8     0 -3.18e-16 -1.76e-15 -3.18e-16 -3.18e-16  1.13e-15
-      18 five             8     4 -6.00e-15 -1.18e-14 -6.00e-15 -6.00e-15 -1.59e-16
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            5     1     0     0       0         0     0
+      14 four             5     1     0     0       0         0     0
+      15 five             5     0     0     0       0         0     0
+      16 three            8     0     0     0       0         0     0
+      17 four             8     0     0     0       0         0     0
+      18 five             8     4     0     0       0         0     0
       
       
       
-      attr(,"effect")$vs$stats
+      $effect$vs$stats
       NULL
       
-      attr(,"effect")$vs$boot_data
-      attr(,"effect")$vs$boot_data$d1
-      attr(,"effect")$vs$boot_data$d1$am
+      $effect$vs$boot_data
+      $effect$vs$boot_data$d1
+      $effect$vs$boot_data$d1$am
       # A tibble: 4 x 6
-          .it am     .y_composite    .n   .y_distinct            .y
-        <dbl> <fct>         <dbl> <dbl>         <dbl>         <dbl>
-      1     0 FALSE -0.000000327     38 -0.000000327  -0.000000327 
-      2     0 TRUE   0.000000478     26  0.000000478   0.000000478 
-      3     1 FALSE -0.0000000305    38 -0.0000000305 -0.0000000305
-      4     1 TRUE   0.0000000135    26  0.0000000135  0.0000000135
+          .it am    .y_composite    .n .y_distinct    .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+      1     0 FALSE            0    38           0     0
+      2     0 TRUE             0    26           0     0
+      3     1 FALSE            0    38           0     0
+      4     1 TRUE             0    26           0     0
       
-      attr(,"effect")$vs$boot_data$d1$wt
+      $effect$vs$boot_data$d1$wt
       # A tibble: 26 x 6
-           .it    wt .y_composite    .n .y_distinct        .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
-       1     0  1.50    -1.91e-11     1   -1.91e-11 -1.91e-11
-       2     0  1.84    -1.53e-11     5   -1.53e-11 -1.53e-11
-       3     0  2.2     -1.13e-11     5   -1.13e-11 -1.13e-11
-       4     0  2.48    -8.14e-12     5   -8.14e-12 -8.14e-12
-       5     0  2.79    -4.65e-12     6   -4.65e-12 -4.65e-12
-       6     0  3.16    -4.86e-13     5   -4.86e-13 -4.86e-13
-       7     0  3.22     1.53e-13     5    1.53e-13  1.53e-13
-       8     0  3.44     2.62e-12     7    2.62e-12  2.62e-12
-       9     0  3.52     3.51e-12     4    3.51e-12  3.51e-12
-      10     0  3.60     4.39e-12     5    4.39e-12  4.39e-12
+           .it    wt .y_composite    .n .y_distinct    .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  1.50            0     1           0     0
+       2     0  1.84            0     5           0     0
+       3     0  2.2             0     5           0     0
+       4     0  2.48            0     5           0     0
+       5     0  2.79            0     6           0     0
+       6     0  3.16            0     5           0     0
+       7     0  3.22            0     5           0     0
+       8     0  3.44            0     7           0     0
+       9     0  3.52            0     4           0     0
+      10     0  3.60            0     5           0     0
       # i 16 more rows
       
       
-      attr(,"effect")$vs$boot_data$d2
-      attr(,"effect")$vs$boot_data$d2$`gear:carb`
+      $effect$vs$boot_data$d2
+      $effect$vs$boot_data$d2$`gear:carb`
       # A tibble: 36 x 7
-           .it gear   carb .y_composite    .n .y_distinct        .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
-       1     0 three     1     4.42e-16     6    4.42e-16  4.42e-16
-       2     0 four      1     4.42e-16     8   -2.17e-15 -2.17e-15
-       3     0 five      1     4.42e-16     0   -3.42e-15 -3.42e-15
-       4     0 three     2     4.42e-16     8    2.55e-16  2.55e-16
-       5     0 four      2     4.42e-16     7   -2.36e-15 -2.36e-15
-       6     0 five      2     2.22e-15     4   -1.83e-15 -1.83e-15
-       7     0 three     3     4.42e-16     7   -5.34e-16 -5.34e-16
-       8     0 four      3     7.55e-15     2    3.96e-15  3.96e-15
-       9     0 five      3     1.02e-14     0    5.38e-15  5.38e-15
-      10     0 three     4     4.42e-16     8   -1.27e-15 -1.27e-15
+           .it gear   carb .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 three     1            0     6           0     0
+       2     0 four      1            0     8           0     0
+       3     0 five      1            0     0           0     0
+       4     0 three     2            0     8           0     0
+       5     0 four      2            0     7           0     0
+       6     0 five      2            0     4           0     0
+       7     0 three     3            0     7           0     0
+       8     0 four      3            0     2           0     0
+       9     0 five      3            0     0           0     0
+      10     0 three     4            0     8           0     0
       # i 26 more rows
       
       
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $params
+      $params$max_d
       [1] 2
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $params$ordered_x_cols
+      $params$ordered_x_cols$d1
       [1] "am" "wt"
       
-      attr(,"params")$ordered_x_cols$d2
+      $params$ordered_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $params$requested_x_cols
+      $params$requested_x_cols$d1
       [1] "wt" "am"
       
-      attr(,"params")$requested_x_cols$d2
+      $params$requested_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "vs"
       
-      attr(,"params")$y_summary
+      $params$y_summary
                     vs
       min   -28.566069
       1%    -28.566069
@@ -10705,27 +10687,24 @@
       30%   -28.566069
       40%   -28.566069
       50%   -28.566069
-      mean   -3.570751
-      60%    28.566072
-      70%    28.566090
-      75%    28.566090
+      mean   -3.570752
+      60%    28.566073
+      70%    28.566073
+      75%    28.566077
       80%    28.566090
       90%    28.566090
-      95%    28.566091
+      95%    28.566090
       97.5%  28.566091
       99%    28.566091
       max    28.566091
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "dc3c7295e768b7054e90b9dec2ddb01a"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 25 x 8
            mpg vs    continent     am    model               gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>               <ord> <int> <dbl>
@@ -10741,7 +10720,7 @@
       10  18.0 TRUE  North America FALSE Valiant             three     1  3.44
       # i 15 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                    vs
        [1,]  28.56609
        [2,] -28.56607
@@ -10750,11 +10729,11 @@
        [5,] -28.56607
        [6,] -28.56607
        [7,] -28.56607
-       [8,]  28.56609
+       [8,]  28.56607
        [9,] -28.56607
       [10,]  28.56607
       [11,] -28.56607
-      [12,]  28.56609
+      [12,]  28.56607
       [13,] -28.56607
       [14,] -28.56607
       [15,] -28.56607
@@ -10763,75 +10742,76 @@
       [18,] -28.56607
       [19,] -28.56607
       [20,] -28.56607
-      [21,]  28.56607
+      [21,]  28.56609
       [22,] -28.56607
-      [23,]  28.56607
-      [24,]  28.56609
+      [23,]  28.56609
+      [24,]  28.56607
       [25,]  28.56609
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "vs"
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $params$output_stats
       [1] FALSE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] TRUE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "               
       [2] "{"                                                           
       [3] "    predict(object, newdata, se.fit = TRUE, type = type)$fit"
       [4] "}"                                                           
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "link"
       
-      attr(,"params")$p_values
+      $params$p_values
       NULL
       
-      attr(,"params")$require_same_p
+      $params$require_same_p
       [1] TRUE
       
-      attr(,"params")$aler_alpha
+      $params$aler_alpha
       [1] 0.01 0.05
       
-      attr(,"params")$aled_fun
+      $params$aled_fun
       [1] "mad"
       
-      attr(,"params")$max_num_bins
+      $params$max_num_bins
       [1] 12
       
-      attr(,"params")$fct_order
+      $params$fct_order
       [1] "levels"
       
-      attr(,"params")$boot_it
+      $params$boot_it
       [1] 1
       
-      attr(,"params")$boot_alpha
+      $params$boot_alpha
       [1] 0.01
       
-      attr(,"params")$boot_centre
+      $params$boot_centre
       [1] "median"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 1234
       
-      attr(,"params")$y_type
+      $params$y_type
       [1] "binary"
       
-      attr(,"params")$sample_size
+      $params$sample_size
       [1] 25
+      
       
 
 ---
