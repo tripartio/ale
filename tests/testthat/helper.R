@@ -32,6 +32,10 @@ s7_snapshot <- function(object) {
       return(s7_snapshot(value))
     }
 
+    if (inherits(value, "univariateML")) {
+      return(normalize_snapshot_univariate_ml(value))
+    }
+
     if (inherits(value, "data.frame")) {
       return(normalize_snapshot_data_frame(value))
     }
@@ -117,6 +121,26 @@ test_nn_categorical <- nnet::multinom(
 
 
 # Snapshot data-frame normalization -------------------
+
+# univariateML fits are named numeric vectors whose values are the estimated
+# distribution parameters. Keep the distribution metadata intact, but apply
+# the same tolerance used for ordinary doubles in snapshot data frames.
+normalize_snapshot_univariate_ml <- function(x, tolerance = 1e-5) {
+  stopifnot(
+    inherits(x, "univariateML"),
+    is.double(x),
+    is.double(tolerance),
+    length(tolerance) == 1L,
+    !is.na(tolerance),
+    is.finite(tolerance),
+    tolerance > 0
+  )
+
+  decimal_places <- max(0, ceiling(-log10(tolerance)))
+  normalized <- round(x, digits = decimal_places)
+  normalized[!is.na(normalized) & normalized == 0] <- 0
+  normalized
+}
 
 # Round the ordinary double columns that tend to introduce platform-specific
 # noise into snapshots. Classed numeric vectors are intentionally excluded:
