@@ -66,13 +66,13 @@
       
       $effect$mpg$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1         1    14  0.000490  0.000490  0.000490  0.000490  0.000490
-      2         2    19  0.000176  0.000176  0.000176  0.000176  0.000176
-      3         3     9 -0.000137 -0.000137 -0.000137 -0.000137 -0.000137
-      4         4    16 -0.000451 -0.000451 -0.000451 -0.000451 -0.000451
-      5         8     6 -0.00170  -0.00170  -0.00170  -0.00170  -0.00170 
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14  0.00049  0.00049  0.00049   0.00049  0.00049
+      2         2    19  0.00018  0.00018  0.00018   0.00018  0.00018
+      3         3     9 -0.00014 -0.00014 -0.00014  -0.00014 -0.00014
+      4         4    16 -0.00045 -0.00045 -0.00045  -0.00045 -0.00045
+      5         8     6 -0.0017  -0.0017  -0.0017   -0.0017  -0.0017 
       
       $effect$mpg$ale$d1$wt
       # A tibble: 11 x 7
@@ -249,160 +249,160 @@
       
       $effect$mpg$ale$d2$`am:model`
       # A tibble: 64 x 8
-         am.bin model.bin         .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>  <ord>          <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 FALSE  AMC Javelin        0 -8.40e-15 -8.40e-15 -8.40e-15 -8.40e-15 -8.40e-15
-       2 TRUE   AMC Javelin        2  3.49e-14  2.77e-14  3.49e-14  3.61e-14  4.12e-14
-       3 FALSE  Cadillac Flee~     0 -4.41e-15 -4.41e-15 -4.41e-15 -4.41e-15 -4.41e-15
-       4 TRUE   Cadillac Flee~     2  3.74e-14  3.49e-14  3.74e-14  3.74e-14  4.00e-14
-       5 FALSE  Camaro Z28         0  3.47e-17  3.47e-17  3.47e-17  3.47e-17  3.47e-17
-       6 TRUE   Camaro Z28         2  3.73e-14  3.32e-14  3.73e-14  3.79e-14  4.08e-14
-       7 FALSE  Chrysler Impe~     2  3.47e-17  3.47e-17  3.47e-17  3.47e-17  3.47e-17
-       8 TRUE   Chrysler Impe~     0  3.28e-14  2.53e-14  3.28e-14  3.60e-14  3.76e-14
-       9 FALSE  Datsun 710         2 -2.04e-15 -5.87e-15 -2.04e-15  3.47e-17  3.47e-17
-      10 TRUE   Datsun 710         0  2.64e-14  1.76e-14  2.64e-14  2.84e-14  3.34e-14
+         am.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  AMC Javelin            0     0     0       0         0     0
+       2 TRUE   AMC Javelin            2     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood     0     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood     2     0     0       0         0     0
+       5 FALSE  Camaro Z28             0     0     0       0         0     0
+       6 TRUE   Camaro Z28             2     0     0       0         0     0
+       7 FALSE  Chrysler Imperial      2     0     0       0         0     0
+       8 TRUE   Chrysler Imperial      0     0     0       0         0     0
+       9 FALSE  Datsun 710             2     0     0       0         0     0
+      10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
       $effect$mpg$ale$d2$`am:gear`
       # A tibble: 6 x 8
-        am.bin gear.bin    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-        <ord>  <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-      1 FALSE  three       30  3.53e-16 -1.65e-17  3.53e-16  4.62e-16 6.30e-16
-      2 TRUE   three        0  3.87e-16  1.77e-17  3.87e-16  4.96e-16 6.65e-16
-      3 FALSE  four         8 -4.61e-16 -1.91e-15 -4.61e-16 -4.86e-16 1.00e-15
-      4 TRUE   four        16 -9.38e-17 -2.23e-15 -9.38e-17  8.81e-16 1.21e-15
-      5 FALSE  five         0  2.03e-15  5.81e-16  2.03e-15  2.00e-15 3.49e-15
-      6 TRUE   five        10 -8.04e-16 -2.01e-15 -8.04e-16 -1.61e-15 1.09e-15
+        am.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       30     0     0       0         0     0
+      2 TRUE   three        0     0     0       0         0     0
+      3 FALSE  four         8     0     0       0         0     0
+      4 TRUE   four        16     0     0       0         0     0
+      5 FALSE  five         0     0     0       0         0     0
+      6 TRUE   five        10     0     0       0         0     0
       
       $effect$mpg$ale$d2$`am:carb`
       # A tibble: 10 x 8
-         am.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 FALSE          1     6 -5.68e-16 -5.68e-16 -5.68e-16 -5.68e-16 -5.68e-16
-       2 TRUE           1     8  2.66e-15  2.66e-15  2.66e-15  2.66e-15  2.66e-15
-       3 FALSE          2    12 -6.96e-16 -1.23e-15 -6.96e-16 -9.29e-16  3.56e-17
-       4 TRUE           2     7  1.64e-16 -1.50e-15  1.64e-16 -2.38e-16  2.17e-15
-       5 FALSE          3     7 -9.07e-16 -2.21e-15 -9.07e-16 -9.29e-16  4.11e-16
-       6 TRUE           3     2 -1.82e-15 -3.36e-15 -1.82e-15 -2.60e-15  3.67e-16
-       7 FALSE          4    11 -4.46e-16 -1.19e-15 -4.46e-16 -4.53e-16  3.03e-16
-       8 TRUE           4     5 -9.43e-16 -2.57e-15 -9.43e-16 -1.18e-15  8.90e-16
-       9 FALSE          8     2 -1.19e-15 -3.42e-15 -1.19e-15 -7.83e-16  7.08e-16
-      10 TRUE           8     4 -3.02e-15 -3.51e-15 -3.02e-15 -3.00e-15 -2.54e-15
+         am.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     6     0     0       0         0     0
+       2 TRUE           1     8     0     0       0         0     0
+       3 FALSE          2    12     0     0       0         0     0
+       4 TRUE           2     7     0     0       0         0     0
+       5 FALSE          3     7     0     0       0         0     0
+       6 TRUE           3     2     0     0       0         0     0
+       7 FALSE          4    11     0     0       0         0     0
+       8 TRUE           4     5     0     0       0         0     0
+       9 FALSE          8     2     0     0       0         0     0
+      10 TRUE           8     4     0     0       0         0     0
       
       $effect$mpg$ale$d2$`am:wt`
       # A tibble: 22 x 8
-         am.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>    <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 FALSE     1.50     0 -5.01e-15 -5.01e-15 -5.01e-15 -5.01e-15 -5.01e-15
-       2 TRUE      1.50     1  2.60e-15  2.60e-15  2.60e-15  2.60e-15  2.60e-15
-       3 FALSE     1.93     0 -4.71e-15 -4.71e-15 -4.71e-15 -4.71e-15 -4.71e-15
-       4 TRUE      1.93     6  1.81e-15  1.16e-15  1.81e-15  2.00e-15  2.29e-15
-       5 FALSE     2.31     0 -6.40e-15 -1.02e-14 -6.40e-15 -9.48e-15 -2.96e-17
-       6 TRUE      2.31     6 -1.07e-14 -1.66e-14 -1.07e-14 -1.25e-14 -3.36e-15
-       7 FALSE     2.78     2 -5.89e-15 -9.64e-15 -5.89e-15 -9.30e-15  7.63e-16
-       8 TRUE      2.78     5 -8.92e-15 -1.82e-14 -8.92e-15 -4.37e-15 -3.52e-15
-       9 FALSE     3.16     2 -6.41e-15 -1.14e-14 -6.41e-15 -8.40e-15  3.16e-16
-      10 TRUE      3.16     4 -8.48e-15 -1.70e-14 -8.48e-15 -4.43e-15 -3.38e-15
+         am.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.93     0     0     0       0         0     0
+       4 TRUE      1.93     6     0     0       0         0     0
+       5 FALSE     2.31     0     0     0       0         0     0
+       6 TRUE      2.31     6     0     0       0         0     0
+       7 FALSE     2.78     2     0     0       0         0     0
+       8 TRUE      2.78     5     0     0       0         0     0
+       9 FALSE     3.16     2     0     0       0         0     0
+      10 TRUE      3.16     4     0     0       0         0     0
       # i 12 more rows
       
       $effect$mpg$ale$d2$`model:gear`
       # A tibble: 96 x 8
-         model.bin    gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 AMC Javelin  three        0 -5.38e-15 -5.38e-15 -5.38e-15 -5.38e-15 -5.38e-15
-       2 Cadillac Fl~ three        0 -2.28e-15 -2.28e-15 -2.28e-15 -2.28e-15 -2.28e-15
-       3 Camaro Z28   three        0 -5.00e-16 -5.00e-16 -5.00e-16 -5.00e-16 -5.00e-16
-       4 Chrysler Im~ three        2  9.25e-17 -5.00e-16  9.25e-17 -5.00e-16  1.19e-15
-       5 Datsun 710   three        2 -1.09e-15 -3.87e-15 -1.09e-15 -5.00e-16  1.19e-15
-       6 Dodge Chall~ three        2 -1.09e-15 -3.87e-15 -1.09e-15 -5.00e-16  1.19e-15
-       7 Duster 360   three        2 -1.09e-15 -3.87e-15 -1.09e-15 -5.00e-16  1.19e-15
-       8 Ferrari Dino three        0 -4.32e-15 -7.32e-15 -4.32e-15 -3.61e-15 -1.92e-15
-       9 Fiat 128     three        0 -5.44e-15 -8.88e-15 -5.44e-15 -4.50e-15 -2.81e-15
-      10 Fiat X1-9    three        0 -5.80e-15 -9.90e-15 -5.80e-15 -4.50e-15 -2.81e-15
+         model.bin          gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>              <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin        three        0     0     0       0         0     0
+       2 Cadillac Fleetwood three        0     0     0       0         0     0
+       3 Camaro Z28         three        0     0     0       0         0     0
+       4 Chrysler Imperial  three        2     0     0       0         0     0
+       5 Datsun 710         three        2     0     0       0         0     0
+       6 Dodge Challenger   three        2     0     0       0         0     0
+       7 Duster 360         three        2     0     0       0         0     0
+       8 Ferrari Dino       three        0     0     0       0         0     0
+       9 Fiat 128           three        0     0     0       0         0     0
+      10 Fiat X1-9          three        0     0     0       0         0     0
       # i 86 more rows
       
       $effect$mpg$ale$d2$`model:carb`
       # A tibble: 160 x 8
-         model.bin   carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 AMC Javelin         1     0 -3.25e-14 -3.25e-14 -3.25e-14 -3.25e-14 -3.25e-14
-       2 Cadillac F~         1     0 -2.71e-14 -2.71e-14 -2.71e-14 -2.71e-14 -2.71e-14
-       3 Camaro Z28          1     2 -2.71e-14 -2.71e-14 -2.71e-14 -2.71e-14 -2.71e-14
-       4 Chrysler I~         1     2 -2.71e-14 -2.71e-14 -2.71e-14 -2.71e-14 -2.71e-14
-       5 Datsun 710          1     0 -2.93e-14 -2.93e-14 -2.93e-14 -2.93e-14 -2.93e-14
-       6 Dodge Chal~         1     2 -2.93e-14 -2.93e-14 -2.93e-14 -2.93e-14 -2.93e-14
-       7 Duster 360          1     0 -2.96e-14 -2.96e-14 -2.96e-14 -2.96e-14 -2.96e-14
-       8 Ferrari Di~         1     0 -2.96e-14 -2.96e-14 -2.96e-14 -2.96e-14 -2.96e-14
-       9 Fiat 128            1     0 -2.96e-14 -2.96e-14 -2.96e-14 -2.96e-14 -2.96e-14
-      10 Fiat X1-9           1     0 -2.50e-14 -2.50e-14 -2.50e-14 -2.50e-14 -2.50e-14
+         model.bin          carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>                  <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin                1     0     0     0       0         0     0
+       2 Cadillac Fleetwood         1     0     0     0       0         0     0
+       3 Camaro Z28                 1     2     0     0       0         0     0
+       4 Chrysler Imperial          1     2     0     0       0         0     0
+       5 Datsun 710                 1     0     0     0       0         0     0
+       6 Dodge Challenger           1     2     0     0       0         0     0
+       7 Duster 360                 1     0     0     0       0         0     0
+       8 Ferrari Dino               1     0     0     0       0         0     0
+       9 Fiat 128                   1     0     0     0       0         0     0
+      10 Fiat X1-9                  1     0     0     0       0         0     0
       # i 150 more rows
       
       $effect$mpg$ale$d2$`model:wt`
       # A tibble: 352 x 8
-         model.bin     wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 AMC Javelin      1.50     0 -2.43e-14 -2.43e-14 -2.43e-14 -2.43e-14 -2.43e-14
-       2 Cadillac Fle~    1.50     0 -2.97e-14 -2.97e-14 -2.97e-14 -2.97e-14 -2.97e-14
-       3 Camaro Z28       1.50     0 -2.79e-14 -2.79e-14 -2.79e-14 -2.79e-14 -2.79e-14
-       4 Chrysler Imp~    1.50     0 -4.41e-14 -4.41e-14 -4.41e-14 -4.41e-14 -4.41e-14
-       5 Datsun 710       1.50     0 -6.67e-14 -6.67e-14 -6.67e-14 -6.67e-14 -6.67e-14
-       6 Dodge Challe~    1.50     0 -7.95e-14 -7.95e-14 -7.95e-14 -7.95e-14 -7.95e-14
-       7 Duster 360       1.50     0 -9.64e-14 -9.64e-14 -9.64e-14 -9.64e-14 -9.64e-14
-       8 Ferrari Dino     1.50     0 -1.06e-13 -1.06e-13 -1.06e-13 -1.06e-13 -1.06e-13
-       9 Fiat 128         1.50     0 -1.09e-13 -1.09e-13 -1.09e-13 -1.09e-13 -1.09e-13
-      10 Fiat X1-9        1.50     0 -1.14e-13 -1.14e-13 -1.14e-13 -1.14e-13 -1.14e-13
+         model.bin          wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>                <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin           1.50     0     0     0       0         0     0
+       2 Cadillac Fleetwood    1.50     0     0     0       0         0     0
+       3 Camaro Z28            1.50     0     0     0       0         0     0
+       4 Chrysler Imperial     1.50     0     0     0       0         0     0
+       5 Datsun 710            1.50     0     0     0       0         0     0
+       6 Dodge Challenger      1.50     0     0     0       0         0     0
+       7 Duster 360            1.50     0     0     0       0         0     0
+       8 Ferrari Dino          1.50     0     0     0       0         0     0
+       9 Fiat 128              1.50     0     0     0       0         0     0
+      10 Fiat X1-9             1.50     0     0     0       0         0     0
       # i 342 more rows
       
       $effect$mpg$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  3.25e-16  3.25e-16  3.25e-16  3.25e-16  3.25e-16
-       2 four             1     8  3.14e-16  3.14e-16  3.14e-16  3.14e-16  3.14e-16
-       3 five             1     0  8.47e-16  8.47e-16  8.47e-16  8.47e-16  8.47e-16
-       4 three            2     8 -2.63e-16 -2.63e-16 -2.63e-16 -2.63e-16 -2.63e-16
-       5 four             2     7  2.62e-16 -2.44e-16  2.62e-16  3.18e-16  7.20e-16
-       6 five             2     4  4.99e-16 -1.44e-15  4.99e-16 -3.69e-17  2.90e-15
-       7 three            3     7 -6.58e-17 -6.58e-17 -6.58e-17 -6.58e-17 -6.58e-17
-       8 four             3     2 -1.33e-16 -8.00e-16 -1.33e-16 -7.63e-17  4.86e-16
-       9 five             3     0  9.92e-16 -1.22e-15  9.92e-16  5.83e-16  3.56e-15
-      10 three            4     8  2.15e-16  1.56e-16  2.15e-16  1.56e-16  3.25e-16
-      11 four             4     6  3.60e-16 -5.81e-16  3.60e-16  6.96e-17  1.55e-15
-      12 five             4     2 -2.91e-16 -2.67e-15 -2.91e-16 -1.17e-15  2.84e-15
-      13 three            8     1 -3.04e-15 -3.10e-15 -3.04e-15 -3.10e-15 -2.93e-15
-      14 four             8     1 -1.71e-15 -3.11e-15 -1.71e-15 -1.63e-15 -3.85e-16
-      15 five             8     4 -1.77e-15 -4.24e-15 -1.77e-15 -6.75e-16 -2.33e-16
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       $effect$mpg$ale$d2$`gear:wt`
       # A tibble: 33 x 8
-         gear.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three       1.50     0  2.25e-15  2.25e-15  2.25e-15  2.25e-15  2.25e-15
-       2 four        1.50     0  8.44e-16  8.44e-16  8.44e-16  8.44e-16  8.44e-16
-       3 five        1.50     1 -8.84e-15 -8.84e-15 -8.84e-15 -8.84e-15 -8.84e-15
-       4 three       1.93     0  4.70e-16  4.70e-16  4.70e-16  4.70e-16  4.70e-16
-       5 four        1.93     5 -9.32e-16 -9.32e-16 -9.32e-16 -9.32e-16 -9.32e-16
-       6 five        1.93     1 -3.51e-15 -1.06e-14 -3.51e-15 -1.06e-14  9.64e-15
-       7 three       2.31     0  2.54e-15  2.54e-15  2.54e-15  2.54e-15  2.54e-15
-       8 four        2.31     4 -1.97e-15 -4.92e-15 -1.97e-15 -1.97e-15  9.85e-16
-       9 five        2.31     2 -6.32e-15 -1.95e-14 -6.32e-15 -8.54e-15  8.76e-15
-      10 three       2.78     2  3.66e-15  1.91e-15  3.66e-15  4.45e-15  4.73e-15
+         gear.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three       1.50     0     0     0       0         0     0
+       2 four        1.50     0     0     0       0         0     0
+       3 five        1.50     1     0     0       0         0     0
+       4 three       1.93     0     0     0       0         0     0
+       5 four        1.93     5     0     0       0         0     0
+       6 five        1.93     1     0     0       0         0     0
+       7 three       2.31     0     0     0       0         0     0
+       8 four        2.31     4     0     0       0         0     0
+       9 five        2.31     2     0     0       0         0     0
+      10 three       2.78     2     0     0       0         0     0
       # i 23 more rows
       
       $effect$mpg$ale$d2$`carb:wt`
       # A tibble: 55 x 8
-         carb.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-             <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1         1    1.50     0  3.80e-15  3.80e-15  3.80e-15  3.80e-15  3.80e-15
-       2         2    1.50     1  1.33e-15  1.33e-15  1.33e-15  1.33e-15  1.33e-15
-       3         3    1.50     0 -8.61e-15 -8.61e-15 -8.61e-15 -8.61e-15 -8.61e-15
-       4         4    1.50     0 -1.07e-14 -1.07e-14 -1.07e-14 -1.07e-14 -1.07e-14
-       5         8    1.50     0 -9.08e-15 -9.08e-15 -9.08e-15 -9.08e-15 -9.08e-15
-       6         1    1.93     3  3.80e-15  3.80e-15  3.80e-15  3.80e-15  3.80e-15
-       7         2    1.93     3  1.33e-15  1.33e-15  1.33e-15  1.33e-15  1.33e-15
-       8         3    1.93     0 -8.22e-15 -8.61e-15 -8.22e-15 -8.61e-15 -7.49e-15
-       9         4    1.93     0 -1.03e-14 -1.07e-14 -1.03e-14 -1.07e-14 -9.58e-15
-      10         8    1.93     0 -8.69e-15 -9.08e-15 -8.69e-15 -9.08e-15 -7.96e-15
+         carb.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1         1    1.50     0     0     0       0         0     0
+       2         2    1.50     1     0     0       0         0     0
+       3         3    1.50     0     0     0       0         0     0
+       4         4    1.50     0     0     0       0         0     0
+       5         8    1.50     0     0     0       0         0     0
+       6         1    1.93     3     0     0       0         0     0
+       7         2    1.93     3     0     0       0         0     0
+       8         3    1.93     0     0     0       0         0     0
+       9         4    1.93     0     0     0       0         0     0
+      10         8    1.93     0     0     0       0         0     0
       # i 45 more rows
       
       
