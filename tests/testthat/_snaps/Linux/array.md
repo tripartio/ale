@@ -1,7 +1,9 @@
 # intrapolate_2D correctly intrapolates missing values
 
     Code
-      intrapolate_2D(x, consolidate = FALSE)
+      {
+        x
+      }
     Output
       $row
            [,1]     [,2]     [,3] [,4]     [,5]     [,6] [,7]

@@ -16,7 +16,7 @@ test_that(
 
     # Test the print ALE() method
     print(pll_ale) |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -40,10 +40,10 @@ test_that(
     expect_true(S7::S7_inherits(cars_ale, ALE))
     cars_ale |>
       s7_snapshot() |>
-      expect_snapshot()
+      expect_snap_variant()
 
     plot(cars_ale) |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
