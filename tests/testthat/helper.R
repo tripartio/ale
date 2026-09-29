@@ -45,7 +45,20 @@ s7_snapshot <- function(object) {
     value
   }
 
-  S7::props(object) |>
+  properties <- S7::props(object)
+
+  # The model hash is useful at runtime, but is not stable snapshot data. Remove
+  # only this structural path from the copied properties; the S7 object itself
+  # must retain it for model-identity validation.
+  if (
+    is.list(properties$params) &&
+      is.list(properties$params$model) &&
+      "hash" %in% names(properties$params$model)
+  ) {
+    properties$params$model$hash <- NULL
+  }
+
+  properties |>
     lapply(normalize)
 }
 

@@ -33,9 +33,6 @@
       $params$model$class
       [1] "gam" "glm" "lm" 
       
-      $params$model$hash
-      [1] "d207a86e2d709930900c0cd65e89dda4"
-      
       
       $params$y_col
       [1] "mpg"
@@ -234,9 +231,6 @@
       $params$model$class
       [1] "gam" "glm" "lm" 
       
-      $params$model$hash
-      [1] "d207a86e2d709930900c0cd65e89dda4"
-      
       
       $params$data
       $params$data$data_sample
@@ -380,9 +374,6 @@
       $params$p_values$params$model
       $params$p_values$params$model$class
       [1] "gam" "glm" "lm" 
-      
-      $params$p_values$params$model$hash
-      [1] "d207a86e2d709930900c0cd65e89dda4"
       
       
       $params$p_values$params$y_col
@@ -535,9 +526,6 @@
       $params$model$class
       [1] "gam" "glm" "lm" 
       
-      $params$model$hash
-      [1] "d207a86e2d709930900c0cd65e89dda4"
-      
       
       $params$y_col
       [1] "mpg"
@@ -662,9 +650,6 @@
       $params$model$class
       [1] "gam" "glm" "lm" 
       
-      $params$model$hash
-      [1] "d207a86e2d709930900c0cd65e89dda4"
-      
       
       $params$y_col
       [1] "mpg"
@@ -735,9 +720,6 @@
       $params$model
       $params$model$class
       [1] "gam" "glm" "lm" 
-      
-      $params$model$hash
-      [1] "3ab10bf93b7754ade81eedd75ca0b319"
       
       
       $params$y_col
@@ -839,9 +821,6 @@
       $params$model
       $params$model$class
       [1] "multinom" "nnet"    
-      
-      $params$model$hash
-      [1] "a7afc8a2794f2493c69b883286b6b223"
       
       
       $params$y_col

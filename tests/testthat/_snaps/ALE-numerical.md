@@ -508,9 +508,6 @@
       $params$model$class
       [1] "gam" "glm" "lm" 
       
-      $params$model$hash
-      [1] "d207a86e2d709930900c0cd65e89dda4"
-      
       
       $params$data
       $params$data$data_sample
