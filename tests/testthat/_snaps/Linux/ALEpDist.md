@@ -1,7 +1,9 @@
 # ALEpDist works with default inputs (exact) on ALE()
 
     Code
-      s7_snapshot(pd)
+      {
+        x
+      }
     Output
       $rand_stats
       $rand_stats$mpg
@@ -72,7 +74,9 @@
 ---
 
     Code
-      s7_snapshot(cars_ale)
+      {
+        x
+      }
     Output
       $effect
       $effect$mpg
@@ -449,9 +453,9 @@
 ---
 
     Code
-      unclass(set_names(map(stats_names, function(.stat) {
-        value_to_p(pd@rand_stats$mpg, .stat, test_vals)
-      }), stats_names))
+      {
+        x
+      }
     Output
       $aled
        [1] 1 1 1 1 1 0 0 0 0 0 0
@@ -481,7 +485,9 @@
 # Surrogate ALEpDist works
 
     Code
-      s7_snapshot(pd)
+      {
+        x
+      }
     Output
       $rand_stats
       $rand_stats$mpg
@@ -565,9 +571,9 @@
 ---
 
     Code
-      unclass(set_names(map(stats_names, function(.stat) {
-        p_to_random_value(pd@rand_stats$mpg, .stat, test_p)
-      }), stats_names))
+      {
+        x
+      }
     Output
       $aled
                  0        0.001         0.01         0.01         0.05          0.1 
@@ -613,7 +619,9 @@
 # ALEpDist works with custom random_model_call_string
 
     Code
-      s7_snapshot(pd)
+      {
+        x
+      }
     Output
       $rand_stats
       $rand_stats$mpg
@@ -689,23 +697,25 @@
 # ALEpDist works with binary outcome
 
     Code
-      s7_snapshot(pd)
+      {
+        x
+      }
     Output
       $rand_stats
       $rand_stats$vs
       # A tibble: 10 x 8
           aled aler_min  aler aler_max naled naler_min naler naler_max
          <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
-       1     0        0     0        0  2.05     -3.12  7.81      4.69
-       2     0        0     0        0 17.3     -50    56.2       6.25
-       3     0        0     0        0 32.2     -50    56.2       6.25
-       4     0        0     0        0 27.8     -50    56.2       6.25
-       5     0        0     0        0 23.1     -50    56.2       6.25
-       6     0        0     0        0 29.5     -50    56.2       6.25
-       7     0        0     0        0 25.4     -50    56.2       6.25
-       8     0        0     0        0 29.2     -50    56.2       6.25
-       9     0        0     0        0  7.15    -18.8  25         6.25
-      10     0        0     0        0 27.4     -50    56.2       6.25
+       1     0        0     0        0  6.93     -20.3  26.6      6.25
+       2     0        0     0        0 10.9      -35.9  42.2      6.25
+       3     0        0     0        0 14.7      -50    56.2      6.25
+       4     0        0     0        0 20.3      -50    56.2      6.25
+       5     0        0     0        0 25.3      -50    56.2      6.25
+       6     0        0     0        0 26.3      -50    56.2      6.25
+       7     0        0     0        0 23.3      -50    56.2      6.25
+       8     0        0     0        0 28.7      -50    56.2      6.25
+       9     0        0     0        0  0          0     0        0   
+      10     0        0     0        0 28.4      -50    56.2      6.25
       
       
       $residual_distribution
@@ -760,7 +770,9 @@
 # ALEpDist works with categorical outcome
 
     Code
-      s7_snapshot(pd)
+      {
+        x
+      }
     Output
       $rand_stats
       $rand_stats$Asia
