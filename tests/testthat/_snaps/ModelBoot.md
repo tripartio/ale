@@ -224,13 +224,13 @@
     Output
       $model_stats
       # A tibble: 5 x 6
-        name          conf.low median   mean conf.high    sd
-        <chr>            <dbl>  <dbl>  <dbl>     <dbl> <dbl>
-      1 df              41.0   41.0   41.0      41.0      NA
-      2 df.residual     23.0   23.0   23.0      23.0      NA
-      3 nobs            64     64     64        64        NA
-      4 adj.r.squared    1.000  1.000  1.000     1.000    NA
-      5 npar            45     45     45        45        NA
+        name          conf.low median  mean conf.high    sd
+        <chr>            <dbl>  <dbl> <dbl>     <dbl> <dbl>
+      1 df                41.0   41.0  41.0      41.0    NA
+      2 df.residual       23.0   23.0  23.0      23.0    NA
+      3 nobs              64     64    64        64      NA
+      4 adj.r.squared      1      1     1         1      NA
+      5 npar              45     45    45        45      NA
       
       $model_coefs
       # A tibble: 1 x 6
@@ -271,23 +271,23 @@
       $ale$single$effect$mpg$ale$d2
       $ale$single$effect$mpg$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  3.25e-16  3.25e-16  3.25e-16  3.25e-16  3.25e-16
-       2 four             1     8  3.14e-16  3.14e-16  3.14e-16  3.14e-16  3.14e-16
-       3 five             1     0  8.47e-16  8.47e-16  8.47e-16  8.47e-16  8.47e-16
-       4 three            2     8 -2.63e-16 -2.63e-16 -2.63e-16 -2.63e-16 -2.63e-16
-       5 four             2     7  7.41e-16  7.41e-16  7.41e-16  7.41e-16  7.41e-16
-       6 five             2     4  3.05e-15  3.05e-15  3.05e-15  3.05e-15  3.05e-15
-       7 three            3     7 -6.58e-17 -6.58e-17 -6.58e-17 -6.58e-17 -6.58e-17
-       8 four             3     2 -8.38e-16 -8.38e-16 -8.38e-16 -8.38e-16 -8.38e-16
-       9 five             3     0  5.83e-16  5.83e-16  5.83e-16  5.83e-16  5.83e-16
-      10 three            4     8  1.56e-16  1.56e-16  1.56e-16  1.56e-16  1.56e-16
-      11 four             4     6 -6.16e-16 -6.16e-16 -6.16e-16 -6.16e-16 -6.16e-16
-      12 five             4     2 -2.75e-15 -2.75e-15 -2.75e-15 -2.75e-15 -2.75e-15
-      13 three            8     1 -3.10e-15 -3.10e-15 -3.10e-15 -3.10e-15 -3.10e-15
-      14 four             8     1 -3.20e-16 -3.20e-16 -3.20e-16 -3.20e-16 -3.20e-16
-      15 five             8     4 -6.75e-16 -6.75e-16 -6.75e-16 -6.75e-16 -6.75e-16
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
@@ -315,16 +315,16 @@
       
       $ale$single$effect$mpg$stats$d2
       # A tibble: 8 x 7
-        term      statistic  estimate  conf.low      mean    median conf.high
-        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       5.16e-16  5.16e-16  5.16e-16  5.16e-16  5.16e-16
-      2 gear:carb aler_min  -1.71e-15 -1.71e-15 -1.71e-15 -1.71e-15 -1.71e-15
-      3 gear:carb aler       3.66e-15  3.66e-15  3.66e-15  3.66e-15  3.66e-15
-      4 gear:carb aler_max   1.95e-15  1.95e-15  1.95e-15  1.95e-15  1.95e-15
-      5 gear:carb naled      0         0         0         0         0       
-      6 gear:carb naler_min  0         0         0         0         0       
-      7 gear:carb naler      0         0         0         0         0       
-      8 gear:carb naler_max  0         0         0         0         0       
+        term      statistic estimate conf.low  mean median conf.high
+        <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 gear:carb aled             0        0     0      0         0
+      2 gear:carb aler_min         0        0     0      0         0
+      3 gear:carb aler             0        0     0      0         0
+      4 gear:carb aler_max         0        0     0      0         0
+      5 gear:carb naled            0        0     0      0         0
+      6 gear:carb naler_min        0        0     0      0         0
+      7 gear:carb naler            0        0     0      0         0
+      8 gear:carb naler_max        0        0     0      0         0
       
       
       $ale$single$effect$mpg$boot_data
@@ -941,7 +941,7 @@
       # A tibble: 1 x 6
         term  conf.low median  mean conf.high std.error
         <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(wt)     1.00   1.00  1.00      1.00  2.10e-14
+      1 s(wt)        1      1     1         1         0
       
       $ale
       $ale$single
@@ -959,78 +959,78 @@
       
       $ale$single$effect$vs$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50     1  8.01e-24  8.01e-24  8.01e-24  8.01e-24  8.01e-24
-       2    1.93     6  8.01e-24  8.01e-24  8.01e-24  8.01e-24  8.01e-24
-       3    2.31     6  6.34e-24  6.34e-24  6.34e-24  6.34e-24  6.34e-24
-       4    2.78     7  3.76e-24  3.76e-24  3.76e-24  3.76e-24  3.76e-24
-       5    3.16     6  1.30e-24  1.30e-24  1.30e-24  1.30e-24  1.30e-24
-       6    3.22     6  1.04e-24  1.04e-24  1.04e-24  1.04e-24  1.04e-24
-       7    3.44     7 -1.75e-25 -1.75e-25 -1.75e-25 -1.75e-25 -1.75e-25
-       8    3.56     6 -1.20e-24 -1.20e-24 -1.20e-24 -1.20e-24 -1.20e-24
-       9    3.79     7 -4.24e-24 -4.24e-24 -4.24e-24 -4.24e-24 -4.24e-24
-      10    4.07     6 -7.80e-24 -7.80e-24 -7.80e-24 -7.80e-24 -7.80e-24
-      11    5.45     6 -2.57e-23 -2.57e-23 -2.57e-23 -2.57e-23 -2.57e-23
+         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1    1.50     1     0     0       0         0     0
+       2    1.93     6     0     0       0         0     0
+       3    2.31     6     0     0       0         0     0
+       4    2.78     7     0     0       0         0     0
+       5    3.16     6     0     0       0         0     0
+       6    3.22     6     0     0       0         0     0
+       7    3.44     7     0     0       0         0     0
+       8    3.56     6     0     0       0         0     0
+       9    3.79     7     0     0       0         0     0
+      10    4.07     6     0     0       0         0     0
+      11    5.45     6     0     0       0         0     0
       
       
       $ale$single$effect$vs$ale$d2
       $ale$single$effect$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  1.96e-27  1.96e-27  1.96e-27  1.96e-27  1.96e-27
-       2 four             1     8 -3.08e-27 -3.08e-27 -3.08e-27 -3.08e-27 -3.08e-27
-       3 five             1     0 -3.05e-27 -3.05e-27 -3.05e-27 -3.05e-27 -3.05e-27
-       4 three            2     8 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27
-       5 four             2     7  2.00e-27  2.00e-27  2.00e-27  2.00e-27  2.00e-27
-       6 five             2     4  2.00e-27  2.00e-27  2.00e-27  2.00e-27  2.00e-27
-       7 three            3     7 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27
-       8 four             3     2  2.00e-27  2.00e-27  2.00e-27  2.00e-27  2.00e-27
-       9 five             3     0  1.99e-27  1.99e-27  1.99e-27  1.99e-27  1.99e-27
-      10 three            4     8 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27 -1.35e-27
-      11 four             4     6  2.00e-27  2.00e-27  2.00e-27  2.00e-27  2.00e-27
-      12 five             4     2  1.99e-27  1.99e-27  1.99e-27  1.99e-27  1.99e-27
-      13 three            8     1 -2.54e-26 -2.54e-26 -2.54e-26 -2.54e-26 -2.54e-26
-      14 four             8     1  1.00e-26  1.00e-26  1.00e-26  1.00e-26  1.00e-26
-      15 five             8     4  1.00e-26  1.00e-26  1.00e-26  1.00e-26  1.00e-26
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
       $ale$single$effect$vs$stats
       $ale$single$effect$vs$stats$d1
       # A tibble: 16 x 7
-         term      statistic  estimate  conf.low      mean    median conf.high
-         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 continent aled       0         0         0         0         0       
-       2 continent aler_min   0         0         0         0         0       
-       3 continent aler       0         0         0         0         0       
-       4 continent aler_max   0         0         0         0         0       
-       5 continent naled      0         0         0         0         0       
-       6 continent naler_min  0         0         0         0         0       
-       7 continent naler      0         0         0         0         0       
-       8 continent naler_max  0         0         0         0         0       
-       9 wt        aled       4.99e-24  4.99e-24  4.99e-24  4.99e-24  4.99e-24
-      10 wt        aler_min  -2.57e-23 -2.57e-23 -2.57e-23 -2.57e-23 -2.57e-23
-      11 wt        aler       3.37e-23  3.37e-23  3.37e-23  3.37e-23  3.37e-23
-      12 wt        aler_max   8.01e-24  8.01e-24  8.01e-24  8.01e-24  8.01e-24
-      13 wt        naled      2.33e+ 1  2.33e+ 1  2.33e+ 1  2.33e+ 1  2.33e+ 1
-      14 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      15 wt        naler      5.63e+ 1  5.63e+ 1  5.63e+ 1  5.63e+ 1  5.63e+ 1
-      16 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
+         term      statistic estimate conf.low   mean median conf.high
+         <chr>     <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+       1 continent aled          0        0      0      0         0   
+       2 continent aler_min      0        0      0      0         0   
+       3 continent aler          0        0      0      0         0   
+       4 continent aler_max      0        0      0      0         0   
+       5 continent naled         0        0      0      0         0   
+       6 continent naler_min     0        0      0      0         0   
+       7 continent naler         0        0      0      0         0   
+       8 continent naler_max     0        0      0      0         0   
+       9 wt        aled          0        0      0      0         0   
+      10 wt        aler_min      0        0      0      0         0   
+      11 wt        aler          0        0      0      0         0   
+      12 wt        aler_max      0        0      0      0         0   
+      13 wt        naled        23.3     23.3   23.3   23.3      23.3 
+      14 wt        naler_min   -50      -50    -50    -50       -50   
+      15 wt        naler        56.2     56.2   56.2   56.2      56.2 
+      16 wt        naler_max     6.25     6.25   6.25   6.25      6.25
       
       $ale$single$effect$vs$stats$d2
       # A tibble: 8 x 7
-        term      statistic  estimate  conf.low      mean    median conf.high
-        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       1.53e-27  1.53e-27  1.53e-27  1.53e-27  1.53e-27
-      2 gear:carb aler_min  -1.34e-26 -1.34e-26 -1.34e-26 -1.34e-26 -1.34e-26
-      3 gear:carb aler       1.94e-26  1.94e-26  1.94e-26  1.94e-26  1.94e-26
-      4 gear:carb aler_max   6.01e-27  6.01e-27  6.01e-27  6.01e-27  6.01e-27
-      5 gear:carb naled      4.88e- 2  4.88e- 2  4.88e- 2  4.88e- 2  4.88e- 2
-      6 gear:carb naler_min -3.13e+ 0 -3.13e+ 0 -3.13e+ 0 -3.13e+ 0 -3.13e+ 0
-      7 gear:carb naler      3.13e+ 0  3.13e+ 0  3.13e+ 0  3.13e+ 0  3.13e+ 0
-      8 gear:carb naler_max  0         0         0         0         0       
+        term      statistic estimate conf.low    mean  median conf.high
+        <chr>     <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+      1 gear:carb aled        0        0       0       0         0     
+      2 gear:carb aler_min    0        0       0       0         0     
+      3 gear:carb aler        0        0       0       0         0     
+      4 gear:carb aler_max    0        0       0       0         0     
+      5 gear:carb naled       0.0488   0.0488  0.0488  0.0488    0.0488
+      6 gear:carb naler_min  -3.12    -3.12   -3.12   -3.12     -3.12  
+      7 gear:carb naler       3.12     3.12    3.12    3.12      3.12  
+      8 gear:carb naler_max   0        0       0       0         0     
       
       
       $ale$single$effect$vs$boot_data
@@ -1212,18 +1212,18 @@
       $ale$single$params$p_values$rand_stats
       $ale$single$params$p_values$rand_stats$vs
       # A tibble: 100 x 8
-             aled  aler_min     aler aler_max naled naler_min naler naler_max
-            <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
-       1 1.34e-22 -3.24e-22 5.93e-22 2.69e-22  28.1       -50  56.2      6.25
-       2 2.70e-23 -5.65e-23 1.12e-22 5.52e-23  24.0       -50  56.2      6.25
-       3 5.85e-23 -1.27e-22 2.75e-22 1.48e-22  28.1       -50  56.2      6.25
-       4 8.88e-21 -1.65e-20 3.16e-20 1.51e-20  28.1       -50  56.2      6.25
-       5 5.78e-23 -1.08e-22 2.32e-22 1.25e-22  28.1       -50  56.2      6.25
-       6 6.94e-21 -1.43e-20 3.11e-20 1.68e-20  28.1       -50  56.2      6.25
-       7 6.44e-23 -1.39e-22 2.48e-22 1.10e-22  28.1       -50  56.2      6.25
-       8 5.68e-23 -1.17e-22 2.15e-22 9.81e-23  28.1       -50  56.2      6.25
-       9 6.90e-20 -1.34e-19 2.85e-19 1.51e-19  32.9       -50  56.2      6.25
-      10 5.58e-21 -9.86e-21 2.27e-20 1.29e-20  28.1       -50  56.2      6.25
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0  28.1       -50  56.2      6.25
+       2     0        0     0        0  24.0       -50  56.2      6.25
+       3     0        0     0        0  28.1       -50  56.2      6.25
+       4     0        0     0        0  28.1       -50  56.2      6.25
+       5     0        0     0        0  28.1       -50  56.2      6.25
+       6     0        0     0        0  28.1       -50  56.2      6.25
+       7     0        0     0        0  28.1       -50  56.2      6.25
+       8     0        0     0        0  28.1       -50  56.2      6.25
+       9     0        0     0        0  32.9       -50  56.2      6.25
+      10     0        0     0        0  28.1       -50  56.2      6.25
       # i 90 more rows
       
       
@@ -1329,78 +1329,78 @@
       
       $ale$boot$effect$vs$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1    1.50     1  5.73e-23 -3.78e-23  5.73e-23  5.73e-23 1.52e-22
-       2    1.93     6  5.73e-23 -3.78e-23  5.73e-23  5.73e-23 1.52e-22
-       3    2.31     6  4.27e-23 -3.85e-23  4.27e-23  4.27e-23 1.24e-22
-       4    2.78     7  2.89e-23 -1.58e-23  2.89e-23  2.89e-23 7.35e-23
-       5    3.16     6  8.51e-25 -9.19e-24  8.51e-25  8.51e-25 1.09e-23
-       6    3.22     6  3.00e-25 -7.08e-24  3.00e-25  3.00e-25 7.68e-24
-       7    3.44     7 -6.17e-24 -1.29e-23 -6.17e-24 -6.17e-24 5.17e-25
-       8    3.56     6 -7.35e-24 -2.14e-23 -7.35e-24 -7.35e-24 6.68e-24
-       9    3.79     7 -2.35e-23 -7.26e-23 -2.35e-23 -2.35e-23 2.56e-23
-      10    4.07     6 -4.24e-23 -1.33e-22 -4.24e-23 -4.24e-23 4.78e-23
-      11    5.45     6 -1.37e-22 -4.33e-22 -1.37e-22 -1.37e-22 1.59e-22
+         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1    1.50     1     0     0       0         0     0
+       2    1.93     6     0     0       0         0     0
+       3    2.31     6     0     0       0         0     0
+       4    2.78     7     0     0       0         0     0
+       5    3.16     6     0     0       0         0     0
+       6    3.22     6     0     0       0         0     0
+       7    3.44     7     0     0       0         0     0
+       8    3.56     6     0     0       0         0     0
+       9    3.79     7     0     0       0         0     0
+      10    4.07     6     0     0       0         0     0
+      11    5.45     6     0     0       0         0     0
       
       
       $ale$boot$effect$vs$ale$d2
       $ale$boot$effect$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -2.11e-23 -4.10e-23 -2.11e-23 -2.11e-23 -1.23e-24
-       2 four             1     8  3.72e-23  2.61e-24  3.72e-23  3.72e-23  7.17e-23
-       3 five             1     0  3.72e-23  2.61e-24  3.72e-23  3.72e-23  7.17e-23
-       4 three            2     8  6.18e-24  4.77e-25  6.18e-24  6.18e-24  1.19e-23
-       5 four             2     7 -5.67e-23 -1.11e-22 -5.67e-23 -5.67e-23 -2.72e-24
-       6 five             2     4 -5.67e-23 -1.11e-22 -5.67e-23 -5.67e-23 -2.72e-24
-       7 three            3     7 -5.85e-24 -1.16e-23 -5.85e-24 -5.85e-24 -7.01e-26
-       8 four             3     2  5.14e-23  1.75e-24  5.14e-23  5.14e-23  1.01e-22
-       9 five             3     0  5.14e-23  1.75e-24  5.14e-23  5.14e-23  1.01e-22
-      10 three            4     8 -5.89e-24 -1.16e-23 -5.89e-24 -5.89e-24 -1.36e-25
-      11 four             4     6  5.15e-23  1.88e-24  5.15e-23  5.15e-23  1.01e-22
-      12 five             4     2  5.15e-23  1.88e-24  5.15e-23  5.15e-23  1.01e-22
-      13 three            8     1  2.85e-22  1.80e-23  2.85e-22  2.85e-22  5.53e-22
-      14 four             8     1 -1.42e-22 -2.75e-22 -1.42e-22 -1.42e-22 -8.17e-24
-      15 five             8     4 -1.42e-22 -2.75e-22 -1.42e-22 -1.42e-22 -8.17e-24
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
       $ale$boot$effect$vs$stats
       $ale$boot$effect$vs$stats$d1
       # A tibble: 16 x 8
-         term      statistic  estimate p.value  conf.low    median      mean conf.high
-         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 continent aled       0         1       0         0         0         0       
-       2 continent aler_min   0         1       0         0         0         0       
-       3 continent aler       0         1       0         0         0         0       
-       4 continent aler_max   0         1       0         0         0         0       
-       5 continent naled      0         1       0         0         0         0       
-       6 continent naler_min  0         1       0         0         0         0       
-       7 continent naler      0         1       0         0         0         0       
-       8 continent naler_max  0         1       0         0         0         0       
-       9 wt        aled       5.32e-23  0.69    2.91e-23  5.32e-23  5.32e-23  7.73e-23
-      10 wt        aler_min  -2.46e-22  0.5    -4.39e-22 -2.46e-22 -2.46e-22 -5.29e-23
-      11 wt        aler       4.12e-22  0.51    2.27e-22  4.12e-22  4.12e-22  5.97e-22
-      12 wt        aler_max   1.66e-22  0.53    1.58e-22  1.66e-22  1.66e-22  1.74e-22
-      13 wt        naled      2.89e+ 1  0.0600  2.70e+ 1  2.89e+ 1  2.89e+ 1  3.07e+ 1
-      14 wt        naler_min -5   e+ 1  1      -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      15 wt        naler      5.69e+ 1  0       5.48e+ 1  5.69e+ 1  5.69e+ 1  5.90e+ 1
-      16 wt        naler_max  6.89e+ 0  0       4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
+         term      statistic estimate p.value conf.low median   mean conf.high
+         <fct>     <fct>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+       1 continent aled          0       1        0      0      0         0   
+       2 continent aler_min      0       1        0      0      0         0   
+       3 continent aler          0       1        0      0      0         0   
+       4 continent aler_max      0       1        0      0      0         0   
+       5 continent naled         0       1        0      0      0         0   
+       6 continent naler_min     0       1        0      0      0         0   
+       7 continent naler         0       1        0      0      0         0   
+       8 continent naler_max     0       1        0      0      0         0   
+       9 wt        aled          0       0.69     0      0      0         0   
+      10 wt        aler_min      0       0.5      0      0      0         0   
+      11 wt        aler          0       0.51     0      0      0         0   
+      12 wt        aler_max      0       0.53     0      0      0         0   
+      13 wt        naled        28.9     0.06    27.0   28.9   28.9      30.7 
+      14 wt        naler_min   -50       1      -50    -50    -50       -50   
+      15 wt        naler        56.9     0       54.8   56.9   56.9      59.0 
+      16 wt        naler_max     6.89    0        4.80   6.89   6.89      8.98
       
       $ale$boot$effect$vs$stats$d2
       # A tibble: 8 x 8
-        term      statistic  estimate p.value  conf.low    median      mean conf.high
-        <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       1.47e-23    0.87  1.07e-24  1.47e-23  1.47e-23  2.84e-23
-      2 gear:carb aler_min  -4.51e-23    0.85 -8.71e-23 -4.51e-23 -4.51e-23 -3.14e-24
-      3 gear:carb aler       1.85e-22    0.71  1.21e-23  1.85e-22  1.85e-22  3.58e-22
-      4 gear:carb aler_max   1.40e-22    0.56  8.93e-24  1.40e-22  1.40e-22  2.71e-22
-      5 gear:carb naled      2.37e+ 1    0.92  1.09e+ 1  2.37e+ 1  2.37e+ 1  3.64e+ 1
-      6 gear:carb naler_min -4.24e+ 1    1    -4.81e+ 1 -4.24e+ 1 -4.24e+ 1 -3.67e+ 1
-      7 gear:carb naler      4.93e+ 1    1     4.56e+ 1  4.93e+ 1  4.93e+ 1  5.29e+ 1
-      8 gear:carb naler_max  6.89e+ 0    0     4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
+        term      statistic estimate p.value conf.low median   mean conf.high
+        <fct>     <fct>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 gear:carb aled          0       0.87     0      0      0         0   
+      2 gear:carb aler_min      0       0.85     0      0      0         0   
+      3 gear:carb aler          0       0.71     0      0      0         0   
+      4 gear:carb aler_max      0       0.56     0      0      0         0   
+      5 gear:carb naled        23.7     0.92    10.9   23.7   23.7      36.4 
+      6 gear:carb naler_min   -42.4     1      -48.1  -42.4  -42.4     -36.7 
+      7 gear:carb naler        49.3     1       45.6   49.3   49.3      52.9 
+      8 gear:carb naler_max     6.89    0        4.80   6.89   6.89      8.98
       
       
       
@@ -1581,18 +1581,18 @@
       $params$ale_p$rand_stats
       $params$ale_p$rand_stats$vs
       # A tibble: 100 x 8
-             aled  aler_min     aler aler_max naled naler_min naler naler_max
-            <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
-       1 1.34e-22 -3.24e-22 5.93e-22 2.69e-22  28.1       -50  56.2      6.25
-       2 2.70e-23 -5.65e-23 1.12e-22 5.52e-23  24.0       -50  56.2      6.25
-       3 5.85e-23 -1.27e-22 2.75e-22 1.48e-22  28.1       -50  56.2      6.25
-       4 8.88e-21 -1.65e-20 3.16e-20 1.51e-20  28.1       -50  56.2      6.25
-       5 5.78e-23 -1.08e-22 2.32e-22 1.25e-22  28.1       -50  56.2      6.25
-       6 6.94e-21 -1.43e-20 3.11e-20 1.68e-20  28.1       -50  56.2      6.25
-       7 6.44e-23 -1.39e-22 2.48e-22 1.10e-22  28.1       -50  56.2      6.25
-       8 5.68e-23 -1.17e-22 2.15e-22 9.81e-23  28.1       -50  56.2      6.25
-       9 6.90e-20 -1.34e-19 2.85e-19 1.51e-19  32.9       -50  56.2      6.25
-      10 5.58e-21 -9.86e-21 2.27e-20 1.29e-20  28.1       -50  56.2      6.25
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0  28.1       -50  56.2      6.25
+       2     0        0     0        0  24.0       -50  56.2      6.25
+       3     0        0     0        0  28.1       -50  56.2      6.25
+       4     0        0     0        0  28.1       -50  56.2      6.25
+       5     0        0     0        0  28.1       -50  56.2      6.25
+       6     0        0     0        0  28.1       -50  56.2      6.25
+       7     0        0     0        0  28.1       -50  56.2      6.25
+       8     0        0     0        0  28.1       -50  56.2      6.25
+       9     0        0     0        0  32.9       -50  56.2      6.25
+      10     0        0     0        0  28.1       -50  56.2      6.25
       # i 90 more rows
       
       
@@ -1694,58 +1694,58 @@
       $ale$single$effect$setosa$ale$d1
       $ale$single$effect$setosa$ale$d1$Sepal.Length
       # A tibble: 11 x 7
-         Sepal.Length.ceil    .n         .y      .y_lo    .y_mean  .y_median     .y_hi
-                     <dbl> <int>      <dbl>      <dbl>      <dbl>      <dbl>     <dbl>
-       1               4.3     1 -0.000104  -0.000104  -0.000104  -0.000104   -1.04e-4
-       2               4.8    15 -0.0000262 -0.0000262 -0.0000262 -0.0000262  -2.62e-5
-       3               5      16 -0.0000256 -0.0000256 -0.0000256 -0.0000256  -2.56e-5
-       4               5.3    14  0.0000126  0.0000126  0.0000126  0.0000126   1.26e-5
-       5               5.6    19  0.0000143  0.0000143  0.0000143  0.0000143   1.43e-5
-       6               5.8    15  0.0000149  0.0000149  0.0000149  0.0000149   1.49e-5
-       7               6.1    15  0.0000150  0.0000150  0.0000150  0.0000150   1.50e-5
-       8               6.3    13  0.0000150  0.0000150  0.0000150  0.0000150   1.50e-5
-       9               6.5    12  0.0000151  0.0000151  0.0000151  0.0000151   1.51e-5
-      10               6.9    17  0.0000154  0.0000154  0.0000154  0.0000154   1.54e-5
-      11               7.9    13  0.0000179  0.0000179  0.0000179  0.0000179   1.79e-5
+         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0001  -0.0001  -0.0001   -0.0001  -0.0001 
+       2               4.8    15 -0.00003 -0.00003 -0.00003  -0.00003 -0.00003
+       3               5      16 -0.00003 -0.00003 -0.00003  -0.00003 -0.00003
+       4               5.3    14  0.00001  0.00001  0.00001   0.00001  0.00001
+       5               5.6    19  0.00001  0.00001  0.00001   0.00001  0.00001
+       6               5.8    15  0.00001  0.00001  0.00001   0.00001  0.00001
+       7               6.1    15  0.00002  0.00002  0.00002   0.00002  0.00002
+       8               6.3    13  0.00002  0.00002  0.00002   0.00002  0.00002
+       9               6.5    12  0.00002  0.00002  0.00002   0.00002  0.00002
+      10               6.9    17  0.00002  0.00002  0.00002   0.00002  0.00002
+      11               7.9    13  0.00002  0.00002  0.00002   0.00002  0.00002
       
       $ale$single$effect$setosa$ale$d1$Petal.Width
       # A tibble: 10 x 7
-         Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
-                    <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-       1              0.1     5 -0.0000204  -0.0000204  -0.0000204   -2.04e-5 -2.04e-5
-       2              0.2    29 -0.0000197  -0.0000197  -0.0000197   -1.97e-5 -1.97e-5
-       3              0.4    14 -0.00000860 -0.00000860 -0.00000860  -8.60e-6 -8.60e-6
-       4              1.1    12  0.00000874  0.00000874  0.00000874   8.74e-6  8.74e-6
-       5              1.3    18  0.00000980  0.00000980  0.00000980   9.80e-6  9.80e-6
-       6              1.5    20  0.00000988  0.00000988  0.00000988   9.88e-6  9.88e-6
-       7              1.8    18  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
-       8              1.9     5  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
-       9              2.2    15  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
-      10              2.5    14  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
+         Petal.Width.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1              0.1     5 -0.00002 -0.00002 -0.00002  -0.00002 -0.00002
+       2              0.2    29 -0.00002 -0.00002 -0.00002  -0.00002 -0.00002
+       3              0.4    14 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       4              1.1    12  0.00001  0.00001  0.00001   0.00001  0.00001
+       5              1.3    18  0.00001  0.00001  0.00001   0.00001  0.00001
+       6              1.5    20  0.00001  0.00001  0.00001   0.00001  0.00001
+       7              1.8    18  0.00001  0.00001  0.00001   0.00001  0.00001
+       8              1.9     5  0.00001  0.00001  0.00001   0.00001  0.00001
+       9              2.2    15  0.00001  0.00001  0.00001   0.00001  0.00001
+      10              2.5    14  0.00001  0.00001  0.00001   0.00001  0.00001
       
       
       
       $ale$single$effect$setosa$stats
       $ale$single$effect$setosa$stats$d1
       # A tibble: 16 x 7
-         term         statistic     estimate     conf.low      mean   median conf.high
-         <chr>        <chr>            <dbl>        <dbl>     <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0000206    0.0000206    2.06e-5  2.06e-5   2.06e-5
-       2 Sepal.Length aler_min   -0.000104    -0.000104    -1.04e-4 -1.04e-4  -1.04e-4
-       3 Sepal.Length aler        0.000122     0.000122     1.22e-4  1.22e-4   1.22e-4
-       4 Sepal.Length aler_max    0.0000179    0.0000179    1.79e-5  1.79e-5   1.79e-5
-       5 Sepal.Length naled      26.0         26.0          2.60e+1  2.60e+1   2.60e+1
-       6 Sepal.Length naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
-       7 Sepal.Length naler      65.3         65.3          6.53e+1  6.53e+1   6.53e+1
-       8 Sepal.Length naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
-       9 Petal.Width  aled        0.0000117    0.0000117    1.17e-5  1.17e-5   1.17e-5
-      10 Petal.Width  aler_min   -0.0000204   -0.0000204   -2.04e-5 -2.04e-5  -2.04e-5
-      11 Petal.Width  aler        0.0000302    0.0000302    3.02e-5  3.02e-5   3.02e-5
-      12 Petal.Width  aler_max    0.00000989   0.00000989   9.89e-6  9.89e-6   9.89e-6
-      13 Petal.Width  naled      25.7         25.7          2.57e+1  2.57e+1   2.57e+1
-      14 Petal.Width  naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
-      15 Petal.Width  naler      65.3         65.3          6.53e+1  6.53e+1   6.53e+1
-      16 Petal.Width  naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
+         term         statistic  estimate  conf.low      mean    median conf.high
+         <chr>        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 Sepal.Length aled        0.00002   0.00002   0.00002   0.00002   0.00002
+       2 Sepal.Length aler_min   -0.0001   -0.0001   -0.0001   -0.0001   -0.0001 
+       3 Sepal.Length aler        0.00012   0.00012   0.00012   0.00012   0.00012
+       4 Sepal.Length aler_max    0.00002   0.00002   0.00002   0.00002   0.00002
+       5 Sepal.Length naled      26.0      26.0      26.0      26.0      26.0    
+       6 Sepal.Length naler_min -50       -50       -50       -50       -50      
+       7 Sepal.Length naler      65.3      65.3      65.3      65.3      65.3    
+       8 Sepal.Length naler_max  15.3      15.3      15.3      15.3      15.3    
+       9 Petal.Width  aled        0.00001   0.00001   0.00001   0.00001   0.00001
+      10 Petal.Width  aler_min   -0.00002  -0.00002  -0.00002  -0.00002  -0.00002
+      11 Petal.Width  aler        0.00003   0.00003   0.00003   0.00003   0.00003
+      12 Petal.Width  aler_max    0.00001   0.00001   0.00001   0.00001   0.00001
+      13 Petal.Width  naled      25.7      25.7      25.7      25.7      25.7    
+      14 Petal.Width  naler_min -50       -50       -50       -50       -50      
+      15 Petal.Width  naler      65.3      65.3      65.3      65.3      65.3    
+      16 Petal.Width  naler_max  15.3      15.3      15.3      15.3      15.3    
       
       
       $ale$single$effect$setosa$boot_data
@@ -1767,7 +1767,7 @@
        6               5.8    15 -0.0257 -0.0257 -0.0257   -0.0257 -0.0257
        7               6.1    15  0.0133  0.0133  0.0133    0.0133  0.0133
        8               6.3    13  0.0372  0.0372  0.0372    0.0372  0.0372
-       9               6.5    12  0.0379  0.0379  0.0379    0.0379  0.0379
+       9               6.5    12  0.0378  0.0378  0.0378    0.0378  0.0378
       10               6.9    17  0.0496  0.0496  0.0496    0.0496  0.0496
       11               7.9    13  0.0597  0.0597  0.0597    0.0597  0.0597
       
@@ -1828,7 +1828,7 @@
        4               5.3    14  0.0259  0.0259  0.0259    0.0259  0.0259
        5               5.6    19  0.0257  0.0257  0.0257    0.0257  0.0257
        6               5.8    15  0.0257  0.0257  0.0257    0.0257  0.0257
-       7               6.1    15 -0.0133 -0.0133 -0.0133   -0.0133 -0.0133
+       7               6.1    15 -0.0134 -0.0134 -0.0134   -0.0134 -0.0134
        8               6.3    13 -0.0372 -0.0372 -0.0372   -0.0372 -0.0372
        9               6.5    12 -0.0379 -0.0379 -0.0379   -0.0379 -0.0379
       10               6.9    17 -0.0496 -0.0496 -0.0496   -0.0496 -0.0496
@@ -1930,7 +1930,7 @@
       [1] "multinom" "nnet"    
       
       $ale$single$params$model$hash
-      [1] "bc7fe49d32c9b376788f717dd0faab9c"
+      [1] "877a1ea3d19f1fbb4ad415e20eaed84b"
       
       
       $ale$single$params$data
@@ -2313,58 +2313,58 @@
       $ale$boot$effect$setosa$ale$d1
       $ale$boot$effect$setosa$ale$d1$Sepal.Length
       # A tibble: 11 x 7
-         Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
-                     <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.000127   -0.000210     -1.27e-4  -1.27e-4 -4.27e-5
-       2               4.8    15 -0.0000129  -0.0000200    -1.29e-5  -1.29e-5 -5.88e-6
-       3               5      16 -0.0000119  -0.0000183    -1.19e-5  -1.19e-5 -5.53e-6
-       4               5.3    14  0.00000707  0.00000424    7.07e-6   7.07e-6  9.90e-6
-       5               5.6    19  0.00000717  0.00000441    7.17e-6   7.17e-6  9.93e-6
-       6               5.8    15  0.00000905  0.00000460    9.05e-6   9.05e-6  1.35e-5
-       7               6.1    15  0.00000921  0.00000462    9.21e-6   9.21e-6  1.38e-5
-       8               6.3    13  0.00000921  0.00000462    9.21e-6   9.21e-6  1.38e-5
-       9               6.5    12  0.00000921  0.00000462    9.21e-6   9.21e-6  1.38e-5
-      10               6.9    17  0.00000963  0.00000466    9.63e-6   9.63e-6  1.46e-5
-      11               7.9    13  0.0000145   0.00000515    1.45e-5   1.45e-5  2.39e-5
+         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.00013 -0.00021 -0.00013  -0.00013 -0.00004
+       2               4.8    15 -0.00001 -0.00002 -0.00001  -0.00001 -0.00001
+       3               5      16 -0.00001 -0.00002 -0.00001  -0.00001 -0.00001
+       4               5.3    14  0.00001  0        0.00001   0.00001  0.00001
+       5               5.6    19  0.00001  0        0.00001   0.00001  0.00001
+       6               5.8    15  0.00001  0        0.00001   0.00001  0.00001
+       7               6.1    15  0.00001  0        0.00001   0.00001  0.00001
+       8               6.3    13  0.00001  0        0.00001   0.00001  0.00001
+       9               6.5    12  0.00001  0        0.00001   0.00001  0.00001
+      10               6.9    17  0.00001  0        0.00001   0.00001  0.00001
+      11               7.9    13  0.00001  0.00001  0.00001   0.00001  0.00002
       
       $ale$boot$effect$setosa$ale$d1$Petal.Width
       # A tibble: 10 x 7
-         Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
-                    <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-       1              0.1     5 -0.0000402  -0.0000735  -0.0000402   -4.02e-5 -6.91e-6
-       2              0.2    29 -0.0000315  -0.0000570  -0.0000315   -3.15e-5 -5.96e-6
-       3              0.4    14  0.00000543 -0.00000132  0.00000543   5.43e-6  1.22e-5
-       4              1.1    12  0.0000123   0.00000249  0.0000123    1.23e-5  2.21e-5
-       5              1.3    18  0.0000125   0.00000253  0.0000125    1.25e-5  2.24e-5
-       6              1.5    20  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
-       7              1.8    18  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
-       8              1.9     5  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
-       9              2.2    15  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
-      10              2.5    14  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
+         Petal.Width.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1              0.1     5 -0.00004 -0.00007 -0.00004  -0.00004 -0.00001
+       2              0.2    29 -0.00003 -0.00006 -0.00003  -0.00003 -0.00001
+       3              0.4    14  0.00001  0        0.00001   0.00001  0.00001
+       4              1.1    12  0.00001  0        0.00001   0.00001  0.00002
+       5              1.3    18  0.00001  0        0.00001   0.00001  0.00002
+       6              1.5    20  0.00001  0        0.00001   0.00001  0.00002
+       7              1.8    18  0.00001  0        0.00001   0.00001  0.00002
+       8              1.9     5  0.00001  0        0.00001   0.00001  0.00002
+       9              2.2    15  0.00001  0        0.00001   0.00001  0.00002
+      10              2.5    14  0.00001  0        0.00001   0.00001  0.00002
       
       
       
       $ale$boot$effect$setosa$stats
       $ale$boot$effect$setosa$stats$d1
       # A tibble: 16 x 7
-         term         statistic    estimate     conf.low     median     mean conf.high
-         <fct>        <fct>           <dbl>        <dbl>      <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0000132   0.00000638    1.32e-5  1.32e-5   2.00e-5
-       2 Sepal.Length aler_min   -0.000127   -0.000210     -1.27e-4 -1.27e-4  -4.27e-5
-       3 Sepal.Length aler        0.000141    0.0000478     1.41e-4  1.41e-4   2.34e-4
-       4 Sepal.Length aler_max    0.0000145   0.00000515    1.45e-5  1.45e-5   2.39e-5
-       5 Sepal.Length naled      28.5        27.8           2.85e+1  2.85e+1   2.91e+1
-       6 Sepal.Length naler_min -50         -50            -5   e+1 -5   e+1  -5   e+1
-       7 Sepal.Length naler      70.1        69.8           7.01e+1  7.01e+1   7.04e+1
-       8 Sepal.Length naler_max  20.1        19.8           2.01e+1  2.01e+1   2.04e+1
-       9 Petal.Width  aled        0.0000172   0.00000335    1.72e-5  1.72e-5   3.11e-5
-      10 Petal.Width  aler_min   -0.0000402  -0.0000735    -4.02e-5 -4.02e-5  -6.91e-6
-      11 Petal.Width  aler        0.0000527   0.00000945    5.27e-5  5.27e-5   9.59e-5
-      12 Petal.Width  aler_max    0.0000125   0.00000254    1.25e-5  1.25e-5   2.24e-5
-      13 Petal.Width  naled      28.8        28.8           2.88e+1  2.88e+1   2.89e+1
-      14 Petal.Width  naler_min -50         -50            -5   e+1 -5   e+1  -5   e+1
-      15 Petal.Width  naler      68.4        66.6           6.84e+1  6.84e+1   7.02e+1
-      16 Petal.Width  naler_max  18.4        16.6           1.84e+1  1.84e+1   2.02e+1
+         term         statistic  estimate  conf.low    median      mean conf.high
+         <fct>        <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 Sepal.Length aled        0.00001   0.00001   0.00001   0.00001   0.00002
+       2 Sepal.Length aler_min   -0.00013  -0.00021  -0.00013  -0.00013  -0.00004
+       3 Sepal.Length aler        0.00014   0.00005   0.00014   0.00014   0.00023
+       4 Sepal.Length aler_max    0.00001   0.00001   0.00001   0.00001   0.00002
+       5 Sepal.Length naled      28.5      27.8      28.5      28.5      29.1    
+       6 Sepal.Length naler_min -50       -50       -50       -50       -50      
+       7 Sepal.Length naler      70.1      69.8      70.1      70.1      70.4    
+       8 Sepal.Length naler_max  20.1      19.8      20.1      20.1      20.4    
+       9 Petal.Width  aled        0.00002   0         0.00002   0.00002   0.00003
+      10 Petal.Width  aler_min   -0.00004  -0.00007  -0.00004  -0.00004  -0.00001
+      11 Petal.Width  aler        0.00005   0.00001   0.00005   0.00005   0.0001 
+      12 Petal.Width  aler_max    0.00001   0         0.00001   0.00001   0.00002
+      13 Petal.Width  naled      28.8      28.8      28.8      28.8      28.9    
+      14 Petal.Width  naler_min -50       -50       -50       -50       -50      
+      15 Petal.Width  naler      68.4      66.6      68.4      68.4      70.2    
+      16 Petal.Width  naler_max  18.4      16.6      18.4      18.4      20.2    
       
       
       
@@ -2373,34 +2373,34 @@
       $ale$boot$effect$versicolor$ale$d1
       $ale$boot$effect$versicolor$ale$d1$Sepal.Length
       # A tibble: 11 x 7
-         Sepal.Length.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-                     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.0176   -0.0211   -0.0176   -0.0176   -0.0141 
-       2               4.8    15 -0.0177   -0.0212   -0.0177   -0.0177   -0.0141 
-       3               5      16 -0.0149   -0.0159   -0.0149   -0.0149   -0.0139 
-       4               5.3    14 -0.0149   -0.0160   -0.0149   -0.0149   -0.0139 
-       5               5.6    19 -0.0126   -0.0151   -0.0126   -0.0126   -0.0101 
-       6               5.8    15 -0.0125   -0.0150   -0.0125   -0.0125   -0.0101 
-       7               6.1    15  0.000303 -0.00231   0.000303  0.000303  0.00291
-       8               6.3    13  0.0116    0.000305  0.0116    0.0116    0.0228 
-       9               6.5    12  0.0130    0.000445  0.0130    0.0130    0.0255 
-      10               6.9    17  0.0189    0.0108    0.0189    0.0189    0.0270 
-      11               7.9    13  0.0967    0.0358    0.0967    0.0967    0.158  
+         Sepal.Length.ceil    .n      .y    .y_lo .y_mean .y_median    .y_hi
+                     <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0176 -0.0211  -0.0176   -0.0176 -0.0141 
+       2               4.8    15 -0.0177 -0.0213  -0.0177   -0.0177 -0.0141 
+       3               5      16 -0.0149 -0.0159  -0.0149   -0.0149 -0.0139 
+       4               5.3    14 -0.0149 -0.0160  -0.0149   -0.0149 -0.0139 
+       5               5.6    19 -0.0126 -0.0151  -0.0126   -0.0126 -0.0101 
+       6               5.8    15 -0.0125 -0.0150  -0.0125   -0.0125 -0.0101 
+       7               6.1    15  0.0003 -0.00231  0.0003    0.0003  0.00291
+       8               6.3    13  0.0116  0.0003   0.0116    0.0116  0.0228 
+       9               6.5    12  0.0130  0.00044  0.0130    0.0130  0.0255 
+      10               6.9    17  0.0189  0.0107   0.0189    0.0189  0.0270 
+      11               7.9    13  0.0967  0.0358   0.0967    0.0967  0.158  
       
       $ale$boot$effect$versicolor$ale$d1$Petal.Width
       # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y     .y_lo .y_mean .y_median   .y_hi
-                    <dbl> <int>   <dbl>     <dbl>   <dbl>     <dbl>   <dbl>
-       1              0.1     5  0.0855  0.0678    0.0855    0.0855  0.103 
-       2              0.2    29  0.0855  0.0678    0.0855    0.0855  0.103 
-       3              0.4    14  0.0855  0.0677    0.0855    0.0855  0.103 
-       4              1.1    12  0.0855  0.0677    0.0855    0.0855  0.103 
-       5              1.3    18  0.0852  0.0674    0.0852    0.0852  0.103 
-       6              1.5    20  0.0308 -0.000358  0.0308    0.0308  0.0619
-       7              1.8    18 -0.135  -0.147    -0.135    -0.135  -0.123 
-       8              1.9     5 -0.137  -0.151    -0.137    -0.137  -0.123 
-       9              2.2    15 -0.144  -0.164    -0.144    -0.144  -0.124 
-      10              2.5    14 -0.145  -0.165    -0.145    -0.145  -0.124 
+         Petal.Width.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
+                    <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+       1              0.1     5  0.0855  0.0678   0.0855    0.0855  0.103 
+       2              0.2    29  0.0855  0.0678   0.0855    0.0855  0.103 
+       3              0.4    14  0.0855  0.0678   0.0855    0.0855  0.103 
+       4              1.1    12  0.0855  0.0677   0.0855    0.0855  0.103 
+       5              1.3    18  0.0852  0.0674   0.0852    0.0852  0.103 
+       6              1.5    20  0.0308 -0.00036  0.0308    0.0308  0.0619
+       7              1.8    18 -0.135  -0.147   -0.135    -0.135  -0.123 
+       8              1.9     5 -0.137  -0.151   -0.137    -0.137  -0.123 
+       9              2.2    15 -0.144  -0.164   -0.144    -0.144  -0.124 
+      10              2.5    14 -0.145  -0.165   -0.145    -0.145  -0.124 
       
       
       
@@ -2410,7 +2410,7 @@
          term         statistic estimate conf.low   median     mean conf.high
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
        1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180
-       2 Sepal.Length aler_min   -0.0177  -0.0212  -0.0177  -0.0177   -0.0141
+       2 Sepal.Length aler_min   -0.0177  -0.0213  -0.0177  -0.0177   -0.0141
        3 Sepal.Length aler        0.114    0.0570   0.114    0.114     0.172 
        4 Sepal.Length aler_max    0.0967   0.0358   0.0967   0.0967    0.158 
        5 Sepal.Length naled      38.8     35.9     38.8     38.8      41.7   
@@ -2433,34 +2433,34 @@
       $ale$boot$effect$virginica$ale$d1
       $ale$boot$effect$virginica$ale$d1$Sepal.Length
       # A tibble: 11 x 7
-         Sepal.Length.ceil    .n        .y    .y_lo   .y_mean .y_median     .y_hi
-                     <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>     <dbl>
-       1               4.3     1  0.0177    0.0141   0.0177    0.0177    0.0213  
-       2               4.8    15  0.0177    0.0141   0.0177    0.0177    0.0213  
-       3               5      16  0.0149    0.0139   0.0149    0.0149    0.0159  
-       4               5.3    14  0.0149    0.0139   0.0149    0.0149    0.0159  
-       5               5.6    19  0.0126    0.0101   0.0126    0.0126    0.0151  
-       6               5.8    15  0.0125    0.0101   0.0125    0.0125    0.0150  
-       7               6.1    15 -0.000312 -0.00293 -0.000312 -0.000312  0.00230 
-       8               6.3    13 -0.0116   -0.0228  -0.0116   -0.0116   -0.000309
-       9               6.5    12 -0.0130   -0.0255  -0.0130   -0.0130   -0.000449
-      10               6.9    17 -0.0189   -0.0270  -0.0189   -0.0189   -0.0108  
-      11               7.9    13 -0.0968   -0.158   -0.0968   -0.0968   -0.0358  
+         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1  0.0177   0.0142   0.0177    0.0177   0.0213 
+       2               4.8    15  0.0177   0.0142   0.0177    0.0177   0.0213 
+       3               5      16  0.0149   0.0139   0.0149    0.0149   0.0160 
+       4               5.3    14  0.0149   0.0138   0.0149    0.0149   0.0160 
+       5               5.6    19  0.0126   0.0101   0.0126    0.0126   0.0151 
+       6               5.8    15  0.0125   0.0101   0.0125    0.0125   0.0150 
+       7               6.1    15 -0.00031 -0.00293 -0.00031  -0.00031  0.0023 
+       8               6.3    13 -0.0116  -0.0228  -0.0116   -0.0116  -0.00031
+       9               6.5    12 -0.0130  -0.0255  -0.0130   -0.0130  -0.00045
+      10               6.9    17 -0.0189  -0.027   -0.0189   -0.0189  -0.0108 
+      11               7.9    13 -0.0968  -0.158   -0.0968   -0.0968  -0.0358 
       
       $ale$boot$effect$virginica$ale$d1$Petal.Width
       # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median     .y_hi
-                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>     <dbl>
-       1              0.1     5 -0.0855 -0.103  -0.0855   -0.0855 -0.0678  
-       2              0.2    29 -0.0855 -0.103  -0.0855   -0.0855 -0.0678  
-       3              0.4    14 -0.0855 -0.103  -0.0855   -0.0855 -0.0678  
-       4              1.1    12 -0.0855 -0.103  -0.0855   -0.0855 -0.0678  
-       5              1.3    18 -0.0852 -0.103  -0.0852   -0.0852 -0.0674  
-       6              1.5    20 -0.0308 -0.0619 -0.0308   -0.0308  0.000356
-       7              1.8    18  0.135   0.123   0.135     0.135   0.147   
-       8              1.9     5  0.137   0.123   0.137     0.137   0.151   
-       9              2.2    15  0.144   0.124   0.144     0.144   0.164   
-      10              2.5    14  0.145   0.124   0.145     0.145   0.165   
+         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median    .y_hi
+                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>    <dbl>
+       1              0.1     5 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
+       2              0.2    29 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
+       3              0.4    14 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
+       4              1.1    12 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
+       5              1.3    18 -0.0852 -0.103  -0.0852   -0.0852 -0.0674 
+       6              1.5    20 -0.0308 -0.0619 -0.0308   -0.0308  0.00036
+       7              1.8    18  0.135   0.123   0.135     0.135   0.147  
+       8              1.9     5  0.137   0.123   0.137     0.137   0.151  
+       9              2.2    15  0.144   0.124   0.144     0.144   0.164  
+      10              2.5    14  0.145   0.124   0.145     0.145   0.165  
       
       
       
@@ -2469,22 +2469,22 @@
       # A tibble: 16 x 7
          term         statistic estimate conf.low   median     mean conf.high
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0163   0.0145   0.0163   0.0163    0.0180
+       1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180
        2 Sepal.Length aler_min   -0.0968  -0.158   -0.0968  -0.0968   -0.0358
        3 Sepal.Length aler        0.114    0.0571   0.114    0.114     0.172 
-       4 Sepal.Length aler_max    0.0177   0.0141   0.0177   0.0177    0.0213
+       4 Sepal.Length aler_max    0.0177   0.0142   0.0177   0.0177    0.0213
        5 Sepal.Length naled      23.2     21.6     23.2     23.2      24.9   
        6 Sepal.Length naler_min -50      -50      -50      -50       -50     
        7 Sepal.Length naler      60.3     58.7     60.3     60.3      61.8   
-       8 Sepal.Length naler_max  10.3      8.73    10.3     10.3      11.8   
-       9 Petal.Width  aled        0.0945   0.0804   0.0945   0.0945    0.109 
+       8 Sepal.Length naler_max  10.3      8.72    10.3     10.3      11.8   
+       9 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109 
       10 Petal.Width  aler_min   -0.0855  -0.103   -0.0855  -0.0855   -0.0678
       11 Petal.Width  aler        0.230    0.192    0.230    0.230     0.268 
       12 Petal.Width  aler_max    0.145    0.124    0.145    0.145     0.165 
       13 Petal.Width  naled      33.8     33.0     33.8     33.8      34.7   
       14 Petal.Width  naler_min -50      -50      -50      -50       -50     
       15 Petal.Width  naler      60.3     58.7     60.3     60.3      61.8   
-      16 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8   
+      16 Petal.Width  naler_max  10.3      8.72    10.3     10.3      11.8   
       
       
       

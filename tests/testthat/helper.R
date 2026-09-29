@@ -32,6 +32,10 @@ s7_snapshot <- function(object) {
       return(s7_snapshot(value))
     }
 
+    if (inherits(value, "data.frame")) {
+      return(normalize_snapshot_data_frame(value))
+    }
+
     if (is.list(value) && !inherits(value, "data.frame")) {
       normalized <- lapply(value, normalize)
       names(normalized) <- names(value)
@@ -99,6 +103,39 @@ test_nn_categorical <- nnet::multinom(
 )
 
 
+# Snapshot data-frame normalization -------------------
+
+# Round the ordinary double columns that tend to introduce platform-specific
+# noise into snapshots. Classed numeric vectors are intentionally excluded:
+# besides date/time columns, their underlying doubles need not represent an
+# ordinary numeric measurement.
+normalize_snapshot_data_frame <- function(x, tolerance = 1e-5) {
+  stopifnot(
+    inherits(x, "data.frame"),
+    is.double(tolerance),
+    length(tolerance) == 1L,
+    !is.na(tolerance),
+    is.finite(tolerance),
+    tolerance > 0
+  )
+
+  decimal_places <- max(0, ceiling(-log10(tolerance)))
+  ordinary_double <- vapply(
+    x,
+    \(column) is.double(column) && !is.object(column),
+    logical(1)
+  )
+
+  x[ordinary_double] <- lapply(x[ordinary_double], \(column) {
+    rounded <- round(column, digits = decimal_places)
+    # Assignment converts both signs of zero to positive zero without touching
+    # missing or non-finite values. round() preserves vector attributes.
+    rounded[!is.na(rounded) & rounded == 0] <- 0
+    rounded
+  })
+
+  x
+}
 
 # Returns list of ALE plots converted to ggplot data format ---------------
 ale_plots_to_data <- function(
