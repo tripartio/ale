@@ -733,10 +733,10 @@
       5  3.160130 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
       6  3.219684 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
       7  3.440000 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      8  3.558601 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      9  3.794139 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      10 4.070000 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      11 5.453272 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      8  3.558601 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      9  3.794139 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      10 4.070000 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
+      11 5.453272 3.925670e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
               fill linewidth linetype alpha
       1  lightgrey       0.5        1    NA
       2  lightgrey       0.5        1    NA
@@ -859,7 +859,7 @@
       $vs$eff[[2]]
                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
       1 3.925673e-13 3.925673e-13 1     1     1        TRUE 0.875 1.125  black
-      2 3.925673e-13 3.925673e-13 2     1     2        TRUE 1.875 2.125  black
+      2 3.925669e-13 3.925673e-13 2     1     2        TRUE 1.875 2.125  black
         linewidth linetype width alpha
       1       0.5        1   0.9    NA
       2       0.5        1   0.9    NA
@@ -867,23 +867,23 @@
       $vs$eff[[3]]
                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
       1 3.925673e-13 3.925673e-13  0.7  1.3 1     1     1     NA white       0.5
-      2 3.925673e-13 3.925673e-13  1.7  2.3 2     1     2     NA white       0.5
+      2 3.925672e-13 3.925673e-13  1.7  2.3 2     1     2     NA white       0.5
         linetype alpha
       1        1    NA
       2        1    NA
       
       $vs$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 3.925673e-13 NALED  0.0% 1     1     1       0       0  black           3
-      2 3.925673e-13 NALED 28.9% 2     1     2       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
+                   x     label y PANEL group nudge_x nudge_y colour family size angle
+      1 3.925673e-13 NALED  0% 1     1     1       0       0  black           3     0
+      2 3.925673e-13 NALED 24% 2     1     2       0       0  black           3     0
+        hjust vjust alpha fontface lineheight
+      1   0.5    -1    NA        1        1.2
+      2   0.5    -1    NA        1        1.2
       
       $vs$eff[[5]]
                    x label    y PANEL group nudge_x nudge_y colour family     size
       1 3.925673e-13     ( 1.02     1     1       0    0.02  black        3.866058
-      2 3.925673e-13     ( 2.02     1     2       0    0.02  black        3.866058
+      2 3.925672e-13     ( 2.02     1     2       0    0.02  black        3.866058
         angle hjust vjust alpha fontface lineheight
       1     0   0.5   0.5    NA        1        1.2
       2     0   0.5   0.5    NA        1        1.2
@@ -1008,23 +1008,23 @@
       10 wt        aler_min      0        0      0      0         0   
       11 wt        aler          0        0      0      0         0   
       12 wt        aler_max      0        0      0      0         0   
-      13 wt        naled        23.3     23.3   23.3   23.3      23.3 
+      13 wt        naled        31.7     31.7   31.7   31.7      31.7 
       14 wt        naler_min   -50      -50    -50    -50       -50   
       15 wt        naler        56.2     56.2   56.2   56.2      56.2 
       16 wt        naler_max     6.25     6.25   6.25   6.25      6.25
       
       $ale$single$effect$vs$stats$d2
       # A tibble: 8 x 7
-        term      statistic estimate conf.low    mean  median conf.high
-        <chr>     <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 gear:carb aled        0        0       0       0         0     
-      2 gear:carb aler_min    0        0       0       0         0     
-      3 gear:carb aler        0        0       0       0         0     
-      4 gear:carb aler_max    0        0       0       0         0     
-      5 gear:carb naled       0.0488   0.0488  0.0488  0.0488    0.0488
-      6 gear:carb naler_min  -3.12    -3.12   -3.12   -3.12     -3.12  
-      7 gear:carb naler       3.12     3.12    3.12    3.12      3.12  
-      8 gear:carb naler_max   0        0       0       0         0     
+        term      statistic estimate conf.low   mean median conf.high
+        <chr>     <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 gear:carb aled          0        0      0      0         0   
+      2 gear:carb aler_min      0        0      0      0         0   
+      3 gear:carb aler          0        0      0      0         0   
+      4 gear:carb aler_max      0        0      0      0         0   
+      5 gear:carb naled         7.01     7.01   7.01   7.01      7.01
+      6 gear:carb naler_min   -37.5    -37.5  -37.5  -37.5     -37.5 
+      7 gear:carb naler        43.8     43.8   43.8   43.8      43.8 
+      8 gear:carb naler_max     6.25     6.25   6.25   6.25      6.25
       
       
       $ale$single$effect$vs$boot_data
@@ -1066,12 +1066,12 @@
       25%        3.925673e-13
       30%        3.925673e-13
       40%        3.925673e-13
-      aler_lo_lo 3.925668e-13
+      aler_lo_lo 3.925669e-13
       aler_lo    3.925671e-13
       50%        3.925673e-13
       mean       4.375000e-01
       aler_hi    3.925674e-13
-      aler_hi_hi 3.925677e-13
+      aler_hi_hi 3.925676e-13
       60%        1.000000e+00
       70%        1.000000e+00
       75%        1.000000e+00
@@ -1206,9 +1206,9 @@
           aled aler_min  aler aler_max naled naler_min naler naler_max
          <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
        1     0        0     0        0  28.1       -50  56.2      6.25
-       2     0        0     0        0  24.0       -50  56.2      6.25
-       3     0        0     0        0  28.1       -50  56.2      6.25
-       4     0        0     0        0  28.1       -50  56.2      6.25
+       2     0        0     0        0  32.2       -50  56.2      6.25
+       3     0        0     0        0  24.0       -50  56.2      6.25
+       4     0        0     0        0  27.6       -50  56.2      6.25
        5     0        0     0        0  28.1       -50  56.2      6.25
        6     0        0     0        0  28.1       -50  56.2      6.25
        7     0        0     0        0  28.1       -50  56.2      6.25
@@ -1368,27 +1368,27 @@
        6 continent naler_min     0       1        0      0      0         0   
        7 continent naler         0       1        0      0      0         0   
        8 continent naler_max     0       1        0      0      0         0   
-       9 wt        aled          0       0.69     0      0      0         0   
-      10 wt        aler_min      0       0.5      0      0      0         0   
-      11 wt        aler          0       0.51     0      0      0         0   
-      12 wt        aler_max      0       0.53     0      0      0         0   
-      13 wt        naled        28.9     0.06    27.0   28.9   28.9      30.7 
-      14 wt        naler_min   -50       1      -50    -50    -50       -50   
-      15 wt        naler        56.9     0       54.8   56.9   56.9      59.0 
-      16 wt        naler_max     6.89    0        4.80   6.89   6.89      8.98
+       9 wt        aled          0       0.05     0      0      0         0   
+      10 wt        aler_min      0       0.01     0      0      0         0   
+      11 wt        aler          0       0.02     0      0      0         0   
+      12 wt        aler_max      0       0.05     0      0      0         0   
+      13 wt        naled        24.0     0.92    20.6   24.0   24.0      27.4 
+      14 wt        naler_min   -49.2     1      -50.0  -49.2  -49.2     -48.5 
+      15 wt        naler        56.8     0       55.9   56.8   56.8      57.8 
+      16 wt        naler_max     7.58    0        7.36   7.58   7.58      7.80
       
       $ale$boot$effect$vs$stats$d2
       # A tibble: 8 x 8
         term      statistic estimate p.value conf.low median   mean conf.high
         <fct>     <fct>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 gear:carb aled          0       0.87     0      0      0         0   
-      2 gear:carb aler_min      0       0.85     0      0      0         0   
-      3 gear:carb aler          0       0.71     0      0      0         0   
-      4 gear:carb aler_max      0       0.56     0      0      0         0   
-      5 gear:carb naled        23.7     0.92    10.9   23.7   23.7      36.4 
-      6 gear:carb naler_min   -42.4     1      -48.1  -42.4  -42.4     -36.7 
-      7 gear:carb naler        49.3     1       45.6   49.3   49.3      52.9 
-      8 gear:carb naler_max     6.89    0        4.80   6.89   6.89      8.98
+      1 gear:carb aled          0       0.34     0      0      0         0   
+      2 gear:carb aler_min      0       0.29     0      0      0         0   
+      3 gear:carb aler          0       0.28     0      0      0         0   
+      4 gear:carb aler_max      0       0.24     0      0      0         0   
+      5 gear:carb naled        21.3     1        5.84  21.3   21.3      36.8 
+      6 gear:carb naler_min   -49.2     1      -50.0  -49.2  -49.2     -48.5 
+      7 gear:carb naler        56.8     0       55.9   56.8   56.8      57.8 
+      8 gear:carb naler_max     7.58    0        7.36   7.58   7.58      7.80
       
       
       
@@ -1569,9 +1569,9 @@
           aled aler_min  aler aler_max naled naler_min naler naler_max
          <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
        1     0        0     0        0  28.1       -50  56.2      6.25
-       2     0        0     0        0  24.0       -50  56.2      6.25
-       3     0        0     0        0  28.1       -50  56.2      6.25
-       4     0        0     0        0  28.1       -50  56.2      6.25
+       2     0        0     0        0  32.2       -50  56.2      6.25
+       3     0        0     0        0  24.0       -50  56.2      6.25
+       4     0        0     0        0  27.6       -50  56.2      6.25
        5     0        0     0        0  28.1       -50  56.2      6.25
        6     0        0     0        0  28.1       -50  56.2      6.25
        7     0        0     0        0  28.1       -50  56.2      6.25

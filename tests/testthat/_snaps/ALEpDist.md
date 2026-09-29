@@ -23,7 +23,7 @@
       $residual_distribution
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.300e-11  3.587e-03  
+      1.310e-11  3.587e-03  
       
       $residuals
       NULL
@@ -365,7 +365,7 @@
       $params$p_values$residual_distribution
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.300e-11  3.587e-03  
+      1.310e-11  3.587e-03  
       
       $params$p_values$residuals
       NULL
@@ -504,7 +504,7 @@
       $residual_distribution
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.300e-11  3.587e-03  
+      1.310e-11  3.587e-03  
       
       $residuals
        [1] -9.470697e-04 -1.130145e-03 -3.078035e-03  7.415332e-04 -4.678952e-03
@@ -628,7 +628,7 @@
       $residual_distribution
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.300e-11  3.587e-03  
+      1.310e-11  3.587e-03  
       
       $residuals
        [1] -9.470697e-04 -1.130145e-03 -3.078035e-03  7.415332e-04 -4.678952e-03
@@ -696,16 +696,16 @@
       # A tibble: 10 x 8
           aled aler_min  aler aler_max naled naler_min naler naler_max
          <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
-       1     0        0     0        0  6.93     -20.3  26.6      6.25
-       2     0        0     0        0 10.9      -35.9  42.2      6.25
-       3     0        0     0        0 14.7      -50    56.2      6.25
-       4     0        0     0        0 20.3      -50    56.2      6.25
-       5     0        0     0        0 25.3      -50    56.2      6.25
-       6     0        0     0        0 26.3      -50    56.2      6.25
-       7     0        0     0        0 23.3      -50    56.2      6.25
-       8     0        0     0        0 28.7      -50    56.2      6.25
-       9     0        0     0        0  0          0     0        0   
-      10     0        0     0        0 28.4      -50    56.2      6.25
+       1     0        0     0        0  2.05     -3.12  7.81      4.69
+       2     0        0     0        0 17.3     -50    56.2       6.25
+       3     0        0     0        0 32.2     -50    56.2       6.25
+       4     0        0     0        0 27.8     -50    56.2       6.25
+       5     0        0     0        0 23.1     -50    56.2       6.25
+       6     0        0     0        0 29.5     -50    56.2       6.25
+       7     0        0     0        0 25.4     -50    56.2       6.25
+       8     0        0     0        0 29.2     -50    56.2       6.25
+       9     0        0     0        0  7.15    -18.8  25         6.25
+      10     0        0     0        0 27.4     -50    56.2       6.25
       
       
       $residual_distribution

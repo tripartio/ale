@@ -35,6 +35,8 @@ test_that("s7_snapshot removes only model hashes without mutating objects", {
   expect_identical(nested@params$model$hash, "nested model hash")
   expect_identical(snapshot$nested$params$hash, "nested params hash")
   expect_identical(snapshot$nested$metadata$hash, "nested metadata hash")
+})
+
 test_that("snapshot data frames round only ordinary doubles", {
   input <- data.frame(
     double = c(1.234567, -0.000001),
