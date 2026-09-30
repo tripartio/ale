@@ -2,25 +2,38 @@
 
 # S7 methods --------
 
+# Keep S7 method signatures in prose-only help topics. R's documentation
+# checks currently compare executable method usage with the generic rather
+# than the S7 method, producing false code/documentation mismatch warnings.
+# See https://github.com/RConsortium/S7/issues/725.
 
-#' @name get.ALE
+
+#' @name get-ALE-method
 #' @title get method for ALE objects
 #'
 #' @description
-#' Retrieve specific elements from an `ALE` object.
+#' Retrieve specific elements from an `ALE` object with the [get()] generic.
 #'
-#' @param obj ALE object from which to retrieve elements.
-#' @param x_cols,exclude_cols character, list, or formula. Columns names and interaction terms from `obj` requested in one of the special `x_cols` formats. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`. See details in the documentation for [resolve_x_cols()].
-#' @param what character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the `stats` argument.
-#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param stats character(1). Retrieve ALE statistics. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
-#' @param cats character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
-#' @param ale_centre Same as in documentation for [ALEPlots()]
-#' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest list structure possible to give the requested results. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
-#' @param silent See documentation for [resolve_x_cols()]
+#' @section Method usage:
+#'
+#' ```r
+#' get(obj, x_cols = NULL, what = "ale", ..., exclude_cols = NULL, stats = NULL, cats = NULL, ale_centre = "median", simplify = TRUE, silent = FALSE)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `obj`: ALE object from which to retrieve elements.
+#' * `x_cols`, `exclude_cols`: character, list, or formula. Columns names and interaction terms from `obj` requested in one of the special `x_cols` formats. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`. See details in the documentation for [resolve_x_cols()].
+#' * `what`: character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the `stats` argument.
+#' * `...`: not used. Inserted to require explicit naming of subsequent arguments.
+#' * `stats`: character(1). Retrieve ALE statistics. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
+#' * `cats`: character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
+#' * `ale_centre`: Same as in documentation for [ALEPlots()]
+#' * `simplify`: logical(1). If `TRUE` (default), the results will be simplified to the simplest list structure possible to give the requested results. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
+#' * `silent`: See documentation for [resolve_x_cols()]
 #'
 #' @returns
-#' Regardless of the requested data, all [get.ALE()] have a common structure:
+#' Regardless of the requested data, all calls to `get()` on an `ALE` object have a common structure:
 #'   * If more than one category of the y outcome is returned, then the top level is a list named by each category. If, however, the y outcome is not categorical or only one category of multiple possibilities is specified using the `cats` argument, then the top level never has categories, regardless of the value of `simplify`.
 #'   * The next level (or top level if there are zero or one category) is a list with one or two levels:
 #'       * `d1`: 1D ALE elements.
@@ -68,7 +81,9 @@
 #' # See examples at ALE() for a demonstration of how to use the get() method.
 #'
 #'
-#' @method get ALE
+NULL
+
+#' @noRd
 method(get, ALE) <- function(
     obj,
     x_cols = NULL,
@@ -352,30 +367,49 @@ method(get, ALE) <- function(
 }
 
 
-#' @name plot.ALE
+#' @name plot-ALE-method
 #' @title plot method for `ALE` objects
 #'
 #' @description
-#' This plot method simply calls the constructor for an `ALEPlots` object.
+#' This [graphics::plot()] method simply calls the constructor for an
+#' `ALEPlots` object.
 #'
-#' @param x ALE object.
-#' @param ... Arguments passed to [ALEPlots()]
+#' @section Method usage:
 #'
-#' @method plot ALE
+#' ```r
+#' plot(x, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `x`: ALE object.
+#' * `...`: Arguments passed to [ALEPlots()]
+#'
+NULL
+
+#' @noRd
 method(plot, ALE) <- function(x, ...) {
   ALEPlots(x, ...)
 }
 
 
-#' @name print.ALE
+#' @name print-ALE-method
 #' @title print Method for ALE object
 #'
 #' @description
-#' Print an ALE object.
+#' Print an ALE object with the [base::print()] generic.
 #'
-#' @param x An object of class `ALE`.
-#' @param details logical(1). If `TRUE` (default), all brief details are printed. If `FALSE`, only minimal information is printed.
-#' @param ... Additional arguments (currently not used).
+#' @section Method usage:
+#'
+#' ```r
+#' print(x, details = TRUE, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `x`: An object of class `ALE`.
+#' * `details`: logical(1). If `TRUE` (default), all brief details are printed. If `FALSE`, only minimal information is printed.
+#' * `...`: Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
 #'
@@ -386,7 +420,9 @@ method(plot, ALE) <- function(x, ...) {
 #' print(ale_cars)
 #' }
 #'
-#' @method print ALE
+NULL
+
+#' @noRd
 method(print, ALE) <- function(
     x,
     details = TRUE,
@@ -507,18 +543,29 @@ summary_ALE_stats <- function(
 
 
 
-#' @name summary.ALE
+#' @name summary-ALE-method
 #' @title summary Method for ALE object
 #'
 #' @description
-#' Prints out a statistical summary of an `ALE` object. If there are no ALE statistics, a message says so. Summarized statistics are mean or median depending on the `boot_centre` argument used for [ALE()] bootstrapping.
+#' This [base::summary()] method prints a statistical summary of an `ALE`
+#' object. If there are no ALE statistics, a message says so. Summarized
+#' statistics are mean or median depending on the `boot_centre` argument used
+#' for [ALE()] bootstrapping.
 #'
-#' @param object An object of class `ALE`.
-#' @param stats character. One or more values in c("aled", "aler_min", "aler", "aler_max", "naled", "naler_min", "naler", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
-#' @param all_conf logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
-#' @param round_digits integer(1). Numbers in tables will be rounded to `round_digits` decimal places.
-#' @param max_rows natural number. Maximum number of rows to print for any component.
-#' @param ... Additional arguments (currently not used).
+#' @section Method usage:
+#'
+#' ```r
+#' summary(object, stats = c("aled", "aler", "naled", "naler"), all_conf = FALSE, round_digits = 4L, max_rows = 100, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `object`: An object of class `ALE`.
+#' * `stats`: character. One or more values in c("aled", "aler_min", "aler", "aler_max", "naled", "naler_min", "naler", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
+#' * `all_conf`: logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
+#' * `round_digits`: integer(1). Numbers in tables will be rounded to `round_digits` decimal places.
+#' * `max_rows`: natural number. Maximum number of rows to print for any component.
+#' * `...`: Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `object`. The printout is a side effect.
 #'
@@ -529,7 +576,9 @@ summary_ALE_stats <- function(
 #' summary(ale_cars)
 #' }
 #'
-#' @method summary ALE
+NULL
+
+#' @noRd
 method(summary, ALE) <- function(
     object,
     stats = c('aled', 'aler', 'naled', 'naler'),
@@ -737,4 +786,3 @@ invert_probs <- function(
 
   return(ale_obj)
 }
-

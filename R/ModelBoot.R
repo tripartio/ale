@@ -33,7 +33,14 @@
 #' @param silent See documentation for [ALE()]
 #'
 #'
-#' @returns An object of class `ALE` with properties `model_stats`, `model_coefs`, `ale`, `model_stats`, `boot_data`, and `params`.
+#' @returns A `ModelBoot` object with properties `model_stats`, `model_coefs`,
+#'   `ale`, `boot_data`, and `params`.
+#'
+#' @section Methods:
+#' `ModelBoot` objects support [get()][get-ModelBoot-method],
+#' [plot()][plot-ModelBoot-method], [print()][print-ModelBoot-method], and
+#' [summary()][summary-ModelBoot-method]. Each method topic documents its
+#' complete signature and class-specific arguments.
 #'
 #' @section Properties:
 #' \describe{
@@ -1275,4 +1282,3 @@ ModelBoot <- new_class(
     )
   }  # ModelBoot constructor
 )  # ModelBoot
-

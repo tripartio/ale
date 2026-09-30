@@ -54,6 +54,15 @@
 #'
 #' If `obj` is not an object from the `ale` package, then this generic passes on all arguments to the [base::get()] function.
 #'
+#' @section Methods:
+#' `get()` has methods for [ALE objects][get-ALE-method],
+#' [ALEPlots objects][get-ALEPlots-method], and
+#' [ModelBoot objects][get-ModelBoot-method]. Each method topic documents its
+#' complete signature and class-specific arguments.
+#'
+#' @returns For `ale` package objects, the data requested by the dispatched
+#' method. For other objects, the value returned by [base::get()].
+#'
 #' @param obj object.
 #' @param ... For ale package objects, instructions for which predictor (x) columns should be retrieved. For everything else, arguments to pass to [base::get()].
 #'
@@ -72,4 +81,3 @@ get <- new_generic("get", "obj", function(obj, ...) {
     do.call(base::get, args)
   }
 })
-

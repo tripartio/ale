@@ -11,8 +11,19 @@ get(obj, ...)
 
 \item{...}{For ale package objects, instructions for which predictor (x) columns should be retrieved. For everything else, arguments to pass to \code{\link[base:get]{base::get()}}.}
 }
+\value{
+For \code{ale} package objects, the data requested by the dispatched
+method. For other objects, the value returned by \code{\link[base:get]{base::get()}}.
+}
 \description{
 Retrieve specific data elements from an object based on their X column names.
 
 If \code{obj} is not an object from the \code{ale} package, then this generic passes on all arguments to the \code{\link[base:get]{base::get()}} function.
+}
+\section{Methods}{
+
+\code{get()} has methods for \link[=get-ALE-method]{ALE objects},
+\link[=get-ALEPlots-method]{ALEPlots objects}, and
+\link[=get-ModelBoot-method]{ModelBoot objects}. Each method topic documents its
+complete signature and class-specific arguments.
 }
