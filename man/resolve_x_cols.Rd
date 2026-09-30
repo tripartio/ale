@@ -13,7 +13,7 @@ resolve_x_cols(x_cols, col_names, y_col, exclude_cols = NULL, silent = FALSE)
 
 \item{y_col}{character(1). The y outcome column. Explicit 1D terms equal to \code{y_col} are silently removed, as are complete interactions having any component equal to \code{y_col}. If that leaves no requested \code{x_cols}, an error is raised.}
 
-\item{exclude_cols}{Same possible formats as \code{x_cols}. Columns and interactions to exclude from those requested in \code{x_cols}. \code{exclude_cols} values not found in \code{col_names} will be ignored with a message (which can be silenced with \code{silent}). Removing \code{y_col} terms can leave an empty exclusion set, which is a no-op.}
+\item{exclude_cols}{Same possible formats as \code{x_cols}. Columns and interactions to exclude from those requested in \code{x_cols}. \code{exclude_cols} values not found in \code{col_names} will be ignored with a message (which can be silenced with \code{silent}). Removing \code{y_col} terms can leave an empty exclusion set, which has no effect.}
 
 \item{silent}{logical(1). If \code{TRUE}, no message will be given; in particular, \code{x_cols} not found in \code{col_names} will be silently ignored. Default is \code{FALSE}. Regardless, warnings and errors are never silenced (e.g, invalid \code{x_cols} formats will still report errors).}
 }

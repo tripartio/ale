@@ -12,7 +12,7 @@
 #' @param x_cols character, list, or formula. Columns and interactions requested in one of the special `x_cols` formats. `x_cols` variable names not found in `col_names` will error. See examples.
 #' @param col_names character. All the column names from a dataset. All values in `x_cols` must be contained among the values in `col_names`. For interaction terms in `x_cols`, e.g., `"a:b"`, the individual variable names must be contained in `col_names`, e.g, `c("a", "b")`.
 #' @param y_col character(1). The y outcome column. Explicit 1D terms equal to `y_col` are silently removed, as are complete interactions having any component equal to `y_col`. If that leaves no requested `x_cols`, an error is raised.
-#' @param exclude_cols Same possible formats as `x_cols`. Columns and interactions to exclude from those requested in `x_cols`. `exclude_cols` values not found in `col_names` will be ignored with a message (which can be silenced with `silent`). Removing `y_col` terms can leave an empty exclusion set, which is a no-op.
+#' @param exclude_cols Same possible formats as `x_cols`. Columns and interactions to exclude from those requested in `x_cols`. `exclude_cols` values not found in `col_names` will be ignored with a message (which can be silenced with `silent`). Removing `y_col` terms can leave an empty exclusion set, which has no effect.
 #' @param silent logical(1). If `TRUE`, no message will be given; in particular, `x_cols` not found in `col_names` will be silently ignored. Default is `FALSE`. Regardless, warnings and errors are never silenced (e.g, invalid `x_cols` formats will still report errors).
 #'
 #' @returns `x_cols` in canonical format, which is always a list with two elements, `d1` and `d2`. Each element is a character vector with each requested column for 1D ALE (`d1`) or 2D ALE interaction pair (`d2`). If either dimension is empty, its value is an empty character, `character()`.
@@ -493,9 +493,9 @@ validate_x_cols <- function(
   # Assure the strict order of names as c('d1', 'd2')
   x_cols <- x_cols[c('d1', 'd2')]
 
-  # Remove exact 1D outcome terms and entire interactions containing the outcome.
-  # If outcome removal empties a primary selection, report that specific mistake;
-  # an empty exclusion set remains a valid no-op.
+  # Remove exact 1D y_col terms and entire interactions containing y_col.
+  # If removing y_col empties a primary selection, report that specific mistake;
+  # an empty exclusion set has no effect.
   pre_filter_x_cols <- x_cols
   x_cols$d1 <- x_cols$d1[x_cols$d1 != y_col]
   x_cols$d2 <- x_cols$d2[
