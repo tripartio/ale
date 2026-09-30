@@ -11,8 +11,8 @@
 #'
 #' @param x_cols character, list, or formula. Columns and interactions requested in one of the special `x_cols` formats. `x_cols` variable names not found in `col_names` will error. See examples.
 #' @param col_names character. All the column names from a dataset. All values in `x_cols` must be contained among the values in `col_names`. For interaction terms in `x_cols`, e.g., `"a:b"`, the individual variable names must be contained in `col_names`, e.g, `c("a", "b")`.
-#' @param y_col character(1). The y outcome column. If found in any `x_cols` value, it will be silently removed.
-#' @param exclude_cols Same possible formats as `x_cols`. Columns and interactions to exclude from those requested in `x_cols`. `exclude_cols` values not found in `col_names` will be ignored with a message (which can be silenced with `silent`).
+#' @param y_col character(1). The y outcome column. Explicit 1D terms equal to `y_col` are silently removed, as are complete interactions having any component equal to `y_col`. If that leaves no requested `x_cols`, an error is raised.
+#' @param exclude_cols Same possible formats as `x_cols`. Columns and interactions to exclude from those requested in `x_cols`. `exclude_cols` values not found in `col_names` will be ignored with a message (which can be silenced with `silent`). Removing `y_col` terms can leave an empty exclusion set, which is a no-op.
 #' @param silent logical(1). If `TRUE`, no message will be given; in particular, `x_cols` not found in `col_names` will be silently ignored. Default is `FALSE`. Regardless, warnings and errors are never silenced (e.g, invalid `x_cols` formats will still report errors).
 #'
 #' @returns `x_cols` in canonical format, which is always a list with two elements, `d1` and `d2`. Each element is a character vector with each requested column for 1D ALE (`d1`) or 2D ALE interaction pair (`d2`). If either dimension is empty, its value is an empty character, `character()`.
@@ -39,7 +39,7 @@
 #'
 #' - **NULL (or unspecified)**: If `x_cols = NULL`, no variables are selected.
 #'
-#' The function ensures all variables are valid and in `col_names`, providing informative messages unless `silent = TRUE`. And regardless of the specification format, the result will always be standardized in the format specified in the return value. Note that `y_col` is not removed if included in `x_cols`. However, a message alerts when it is included, in case it is a mistake.
+#' The function ensures all variables are valid and in `col_names`, providing informative messages unless `silent = TRUE`. Regardless of the specification format, the result is always standardized as described in the return value. Explicit 1D terms exactly equal to `y_col` are silently removed. For a 2D term, the complete interaction is silently removed when either component exactly equals `y_col`; it is not reduced to a 1D term. If this removal leaves no requested `x_cols`, the function errors. Formula left-hand sides are ignored, and wildcard selections (`d1 = TRUE` or `d2 = TRUE`) exclude `y_col` when expanded. When validating `exclude_cols`, outcome terms are removed in the same way, but an empty exclusion set is allowed and has no effect.
 #'
 #' Run examples for details.
 #'
@@ -174,6 +174,10 @@
 #'   exclude_cols = "a"
 #' )
 #'
+#' # An interaction containing y_col is discarded rather than reduced;
+#' # other valid interactions remain.
+#' resolve_x_cols(c("y:a", "a:b"), col_names, y_col)
+#'
 #' # Exclude entire 2D dimension from x_cols with d2 = TRUE
 #' resolve_x_cols(
 #'   x_cols = list(d1 = TRUE, d2 = c("a:b", "a:c")),
@@ -270,6 +274,8 @@ validate_x_cols <- function(
     )
   )
 
+  validate(is_string(y_col))
+
   # Convert formula x_cols into list of individual elements format
   if (x_cols |> inherits('formula')) {
     fmla_cols <- attr(stats::terms(x_cols), 'term.labels')
@@ -326,17 +332,8 @@ validate_x_cols <- function(
       }
     }
 
-    validate(
-      y_col %notin% all_x_cols,
-      msg = '{.arg y_col} ({y_col}) was requested in {x_cols_arg_name}, which is not allowed.'
-    )
-  #   # I'm not sure why someone would deliberately do this but alert them just in case it's a mistake:
-  #   if (!silent && (y_col %in% all_x_cols)) {
-  #     cli_alert_info('{.arg y_col} ({y_col}) was requested in {x_cols_arg_name}.')
-  #   }
   }
 
-  validate(is_string(y_col))
   col_names <- col_names |> setdiff(y_col)
 
   ## Standardize x_cols ------------
@@ -478,9 +475,8 @@ validate_x_cols <- function(
     }  # nocov end
   }
 
-  # Remove y_col and any duplicates if present.
-  ##### Note: y_col is silently removed only at the end because it is complicated to remove it from so many different input formats above.
-  # Explicit duplicates are removed but reverse duplicates are retained (e.g., b-a is not considered a duplicate of a-b).
+  # Canonicalize and remove explicit duplicates. Reverse interactions are retained
+  # (e.g., b:a is not considered a duplicate of a:b).
   x_cols <- list(
     d1 = x_cols[['d1']] |>
       unique(),
@@ -490,12 +486,36 @@ validate_x_cols <- function(
   ) |>
     compact()
 
-  # Replace empty elements with list() (not NULL)
+  # Normalize absent dimensions to empty character vectors.
   x_cols[['d1']] <- x_cols[['d1']] %||% character()
   x_cols[['d2']] <- x_cols[['d2']] %||% character()
 
   # Assure the strict order of names as c('d1', 'd2')
   x_cols <- x_cols[c('d1', 'd2')]
+
+  # Remove exact 1D outcome terms and entire interactions containing the outcome.
+  # If outcome removal empties a primary selection, report that specific mistake;
+  # an empty exclusion set remains a valid no-op.
+  pre_filter_x_cols <- x_cols
+  x_cols$d1 <- x_cols$d1[x_cols$d1 != y_col]
+  x_cols$d2 <- x_cols$d2[
+    !map_lgl(str_split(x_cols$d2, ':', simplify = FALSE), \(term) y_col %in% term)
+  ]
+
+  x_cols$d1 <- x_cols$d1 %||% character()
+  x_cols$d2 <- x_cols$d2 %||% character()
+  x_cols <- x_cols[c('d1', 'd2')]
+
+  removed_y_col <- length(pre_filter_x_cols$d1) > length(x_cols$d1) ||
+    length(pre_filter_x_cols$d2) > length(x_cols$d2)
+  if (
+    removed_y_col &&
+    length(x_cols$d1) == 0 &&
+    length(x_cols$d2) == 0 &&
+    identical(x_cols_arg_name, 'x_cols')
+  ) {
+    cli_abort('No terms remain in {.arg x_cols} after removing {.arg y_col} ({y_col}).')
+  }
 
   return(x_cols)
 }
@@ -538,4 +558,3 @@ sort_x_cols <- function(x_cols, col_names) {
     d2 = x_cols$d2[d2_ordering]
   )
 }
-

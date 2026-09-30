@@ -11,9 +11,9 @@ resolve_x_cols(x_cols, col_names, y_col, exclude_cols = NULL, silent = FALSE)
 
 \item{col_names}{character. All the column names from a dataset. All values in \code{x_cols} must be contained among the values in \code{col_names}. For interaction terms in \code{x_cols}, e.g., \code{"a:b"}, the individual variable names must be contained in \code{col_names}, e.g, \code{c("a", "b")}.}
 
-\item{y_col}{character(1). The y outcome column. If found in any \code{x_cols} value, it will be silently removed.}
+\item{y_col}{character(1). The y outcome column. Explicit 1D terms equal to \code{y_col} are silently removed, as are complete interactions having any component equal to \code{y_col}. If that leaves no requested \code{x_cols}, an error is raised.}
 
-\item{exclude_cols}{Same possible formats as \code{x_cols}. Columns and interactions to exclude from those requested in \code{x_cols}. \code{exclude_cols} values not found in \code{col_names} will be ignored with a message (which can be silenced with \code{silent}).}
+\item{exclude_cols}{Same possible formats as \code{x_cols}. Columns and interactions to exclude from those requested in \code{x_cols}. \code{exclude_cols} values not found in \code{col_names} will be ignored with a message (which can be silenced with \code{silent}). Removing \code{y_col} terms can leave an empty exclusion set, which is a no-op.}
 
 \item{silent}{logical(1). If \code{TRUE}, no message will be given; in particular, \code{x_cols} not found in \code{col_names} will be silently ignored. Default is \code{FALSE}. Regardless, warnings and errors are never silenced (e.g, invalid \code{x_cols} formats will still report errors).}
 }
@@ -48,7 +48,7 @@ So, \code{~ a + b + a:b} produces results identical to \code{whatever ~ a + b + 
 \item \strong{NULL (or unspecified)}: If \code{x_cols = NULL}, no variables are selected.
 }
 
-The function ensures all variables are valid and in \code{col_names}, providing informative messages unless \code{silent = TRUE}. And regardless of the specification format, the result will always be standardized in the format specified in the return value. Note that \code{y_col} is not removed if included in \code{x_cols}. However, a message alerts when it is included, in case it is a mistake.
+The function ensures all variables are valid and in \code{col_names}, providing informative messages unless \code{silent = TRUE}. Regardless of the specification format, the result is always standardized as described in the return value. Explicit 1D terms exactly equal to \code{y_col} are silently removed. For a 2D term, the complete interaction is silently removed when either component exactly equals \code{y_col}; it is not reduced to a 1D term. If this removal leaves no requested \code{x_cols}, the function errors. Formula left-hand sides are ignored, and wildcard selections (\code{d1 = TRUE} or \code{d2 = TRUE}) exclude \code{y_col} when expanded. When validating \code{exclude_cols}, outcome terms are removed in the same way, but an empty exclusion set is allowed and has no effect.
 
 Run examples for details.
 }
@@ -182,6 +182,10 @@ resolve_x_cols(
   y_col = "y",
   exclude_cols = "a"
 )
+
+# An interaction containing y_col is discarded rather than reduced;
+# other valid interactions remain.
+resolve_x_cols(c("y:a", "a:b"), col_names, y_col)
 
 # Exclude entire 2D dimension from x_cols with d2 = TRUE
 resolve_x_cols(
