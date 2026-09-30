@@ -60,6 +60,11 @@
 #'
 #' @returns An object of class `ALE` with properties `effect` and `params`.
 #'
+#' @section Methods:
+#' `ALE` objects support [get()][get-ALE-method], [plot()][plot-ALE-method],
+#' [print()][print-ALE-method], and [summary()][summary-ALE-method]. Each method
+#' topic documents its complete signature and class-specific arguments.
+#'
 #' @section Properties:
 #' \describe{
 #'   \item{effect}{Stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories.}
@@ -261,7 +266,7 @@
 #' )
 #' # saveRDS(ale_diamonds_with_boot_data, file.choose())
 #'
-#' # See ?get.ALE for details on the various kinds of data that may be retrieved.
+#' # See ?`get-ALE-method` for the kinds of data that may be retrieved.
 #' get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
 #' get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
 #' get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
