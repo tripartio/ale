@@ -27,3 +27,4 @@ If \code{obj} is not an object from the \code{ale} package, then this generic pa
 \link[=get-ModelBoot-method]{ModelBoot objects}. Each method topic documents its
 complete signature and class-specific arguments.
 }
+

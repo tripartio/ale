@@ -118,7 +118,7 @@
 #'
 #'
 #' @section Progress bars:
-#' Progress bars are implemented with the `{progressr}` package. For details on customizing the progress bars, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
+#' Progress bars are implemented with the `{progressr}` package. For details on customizing the progress bars, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-01-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
 #'
 #'
 #' @section Sorting of unordered factors:

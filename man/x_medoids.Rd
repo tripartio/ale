@@ -16,7 +16,7 @@ x_medoids(
 \arguments{
 \item{data}{A data frame / tibble of numeric features.}
 
-\item{min_clusters}{Smallest k to try (≥ 2 – silhouette is undefined for k = 1).}
+\item{min_clusters}{Smallest k to try (>= 2 – silhouette is undefined for k = 1).}
 
 \item{max_clusters}{Largest  k to try.}
 

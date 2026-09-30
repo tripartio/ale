@@ -186,7 +186,7 @@ For time-to-event (survival) models, set the following arguments:
 
 \section{Progress bars}{
 
-Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
+Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-01-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
 }
 
 \section{Sorting of unordered factors}{

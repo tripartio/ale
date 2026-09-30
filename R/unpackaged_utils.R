@@ -592,7 +592,7 @@ set_seed <- function(
 #' k-medoids across a range, returning all internal cluster-quality measures
 #'
 #' @param data          A data frame / tibble of numeric features.
-#' @param min_clusters  Smallest k to try (≥ 2 – silhouette is undefined for k = 1).
+#' @param min_clusters  Smallest k to try (>= 2 – silhouette is undefined for k = 1).
 #' @param max_clusters  Largest  k to try.
 #' @param metric        "euclidean", "manhattan", … as accepted by pam().
 #' @param sort_by       Which measure to sort on.
