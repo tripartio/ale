@@ -71,11 +71,20 @@ ModelBoot(
 \item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
 \value{
-An object of class \code{ALE} with properties \code{model_stats}, \code{model_coefs}, \code{ale}, \code{model_stats}, \code{boot_data}, and \code{params}.
+A \code{ModelBoot} object with properties \code{model_stats}, \code{model_coefs},
+\code{ale}, \code{boot_data}, and \code{params}.
 }
 \description{
 A \code{ModelBoot} S7 object contains full-model bootstrapped statistics and ALE data for a trained model. Full-model bootstrapping (as distinct from data-only bootstrapping) retrains a model for each bootstrap iteration. Thus, it can be rather slow, though it is much more reliable. However, for obtaining bootstrapped ALE data, plots, and statistics, full-model bootstrapping as provided by \code{ModelBoot} is only necessary for models that have not been developed by cross-validation. For cross-validated models, it is sufficient (and much faster) to create a regular \verb{[ALE()]} object with bootstrapping by setting the \code{boot_it} argument in its constructor. In fact, full-model bootstrapping with \code{ModelBoot} is often infeasible for slow machine-learning models trained on large datasets, which should rather be cross-validated to assure their reliability. However, for models that have not been cross-validated, full-model bootstrapping with \code{ModelBoot} is necessary for reliable results. Further details follow below; see also \code{vignette('ale-statistics')}.
 }
+\section{Methods}{
+
+\code{ModelBoot} objects support \link[=get-ModelBoot-method]{get()},
+\link[=plot-ModelBoot-method]{plot()}, \link[=print-ModelBoot-method]{print()}, and
+\link[=summary-ModelBoot-method]{summary()}. Each method topic documents its
+complete signature and class-specific arguments.
+}
+
 \section{Properties}{
 
 \describe{
