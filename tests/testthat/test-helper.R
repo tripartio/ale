@@ -56,7 +56,7 @@ test_that("snapshot data frames round only ordinary doubles", {
 
 test_that("snapshot data-frame normalization handles tibbles and attributes", {
   column <- structure(c(1.234567, 2.345678), measurement = "metres")
-  input <- tibble::tibble(value = column, label = c("a", "b"))
+  input <- dplyr::tibble(value = column, label = c("a", "b"))
   attr(input, "snapshot_note") <- "preserve me"
 
   result <- normalize_snapshot_data_frame(input)
