@@ -663,7 +663,7 @@ plot_ale_2D <- function(
 }
 
 
-#' Downsampl rows for a rug plot
+#' Downsample rows for a rug plot
 #'
 #' Downsample x and y rows for a rug plot to match a target sample size while respecting specified intervals in the random sample.
 #'
@@ -672,7 +672,7 @@ plot_ale_2D <- function(
 #' @noRd
 #'
 #' @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
-#' @param max_num_bins ??
+#' @param max_num_bins See documentation for [ALE()]
 #' @param y_intervals ??
 #' @param rug_sample_size See documentation for [ALE()]
 #' @param min_rug_per_interval See documentation for [ALE()]

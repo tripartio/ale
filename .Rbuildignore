@@ -2,6 +2,7 @@
 ^\.github$
 ^\.Rhistory$
 ^\.Rproj\.user$
+^\.vscode$
 ^_pkgdown\.yml$
 ^ale\.Rproj$
 ^cran-comments\.md$

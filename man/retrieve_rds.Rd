@@ -21,7 +21,7 @@ value causes an immediate return.}
 
 \item{char_as_url}{logical(1). If \code{TRUE} (default), character attempts are
 treated as URL components: they are concatenated with \code{'/'}, opened via
-\code{\link[base:connections]{base::url()}}, and read using \code{\link[base:readRDS]{base::readRDS()}}. If \code{FALSE}, character
+\code{\link[base:url]{base::url()}}, and read using \code{\link[base:readRDS]{base::readRDS()}}. If \code{FALSE}, character
 inputs are not treated specially and will be evaluated as normal R
 expressions.}
 }
@@ -46,14 +46,14 @@ If an attempt fail, it tries the next listed attempt. If every attempt fails, th
 \details{
 \itemize{
 \item \strong{Lazy capture of attempts}: Arguments in \code{...} are captured
-unevaluated using \code{\link[rlang:defusing-advanced]{rlang::enexprs()}}, so code blocks passed in braces are
+unevaluated using \code{\link[rlang:enexprs]{rlang::enexprs()}}, so code blocks passed in braces are
 not executed until \code{retrieve_rds()} chooses to evaluate them.
 \item \strong{Evaluation environment}: Expressions are evaluated in the caller’s
 environment via \code{\link[rlang:eval_tidy]{rlang::eval_tidy()}} with \code{env = rlang::caller_env()},
 so symbols resolve exactly as if the code were written at the call site.
 \item \strong{Character-as-URL behaviour} (enabled by default):
 the character vector is pasted with \code{'/'} separators (no leading/trailing
-slash normalization), passed to \code{\link[base:connections]{base::url()}}, then to \code{\link[base:readRDS]{base::readRDS()}}.
+slash normalization), passed to \code{\link[base:url]{base::url()}}, then to \code{\link[base:readRDS]{base::readRDS()}}.
 Any error during this step is caught and skipped so that the next
 attempt can run.
 \item \strong{Short-circuiting}: As soon as one attempt succeeds (either by reading an
@@ -105,7 +105,7 @@ retrieve_rds(
 
 }
 \seealso{
-\code{\link[base:readRDS]{base::readRDS()}}, \code{\link[base:connections]{base::url()}},
-\code{\link[rlang:defusing-advanced]{rlang::enexprs()}}, \code{\link[rlang:eval_tidy]{rlang::eval_tidy()}}, \code{\link[rlang:stack]{rlang::caller_env()}},
+\code{\link[base:readRDS]{base::readRDS()}}, \code{\link[base:url]{base::url()}},
+\code{\link[rlang:enexprs]{rlang::enexprs()}}, \code{\link[rlang:eval_tidy]{rlang::eval_tidy()}}, \code{\link[rlang:caller_env]{rlang::caller_env()}},
 \code{\link[cli:cli_abort]{cli::cli_abort()}}
 }

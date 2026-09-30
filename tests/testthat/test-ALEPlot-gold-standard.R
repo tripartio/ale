@@ -2,15 +2,12 @@
 # Tests to ensure that ale package gives exactly the same results
 # as the gold standard reference ALEPlot package.
 
-# test_file('tests/testthat/test-ALEPlot.R')
-
 # To minimize test time, the reference output should be serialized with expect_snapshot_value.
 
 # Do not run these on CRAN or on CI like GitHub Actions:
-# Thus, the required packages are not included as dependencies and
+# Thus, the required packages are only suggested dependencies and
 # we avoid CI problems with refALEPlot().
 # https://community.rstudio.com/t/skip-an-entire-test-file-on-cran-only/162842
-# https://chatgpt.com/share/e/68938c65-fc80-8008-b595-f8b3c4bbc197
 if (!identical(Sys.getenv("NOT_CRAN"), "true") || Sys.getenv("CI") == "true") return()
 
 
@@ -104,7 +101,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
     boot_it = 0,
     # specific options requested by ALEPlot example
     pred_type = "raw", pred_fun = nnet_pred_fun_ale,
-    max_num_bins = 10 + 1,
+    max_num_bins = 10,
     silent = TRUE
   )
 
@@ -158,7 +155,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
     boot_it = 0,
     # specific options requested by ALEPlot example
     pred_fun = gbm_pred_fun_ale, pred_type = 'link',
-    max_num_bins = 10 + 1,
+    max_num_bins = 10,
     # Use Kolmogorov-Smirnov distances for compatibility
     fct_order = 'ksd',
     silent = TRUE
@@ -236,7 +233,7 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
     x_cols = list(d2 = TRUE),
     output_stats = FALSE,
     pred_fun = nnet_pred_fun_ale,
-    pred_type = "raw", max_num_bins = 10 + 1,  # specific options requested
+    pred_type = "raw", max_num_bins = 10,  # specific options requested
     silent = TRUE
   )
 
@@ -322,7 +319,7 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
     ),
     output_stats = FALSE,
     pred_fun = gbm_pred_fun_ale,
-    pred_type = 'link', max_num_bins = 10 + 1,  # specific options requested
+    pred_type = 'link', max_num_bins = 10,  # specific options requested
     silent = TRUE
   )
 

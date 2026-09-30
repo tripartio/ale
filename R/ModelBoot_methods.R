@@ -1,19 +1,37 @@
 # ModelBoot_methods.R
 
-#' @name get.ModelBoot
+# Keep S7 method signatures in prose-only help topics. R's documentation
+# checks currently compare executable method usage with the generic rather
+# than the S7 method, producing false code/documentation mismatch warnings.
+# See https://github.com/RConsortium/S7/issues/725.
+
+#' @name get-ModelBoot-method
 #' @title get method for ModelBoot objects
 #'
 #' @description
-#' Retrieve specific ALE elements from a `ModelBoot` object. This method is similar to [get.ALE()] except that the user may specify what `type` of ALE data to retrieve (see the argument definition for details).
+#' Retrieve specific ALE elements from a `ModelBoot` object with the [get()]
+#' generic. This method is similar to the [ALE method][get-ALE-method], except
+#' that the user may specify what `type` of ALE data to retrieve.
 #'
-#' See [get.ALE()] for explanation of parameters not described here.
+#' See the [get() method for ALE objects][get-ALE-method] for arguments and
+#' output structure not described here.
 #'
-#' @param obj ModelBoot object from which to retrieve ALE elements.
-#' @param type character(1). The type of ModelBoot ALE elements to retrieve: `'single'` for the ALE calculated on the full data set or `'boot'` for the bootstrapped ALE data (based on full-model bootstrapping). The default `'auto'` will retrieve `'boot'` if it is available and `'single'` otherwise.
+#' @section Method usage:
 #'
-#' @returns See [get.ALE()]
+#' ```r
+#' get(obj, x_cols = NULL, what = "ale", ..., exclude_cols = NULL, type = "auto", stats = NULL, cats = NULL, ale_centre = "median", simplify = TRUE)
+#' ```
 #'
-#' @method get ModelBoot
+#' @section Method arguments:
+#'
+#' * `obj`: ModelBoot object from which to retrieve ALE elements.
+#' * `type`: character(1). The type of ModelBoot ALE elements to retrieve: `'single'` for the ALE calculated on the full data set or `'boot'` for the bootstrapped ALE data (based on full-model bootstrapping). The default `'auto'` will retrieve `'boot'` if it is available and `'single'` otherwise.
+#'
+#' @returns See the [get() method for ALE objects][get-ALE-method].
+#'
+NULL
+
+#' @noRd
 method(get, ModelBoot) <- function(
     obj,
     x_cols = NULL,
@@ -69,16 +87,27 @@ method(get, ModelBoot) <- function(
 }
 
 
-#' @name plot.ModelBoot
+#' @name plot-ModelBoot-method
 #' @title plot method for `ModelBoot` objects
 #'
 #' @description
-#' This plot method simply calls the constructor for an `ALEPlots` object.
+#' This [graphics::plot()] method simply calls the constructor for an
+#' `ALEPlots` object.
 #'
-#' @param x ModelBoot object.
-#' @param ... Arguments passed to [ALEPlots()]
+#' @section Method usage:
 #'
-#' @method plot ModelBoot
+#' ```r
+#' plot(x, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `x`: ModelBoot object.
+#' * `...`: Arguments passed to [ALEPlots()]
+#'
+NULL
+
+#' @noRd
 method(plot, ModelBoot) <- function(
     x,
     ...
@@ -87,15 +116,23 @@ method(plot, ModelBoot) <- function(
 }
 
 
-#' @name print.ModelBoot
+#' @name print-ModelBoot-method
 #' @title print method for ModelBoot object
 #'
 #' @description
-#' Print a ModelBoot object.
+#' Print a ModelBoot object with the [base::print()] generic.
 #'
-#' @param x An object of class `ModelBoot`.
-#' @param details logical(1). If `TRUE` (default), all brief details are printed. If `FALSE`, only minimal information is printed.
-#' @param ... Additional arguments (currently not used).
+#' @section Method usage:
+#'
+#' ```r
+#' print(x, details = TRUE, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `x`: An object of class `ModelBoot`.
+#' * `details`: logical(1). If `TRUE` (default), all brief details are printed. If `FALSE`, only minimal information is printed.
+#' * `...`: Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
 #'
@@ -106,49 +143,52 @@ method(plot, ModelBoot) <- function(
 #' print(mb)
 #' }
 #'
-#' @method print ModelBoot
+NULL
+
+#' @noRd
 method(print, ModelBoot) <- function(
     x,
     details = TRUE,
     ...
 ) {
-  cli_text(
+  cat(format_inline(
     '{.cls ModelBoot} object of a {.cls {x@params$model$class}} model that predicts {.var {x@params$y_col}} (a {x@params$y_type} outcome) from a {x@params$data$nrow}-row by {length(x@params$data$data_sample)}-column dataset.\n'
-  )
+  ))
 
-  cli_text(
+  cat(format_inline(
     if (x@params$boot_it > 0) {
       '* The model was retrained with {x@params$boot_it} bootstrap iteration{?s}.' %+%
         (if (!is.null(x@boot_data)) ' The raw bootstrapped results are available.' else '')
     } else {
       '* The model was trained once on the entire dataset without bootstrapping.'
     }
-  )
+  ))
+  cat('\n')
 
   if (details) {
     cat('\n')
     if (!is.null(x@model_stats)) {
-      cli_text(
-        'The following overall model summary statistics are available:'
-      )
+      cat(format_inline(
+        'The following overall model summary statistics are available:\n'
+      ))
       average_stats <- x@model_stats |>
         filter(!is.na(mean)) |>
         pull(name)
-      cli_text(
-        '* Overall average statistics: {average_stats}'
-      )
+      cat(format_inline(
+        '* Overall average statistics: {average_stats}\n'
+      ))
       boot_valid_stats <- x@model_stats |>
         filter(!is.na(boot_valid)) |>
         pull(name)
-      cli_text(
-        '* Bootstrap-validated model accuracy: {boot_valid_stats}'
-      )
+      cat(format_inline(
+        '* Bootstrap-validated model accuracy: {boot_valid_stats}\n'
+      ))
     }
 
     if (!is.null(x@model_coefs)) {
-      cli_text(
-        'Statistics for the following specific variables or interactions are available: {x@model_coefs |> pull(term)}'
-      )
+      cat(format_inline(
+        'Statistics for the following specific variables or interactions are available: {x@model_coefs |> pull(term)}\n'
+      ))
     }
     cat('\n')
 
@@ -161,15 +201,15 @@ method(print, ModelBoot) <- function(
         if (ale_p) x@params$ale_p@params$exactness %+% ' ALE p-values' else NULL
       )
 
-      cli_text(
-        '{output_string} {?is/are} provided for the following terms:'
-      )
-      cli_text(
-        '{cli::no(length(x@ale$single@params$requested_x_cols$d1))}  1D term{?s}: {x@ale$single@params$requested_x_cols$d1}'
-      )
-      cli_text(
-        '{cli::no(length(x@ale$single@params$requested_x_cols$d2))}  2D term{?s}: {x@ale$single@params$requested_x_cols$d2}'
-      )
+      cat(format_inline(
+        '{output_string} {?is/are} provided for the following terms:\n'
+      ))
+      cat(format_inline(
+        '{cli::no(length(x@ale$single@params$requested_x_cols$d1))}  1D term{?s}: {x@ale$single@params$requested_x_cols$d1}\n'
+      ))
+      cat(format_inline(
+        '{cli::no(length(x@ale$single@params$requested_x_cols$d2))}  2D term{?s}: {x@ale$single@params$requested_x_cols$d2}\n'
+      ))
     }
   }
 
@@ -177,18 +217,29 @@ method(print, ModelBoot) <- function(
 }
 
 
-#' @name summary.ModelBoot
+#' @name summary-ModelBoot-method
 #' @title summary Method for ModelBoot object
 #'
 #' @description
-#' Prints out a statistical summary of an `ModelBoot` object. If there are no ALE statistics, a message says so. Summarized statistics are mean or median depending on the `boot_centre` argument used for [ALE()] bootstrapping.
+#' This [base::summary()] method prints a statistical summary of a `ModelBoot`
+#' object. If there are no ALE statistics, a message says so. Summarized
+#' statistics are mean or median depending on the `boot_centre` argument used
+#' for [ALE()] bootstrapping.
 #'
-#' @param object An object of class `ModelBoot`.
-#' @param stats character. One or more values in c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
-#' @param all_conf logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
-#' @param round_digits integer(1). Numbers in tables will be rounded to `round_digits` decimal places.
-#' @param max_rows natural number. Maximum number of rows to print for any component.
-#' @param ... Additional arguments (currently not used).
+#' @section Method usage:
+#'
+#' ```r
+#' summary(object, stats = c("aled", "aler", "naled", "naler"), all_conf = FALSE, round_digits = 4L, max_rows = 100, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `object`: An object of class `ModelBoot`.
+#' * `stats`: character. One or more values in c("aled", "aler_min", "aler", "aler_max", "naled", "naler_min", "naler", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
+#' * `all_conf`: logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
+#' * `round_digits`: integer(1). Numbers in tables will be rounded to `round_digits` decimal places.
+#' * `max_rows`: natural number. Maximum number of rows to print for any component.
+#' * `...`: Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `object`. The printout is a side effect.
 #'
@@ -199,10 +250,12 @@ method(print, ModelBoot) <- function(
 #' summary(ale_cars)
 #' }
 #'
-#' @method summary ModelBoot
+NULL
+
+#' @noRd
 method(summary, ModelBoot) <- function(
     object,
-    stats = c('aled', 'naled'),
+    stats = c('aled', 'aler', 'naled', 'naler'),
     all_conf = FALSE,
     round_digits = 4L,
     max_rows = 100,
@@ -210,7 +263,7 @@ method(summary, ModelBoot) <- function(
 ) {
   # Validate inputs -------------
 
-  stats_names <- c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')
+  stats_names <- c('aled', 'aler_min', 'aler', 'aler_max', 'naled', 'naler_min', 'naler', 'naler_max')
   validate(
     is.character(stats) && all(stats %in% stats_names),
     msg = 'Values in the {.arg stats} argument must be one or more of the following: {stats_names}.'
@@ -228,7 +281,7 @@ method(summary, ModelBoot) <- function(
   model_stats <- object@model_stats
   if (!is.null(model_stats)) {
     cat('\n')
-    cli_text('Overall model statistics (object@model_stats):')
+    cat(format_inline('Overall model statistics (object@model_stats):\n'))
     model_stats |>
       mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
       as_tibble() |>
@@ -240,7 +293,7 @@ method(summary, ModelBoot) <- function(
   model_coefs <- object@model_coefs
   if (!is.null(model_coefs)) {
     cat('\n')
-    cli_text('Summary model term estimates (object@model_coefs):')
+    cat(format_inline('Summary model term estimates (object@model_coefs):\n'))
     model_coefs |>
       mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
       print(n = min(nrow(model_coefs), max_rows))
@@ -263,4 +316,3 @@ method(summary, ModelBoot) <- function(
 
   invisible(object)
 }
-

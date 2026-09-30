@@ -68,7 +68,7 @@ ALE(
 \item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
 
 \item{max_num_bins}{integer(1) > 1 or list. For numeric \code{x_cols}, this sets an upper bound on
-the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins}. Valid formats are:
+the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins+1}. Valid formats are:
 \itemize{
 \item Single integer > 1: used for all numeric \code{x_cols}.
 \item List with overrides: a list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
@@ -77,7 +77,7 @@ An example of the list format would be
 \code{max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))}
 }
 
-The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions.}
+The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions. When \code{n} bins are requested, there will actually be \code{n+1} bins, with the lowest bin dedicated to the minimum value of the dataset.}
 
 \item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{
@@ -113,6 +113,13 @@ An object of class \code{ALE} with properties \code{effect} and \code{params}.
 \description{
 An \code{ALE} S7 object contains ALE data and statistics. For details, see \code{vignette('ale-intro')} or the details and examples below.
 }
+\section{Methods}{
+
+\code{ALE} objects support \link[=get-ALE-method]{get()}, \link[=plot-ALE-method]{plot()},
+\link[=print-ALE-method]{print()}, and \link[=summary-ALE-method]{summary()}. Each method
+topic documents its complete signature and class-specific arguments.
+}
+
 \section{Properties}{
 
 \describe{
@@ -179,7 +186,7 @@ For time-to-event (survival) models, set the following arguments:
 
 \section{Progress bars}{
 
-Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
+Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-01-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
 }
 
 \section{Sorting of unordered factors}{
@@ -323,11 +330,11 @@ ale_diamonds_with_boot_data <- retrieve_rds(
 )
 # saveRDS(ale_diamonds_with_boot_data, file.choose())
 
-# See ?get.ALE for details on the various kinds of data that may be retrieved.
+# See ?`get-ALE-method` for the kinds of data that may be retrieved.
 get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
 get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
 get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
-get(ale_diamonds_with_boot_data, stats = c('aled', 'naled'))
+get(ale_diamonds_with_boot_data, stats = c('aled', 'naler'))
 get(ale_diamonds_with_boot_data, stats = 'all')
 get(ale_diamonds_with_boot_data, stats = 'conf_regions')
 get(ale_diamonds_with_boot_data, stats = 'conf_sig')
