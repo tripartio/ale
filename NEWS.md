@@ -42,6 +42,8 @@ The numbering system described above is used for packages released to CRAN. For 
 
 ## Bug fixes
 
+We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
+
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
 * Handle missing 1D ALE bins during model bootstrapping (#19).
 
@@ -55,6 +57,10 @@ The numbering system described above is used for packages released to CRAN. For 
 
 * Added two Quarto vignettes: "Analyzing a Large Corn Yield Dataset with ALE-Based Inference" and "Analyzing a Small Rice Yield Dataset with ALE-Based Inference". They are available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>.
 * Updated package logo.
+
+## Under the hood
+
+We now use [OpenAI Codex](https://chatgpt.com/codex/) to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
 
 
 # ale (0.5.3)
