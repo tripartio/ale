@@ -177,7 +177,7 @@ The \code{{ale}} package should be able to automatically recognize and load most
 
 For time-to-event (survival) models, set the following arguments:
 \itemize{
-\item \code{y_col} must be the set to the name of the binary event column.
+\item \code{y_col} must be set to the name of the binary event column.
 \item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated, e.g., \code{exclude_cols = 'time'}. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 \item \code{pred_type} must be specified according to the desired \code{type} argument for the \code{predict()} method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
 \item \code{pred_fun} might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom \code{pred_fun} as specified above might be needed.

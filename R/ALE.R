@@ -111,7 +111,7 @@
 #'
 #' @section Time-to-event (survival) models:
 #' For time-to-event (survival) models, set the following arguments:
-#' * `y_col` must be the set to the name of the binary event column.
+#' * `y_col` must be set to the name of the binary event column.
 #' * Include the time column in the `exclude_cols` argument so that its ALE will not be calculated, e.g., `exclude_cols = 'time'`. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 #' * `pred_type` must be specified according to the desired `type` argument for the `predict()` method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
 #' * `pred_fun` might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom `pred_fun` as specified above might be needed.
