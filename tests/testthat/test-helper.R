@@ -1,5 +1,14 @@
 test_that("snapshot expectations only compare output outside CI", {
-  withr::local_envvar(CI = "true")
+  previous_ci <- Sys.getenv("CI", unset = NA_character_)
+  on.exit({
+    if (is.na(previous_ci)) {
+      Sys.unsetenv("CI")
+    } else {
+      Sys.setenv(CI = previous_ci)
+    }
+  }, add = TRUE)
+  Sys.setenv(CI = "true")
+
   evaluation <- new.env(parent = emptyenv())
   evaluation$completed <- FALSE
 
