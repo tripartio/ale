@@ -1,3 +1,22 @@
+test_that("snapshot expectations only compare output outside CI", {
+  withr::local_envvar(CI = "true")
+  evaluation <- new.env(parent = emptyenv())
+  evaluation$completed <- FALSE
+
+  result <- expect_snap_variant({
+    evaluation$completed <- TRUE
+    "output without a platform snapshot"
+  })
+
+  expect_true(evaluation$completed)
+  expect_identical(result, "output without a platform snapshot")
+  expect_error(
+    expect_snap_variant(stop("platform-specific failure")),
+    "platform-specific failure",
+    fixed = TRUE
+  )
+})
+
 test_that("s7_snapshot removes only model hashes without mutating objects", {
   snapshot_class <- S7::new_class(
     "snapshot_class",
