@@ -47,4 +47,6 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          upload-snapshots: true
+          # Snapshot comparisons are intentionally local-only; helper.R still
+          # evaluates their expressions on CI so genuine runtime errors fail.
+          upload-snapshots: false
