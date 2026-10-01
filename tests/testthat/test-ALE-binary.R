@@ -12,18 +12,17 @@ test_that(
       x_cols = list(d1 = TRUE, d2 = TRUE),
       data = test_cars,
       boot_it = 2,
-      parallel = 0,
       p_values = NULL,
       silent = TRUE
     )
 
     cars_ale |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
 
     plot(cars_ale) |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -37,7 +36,6 @@ test_that(
       data = test_cars,
       y_col = 'vs',
       # exclude_cols = NULL,  # test exclude_cols separately
-      parallel = 0,
       # model_packages = NULL,  # not tested here; requires parallelization
       output_stats = FALSE,
       output_boot_data = TRUE,
@@ -58,12 +56,12 @@ test_that(
     )
 
     cars_ale |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
 
     plot(cars_ale) |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 

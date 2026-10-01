@@ -11,13 +11,13 @@ test_that(
       ),
       boot_it = 2,
       ale_p = NULL,
-      parallel = 'all but one',
+      parallel = 2,  # max allowed on CRAN
       silent = TRUE
     )
 
     # Test the ModelBoot print method
     print(pll_mb) |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -33,7 +33,6 @@ test_that(
     mb <- ModelBoot(
       test_gam,
       data = test_cars,
-      parallel = 0,
       boot_it = 0,  # test with no bootstrapping
       ale_options = list(
         x_cols = c('wt', 'am', 'gear:carb')
@@ -44,13 +43,12 @@ test_that(
 
     plot(mb, type = 'boot') |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
 
-    # Create serializable snapshot
-    mb@ale$single <- unclass(mb@ale$single)
+    expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
   }
 )
 
@@ -62,7 +60,6 @@ test_that(
     mb <- ModelBoot(
       test_gam_binary,
       data = test_cars,
-      parallel = 0,
       # test surrogate generation by leaving ale_p at default
       boot_it = 2,
       ale_options = list(
@@ -74,13 +71,12 @@ test_that(
 
     plot(mb, type = 'boot') |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
 
-    # Create serializable snapshot
-    mb@ale$single <- unclass(mb@ale$single)
+    expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
   }
 )
 
@@ -90,6 +86,7 @@ test_that(
     skip_on_ci()
 
     # Regular test_nn_categorical is too small a dataset; bootstrapping turns up problems. So, use iris here.
+    set.seed(0)
     test_nn_iris <- nnet::multinom(
       Species ~ .,
       data = iris,
@@ -102,7 +99,6 @@ test_that(
       model_call_string =
         'nnet::multinom(Species ~ ., data = boot_data, trace = FALSE)',
       # model_call_string_vars = character(),  # not tested
-      parallel = 0,
       model_packages = 'nnet',
       y_col = 'Species',
       positive = FALSE,  # not used here
@@ -125,28 +121,25 @@ test_that(
       silent = TRUE
     )
 
-    # Create serializable snapshot
-    snap_mb <- mb
-    snap_mb@ale$single <- unclass(mb@ale$single)
-    snap_mb |>
-      unclass() |>
-      expect_snapshot()
+    expect_true(S7::S7_inherits(mb, ModelBoot))
+    mb |>
+      s7_snapshot() |>
+      expect_snap_variant()
 
 
     # Test methods
 
-    get(mb, 'Sepal.Length') |> expect_snapshot()
-    get(mb, 'Petal.Width', type = 'single') |> expect_snapshot()
+    get(mb, 'Sepal.Length') |> expect_snap_variant()
+    get(mb, 'Petal.Width', type = 'single') |> expect_snap_variant()
 
     plot(mb, type = 'boot') |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
 
     plot(mb, type = 'single') |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
-
 
 

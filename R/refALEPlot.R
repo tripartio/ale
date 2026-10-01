@@ -1,5 +1,7 @@
 # refALEPlot.R
 # Reference version of original ALEPlot package
+# Copyright (c) 2018 Dan Apley (ALEPlot 1.1)
+# Licensed GPL-2
 
 refALEPlot <-
 function(X, X.model, pred.fun, J, K = 40, NA.plot = TRUE) {

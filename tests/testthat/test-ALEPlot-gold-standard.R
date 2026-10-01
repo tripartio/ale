@@ -2,13 +2,13 @@
 # Tests to ensure that ale package gives exactly the same results
 # as the gold standard reference ALEPlot package.
 
-# test_file('tests/testthat/test-ALEPlot.R')
-
 # To minimize test time, the reference output should be serialized with expect_snapshot_value.
 
-# Do not run these on CRAN so that the required packages are not included as dependencies.
+# Do not run these on CRAN or on CI like GitHub Actions:
+# Thus, the required packages are only suggested dependencies and
+# we avoid CI problems with refALEPlot().
 # https://community.rstudio.com/t/skip-an-entire-test-file-on-cran-only/162842
-if (!identical(Sys.getenv("NOT_CRAN"), "true")) return()
+if (!identical(Sys.getenv("NOT_CRAN"), "true") || Sys.getenv("CI") == "true") return()
 
 
 # nnet -----------------
@@ -82,7 +82,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
   # Create list of ALEPlot data that can be readily compared for accuracy
   nnet_ALEPlot <-
     map(1:4, \(it.col_idx) {
-      ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot, J = it.col_idx, K = 10) |>
+      ale:::refALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot, J = it.col_idx, K = 10) |>
         as_tibble() |>
         select(-K)
     }) |>
@@ -97,12 +97,11 @@ test_that('ale function matches output of ALEPlot with nnet', {
     model = nnet.DAT,
     data = DAT,
     # make ale equivalent to ALEPlot
-    parallel = 0,
     output_stats = FALSE,
     boot_it = 0,
     # specific options requested by ALEPlot example
     pred_type = "raw", pred_fun = nnet_pred_fun_ale,
-    max_num_bins = 10 + 1,
+    max_num_bins = 10,
     silent = TRUE
   )
 
@@ -133,7 +132,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
   # These are column indexes c(1, 2, 3, 8)
   gbm_ALEPlot <-
     map(c(1, 2, 3, 8), \(it.col_idx) {
-      ALEPlot::ALEPlot(
+      ale:::refALEPlot(
         adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
         J = it.col_idx,
         K = 10, NA.plot = TRUE
@@ -152,12 +151,13 @@ test_that('ale function matches output of ALEPlot with gbm', {
     x_cols = c('age', 'workclass', 'education_num', 'sex'),
     data = adult_data[,-c(3,4)],  # unlike ALEPlot, include the y column (15)
     # make ale equivalent to ALEPlot
-    parallel = 0,
     output_stats = FALSE,
     boot_it = 0,
     # specific options requested by ALEPlot example
     pred_fun = gbm_pred_fun_ale, pred_type = 'link',
-    max_num_bins = 10 + 1,
+    max_num_bins = 10,
+    # Use Kolmogorov-Smirnov distances for compatibility
+    fct_order = 'ksd',
     silent = TRUE
   ) |>
     suppressMessages()
@@ -190,7 +190,7 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
   for (it.x1 in 1:4) {
     for (it.x2 in 1:4) {
       if (it.x1 < it.x2) {
-        ap_data <- ALEPlot::ALEPlot(
+        ap_data <- ale:::refALEPlot(
           DAT[,2:5],
           nnet.DAT,
           pred.fun = nnet_pred_fun_ALEPlot,
@@ -231,10 +231,9 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
     model = nnet.DAT,
     data = DAT,
     x_cols = list(d2 = TRUE),
-    parallel = 0,
     output_stats = FALSE,
     pred_fun = nnet_pred_fun_ale,
-    pred_type = "raw", max_num_bins = 10 + 1,  # specific options requested
+    pred_type = "raw", max_num_bins = 10,  # specific options requested
     silent = TRUE
   )
 
@@ -271,7 +270,7 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
   for (it.x1 in c(1, 2, 3, 8)) {
     for (it.x2 in c(1, 3, 11)) {
       if (it.x1 < it.x2) {
-        ap_data <- ALEPlot::ALEPlot(
+        ap_data <- ale:::refALEPlot(
           adult_data_subset,
           gbm.data,
           pred.fun = gbm_pred_fun_ALEPlot,
@@ -318,10 +317,9 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
       'education_num:hours_per_week',
       'sex:hours_per_week'
     ),
-    parallel = 0,
     output_stats = FALSE,
     pred_fun = gbm_pred_fun_ale,
-    pred_type = 'link', max_num_bins = 10 + 1,  # specific options requested
+    pred_type = 'link', max_num_bins = 10,  # specific options requested
     silent = TRUE
   )
 

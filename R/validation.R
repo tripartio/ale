@@ -7,7 +7,7 @@
 
 
 # Validate data
-# If data is NULL and model is a standard R model type, data can be automatically detected.
+# If data is NULL, try to automatically detect it.
 validate_data <- function(
     data,
     model,
@@ -29,7 +29,7 @@ validate_data <- function(
     data <- insight::get_data(model)
 
     if (is.null(data)) {
-      cli_abort('This model seems to be non-standard, so {.arg data} must be provided.')
+      cli_abort('The model data could not be found in the {.arg model} object, so {.arg data} must be provided.')
     }
   }  # nocov end
 
@@ -38,7 +38,7 @@ validate_data <- function(
 
 
 # Validate y_col.
-# If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+# If y_col is NULL, try to automatically detect it.
 validate_y_col <- function(
     y_col,
     data,
@@ -48,30 +48,60 @@ validate_y_col <- function(
     validate(is_string(y_col))
     validate(
       y_col %in% names(data),
-      msg = cli_alert_danger('{.arg y_col} is not found in {.arg data}.')
+      msg = cli_alert_danger('{.arg y_col} ("{y_col}") is not found in {.arg data}.')
     )
   }
-  # If NULL, identify y column from the Y term of a standard R model call
-  else {
-    y_col <- insight::find_response(model)
+  else {  # y_col is NULL
+    # Try to identify y column from the Y term of the R model call
+    y_col <- if (any(class(model) %in% 'ranger')) {
+      model$dependent.variable.name
+    } else {
+      # Generic attempt to find y_col
+      insight::find_response(model)
+    }
 
     if (is.null(y_col)) {  # nocov start
-      cli_abort('This model seems to be non-standard, so {.arg y_col} must be provided.')
+      cli_abort('The name of the target outcome variable could not be automatically determined, so {.arg y_col} must be provided.')
     }  # nocov end
   }
 
   y_col
 }
 
-# Validate model predictions.
+# Validate model predictions and a custom predict function.
 # This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows in the dataset.
-validate_y_preds <- function(
+validate_prediction <- function(
     pred_fun,
     model,
     data,
     y_col,
     pred_type
 ) {
+  # Establish the custom prediction function
+  pred_fun <- if (is.null(pred_fun)) {
+    if (any(class(model) %in% 'ranger')) {
+      function(object, newdata, type = pred_type) {
+        stats::predict(
+          object = object,
+          data = newdata,
+          type = type
+        )$predictions
+      }
+    } else {
+      # Generic prediction function
+      function(object, newdata, type = pred_type) {
+        stats::predict(
+          object = object,
+          newdata = newdata,
+          type = type
+        )
+      }
+    }
+  } else {
+    # Use the provided non-NULL pred_fun
+    pred_fun
+  }
+
   # Validate the prediction function with the model and the dataset
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
@@ -81,7 +111,7 @@ validate_y_preds <- function(
       }
       else {
         cli_abort(
-          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ALE} for how to create a custom predict function for non-standard models. Here is the full error message:
+          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ALE} for how to create a custom predict function for models with unique predict function formats. Here is the full error message:
 
         {e}'
         )
@@ -93,15 +123,32 @@ validate_y_preds <- function(
   # Validate the resulting predictions and make sure the result is a matrix
   validate(
     is.atomic(y_preds),
-    msg = 'The model predictions must be atomic (that is, not a list object type).'
+    msg = 'The model predictions must be atomic (that is, not recursive [list-like]).'
   )
   validate(
-    var_type(y_preds) == 'numeric',
-    msg = 'The model predictions must be numeric (but not binary).'
+    var_type(y_preds) == 'numeric' ||
+      (var_type(y_preds) == 'binary' && is.numeric(y_preds)),
+    msg = 'The model predictions must be numeric.'
   )
-  # validate(is.numeric(y_preds) && is.atomic(y_preds))
+
   if (is.matrix(y_preds)) {
-    validate(nrow(y_preds) == nrow(data))
+    if (y_preds |> colnames() |> is.null()) {
+      # Create colnames from factor levels or unique values
+      col_names <- data[[y_col]] |>
+        as.factor() |>
+        levels()
+
+      validate(
+        ncol(y_preds) == length(col_names),
+        msg = c(
+          x = 'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}.',
+          i = 'The {.arg pred_fun} produces a matrix output but column names cannot be created for that matrix.',
+          i = 'Modify the matrix output to have properly named columns.'
+        )
+      )
+
+      colnames(y_preds) <- col_names
+    }
   }
   else {  # validate and create a single-column matrix
     validate(length(y_preds) == nrow(data))
@@ -110,9 +157,19 @@ validate_y_preds <- function(
       as.numeric() |>
       matrix(dimnames = list(NULL, y_col))
   }
-  # validate(is.numeric(y_preds) && length(y_preds) == nrow(data))
 
-  y_preds
+  validate(
+    nrow(y_preds) == nrow(data),
+    msg = c(
+      x = 'The predict function {.arg pred_fun} must produce one value or one row of predictions for each row of data.',
+      i = 'There are {nrow(data)} rows in {.arg data} but {.arg pred_fun} produces {nrow(y_preds)} predictions or rows.'
+    )
+  )
+
+  list(
+    pred_fun = pred_fun,
+    y_preds = y_preds
+  )
 }
 
 
@@ -129,16 +186,16 @@ validate_parallel <- function(parallel, model, model_packages) {
   )
 
   parallel <- if (parallel == 'all') {
-    future::availableCores(logical = TRUE)
+    future::availableCores(constraints = "connections-16", logical = TRUE)
   } else if (parallel == 'all but one') {
-    future::availableCores(logical = FALSE, omit = 1)
+    future::availableCores(constraints = "connections-16", logical = FALSE, omit = 1)
   } else {
-    max_cores <- future::availableCores(logical = TRUE)
+    max_cores <- future::availableCores(constraints = "connections-16", logical = TRUE)
     if (parallel > max_cores) {  # nocov start
       cli_alert_info(c(
         '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',
         'i' = '{.arg parallel} set to {max_cores}.',
-        'i' = 'To use all available parallel threads without this notification, leave the default parallel = "all".'
+        'i' = 'To use all available parallel threads without this notification, set parallel = "all".'
       ))
 
       max_cores
@@ -204,21 +261,82 @@ validate_parallel <- function(parallel, model, model_packages) {
 }
 
 
+# Returns TRUE if it appears safe to call progressr::handlers(global = TRUE).
+#
+# This is a heuristic workaround for the error
+# "should not be called with handlers on the stack".
+#
+# Since R does not expose the active condition-handler stack, inspect the call
+# stack for functions known to establish condition handlers.
+can_set_global_progressr_handlers <- function() {
+
+  # Global progress handlers are only useful in interactive sessions.
+  if (!interactive()) {
+    return(FALSE)
+  }
+
+  # Avoid enabling handlers when executing inside an RStudio notebook.
+  if (isTRUE(getOption("rstudio.notebook.executing"))) {
+    return(FALSE)
+  }
+
+  # progressr::handlers(global = TRUE) can fail with
+  # "should not be called with handlers on the stack".
+  #
+  # R does not expose the active condition-handler stack, so inspect the
+  # call stack for functions that commonly establish condition handlers.
+  # This is a heuristic, not a guarantee.
+  calls <- sys.calls() |>
+    map_chr(\(x) paste(deparse(x), collapse = " "))
+
+  suspicious_calls <- c(
+
+    # Base condition-handling mechanisms.
+    "\\btryCatch\\b",
+    "\\bwithCallingHandlers\\b",
+
+    # Restarts often accompany condition-handling infrastructure.
+    "\\bwithRestarts\\b",
+
+    # progressr installs condition handlers via with_progress().
+    "\\bwith_progress\\b"
+  )
+
+  # Return FALSE if any suspicious function appears in the current call stack.
+  !any(
+    map_lgl(
+      suspicious_calls,
+      \(pattern) any(str_detect(calls, pattern))
+    )
+  )
+}
+
 # Validate silent output flag.
 # Mainly enables or disables progress bars.
 validate_silent <- function(silent) {
   validate(is_bool(silent))
 
-  if (!silent) {  # nocov start
+  # Enable progress bars by default if possible and silent not requested
+  if (!silent && can_set_global_progressr_handlers()) {
     if (!progressr::handlers(global = NA)) {
-      # If no progressr bar settings are configured, then set cli as the default.
-      if (interactive() && !getOption("rstudio.notebook.executing")) {
-        # interactive execution outside of Rmd knitr context: enable progress bars
-        progressr::handlers(global = TRUE)
-        progressr::handlers('cli')
-      }
+      progressr::handlers(global = TRUE)
+      progressr::handlers("cli")
     }
-  }  # nocov end
+  }
+  # if (!silent) {  # nocov start
+  #   if (!progressr::handlers(global = NA)) {
+  #     # If no progressr bar settings are configured, then set cli as the default.
+  #     # rstudio_notebook: TRUE when execution context is an RStudio notebook.
+  #     # For non-RStudio environments, returns NULL, so set as FALSE.
+  #     rstudio_notebook <- getOption("rstudio.notebook.executing") %||% FALSE
+  #     if (interactive() && !rstudio_notebook) {
+  #       # if (interactive() && !getOption("rstudio.notebook.executing")) {
+  #       # interactive execution outside of Rmd knitr context: enable progress bars
+  #       progressr::handlers(global = TRUE)
+  #       progressr::handlers('cli')
+  #     }
+  #   }
+  # }  # nocov end
 }
 
 

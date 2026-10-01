@@ -2,6 +2,7 @@
 ^\.github$
 ^\.Rhistory$
 ^\.Rproj\.user$
+^\.vscode$
 ^_pkgdown\.yml$
 ^ale\.Rproj$
 ^cran-comments\.md$
@@ -14,8 +15,11 @@
 ^pkgdown$
 ^R/refALEPlot\.R$
 ^README\.Rmd$
-^scholar$
-^tests/testthat/test-ALEPlot\.R$
-^vignettes/.*_cache$
-^vignettes/articles$
 ^revdep$
+^scholar$
+^tests/testthat/test-ALEPlot-gold-standard\.R$
+^vignettes/.*_auto$
+^vignettes/.*_cache$
+^vignettes/.*_files$
+^vignettes/.*\\.html$
+^vignettes/articles$

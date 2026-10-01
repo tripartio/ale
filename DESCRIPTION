@@ -1,6 +1,6 @@
 Package: ale
 Title: Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)
-Version: 0.5.0
+Version: 0.5.3.20261001
 Authors@R: c(
     person("Chitu", "Okoli", , "Chitu.Okoli@skema.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5574-7572"))
@@ -10,11 +10,12 @@ License: MIT + file LICENSE
 Language: en-ca
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Suggests: 
-    ALEPlot,
     DT,
+    agridat,
+    cluster,
     gbm,
+    kableExtra,
     knitr,
     mgcv,
     nnet,
@@ -24,9 +25,18 @@ Suggests:
     shiny,
     shinyTree,
     shinyWidgets,
+    pkgload,
+    quarto,
+    ranger,
+    readr,
+    rmarkdown,
+    rsample,
     testthat (>= 3.0.0),
+    tictoc,
     yaImpute
-VignetteBuilder: knitr
+VignetteBuilder: 
+    knitr,
+    quarto
 Imports: 
     broom,
     cli,
@@ -55,5 +65,6 @@ URL: https://github.com/tripartio/ale, https://tripartio.github.io/ale/
 BugReports: https://github.com/tripartio/ale/issues
 Config/testthat/edition: 3
 Config/testthat/parallel: true
-Config/testthat/start-first: ALE-numerical, ALE-binary, ALE-categorical, ModelBoot, ALEPlot-gold-standard, ALEpDist
+Config/testthat/start-first: ALE-categorical, ModelBoot, ALEpDist, ALE-numerical, ALE-binary, ALEPlot-gold-standard
 LazyData: true
+Config/roxygen2/version: 8.1.0

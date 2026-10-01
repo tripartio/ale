@@ -21,6 +21,7 @@
 #' @param pred_fun See documentation for [ALE()]
 #' @param pred_type See documentation for [ALE()]
 #' @param max_num_bins See documentation for [ALE()]
+#' @param fct_order See documentation for [ALE()]
 #' @param boot_it See documentation for [ALE()]
 #' @param seed See documentation for [ALE()]
 #' @param boot_alpha See documentation for [ALE()]
@@ -39,11 +40,16 @@ calc_ale <- function(
     pred_fun,
     pred_type,
     max_num_bins,
-    boot_it, seed, boot_alpha, boot_centre,
+    fct_order,
+    boot_it,
+    seed,
+    boot_alpha,
+    boot_centre,
     boot_ale_y = FALSE,
     .bins = NULL,
     ale_y_norm_funs = NULL,
-    p_dist = NULL
+    p_dist = NULL,
+    aled_fun = 'mad'
 ) {
 
   # Set up base variables --------------
@@ -56,6 +62,9 @@ calc_ale <- function(
 
   n_row <- nrow(X)
   ixn_d <- length(x_cols)  # number of dimensions of interaction
+
+  # There should be no missing ALE values except perhaps in the case of full-model bootstrapping
+  allow_bootstrap_na <- boot_it > 0 || !is.null(.bins)
 
   # Create bootstrap tbl
   original_seed <- if (exists('.Random.seed')) .Random.seed else seed
@@ -102,7 +111,8 @@ calc_ale <- function(
       x_vals = X[[it.x_col]],
       bins = .bins[[which(x_cols == it.x_col)]],
       n = .bins[['ns']],
-      max_num_bins,
+      max_num_bins = max_num_bins[it.x_col],
+      fct_order = fct_order[[it.x_col]],
       X = if (x_types[[it.x_col]] == 'categorical') X
     )
   }) |>
@@ -247,7 +257,7 @@ calc_ale <- function(
       btit.X_lo[[x_cols]] <- btit.x_vars[[x_cols]]$lo
 
       # Difference between low and high boundary predictions
-      pred_fun(model, btit.X_hi, pred_type) - pred_fun(model, btit.X_lo, pred_type)
+      pred_fun(object = model, newdata = btit.X_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_lo, type = pred_type)
     }
     else if (ixn_d == 2) {
       # Initialize border datasets
@@ -264,8 +274,8 @@ calc_ale <- function(
       btit.X_lo_lo[[x_cols[2]]] <- btit.x_vars[[x_cols[2]]]$lo
 
       # Difference between boundary predictions
-      (pred_fun(model, btit.X_hi_hi, pred_type) - pred_fun(model, btit.X_hi_lo, pred_type)) -
-        (pred_fun(model, btit.X_lo_hi, pred_type) - pred_fun(model, btit.X_lo_lo, pred_type))
+      (pred_fun(object = model, newdata = btit.X_hi_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_hi_lo, type = pred_type)) -
+        (pred_fun(object = model, newdata = btit.X_lo_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_lo_lo, type = pred_type))
     }
     else {
       stop('Interactions beyond 2 are not yet supported.')  # nocov
@@ -367,8 +377,19 @@ calc_ale <- function(
       # Generate the cumulative ALE y predictions.
       if (ixn_d == 1) {
         if (xd[[x_cols]]$x_type == 'numeric') {
-          # For 1D ALE, set origin effect for minimum numeric valueto zero; there should be no other missing values.
+          # For 1D ALE, set origin effect for minimum numeric value to zero
           btit.local_eff_ray[it.cat, 1] <- 0
+
+          it.na_idx <- is.na(btit.local_eff_ray[it.cat, ])
+          if (any(it.na_idx)) {
+            if (!allow_bootstrap_na) {
+              cli_abort('There should be no other missing values in 1D ALE at this point. Please submit a bug report.')
+            }
+
+            # Full-model bootstrapping might occasionally leave missing bins here, so interpolate them
+            btit.local_eff_ray[it.cat, ] <- btit.local_eff_ray[it.cat, ] |>
+                intrapolate_1D()
+          }
         }
 
         # Accumulate the effects.
@@ -539,7 +560,7 @@ calc_ale <- function(
 
   ## 1D ---------------
   if (ixn_d == 1) {
-    # For 1D ALE, there is no difference between distinct and and composite ALE.
+    # For 1D ALE, there is no difference between distinct and composite ALE.
     # So, calculate only the offset shift. And calculate it based only on the full dataset (ale_y_full) since there is no point bootstrapping the shift.
     ale_diff <- map(y_cats, \(it.cat) {
       it.cat_ale <- ale_y_full[it.cat, , drop = FALSE]
@@ -706,12 +727,15 @@ calc_ale <- function(
   # Apply the centring
   boot_ale_tbl <- boot_ale_tbl |>
     mutate(
-      across(starts_with('.y'), \(v.col) {
-        v.col - unname(ale_y_shift[.data$.cat])
+      across(starts_with('.y'), \(it.col) {
+        it.col - unname(ale_y_shift[.data$.cat])
       }),
       .y = .data$.y_distinct
     )
 
+  if (!allow_bootstrap_na && anyNA(boot_ale_tbl$.y)) {
+    cli_abort('Missing ALE values occurred without bootstrapping. Please submit a bug report.')
+  }
 
   # Summarize bootstrapped values -----------------
 
@@ -825,10 +849,11 @@ calc_ale <- function(
 
   boot_summary <- boot_summary |>
     mutate(
-      .y = case_when(
-        boot_centre == 'mean' ~   .y_mean,
-        boot_centre == 'median' ~ .y_median,
-      ),
+      .y = if (boot_centre == 'mean') {
+        .data$.y_mean
+      } else if (boot_centre == 'median') {
+        .data$.y_median
+      },
     ) |>
     select('.cat', all_of(x_cols), '.n', '.y', everything())
 
@@ -857,7 +882,8 @@ calc_ale <- function(
                 bin_n = btit.cat_ale_data$.n,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
                 y_vals = NULL,
-                x_type = xd[[1]]$x_type
+                x_type = xd[[1]]$x_type,
+                aled_fun = aled_fun
               )
             }
             else if (ixn_d == 2) {
@@ -866,8 +892,10 @@ calc_ale <- function(
                 x_cols = x_cols,
                 x_types = x_types,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                y_vals = NULL
-              )            }
+                y_vals = NULL,
+                aled_fun = aled_fun
+              )
+            }
             else {
               cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
             }
@@ -891,10 +919,11 @@ calc_ale <- function(
           conf.high = apply(
             it.cbs, 2, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
           ),
-          estimate = case_when(
-            boot_centre == 'mean' ~ mean,
-            boot_centre == 'median' ~ median,
-          ),
+          estimate = if (boot_centre == 'mean') {
+            mean
+          } else if (boot_centre == 'median') {
+            median
+          },
         )  |>
           mutate(
             term = paste0(x_cols, collapse = ':'),
@@ -1006,9 +1035,10 @@ calc_ale <- function(
 #' @param x_col character(1). Name of single column in X for which ALE data is to be calculated.
 #' @param x_type character(1). var_type() of x_col.
 #' @param x_vals vector. The values of x_col.
-#' @param bins,n  See documentation for [calc_ale()]
+#' @param bins,n  See documentation for \code{[calc_ale()]}
 #' @param max_num_bins See documentation for [ALE()]
-#' @param X  See documentation for [calc_ale()]. Used only for categorical x_col.
+#' @param fct_order See documentation for [ALE()]
+#' @param X  See documentation for \code{[calc_ale()]}. Used only for categorical x_col.
 #'
 prep_var_for_ale <- function(
     x_col,
@@ -1017,6 +1047,7 @@ prep_var_for_ale <- function(
     bins,
     n,
     max_num_bins,
+    fct_order,
     X = NULL
 ) {
 
@@ -1028,8 +1059,8 @@ prep_var_for_ale <- function(
         min(x_vals, na.rm = TRUE),  # first value is the min
         stats::quantile(
           x_vals,
-          # seq creates length.out + 1 bins, so set it to max_num_bins - 1
-          seq(1 / (max_num_bins - 1), 1, length.out = max_num_bins - 1),
+          # seq creates length.out + 1 bins, so set it to max_num_bins
+          seq(1 / max_num_bins, 1, length.out = max_num_bins),
           # keep quantile type = 1 for consistency with Apley & Zhu 2020
           type = 1,
           na.rm = TRUE
@@ -1126,31 +1157,29 @@ prep_var_for_ale <- function(
       }
       else if (x_type == 'categorical') {
         # calculate the indices of the original intervals after ordering them
-        idx_ord_orig_int <-
-          # Call function to order categorical categories
-          idxs_kolmogorov_smirnov(
-            X, x_col,
-            n_bins = x_vals |> unique() |> length(),
-            x_int_counts
-          )
+
+        # Up until here, fct_order can store different orders for each y_col category.
+        # Until we develop code that can properly handle distinct orders for each category,
+        # just take the first category's order and ignore the others.
+        fct_order <- fct_order[[1]]
+
+        # x intervals sorted in ALE order
+        int_ale_order <- fct_order
+
+        # calculate the indices of the original intervals after ordering them
+        idx_ord_orig_int <- match(
+          int_ale_order,
+          # factors have levels; characters don't
+          if (is.factor(x_vals)) levels(x_vals) else unique(x_vals)
+        )
 
         # index of x_col value according to ordered indices
         x_ordered_idx <-
-          idx_ord_orig_int |>
-          sort(index.return = TRUE) |>
-          (`[[`)('ix') |>
-          (`[`)(
+          idx_ord_orig_int[
             x_vals |>
               factor() |>  # required to handle character vectors
               as.numeric()
-          )
-
-        # x intervals sorted in ALE order
-        int_ale_order <-
-          x_int_counts |>
-          names() |>
-          (`[`)(idx_ord_orig_int)
-
+          ]
       }
       else if (x_type == 'ordinal') {
 

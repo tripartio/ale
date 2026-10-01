@@ -10,8 +10,7 @@ status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/pa
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/tripartio/ale/graph/badge.svg)](https://app.codecov.io/gh/tripartio/ale)
+<!-- [![Codecov test coverage](https://codecov.io/gh/tripartio/ale/graph/badge.svg)](https://app.codecov.io/gh/tripartio/ale) -->
 <!-- badges: end -->
 
 Accumulated Local Effects (ALE) were initially developed as a
@@ -38,7 +37,7 @@ The `{ale}` package defines four main `{S7}` classes:
 
 - `ALE`: data for 1D ALE (single variables) and 2D ALE (two-way
   interactions). ALE values may be bootstrapped with ALE statistics
-  calcuated.
+  calculated.
 - `ModelBoot`: bootstrap results an entire model, not just the ALE
   values. This function returns the bootstrapped model statistics and
   coefficients as well as the bootstrapped ALE values. This is the
@@ -98,25 +97,42 @@ demonstrations, we begin by fitting a GAM model. We assume that this is
 a final deployment model that needs to be fitted to the entire dataset.
 
 ``` r
-library(ale)
-#> 
-#> Attaching package: 'ale'
-#> The following object is masked from 'package:base':
-#> 
-#>     get
 
-# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example).
-set.seed(0)
-diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 
-# Create a GAM model with flexible curves to predict diamond price.
-# Smooth all numeric variables and include all other variables.
-# Build model on training data, not on the full dataset.
+# Load diamonds dataset with some cleanup
+diamonds <- ggplot2::diamonds |>
+  filter(!(x == 0 | y == 0 | z == 0)) |>
+  # https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/
+  distinct(
+    price, carat, cut, color, clarity,
+    .keep_all = TRUE
+  ) |>
+  rename(
+    x_length = x,
+    y_width = y,
+    z_depth = z,
+    depth_pct = depth
+  )
+```
+
+``` r
+
+# Create a GAM model with flexible curves to predict diamond price
+# Smooth all numeric variables and include all other variables
+# Build the model on training data, not on the full dataset.
 gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-    cut + color + clarity +
-    ti(carat, by = clarity),  # a 2D interaction
-  data = diamonds_sample
+  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
+    cut + color + clarity,
+  data = diamonds
 )
 ```
 
@@ -126,15 +142,35 @@ For the simple demonstration, we directly create ALE data with the
 `ALE()` function and then plot the `ggplot` plot objects.
 
 ``` r
+library(ale)
+#> 
+#> Attaching package: 'ale'
+#> The following object is masked from 'package:base':
+#> 
+#>     get
+
+# For speed, these examples use retrieve_rds() to load pre-created objects 
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.  
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+```
+
+``` r
 # Create ALE data
-ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds_sample)
+# # To run the slow code yourself, uncomment and execute this code block directly.
+ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds)
+
+ale_gam_diamonds <- serialized_objects_site |> 
+  file.path('ale_gam_diamonds.0.5.2.rds') |>
+  url() |> 
+  readRDS()
 
 # Plot the ALE data
 plot(ale_gam_diamonds) |> 
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-simple-ale-1.png" width="100%" />
+<img src="man/figures/README-simple-ale-rds-1.png" alt="" width="100%" />
 
 For an explanation of these basic features, see the [introductory
 vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
@@ -142,11 +178,11 @@ vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
 ### Statistical inference with ALE
 
 The statistical functionality of the `{ale}` package is rather slow
-because it typically involves 100 bootstrap iterations and sometimes a
+because it typically involves 100 bootstrap iterations and sometimes
 1,000 random simulations. Even though most functions in the package
-implement parallel processing by default, such procedures still take
-some time. So, this statistical demonstration gives you downloadable
-objects for a rapid demonstration.
+support parallel processing, such procedures still take some time. So,
+this statistical demonstration gives you downloadable objects for a
+rapid demonstration.
 
 First, we need to create a p-value distribution object so that the ALE
 statistics can be properly distinguished from random effects.
@@ -154,16 +190,17 @@ statistics can be properly distinguished from random effects.
 ``` r
 # Create p_value distribution object
 
-# # To generate the code, uncomment the following lines.
-# # But it is slow because it retrains the model 100 times, so this vignette loads a pre-created p_value distribution object.
-# gam_diamonds_p_readme <- ALEpDist(
-#   gam_diamonds, diamonds_sample,
-#   # Normally should be default 1000, but just 100 for quicker demo
+# # Rather slow because it retrains the model 100 times.
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# p_dist_gam_diamonds_readme <- ALEpDist(
+#   gam_diamonds, diamonds,
+#   # Normally should be default 1000, but just 100 for a quicker demo.
 #   rand_it = 100
 # )
-# saveRDS(gam_diamonds_p_readme, file.choose())
-gam_diamonds_p_readme <- 
-  url('https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_readme.0.5.0.rds') |> 
+
+p_dist_gam_diamonds_readme <- serialized_objects_site |> 
+  file.path('p_dist_gam_diamonds_readme.0.5.2.rds') |>
+  url() |> 
   readRDS()
 ```
 
@@ -171,17 +208,26 @@ Now we can create bootstrapped ALE data and see some of the differences
 in the plots of bootstrapped ALE with p-values:
 
 ``` r
-# Create ALE data
-ale_gam_diamonds_stats_readme <- ALE(
-  gam_diamonds,
-  # generate all for all 1D variables and the carat:clarity 2D interaction
-  x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
-  data = diamonds_sample,
-  p_values = gam_diamonds_p_readme,
-  # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
-  boot_it = 10
-)
+# Create ALE data with p-values
 
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# ale_gam_diamonds_stats_readme <- ALE(
+#   gam_diamonds,
+#   # generate ALE for all 1D variables and the carat:clarity 2D interaction
+#   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
+#   data = diamonds,
+#   p_values = p_dist_gam_diamonds_readme,
+#   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
+#   boot_it = 10
+# )
+
+ale_gam_diamonds_stats_readme <- serialized_objects_site |> 
+  file.path('ale_gam_diamonds_stats_readme.0.5.2.rds') |>
+  url() |> 
+  readRDS()
+```
+
+``` r
 # Create an ALEPlots object for fine-tuned plotting
 ale_plots <- plot(ale_gam_diamonds_stats_readme)
 
@@ -194,7 +240,7 @@ ale_plots |>
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-ale-p-and-1D-plot-1.png" width="100%" />
+<img src="man/figures/README-ale-1D-plot-1.png" alt="" width="100%" />
 
 ``` r
 # Plot a selected 2D plot
@@ -203,7 +249,7 @@ ale_plots |>
   get('carat:clarity') 
 ```
 
-<img src="man/figures/README-2D-plot-1.png" width="100%" />
+<img src="man/figures/README-2D-plot-1.png" alt="" width="100%" />
 
 For a detailed explanation of how to interpret these plots, see the
 vignette on [ALE-based statistics for statistical inference and effect

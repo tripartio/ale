@@ -7,6 +7,7 @@ test_that(
     pll_ale <- ALE(
       test_gam,
       x_cols = ~ model + carb + am:wt,
+      parallel = 2,  # max allowed on CRAN
       data = test_cars,
       p_values = 'auto',
       boot_it = 2,
@@ -15,7 +16,7 @@ test_that(
 
     # Test the print ALE() method
     print(pll_ale) |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -32,17 +33,17 @@ test_that(
       x_cols = list(d1 = TRUE, d2 = TRUE),
       data = test_cars,
       boot_it = 2,
-      parallel = 0,
       p_values = NULL,
       silent = TRUE
     )
 
+    expect_true(S7::S7_inherits(cars_ale, ALE))
     cars_ale |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
 
     plot(cars_ale) |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )

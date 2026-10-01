@@ -2,6 +2,47 @@
 
 
 
+# Select a future strategy that can load a pkgload development package.
+#
+# future normally records functions from a package namespace as package
+# dependencies rather than serializing them. A package loaded from its source
+# tree by pkgload is not available to a clean multisession worker through
+# library(), so ask each worker to load that same source tree at startup.
+# Installed packages retain future's standard multisession behaviour.
+#
+# @param pkg Name of the package whose development source should be loaded.
+# @param session_fn The future strategy to use.
+# @return A future strategy function.
+# @noRd
+future_session <- function(
+    pkg = 'ale',
+    session_fn = future::multisession
+) {
+  if (
+    "pkgload" %in% loadedNamespaces() &&
+      pkgload::is_dev_package(pkg)
+  ) {
+    package_path <- find.package(pkg)
+    worker_startup <- bquote(
+      quote(
+        pkgload::load_all(
+          .(package_path),
+          helpers = FALSE,
+          quiet = TRUE
+        )
+      )
+    )
+
+    return(future::tweak(
+      session_fn,
+      rscript_startup = worker_startup
+    ))
+  }
+
+  session_fn
+}
+
+
 
 # Mathematical operations ------------
 
@@ -112,40 +153,35 @@ decimal_df <- function(df, dp = 3) {
 }
 
 
-# Reduce a model to text descriptions of its key elements
-params_model <- function(model) {
-  # Some calls to summary(model) crash, so wrap in tryCatch
-  model_summary <- tryCatch(
-    {
-      summary(model) |>
-        print() |>
-        utils::capture.output() |>
-        paste0(collapse = '\n')
-    },
-    error = \(e) {
-      e  # nocov
-    }
-  )
+# Calculate an MD5 hash from a raw vector across supported R versions
+md5sum_raw <- function(raw, md5sum = tools::md5sum) {
+  # R versions before 4.5.1 don't support the tools::md5sum(bytes) argument,
+  # so create a temporary-file fallback for older versions.
+  hash <- if ("bytes" %in% names(formals(md5sum))) {
+    md5sum(bytes = raw)
+  } else {
+    tf <- tempfile(fileext = ".bin")
+    on.exit(unlink(tf), add = TRUE)
+    writeBin(raw, tf)
+    md5sum(tf)
+  }
 
-  list(
-    class = class(model),
-    call = insight::model_name(model, include_call = TRUE) |>
-      paste0(collapse = '\n'),
-    print = print(model) |>
-      utils::capture.output() |>
-      paste0(collapse = '\n'),
-    summary = model_summary
-  )
+  # md5sum() names file-based results with the input path. Do not let that
+  # transient path become part of package objects or their snapshots.
+  unname(hash)
 }
 
 
-# Reduce a function to text descriptions of its key elements
-params_function <- function(func) {
-  pf <- print(func) |>
-    utils::capture.output()
-  # Remove the last line with the environment (it is a random value and fails on snapshot testing)
-  pf[-length(pf)] |>
-    paste0(collapse = '\n')
+# Reduce a model to text descriptions of its key elements
+params_model <- function(model) {
+  hash <- model |>
+    serialize(NULL) |>
+    md5sum_raw()
+
+  list(
+    class = class(model),
+    hash  = hash
+  )
 }
 
 
@@ -211,5 +247,3 @@ extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
 
   result
 }
-
-

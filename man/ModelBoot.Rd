@@ -10,14 +10,11 @@ ModelBoot(
   ...,
   model_call_string = NULL,
   model_call_string_vars = character(),
-  parallel = "all",
+  parallel = 0,
   model_packages = NULL,
   y_col = NULL,
   positive = TRUE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
   boot_it = 100,
   boot_alpha = 0.05,
@@ -37,7 +34,7 @@ ModelBoot(
 \arguments{
 \item{model}{Required. See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{data}{dataframe. Dataset to be bootstrapped. This must be the same data on which the \code{model} was trained. If not provided, \code{ModelBoot()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
+\item{data}{dataframe. Dataset to be bootstrapped. This must be the same data on which the \code{model} was trained. If not provided, \code{ModelBoot()} will try to detect it automatically. For \code{model} objects that do not contain their data within them, \code{data} should be provided.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -59,31 +56,40 @@ ModelBoot(
 
 \item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for \code{\link[=ALE]{ALE()}} for further details.}
 
-\item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics using \code{\link[broom:reexports]{broom::glance()}} (if available for \code{model}) and bootstrap-validated statistics if \code{boot_it > 0}.}
+\item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics using \code{\link[broom:glance]{broom::glance()}} (if available for \code{model}) and bootstrap-validated statistics if \code{boot_it > 0}.}
 
-\item{output_model_coefs}{logical(1). If \code{TRUE} (default), return model coefficients using \code{\link[broom:reexports]{broom::tidy()}} (if available for \code{model}).}
+\item{output_model_coefs}{logical(1). If \code{TRUE} (default), return model coefficients using \code{\link[broom:tidy]{broom::tidy()}} (if available for \code{model}).}
 
 \item{output_ale}{logical(1). If \code{TRUE} (default), return ALE data and statistics.}
 
 \item{output_boot_data}{logical(1). If \code{TRUE}, return the full raw data for each bootstrap iteration, specifically, the bootstrapped models and the model row indices. Default \code{FALSE} does not return this large, detailed data.}
 
-\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} constructor when \code{ale = TRUE}, \code{\link[broom:reexports]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:reexports]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. Note: to obtain p-values for ALE statistics, see the \code{ale_p} argument.}
+\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} constructor when \code{ale = TRUE}, \code{\link[broom:tidy]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:glance]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. Note: to obtain p-values for ALE statistics, see the \code{ale_p} argument.}
 
 \item{ale_p}{Same as the \code{p_values} argument for the \code{\link[=ALE]{ALE()}} constructor; see documentation there. This argument overrides the \code{p_values} element of the \code{ale_options} argument.}
 
 \item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
 \value{
-An object of class \code{ALE} with properties \code{model_stats}, \code{model_coefs}, \code{ale}, \code{model_stats}, \code{boot_data}, and \code{params}.
+A \code{ModelBoot} object with properties \code{model_stats}, \code{model_coefs},
+\code{ale}, \code{boot_data}, and \code{params}.
 }
 \description{
 A \code{ModelBoot} S7 object contains full-model bootstrapped statistics and ALE data for a trained model. Full-model bootstrapping (as distinct from data-only bootstrapping) retrains a model for each bootstrap iteration. Thus, it can be rather slow, though it is much more reliable. However, for obtaining bootstrapped ALE data, plots, and statistics, full-model bootstrapping as provided by \code{ModelBoot} is only necessary for models that have not been developed by cross-validation. For cross-validated models, it is sufficient (and much faster) to create a regular \verb{[ALE()]} object with bootstrapping by setting the \code{boot_it} argument in its constructor. In fact, full-model bootstrapping with \code{ModelBoot} is often infeasible for slow machine-learning models trained on large datasets, which should rather be cross-validated to assure their reliability. However, for models that have not been cross-validated, full-model bootstrapping with \code{ModelBoot} is necessary for reliable results. Further details follow below; see also \code{vignette('ale-statistics')}.
 }
+\section{Methods}{
+
+\code{ModelBoot} objects support \link[=get-ModelBoot-method]{get()},
+\link[=plot-ModelBoot-method]{plot()}, \link[=print-ModelBoot-method]{print()}, and
+\link[=summary-ModelBoot-method]{summary()}. Each method topic documents its
+complete signature and class-specific arguments.
+}
+
 \section{Properties}{
 
 \describe{
 \item{model_stats}{
-\code{tibble} of bootstrapped results from \code{\link[broom:reexports]{broom::glance()}}. \code{NULL} if \code{model_stats} argument is \code{FALSE}. In general, only \code{\link[broom:reexports]{broom::glance()}} results that make sense when bootstrapped are included, such as \code{df} and \code{adj.r.squared}. Results that are incomparable across bootstrapped datasets (such as \code{aic}) are excluded. In addition, certain model performance measures are included; these are bootstrap-validated with the .632 correction (Efron & Tibshirani 1986) (NOT the .632+ correction):
+\code{tibble} of bootstrapped results from \code{\link[broom:glance]{broom::glance()}}. \code{NULL} if \code{model_stats} argument is \code{FALSE}. In general, only \code{\link[broom:glance]{broom::glance()}} results that make sense when bootstrapped are included, such as \code{df} and \code{adj.r.squared}. Results that are incomparable across bootstrapped datasets (such as \code{aic}) are excluded. In addition, certain model performance measures are included; these are bootstrap-validated with the .632 correction (Efron & Tibshirani 1986) (NOT the .632+ correction):
 \itemize{
 \item For regression (numeric prediction) models:
 \itemize{
@@ -100,7 +106,7 @@ A \code{ModelBoot} S7 object contains full-model bootstrapped statistics and ALE
 }
 
 \item{model_coefs}{
-A \code{tibble} of bootstrapped results from \code{\link[broom:reexports]{broom::tidy()}}.
+A \code{tibble} of bootstrapped results from \code{\link[broom:tidy]{broom::tidy()}}.
 \code{NULL} if \code{model_coefs} argument is \code{FALSE}.
 }
 \item{ale}{
@@ -165,37 +171,49 @@ summary(gam_attitude)
 
 \donttest{
 # Full model bootstrapping
-# Only 4 bootstrap iterations for a rapid example; default is 100
-# Increase value of boot_it for more realistic results
-mb_gam <- ModelBoot(
-  gam_attitude,
-  boot_it = 4
+
+
+# For speed, these examples use retrieve_rds() to load pre-created objects
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+
+# Create ALE data
+mb_gam_attitude <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For models like lm that store their data,
+    # there is no need to specify the data argument.
+    # 100 bootstrap iterations by default.
+    ModelBoot(gam_attitude)
+  }
 )
 
-# If the model is not standard, supply model_call_string with 'data = boot_data'
-# in the string instead of the actual dataset name (in addition to the actual dataset
-# as the 'data' argument directly to the `ModelBoot` constructor).
-mb_gam <- ModelBoot(
-  gam_attitude,
-  data = attitude,  # the actual dataset
-  model_call_string = 'mgcv::gam(
-    rating ~ complaints + privileges + s(learning) +
-      raises + s(critical) + advance,
-    data = boot_data  # required for model_call_string
-  )',
-  boot_it = 4
-)
+# # If default settings cause errors, supply model_call_string with 'data = boot_data'
+# # in the string instead of the actual dataset name (in addition to the actual dataset
+# # as the 'data' argument directly to the `ModelBoot` constructor).
+# mb_gam_attitude <- ModelBoot(
+#   gam_attitude,
+#   data = attitude,  # the actual dataset
+#   model_call_string = 'mgcv::gam(
+#     rating ~ complaints + privileges + s(learning) +
+#       raises + s(critical) + advance,
+#     data = boot_data  # required for model_call_string
+#   )'
+# )
 
 # Model statistics and coefficients
-mb_gam@model_stats
-mb_gam@model_coefs
+mb_gam_attitude@model_stats
+mb_gam_attitude@model_coefs
 
 # Plot ALE
-plot(mb_gam)
+plot(mb_gam_attitude)
 
 # Retrieve ALE data
-get(mb_gam, type = 'boot')    # bootstrapped
-get(mb_gam, type = 'single')  # full (unbootstrapped) model
+get(mb_gam_attitude, type = 'boot')    # bootstrapped
+get(mb_gam_attitude, type = 'single')  # full (unbootstrapped) model
 # See get.ALE() for other options
 
 }

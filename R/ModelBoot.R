@@ -13,7 +13,7 @@
 #'
 #'
 #' @param model Required. See documentation for [ALE()]
-#' @param data dataframe. Dataset to be bootstrapped. This must be the same data on which the `model` was trained. If not provided, `ModelBoot()` will try to detect it automatically. For non-standard models, `data` should be provided.
+#' @param data dataframe. Dataset to be bootstrapped. This must be the same data on which the `model` was trained. If not provided, `ModelBoot()` will try to detect it automatically. For `model` objects that do not contain their data within them, `data` should be provided.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param model_call_string character(1). If `NULL` (default), the `ModelBoot` tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes `boot_data` as the data argument for the call. See examples.
 #' @param model_call_string_vars character. Names of variables included in `model_call_string` that are not columns in `data`. If any such variables exist, they must be specified here or else parallel processing may produce an error. If parallelization is disabled with `parallel = 0`, then this is not a concern. See documentation for the `model_packages` argument in [ALE()].
@@ -33,7 +33,14 @@
 #' @param silent See documentation for [ALE()]
 #'
 #'
-#' @returns An object of class `ALE` with properties `model_stats`, `model_coefs`, `ale`, `model_stats`, `boot_data`, and `params`.
+#' @returns A `ModelBoot` object with properties `model_stats`, `model_coefs`,
+#'   `ale`, `boot_data`, and `params`.
+#'
+#' @section Methods:
+#' `ModelBoot` objects support [get()][get-ModelBoot-method],
+#' [plot()][plot-ModelBoot-method], [print()][print-ModelBoot-method], and
+#' [summary()][summary-ModelBoot-method]. Each method topic documents its
+#' complete signature and class-specific arguments.
 #'
 #' @section Properties:
 #' \describe{
@@ -108,37 +115,49 @@
 #'
 #' \donttest{
 #' # Full model bootstrapping
-#' # Only 4 bootstrap iterations for a rapid example; default is 100
-#' # Increase value of boot_it for more realistic results
-#' mb_gam <- ModelBoot(
-#'   gam_attitude,
-#'   boot_it = 4
+#'
+#'
+#' # For speed, these examples use retrieve_rds() to load pre-created objects
+#' # from an online repository.
+#' # To run the code yourself, execute the code blocks directly.
+#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+#'
+#' # Create ALE data
+#' mb_gam_attitude <- retrieve_rds(
+#'   # For speed, load a pre-created object by default.
+#'   c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
+#'   {
+#'     # To run the code yourself, execute this code block directly.
+#'     # For models like lm that store their data,
+#'     # there is no need to specify the data argument.
+#'     # 100 bootstrap iterations by default.
+#'     ModelBoot(gam_attitude)
+#'   }
 #' )
 #'
-#' # If the model is not standard, supply model_call_string with 'data = boot_data'
-#' # in the string instead of the actual dataset name (in addition to the actual dataset
-#' # as the 'data' argument directly to the `ModelBoot` constructor).
-#' mb_gam <- ModelBoot(
-#'   gam_attitude,
-#'   data = attitude,  # the actual dataset
-#'   model_call_string = 'mgcv::gam(
-#'     rating ~ complaints + privileges + s(learning) +
-#'       raises + s(critical) + advance,
-#'     data = boot_data  # required for model_call_string
-#'   )',
-#'   boot_it = 4
-#' )
+#' # # If default settings cause errors, supply model_call_string with 'data = boot_data'
+#' # # in the string instead of the actual dataset name (in addition to the actual dataset
+#' # # as the 'data' argument directly to the `ModelBoot` constructor).
+#' # mb_gam_attitude <- ModelBoot(
+#' #   gam_attitude,
+#' #   data = attitude,  # the actual dataset
+#' #   model_call_string = 'mgcv::gam(
+#' #     rating ~ complaints + privileges + s(learning) +
+#' #       raises + s(critical) + advance,
+#' #     data = boot_data  # required for model_call_string
+#' #   )'
+#' # )
 #'
 #' # Model statistics and coefficients
-#' mb_gam@model_stats
-#' mb_gam@model_coefs
+#' mb_gam_attitude@model_stats
+#' mb_gam_attitude@model_coefs
 #'
 #' # Plot ALE
-#' plot(mb_gam)
+#' plot(mb_gam_attitude)
 #'
 #' # Retrieve ALE data
-#' get(mb_gam, type = 'boot')    # bootstrapped
-#' get(mb_gam, type = 'single')  # full (unbootstrapped) model
+#' get(mb_gam_attitude, type = 'boot')    # bootstrapped
+#' get(mb_gam_attitude, type = 'single')  # full (unbootstrapped) model
 #' # See get.ALE() for other options
 #'
 #' }
@@ -159,13 +178,11 @@ ModelBoot <- new_class(
     ...,
     model_call_string = NULL,
     model_call_string_vars = character(),
-    parallel = 'all',
+    parallel = 0,
     model_packages = NULL,
     y_col = NULL,
     positive = TRUE,
-    pred_fun = function(object, newdata, type = pred_type) {
-      stats::predict(object = object, newdata = newdata, type = type)
-    },
+    pred_fun = NULL,
     pred_type = "response",
     boot_it = 100,
     boot_alpha = 0.05,
@@ -208,9 +225,13 @@ ModelBoot <- new_class(
         !is.null(model_call),
         msg = c(
           'x' = 'The model call could not be automatically detected.',
-          'i' = '{.arg model_call_string} must be provided. See {.fun ModelBoot()} for details.'
+          'i' = '{.arg model_call_string} must be provided. See {.fun ModelBoot} for details.'
         )
       )
+
+      # Keep track of if there is a data argument in model_call.
+      # If not, errors might result later.
+      data_in_model_call <- 'data' %in% names(model_call)
     }
     else {  # validate model_call_string
       validate(is_string(model_call_string))
@@ -218,7 +239,7 @@ ModelBoot <- new_class(
         str_detect(model_call_string, 'boot_data'),
         msg = c(
           'x' = 'The {.arg data} argument for {.arg model_call_string} must be "boot_data".',
-          'i' = 'See {.fun ModelBoot()} for details.'
+          'i' = 'See {.fun ModelBoot} for details.'
         )
       )
 
@@ -227,9 +248,12 @@ ModelBoot <- new_class(
         str_replace_all('([^.])(boot_data)', '\\1btit.data')
     }
 
-    vp <- validate_parallel(parallel, model, model_packages)
-    parallel <- vp$parallel
-    model_packages <- vp$model_packages
+    if (missing(parallel)) {
+      parallel <- getOption("ale.parallel", parallel)
+    }
+    val_pll <- validate_parallel(parallel, model, model_packages)
+    parallel <- val_pll$parallel
+    model_packages <- val_pll$model_packages
 
 
     # Determine if the information for calculating performance measures can be obtained.
@@ -242,7 +266,7 @@ ModelBoot <- new_class(
         {
           validate(is_string(pred_type))
 
-          # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+          # If y_col is NULL, try to automatically detect y_col.
           y_col <- validate_y_col(
             y_col = y_col,
             data = data,
@@ -250,13 +274,15 @@ ModelBoot <- new_class(
           )
 
           # Obtain the predictions of y. This operation simultaneously validates pred_fun, model, and pred_type.
-          y_preds <- validate_y_preds(
+          val_pred <- validate_prediction(
             pred_fun = pred_fun,
             model = model,
             data = data,
             y_col = y_col,
             pred_type = pred_type
           )
+          pred_fun <- val_pred$pred_fun
+          y_preds <- val_pred$y_preds
 
           y_cats <- colnames(y_preds)
           y_type <- var_type(data[[y_col]])
@@ -355,6 +381,8 @@ ModelBoot <- new_class(
 
     ## Verify glance and tidy methods ------------
 
+    class_model <- class(model)
+
     # Define call_glance since it is possible to output_model_stats without broom::glance results
     call_glance <- FALSE
     if (output_model_stats) {
@@ -362,14 +390,17 @@ ModelBoot <- new_class(
         str_remove("^glance\\.") |>  # Remove leading "glance."
         str_remove("\\*$")           # Remove trailing "*" if present
 
-      call_glance <- any(class(model) %in% glance_methods)
+      call_glance <- any(class_model %in% glance_methods)
 
       if (!call_glance) {  # nocov start
-        cli_warn(c(
-          '!' = 'No {.fun boot::glance} methods found for the class {.cls {class(model)}}.',
-          'i' = 'Some general model statistics will not be provided',
-          'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
-        ))
+        if (!any(class_model %in% 'ranger')) {
+          cli_warn(c(
+            '!' = 'No {.fun broom::glance} methods found for the class {.cls {class(model)}}.',
+            'i' = 'Some general model statistics will not be provided',
+            'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
+          ))
+          # No warning for ranger, which is known to lack broom support
+        }
       }  # nocov end
     }
 
@@ -379,14 +410,17 @@ ModelBoot <- new_class(
         str_remove("^tidy\\.") |>  # Remove leading "tidy."
         str_remove("\\*$")           # Remove trailing "*" if present
 
-      output_model_coefs <- any(class(model) %in% tidy_methods)
+      output_model_coefs <- any(class_model %in% tidy_methods)
 
       if (!output_model_coefs) {  # nocov start
-        cli_warn(c(
-          '!' = 'No {.fun boot::tidy} methods found for the class {.cls {class(model)}}.',
-          'i' = 'Model coefficient summaries will not be provided.',
-          'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
-        ))
+        if (!any(class_model %in% 'ranger')) {
+          cli_warn(c(
+            '!' = 'No {.fun broom::tidy} methods found for the class {.cls {class(model)}}.',
+            'i' = 'Model coefficient summaries will not be provided.',
+            'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
+          ))
+          # No warning for ranger, which is known to lack broom support
+        }
       }  # nocov end
     }
 
@@ -436,8 +470,9 @@ ModelBoot <- new_class(
 
     # Enable parallel processing and restore former parallel plan on exit
     if (parallel > 0) {
-      original_parallel_plan <- future::plan(future::multisession, workers = parallel)
-      on.exit(future::plan(original_parallel_plan))
+      future::plan(future_session(), workers = parallel) |>
+        # https://github.com/tripartio/ale/issues/17
+        with(local = TRUE)
     }
 
     model_call_string_vars <- c(
@@ -501,6 +536,15 @@ ModelBoot <- new_class(
             error = \(e) {  # nocov start
               if (btit == 0) {
                 # If the full model call fails, then abort altogether. Nothing else will probably work.
+
+                # Identify one known reason for model failure
+                if (!data_in_model_call) {
+                  cli_warn(c(
+                    '!' = 'No "data" argument found in the `model` call.',
+                    i = 'If there is a weird error, try explicitly specifying the "data" argument.'
+                  ))
+                }
+
                 cli_abort(paste0(
                   'The {.arg ',
                   if (!is.null(model_call_string)) 'model_call_string' else 'model',
@@ -539,12 +583,17 @@ ModelBoot <- new_class(
                 {
                   do.call(
                     broom::glance,
-                    list(btit.model, unlist(glance_options))
+                    c(
+                      list(btit.model),  # model object
+                      glance_options  # any parameters
+                    )
                   )
                 },
-                error = \(e) {
-                  NULL  # nocov
-                }
+                error = \(e) {  # nocov start
+                  cli_warn(e)
+
+                  NULL
+                }  # nocov end
               )
             } else {
               NULL  # nocov
@@ -667,9 +716,9 @@ ModelBoot <- new_class(
                     broom::tidy,
                     c(
                       list(btit.model),  # model object
-                      tidy_options
+                      tidy_options  # any parameters
                     )
-                  )  # any parameters
+                  )
                 },
                 error = \(e) {
                   NULL  # nocov
@@ -684,54 +733,47 @@ ModelBoot <- new_class(
           ## Bootstrap ALE --------------
 
           if (output_ale) {
-            boot_ale <- if (is.na(sum(btit.model$coefficients, na.rm = FALSE))) {
-              # One or more coefficients are not defined.
-              # This might be due to collinearity in a bootstrapped sample, which yields the warning: "Coefficients: (_ not defined because of singularities)".
-              NA
-            }
-            else {  # Valid model and ALE requested
-
-              # Calculate ALE. Use do.call so that ale_options can be passed.
-              # If an iteration fails for any reason, set it as NULL.
-              tryCatch(
-                {
-                  do.call(
-                    ALE,
-                    utils::modifyList(
-                      list(
-                        model = btit.model,
-                        data = btit.data,
-                        parallel = 0,  # do not parallelize at this inner level
-                        boot_it = 0,  # do not bootstrap at this inner level
-                        p_values = NULL,
-                        .bins = if (btit == 0) NULL else ale_bins,
-                        silent = TRUE  # silence inner bootstrap loop
-                      ),
-                      # pass all other desired options, e.g., specific x_col
-                      ale_options
+            # Calculate ALE. Use do.call so that ale_options can be passed.
+            # If an iteration fails for any reason in the tryCatch, set it as NULL.
+            boot_ale <- tryCatch(
+              {
+                do.call(
+                  ALE,
+                  utils::modifyList(
+                    list(
+                      model = btit.model,
+                      data = btit.data,
+                      parallel = 0,  # do not parallelize at this inner level
+                      boot_it = 0,  # do not bootstrap at this inner level
+                      p_values = if (btit == 0) NULL else ale_p,
+                      require_same_p = FALSE,  # must be disabled for bootstrapping
+                      .bins = if (btit == 0) NULL else ale_bins,
+                      silent = TRUE  # silence inner bootstrap loop
                     ),
-                    # assure appropriate scoping with do.call()
-                    envir = parent.frame(1)
+                    # pass all other desired options, e.g., specific x_col
+                    ale_options
+                  ),
+                  # assure appropriate scoping with do.call()
+                  envir = parent.frame(1)
+                )
+              },
+              error = \(e) {  # nocov start
+                if (btit == 0) {
+                  # Terminate early if the full model cannot produce ALE
+                  cli_alert_danger('Could not calculate ALE:\n')
+                  print(e)
+                  stop()
+                } else {
+                  cli_warn(
+                    'ALE calculation failed for iteration {btit}...',
+                    class = 'ale_fail'
                   )
-                },
-                error = \(e) {  # nocov start
-                  if (btit == 0) {
-                    # Terminate early if the full model cannot produce ALE
-                    cli_alert_danger('Could not calculate ALE:\n')
-                    print(e)
-                    stop()
-                  } else {
-                    cli_warn(
-                      'ALE calculation failed for iteration {btit}...',
-                      class = 'ale_fail'
-                    )
-                    # print(e)  # uncomment to debug; TODO: log all errors in params
+                  # print(e)  # uncomment to debug; TODO: log all errors in params
 
-                    NULL
-                  }
-                }  # nocov end
-              )
-            }  # else {  # Valid model and ALE requested
+                  NULL
+                }
+              }  # nocov end
+            )  # tryCatch
 
             # From full dataset (btit == 0), calculate common bins for all subsequent iterations
             if (btit == 0) {
@@ -999,18 +1041,19 @@ ModelBoot <- new_class(
     ale_summary <- if (output_ale) {
       full_ale <- boot_data$ale[[1]]
 
-      # Remove first element (not bootstrapped) if bootstrapping is requested
-      boot_data_ale <-
-        if (boot_it == 0) {  # only one full iteration; it is valid
-          # Normally y_cats is calculated for bootstrapping;
-          # so make sure it is available for ALE summarization.
-          y_cats <- full_ale@params$y_cats
+      # Retrieve all bootstrapped elements, if any
+      boot_data_ale <- boot_data$ale[-1] |>
+        compact()  # remove NULL elements from failed iterations
 
-          boot_data$ale
-        } else {  # for regular bootstraps, delete the first full model ALE
-          boot_data$ale[-1] |>
-            compact()  # remove NULL elements from failed iterations
-        }
+      if (length(boot_data_ale) == 0) {
+        # No successful bootstrap iteration
+
+        # Normally y_cats is calculated for bootstrapping;
+        # so make sure it is available for ALE summarization.
+        y_cats <- full_ale@params$y_cats
+
+        boot_data_ale <- boot_data$ale[1]
+      }
 
       # Use only one loop across the categories
       map(y_cats, \(it.cat) {
@@ -1121,13 +1164,25 @@ ModelBoot <- new_class(
               mean = mean(.data$estimate, na.rm = TRUE),
               conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
               estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
-            ) |>
-            select('term', 'statistic', 'estimate', everything()) |>
-            mutate(across(
-              c('term', 'statistic'), factor
-            ))
+            )
+
+          if (!is.null(ale_p)) {
+            # Add p-values if p distribution is available
+            iass$p.value <- as.numeric(NA)
+            for (i.r in 1:nrow(iass)) {
+              iass$p.value[i.r] <- value_to_p(
+                p_dist_cat = ale_p@rand_stats[[it.cat]],
+                stat = iass$statistic[i.r],
+                x = iass$estimate[i.r]
+              )
+            }
+          }
 
           iass <- iass |>
+            select(any_of(c('term', 'statistic', 'estimate', 'p.value')), everything()) |>
+            mutate(across(
+              c('term', 'statistic'), factor
+            )) |>
             split(iass$d) |>
             map(\(it.d_stats) {
               it.d_stats |>
@@ -1161,20 +1216,27 @@ ModelBoot <- new_class(
       names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
-      'calc_boot_valid', 'call_glance', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols', 'silent', 'tidy_methods', 'vp', 'y_preds'
+      'calc_boot_valid', 'call_glance', 'data_in_model_call', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols', 'silent', 'tidy_methods', 'val_pll', 'val_pred', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
-
     # Simplify some very large elements, especially closures that contain environments
-    params$data <- params_data(
-      data = data,
-      y_vals = if (output_ale) full_ale@params$data$y_vals_sample else NA,
-      sample_size = if (output_ale) full_ale@params$sample_size else 500,
-      seed = seed
-    )
+    params$data <- if (output_ale) {
+      full_ale@params$data
+    } else {
+      params_data(
+        data = data,
+        y_vals = data[y_col],
+        # y_vals = if (exists('y_vals')) {
+        #   y_vals
+        # } else {
+        #   data[y_col]
+        # },
+        seed = seed
+      )
+    }
     params$model <- params_model(model)
-    params$pred_fun <- params_function(pred_fun)
+    params$pred_fun <- deparse(pred_fun)
 
     # Create the single and bootstrapped ALE objects.
     # Supplement the single ALE object with some details obtained by bootstrapping because bootstrapping was disabled when creating the single ALE object.
@@ -1220,4 +1282,3 @@ ModelBoot <- new_class(
     )
   }  # ModelBoot constructor
 )  # ModelBoot
-

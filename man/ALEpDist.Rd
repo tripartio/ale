@@ -11,16 +11,14 @@ ALEpDist(
   y_col = NULL,
   rand_it = NULL,
   surrogate = FALSE,
-  parallel = "all",
+  parallel = 0,
   model_packages = NULL,
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
   positive = TRUE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
+  aled_fun = "mad",
   output_residuals = FALSE,
   seed = 0,
   silent = FALSE,
@@ -51,6 +49,8 @@ ALEpDist(
 \item{positive}{See documentation for \code{\link[=ModelBoot]{ModelBoot()}}}
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}}
+
+\item{aled_fun}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{output_residuals}{logical(1). If \code{TRUE}, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default \code{FALSE} does not return the residuals.}
 
@@ -86,6 +86,8 @@ Parameters used to generate p-value distributions. Most of these repeat selected
 * `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
 * `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
 * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model. `'invalid'` if `rand_it_ok < 100`.
+
+* `probs_inverted`: `TRUE` if the original probability values of the `ALEpDist` object have been inverted. This is accomplished using [invert_probs()] on an `ALE` object. `FALSE`, `NULL`, or absent otherwise.
 }\if{html}{\out{</div>}}
 
 }
@@ -104,7 +106,7 @@ Because ALE is non-parametric (that is, it does not assume any particular distri
 \item For each ALE statistic, the empirical cumulative distribution function (\code{stats::ecdf()}) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
 }
 
-Because the \code{ale} package is model-agnostic (that is, it works with any kind of R model), the \code{ALEpDist()} constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all base R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but which excludes most machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard algorithms, the user needs to do a little work to help the \code{ALEpDist()} constructor correctly manipulate its model object:
+Because the \code{ale} package is model-agnostic (that is, it works with any kind of R model), the \code{ALEpDist()} constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow modelling conventions similar to those of base R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but probably not for most machine learning algorithms (like \code{tidymodels} and \code{caret}). For algorithms that do not follow base R conventions, the user needs to do a little work to help the \code{ALEpDist()} constructor correctly manipulate its model object:
 \itemize{
 \item The full model call must be passed as a character string in the argument \code{random_model_call_string}, with two slight modifications as follows.
 \item In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.
@@ -127,61 +129,107 @@ Because the procedure can be very slow, a faster version of the algorithm genera
 
 \examples{
 \donttest{
-# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
-set.seed(0)
-diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
-# Create a GAM with flexible curves to predict diamond price
+library(dplyr)
+
+# Load diamonds dataset with some cleanup
+diamonds <- ggplot2::diamonds |>
+  filter(!(x == 0 | y == 0 | z == 0)) |>
+  # https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/
+  distinct(
+    price, carat, cut, color, clarity,
+    .keep_all = TRUE
+  ) |>
+  rename(
+    x_length = x,
+    y_width = y,
+    z_depth = z,
+    depth_pct = depth
+  )
+
+# Create a GAM model with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
+# Build the model on training data, not on the full dataset.
 gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-    cut + color + clarity +
-    ti(carat, by = clarity),  # a 2D interaction
-  data = diamonds_sample
+  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
+    cut + color + clarity,
+  data = diamonds
 )
 summary(gam_diamonds)
 
-# Create p_value distribution
-pd_diamonds <- ALEpDist(
-  gam_diamonds,
-  diamonds_sample,
-  # only 100 iterations for a quick demo; but usually should remain at 1000
-  rand_it = 100
+
+# For speed, these examples use retrieve_rds() to load pre-created objects
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+
+# Generating p_value distribution objects is slow because it retrains the model 100 times,
+# so this example loads a pre-created ALEpDist object.
+p_dist_gam_diamonds <- retrieve_rds(
+  c(serialized_objects_site, 'p_dist_gam_diamonds_readme.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    ALEpDist(
+      gam_diamonds, diamonds,
+      # Normally should be default 1000, but just 100 for quicker demo
+      rand_it = 100
+    )
+  }
 )
 
 # Examine the structure of the returned object
-print(pd_diamonds)
-# In RStudio: View(pd_diamonds)
+print(p_dist_gam_diamonds)
 
 # Calculate ALEs with p-values
-ale_gam_diamonds <- ALE(
-  gam_diamonds,
-  p_values = pd_diamonds
+ale_gam_diamonds <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_gam_diamonds_stats_readme.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    ALE(
+      gam_diamonds,
+      # generate ALE for all 1D variables and the carat:clarity 2D interaction,
+      x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
+      data = diamonds,
+      p_values = p_dist_gam_diamonds,
+      # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
+      boot_it = 10
+    )
+  }
 )
 
 # Plot the ALE data. The horizontal bands in the plots use the p-values.
 plot(ale_gam_diamonds)
 
 
-# For non-standard models that give errors with the default settings,
+# For models that give errors with the default settings,
 # you can use 'random_model_call_string' to specify a model for the estimation
 # of p-values from random variables as in this example.
 # See details above for an explanation.
-pd_diamonds <- ALEpDist(
-  gam_diamonds,
-  diamonds_sample,
-  random_model_call_string = 'mgcv::gam(
-    price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-        cut + color + clarity + random_variable,
-    data = rand_data
-  )',
-  # only 100 iterations for a quick demo; but usually should remain at 1000
-  rand_it = 100
+
+pd_diamonds_special <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'pd_diamonds_special.0.5.3.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    ALEpDist(
+      gam_diamonds,
+      diamonds,
+      random_model_call_string = 'mgcv::gam(
+        price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
+          cut + color + clarity + random_variable,
+        data = rand_data
+      )',
+      # Normally should be default 1000, but just 100 for quicker demo
+      rand_it = 100
+    )
+  }
 )
+# saveRDS(pd_diamonds_special, file.choose())
 
 # Examine the structure of the returned object
-print(pd_diamonds)
-# In RStudio: View(pd_diamonds)
+print(pd_diamonds_special)
+
 
 }
 
