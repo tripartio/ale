@@ -113,12 +113,10 @@ retrieve_rds(
     ale_gam_diamonds <- "Code for generating an ALE object"
   }
 )
-#> <ALE> object of a <gam/glm/lm> model that predicts `price` (a numeric outcome)
-#> from a 39739-row by 10-column dataset.
+#> <ALE> object of a <gam/glm/lm> model that predicts `price` (a numeric outcome) from a 39739-row by 10-column dataset.
 #> ALE data and statistics are provided for the following terms:
-#> 9 1D terms: carat, depth_pct, table, x_length, y_width, z_depth, cut, color,
-#> and clarity
-#> no 2D terms:
+#> 9  1D terms: carat, depth_pct, table, x_length, y_width, z_depth, cut, color, and clarity
+#> no  2D terms: 
 #> The results were not bootstrapped.
 
 # Example 2: First attempt fails as a URL, so the next expression (a literal) is returned.

@@ -6,9 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Analyzing a Small Rice Yield Dataset with ALE-Based Inference • ale</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="ale-gomez-rice_files/libs/quarto-html/popper.min.js"></script><script src="ale-gomez-rice_files/libs/quarto-html/tippy.umd.min.js"></script><link href="ale-gomez-rice_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ale-gomez-rice_files/libs/quarto-html/light-border.css" rel="stylesheet">
@@ -24,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +107,7 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc" class="external-link">tictoc</a></span><span class="op">)</span>  <span class="co"># performance timing</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>  <span class="co"># Generalized Additive Models</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://imbs-hl.github.io/ranger/" class="external-link">ranger</a></span><span class="op">)</span>  <span class="co"># random forest</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span>  <span class="co"># table formatting</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span>  <span class="co"># table formatting</span></span>
 <span></span>
 <span><span class="co"># Other packages that must be installed</span></span>
 <span><span class="co"># Uncomment the following lines as needed.</span></span>
@@ -350,23 +355,39 @@ F-statistic: 4.824 on 3 and 26 DF,  p-value: 0.008423</code></pre>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ale_lm_rice</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
-  term             aled aler_min aler_max naled naler_min naler_max
-  &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 season          0.387   -0.387    0.387 13.3      -13.3      13.3
-2 nitrogen        0.153   -0.318    0.318  9.33     -13.3      13.3
-3 season:nitrogen 0.391   -1.04     0.614 14.3      -26.7      23.3</code></pre>
+<pre><code>&lt;ALE&gt; object of a &lt;lm&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+The results were not bootstrapped.
+
+Mean ALE statistics [get(object, stats = "estimate")]:
+# A tibble: 3 × 9
+  term             aled aler_min  aler aler_max naled naler_min naler naler_max
+  &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1 season          0.387   -0.387 0.774    0.387 13.3      -13.3  26.7      13.3
+2 nitrogen        0.153   -0.318 0.636    0.318  9.33     -13.3  26.7      13.3
+3 season:nitrogen 0.391   -1.04  1.65     0.614 14.3      -26.7  50        23.3
+
+ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+# A tibble: 12 × 7
+   statistic term            estimate conf.low   mean median conf.high
+   &lt;ord&gt;     &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+ 1 aled      season             0.387    0.387  0.387  0.387     0.387
+ 2 aled      nitrogen           0.153    0.153  0.153  0.153     0.153
+ 3 aled      season:nitrogen    0.391    0.391  0.391  0.391     0.391
+ 4 aler      season             0.774    0.774  0.774  0.774     0.774
+ 5 aler      nitrogen           0.636    0.636  0.636  0.636     0.636
+ 6 aler      season:nitrogen    1.65     1.65   1.65   1.65      1.65
+ 7 naled     season            13.3     13.3   13.3   13.3      13.3
+ 8 naled     nitrogen           9.33     9.33   9.33   9.33      9.33
+ 9 naled     season:nitrogen   14.3     14.3   14.3   14.3      14.3
+10 naler     season            26.7     26.7   26.7   26.7      26.7
+11 naler     nitrogen          26.7     26.7   26.7   26.7      26.7
+12 naler     season:nitrogen   50       50     50     50        50
+
+Statistically significant confidence regions [get(object, stats = "conf_sig")]:</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  statistic term            estimate conf.low   mean median conf.high
-  &lt;ord&gt;     &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-1 aled      season             0.387    0.387  0.387  0.387     0.387
-2 aled      nitrogen           0.153    0.153  0.153  0.153     0.153
-3 aled      season:nitrogen    0.391    0.391  0.391  0.391     0.391
-4 naled     season            13.3     13.3   13.3   13.3      13.3
-5 naled     nitrogen           9.33     9.33   9.33   9.33      9.33
-6 naled     season:nitrogen   14.3     14.3   14.3   14.3      14.3  </code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Confidence regions are meaningless without p-values.
+ℹ The ALE statistics were calculated without p-values.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
@@ -444,7 +465,11 @@ F-statistic: 4.824 on 3 and 26 DF,  p-value: 0.008423</code></pre>
 <div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mb_lm_rice</span><span class="op">)</span>  <span class="co"># boot_valid SA 48.8%: MAE 0.918</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 7
+<pre><code>&lt;ModelBoot&gt; object of a &lt;lm&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+* The model was retrained with 100 bootstrap iterations.
+
+Overall model statistics (object@model_stats):
+# A tibble: 12 × 7
    name          boot_valid conf.low  median    mean conf.high     sd
    &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
  1 r.squared         NA       0.193   0.444   0.449      0.715 0.134
@@ -458,27 +483,27 @@ F-statistic: 4.824 on 3 and 26 DF,  p-value: 0.008423</code></pre>
  9 mae                0.918   0.634  NA      NA          1.45  0.232
 10 sa_mae             0.488  -0.0793 NA      NA          0.649 0.191
 11 rmse               1.14    0.770  NA      NA          2.12  0.354
-12 sa_rmse            0.498   0.0366 NA      NA          0.652 0.176 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 6
+12 sa_rmse            0.498   0.0366 NA      NA          0.652 0.176
+
+Summary model term estimates (object@model_coefs):
+# A tibble: 4 × 6
   term               conf.low  median    mean conf.high std.error
   &lt;chr&gt;                 &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)          3.56    4.68    4.71      6.34      0.697
 2 seasonwet           -0.550   1.16    1.27      4.18      1.20
 3 nitrogen             0.0005  0.0149  0.0148    0.0273    0.007
-4 seasonwet:nitrogen  -0.0483 -0.0236 -0.0236   -0.0063    0.0114</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
+4 seasonwet:nitrogen  -0.0483 -0.0236 -0.0236   -0.0063    0.0114
+
+Mean ALE statistics [get(object, stats = "estimate")]:
+# A tibble: 3 × 7
   term             aled aler_min aler_max naled naler_min naler_max
   &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 1 season          0.405   -0.416    0.421 14.9      -13.4      17.2
 2 nitrogen        0.200   -0.391    0.463  8.69     -13.3      21.5
-3 season:nitrogen 0.409   -1.06     0.793 15.0      -24.2      31.3</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
+3 season:nitrogen 0.409   -1.06     0.793 15.0      -24.2      31.3
+
+ALE statistic distributions (exact p-values, 1000 iterations) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+# A tibble: 6 × 8
   statistic term            estimate p.value conf.low median   mean conf.high
   &lt;ord&gt;     &lt;fct&gt;              &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
 1 aled      season             0.405   0.006   0.0483  0.445  0.405     0.860
@@ -486,16 +511,16 @@ F-statistic: 4.824 on 3 and 26 DF,  p-value: 0.008423</code></pre>
 3 aled      season:nitrogen    0.409   0.005   0.113   0.392  0.409     0.789
 4 naled     season            14.9     0.053   0.581  14.9   14.9      33.1
 5 naled     nitrogen           8.69    0.235   0       8.33   8.69     20.7
-6 naled     season:nitrogen   15.0     0.049   1.32   14.6   15.0      28.6  </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
+6 naled     season:nitrogen   15.0     0.049   1.32   14.6   15.0      28.6
+
+Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+# A tibble: 0 × 0</code></pre>
 </div>
 </div>
 <p>Bootstrapping gives us predictive metrics based on bootstrap validation on 100 hold-out samples. The OLS model has a predictive MAE of 0.918 t/ha and standardized accuracy of 48.8%. Any staccuracy less than 50% counts as a “bad” model–it’s worse than simply predicting the mean every time. So, our OLS model is pretty much useless. At least, we’ve learnt that we can’t trust it.</p>
 <p>This is reinforced by the complete absence of statistically significant confidence regions–ALE-based inference is telling us that we can’t trust anything this model says.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -507,7 +532,7 @@ F-statistic: 4.824 on 3 and 26 DF,  p-value: 0.008423</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -535,7 +560,7 @@ F-statistic: 4.824 on 3 and 26 DF,  p-value: 0.008423</code></pre>
 </h3>
 <p>Because random forest is stochastic, we set a random seed. Otherwise, each run would produce slightly different results. Beyond that, we use the default settings.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Precise performance metrics vary slightly for a random forest</span></span>
 <span><span class="va">rf_rice</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://imbs-hl.github.io/ranger/reference/ranger.html" class="external-link">ranger</a></span><span class="op">(</span></span>
 <span>  <span class="va">yield</span> <span class="op">~</span> <span class="va">.</span>, </span>
@@ -569,7 +594,7 @@ R squared (OOB):                  0.4787994 </code></pre>
 </h3>
 <p>The {ale} package automatically recognizes the {ranger} package, so using default settings, it easily creates an ALE explanation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Single ALE description</span></span>
 <span><span class="va">ale_rf_rice</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
 <span>  <span class="va">rf_rice</span>, </span>
@@ -581,30 +606,46 @@ R squared (OOB):                  0.4787994 </code></pre>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ale_rf_rice</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
-  term             aled aler_min aler_max naled naler_min naler_max
-  &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 season          0.358   -0.358    0.358 13.3      -13.3      13.3
-2 nitrogen        0.255   -0.848    0.409 11.3      -16.7      13.3
-3 season:nitrogen 0.185   -0.543    0.290  7.67     -16.7      13.3</code></pre>
+<pre><code>&lt;ALE&gt; object of a &lt;ranger&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+The results were not bootstrapped.
+
+Mean ALE statistics [get(object, stats = "estimate")]:
+# A tibble: 3 × 9
+  term             aled aler_min  aler aler_max naled naler_min naler naler_max
+  &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1 season          0.358   -0.358 0.716    0.358 13.3      -13.3  26.7      13.3
+2 nitrogen        0.255   -0.848 1.26     0.409 11.3      -16.7  30        13.3
+3 season:nitrogen 0.185   -0.543 0.833    0.290  7.67     -16.7  30        13.3
+
+ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+# A tibble: 12 × 7
+   statistic term            estimate conf.low   mean median conf.high
+   &lt;ord&gt;     &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+ 1 aled      season             0.358    0.358  0.358  0.358     0.358
+ 2 aled      nitrogen           0.255    0.255  0.255  0.255     0.255
+ 3 aled      season:nitrogen    0.185    0.185  0.185  0.185     0.185
+ 4 aler      season             0.716    0.716  0.716  0.716     0.716
+ 5 aler      nitrogen           1.26     1.26   1.26   1.26      1.26
+ 6 aler      season:nitrogen    0.833    0.833  0.833  0.833     0.833
+ 7 naled     season            13.3     13.3   13.3   13.3      13.3
+ 8 naled     nitrogen          11.3     11.3   11.3   11.3      11.3
+ 9 naled     season:nitrogen    7.67     7.67   7.67   7.67      7.67
+10 naler     season            26.7     26.7   26.7   26.7      26.7
+11 naler     nitrogen          30       30     30     30        30
+12 naler     season:nitrogen   30       30     30     30        30
+
+Statistically significant confidence regions [get(object, stats = "conf_sig")]:</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  statistic term            estimate conf.low   mean median conf.high
-  &lt;ord&gt;     &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-1 aled      season             0.358    0.358  0.358  0.358     0.358
-2 aled      nitrogen           0.255    0.255  0.255  0.255     0.255
-3 aled      season:nitrogen    0.185    0.185  0.185  0.185     0.185
-4 naled     season            13.3     13.3   13.3   13.3      13.3
-5 naled     nitrogen          11.3     11.3   11.3   11.3      11.3
-6 naled     season:nitrogen    7.67     7.67   7.67   7.67      7.67 </code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Confidence regions are meaningless without p-values.
+ℹ The ALE statistics were calculated without p-values.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_rf_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -616,7 +657,7 @@ R squared (OOB):                  0.4787994 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_rf_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -629,7 +670,7 @@ R squared (OOB):                  0.4787994 </code></pre>
 </div>
 <p>In the random forest ALE plots, the season effect is very similar to that of ordinary least squares, but the nitrogen fertilizer effect is quite different. Here, nitrogen shows an inverted-U pattern (peaking around 60–90 kg/ha), and the interaction again suggests different nitrogen behaviour across seasons. Still, we shouldn’t get too excited until we check predictive stability.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SLOW: uncomment to run yourself; load the saved object for rapid execution</span></span>
 <span></span>
 <span><span class="co"># # p-value distribution</span></span>
@@ -668,27 +709,31 @@ R squared (OOB):                  0.4787994 </code></pre>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mb_rf_rice</span><span class="op">)</span>  <span class="co"># boot_valid SA 64.6%; MAE 0.6400844</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 7
+<pre><code>&lt;ModelBoot&gt; object of a &lt;ranger&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+* The model was retrained with 100 bootstrap iterations.
+
+Overall model statistics (object@model_stats):
+# A tibble: 4 × 7
   name    boot_valid conf.low median  mean conf.high     sd
   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
 1 mae          0.641    0.421     NA    NA     0.950 0.141
 2 sa_mae       0.646    0.363     NA    NA     0.744 0.108
 3 rmse         0.807    0.520     NA    NA     1.27  0.209
-4 sa_rmse      0.647    0.404     NA    NA     0.735 0.0804</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
+4 sa_rmse      0.647    0.404     NA    NA     0.735 0.0804
+
+Mean ALE statistics [get(object, stats = "estimate")]:
+# A tibble: 3 × 7
   term             aled aler_min aler_max naled naler_min naler_max
   &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 1 season          0.339   -0.349    0.350 13.6      -13.2      14.7
 2 nitrogen        0.256   -0.868    0.433 11.6      -21.8      18.5
-3 season:nitrogen 0.188   -0.523    0.331  8.17     -17.0      14.0</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
+3 season:nitrogen 0.188   -0.523    0.331  8.17     -17.0      14.0
+
+ALE statistic distributions (exact p-values, 1000 iterations) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+# A tibble: 6 × 8
   statistic term            estimate p.value conf.low median   mean conf.high
   &lt;ord&gt;     &lt;fct&gt;              &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
 1 aled      season             0.339   0.008   0.0813  0.352  0.339     0.580
@@ -696,15 +741,15 @@ R squared (OOB):                  0.4787994 </code></pre>
 3 aled      season:nitrogen    0.188   0.205   0.0904  0.180  0.188     0.301
 4 naled     season            13.6     0.059   1.59   13.8   13.6      24.7
 5 naled     nitrogen          11.6     0.225   2.88   11.1   11.6      20.7
-6 naled     season:nitrogen    8.17    0.835   2.17    7.67   8.17     15.2  </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
+6 naled     season:nitrogen    8.17    0.835   2.17    7.67   8.17     15.2
+
+Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+# A tibble: 0 × 0</code></pre>
 </div>
 </div>
 <p>Once we bootstrap, the performance is less impressive than with purely descriptive metrics. The random forest has a predictive MAE of 0.641 t/ha and standardized accuracy of 64.6%. That said, the staccuracy of above 50% indicates that this is at least a decent model. However, we will see that we can do better, as random forests don’t shine best on small datasets like this.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_rf_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -716,7 +761,7 @@ R squared (OOB):                  0.4787994 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_rf_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -737,7 +782,7 @@ R squared (OOB):                  0.4787994 </code></pre>
 </h3>
 <p>Appropriately configuring GAMs is as much an art as a science, and so we won’t get into how we arrived at the specific configuration that we use here. However, its key structure is straightforward. We model yield as a function of season, and we include nitrogen through its interaction with season. That means nitrogen is not entered as a simple main effect; instead, its relationship with yield is allowed to differ by season. In this way, nitrogen is fully incorporated into the model. We use the {mgcv} package for the GAM.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gam_rice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
 <span>  <span class="va">yield</span> <span class="op">~</span> <span class="va">season</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/te.html" class="external-link">ti</a></span><span class="op">(</span><span class="va">nitrogen</span>, by <span class="op">=</span> <span class="va">season</span>, bs <span class="op">=</span> <span class="st">"ps"</span><span class="op">)</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">rice</span>,</span>
@@ -786,7 +831,7 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 </h3>
 <p>Next, we use ALE to examine the shape of the fitted relationships and give us model-agnostic statistics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Single ALE description</span></span>
 <span><span class="va">ale_gam_rice</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
 <span>  <span class="va">gam_rice</span>, </span>
@@ -798,23 +843,39 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ale_gam_rice</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
-  term             aled aler_min aler_max naled naler_min naler_max
-  &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 season          0.387   -0.387    0.387  13.3     -13.3      13.3
-2 nitrogen        0.400   -1.28     0.648  15.3     -26.7      23.3
-3 season:nitrogen 0.408   -1.16     0.636  15       -26.7      23.3</code></pre>
+<pre><code>&lt;ALE&gt; object of a &lt;gam/glm/lm&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+The results were not bootstrapped.
+
+Mean ALE statistics [get(object, stats = "estimate")]:
+# A tibble: 3 × 9
+  term             aled aler_min  aler aler_max naled naler_min naler naler_max
+  &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1 season          0.387   -0.387 0.774    0.387  13.3     -13.3  26.7      13.3
+2 nitrogen        0.400   -1.28  1.93     0.648  15.3     -26.7  50        23.3
+3 season:nitrogen 0.408   -1.16  1.80     0.636  15       -26.7  50        23.3
+
+ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+# A tibble: 12 × 7
+   statistic term            estimate conf.low   mean median conf.high
+   &lt;ord&gt;     &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+ 1 aled      season             0.387    0.387  0.387  0.387     0.387
+ 2 aled      nitrogen           0.400    0.400  0.400  0.400     0.400
+ 3 aled      season:nitrogen    0.408    0.408  0.408  0.408     0.408
+ 4 aler      season             0.774    0.774  0.774  0.774     0.774
+ 5 aler      nitrogen           1.93     1.93   1.93   1.93      1.93
+ 6 aler      season:nitrogen    1.80     1.80   1.80   1.80      1.80
+ 7 naled     season            13.3     13.3   13.3   13.3      13.3
+ 8 naled     nitrogen          15.3     15.3   15.3   15.3      15.3
+ 9 naled     season:nitrogen   15       15     15     15        15
+10 naler     season            26.7     26.7   26.7   26.7      26.7
+11 naler     nitrogen          50       50     50     50        50
+12 naler     season:nitrogen   50       50     50     50        50
+
+Statistically significant confidence regions [get(object, stats = "conf_sig")]:</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  statistic term            estimate conf.low   mean median conf.high
-  &lt;ord&gt;     &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-1 aled      season             0.387    0.387  0.387  0.387     0.387
-2 aled      nitrogen           0.400    0.400  0.400  0.400     0.400
-3 aled      season:nitrogen    0.408    0.408  0.408  0.408     0.408
-4 naled     season            13.3     13.3   13.3   13.3      13.3
-5 naled     nitrogen          15.3     15.3   15.3   15.3      15.3
-6 naled     season:nitrogen   15       15     15     15        15    </code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Confidence regions are meaningless without p-values.
+ℹ The ALE statistics were calculated without p-values.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
@@ -822,7 +883,7 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 </div>
 <p>In the ALE summary, the GAM shows larger ALED effects (roughly 400 kg/ha scale) for season, nitrogen, and their interaction than the earlier models. We’ll interpret these more carefully once we look at the plots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_gam_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -834,7 +895,7 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_gam_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -866,7 +927,7 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 </h3>
 <p>So far, these are preliminary patterns. To assess reliability, we now generate a p-value distribution and perform full model bootstrapping of the GAM.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SLOW: uncomment to run yourself; load the saved object for rapid execution</span></span>
 <span></span>
 <span><span class="co"># # p-value distribution</span></span>
@@ -902,10 +963,14 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mb_gam_rice</span><span class="op">)</span>  <span class="co"># boot_valid SA 70.0%; MAE 0.531</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 7
+<pre><code>&lt;ModelBoot&gt; object of a &lt;gam/glm/lm&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+* The model was retrained with 100 bootstrap iterations.
+
+Overall model statistics (object@model_stats):
+# A tibble: 9 × 7
   name          boot_valid conf.low median   mean conf.high     sd
   &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
 1 df                NA        5.63   6.57   6.64      7.50  0.478
@@ -916,25 +981,25 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 6 mae                0.531    0.311 NA     NA         1.21  0.216
 7 sa_mae             0.700    0.295 NA     NA         0.835 0.159
 8 rmse               0.732    0.427 NA     NA         1.88  0.324
-9 sa_rmse            0.673    0.12  NA     NA         0.823 0.171 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 6
+9 sa_rmse            0.673    0.12  NA     NA         0.823 0.171
+
+Summary model term estimates (object@model_coefs):
+# A tibble: 2 × 6
   term                   conf.low median  mean conf.high std.error
   &lt;chr&gt;                     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 1 ti(nitrogen):seasondry     1.70   2.19  2.20      2.73     0.261
-2 ti(nitrogen):seasonwet     1.11   2.45  2.44      3.20     0.408</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 7
+2 ti(nitrogen):seasonwet     1.11   2.45  2.44      3.20     0.408
+
+Mean ALE statistics [get(object, stats = "estimate")]:
+# A tibble: 3 × 7
   term             aled aler_min aler_max naled naler_min naler_max
   &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 1 season          0.394   -0.406    0.409  14.7     -13.5      16.8
 2 nitrogen        0.389   -1.31     0.687  15.6     -28.1      29.7
-3 season:nitrogen 0.418   -1.15     0.769  15.7     -25.4      30.5</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
+3 season:nitrogen 0.418   -1.15     0.769  15.7     -25.4      30.5
+
+ALE statistic distributions (exact p-values, 1000 iterations) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+# A tibble: 6 × 8
   statistic term            estimate p.value conf.low median   mean conf.high
   &lt;ord&gt;     &lt;fct&gt;              &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
 1 aled      season             0.394   0       0.0529  0.404  0.394     0.708
@@ -942,10 +1007,10 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 3 aled      season:nitrogen    0.418   0       0.236   0.404  0.418     0.678
 4 naled     season            14.7     0.006   0.581  14.8   14.7      29.9
 5 naled     nitrogen          15.6     0.003   5.21   14.9   15.6      26.8
-6 naled     season:nitrogen   15.7     0.003   6.76   15.2   15.7      26.4  </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
+6 naled     season:nitrogen   15.7     0.003   6.76   15.2   15.7      26.4
+
+Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+# A tibble: 6 × 8
   term1  x1    term2    x2        aler_band     n   pct     y
   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;     &lt;ord&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 season dry   nitrogen [0,60]    overlap       6    20  5.61
@@ -960,7 +1025,7 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 <p>In the bootstrapped ALE results, all three relationships (season and nitrogen main effects and the season × nitrogen interaction effect) come out highly significant by p-values (p &lt; 0.001), with effect sizes around 400 kg/ha.</p>
 <p>Notably, compared to the OLS and random forest results, our more accurate GAM is the only model to produce statistically significant confident regions, which it does for the season × nitrogen interaction. We can better interpret the implications of this when examining the bootstrapped plots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -972,7 +1037,7 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1136,7 +1201,7 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

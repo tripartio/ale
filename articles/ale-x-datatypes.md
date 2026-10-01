@@ -10,6 +10,7 @@ demonstration of specific functionality.
 We begin by loading the necessary libraries.
 
 ``` r
+
 library(ale)
 #> 
 #> Attaching package: 'ale'
@@ -55,6 +56,7 @@ The data is a tibble with 32 observations on 12 variables:
 | country  | factor  | Country of car manufacturer              |
 
 ``` r
+
 print(var_cars)
 #> # A tibble: 32 × 14
 #>    model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
@@ -74,35 +76,29 @@ print(var_cars)
 ```
 
 ``` r
+
 summary(var_cars)
-#>     model                mpg             cyl             disp      
-#>  Length:32          Min.   :10.40   Min.   :4.000   Min.   : 71.1  
-#>  Class :character   1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8  
-#>  Mode  :character   Median :19.20   Median :6.000   Median :196.3  
-#>                     Mean   :20.09   Mean   :6.188   Mean   :230.7  
-#>                     3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0  
-#>                     Max.   :33.90   Max.   :8.000   Max.   :472.0  
-#>        hp             drat             wt             qsec      
-#>  Min.   : 52.0   Min.   :2.760   Min.   :1.513   Min.   :14.50  
-#>  1st Qu.: 96.5   1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89  
-#>  Median :123.0   Median :3.695   Median :3.325   Median :17.71  
-#>  Mean   :146.7   Mean   :3.597   Mean   :3.217   Mean   :17.85  
-#>  3rd Qu.:180.0   3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90  
-#>  Max.   :335.0   Max.   :4.930   Max.   :5.424   Max.   :22.90  
-#>      vs              am             gear         carb          country  
-#>  Mode :logical   Mode :logical   three:15   Min.   :1.000   Germany: 8  
-#>  FALSE:18        FALSE:19        four :12   1st Qu.:2.000   Italy  : 4  
-#>  TRUE :14        TRUE :13        five : 5   Median :2.000   Japan  : 6  
-#>                                             Mean   :2.812   Sweden : 1  
-#>                                             3rd Qu.:4.000   UK     : 1  
-#>                                             Max.   :8.000   USA    :12  
-#>          continent 
-#>  Asia         : 6  
-#>  Europe       :14  
-#>  North America:12  
-#>                    
-#>                    
-#> 
+#>        model         mpg             cyl             disp             hp       
+#>  Length   :32   Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+#>  N.unique :32   1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+#>  N.blank  : 0   Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+#>  Min.nchar: 7   Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+#>  Max.nchar:19   3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+#>                 Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+#>       drat             wt             qsec           vs         
+#>  Min.   :2.760   Min.   :1.513   Min.   :14.50   Mode :logical  
+#>  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   FALSE:18       
+#>  Median :3.695   Median :3.325   Median :17.71   TRUE :14       
+#>  Mean   :3.597   Mean   :3.217   Mean   :17.85                  
+#>  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90                  
+#>  Max.   :4.930   Max.   :5.424   Max.   :22.90                  
+#>      am             gear         carb          country           continent 
+#>  Mode :logical   three:15   Min.   :1.000   Germany: 8   Asia         : 6  
+#>  FALSE:19        four :12   1st Qu.:2.000   Italy  : 4   Europe       :14  
+#>  TRUE :13        five : 5   Median :2.000   Japan  : 6   North America:12  
+#>                             Mean   :2.812   Sweden : 1                     
+#>                             3rd Qu.:4.000   UK     : 1                     
+#>                             Max.   :8.000   USA    :12
 ```
 
 ## Modelling with ALE and GAM
@@ -119,6 +115,7 @@ rather to demonstrate the flexibility of the
 [ale](https://github.com/tripartio/ale) package.
 
 ``` r
+
 gam_cars <- mgcv::gam(
   mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
     vs + am + gear + carb + country,
@@ -167,11 +164,13 @@ summary(gam_cars)
 Now we generate ALE data from the `gam_cars` GAM model and plot it.
 
 ``` r
+
 # For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
 options(ale.parallel = 2)
 ```
 
 ``` r
+
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
@@ -179,6 +178,7 @@ serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
 ```
 
 ``` r
+
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
 # # there is no need to specify the data argument.
@@ -215,6 +215,7 @@ displayed.
 We can also generate and plot the ALE data for all two-way interactions.
 
 ``` r
+
 # # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
 # # there is no need to specify the data argument.
@@ -250,6 +251,7 @@ a more appropriate modelling workflow would require bootstrapping the
 entire model, not just the ALE data. So, let’s do that now.
 
 ``` r
+
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
 # # there is no need to specify the data argument.

@@ -59,6 +59,7 @@ You can obtain the official releases from
 [CRAN](https://CRAN.R-project.org/package=ale):
 
 ``` r
+
 install.packages('ale')
 ```
 
@@ -74,6 +75,7 @@ To get the most recent features, you can install the development version
 of the package from [GitHub](https://github.com/tripartio/ale) with:
 
 ``` r
+
 # install.packages('pak')
 pak::pak('tripartio/ale')
 ```
@@ -91,6 +93,7 @@ demonstrations, we begin by fitting a GAM model. We assume that this is
 a final deployment model that needs to be fitted to the entire dataset.
 
 ``` r
+
 
 library(dplyr)
 #> 
@@ -120,6 +123,7 @@ diamonds <- ggplot2::diamonds |>
 
 ``` r
 
+
 # Create a GAM model with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
 # Build the model on training data, not on the full dataset.
@@ -137,6 +141,7 @@ For the simple demonstration, we directly create ALE data with the
 then plot the `ggplot` plot objects.
 
 ``` r
+
 library(ale)
 #> 
 #> Attaching package: 'ale'
@@ -151,6 +156,7 @@ serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
 ```
 
 ``` r
+
 # Create ALE data
 # # To run the slow code yourself, uncomment and execute this code block directly.
 ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds)
@@ -184,6 +190,7 @@ First, we need to create a p-value distribution object so that the ALE
 statistics can be properly distinguished from random effects.
 
 ``` r
+
 # Create p_value distribution object
 
 # # Rather slow because it retrains the model 100 times.
@@ -204,6 +211,7 @@ Now we can create bootstrapped ALE data and see some of the differences
 in the plots of bootstrapped ALE with p-values:
 
 ``` r
+
 # Create ALE data with p-values
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
@@ -224,6 +232,7 @@ ale_gam_diamonds_stats_readme <- serialized_objects_site |>
 ```
 
 ``` r
+
 # Create an ALEPlots object for fine-tuned plotting
 ale_plots <- plot(ale_gam_diamonds_stats_readme)
 
@@ -239,6 +248,7 @@ ale_plots |>
 ![](reference/figures/README-ale-1D-plot-1.png)
 
 ``` r
+
 # Plot a selected 2D plot
 ale_plots |> 
   # get() retrieves a specific desired plot
@@ -324,13 +334,13 @@ Effects (ALE)”. R software package version \[enter version number\].
 - [`customize()`](https://tripartio.github.io/ale/reference/customize.md)
   : Customize plots contained in an ALEPlots object
 
-- [`get.ALE`](https://tripartio.github.io/ale/reference/get.ALE.md) :
-  get method for ALE objects
+- [`get-ALE-method`](https://tripartio.github.io/ale/reference/get-ALE-method.md)
+  : get method for ALE objects
 
-- [`get.ALEPlots`](https://tripartio.github.io/ale/reference/get.ALEPlots.md)
+- [`get-ALEPlots-method`](https://tripartio.github.io/ale/reference/get-ALEPlots-method.md)
   : get method for ALEPlots objects
 
-- [`get.ModelBoot`](https://tripartio.github.io/ale/reference/get.ModelBoot.md)
+- [`get-ModelBoot-method`](https://tripartio.github.io/ale/reference/get-ModelBoot-method.md)
   : get method for ModelBoot objects
 
 - [`get()`](https://tripartio.github.io/ale/reference/get.md) : S7
@@ -339,26 +349,27 @@ Effects (ALE)”. R software package version \[enter version number\].
 - [`invert_probs()`](https://tripartio.github.io/ale/reference/invert_probs.md)
   : Invert ALE Probabilities
 
-- [`plot.ALEPlots`](https://tripartio.github.io/ale/reference/plot.ALEPlots.md)
+- [`plot-ALE-method`](https://tripartio.github.io/ale/reference/plot-ALE-method.md)
+  :
+
+  plot method for `ALE` objects
+
+- [`plot-ALEPlots-method`](https://tripartio.github.io/ale/reference/plot-ALEPlots-method.md)
   : Plot method for ALEPlots object
 
-- [`plot.ModelBoot`](https://tripartio.github.io/ale/reference/plot.ModelBoot.md)
+- [`plot-ModelBoot-method`](https://tripartio.github.io/ale/reference/plot-ModelBoot-method.md)
   :
 
   plot method for `ModelBoot` objects
 
-- [`plot.ALE`](https://tripartio.github.io/ale/reference/plot.ale.md) :
+- [`print-ALE-method`](https://tripartio.github.io/ale/reference/print-ALE-method.md)
+  : print Method for ALE object
 
-  plot method for `ALE` objects
-
-- [`print.ALEPlots`](https://tripartio.github.io/ale/reference/print.ALEPlots.md)
+- [`print-ALEPlots-method`](https://tripartio.github.io/ale/reference/print-ALEPlots-method.md)
   : Print method for ALEPlots object
 
-- [`print.ModelBoot`](https://tripartio.github.io/ale/reference/print.ModelBoot.md)
+- [`print-ModelBoot-method`](https://tripartio.github.io/ale/reference/print-ModelBoot-method.md)
   : print method for ModelBoot object
-
-- [`print.ALE`](https://tripartio.github.io/ale/reference/print.ale.md)
-  : print Method for ALE object
 
 - [`resolve_x_cols()`](https://tripartio.github.io/ale/reference/resolve_x_cols.md)
   : Resolve x_cols and exclude_cols to their standardized format
@@ -367,16 +378,16 @@ Effects (ALE)”. R software package version \[enter version number\].
   : Retrieve an R object from the first successful source among multiple
   attempts
 
-- [`subset.ALEPlots`](https://tripartio.github.io/ale/reference/subset.ALEPlots.md)
+- [`subset-ALEPlots-method`](https://tripartio.github.io/ale/reference/subset-ALEPlots-method.md)
   : subset method for ALEPlots object
 
-- [`summary.ALE`](https://tripartio.github.io/ale/reference/summary.ALE.md)
+- [`summary-ALE-method`](https://tripartio.github.io/ale/reference/summary-ALE-method.md)
   : summary Method for ALE object
 
-- [`summary.ALEPlots`](https://tripartio.github.io/ale/reference/summary.ALEPlots.md)
+- [`summary-ALEPlots-method`](https://tripartio.github.io/ale/reference/summary-ALEPlots-method.md)
   : summary method for ALEPlots object
 
-- [`summary.ModelBoot`](https://tripartio.github.io/ale/reference/summary.ModelBoot.md)
+- [`summary-ModelBoot-method`](https://tripartio.github.io/ale/reference/summary-ModelBoot-method.md)
   : summary Method for ModelBoot object
 
 - [`var_cars`](https://tripartio.github.io/ale/reference/var_cars.md) :

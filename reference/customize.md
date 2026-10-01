@@ -7,15 +7,17 @@ argument documentation for available simple options.
 
 The most flexible option is to specify a list of `ggplot` layers with
 the `layers` argument; this appends the provided layers to each plot by
-applying the `ggplot2::+.gg()` method to them. Thus, any customization
-supported by appending `ggplot` layers can be applied. If both `layers`
-and simple options like `zoom_y` are specified, then the `layers` layers
-are applied first and then any other option is applied in the order
-presented in the argument list. For full control over the order of
-customizations, only provide `layers`.
+applying the
+[`ggplot2::+.gg()`](https://ggplot2.tidyverse.org/reference/gg-add.html)
+method to them. Thus, any customization supported by appending `ggplot`
+layers can be applied. If both `layers` and simple options like `zoom_y`
+are specified, then the `layers` layers are applied first and then any
+other option is applied in the order presented in the argument list. For
+full control over the order of customizations, only provide `layers`.
 
-See [`get.ALE()`](https://tripartio.github.io/ale/reference/get.ALE.md)
-for explanation of parameters not described here.
+See the [get() method for ALE
+objects](https://tripartio.github.io/ale/reference/get-ALE-method.md)
+for shared argument conventions.
 
 ## Usage
 
@@ -41,8 +43,8 @@ customize(
 
 - x_cols, exclude_cols:
 
-  See documentation for
-  [`get.ALE()`](https://tripartio.github.io/ale/reference/get.ALE.md)
+  See the [get() method for ALE
+  objects](https://tripartio.github.io/ale/reference/get-ALE-method.md).
 
 - ...:
 
@@ -50,13 +52,13 @@ customize(
 
 - type:
 
-  See documentation for
-  [`get.ALE()`](https://tripartio.github.io/ale/reference/get.ALE.md)
+  See the [get() method for ALEPlots
+  objects](https://tripartio.github.io/ale/reference/get-ALEPlots-method.md).
 
 - cats:
 
-  See documentation for
-  [`get.ALE()`](https://tripartio.github.io/ale/reference/get.ALE.md)
+  See the [get() method for ALEPlots
+  objects](https://tripartio.github.io/ale/reference/get-ALEPlots-method.md).
 
 - layers:
 

@@ -5,9 +5,9 @@ objects stored as `ggplot` objects. The `ALEPlots` constructor creates
 all possible plots from the `ALE` or `ModelBoot` passed to it—not only
 individual 1D and 2D ALE plots, but also special plots like the ALE
 effects plot. So, an `ALEPlots` object is a collection of plots, almost
-never a single plot. To retrieve specific plots, use the
-[`get.ALEPlots()`](https://tripartio.github.io/ale/reference/get.ALEPlots.md)
-method. See the examples with the
+never a single plot. To retrieve specific plots, use the [get()
+method](https://tripartio.github.io/ale/reference/get-ALEPlots-method.md).
+See the examples with the
 [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and
 [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
 objects for how to manipulate `ALEPlots` objects.
@@ -119,12 +119,24 @@ ALEPlots(
 
 An object of class `ALEPlots` with properties `plots` and `params`.
 
+## Methods
+
+`ALEPlots` objects support
+[get()](https://tripartio.github.io/ale/reference/get-ALEPlots-method.md),
+[plot()](https://tripartio.github.io/ale/reference/plot-ALEPlots-method.md),
+[print()](https://tripartio.github.io/ale/reference/print-ALEPlots-method.md),
+[subset()](https://tripartio.github.io/ale/reference/subset-ALEPlots-method.md),
+and
+[summary()](https://tripartio.github.io/ale/reference/summary-ALEPlots-method.md).
+Each method topic documents its complete signature and class-specific
+arguments.
+
 ## Properties
 
 - plots:
 
-  Stores the ALE plots. Use
-  [`get.ALEPlots()`](https://tripartio.github.io/ale/reference/get.ALEPlots.md)
+  Stores the ALE plots. Use the [get()
+  method](https://tripartio.github.io/ale/reference/get-ALEPlots-method.md)
   to access them.
 
 - params:

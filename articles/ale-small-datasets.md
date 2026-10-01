@@ -35,6 +35,7 @@ mentioned in this vignette.
 We begin by loading the necessary libraries.
 
 ``` r
+
 library(ale)
 #> 
 #> Attaching package: 'ale'
@@ -76,6 +77,7 @@ Chatterjee, S. and Price, B. (1977) *Regression Analysis by Example*.
 New York: Wiley. (Section 3.7, p.68ff of 2nd ed.(1991).)
 
 ``` r
+
 str(attitude)
 #> 'data.frame':    30 obs. of  7 variables:
 #>  $ rating    : num  43 63 71 61 81 43 58 71 72 67 ...
@@ -88,6 +90,7 @@ str(attitude)
 ```
 
 ``` r
+
 summary(attitude)
 #>      rating        complaints     privileges       learning         raises     
 #>  Min.   :40.00   Min.   :37.0   Min.   :30.00   Min.   :34.00   Min.   :43.00  
@@ -122,6 +125,7 @@ data samples.
 We train an OLS model to predict average rating:
 
 ``` r
+
 lm_attitude <- lm(rating ~ ., data = attitude)
 
 summary(lm_attitude)
@@ -158,11 +162,13 @@ special bootstrap approach, as explained below. For now, all we are
 doing is using ALE to accurately visualize what the model estimates.
 
 ``` r
+
 # For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
 options(ale.parallel = 2)
 ```
 
 ``` r
+
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
@@ -170,6 +176,7 @@ serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
 ```
 
 ``` r
+
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like lm that store their data,
 # # there is no need to specify the data argument.
@@ -182,6 +189,7 @@ ale_lm_attitude_simple <- serialized_objects_site |>
 ```
 
 ``` r
+
 # Print all plots
 plot(ale_lm_attitude_simple) |> 
   print(ncol = 2)
@@ -233,6 +241,7 @@ the data object is often optional. So, here is the creation of a
 `ModelBoot` object:
 
 ``` r
+
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like lm that store their data,
 # # there is no need to specify the data argument.
@@ -275,6 +284,7 @@ requested in the `output` argument:
 Here are the bootstrapped overall model statistics:
 
 ``` r
+
 mb_lm_attitude@model_stats
 #> # A tibble: 12 × 7
 #>    name          boot_valid conf.low       median       mean conf.high       sd
@@ -296,6 +306,7 @@ mb_lm_attitude@model_stats
 Here are the bootstrapped model coefficients:
 
 ``` r
+
 mb_lm_attitude@model_coefs
 #> # A tibble: 7 × 6
 #>   term        conf.low  median    mean conf.high std.error
@@ -312,6 +323,7 @@ mb_lm_attitude@model_coefs
 Here we can visualize the results of the ALE plots.
 
 ``` r
+
 plot(mb_lm_attitude) |> 
   print(ncol = 2)
 ```
@@ -361,6 +373,7 @@ wrapped in the `s` (smooth) function, e.g., `s(complaints)`. For this
 example, we will smooth all our numerical input variables:
 
 ``` r
+
 gam_attitude <- mgcv::gam(
   rating ~ complaints + privileges + s(learning) +
     raises + s(critical) + advance,
@@ -405,6 +418,7 @@ They need to be visualized for effective interpretation—ALE is perfect
 for such purposes.
 
 ``` r
+
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
 # # there is no need to specify the data argument.
@@ -430,6 +444,7 @@ are not bootstrapped are simply not reliable. So, let us see what
 bootstrapping will give us.
 
 ``` r
+
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
 # # there is no need to specify the data argument.
@@ -457,6 +472,7 @@ mb_gam_attitude@model_stats
     #> 9 sa_rmse            0.332   -2.08  NA     NA         0.786  0.754
 
 ``` r
+
 mb_gam_attitude@model_coefs
 #> # A tibble: 2 × 6
 #>   term        conf.low median  mean conf.high std.error
@@ -466,6 +482,7 @@ mb_gam_attitude@model_coefs
 ```
 
 ``` r
+
 plot(mb_gam_attitude) |> 
   print(ncol = 2)
 ```
@@ -521,6 +538,7 @@ execute the model and make sure that it works. We did that earlier but
 we repeat it here for this demonstration
 
 ``` r
+
 gam_attitude_again <- mgcv::gam(
   rating ~ complaints + privileges + s(learning) +
     raises + s(critical) + advance,
@@ -570,6 +588,7 @@ So, here is the form for constructing a `ModelBoot` for a model object
 type that is not automatically detected:
 
 ``` r
+
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,

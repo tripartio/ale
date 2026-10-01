@@ -455,7 +455,7 @@ plot(ale_gam_diamonds)
 
 pd_diamonds_special <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'pd_diamonds_special.0.5.2.rds'),
+  c(serialized_objects_site, 'pd_diamonds_special.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
     ALEpDist(
@@ -471,7 +471,6 @@ pd_diamonds_special <- retrieve_rds(
     )
   }
 )
-#> Warning: cannot open URL 'https://github.com/tripartio/ale/raw/main/download/pd_diamonds_special.0.5.2.rds': HTTP status was '404 Not Found'
 # saveRDS(pd_diamonds_special, file.choose())
 
 # Examine the structure of the returned object
@@ -499,7 +498,7 @@ print(pd_diamonds_special)
 #>  @ params               :List of 12
 #>  .. $ model                        :List of 2
 #>  ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-#>  ..  ..$ hash : chr "e92e511307cb9457ffafbe991e2738f3"
+#>  ..  ..$ hash : chr "0cfec7c5bf23001cfadbf1c11de304e5"
 #>  .. $ y_col                        : chr "price"
 #>  .. $ rand_it                      : num 100
 #>  .. $ parallel                     : num 0

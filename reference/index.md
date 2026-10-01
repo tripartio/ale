@@ -21,13 +21,13 @@
 - [`customize()`](https://tripartio.github.io/ale/reference/customize.md)
   : Customize plots contained in an ALEPlots object
 
-- [`get.ALE`](https://tripartio.github.io/ale/reference/get.ALE.md) :
-  get method for ALE objects
+- [`get-ALE-method`](https://tripartio.github.io/ale/reference/get-ALE-method.md)
+  : get method for ALE objects
 
-- [`get.ALEPlots`](https://tripartio.github.io/ale/reference/get.ALEPlots.md)
+- [`get-ALEPlots-method`](https://tripartio.github.io/ale/reference/get-ALEPlots-method.md)
   : get method for ALEPlots objects
 
-- [`get.ModelBoot`](https://tripartio.github.io/ale/reference/get.ModelBoot.md)
+- [`get-ModelBoot-method`](https://tripartio.github.io/ale/reference/get-ModelBoot-method.md)
   : get method for ModelBoot objects
 
 - [`get()`](https://tripartio.github.io/ale/reference/get.md) : S7
@@ -36,26 +36,27 @@
 - [`invert_probs()`](https://tripartio.github.io/ale/reference/invert_probs.md)
   : Invert ALE Probabilities
 
-- [`plot.ALEPlots`](https://tripartio.github.io/ale/reference/plot.ALEPlots.md)
+- [`plot-ALE-method`](https://tripartio.github.io/ale/reference/plot-ALE-method.md)
+  :
+
+  plot method for `ALE` objects
+
+- [`plot-ALEPlots-method`](https://tripartio.github.io/ale/reference/plot-ALEPlots-method.md)
   : Plot method for ALEPlots object
 
-- [`plot.ModelBoot`](https://tripartio.github.io/ale/reference/plot.ModelBoot.md)
+- [`plot-ModelBoot-method`](https://tripartio.github.io/ale/reference/plot-ModelBoot-method.md)
   :
 
   plot method for `ModelBoot` objects
 
-- [`plot.ALE`](https://tripartio.github.io/ale/reference/plot.ale.md) :
+- [`print-ALE-method`](https://tripartio.github.io/ale/reference/print-ALE-method.md)
+  : print Method for ALE object
 
-  plot method for `ALE` objects
-
-- [`print.ALEPlots`](https://tripartio.github.io/ale/reference/print.ALEPlots.md)
+- [`print-ALEPlots-method`](https://tripartio.github.io/ale/reference/print-ALEPlots-method.md)
   : Print method for ALEPlots object
 
-- [`print.ModelBoot`](https://tripartio.github.io/ale/reference/print.ModelBoot.md)
+- [`print-ModelBoot-method`](https://tripartio.github.io/ale/reference/print-ModelBoot-method.md)
   : print method for ModelBoot object
-
-- [`print.ALE`](https://tripartio.github.io/ale/reference/print.ale.md)
-  : print Method for ALE object
 
 - [`resolve_x_cols()`](https://tripartio.github.io/ale/reference/resolve_x_cols.md)
   : Resolve x_cols and exclude_cols to their standardized format
@@ -64,16 +65,16 @@
   : Retrieve an R object from the first successful source among multiple
   attempts
 
-- [`subset.ALEPlots`](https://tripartio.github.io/ale/reference/subset.ALEPlots.md)
+- [`subset-ALEPlots-method`](https://tripartio.github.io/ale/reference/subset-ALEPlots-method.md)
   : subset method for ALEPlots object
 
-- [`summary.ALE`](https://tripartio.github.io/ale/reference/summary.ALE.md)
+- [`summary-ALE-method`](https://tripartio.github.io/ale/reference/summary-ALE-method.md)
   : summary Method for ALE object
 
-- [`summary.ALEPlots`](https://tripartio.github.io/ale/reference/summary.ALEPlots.md)
+- [`summary-ALEPlots-method`](https://tripartio.github.io/ale/reference/summary-ALEPlots-method.md)
   : summary method for ALEPlots object
 
-- [`summary.ModelBoot`](https://tripartio.github.io/ale/reference/summary.ModelBoot.md)
+- [`summary-ModelBoot-method`](https://tripartio.github.io/ale/reference/summary-ModelBoot-method.md)
   : summary Method for ModelBoot object
 
 - [`var_cars`](https://tripartio.github.io/ale/reference/var_cars.md) :

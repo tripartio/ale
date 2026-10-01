@@ -158,7 +158,7 @@ ALE(
 
   integer(1) \> 1 or list. For numeric `x_cols`, this sets an upper
   bound on the number of ALE bins, where actual bins are the lesser of
-  the number of unique values and `max_num_bins`. Valid formats are:
+  the number of unique values and `max_num_bins+1`. Valid formats are:
 
   - Single integer \> 1: used for all numeric `x_cols`.
 
@@ -173,7 +173,9 @@ ALE(
   The default value of 10 is recommended for speed; it should adequately
   express most relationships. Increase it (e.g., to 100) for complex
   relationships. However, higher values are slower, especially for ALE
-  interactions.
+  interactions. When `n` bins are requested, there will actually be
+  `n+1` bins, with the lowest bin dedicated to the minimum value of the
+  dataset.
 
 - fct_order:
 
@@ -273,6 +275,17 @@ ALE(
 ## Value
 
 An object of class `ALE` with properties `effect` and `params`.
+
+## Methods
+
+`ALE` objects support
+[get()](https://tripartio.github.io/ale/reference/get-ALE-method.md),
+[plot()](https://tripartio.github.io/ale/reference/plot-ALE-method.md),
+[print()](https://tripartio.github.io/ale/reference/print-ALE-method.md),
+and
+[summary()](https://tripartio.github.io/ale/reference/summary-ALE-method.md).
+Each method topic documents its complete signature and class-specific
+arguments.
 
 ## Properties
 
@@ -410,7 +423,7 @@ For time-to-event (survival) models, set the following arguments:
 Progress bars are implemented with the `{progressr}` package. For
 details on customizing the progress bars, see the introduction to the
 [`{progressr}`
-package](https://progressr.futureverse.org/articles/progressr-intro.html).
+package](https://progressr.futureverse.org/articles/progressr-01-intro.html).
 To disable progress bars when calling a function in the `ale` package,
 set `silent = TRUE`.
 
@@ -458,6 +471,7 @@ Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv.
 ## Examples
 
 ``` r
+
 # Load diamonds dataset with some cleanup
 library(dplyr)
 #> 
@@ -646,7 +660,7 @@ ale_diamonds_with_boot_data <- retrieve_rds(
 )
 # saveRDS(ale_diamonds_with_boot_data, file.choose())
 
-# See ?get.ALE for details on the various kinds of data that may be retrieved.
+# See ?`get-ALE-method` for the kinds of data that may be retrieved.
 get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
 #> $d1
 #> $d1$carat
@@ -784,26 +798,21 @@ get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
 #> 1 carat:clarity   1.08e-12 -6.27e-12 2.43e-12     0         0         0
 #> 2 color:depth_pct 6.69e-13 -1.27e-12 6.74e-13     0         0         0
 #> 
-get(ale_diamonds_with_boot_data, stats = c('aled', 'naled'))
+get(ale_diamonds_with_boot_data, stats = c('aled', 'naler'))
 #> $d1
-#> # A tibble: 6 × 8
-#>   statistic estimate p.value term    conf.low    mean  median conf.high
-#>   <chr>        <dbl>   <dbl> <chr>      <dbl>   <dbl>   <dbl>     <dbl>
-#> 1 aled       2592.         0 carat    2583.   2592.   2592.     2597.  
-#> 2 naled        25.5        0 carat      25.4    25.5    25.5      25.5 
-#> 3 aled        398.         0 cut       392.    398.    398.      403.  
-#> 4 naled         3.59       0 cut         3.54    3.59    3.60      3.64
-#> 5 aled       4185.         0 clarity  4081.   4185.   4195.     4252.  
-#> 6 naled        29.5        0 clarity    29.1    29.5    29.6      29.8 
+#> # A tibble: 3 × 8
+#>   statistic estimate p.value term    conf.low  mean median conf.high
+#>   <chr>        <dbl>   <dbl> <chr>      <dbl> <dbl>  <dbl>     <dbl>
+#> 1 aled         2592.       0 carat      2583. 2592.  2592.     2597.
+#> 2 aled          398.       0 cut         392.  398.   398.      403.
+#> 3 aled         4185.       0 clarity    4081. 4185.  4195.     4252.
 #> 
 #> $d2
-#> # A tibble: 4 × 8
+#> # A tibble: 2 × 8
 #>   statistic estimate p.value term           conf.low     mean   median conf.high
 #>   <chr>        <dbl>   <dbl> <chr>             <dbl>    <dbl>    <dbl>     <dbl>
 #> 1 aled      1.08e-12       1 carat:clarity  7.67e-13 1.08e-12 1.08e-12  1.43e-12
-#> 2 naled     0              1 carat:clarity  0        0        0         0       
-#> 3 aled      6.69e-13       1 color:depth_p… 1.80e-13 6.69e-13 5.33e-13  1.56e-12
-#> 4 naled     0              1 color:depth_p… 0        0        0         0       
+#> 2 aled      6.69e-13       1 color:depth_p… 1.80e-13 6.69e-13 5.33e-13  1.56e-12
 #> 
 get(ale_diamonds_with_boot_data, stats = 'all')
 #> $d1

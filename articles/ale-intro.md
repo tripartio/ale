@@ -39,6 +39,7 @@ variables](https://tripartio.github.io/ale/articles/ale-x-datatypes.md).
 We begin by loading the necessary libraries.
 
 ``` r
+
 library(ale)
 #> 
 #> Attaching package: 'ale'
@@ -65,6 +66,7 @@ duplicates](https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diam
 and invalid entries where the length (x), width (y), or depth (z) is 0.
 
 ``` r
+
 # Clean up some invalid entries
 diamonds <- ggplot2::diamonds |> 
   filter(!(x == 0 | y == 0 | z == 0)) |> 
@@ -109,20 +111,21 @@ summary(diamonds)
 
 Here is the description of the modified dataset.
 
-| Variable  | Description                                                                                       |
-|-----------|---------------------------------------------------------------------------------------------------|
-| price     | price in US dollars (\$326–\$18,823)                                                              |
-| carat     | weight of the diamond (0.2–5.01)                                                                  |
-| cut       | quality of the cut (Fair, Good, Very Good, Premium, Ideal)                                        |
-| color     | diamond color, from D (best) to J (worst)                                                         |
-| clarity   | a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best)) |
-| x_length  | length in mm (0–10.74)                                                                            |
-| y_width   | width in mm (0–58.9)                                                                              |
-| z_depth   | depth in mm (0–31.8)                                                                              |
-| depth_pct | total depth percentage = z / mean(x, y) = 2 \* z / (x + y) (43–79)                                |
-| table     | width of top of diamond relative to widest point (43–95)                                          |
+| Variable | Description |
+|----|----|
+| price | price in US dollars (\$326–\$18,823) |
+| carat | weight of the diamond (0.2–5.01) |
+| cut | quality of the cut (Fair, Good, Very Good, Premium, Ideal) |
+| color | diamond color, from D (best) to J (worst) |
+| clarity | a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best)) |
+| x_length | length in mm (0–10.74) |
+| y_width | width in mm (0–58.9) |
+| z_depth | depth in mm (0–31.8) |
+| depth_pct | total depth percentage = z / mean(x, y) = 2 \* z / (x + y) (43–79) |
+| table | width of top of diamond relative to widest point (43–95) |
 
 ``` r
+
 str(diamonds)
 #> tibble [39,739 × 10] (S3: tbl_df/tbl/data.frame)
 #>  $ carat    : num [1:39739] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
@@ -138,6 +141,7 @@ str(diamonds)
 ```
 
 ``` r
+
 summary(diamonds$price)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #>     326    1410    3365    4686    6406   18823
@@ -169,6 +173,7 @@ algorithm.
 We train a GAM model to predict diamond prices:
 
 ``` r
+
 # Create a GAM model with flexible curves to predict diamond prices.
 # Smooth all numeric variables and include all other variables.
 gam_diamonds <- mgcv::gam(
@@ -246,6 +251,7 @@ vignette](https://tripartio.github.io/ale/articles/ale-statistics.md "ALE-based 
 on that topic.
 
 ``` r
+
 # For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
 options(ale.parallel = 2)
 ```
@@ -255,6 +261,7 @@ For the full experience, you can uncomment the relevant lines in the
 code below.
 
 ``` r
+
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
@@ -262,6 +269,7 @@ serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
 ```
 
 ``` r
+
 # Simple ALE without bootstrapping
 
 # Create ALE data
@@ -292,6 +300,7 @@ To access the plot for a specific variable, we must first create an
 flexibility of {ggplot2}:
 
 ``` r
+
 # Print a plot by entering its reference
 diamonds_plots <- plot(ale_gam_diamonds)
 ```
@@ -302,6 +311,7 @@ the `ALEPlots` object. For example, to access and print the `carat` ALE
 plot, we can simply refer to `get(diamonds_plots, 'carat')`:
 
 ``` r
+
 # Print a plot by entering its reference
 get(diamonds_plots, 'carat')
 ```
@@ -319,6 +329,7 @@ so we can pass arguments from that function. For example, we can specify
 that we want two plots per row with the `ncol` argument:
 
 ``` r
+
 # Print all plots
 plot(diamonds_plots, ncol = 2)
 ```
@@ -350,6 +361,7 @@ confirmed with 1000 bootstrap samples or more, but there should not be
 much difference in the results beyond 100 iterations.
 
 ``` r
+
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
@@ -397,6 +409,7 @@ certain pairs of variables), see details in the help file for the
 object: [`help(ALE)`](https://tripartio.github.io/ale/reference/ALE.md).
 
 ``` r
+
 # ALE two-way interactions
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
@@ -418,6 +431,7 @@ extracts a new `ALEPlots` object with only the selected variables or
 interaction terms:
 
 ``` r
+
 diamonds_2D_plots <- plot(ale_2D_gam_diamonds)
 
 diamonds_2D_plots |>
@@ -437,6 +451,7 @@ interaction plot between carat and depth by referring to it thus:
 `get(diamonds_2D_plots, ~ carat:clarity)`.
 
 ``` r
+
 get(diamonds_2D_plots, ~ carat:clarity)
 ```
 

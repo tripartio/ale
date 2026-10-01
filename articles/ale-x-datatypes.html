@@ -6,9 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>ale package handling of various input datatypes • ale</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="ale package handling of various input datatypes">
 </head>
@@ -20,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -194,34 +199,27 @@ it adds the country of the car manufacturer.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: country &lt;fct&gt;, continent &lt;fct&gt;</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">var_cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     model                mpg             cyl             disp      </span></span>
-<span><span class="co">#&gt;  Length:32          Min.   :10.40   Min.   :4.000   Min.   : 71.1  </span></span>
-<span><span class="co">#&gt;  Class :character   1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8  </span></span>
-<span><span class="co">#&gt;  Mode  :character   Median :19.20   Median :6.000   Median :196.3  </span></span>
-<span><span class="co">#&gt;                     Mean   :20.09   Mean   :6.188   Mean   :230.7  </span></span>
-<span><span class="co">#&gt;                     3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0  </span></span>
-<span><span class="co">#&gt;                     Max.   :33.90   Max.   :8.000   Max.   :472.0  </span></span>
-<span><span class="co">#&gt;        hp             drat             wt             qsec      </span></span>
-<span><span class="co">#&gt;  Min.   : 52.0   Min.   :2.760   Min.   :1.513   Min.   :14.50  </span></span>
-<span><span class="co">#&gt;  1st Qu.: 96.5   1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89  </span></span>
-<span><span class="co">#&gt;  Median :123.0   Median :3.695   Median :3.325   Median :17.71  </span></span>
-<span><span class="co">#&gt;  Mean   :146.7   Mean   :3.597   Mean   :3.217   Mean   :17.85  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:180.0   3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90  </span></span>
-<span><span class="co">#&gt;  Max.   :335.0   Max.   :4.930   Max.   :5.424   Max.   :22.90  </span></span>
-<span><span class="co">#&gt;      vs              am             gear         carb          country  </span></span>
-<span><span class="co">#&gt;  Mode :logical   Mode :logical   three:15   Min.   :1.000   Germany: 8  </span></span>
-<span><span class="co">#&gt;  FALSE:18        FALSE:19        four :12   1st Qu.:2.000   Italy  : 4  </span></span>
-<span><span class="co">#&gt;  TRUE :14        TRUE :13        five : 5   Median :2.000   Japan  : 6  </span></span>
-<span><span class="co">#&gt;                                             Mean   :2.812   Sweden : 1  </span></span>
-<span><span class="co">#&gt;                                             3rd Qu.:4.000   UK     : 1  </span></span>
-<span><span class="co">#&gt;                                             Max.   :8.000   USA    :12  </span></span>
-<span><span class="co">#&gt;          continent </span></span>
-<span><span class="co">#&gt;  Asia         : 6  </span></span>
-<span><span class="co">#&gt;  Europe       :14  </span></span>
-<span><span class="co">#&gt;  North America:12  </span></span>
-<span><span class="co">#&gt;                    </span></span>
-<span><span class="co">#&gt;                    </span></span>
-<span><span class="co">#&gt; </span></span></code></pre></div>
+<span><span class="co">#&gt;        model         mpg             cyl             disp             hp       </span></span>
+<span><span class="co">#&gt;  Length   :32   Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  </span></span>
+<span><span class="co">#&gt;  N.unique :32   1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  </span></span>
+<span><span class="co">#&gt;  N.blank  : 0   Median :19.20   Median :6.000   Median :196.3   Median :123.0  </span></span>
+<span><span class="co">#&gt;  Min.nchar: 7   Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  </span></span>
+<span><span class="co">#&gt;  Max.nchar:19   3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  </span></span>
+<span><span class="co">#&gt;                 Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  </span></span>
+<span><span class="co">#&gt;       drat             wt             qsec           vs         </span></span>
+<span><span class="co">#&gt;  Min.   :2.760   Min.   :1.513   Min.   :14.50   Mode :logical  </span></span>
+<span><span class="co">#&gt;  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   FALSE:18       </span></span>
+<span><span class="co">#&gt;  Median :3.695   Median :3.325   Median :17.71   TRUE :14       </span></span>
+<span><span class="co">#&gt;  Mean   :3.597   Mean   :3.217   Mean   :17.85                  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90                  </span></span>
+<span><span class="co">#&gt;  Max.   :4.930   Max.   :5.424   Max.   :22.90                  </span></span>
+<span><span class="co">#&gt;      am             gear         carb          country           continent </span></span>
+<span><span class="co">#&gt;  Mode :logical   three:15   Min.   :1.000   Germany: 8   Asia         : 6  </span></span>
+<span><span class="co">#&gt;  FALSE:19        four :12   1st Qu.:2.000   Italy  : 4   Europe       :14  </span></span>
+<span><span class="co">#&gt;  TRUE :13        five : 5   Median :2.000   Japan  : 6   North America:12  </span></span>
+<span><span class="co">#&gt;                             Mean   :2.812   Sweden : 1                     </span></span>
+<span><span class="co">#&gt;                             3rd Qu.:4.000   UK     : 1                     </span></span>
+<span><span class="co">#&gt;                             Max.   :8.000   USA    :12</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="modelling-with-ale-and-gam">Modelling with ALE and GAM<a class="anchor" aria-label="anchor" href="#modelling-with-ale-and-gam"></a>
@@ -385,7 +383,7 @@ the patterns would probably be confirmed.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

@@ -30,6 +30,7 @@ we’ll use. Two quick notes:
   how, via {pak}).
 
 ``` r
+
 library(dplyr)  # data manipulation
 library(staccuracy)  # performance metrics
 library(tictoc)  # performance timing
@@ -52,6 +53,7 @@ library(ale)  # load the ale package only after installing the development versi
 ```
 
 ``` r
+
 # For speed, these examples use retrieve_rds() to load precreated objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
@@ -75,6 +77,7 @@ not the same experimental block as R1 in another row, so treating it as
 a factor would invite nonsense, especially with a dataset this small.
 
 ``` r
+
 data('gomez.wetdry', package = 'agridat')
 
 rice <- gomez.wetdry |> 
@@ -89,6 +92,7 @@ rice <- gomez.wetdry |>
 We’ll add more commentary later. For now, here’s the full dataset.
 
 ``` r
+
 rice |> print(n = 50)
 ```
 
@@ -129,6 +133,7 @@ rice |> print(n = 50)
 After printing the data, we summarize it.
 
 ``` r
+
 rice |> summary()
 ```
 
@@ -141,8 +146,10 @@ rice |> summary()
               Max.   :150   Max.   :6.868  
 
 ``` r
+
 rice$nitrogen |> table()
 ```
+
 
       0  60  90 120 150
       6   6   6   6   6 
@@ -231,6 +238,7 @@ After fitting the model, we print the summary to inspect coefficients,
 standard errors, and overall fit.
 
 ``` r
+
 lm_rice <- lm(
   yield ~ season + nitrogen + season:nitrogen,
   data = rice
@@ -239,6 +247,7 @@ sa_lm_rice  <- sa_wmae_mad(rice$yield, predict(lm_rice))  # 0.60739
 mae_lm_rice <- mae(rice$yield, predict(lm_rice))  # 0.7719829
 summary(lm_rice)
 ```
+
 
     Call:
     lm(formula = yield ~ season + nitrogen + season:nitrogen, data = rice)
@@ -286,6 +295,7 @@ statistics in detail in another
 article](https://tripartio.github.io/ale/articles/ale-statistics.html).
 
 ``` r
+
 # Single ALE description
 ale_lm_rice <- ALE(
   lm_rice, 
@@ -298,22 +308,38 @@ ale_lm_rice <- ALE(
 summary(ale_lm_rice)
 ```
 
-    # A tibble: 3 × 7
-      term             aled aler_min aler_max naled naler_min naler_max
-      <chr>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-    1 season          0.387   -0.387    0.387 13.3      -13.3      13.3
-    2 nitrogen        0.153   -0.318    0.318  9.33     -13.3      13.3
-    3 season:nitrogen 0.391   -1.04     0.614 14.3      -26.7      23.3
+    <ALE> object of a <lm> model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+    The results were not bootstrapped.
 
-    # A tibble: 6 × 7
-      statistic term            estimate conf.low   mean median conf.high
-      <ord>     <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-    1 aled      season             0.387    0.387  0.387  0.387     0.387
-    2 aled      nitrogen           0.153    0.153  0.153  0.153     0.153
-    3 aled      season:nitrogen    0.391    0.391  0.391  0.391     0.391
-    4 naled     season            13.3     13.3   13.3   13.3      13.3
-    5 naled     nitrogen           9.33     9.33   9.33   9.33      9.33
-    6 naled     season:nitrogen   14.3     14.3   14.3   14.3      14.3  
+    Mean ALE statistics [get(object, stats = "estimate")]:
+    # A tibble: 3 × 9
+      term             aled aler_min  aler aler_max naled naler_min naler naler_max
+      <chr>           <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+    1 season          0.387   -0.387 0.774    0.387 13.3      -13.3  26.7      13.3
+    2 nitrogen        0.153   -0.318 0.636    0.318  9.33     -13.3  26.7      13.3
+    3 season:nitrogen 0.391   -1.04  1.65     0.614 14.3      -26.7  50        23.3
+
+    ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+    # A tibble: 12 × 7
+       statistic term            estimate conf.low   mean median conf.high
+       <ord>     <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+     1 aled      season             0.387    0.387  0.387  0.387     0.387
+     2 aled      nitrogen           0.153    0.153  0.153  0.153     0.153
+     3 aled      season:nitrogen    0.391    0.391  0.391  0.391     0.391
+     4 aler      season             0.774    0.774  0.774  0.774     0.774
+     5 aler      nitrogen           0.636    0.636  0.636  0.636     0.636
+     6 aler      season:nitrogen    1.65     1.65   1.65   1.65      1.65
+     7 naled     season            13.3     13.3   13.3   13.3      13.3
+     8 naled     nitrogen           9.33     9.33   9.33   9.33      9.33
+     9 naled     season:nitrogen   14.3     14.3   14.3   14.3      14.3
+    10 naler     season            26.7     26.7   26.7   26.7      26.7
+    11 naler     nitrogen          26.7     26.7   26.7   26.7      26.7
+    12 naler     season:nitrogen   50       50     50     50        50
+
+    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+
+    ! Confidence regions are meaningless without p-values.
+    ℹ The ALE statistics were calculated without p-values.
 
     # A tibble: 0 × 0
 
@@ -326,6 +352,7 @@ Next we look at the ALE plots. With only three terms, we’ll inspect them
 all (in bigger studies, we’d be pickier).
 
 ``` r
+
 ale_lm_rice |> 
   plot() |> 
   subset(list(d1 = TRUE))
@@ -334,6 +361,7 @@ ale_lm_rice |>
 ![](ale-gomez-rice_files/figure-html/plot-ale_lm_rice-1D-1.png)
 
 ``` r
+
 ale_lm_rice |> 
   plot() |> 
   subset(list(d2 = TRUE))
@@ -381,6 +409,7 @@ nitrogen interaction. Only after this full bootstrap process do the ALE
 results become reliable
 
 ``` r
+
 # SLOW: uncomment to run yourself; load the saved object for rapid execution
 
 # # p-value distribution
@@ -417,9 +446,14 @@ mb_lm_rice <- serialized_objects_site |>
 ```
 
 ``` r
+
 summary(mb_lm_rice)  # boot_valid SA 48.8%: MAE 0.918
 ```
 
+    <ModelBoot> object of a <lm> model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+    * The model was retrained with 100 bootstrap iterations.
+
+    Overall model statistics (object@model_stats):
     # A tibble: 12 × 7
        name          boot_valid conf.low  median    mean conf.high     sd
        <chr>              <dbl>    <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -434,8 +468,9 @@ summary(mb_lm_rice)  # boot_valid SA 48.8%: MAE 0.918
      9 mae                0.918   0.634  NA      NA          1.45  0.232
     10 sa_mae             0.488  -0.0793 NA      NA          0.649 0.191
     11 rmse               1.14    0.770  NA      NA          2.12  0.354
-    12 sa_rmse            0.498   0.0366 NA      NA          0.652 0.176 
+    12 sa_rmse            0.498   0.0366 NA      NA          0.652 0.176
 
+    Summary model term estimates (object@model_coefs):
     # A tibble: 4 × 6
       term               conf.low  median    mean conf.high std.error
       <chr>                 <dbl>   <dbl>   <dbl>     <dbl>     <dbl>
@@ -444,6 +479,7 @@ summary(mb_lm_rice)  # boot_valid SA 48.8%: MAE 0.918
     3 nitrogen             0.0005  0.0149  0.0148    0.0273    0.007
     4 seasonwet:nitrogen  -0.0483 -0.0236 -0.0236   -0.0063    0.0114
 
+    Mean ALE statistics [get(object, stats = "estimate")]:
     # A tibble: 3 × 7
       term             aled aler_min aler_max naled naler_min naler_max
       <fct>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -451,6 +487,7 @@ summary(mb_lm_rice)  # boot_valid SA 48.8%: MAE 0.918
     2 nitrogen        0.200   -0.391    0.463  8.69     -13.3      21.5
     3 season:nitrogen 0.409   -1.06     0.793 15.0      -24.2      31.3
 
+    ALE statistic distributions (exact p-values, 1000 iterations) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
     # A tibble: 6 × 8
       statistic term            estimate p.value conf.low median   mean conf.high
       <ord>     <fct>              <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -459,8 +496,9 @@ summary(mb_lm_rice)  # boot_valid SA 48.8%: MAE 0.918
     3 aled      season:nitrogen    0.409   0.005   0.113   0.392  0.409     0.789
     4 naled     season            14.9     0.053   0.581  14.9   14.9      33.1
     5 naled     nitrogen           8.69    0.235   0       8.33   8.69     20.7
-    6 naled     season:nitrogen   15.0     0.049   1.32   14.6   15.0      28.6  
+    6 naled     season:nitrogen   15.0     0.049   1.32   14.6   15.0      28.6
 
+    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
     # A tibble: 0 × 0
 
 Bootstrapping gives us predictive metrics based on bootstrap validation
@@ -475,6 +513,7 @@ confidence regions–ALE-based inference is telling us that we can’t trust
 anything this model says.
 
 ``` r
+
 mb_lm_rice |> 
   plot() |> 
   subset(list(d1 = TRUE))
@@ -483,6 +522,7 @@ mb_lm_rice |>
 ![](ale-gomez-rice_files/figure-html/plot-mb_lm_rice-1D-1.png)
 
 ``` r
+
 mb_lm_rice |> 
   plot() |> 
   subset(list(d2 = TRUE))
@@ -525,6 +565,7 @@ each run would produce slightly different results. Beyond that, we use
 the default settings.
 
 ``` r
+
 # Precise performance metrics vary slightly for a random forest
 rf_rice <- ranger(
   yield ~ ., 
@@ -562,6 +603,7 @@ The {ale} package automatically recognizes the {ranger} package, so
 using default settings, it easily creates an ALE explanation.
 
 ``` r
+
 # Single ALE description
 ale_rf_rice <- ALE(
   rf_rice, 
@@ -574,26 +616,43 @@ ale_rf_rice <- ALE(
 summary(ale_rf_rice)
 ```
 
-    # A tibble: 3 × 7
-      term             aled aler_min aler_max naled naler_min naler_max
-      <chr>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-    1 season          0.358   -0.358    0.358 13.3      -13.3      13.3
-    2 nitrogen        0.255   -0.848    0.409 11.3      -16.7      13.3
-    3 season:nitrogen 0.185   -0.543    0.290  7.67     -16.7      13.3
+    <ALE> object of a <ranger> model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+    The results were not bootstrapped.
 
-    # A tibble: 6 × 7
-      statistic term            estimate conf.low   mean median conf.high
-      <ord>     <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-    1 aled      season             0.358    0.358  0.358  0.358     0.358
-    2 aled      nitrogen           0.255    0.255  0.255  0.255     0.255
-    3 aled      season:nitrogen    0.185    0.185  0.185  0.185     0.185
-    4 naled     season            13.3     13.3   13.3   13.3      13.3
-    5 naled     nitrogen          11.3     11.3   11.3   11.3      11.3
-    6 naled     season:nitrogen    7.67     7.67   7.67   7.67      7.67 
+    Mean ALE statistics [get(object, stats = "estimate")]:
+    # A tibble: 3 × 9
+      term             aled aler_min  aler aler_max naled naler_min naler naler_max
+      <chr>           <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+    1 season          0.358   -0.358 0.716    0.358 13.3      -13.3  26.7      13.3
+    2 nitrogen        0.255   -0.848 1.26     0.409 11.3      -16.7  30        13.3
+    3 season:nitrogen 0.185   -0.543 0.833    0.290  7.67     -16.7  30        13.3
+
+    ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+    # A tibble: 12 × 7
+       statistic term            estimate conf.low   mean median conf.high
+       <ord>     <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+     1 aled      season             0.358    0.358  0.358  0.358     0.358
+     2 aled      nitrogen           0.255    0.255  0.255  0.255     0.255
+     3 aled      season:nitrogen    0.185    0.185  0.185  0.185     0.185
+     4 aler      season             0.716    0.716  0.716  0.716     0.716
+     5 aler      nitrogen           1.26     1.26   1.26   1.26      1.26
+     6 aler      season:nitrogen    0.833    0.833  0.833  0.833     0.833
+     7 naled     season            13.3     13.3   13.3   13.3      13.3
+     8 naled     nitrogen          11.3     11.3   11.3   11.3      11.3
+     9 naled     season:nitrogen    7.67     7.67   7.67   7.67      7.67
+    10 naler     season            26.7     26.7   26.7   26.7      26.7
+    11 naler     nitrogen          30       30     30     30        30
+    12 naler     season:nitrogen   30       30     30     30        30
+
+    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+
+    ! Confidence regions are meaningless without p-values.
+    ℹ The ALE statistics were calculated without p-values.
 
     # A tibble: 0 × 0
 
 ``` r
+
 ale_rf_rice |> 
   plot() |> 
   subset(list(d1 = TRUE))
@@ -602,6 +661,7 @@ ale_rf_rice |>
 ![](ale-gomez-rice_files/figure-html/plot-ale_rf_rice-1D-1.png)
 
 ``` r
+
 ale_rf_rice |> 
   plot() |> 
   subset(list(d2 = TRUE))
@@ -617,6 +677,7 @@ nitrogen behaviour across seasons. Still, we shouldn’t get too excited
 until we check predictive stability.
 
 ``` r
+
 # SLOW: uncomment to run yourself; load the saved object for rapid execution
 
 # # p-value distribution
@@ -656,9 +717,14 @@ mb_rf_rice <- serialized_objects_site |>
 ```
 
 ``` r
+
 summary(mb_rf_rice)  # boot_valid SA 64.6%; MAE 0.6400844
 ```
 
+    <ModelBoot> object of a <ranger> model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+    * The model was retrained with 100 bootstrap iterations.
+
+    Overall model statistics (object@model_stats):
     # A tibble: 4 × 7
       name    boot_valid conf.low median  mean conf.high     sd
       <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>  <dbl>
@@ -667,6 +733,7 @@ summary(mb_rf_rice)  # boot_valid SA 64.6%; MAE 0.6400844
     3 rmse         0.807    0.520     NA    NA     1.27  0.209
     4 sa_rmse      0.647    0.404     NA    NA     0.735 0.0804
 
+    Mean ALE statistics [get(object, stats = "estimate")]:
     # A tibble: 3 × 7
       term             aled aler_min aler_max naled naler_min naler_max
       <fct>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -674,6 +741,7 @@ summary(mb_rf_rice)  # boot_valid SA 64.6%; MAE 0.6400844
     2 nitrogen        0.256   -0.868    0.433 11.6      -21.8      18.5
     3 season:nitrogen 0.188   -0.523    0.331  8.17     -17.0      14.0
 
+    ALE statistic distributions (exact p-values, 1000 iterations) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
     # A tibble: 6 × 8
       statistic term            estimate p.value conf.low median   mean conf.high
       <ord>     <fct>              <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -682,8 +750,9 @@ summary(mb_rf_rice)  # boot_valid SA 64.6%; MAE 0.6400844
     3 aled      season:nitrogen    0.188   0.205   0.0904  0.180  0.188     0.301
     4 naled     season            13.6     0.059   1.59   13.8   13.6      24.7
     5 naled     nitrogen          11.6     0.225   2.88   11.1   11.6      20.7
-    6 naled     season:nitrogen    8.17    0.835   2.17    7.67   8.17     15.2  
+    6 naled     season:nitrogen    8.17    0.835   2.17    7.67   8.17     15.2
 
+    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
     # A tibble: 0 × 0
 
 Once we bootstrap, the performance is less impressive than with purely
@@ -694,6 +763,7 @@ will see that we can do better, as random forests don’t shine best on
 small datasets like this.
 
 ``` r
+
 mb_rf_rice |> 
   plot() |> 
   subset(list(d1 = TRUE))
@@ -702,6 +772,7 @@ mb_rf_rice |>
 ![](ale-gomez-rice_files/figure-html/plot-mb_rf_rice-1D-1.png)
 
 ``` r
+
 mb_rf_rice |> 
   plot() |> 
   subset(list(d2 = TRUE))
@@ -734,6 +805,7 @@ this way, nitrogen is fully incorporated into the model. We use the
 {mgcv} package for the GAM.
 
 ``` r
+
 gam_rice <- gam(
   yield ~ season + ti(nitrogen, by = season, bs = "ps"),
   data = rice,
@@ -746,6 +818,7 @@ sa_gam_rice  <- sa_wmae_mad(rice$yield, gam_preds)  # 0.8015714
 mae_gam_rice <- mae(rice$yield, gam_preds)  # 0.3898126
 summary(gam_rice)
 ```
+
 
     Family: gaussian
     Link function: identity
@@ -806,6 +879,7 @@ Next, we use ALE to examine the shape of the fitted relationships and
 give us model-agnostic statistics.
 
 ``` r
+
 # Single ALE description
 ale_gam_rice <- ALE(
   gam_rice, 
@@ -818,22 +892,38 @@ ale_gam_rice <- ALE(
 summary(ale_gam_rice)
 ```
 
-    # A tibble: 3 × 7
-      term             aled aler_min aler_max naled naler_min naler_max
-      <chr>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-    1 season          0.387   -0.387    0.387  13.3     -13.3      13.3
-    2 nitrogen        0.400   -1.28     0.648  15.3     -26.7      23.3
-    3 season:nitrogen 0.408   -1.16     0.636  15       -26.7      23.3
+    <ALE> object of a <gam/glm/lm> model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+    The results were not bootstrapped.
 
-    # A tibble: 6 × 7
-      statistic term            estimate conf.low   mean median conf.high
-      <ord>     <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-    1 aled      season             0.387    0.387  0.387  0.387     0.387
-    2 aled      nitrogen           0.400    0.400  0.400  0.400     0.400
-    3 aled      season:nitrogen    0.408    0.408  0.408  0.408     0.408
-    4 naled     season            13.3     13.3   13.3   13.3      13.3
-    5 naled     nitrogen          15.3     15.3   15.3   15.3      15.3
-    6 naled     season:nitrogen   15       15     15     15        15    
+    Mean ALE statistics [get(object, stats = "estimate")]:
+    # A tibble: 3 × 9
+      term             aled aler_min  aler aler_max naled naler_min naler naler_max
+      <chr>           <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+    1 season          0.387   -0.387 0.774    0.387  13.3     -13.3  26.7      13.3
+    2 nitrogen        0.400   -1.28  1.93     0.648  15.3     -26.7  50        23.3
+    3 season:nitrogen 0.408   -1.16  1.80     0.636  15       -26.7  50        23.3
+
+    ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+    # A tibble: 12 × 7
+       statistic term            estimate conf.low   mean median conf.high
+       <ord>     <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+     1 aled      season             0.387    0.387  0.387  0.387     0.387
+     2 aled      nitrogen           0.400    0.400  0.400  0.400     0.400
+     3 aled      season:nitrogen    0.408    0.408  0.408  0.408     0.408
+     4 aler      season             0.774    0.774  0.774  0.774     0.774
+     5 aler      nitrogen           1.93     1.93   1.93   1.93      1.93
+     6 aler      season:nitrogen    1.80     1.80   1.80   1.80      1.80
+     7 naled     season            13.3     13.3   13.3   13.3      13.3
+     8 naled     nitrogen          15.3     15.3   15.3   15.3      15.3
+     9 naled     season:nitrogen   15       15     15     15        15
+    10 naler     season            26.7     26.7   26.7   26.7      26.7
+    11 naler     nitrogen          50       50     50     50        50
+    12 naler     season:nitrogen   50       50     50     50        50
+
+    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+
+    ! Confidence regions are meaningless without p-values.
+    ℹ The ALE statistics were calculated without p-values.
 
     # A tibble: 0 × 0
 
@@ -842,6 +932,7 @@ scale) for season, nitrogen, and their interaction than the earlier
 models. We’ll interpret these more carefully once we look at the plots.
 
 ``` r
+
 ale_gam_rice |> 
   plot() |> 
   subset(list(d1 = TRUE))
@@ -850,6 +941,7 @@ ale_gam_rice |>
 ![](ale-gomez-rice_files/figure-html/plot-ale_gam_rice-1D-1.png)
 
 ``` r
+
 ale_gam_rice |> 
   plot() |> 
   subset(list(d2 = TRUE))
@@ -909,6 +1001,7 @@ generate a p-value distribution and perform full model bootstrapping of
 the GAM.
 
 ``` r
+
 # SLOW: uncomment to run yourself; load the saved object for rapid execution
 
 # # p-value distribution
@@ -945,9 +1038,14 @@ mb_gam_rice <- serialized_objects_site |>
 ```
 
 ``` r
+
 summary(mb_gam_rice)  # boot_valid SA 70.0%; MAE 0.531
 ```
 
+    <ModelBoot> object of a <gam/glm/lm> model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
+    * The model was retrained with 100 bootstrap iterations.
+
+    Overall model statistics (object@model_stats):
     # A tibble: 9 × 7
       name          boot_valid conf.low median   mean conf.high     sd
       <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>  <dbl>
@@ -959,14 +1057,16 @@ summary(mb_gam_rice)  # boot_valid SA 70.0%; MAE 0.531
     6 mae                0.531    0.311 NA     NA         1.21  0.216
     7 sa_mae             0.700    0.295 NA     NA         0.835 0.159
     8 rmse               0.732    0.427 NA     NA         1.88  0.324
-    9 sa_rmse            0.673    0.12  NA     NA         0.823 0.171 
+    9 sa_rmse            0.673    0.12  NA     NA         0.823 0.171
 
+    Summary model term estimates (object@model_coefs):
     # A tibble: 2 × 6
       term                   conf.low median  mean conf.high std.error
       <chr>                     <dbl>  <dbl> <dbl>     <dbl>     <dbl>
     1 ti(nitrogen):seasondry     1.70   2.19  2.20      2.73     0.261
     2 ti(nitrogen):seasonwet     1.11   2.45  2.44      3.20     0.408
 
+    Mean ALE statistics [get(object, stats = "estimate")]:
     # A tibble: 3 × 7
       term             aled aler_min aler_max naled naler_min naler_max
       <fct>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -974,6 +1074,7 @@ summary(mb_gam_rice)  # boot_valid SA 70.0%; MAE 0.531
     2 nitrogen        0.389   -1.31     0.687  15.6     -28.1      29.7
     3 season:nitrogen 0.418   -1.15     0.769  15.7     -25.4      30.5
 
+    ALE statistic distributions (exact p-values, 1000 iterations) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
     # A tibble: 6 × 8
       statistic term            estimate p.value conf.low median   mean conf.high
       <ord>     <fct>              <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -982,8 +1083,9 @@ summary(mb_gam_rice)  # boot_valid SA 70.0%; MAE 0.531
     3 aled      season:nitrogen    0.418   0       0.236   0.404  0.418     0.678
     4 naled     season            14.7     0.006   0.581  14.8   14.7      29.9
     5 naled     nitrogen          15.6     0.003   5.21   14.9   15.6      26.8
-    6 naled     season:nitrogen   15.7     0.003   6.76   15.2   15.7      26.4  
+    6 naled     season:nitrogen   15.7     0.003   6.76   15.2   15.7      26.4
 
+    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
     # A tibble: 6 × 8
       term1  x1    term2    x2        aler_band     n   pct     y
       <chr>  <chr> <chr>    <chr>     <ord>     <int> <dbl> <dbl>
@@ -1013,6 +1115,7 @@ We can better interpret the implications of this when examining the
 bootstrapped plots.
 
 ``` r
+
 mb_gam_rice |> 
   plot() |> 
   subset(list(d1 = TRUE))
@@ -1021,6 +1124,7 @@ mb_gam_rice |>
 ![](ale-gomez-rice_files/figure-html/plot-mb_gam_rice-1D-1.png)
 
 ``` r
+
 mb_gam_rice |> 
   plot() |> 
   subset(list(d2 = TRUE))

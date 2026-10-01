@@ -59,6 +59,7 @@ You can obtain the official releases from
 [CRAN](https://CRAN.R-project.org/package=ale):
 
 ``` r
+
 install.packages('ale')
 ```
 
@@ -74,6 +75,7 @@ To get the most recent features, you can install the development version
 of the package from [GitHub](https://github.com/tripartio/ale) with:
 
 ``` r
+
 # install.packages('pak')
 pak::pak('tripartio/ale')
 ```
@@ -91,6 +93,7 @@ demonstrations, we begin by fitting a GAM model. We assume that this is
 a final deployment model that needs to be fitted to the entire dataset.
 
 ``` r
+
 
 library(dplyr)
 #> 
@@ -120,6 +123,7 @@ diamonds <- ggplot2::diamonds |>
 
 ``` r
 
+
 # Create a GAM model with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
 # Build the model on training data, not on the full dataset.
@@ -137,6 +141,7 @@ For the simple demonstration, we directly create ALE data with the
 then plot the `ggplot` plot objects.
 
 ``` r
+
 library(ale)
 #> 
 #> Attaching package: 'ale'
@@ -151,6 +156,7 @@ serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
 ```
 
 ``` r
+
 # Create ALE data
 # # To run the slow code yourself, uncomment and execute this code block directly.
 ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds)
@@ -184,6 +190,7 @@ First, we need to create a p-value distribution object so that the ALE
 statistics can be properly distinguished from random effects.
 
 ``` r
+
 # Create p_value distribution object
 
 # # Rather slow because it retrains the model 100 times.
@@ -204,6 +211,7 @@ Now we can create bootstrapped ALE data and see some of the differences
 in the plots of bootstrapped ALE with p-values:
 
 ``` r
+
 # Create ALE data with p-values
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
@@ -224,6 +232,7 @@ ale_gam_diamonds_stats_readme <- serialized_objects_site |>
 ```
 
 ``` r
+
 # Create an ALEPlots object for fine-tuned plotting
 ale_plots <- plot(ale_gam_diamonds_stats_readme)
 
@@ -239,6 +248,7 @@ ale_plots |>
 ![](reference/figures/README-ale-1D-plot-1.png)
 
 ``` r
+
 # Plot a selected 2D plot
 ale_plots |> 
   # get() retrieves a specific desired plot

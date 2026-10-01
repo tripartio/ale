@@ -142,15 +142,15 @@ ModelBoot(
 - output_model_stats:
 
   logical(1). If `TRUE` (default), return overall model statistics using
-  [`broom::glance()`](https://broom.tidymodels.org/reference/reexports.html)
+  [`broom::glance()`](https://generics.r-lib.org/reference/glance.html)
   (if available for `model`) and bootstrap-validated statistics if
   `boot_it > 0`.
 
 - output_model_coefs:
 
   logical(1). If `TRUE` (default), return model coefficients using
-  [`broom::tidy()`](https://broom.tidymodels.org/reference/reexports.html)
-  (if available for `model`).
+  [`broom::tidy()`](https://generics.r-lib.org/reference/tidy.html) (if
+  available for `model`).
 
 - output_ale:
 
@@ -167,9 +167,9 @@ ModelBoot(
   list of named arguments. Arguments to pass to the
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
   constructor when `ale = TRUE`,
-  [`broom::tidy()`](https://broom.tidymodels.org/reference/reexports.html)
-  when `model_coefs = TRUE`, or
-  [`broom::glance()`](https://broom.tidymodels.org/reference/reexports.html)
+  [`broom::tidy()`](https://generics.r-lib.org/reference/tidy.html) when
+  `model_coefs = TRUE`, or
+  [`broom::glance()`](https://generics.r-lib.org/reference/glance.html)
   when `model_stats = TRUE`, respectively, beyond (or overriding) their
   defaults. Note: to obtain p-values for ALE statistics, see the `ale_p`
   argument.
@@ -188,17 +188,28 @@ ModelBoot(
 
 ## Value
 
-An object of class `ALE` with properties `model_stats`, `model_coefs`,
-`ale`, `model_stats`, `boot_data`, and `params`.
+A `ModelBoot` object with properties `model_stats`, `model_coefs`,
+`ale`, `boot_data`, and `params`.
+
+## Methods
+
+`ModelBoot` objects support
+[get()](https://tripartio.github.io/ale/reference/get-ModelBoot-method.md),
+[plot()](https://tripartio.github.io/ale/reference/plot-ModelBoot-method.md),
+[print()](https://tripartio.github.io/ale/reference/print-ModelBoot-method.md),
+and
+[summary()](https://tripartio.github.io/ale/reference/summary-ModelBoot-method.md).
+Each method topic documents its complete signature and class-specific
+arguments.
 
 ## Properties
 
 - model_stats:
 
   `tibble` of bootstrapped results from
-  [`broom::glance()`](https://broom.tidymodels.org/reference/reexports.html).
+  [`broom::glance()`](https://generics.r-lib.org/reference/glance.html).
   `NULL` if `model_stats` argument is `FALSE`. In general, only
-  [`broom::glance()`](https://broom.tidymodels.org/reference/reexports.html)
+  [`broom::glance()`](https://generics.r-lib.org/reference/glance.html)
   results that make sense when bootstrapped are included, such as `df`
   and `adj.r.squared`. Results that are incomparable across bootstrapped
   datasets (such as `aic`) are excluded. In addition, certain model
@@ -225,7 +236,7 @@ An object of class `ALE` with properties `model_stats`, `model_coefs`,
 - model_coefs:
 
   A `tibble` of bootstrapped results from
-  [`broom::tidy()`](https://broom.tidymodels.org/reference/reexports.html).
+  [`broom::tidy()`](https://generics.r-lib.org/reference/tidy.html).
   `NULL` if `model_coefs` argument is `FALSE`.
 
 - ale:
@@ -306,6 +317,7 @@ accuracy." Statistical science (1986): 54-75.
 ## Examples
 
 ``` r
+
 # attitude dataset
 attitude
 #>    rating complaints privileges learning raises critical advance

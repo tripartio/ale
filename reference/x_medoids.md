@@ -24,7 +24,7 @@ x_medoids(
 
 - min_clusters:
 
-  Smallest k to try (≥ 2 – silhouette is undefined for k = 1).
+  Smallest k to try (\>= 2 – silhouette is undefined for k = 1).
 
 - max_clusters:
 

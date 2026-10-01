@@ -6,9 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Analyzing a Large Corn Yield Dataset with ALE-Based Inference • ale</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="ale-acdc-corn_files/libs/quarto-html/popper.min.js"></script><script src="ale-acdc-corn_files/libs/quarto-html/tippy.umd.min.js"></script><link href="ale-acdc-corn_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ale-acdc-corn_files/libs/quarto-html/light-border.css" rel="stylesheet">
@@ -23,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20260217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -365,6 +370,15 @@ $ tfactor    &lt;dbl&gt; 4.950716, 4.936530, 4.926214, 3.174986, 4.988563, 4.889
 <p>A central limitation of GLM approaches like OLS is that they do not “discover” interactions. If interactions matter, we must anticipate them and include them explicitly. In our setting, that is tricky because (a) we have limited guidance about which interactions are truly important, and (b) adding interactions can make estimation dramatically slower.</p>
 <p>Given the panel structure of the data, one interaction is especially natural: county (<code>stco</code>) by year. This allows each county to have its own time trend, effectively fitting separate time-specific effects for each of the 3,070 counties.</p>
 <p>In exploratory analyses not shown here, we also experimented with including the county identifier more directly (<code>stco</code>). Accuracy was reasonably strong (about 78.2% standardized accuracy), but the model is extremely slow: with the county-year interaction, it takes roughly an hour to run on our machine. The bottleneck is the hyper-cardinality of <code>stco</code>. As a factor, it generates 3,069 dummy variables even before we add an interaction term. For comparison, modelling all variables without the interaction took “only” about 17 minutes. In short, GLM methods struggle when a predictor has thousands of levels, and interactions can make that struggle explode.</p>
+<!--
+| County setting   | Model          | SA (%) | Train time (s) | ALE single (s) | P-values (s) | ALE bootstrap (s) | Comment                                      |
+|------------------|---------------|--------|----------------|----------------|--------------|-------------------|----------------------------------------------|
+| with county      | OLS           | 78,2   | 3539           | N/A            | N/A          | N/A               | No CV                                        |
+| with county      | GLMM          | 78,1   | 59             | N/A            | N/A          | N/A               |                                              |
+| with county      | Random forest | 93,1   | 8              | 971            | 1136         | 26567             | ALE bootstrap had computer falling asleep    |
+| without county   | OLS           | 64,7   | 0,1            | N/A            | N/A          | N/A               |                                              |
+| without county   | Random forest | 93,1   | 8              | 1032           | 33482        | 6021              | p-values had computer falling asleep         |
+-->
 <p>Although the county-year interaction substantially improved accuracy (by roughly 12 percentage points of standardized accuracy), because it did so at an unacceptable computational cost, we do not report the full OLS-with-interaction output here. Instead, we summarize the timing and accuracy in the comparison table in the conclusion and focus interpretation on the better-performing, more tractable models.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
@@ -372,7 +386,7 @@ $ tfactor    &lt;dbl&gt; 4.950716, 4.936530, 4.926214, 3.174986, 4.988563, 4.889
 <span><span class="va">lm_corn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">corn</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">corn_data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html" class="external-link">toc</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># 0.14 sec (with county 3539.29 sec elapsed (59 minutes = 1 hour))</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.541 sec elapsed</code></pre>
+<pre><code>0.2 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lm_corn</span><span class="op">)</span></span></code></pre></div>
@@ -466,7 +480,7 @@ F-statistic:  3649 on 19 and 89990 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html" class="external-link">toc</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># 7.92  sec elapsed</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>22.916 sec elapsed</code></pre>
+<pre><code>24.17 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># default 500 trees: 86.52 sec elapsed</span></span>
@@ -570,7 +584,11 @@ R squared (OOB):                  0.8560274 </code></pre>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 210 × 7
+<pre><code>&lt;ALE&gt; object of a &lt;ranger&gt; model that predicts `corn` (a numeric outcome) from a 90010-row by 21-column dataset.
+The results were not bootstrapped.
+
+Mean ALE statistics [get(object, stats = "estimate")]:
+# A tibble: 210 × 7
     term                     aled aler_min aler_max  naled naler_min naler_max
     &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
   1 year                  10.9     -15.2     27.4   11.2     -16.5      25.5
@@ -673,10 +691,10 @@ R squared (OOB):                  0.8560274 </code></pre>
  98 temp_11_20:silt        0.098    -0.382    0.551  0.297    -0.921     1.01
  99 temp_11_20:clay        0.0908   -0.604    0.361  0.295    -1.05      0.930
 100 temp_11_20:om          0.297    -1.38     0.831  0.774    -1.85      1.15
-# ℹ 110 more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 420 × 7
+# ℹ 110 more rows
+
+ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+# A tibble: 420 × 7
     statistic term                  estimate conf.low    mean  median conf.high
     &lt;ord&gt;     &lt;chr&gt;                    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
   1 aled      year                   10.9     10.9    10.9    10.9      10.9
@@ -779,7 +797,13 @@ R squared (OOB):                  0.8560274 </code></pre>
  98 aled      temp_11_20:silt         0.098    0.098   0.098   0.098     0.098
  99 aled      temp_11_20:clay         0.0908   0.0908  0.0908  0.0908    0.0908
 100 aled      temp_11_20:om           0.297    0.297   0.297   0.297     0.297
-# ℹ 320 more rows</code></pre>
+# ℹ 320 more rows
+
+Statistically significant confidence regions [get(object, stats = "conf_sig")]:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Confidence regions are meaningless without p-values.
+ℹ The ALE statistics were calculated without p-values.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
@@ -876,7 +900,11 @@ R squared (OOB):                  0.8560274 </code></pre>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 16 × 7
+<pre><code>&lt;ALE&gt; object of a &lt;ranger&gt; model that predicts `corn` (a numeric outcome) from a 90010-row by 21-column dataset.
+The results were bootstrapped with 100 iterations.
+
+Mean ALE statistics [get(object, stats = "estimate")]:
+# A tibble: 16 × 7
    term                   aled aler_min aler_max naled naler_min naler_max
    &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
  1 year                  10.9   -15.2      27.3  11.1    -16.5       25.5
@@ -894,10 +922,10 @@ R squared (OOB):                  0.8560274 </code></pre>
 13 spH                    2.08   -3.70      4.71  2.43    -3.85       4.83
 14 tfactor                1.92   -3.15     10.6   2.32    -3.61      10.8
 15 year:temp_gt_45        1.62   -2.00      1.93  2.04    -2.39       2.27
-16 temp_00_10:temp_gt_45  1.65   -0.236     2.46  2.03    -0.838      2.79</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 32 × 8
+16 temp_00_10:temp_gt_45  1.65   -0.236     2.46  2.03    -0.838      2.79
+
+ALE statistic distributions (exact p-values, 1000 iterations) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+# A tibble: 32 × 8
    statistic term               estimate p.value conf.low  mean median conf.high
    &lt;ord&gt;     &lt;chr&gt;                 &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
  1 aled      year                  10.9        0   10.8   10.9   10.9      11.0
@@ -931,10 +959,10 @@ R squared (OOB):                  0.8560274 </code></pre>
 29 naled     spH                    2.43       0    2.37   2.43   2.41      2.54
 30 naled     tfactor                2.32       0    2.28   2.32   2.31      2.37
 31 naled     year:temp_gt_45        2.04       0    1.69   2.04   2.02      2.41
-32 naled     temp_00_10:temp_g…     2.03       0    0.959  2.03   2.03      2.78</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 46 × 10
+32 naled     temp_00_10:temp_g…     2.03       0    0.959  2.03   2.03      2.78
+
+Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+# A tibble: 46 × 10
    term          start_x   end_x x_span_pct     n     pct start_y end_y    trend
    &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
  1 year          1.98e+3 1.99e+3     32.4   41855 4.65e+1    89.8  99.1  0.172
@@ -994,7 +1022,7 @@ R squared (OOB):                  0.8560274 </code></pre>
 </h3>
 <p>To make the ALE plots readable, we adjust the default output. We print 1D and 2D plots separately by subsetting the plot objects, and we apply a customization step to zoom the y-axis of the 1D ALE plots. The y-axis limits are chosen to improve visibility while keeping plots on a common scale, which makes relative effect sizes easier to compare across variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_boot_rf_corn</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># create ALEPlots object</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># subset only for 1D plots</span></span>
@@ -1009,7 +1037,7 @@ R squared (OOB):                  0.8560274 </code></pre>
 </div>
 <p>With this view, the plots align cleanly with the ALED rankings: year shows the largest range, followed by the key temperature ranges (especially 21–30°C and 31–35°C). We also interpret these plots with the rug marks in mind. Extreme x-values often have sparse support, so we put most interpretive weight on regions of the predictor where the data are dense and the ALE curve is well supported.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_boot_rf_corn</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># create ALEPlots object</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span>   <span class="co"># subset only for 2D plots</span></span>
@@ -1040,7 +1068,7 @@ R squared (OOB):                  0.8560274 </code></pre>
 <p>With a dataset of this size, statistical significance is almost guaranteed. Indeed, all effects are statistically significant. That is not the interesting part.</p>
 <p>What matters is magnitude. Only eight variables exhibit ALED effects of at least two bushels per acre. These are the effects that clear our threshold for practical importance, and we display their ALE plots accordingly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create variable lists to focus on</span></span>
 <span><span class="va">vars_aled_2</span> <span class="op">&lt;-</span> <span class="va">ale_boot_rf_corn</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span>stats <span class="op">=</span> <span class="st">'estimate'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1164,7 +1192,7 @@ R squared (OOB):                  0.8560274 </code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

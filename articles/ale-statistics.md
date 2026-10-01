@@ -16,9 +16,10 @@ refined after peer review.
 We begin by loading the necessary libraries.
 
 ``` r
+
 library(mgcv)   # for datasets and the gam function
 #> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> This is mgcv 1.9-4. For overview type '?mgcv'.
 library(dplyr)  # for data manipulation
 #> 
 #> Attaching package: 'dplyr'
@@ -49,6 +50,7 @@ package, which is loaded automatically when we load the `mgcv` package.)
 Here is the code to generate the data that we will work with:
 
 ``` r
+
 # Create and prepare the data
 
 # Specific seed chosen to illustrate the spuriousness of the random variable
@@ -118,18 +120,18 @@ students have taken a mathematics achievement test. We describe the data
 here based on documentation from the `nlme` package but some details are
 not quite clear:
 
-| variable       | format  | description                                                                                                                             |
-|----------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| math_avg       | double  | average mathematics achievement scores of all students in the school                                                                    |
-| size           | double  | the number of students in the school                                                                                                    |
-| public         | logical | TRUE if the school is in the public sector; FALSE if in the Catholic sector                                                             |
-| academic_ratio | double  | the percentage of students on the academic track                                                                                        |
-| female_ratio   | double  | percentage of students in the school that are female                                                                                    |
-| mean_ses       | double  | mean socioeconomic status for the students in the school (measurement is not quite clear)                                               |
-| minority_ratio | double  | percentage of students that are members of a minority racial group                                                                      |
-| high_minority  | logical | TRUE if the school has a high ratio of students of minority racial groups (unclear, but perhaps relative to the location of the school) |
-| discrim        | double  | the “discrimination climate” (perhaps an indication of extent of racial discrimination in the school?)                                  |
-| rand_norm      | double  | a completely random variable                                                                                                            |
+| variable | format | description |
+|----|----|----|
+| math_avg | double | average mathematics achievement scores of all students in the school |
+| size | double | the number of students in the school |
+| public | logical | TRUE if the school is in the public sector; FALSE if in the Catholic sector |
+| academic_ratio | double | the percentage of students on the academic track |
+| female_ratio | double | percentage of students in the school that are female |
+| mean_ses | double | mean socioeconomic status for the students in the school (measurement is not quite clear) |
+| minority_ratio | double | percentage of students that are members of a minority racial group |
+| high_minority | logical | TRUE if the school has a high ratio of students of minority racial groups (unclear, but perhaps relative to the location of the school) |
+| discrim | double | the “discrimination climate” (perhaps an indication of extent of racial discrimination in the school?) |
+| rand_norm | double | a completely random variable |
 
 Of particular note is the variable `rand_norm`. We have added this
 completely random variable (with a normal distribution) to demonstrate
@@ -142,6 +144,7 @@ the average mathematics achievement scores of all students in each
 school. Here are its descriptive statistics:
 
 ``` r
+
 summary(math$math_avg)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #>    4.24   10.47   12.90   12.62   14.65   19.72
@@ -158,6 +161,7 @@ First, we create a generalized additive model (GAM) so that we can
 capture non-linear relationships in the data.
 
 ``` r
+
 gam_math <- gam(
      math_avg ~ public + high_minority +
      s(size) + s(academic_ratio) + s(female_ratio) + s(mean_ses) + 
@@ -191,7 +195,7 @@ to the statistic values that the procedure will give us. To quantify
 this randomness, we want to obtain p-values for these statistics.
 P-values for most standard statistics are based on the assumption that
 these statistics fit some distribution or another (e.g., Student’s *t*,
-$\chi^{2}$, etc.). With these distributional assumptions, p-values can
+$`\chi^2`$, etc.). With these distributional assumptions, p-values can
 be calculated very quickly. However, a key characteristic of ALE is that
 there are no distributional assumptions: ALE data is a description of a
 model’s characterization of the data given to it. Accordingly, ALE
@@ -235,11 +239,13 @@ p-values thus generated would be meaningless.)
 We now demonstrate how to create the `ALEpDist` object for our case.
 
 ``` r
+
 # For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
 options(ale.parallel = 2)
 ```
 
 ``` r
+
 
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
@@ -276,6 +282,7 @@ conclusions, you could run 1,000 bootstraps or more to confirm the
 results of 100 bootstraps.
 
 ``` r
+
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
 # # there is no need to specify the data argument.
@@ -300,6 +307,7 @@ We can see the bootstrapped values of various overall model statistics
 by printing the `model_stats` property of the model bootstrap object:
 
 ``` r
+
 mb_gam_math@model_stats
 #> # A tibble: 9 × 7
 #>   name          boot_valid conf.low  median    mean conf.high     sd
@@ -337,6 +345,7 @@ variables. These are available in the `model_coefs` element of the model
 bootstrap object:
 
 ``` r
+
 mb_gam_math@model_coefs
 #> # A tibble: 3 × 6
 #>   term              conf.low median   mean conf.high std.error
@@ -372,6 +381,7 @@ intervals, a coefficient is statistically significant if `conf.low` and
 results on this criterion:
 
 ``` r
+
 mb_gam_math@model_coefs |> 
   # filter is TRUE if conf.low and conf.high are both positive or both negative because
   # multiplying two numbers of the same sign results in a positive number.
@@ -417,6 +427,7 @@ plots for each variable.
 ### ALE plots with p-values
 
 ``` r
+
 mb_gam_plots <- plot(mb_gam_math)
 print(mb_gam_plots, ncol = 2)
 ```
@@ -498,6 +509,7 @@ object. Let us create another `ModelBoot` object, but this time, one
 without p-values.
 
 ``` r
+
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # For models like mgcv::gam that store their data,
 # there is no need to specify the data argument.
@@ -546,6 +558,7 @@ variables in the ALE analysis. This is generated with the
 `ALEPlots` object with `type = 'effect'`:
 
 ``` r
+
 get(mb_gam_plots, type = 'effect')
 #> `height` was translated to `width`.
 ```
@@ -603,8 +616,12 @@ The easiest ALE statistic to understand is the ALE range (ALER), so we
 begin there. It is simply the range from the minimum to the maximum of
 any `ale_y` value for that variable. Mathematically, that is
 
-$${ALER}\left( {ale\_ y} \right) = \{\min\left( {ale\_ y} \right),\max\left( {ale\_ y} \right)\}$$  
-where $ale\_ y$ is the vector of ALE *y* values for a variable.
+``` math
+\mathrm{ALER}(\mathrm{ale\_y}) = \{ \min(\mathrm{ale\_y}), \max(\mathrm{ale\_y}) \}
+```
+  
+where $`\mathrm{ale\_y}`$ is the vector of ALE *y* values for a
+variable.
 
 All the ALE effect size measures are centred on zero so that they are
 consistent regardless of if the user chooses to centre their plots on
@@ -623,6 +640,7 @@ variable, we can access the `ale$stats$by_term` element.
 Let’s focus on `public`. Here is its ALE plot:
 
 ``` r
+
 get(mb_gam_plots, 'public')
 ```
 
@@ -631,6 +649,7 @@ get(mb_gam_plots, 'public')
 Here are the effect size measures for the categorical `public`:
 
 ``` r
+
 get(mb_gam_math, 'public', stats = 'all')
 #> # A tibble: 6 × 7
 #>   term   statistic estimate conf.low median   mean conf.high
@@ -658,6 +677,7 @@ of any value of the *x* variable on the *y* variable.
 For contrast, let us look at a numeric variable, `academic_ratio`:
 
 ``` r
+
 get(mb_gam_plots, 'academic_ratio')
 ```
 
@@ -666,6 +686,7 @@ get(mb_gam_plots, 'academic_ratio')
 Here are its ALE effect size measures:
 
 ``` r
+
 get(mb_gam_math, 'academic_ratio', stats = 'all')
 #> # A tibble: 6 × 7
 #>   term           statistic estimate conf.low  median    mean conf.high
@@ -689,12 +710,15 @@ full domain of values. Based on the zero-centred ALE values, ALED is
 conceptually similar to the weighted mean absolute error (MAE) of the
 ALE *y* values. Mathematically, it is
 
-$${ALED}\left( {ale\_ y},{ale\_ n} \right) = \frac{\sum\limits_{i = 1}^{k}\left| {ale\_ y}_{i} \times {ale\_ n}_{i} \right|}{\sum\limits_{i = 1}^{k}{ale\_ n}_{i}}$$
+``` math
+\mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}
+```
 
-where $i$ is the index of $k$ ALE *x* intervals for the variable (for a
-categorical variable, this is the number of distinct categories),
-${ale\_ y}_{i}$ is the ALE *y* value for the $i$th ALE *x* interval, and
-${ale\_ n}_{i}$ is the number of rows in the $i$th ALE *x* interval.
+where $`i`$ is the index of $`k`$ ALE *x* intervals for the variable
+(for a categorical variable, this is the number of distinct categories),
+$`\mathrm{ale\_y}_i`$ is the ALE *y* value for the $`i`$th ALE *x*
+interval, and $`\mathrm{ale\_n}_i`$ is the number of rows in the $`i`$th
+ALE *x* interval.
 
 However, whereas this equation describes ALED for non-numeric values
 where each ALE *x* interval is a distinct *x* value with a corresponding
@@ -708,19 +732,25 @@ bin is recalculated as the midpoint between consecutive `.ceil`
 boundaries. The adjusted ALED formula for numeric *x* variables is given
 in the following equation:
 
-$${ALED}\left( {ale\_ y},{ale\_ n} \right) = \frac{\sum\limits_{i = 1}^{k - 1}\left| \frac{1}{2}\left( {ale\_ y}_{i} + {ale\_ y}_{i + 1} \right) \times {ale\_ n}_{i}\prime \right|}{\sum\limits_{i = 1}^{k - 1}{ale\_ n}_{i}\prime}$$
+``` math
+\mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k-1} \left|  \frac{1}{2} \left( \mathrm{ale\_y}_i + \mathrm{ale\_y}_{i+1} \right) \times \mathrm{ale\_n}_i' \right|}{\sum_{i=1}^{k-1} \mathrm{ale\_n}_i'}
+```
 where:
 
-- ${ale\_ n}_{i}\prime$ is the adjusted number of rows for the $i$th
+- $`{ale\_n}_i'`$ is the adjusted number of rows for the $`i`$th
   interval, with the first element adjusted to include the number of
-  rows from the minimum interval. $${ale\_ n}_{i}\prime = \begin{cases}
-  {{ale\_ n}_{i} + {ale\_ n}_{i + 1}} & {{\text{if}\mspace{6mu}}i = 1} \\
-  {ale\_ n}_{i} & \text{otherwise}
-  \end{cases}$$
+  rows from the minimum interval.
+  ``` math
+  \mathrm{ale\_n}_i' = 
+  \begin{cases}
+  \mathrm{ale\_n}_i + \mathrm{ale\_n}_{i+1} & \text{if } i = 1 \\
+  \mathrm{ale\_n}_i & \text{otherwise}
+  \end{cases}
+  ```
 
-- $\frac{1}{2}\left( {ale\_ y}_{i} + {ale\_ y}_{i + 1} \right)$
-  represents the recalculated ALE $y$ value for each bin, taken as the
-  midpoint between consecutive $ale\_ y$ values.
+- $`\frac{1}{2} \left( \mathrm{ale\_y}_i + \mathrm{ale\_y}_{i+1} \right)`$
+  represents the recalculated ALE $`y`$ value for each bin, taken as the
+  midpoint between consecutive $`ale\_y`$ values.
 
 Based on its ALED, we can say that the average effect on math scores of
 whether a school is in the public or Catholic sector is 0.38 (again, out
@@ -770,15 +800,17 @@ ALE *y* values as zero.
 
 Its formula is:
 
-$$norm\_ ale\_ y = 100 \times \begin{cases}
-0 & {{\text{if}\mspace{6mu}}\max(centred\_ y < 0) \leq ale\_ y \leq \min(centred\_ y > 0),} \\
-\frac{- ECDF_{y_{\leq 0}}(ale\_ y)}{2} & {{\text{if}\mspace{6mu}}ale\_ y < 0} \\
-\frac{ECDF_{y_{\geq 0}}(ale\_ y)}{2} & {{\text{if}\mspace{6mu}}ale\_ y > 0} \\
- & 
-\end{cases}$$ where - $centred\_ y$ is the vector of `y` values centred
-on the median (that is, the median is subtracted from all values). -
-$ECDF_{y_{\geq 0}}$ is the ECDF of the non-negative values in `y`. -
-$- ECDF_{y_{\leq 0}}$ is the ECDF of the negative values in `y` after
+``` math
+norm\_ale\_y = 100 \times \begin{cases} 
+0 & \text{if } \max(centred\_y < 0) \leq ale\_y \leq \min(centred\_y > 0), \\
+\frac{-ECDF_{y_{\leq 0}}(ale\_y)}{2} & \text{if }ale\_y < 0 \\
+\frac{ECDF_{y_{\geq 0}}(ale\_y)}{2} & \text{if }ale\_y > 0 \\
+\end{cases} 
+```
+where - $`centred\_y`$ is the vector of `y` values centred on the median
+(that is, the median is subtracted from all values). -
+$`ECDF_{y_{\geq 0}}`$ is the ECDF of the non-negative values in `y`. -
+$`-ECDF_{y_{\leq 0}}`$ is the ECDF of the negative values in `y` after
 they have been inverted (multiplied by -1).
 
 Of course, the formula could be simplified by multiplying by 50 instead
@@ -792,10 +824,14 @@ Based on this normalization, we first have the normalized ALER (NALER),
 which scales the minimum and maximum ALE *y* values from -50% to +50%,
 centred on 0%, which represents the median:
 
-$${NALER}\left( {y,ale\_ y} \right) = \{\min\left( {norm\_ ale\_ y} \right) + 50,\max\left( {norm\_ ale\_ y} \right) + 50\}$$
+``` math
+\mathrm{NALER}(\mathrm{y, ale\_y}) = 
+\{\min(\mathrm{norm\_ale\_y}) + 50, 
+\max(\mathrm{norm\_ale\_y}) + 50 \}
+```
 
-where $y$ is the full vector of *y* values in the original dataset,
-required to calculate $norm\_ ale\_ y$.
+where $`y`$ is the full vector of *y* values in the original dataset,
+required to calculate $`\mathrm{norm\_ale\_y}`$.
 
 ALER shows the extreme values of a variable’s effect on the outcome. In
 the effects plot above, it is indicated by the extreme ends of the
@@ -830,7 +866,9 @@ The normalization of ALED scores applies the same ALED formula as before
 but on the normalized ALE values instead of on the original ALE *y*
 values:
 
-$${NALED}\left( y,{ale\_ y},{ale\_ n} \right) = {ALED}\left( {norm\_ ale\_ y},{ale\_ n} \right)$$
+``` math
+\mathrm{NALED}(y, \mathrm{ale\_y}, \mathrm{ale\_n}) = \mathrm{ALED}(\mathrm{norm\_ale\_y}, \mathrm{ale\_n})
+```
 
 NALED produces a score that ranges from 0 to 100%. It is essentially the
 ALED expressed in percentiles, that is, the average effect of a variable
@@ -845,12 +883,14 @@ It is particularly striking to note the ALE effect size measures for the
 random `rand_norm`:
 
 ``` r
+
 get(mb_gam_plots, 'rand_norm')
 ```
 
 ![](ale-statistics_files/figure-html/math-rand_norm-ALE-plot-1.png)
 
 ``` r
+
 get(mb_gam_math, 'rand_norm', stats = 'all')
 #> # A tibble: 6 × 7
 #>   term      statistic estimate conf.low  median    mean conf.high
@@ -971,6 +1011,7 @@ inference, we must understand the structure of ALE data. Let’s begin
 simple with a binary variable with just two categories, `public`:
 
 ``` r
+
 get(mb_gam_math, 'public')
 #> # A tibble: 2 × 7
 #>   public.bin    .n    .y .y_lo .y_mean .y_median .y_hi
@@ -1010,6 +1051,7 @@ the median.
 Here is the ALE data structure for a numeric variable, `academic_ratio`:
 
 ``` r
+
 get(mb_gam_math, 'academic_ratio')
 #> # A tibble: 10 × 7
 #>    academic_ratio.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
@@ -1029,18 +1071,19 @@ get(mb_gam_math, 'academic_ratio')
 The columns are the same as with a categorical variable, but instead of
 `x.bin`, we have `x.ceil` since there are no categories. To calculate
 ALE for numeric variables, the range of *x* values is divided into bins
-(by default 10, customizable with the `max_num_bins` argument). Because
-numeric variables often have multiple values in a bin, the ALE data
-stores the ceilings (upper bounds) of the bins. If the *x* values have
-fewer than 10 distinct values in the data, then each distinct value
-becomes its own bin and we record its value as the ceiling of the bin.
-If there are more than 10 distinct values, then the range is divided
-into 10 decile groups. The first bin includes all rows with a value
-exactly equal to the minimum value of that variable, thus it often has
-very few elements—sometimes only one. The other columns mean the same
-thing as with categorical variables: `.n` is the number of rows of data
-in each bin and `.y` is the calculated ALE for the bin whose ceiling is
-`.ceil`.
+(by default 10, customizable with the `max_num_bins` argument). (There
+are actually `max_num_bins+1` bins because the lowest bin is reserved
+for the minimum value in the data.) Because numeric variables often have
+multiple values in a bin, the ALE data stores the ceilings (upper
+bounds) of the bins. If the *x* values have fewer than 10 distinct
+values in the data, then each distinct value becomes its own bin and we
+record its value as the ceiling of the bin. If there are more than 10
+distinct values, then the range is divided into 10 decile groups. The
+first bin includes all rows with a value exactly equal to the minimum
+value of that variable, thus it often has very few elements—sometimes
+only one. The other columns mean the same thing as with categorical
+variables: `.n` is the number of rows of data in each bin and `.y` is
+the calculated ALE for the bin whose ceiling is `.ceil`.
 
 ### Bootstrap-based inference with ALE
 
@@ -1054,6 +1097,7 @@ it be considered conceptually meaningful.**
 We can see this, for example, with the plot of `mean_ses`:
 
 ``` r
+
 get(mb_gam_plots, 'mean_ses')
 ```
 
@@ -1065,6 +1109,7 @@ the `ale$conf_regions$by_term` element, which can be accessed for each
 variable from its `by_term` element:
 
 ``` r
+
 get(mb_gam_math, 'mean_ses', stats = 'conf_regions')
 #> # A tibble: 2 × 10
 #>   term     start_x  end_x x_span_pct     n   pct start_y end_y trend aler_band
@@ -1120,6 +1165,7 @@ exported, you must use `ale:::` with three colons, not just two, if you
 want to access it.)
 
 ``` r
+
 get(mb_gam_math, 'mean_ses', stats = 'conf_regions') |> 
   ale:::summarize_conf_regions_1D_in_words()
 #> [1] "From -1.19 to -0.517, ALE is below the ALER band from 5.32 to 11.3. From -0.335 to 0.831, ALE overlaps the ALER band from 12.3 to 15."
@@ -1134,6 +1180,7 @@ also for categorical variables, as we see with `public`. Here is its ALE
 plot again:
 
 ``` r
+
 get(mb_gam_plots, 'public')
 ```
 
@@ -1142,6 +1189,7 @@ get(mb_gam_plots, 'public')
 And here is its confidence regions summary table:
 
 ``` r
+
 get(mb_gam_math, 'public', stats = 'conf_regions')
 #> # A tibble: 2 × 6
 #>   term   x         n   pct     y aler_band
@@ -1165,6 +1213,7 @@ Again, our random variable `rand_norm` is particularly interesting. Here
 is its ALE plot:
 
 ``` r
+
 get(mb_gam_plots, 'rand_norm')
 ```
 
@@ -1173,6 +1222,7 @@ get(mb_gam_plots, 'rand_norm')
 And here is its confidence regions summary table:
 
 ``` r
+
 get(mb_gam_math, 'rand_norm', stats = 'conf_regions')
 #> # A tibble: 1 × 10
 #>   term      start_x end_x x_span_pct     n   pct start_y end_y  trend aler_band
@@ -1192,6 +1242,7 @@ variables that are statistically significant or meaningful by accessing
 the `conf_regions$significant` element:
 
 ``` r
+
 get(mb_gam_math, stats = 'conf_sig')
 #> # A tibble: 5 × 12
 #>   term   x     start_x   end_x x_span_pct     n   pct     y start_y end_y  trend
@@ -1210,6 +1261,7 @@ variables have any such meaningful region by extracting the unique
 values in the `term` column:
 
 ``` r
+
 get(mb_gam_math, stats = 'conf_sig')$term |> 
   unique()
 #> [1] "mean_ses"       "minority_ratio"

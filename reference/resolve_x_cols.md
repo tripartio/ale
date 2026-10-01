@@ -31,15 +31,18 @@ resolve_x_cols(x_cols, col_names, y_col, exclude_cols = NULL, silent = FALSE)
 
 - y_col:
 
-  character(1). The y outcome column. If found in any `x_cols` value, it
-  will be silently removed.
+  character(1). The y outcome column. Explicit 1D terms equal to `y_col`
+  are silently removed, as are complete interactions having any
+  component equal to `y_col`. If that leaves no requested `x_cols`, an
+  error is raised.
 
 - exclude_cols:
 
   Same possible formats as `x_cols`. Columns and interactions to exclude
   from those requested in `x_cols`. `exclude_cols` values not found in
   `col_names` will be ignored with a message (which can be silenced with
-  `silent`).
+  `silent`). Removing `y_col` terms can leave an empty exclusion set,
+  which has no effect.
 
 - silent:
 
@@ -97,11 +100,16 @@ formats:
   selected.
 
 The function ensures all variables are valid and in `col_names`,
-providing informative messages unless `silent = TRUE`. And regardless of
-the specification format, the result will always be standardized in the
-format specified in the return value. Note that `y_col` is not removed
-if included in `x_cols`. However, a message alerts when it is included,
-in case it is a mistake.
+providing informative messages unless `silent = TRUE`. Regardless of the
+specification format, the result is always standardized as described in
+the return value. Explicit 1D terms exactly equal to `y_col` are
+silently removed. For a 2D term, the complete interaction is silently
+removed when either component exactly equals `y_col`; it is not reduced
+to a 1D term. If this removal leaves no requested `x_cols`, the function
+errors. Formula left-hand sides are ignored, and wildcard selections
+(`d1 = TRUE` or `d2 = TRUE`) exclude `y_col` when expanded. When
+validating `exclude_cols`, outcome terms are removed in the same way,
+but an empty exclusion set is allowed and has no effect.
 
 Run examples for details.
 
@@ -357,12 +365,21 @@ resolve_x_cols(
   y_col = "y",
   exclude_cols = "a"
 )
-#> ℹ `y_col` (y) was requested in x_cols.
 #> $d1
-#> [1] "y" "b"
+#> [1] "b"
 #> 
 #> $d2
 #> character(0)
+#> 
+
+# An interaction containing y_col is discarded rather than reduced;
+# other valid interactions remain.
+resolve_x_cols(c("y:a", "a:b"), col_names, y_col)
+#> $d1
+#> character(0)
+#> 
+#> $d2
+#> [1] "a:b"
 #> 
 
 # Exclude entire 2D dimension from x_cols with d2 = TRUE

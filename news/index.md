@@ -4,10 +4,10 @@
 
 ### New features
 
-- [`summary()`](https://rdrr.io/r/base/summary.html) methods have now
-  been implemented for `ALE` and `ModelBoot` objects. They print a
-  summary of ALE statistics to the console. When there are no ALE
-  statistics available, they print a message saying so.
+- [`summary()`](https://rdrr.io/r/base/summary.html) methods have been
+  implemented for `ALE` and `ModelBoot` objects. They print a summary of
+  ALE statistics to the console. When there are no ALE statistics
+  available, they print a message saying so.
 - With the `aled_fun` argument of the
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and
   [`ALEpDist()`](https://tripartio.github.io/ale/reference/ALEpDist.md)
@@ -16,16 +16,15 @@
   deviation.
 - The widths of 1D ALE plots for non-numerical variables are now
   proportional to the frequency of the data. We find these proportional
-  widths more intuitive than the text annotations that indicated the
-  percentages, which have now been removed. The minimum width can be
-  controlled with the `min_col_widths` argument of
-  [`plot.ALE()`](https://tripartio.github.io/ale/reference/plot.ale.md).
+  widths more intuitive than the text annotations that previously
+  indicated the percentages, which have now been removed. The minimum
+  width can be controlled with the `min_col_widths` argument of
+  `plot.ALE()`.
 - For 1D plots of categorical variables, only a maximum of 10 distinct
   values (e.g., factor levels) are now shown (the default 10 is
-  adjustable with the `consolid_cats` argument of
-  [`plot.ALE()`](https://tripartio.github.io/ale/reference/plot.ale.md)).
-  The top `consolid_cats - 1` values in ALE strength are shown and all
-  other values are consolidated into an “other” category.
+  adjustable with the `consolid_cats` argument of `plot.ALE()`). The top
+  `consolid_cats - 1` values in ALE strength are shown and all other
+  values are consolidated into an “other” category.
 - With the default value `"levels"` of the `fct_order` argument to the
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
   constructor, unordered factors are now sorted in the order of the
@@ -41,30 +40,42 @@
   columns, with a default for columns not named. For details, see
   documentation for
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md).
-- Parallelization can now be controlled with a global option
-  `ale.parallel`. For example, you can set 4 CPU cores with
-  `options(ale.parallel = 4)`.
-- The [ranger](https://imbs-hl.github.io/ranger/) package is now
+- Parallelization can be controlled with a global option `ale.parallel`.
+  For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
+- The [ranger](https://imbs-hl.github.io/ranger/) package is
   automatically recognized so that `y_col` and `pred_fun` don’t need to
   be specified. In the future, a very few other very popular packages
   and frameworks will also be automatically recognized, but there will
   be no attempt to cover most packages.
-
-### Changed functionality
-
-- Parallelization has been disabled by default (`parallel` = 0)
-  ([\#16](https://github.com/tripartio/ale/issues/16)).
-- The `pred_fun` argument in
-  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and other
-  constructors now defaults to `NULL`. However, the functionality is the
-  unchanged: the default still creates the same generic custom
-  prediction function.
+- ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER
+  max – NALER min) directly, not just the \_max and \_min versions,
+  which are retained.
 
 ### Bug fixes
+
+We have dealt with innumerable bugs during our development journey but,
+fortunately, very few publicly signalled bugs. Only fixes for publicly
+reported bugs are indicated here.
 
 - Update parallelization settings to handle massive parallelization
   ([\#16](https://github.com/tripartio/ale/issues/16)) and refactor code
   ([\#17](https://github.com/tripartio/ale/issues/17)).
+- Handle missing 1D ALE bins during model bootstrapping
+  ([\#19](https://github.com/tripartio/ale/issues/19)).
+
+### Changed functionality
+
+- `max_num_bins` now creates `n+1` bins instead of exactly the specified
+  `n` bins. The bottom bin is reserved for the minimum value in the
+  data. This is a reversion to the original behaviour of the reference
+  {ALEPlot} package.
+- Parallelization has been disabled by default (`parallel` = 0)
+  ([\#16](https://github.com/tripartio/ale/issues/16)).
+- The `pred_fun` argument in
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and other
+  constructors now defaults to `NULL`. However, the functionality is
+  unchanged: the default still creates the same generic custom
+  prediction function as before.
 
 ### Documentation
 
@@ -72,6 +83,15 @@
   ALE-Based Inference” and “Analyzing a Small Rice Yield Dataset with
   ALE-Based Inference”. They are available from the vignettes link on
   the main CRAN page at <https://CRAN.R-project.org/package=ale>.
+- Updated package logo.
+
+### Under the hood
+
+We now use [OpenAI Codex](https://chatgpt.com/codex/) to help
+development and maintenance. Codex changes are not specifically
+highlighted in this change log, but [numerous
+PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed)
+are heavily assisted by Codex.
 
 ## ale 0.5.2
 
@@ -365,7 +385,7 @@ functions with a resulting performance boost.
   for details.
 - Performance has been dramatically improved by the addition of
   **parallelization** by default. We use the
-  [furrr](https://github.com/DavisVaughan/furrr) library. In our tests,
+  [furrr](https://github.com/futureverse/furrr) library. In our tests,
   practically, we typically found speed-ups of `n – 2` where `n` is the
   number of physical cores (machine learning is generally unable to use
   logical cores). For example, a computer with 4 physical cores should

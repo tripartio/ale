@@ -27,6 +27,7 @@ here we install the current development version from GitHub (the code
 shows how, via {pak}).
 
 ``` r
+
 library(dplyr)  # data manipulation
 library(purrr)  # functional programming
 library(ranger)  # random forests
@@ -49,6 +50,7 @@ library(ale)  # load the ale package only after installing the development versi
 ```
 
 ``` r
+
 # For speed, these examples use retrieve_rds() to load precreated objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
@@ -105,6 +107,7 @@ variable explicitly. The outcome of interest is `corn`, the corn yield
 (bushels per acre) for a given county in a given year.
 
 ``` r
+
 corn_data <- serialized_objects_site |> 
   file.path("corn_data.rds") |>
   url() |> 
@@ -114,6 +117,7 @@ corn_data <- serialized_objects_site |>
 ### 3.2 Data description
 
 ``` r
+
 corn_data |> glimpse()
 ```
 
@@ -143,6 +147,7 @@ corn_data |> glimpse()
     $ tfactor    <dbl> 4.950716, 4.936530, 4.926214, 3.174986, 4.988563, 4.889981,…
 
 ``` r
+
 corn_data |> summary()
 ```
 
@@ -262,6 +267,7 @@ performance in our best-performing model nor justified the computational
 cost in the GLM models.
 
 ``` r
+
 # stco processing is problematic for GLM models like OLS,
 # yet is not needed for the random forest model.
 corn_data$stco <- NULL
@@ -283,6 +289,7 @@ differences in resampling.
 ### 4.1 Cross-validation function
 
 ``` r
+
 # Cross validate a model and calculate MAE and staccuracy
 cv_mae_sa <- function(data, y_col, folds, fit_fn, pred_fn) {
   
@@ -369,16 +376,19 @@ accuracy in the comparison table in the conclusion and focus
 interpretation on the better-performing, more tractable models.
 
 ``` r
+
 tic()
 lm_corn <- lm(corn ~ ., data = corn_data)
 toc()  # 0.14 sec (with county 3539.29 sec elapsed (59 minutes = 1 hour))
 ```
 
-    0.541 sec elapsed
+    0.2 sec elapsed
 
 ``` r
+
 summary(lm_corn)
 ```
+
 
     Call:
     lm(formula = corn ~ ., data = corn_data)
@@ -424,6 +434,7 @@ significant, so “significance” mainly tells us the estimates are stable,
 not that the effects are practically important.
 
 ``` r
+
 # Descriptive metrics (on the entire dataset; these evaluations overfit)
 sa_lm_corn  <- sa_wmae_mad(corn_data$corn, predict(lm_corn))  # 0.6466406 (with county 0.7823067)
 mae_lm_corn <- mae(corn_data$corn, predict(lm_corn))  # 21.36306
@@ -443,6 +454,7 @@ cv_lm$summary
     1     21.4  0.178   0.647 0.00452
 
 ``` r
+
 # $summary
 # # A tibble: 1 × 4
 #   mean_mae sd_mae mean_sa   sd_sa
@@ -487,6 +499,7 @@ forest size (50 trees) along with ranger’s default settings (e.g.,
 deviation from defaults is the tree count.
 
 ``` r
+
 # Default ranger model
 tic()
 rf_corn <- ranger(
@@ -501,14 +514,16 @@ rf_corn <- ranger(
 toc()  # 7.92  sec elapsed
 ```
 
-    22.916 sec elapsed
+    24.17 sec elapsed
 
 ``` r
+
 # default 500 trees: 86.52 sec elapsed
 # saveRDS(rf_corn, file.choose())
 ```
 
 ``` r
+
 # Descriptive metrics (on the entire dataset; these evaluations overfit)
 sa_rf_corn  <- sa_wmae_mad(corn_data$corn, predict(rf_corn, corn_data)$predictions)  # 0.9305763
 mae_rf_corn <- mae(corn_data$corn, predict(rf_corn, corn_data)$predictions)  # 4.197151
@@ -537,6 +552,7 @@ commented out and presaved objects are loaded instead, so the document
 runs quickly.
 
 ``` r
+
 # SLOW: uncomment to run yourself; load the saved object for rapid execution
 
 # # More realistic predictive MAE by cross-validation
@@ -605,6 +621,7 @@ dataset) renders this type of comprehensive interaction analysis
 feasible.
 
 ``` r
+
 # SLOW: uncomment to run yourself; load the saved object for rapid execution
 
 # # ALE for all 1D and 2D variables
@@ -628,6 +645,10 @@ ale_single_rf_corn <- serialized_objects_site |>
 summary(ale_single_rf_corn)
 ```
 
+    <ALE> object of a <ranger> model that predicts `corn` (a numeric outcome) from a 90010-row by 21-column dataset.
+    The results were not bootstrapped.
+
+    Mean ALE statistics [get(object, stats = "estimate")]:
     # A tibble: 210 × 7
         term                     aled aler_min aler_max  naled naler_min naler_max
         <chr>                   <dbl>    <dbl>    <dbl>  <dbl>     <dbl>     <dbl>
@@ -733,6 +754,7 @@ summary(ale_single_rf_corn)
     100 temp_11_20:om          0.297    -1.38     0.831  0.774    -1.85      1.15
     # ℹ 110 more rows
 
+    ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
     # A tibble: 420 × 7
         statistic term                  estimate conf.low    mean  median conf.high
         <ord>     <chr>                    <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -838,6 +860,11 @@ summary(ale_single_rf_corn)
     100 aled      temp_11_20:om           0.297    0.297   0.297   0.297     0.297
     # ℹ 320 more rows
 
+    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+
+    ! Confidence regions are meaningless without p-values.
+    ℹ The ALE statistics were calculated without p-values.
+
     # A tibble: 0 × 0
 
 The initial ALE run produces a large set of results (about 210 terms),
@@ -863,6 +890,7 @@ article](https://tripartio.github.io/ale/articles/ale-statistics.html).
 ### 7.2 Statistical reliability vs practical importance
 
 ``` r
+
 # SLOW: uncomment to run yourself; load the saved object for rapid execution
 
 # # p-value distribution
@@ -886,6 +914,7 @@ pd_rf_corn <- serialized_objects_site |>
 ```
 
 ``` r
+
 lsd_rf <-  pd_rf_corn@rand_stats$corn |> 
   ale:::p_to_random_value('aled', 0.05) |>
   unname()
@@ -962,6 +991,7 @@ variables that meet our 1 bu/ac threshold for ALED. Only after this
 bootstrap process do the ALE results become reliable.
 
 ``` r
+
 # Create variable lists to focus on
 vars_aled_1 <- ale_single_rf_corn |> 
   get(stats = 'estimate') |> 
@@ -971,6 +1001,7 @@ vars_aled_1 <- ale_single_rf_corn |>
 ```
 
 ``` r
+
 # SLOW: uncomment to run yourself; load the saved object for rapid execution
 
 # # Data-only bootstrapping for a slow-training, cross-validated model.
@@ -997,6 +1028,10 @@ ale_boot_rf_corn <- serialized_objects_site |>
 summary(ale_boot_rf_corn)
 ```
 
+    <ALE> object of a <ranger> model that predicts `corn` (a numeric outcome) from a 90010-row by 21-column dataset.
+    The results were bootstrapped with 100 iterations.
+
+    Mean ALE statistics [get(object, stats = "estimate")]:
     # A tibble: 16 × 7
        term                   aled aler_min aler_max naled naler_min naler_max
        <chr>                 <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -1017,6 +1052,7 @@ summary(ale_boot_rf_corn)
     15 year:temp_gt_45        1.62   -2.00      1.93  2.04    -2.39       2.27
     16 temp_00_10:temp_gt_45  1.65   -0.236     2.46  2.03    -0.838      2.79
 
+    ALE statistic distributions (exact p-values, 1000 iterations) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
     # A tibble: 32 × 8
        statistic term               estimate p.value conf.low  mean median conf.high
        <ord>     <chr>                 <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1053,6 +1089,7 @@ summary(ale_boot_rf_corn)
     31 naled     year:temp_gt_45        2.04       0    1.69   2.04   2.02      2.41
     32 naled     temp_00_10:temp_g…     2.03       0    0.959  2.03   2.03      2.78
 
+    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
     # A tibble: 46 × 10
        term          start_x   end_x x_span_pct     n     pct start_y end_y    trend
        <chr>           <dbl>   <dbl>      <dbl> <int>   <dbl>   <dbl> <dbl>    <dbl>
@@ -1138,6 +1175,7 @@ scale, which makes relative effect sizes easier to compare across
 variables.
 
 ``` r
+
 ale_boot_rf_corn |> 
   plot() |>  # create ALEPlots object
   subset(list(d1 = TRUE)) |>  # subset only for 1D plots
@@ -1155,6 +1193,7 @@ most interpretive weight on regions of the predictor where the data are
 dense and the ALE curve is well supported.
 
 ``` r
+
 ale_boot_rf_corn |> 
   plot() |>  # create ALEPlots object
   subset(list(d2 = TRUE)) |>   # subset only for 2D plots
@@ -1223,6 +1262,7 @@ threshold for practical importance, and we display their ALE plots
 accordingly.
 
 ``` r
+
 # Create variable lists to focus on
 vars_aled_2 <- ale_boot_rf_corn |> 
   get(stats = 'estimate') |> 
