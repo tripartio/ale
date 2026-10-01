@@ -209,7 +209,7 @@ plot(ale_gam_diamonds)
 
 pd_diamonds_special <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'pd_diamonds_special.0.5.2.rds'),
+  c(serialized_objects_site, 'pd_diamonds_special.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
     ALEpDist(
