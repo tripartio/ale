@@ -3,21 +3,42 @@
 
 # S7 methods ----------------
 
-#' @name get.ALEPlots
+# Keep S7 method signatures in prose-only help topics. R's documentation
+# checks currently compare executable method usage with the generic rather
+# than the S7 method, producing false code/documentation mismatch warnings.
+# See https://github.com/RConsortium/S7/issues/725.
+
+#' @name get-ALEPlots-method
 #' @title get method for ALEPlots objects
 #'
 #' @description
-#' Retrieve specific plots from a `ALEPlots` object. Unlike [subset.ALEPlots()] which returns an `ALEPlots` object with the subsetted `x_cols` variables and interactions, this `get.ALEPlots()` method returns a list of `ggplot2::ggplot` objects as specified in the return value description. To retain special `ALEPlots` behaviour like plotting, printing, and summarizing multiple plots, use [subset.ALEPlots()] instead.
+#' Retrieve specific plots from an `ALEPlots` object with the [get()] generic.
+#' Unlike the [subset() method][subset-ALEPlots-method], which returns an
+#' `ALEPlots` object, this method returns a list of `ggplot2::ggplot` objects.
 #'
-#' See [get.ALE()] for explanation of parameters not described here.
+#' See the [get() method for ALE objects][get-ALE-method] for arguments and
+#' output structure not described here.
 #'
-#' @param obj ALEPlots object from which to retrieve ALE elements.
-#' @param type character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'effect'` for ALE effects plots. See `cats` argument for options for categorical plots.
-#' @param cats character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, `type` must be set to "overlay" or "facet" for the specific desired type of categorical plot.
+#' @section Method usage:
 #'
-#' @returns A list of `ggplot` objects as described in the documentation for the return value of [get.ALE()]. This is different from [subset.ALEPlots()], which returns an `ALEPlots` object with the subsetted `x_cols` variables and interactions.
+#' ```r
+#' get(obj, x_cols = NULL, ..., exclude_cols = NULL, type = "ale", cats = NULL, simplify = TRUE, silent = FALSE)
+#' ```
 #'
-#' @method get ALEPlots
+#' @section Method arguments:
+#'
+#' * `obj`: ALEPlots object from which to retrieve ALE elements.
+#' * `type`: character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'effect'` for ALE effects plots. See `cats` argument for options for categorical plots.
+#' * `cats`: character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, `type` must be set to "overlay" or "facet" for the specific desired type of categorical plot.
+#'
+#' @returns A list of `ggplot` objects using the category and dimension
+#' conventions described for the [ALE method][get-ALE-method]. This differs
+#' from the [subset() method][subset-ALEPlots-method], which returns an
+#' `ALEPlots` object.
+#'
+NULL
+
+#' @noRd
 method(get, ALEPlots) <- function(
     obj,
     x_cols = NULL,
@@ -126,20 +147,30 @@ method(get, ALEPlots) <- function(
 
 
 
-#' @name plot.ALEPlots
+#' @name plot-ALEPlots-method
 #' @title Plot method for ALEPlots object
 #'
 #' @description
-#' Plot an `ALEPlots` object.
+#' Plot an `ALEPlots` object with the [graphics::plot()] generic.
 #'
-#' @param x An object of class `ALEPlots`.
-#' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed on separate pages, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
-#' @param comp See documentation for [get.ALE()]
-#' @param ... Arguments to pass to [patchwork::wrap_plots()]
+#' @section Method usage:
+#'
+#' ```r
+#' plot(x, max_print = 20L, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `x`: An object of class `ALEPlots`.
+#' * `max_print`: integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed on separate pages, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
+#' * `comp` See documentation for [get-ALE-method]
+#' * `...`: Arguments to pass to [patchwork::wrap_plots()]
 #'
 #' @return Invisibly returns `x`.
 #'
-#' @method plot ALEPlots
+NULL
+
+#' @noRd
 method(plot, ALEPlots) <- function(
     x,
     max_print = 20L,
@@ -209,26 +240,32 @@ method(plot, ALEPlots) <- function(
 }  # plot.ALEPlots()
 
 
-#' @name print.ALEPlots
+#' @name print-ALEPlots-method
 #' @title Print method for ALEPlots object
 #'
 #' @description
-#' Print an ALEPlots object by calling plot().
+#' Print an `ALEPlots` object with the [base::print()] generic by calling its
+#' [graphics::plot()] method.
 #'
-#' @param x An object of class `ALEPlots`.
-#' @param max_print See documentation for [plot.ALEPlots()]
-#' @param comp See documentation for [get.ALE()]
-#' @param ... Additional arguments (currently not used).
+#' @section Method usage:
+#'
+#' ```r
+#' print(x, max_print = 20L, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `x`: An object of class `ALEPlots`.
+#' * `max_print`: See the [plot() method][plot-ALEPlots-method].
+#' * `comp` See documentation for [get-ALE-method]
+#' * `...`: Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
 #'
-#' @method print ALEPlots
-method(print, ALEPlots) <- function(
-    x,
-    max_print = 20L,
-    comp = 'composite',
-    ...
-  ) {
+NULL
+
+#' @noRd
+method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
   getS3method("plot", "ale::ALEPlots")(
     x,
     max_print = max_print,
@@ -239,23 +276,39 @@ method(print, ALEPlots) <- function(
 
 
 
-#' @name subset.ALEPlots
+#' @name subset-ALEPlots-method
 #' @title subset method for ALEPlots object
 #'
 #' @description
-#' Subset an `ALEPlots` object to produce another `ALEPlots` object only with the subsetted `x_cols` variables and interactions, as specified in the return value description.
+#' Use the [base::subset()] generic on an `ALEPlots` object to produce another
+#' `ALEPlots` object containing only the requested variables and interactions.
 #'
-#' See [get.ALE()] for explanation of parameters not described here.
+#' See the [get() method for ALE objects][get-ALE-method] for shared argument
+#' conventions.
 #'
-#' @param x An object of class `ALEPlots`.
-#' @param x_cols,exclude_cols See documentation for [get.ALE()]
-#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param include_eff logical(1). `x_cols` and `exclude_cols` specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. `include_eff = TRUE` (default) includes the ALE effects plot in the subset rather than dropping it, if it is available.
-#' @param silent See documentation for [ALE()]
+#' @section Method usage:
 #'
-#' @returns An `ALEPlots` object reduced to cover only variables and interactions specified by `x_cols` and `exclude_cols`. This is different from [get.ALEPlots()], which returns a list of `ggplot` objects and loses the special `ALEPlots` behaviour like plotting, printing, and summarizing multiple plots.
+#' ```r
+#' subset(x, x_cols = NULL, ..., exclude_cols = NULL, include_eff = TRUE, silent = FALSE)
+#' ```
 #'
-#' @method subset ALEPlots
+#' @section Method arguments:
+#'
+#' * `x`: An object of class `ALEPlots`.
+#' * `x_cols`, `exclude_cols`: See the [get() method for ALE objects][get-ALE-method].
+#' * `...`: not used. Inserted to require explicit naming of subsequent arguments.
+#' * `include_eff`: logical(1). `x_cols` and `exclude_cols` specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. `include_eff = TRUE` (default) includes the ALE effects plot in the subset rather than dropping it, if it is available.
+#' * `silent`: See documentation for [ALE()]
+#'
+#' @returns An `ALEPlots` object reduced to the variables and interactions
+#' specified by `x_cols` and `exclude_cols`. This differs from the
+#' [get() method][get-ALEPlots-method], which returns a list of `ggplot`
+#' objects and loses the special `ALEPlots` behaviour like plotting, printing,
+#' and summarizing multiple plots.
+#'
+NULL
+
+#' @noRd
 method(subset, ALEPlots) <- function(
     x,
     x_cols = NULL,
@@ -324,18 +377,29 @@ method(subset, ALEPlots) <- function(
 
 
 
-#' @name summary.ALEPlots
+#' @name summary-ALEPlots-method
 #' @title summary method for ALEPlots object
 #'
 #' @description
-#' Present concise summary information about an `ALEPlots` object.
+#' Use the [base::summary()] generic to return concise information about an
+#' `ALEPlots` object.
 #'
-#' @param object An object of class `ALEPlots`.
-#' @param ... Not used
+#' @section Method usage:
+#'
+#' ```r
+#' summary(object, ...)
+#' ```
+#'
+#' @section Method arguments:
+#'
+#' * `object`: An object of class `ALEPlots`.
+#' * `...`: Not used
 #'
 #' @return Summary string.
 #'
-#' @method summary ALEPlots
+NULL
+
+#' @noRd
 method(summary, ALEPlots) <- function(
     object,
     ...
@@ -411,13 +475,14 @@ validate_ALEPlots_method_args <- function(
 #'
 #' The most flexible option is to specify a list of `ggplot` layers with the `layers` argument; this appends the provided layers to each plot by applying the [ggplot2::+.gg()] method to them. Thus, any customization supported by appending `ggplot` layers can be applied. If both `layers` and simple options like `zoom_y` are specified, then the `layers` layers are applied first and then any other option is applied in the order presented in the argument list. For full control over the order of customizations, only provide `layers`.
 #'
-#' See [get.ALE()] for explanation of parameters not described here.
+#' See the [get() method for ALE objects][get-ALE-method] for shared argument
+#' conventions.
 #'
 #' @param plots_obj ALEPlots object to customize.
-#' @param x_cols,exclude_cols See documentation for [get.ALE()]
+#' @param x_cols,exclude_cols See the [get() method for ALE objects][get-ALE-method].
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param type See documentation for [get.ALE()]
-#' @param cats See documentation for [get.ALE()]
+#' @param type See the [get() method for ALEPlots objects][get-ALEPlots-method].
+#' @param cats See the [get() method for ALEPlots objects][get-ALEPlots-method].
 #' @param layers List of `ggplot` layers. These are appended to each plot indicated by the combination of `x_cols`, `type`, and `cats` by applying the `ggplot2` `+` operator to them.
 #' @param zoom_x,zoom_y numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default `NULL` does not zoom.
 #'
@@ -593,5 +658,3 @@ customize <- function(
 
   return(plots_obj)
 }
-
-

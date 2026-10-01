@@ -56,31 +56,40 @@ ModelBoot(
 
 \item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for \code{\link[=ALE]{ALE()}} for further details.}
 
-\item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics using \code{\link[broom:reexports]{broom::glance()}} (if available for \code{model}) and bootstrap-validated statistics if \code{boot_it > 0}.}
+\item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics using \code{\link[broom:glance]{broom::glance()}} (if available for \code{model}) and bootstrap-validated statistics if \code{boot_it > 0}.}
 
-\item{output_model_coefs}{logical(1). If \code{TRUE} (default), return model coefficients using \code{\link[broom:reexports]{broom::tidy()}} (if available for \code{model}).}
+\item{output_model_coefs}{logical(1). If \code{TRUE} (default), return model coefficients using \code{\link[broom:tidy]{broom::tidy()}} (if available for \code{model}).}
 
 \item{output_ale}{logical(1). If \code{TRUE} (default), return ALE data and statistics.}
 
 \item{output_boot_data}{logical(1). If \code{TRUE}, return the full raw data for each bootstrap iteration, specifically, the bootstrapped models and the model row indices. Default \code{FALSE} does not return this large, detailed data.}
 
-\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} constructor when \code{ale = TRUE}, \code{\link[broom:reexports]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:reexports]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. Note: to obtain p-values for ALE statistics, see the \code{ale_p} argument.}
+\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} constructor when \code{ale = TRUE}, \code{\link[broom:tidy]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:glance]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. Note: to obtain p-values for ALE statistics, see the \code{ale_p} argument.}
 
 \item{ale_p}{Same as the \code{p_values} argument for the \code{\link[=ALE]{ALE()}} constructor; see documentation there. This argument overrides the \code{p_values} element of the \code{ale_options} argument.}
 
 \item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
 \value{
-An object of class \code{ALE} with properties \code{model_stats}, \code{model_coefs}, \code{ale}, \code{model_stats}, \code{boot_data}, and \code{params}.
+A \code{ModelBoot} object with properties \code{model_stats}, \code{model_coefs},
+\code{ale}, \code{boot_data}, and \code{params}.
 }
 \description{
 A \code{ModelBoot} S7 object contains full-model bootstrapped statistics and ALE data for a trained model. Full-model bootstrapping (as distinct from data-only bootstrapping) retrains a model for each bootstrap iteration. Thus, it can be rather slow, though it is much more reliable. However, for obtaining bootstrapped ALE data, plots, and statistics, full-model bootstrapping as provided by \code{ModelBoot} is only necessary for models that have not been developed by cross-validation. For cross-validated models, it is sufficient (and much faster) to create a regular \verb{[ALE()]} object with bootstrapping by setting the \code{boot_it} argument in its constructor. In fact, full-model bootstrapping with \code{ModelBoot} is often infeasible for slow machine-learning models trained on large datasets, which should rather be cross-validated to assure their reliability. However, for models that have not been cross-validated, full-model bootstrapping with \code{ModelBoot} is necessary for reliable results. Further details follow below; see also \code{vignette('ale-statistics')}.
 }
+\section{Methods}{
+
+\code{ModelBoot} objects support \link[=get-ModelBoot-method]{get()},
+\link[=plot-ModelBoot-method]{plot()}, \link[=print-ModelBoot-method]{print()}, and
+\link[=summary-ModelBoot-method]{summary()}. Each method topic documents its
+complete signature and class-specific arguments.
+}
+
 \section{Properties}{
 
 \describe{
 \item{model_stats}{
-\code{tibble} of bootstrapped results from \code{\link[broom:reexports]{broom::glance()}}. \code{NULL} if \code{model_stats} argument is \code{FALSE}. In general, only \code{\link[broom:reexports]{broom::glance()}} results that make sense when bootstrapped are included, such as \code{df} and \code{adj.r.squared}. Results that are incomparable across bootstrapped datasets (such as \code{aic}) are excluded. In addition, certain model performance measures are included; these are bootstrap-validated with the .632 correction (Efron & Tibshirani 1986) (NOT the .632+ correction):
+\code{tibble} of bootstrapped results from \code{\link[broom:glance]{broom::glance()}}. \code{NULL} if \code{model_stats} argument is \code{FALSE}. In general, only \code{\link[broom:glance]{broom::glance()}} results that make sense when bootstrapped are included, such as \code{df} and \code{adj.r.squared}. Results that are incomparable across bootstrapped datasets (such as \code{aic}) are excluded. In addition, certain model performance measures are included; these are bootstrap-validated with the .632 correction (Efron & Tibshirani 1986) (NOT the .632+ correction):
 \itemize{
 \item For regression (numeric prediction) models:
 \itemize{
@@ -97,7 +106,7 @@ A \code{ModelBoot} S7 object contains full-model bootstrapped statistics and ALE
 }
 
 \item{model_coefs}{
-A \code{tibble} of bootstrapped results from \code{\link[broom:reexports]{broom::tidy()}}.
+A \code{tibble} of bootstrapped results from \code{\link[broom:tidy]{broom::tidy()}}.
 \code{NULL} if \code{model_coefs} argument is \code{FALSE}.
 }
 \item{ale}{

@@ -1,7 +1,30 @@
+# Parallelized ModelBoot prints
+
+    Code
+      {
+        x
+      }
+    Output
+      <ModelBoot> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome) from a 64-row by 8-column dataset.
+      * The model was retrained with 2 bootstrap iterations.
+      
+      The following overall model summary statistics are available:
+      * Overall average statistics: df, df.residual, nobs, adj.r.squared, and npar
+      * Bootstrap-validated model accuracy: mae, sa_mae, rmse, and sa_rmse
+      Statistics for the following specific variables or interactions are available: s(wt)
+      
+      Accumulated local effects (ALE) data and statistics are provided for the following terms:
+      1  1D term: wt
+      1  2D term: gear:carb
+
 # numeric outcome with no bootstrapping
 
     Code
-      suppressMessages(ale_plots_to_data(plot(mb)))
+      {
+        x
+      }
+    Message
+      `height` was translated to `width`.
     Output
       $mpg
       $mpg$d1
@@ -9,35 +32,35 @@
         x        y PANEL group flipped_aes ymin     ymax     xmin     xmax order xid
       1 1 13.91157     1     1       FALSE    0 13.91157 0.500000 1.500000     1   1
       2 2 26.92924     1     2       FALSE    0 26.92924 1.657895 2.342105     1   2
-        newx new_width colour fill linewidth linetype alpha     width
-      1    1 1.0000000     NA grey       0.5        1    NA 1.0000000
-      2    2 0.6842105     NA grey       0.5        1    NA 0.6842105
+        newx new_width colour fill linewidth linetype alpha   width
+      1    1   1.00000     NA grey       0.5        1    NA 1.00000
+      2    2   0.68421     NA grey       0.5        1    NA 0.68421
       
       $mpg$d1$wt
-               ymin       ymax        x          y PANEL group flipped_aes colour
-      1   0.9546879  0.9546879 1.498275  0.9546879     1    -1       FALSE     NA
-      2   8.7741182  8.7741182 1.925991  8.7741182     1    -1       FALSE     NA
-      3  14.0587743 14.0587743 2.314067 14.0587743     1    -1       FALSE     NA
-      4  18.1087463 18.1087463 2.779004 18.1087463     1    -1       FALSE     NA
-      5  20.9372460 20.9372460 3.160130 20.9372460     1    -1       FALSE     NA
-      6  21.3584668 21.3584668 3.219684 21.3584668     1    -1       FALSE     NA
-      7  22.7320877 22.7320877 3.440000 22.7320877     1    -1       FALSE     NA
-      8  23.2923662 23.2923662 3.558601 23.2923662     1    -1       FALSE     NA
-      9  24.2797807 24.2797807 3.794139 24.2797807     1    -1       FALSE     NA
-      10 25.5594881 25.5594881 4.070000 25.5594881     1    -1       FALSE     NA
-      11 28.1833255 28.1833255 5.453272 28.1833255     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
+             ymin     ymax       x        y PANEL group flipped_aes colour   fill
+      1   0.95469  0.95469 1.49828  0.95469     1    -1       FALSE     NA grey85
+      2   8.77412  8.77412 1.92599  8.77412     1    -1       FALSE     NA grey85
+      3  14.05877 14.05877 2.31407 14.05877     1    -1       FALSE     NA grey85
+      4  18.10875 18.10875 2.77900 18.10875     1    -1       FALSE     NA grey85
+      5  20.93725 20.93725 3.16013 20.93725     1    -1       FALSE     NA grey85
+      6  21.35847 21.35847 3.21968 21.35847     1    -1       FALSE     NA grey85
+      7  22.73209 22.73209 3.44000 22.73209     1    -1       FALSE     NA grey85
+      8  23.29237 23.29237 3.55860 23.29237     1    -1       FALSE     NA grey85
+      9  24.27978 24.27978 3.79414 24.27978     1    -1       FALSE     NA grey85
+      10 25.55949 25.55949 4.07000 25.55949     1    -1       FALSE     NA grey85
+      11 28.18333 28.18333 5.45327 28.18333     1    -1       FALSE     NA grey85
+         linewidth linetype alpha
+      1        0.5        1   0.5
+      2        0.5        1   0.5
+      3        0.5        1   0.5
+      4        0.5        1   0.5
+      5        0.5        1   0.5
+      6        0.5        1   0.5
+      7        0.5        1   0.5
+      8        0.5        1   0.5
+      9        0.5        1   0.5
+      10       0.5        1   0.5
+      11       0.5        1   0.5
       
       
       $mpg$d2
@@ -143,9 +166,9 @@
       2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $mpg$eff[[2]]
-              xmin     xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1  0.9546879 28.18333 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 13.9115711 26.92924 2     1     2        TRUE 1.875 2.125  black       0.5
+            xmin     xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.95469 28.18333 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 13.91157 26.92924 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -164,17 +187,17 @@
       2    -1    NA        1        1.2
       
       $mpg$eff[[5]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+         x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.86606     0   0.5
         vjust alpha fontface lineheight
       1   0.5    NA        1        1.2
       2   0.5    NA        1        1.2
       
       $mpg$eff[[6]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+         x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.86606     0   0.5
         vjust alpha fontface lineheight
       1   0.5    NA        1        1.2
       2   0.5    NA        1        1.2
@@ -201,58 +224,40 @@
 ---
 
     Code
-      unclass(mb)
+      {
+        x
+      }
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ModelBoot> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ model_stats: <list> or <NULL>
-       $ model_coefs: <list> or <NULL>
-       $ ale        : <list> or <NULL>
-       $ boot_data  : <list> or <NULL>
-       $ params     : <list>          
-      attr(,"model_stats")
+      $model_stats
       # A tibble: 5 x 6
-        name          conf.low median   mean conf.high    sd
-        <chr>            <dbl>  <dbl>  <dbl>     <dbl> <dbl>
-      1 df              41.0   41.0   41.0      41.0      NA
-      2 df.residual     23.0   23.0   23.0      23.0      NA
-      3 nobs            64     64     64        64        NA
-      4 adj.r.squared    1.000  1.000  1.000     1.000    NA
-      5 npar            45     45     45        45        NA
-      attr(,"model_coefs")
+        name          conf.low median  mean conf.high    sd
+        <chr>            <dbl>  <dbl> <dbl>     <dbl> <dbl>
+      1 df                41.0   41.0  41.0      41.0    NA
+      2 df.residual       23.0   23.0  23.0      23.0    NA
+      3 nobs              64     64    64        64      NA
+      4 adj.r.squared      1      1     1         1      NA
+      5 npar              45     45    45        45      NA
+      
+      $model_coefs
       # A tibble: 1 x 6
         term  conf.low median  mean conf.high std.error
         <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
       1 s(wt)     8.03   8.03  8.03      8.03        NA
-      attr(,"ale")
-      attr(,"ale")$single
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ composite: <list>          
-       $ distinct : <list> or <NULL>
-       $ params   : <list>          
-      attr(,"composite")
-      attr(,"composite")$mpg
-      attr(,"composite")$mpg$ale
-      attr(,"composite")$mpg$ale$d1
-      attr(,"composite")$mpg$ale$d1$am
+      
+      $ale
+      $ale$single
+      $ale$single$composite
+      $ale$single$composite$mpg
+      $ale$single$composite$mpg$ale
+      $ale$single$composite$mpg$ale$d1
+      $ale$single$composite$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -5.29 -5.29   -5.29     -5.29 -5.29
       2 TRUE      26  7.73  7.73    7.73      7.73  7.73
       
-      attr(,"composite")$mpg$ale$d1$wt
+      $ale$single$composite$mpg$ale$d1$wt
       # A tibble: 11 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -269,121 +274,118 @@
       11    5.45     6   8.98   8.98    8.98      8.98   8.98
       
       
-      attr(,"composite")$mpg$ale$d2
-      attr(,"composite")$mpg$ale$d2$`gear:carb`
+      $ale$single$composite$mpg$ale$d2
+      $ale$single$composite$mpg$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
-       2 four             1     8  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
-       3 five             1     0  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
-       4 three            2     8  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
-       5 four             2     7 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15
-       6 five             2     4 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15
-       7 three            3     7  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
-       8 four             3     2 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15
-       9 five             3     0 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15 -1.51e-15
-      10 three            4     8  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
-      11 four             4     6 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15
-      12 five             4     2  2.04e-15  2.04e-15  2.04e-15  2.04e-15  2.04e-15
-      13 three            8     1  5.21e-16  5.21e-16  5.21e-16  5.21e-16  5.21e-16
-      14 four             8     1 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15
-      15 five             8     4  1.16e-15  1.16e-15  1.16e-15  1.16e-15  1.16e-15
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
-      attr(,"composite")$mpg$stats
-      # A tibble: 18 x 8
-         term      statistic  estimate  conf.low      mean    median conf.high     d
-         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl> <int>
-       1 am        aled       6.28e+ 0  6.28e+ 0  6.28e+ 0  6.28e+ 0  6.28e+ 0     1
-       2 am        aler_min  -5.29e+ 0 -5.29e+ 0 -5.29e+ 0 -5.29e+ 0 -5.29e+ 0     1
-       3 am        aler_max   7.73e+ 0  7.73e+ 0  7.73e+ 0  7.73e+ 0  7.73e+ 0     1
-       4 am        naled      3.84e+ 1  3.84e+ 1  3.84e+ 1  3.84e+ 1  3.84e+ 1     1
-       5 am        naler_min -4.09e+ 1 -4.09e+ 1 -4.09e+ 1 -4.09e+ 1 -4.09e+ 1     1
-       6 am        naler_max  3.48e+ 1  3.48e+ 1  3.48e+ 1  3.48e+ 1  3.48e+ 1     1
-       7 wt        aled       5.28e+ 0  5.28e+ 0  5.28e+ 0  5.28e+ 0  5.28e+ 0     1
-       8 wt        aler_min  -1.82e+ 1 -1.82e+ 1 -1.82e+ 1 -1.82e+ 1 -1.82e+ 1     1
-       9 wt        aler_max   8.98e+ 0  8.98e+ 0  8.98e+ 0  8.98e+ 0  8.98e+ 0     1
-      10 wt        naled      2.79e+ 1  2.79e+ 1  2.79e+ 1  2.79e+ 1  2.79e+ 1     1
-      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1     1
-      12 wt        naler_max  3.79e+ 1  3.79e+ 1  3.79e+ 1  3.79e+ 1  3.79e+ 1     1
-      13 gear:carb aled       9.34e-16  9.34e-16  9.34e-16  9.34e-16  9.34e-16     2
-      14 gear:carb aler_min  -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15 -3.29e-15     2
-      15 gear:carb aler_max   1.60e-15  1.60e-15  1.60e-15  1.60e-15  1.60e-15     2
-      16 gear:carb naled      0         0         0         0         0            2
-      17 gear:carb naler_min  0         0         0         0         0            2
-      18 gear:carb naler_max  0         0         0         0         0            2
+      $ale$single$composite$mpg$stats
+      # A tibble: 24 x 8
+         term  statistic estimate conf.low   mean median conf.high     d
+         <chr> <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl> <int>
+       1 am    aled          6.28     6.28   6.28   6.28      6.28     1
+       2 am    aler_min     -5.29    -5.29  -5.29  -5.29     -5.29     1
+       3 am    aler         13.0     13.0   13.0   13.0      13.0      1
+       4 am    aler_max      7.73     7.73   7.73   7.73      7.73     1
+       5 am    naled        38.4     38.4   38.4   38.4      38.4      1
+       6 am    naler_min   -40.9    -40.9  -40.9  -40.9     -40.9      1
+       7 am    naler        75.8     75.8   75.8   75.8      75.8      1
+       8 am    naler_max    34.8     34.8   34.8   34.8      34.8      1
+       9 wt    aled          5.28     5.28   5.28   5.28      5.28     1
+      10 wt    aler_min    -18.2    -18.2  -18.2  -18.2     -18.2      1
+      # i 14 more rows
       
-      attr(,"composite")$mpg$boot_data
+      $ale$single$composite$mpg$boot_data
       NULL
       
       
-      attr(,"distinct")
-      attr(,"distinct")$mpg
-      attr(,"distinct")$mpg$ale
-      attr(,"distinct")$mpg$ale$d2
-      attr(,"distinct")$mpg$ale$d2$`gear:carb`
+      
+      $ale$single$distinct
+      $ale$single$distinct$mpg
+      $ale$single$distinct$mpg$ale
+      $ale$single$distinct$mpg$ale$d2
+      $ale$single$distinct$mpg$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -3.92e-16 -3.92e-16 -3.92e-16 -3.92e-16 -3.92e-16
-       2 four             1     8  1.26e-15  1.26e-15  1.26e-15  1.26e-15  1.26e-15
-       3 five             1     0 -1.41e-15 -1.41e-15 -1.41e-15 -1.41e-15 -1.41e-15
-       4 three            2     8  4.10e-16  4.10e-16  4.10e-16  4.10e-16  4.10e-16
-       5 four             2     7  2.91e-17  2.91e-17  2.91e-17  2.91e-17  2.91e-17
-       6 five             2     4 -2.64e-15 -2.64e-15 -2.64e-15 -2.64e-15 -2.64e-15
-       7 three            3     7  6.07e-16  6.07e-16  6.07e-16  6.07e-16  6.07e-16
-       8 four             3     2 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15
-       9 five             3     0 -2.44e-15 -2.44e-15 -2.44e-15 -2.44e-15 -2.44e-15
-      10 three            4     8  3.85e-16  3.85e-16  3.85e-16  3.85e-16  3.85e-16
-      11 four             4     6 -1.77e-15 -1.77e-15 -1.77e-15 -1.77e-15 -1.77e-15
-      12 five             4     2  8.93e-16  8.93e-16  8.93e-16  8.93e-16  8.93e-16
-      13 three            8     1  6.81e-16  6.81e-16  6.81e-16  6.81e-16  6.81e-16
-      14 four             8     1 -1.48e-15 -1.48e-15 -1.48e-15 -1.48e-15 -1.48e-15
-      15 five             8     4  3.01e-16  3.01e-16  3.01e-16  3.01e-16  3.01e-16
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
-      attr(,"distinct")$mpg$stats
-      # A tibble: 6 x 8
-        term      statistic  estimate  conf.low      mean    median conf.high     d
-        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl> <int>
-      1 gear:carb aled       6.71e-16  6.71e-16  6.71e-16  6.71e-16  6.71e-16     2
-      2 gear:carb aler_min  -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15     2
-      3 gear:carb aler_max   6.44e-16  6.44e-16  6.44e-16  6.44e-16  6.44e-16     2
-      4 gear:carb naled      0         0         0         0         0            2
-      5 gear:carb naler_min  0         0         0         0         0            2
-      6 gear:carb naler_max  0         0         0         0         0            2
+      $ale$single$distinct$mpg$stats
+      # A tibble: 8 x 8
+        term      statistic estimate conf.low  mean median conf.high     d
+        <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl> <int>
+      1 gear:carb aled             0        0     0      0         0     2
+      2 gear:carb aler_min         0        0     0      0         0     2
+      3 gear:carb aler             0        0     0      0         0     2
+      4 gear:carb aler_max         0        0     0      0         0     2
+      5 gear:carb naled            0        0     0      0         0     2
+      6 gear:carb naler_min        0        0     0      0         0     2
+      7 gear:carb naler            0        0     0      0         0     2
+      8 gear:carb naler_max        0        0     0      0         0     2
       
-      attr(,"distinct")$mpg$boot_data
+      $ale$single$distinct$mpg$boot_data
       NULL
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 2
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $ale$single$params$ordered_x_cols
+      $ale$single$params$ordered_x_cols$d1
       [1] "am" "wt"
       
-      attr(,"params")$ordered_x_cols$d2
+      $ale$single$params$ordered_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $ale$single$params$requested_x_cols
+      $ale$single$params$requested_x_cols$d1
       [1] "wt" "am"
       
-      attr(,"params")$requested_x_cols$d2
+      $ale$single$params$requested_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$y_cats
+      $ale$single$params$y_cats
       [1] "mpg"
       
-      attr(,"params")$y_summary
+      $ale$single$params$y_summary
                  mpg
       min   10.39108
       1%    10.39108
@@ -406,16 +408,13 @@
       99%   33.84876
       max   33.84876
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $ale$single$params$model
+      $ale$single$params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "35370b95d970d597e729f52543869ba2"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $ale$single$params$data
+      $ale$single$params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -431,7 +430,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                  mpg
        [1,] 21.00000
        [2,] 21.00000
@@ -498,88 +497,90 @@
       [63,] 14.95210
       [64,] 21.39233
       
-      attr(,"params")$data$nrow
+      $ale$single$params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $ale$single$params$y_col
       [1] "mpg"
       
-      attr(,"params")$comp
+      $ale$single$params$comp
       [1] "auto"
       
-      attr(,"params")$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $ale$single$params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $ale$single$params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $ale$single$params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $ale$single$params$pred_type
       [1] "response"
       
-      attr(,"params")$p_values
+      $ale$single$params$p_values
       NULL
       
-      attr(,"params")$require_same_p
+      $ale$single$params$require_same_p
       [1] FALSE
       
-      attr(,"params")$aler_alpha
+      $ale$single$params$aler_alpha
       [1] 0.01 0.05
       
-      attr(,"params")$aled_fun
+      $ale$single$params$aled_fun
       [1] "mad"
       
-      attr(,"params")$max_num_bins
+      $ale$single$params$max_num_bins
       [1] 10
       
-      attr(,"params")$fct_order
+      $ale$single$params$fct_order
       [1] "levels"
       
-      attr(,"params")$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      attr(,"params")$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $ale$single$params$seed
       [1] 0
       
-      attr(,"params")$y_type
+      $ale$single$params$y_type
       [1] "numeric"
       
-      attr(,"params")$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
       
-      attr(,"params")
-      attr(,"params")$class_model
+      
+      
+      $boot_data
+      NULL
+      
+      $params
+      $params$class_model
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "5f61b58be4c7b071d42eb7bda24d7727"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -595,7 +596,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                  mpg
        [1,] 21.00000
        [2,] 21.00000
@@ -662,77 +663,80 @@
       [63,] 14.95210
       [64,] 21.39233
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$model_call_string
+      $params$model_call_string
       NULL
       
-      attr(,"params")$model_call_string_vars
+      $params$model_call_string_vars
       character(0)
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$y_col
+      $params$y_col
       NULL
       
-      attr(,"params")$positive
+      $params$positive
       [1] TRUE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "NULL"
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "response"
       
-      attr(,"params")$boot_it
+      $params$boot_it
       [1] 0
       
-      attr(,"params")$boot_alpha
+      $params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$output_model_stats
+      $params$output_model_stats
       [1] TRUE
       
-      attr(,"params")$output_model_coefs
+      $params$output_model_coefs
       [1] TRUE
       
-      attr(,"params")$output_ale
+      $params$output_ale
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$ale_options
-      attr(,"params")$ale_options$x_cols
+      $params$ale_options
+      $params$ale_options$x_cols
       [1] "wt"        "am"        "gear:carb"
       
       
-      attr(,"params")$ale_p
+      $params$ale_p
       NULL
       
-      attr(,"params")$tidy_options
+      $params$tidy_options
       list()
       
-      attr(,"params")$glance_options
+      $params$glance_options
       list()
+      
       
 
 # binary outcome with p-values and confidence regions
 
     Code
-      suppressMessages(ale_plots_to_data(plot(mb)))
+      {
+        x
+      }
     Condition
       Warning:
       Position guide is perpendicular to the intended axis.
@@ -740,44 +744,42 @@
       Warning:
       Position guide is perpendicular to the intended axis.
       i Did you mean to specify a different guide `position`?
+    Message
+      `height` was translated to `width`.
     Output
       $vs
       $vs$d1
       $vs$d1$continent
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 3.925673e-13     1     1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      2 2 3.925673e-13     1     2 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      3 3 3.925673e-13     1     3 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      3 3 0     1     3 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $vs$d1$wt
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  1.498275 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      2  1.925991 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      3  2.314067 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      4  2.779004 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      5  3.160130 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      6  3.219684 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      7  3.440000 3.925673e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      8  3.558601 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      9  3.794139 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      10 4.070000 3.925672e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-      11 5.453272 3.925670e-13     1    -1 -Inf  Inf 3.925671e-13 3.925674e-13     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+               x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $vs$d2
@@ -878,60 +880,54 @@
       
       $vs$eff
       $vs$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 3.925671e-13 3.925674e-13 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 3.925671e-13 3.925674e-13 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $vs$eff[[2]]
-                xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1 3.925673e-13 3.925673e-13 1     1     1        TRUE 0.875 1.125  black
-      2 3.925669e-13 3.925673e-13 2     1     2        TRUE 1.875 2.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
+        xmin xmax y PANEL group flipped_aes  ymin  ymax colour linewidth linetype
+      1    0    0 1     1     1        TRUE 0.875 1.125  black       0.5        1
+      2    0    0 2     1     2        TRUE 1.875 2.125  black       0.5        1
+        width alpha
+      1   0.9    NA
+      2   0.9    NA
       
       $vs$eff[[3]]
-                xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1 3.925673e-13 3.925673e-13  0.7  1.3 1     1     1     NA white       0.5
-      2 3.925672e-13 3.925673e-13  1.7  2.3 2     1     2     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1    0    0  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2    0    0  1.7  2.3 2     1     2     NA white       0.5        1    NA
       
       $vs$eff[[4]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 3.925673e-13 NALED  0% 1     1     1       0       0  black           3     0
-      2 3.925673e-13 NALED 24% 2     1     2       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5    -1    NA        1        1.2
-      2   0.5    -1    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED 24% 2     1     2       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
       
       $vs$eff[[5]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 3.925673e-13     ( 1.02     1     1       0    0.02  black        3.866058
-      2 3.925672e-13     ( 2.02     1     2       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
+        x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 0     ( 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 0     ( 2.02     1     2       0    0.02  black        3.86606     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $vs$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 3.925673e-13     ) 1.02     1     1       0    0.02  black        3.866058
-      2 3.925673e-13     ) 2.02     1     2       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
+        x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 0     ) 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 0     ) 2.02     1     2       0    0.02  black        3.86606     0   0.5
+        vjust alpha fontface lineheight
+      1   0.5    NA        1        1.2
+      2   0.5    NA        1        1.2
       
       $vs$eff[[7]]
-                   x  label y PANEL group nudge_x nudge_y colour family size angle
-      1 3.925673e-13 ALED 0 1     1     1       0       0  black           3     0
-      2 3.925673e-13 ALED 0 2     1     2       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
+        x  label y PANEL group nudge_x nudge_y colour family size angle hjust vjust
+      1 0 ALED 0 1     1     1       0       0  black           3     0   0.5     2
+      2 0 ALED 0 2     1     2       0       0  black           3     0   0.5     2
+        alpha fontface lineheight
+      1    NA        1        1.2
+      2    NA        1        1.2
       
       $vs$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -947,21 +943,11 @@
 ---
 
     Code
-      unclass(mb)
+      {
+        x
+      }
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ModelBoot> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ model_stats: <list> or <NULL>
-       $ model_coefs: <list> or <NULL>
-       $ ale        : <list> or <NULL>
-       $ boot_data  : <list> or <NULL>
-       $ params     : <list>          
-      attr(,"model_stats")
+      $model_stats
       # A tibble: 6 x 7
         name          boot_valid conf.low median  mean conf.high    sd
         <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl> <dbl>
@@ -971,28 +957,20 @@
       4 adj.r.squared         NA      1      1     1         1   0    
       5 npar                  NA     40.0   40.5  40.5      41.0 0.707
       6 auc                    1      1     NA    NA         1   0    
-      attr(,"model_coefs")
+      
+      $model_coefs
       # A tibble: 1 x 6
         term  conf.low median  mean conf.high std.error
         <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(wt)    1.000  1.000 1.000     1.000  5.02e-15
-      attr(,"ale")
-      attr(,"ale")$single
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ composite: <list>          
-       $ distinct : <list> or <NULL>
-       $ params   : <list>          
-      attr(,"composite")
-      attr(,"composite")$vs
-      attr(,"composite")$vs$ale
-      attr(,"composite")$vs$ale$d1
-      attr(,"composite")$vs$ale$d1$continent
+      1 s(wt)        1      1     1         1         0
+      
+      $ale
+      $ale$single
+      $ale$single$composite
+      $ale$single$composite$vs
+      $ale$single$composite$vs$ale
+      $ale$single$composite$vs$ale$d1
+      $ale$single$composite$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1000,138 +978,135 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"composite")$vs$ale$d1$wt
+      $ale$single$composite$vs$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50     1 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       2    1.93     6 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24
-       3    2.31     6 -2.15e-24 -2.15e-24 -2.15e-24 -2.15e-24 -2.15e-24
-       4    2.78     7 -1.28e-24 -1.28e-24 -1.28e-24 -1.28e-24 -1.28e-24
-       5    3.16     6 -4.42e-25 -4.42e-25 -4.42e-25 -4.42e-25 -4.42e-25
-       6    3.22     6 -3.55e-25 -3.55e-25 -3.55e-25 -3.55e-25 -3.55e-25
-       7    3.44     7  5.94e-26  5.94e-26  5.94e-26  5.94e-26  5.94e-26
-       8    3.56     6  4.07e-25  4.07e-25  4.07e-25  4.07e-25  4.07e-25
-       9    3.79     7  1.44e-24  1.44e-24  1.44e-24  1.44e-24  1.44e-24
-      10    4.07     6  2.65e-24  2.65e-24  2.65e-24  2.65e-24  2.65e-24
-      11    5.45     6  8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24
+         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1    1.50     1     0     0       0         0     0
+       2    1.93     6     0     0       0         0     0
+       3    2.31     6     0     0       0         0     0
+       4    2.78     7     0     0       0         0     0
+       5    3.16     6     0     0       0         0     0
+       6    3.22     6     0     0       0         0     0
+       7    3.44     7     0     0       0         0     0
+       8    3.56     6     0     0       0         0     0
+       9    3.79     7     0     0       0         0     0
+      10    4.07     6     0     0       0         0     0
+      11    5.45     6     0     0       0         0     0
       
       
-      attr(,"composite")$vs$ale$d2
-      attr(,"composite")$vs$ale$d2$`gear:carb`
+      $ale$single$composite$vs$ale$d2
+      $ale$single$composite$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
-       2 four             1     8 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
-       3 five             1     0 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
-       4 three            2     8 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
-       5 four             2     7  1.12e-25  1.12e-25  1.12e-25  1.12e-25  1.12e-25
-       6 five             2     4  4.12e-26  4.12e-26  4.12e-26  4.12e-26  4.12e-26
-       7 three            3     7 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
-       8 four             3     2  1.12e-25  1.12e-25  1.12e-25  1.12e-25  1.12e-25
-       9 five             3     0 -6.41e-26 -6.41e-26 -6.41e-26 -6.41e-26 -6.41e-26
-      10 three            4     8 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
-      11 four             4     6  1.12e-25  1.12e-25  1.12e-25  1.12e-25  1.12e-25
-      12 five             4     2 -2.04e-25 -2.04e-25 -2.04e-25 -2.04e-25 -2.04e-25
-      13 three            8     1 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26 -2.72e-26
-      14 four             8     1  6.72e-25  6.72e-25  6.72e-25  6.72e-25  6.72e-25
-      15 five             8     4 -2.03e-25 -2.03e-25 -2.03e-25 -2.03e-25 -2.03e-25
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
-      attr(,"composite")$vs$stats
-      # A tibble: 18 x 8
-         term      statistic  estimate  conf.low      mean    median conf.high     d
-         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl> <int>
-       1 continent aled       0         0         0         0         0            1
-       2 continent aler_min   0         0         0         0         0            1
-       3 continent aler_max   0         0         0         0         0            1
-       4 continent naled      0         0         0         0         0            1
-       5 continent naler_min  0         0         0         0         0            1
-       6 continent naler_max  0         0         0         0         0            1
-       7 wt        aled       1.70e-24  1.70e-24  1.70e-24  1.70e-24  1.70e-24     1
-       8 wt        aler_min  -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24 -2.72e-24     1
-       9 wt        aler_max   8.73e-24  8.73e-24  8.73e-24  8.73e-24  8.73e-24     1
-      10 wt        naled      3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1  3.17e+ 1     1
-      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1     1
-      12 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0     1
-      13 gear:carb aled       6.02e-26  6.02e-26  6.02e-26  6.02e-26  6.02e-26     2
-      14 gear:carb aler_min  -2.03e-25 -2.03e-25 -2.03e-25 -2.03e-25 -2.03e-25     2
-      15 gear:carb aler_max   3.92e-25  3.92e-25  3.92e-25  3.92e-25  3.92e-25     2
-      16 gear:carb naled      9.74e+ 0  9.74e+ 0  9.74e+ 0  9.74e+ 0  9.74e+ 0     2
-      17 gear:carb naler_min -4.53e+ 1 -4.53e+ 1 -4.53e+ 1 -4.53e+ 1 -4.53e+ 1     2
-      18 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0     2
+      $ale$single$composite$vs$stats
+      # A tibble: 24 x 8
+         term      statistic estimate conf.low  mean median conf.high     d
+         <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl> <int>
+       1 continent aled             0        0     0      0         0     1
+       2 continent aler_min         0        0     0      0         0     1
+       3 continent aler             0        0     0      0         0     1
+       4 continent aler_max         0        0     0      0         0     1
+       5 continent naled            0        0     0      0         0     1
+       6 continent naler_min        0        0     0      0         0     1
+       7 continent naler            0        0     0      0         0     1
+       8 continent naler_max        0        0     0      0         0     1
+       9 wt        aled             0        0     0      0         0     1
+      10 wt        aler_min         0        0     0      0         0     1
+      # i 14 more rows
       
-      attr(,"composite")$vs$boot_data
+      $ale$single$composite$vs$boot_data
       NULL
       
       
-      attr(,"distinct")
-      attr(,"distinct")$vs
-      attr(,"distinct")$vs$ale
-      attr(,"distinct")$vs$ale$d2
-      attr(,"distinct")$vs$ale$d2$`gear:carb`
+      
+      $ale$single$distinct
+      $ale$single$distinct$vs
+      $ale$single$distinct$vs$ale
+      $ale$single$distinct$vs$ale$d2
+      $ale$single$distinct$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  1.74e-26  1.74e-26  1.74e-26  1.74e-26  1.74e-26
-       2 four             1     8 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26
-       3 five             1     0  2.35e-25  2.35e-25  2.35e-25  2.35e-25  2.35e-25
-       4 three            2     8 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26
-       5 four             2     7  2.50e-26  2.50e-26  2.50e-26  2.50e-26  2.50e-26
-       6 five             2     4  2.55e-25  2.55e-25  2.55e-25  2.55e-25  2.55e-25
-       7 three            3     7 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26
-       8 four             3     2  2.50e-26  2.50e-26  2.50e-26  2.50e-26  2.50e-26
-       9 five             3     0  1.50e-25  1.50e-25  1.50e-25  1.50e-25  1.50e-25
-      10 three            4     8 -2.15e-26 -2.15e-26 -2.15e-26 -2.15e-26 -2.15e-26
-      11 four             4     6  3.37e-26  3.37e-26  3.37e-26  3.37e-26  3.37e-26
-      12 five             4     2  1.93e-26  1.93e-26  1.93e-26  1.93e-26  1.93e-26
-      13 three            8     1 -2.55e-25 -2.55e-25 -2.55e-25 -2.55e-25 -2.55e-25
-      14 four             8     1  3.60e-25  3.60e-25  3.60e-25  3.60e-25  3.60e-25
-      15 five             8     4 -2.13e-25 -2.13e-25 -2.13e-25 -2.13e-25 -2.13e-25
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
-      attr(,"distinct")$vs$stats
-      # A tibble: 6 x 8
-        term      statistic  estimate  conf.low      mean    median conf.high     d
-        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl> <int>
-      1 gear:carb aled       4.56e-26  4.56e-26  4.56e-26  4.56e-26  4.56e-26     2
-      2 gear:carb aler_min  -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25     2
-      3 gear:carb aler_max   2.45e-25  2.45e-25  2.45e-25  2.45e-25  2.45e-25     2
-      4 gear:carb naled      7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0     2
-      5 gear:carb naler_min -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1     2
-      6 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0     2
+      $ale$single$distinct$vs$stats
+      # A tibble: 8 x 8
+        term      statistic estimate conf.low   mean median conf.high     d
+        <chr>     <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl> <int>
+      1 gear:carb aled          0        0      0      0         0        2
+      2 gear:carb aler_min      0        0      0      0         0        2
+      3 gear:carb aler          0        0      0      0         0        2
+      4 gear:carb aler_max      0        0      0      0         0        2
+      5 gear:carb naled         7.01     7.01   7.01   7.01      7.01     2
+      6 gear:carb naler_min   -37.5    -37.5  -37.5  -37.5     -37.5      2
+      7 gear:carb naler        43.8     43.8   43.8   43.8      43.8      2
+      8 gear:carb naler_max     6.25     6.25   6.25   6.25      6.25     2
       
-      attr(,"distinct")$vs$boot_data
+      $ale$single$distinct$vs$boot_data
       NULL
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 2
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $ale$single$params$ordered_x_cols
+      $ale$single$params$ordered_x_cols$d1
       [1] "continent" "wt"       
       
-      attr(,"params")$ordered_x_cols$d2
+      $ale$single$params$ordered_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $ale$single$params$requested_x_cols
+      $ale$single$params$requested_x_cols$d1
       [1] "wt"        "continent"
       
-      attr(,"params")$requested_x_cols$d2
+      $ale$single$params$requested_x_cols$d2
       [1] "gear:carb"
       
       
-      attr(,"params")$y_cats
+      $ale$single$params$y_cats
       [1] "vs"
       
-      attr(,"params")$y_summary
+      $ale$single$params$y_summary
                            vs
       min        0.000000e+00
       1%         3.925673e-13
@@ -1158,16 +1133,13 @@
       99%        1.000000e+00
       max        1.000000e+00
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $ale$single$params$model
+      $ale$single$params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "5af9c0df73d460a6004a26ffbe67a081"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $ale$single$params$data
+      $ale$single$params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -1183,7 +1155,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                       vs
        [1,] 3.925673e-13
        [2,] 3.925673e-13
@@ -1250,114 +1222,146 @@
       [63,] 3.925673e-13
       [64,] 1.000000e+00
       
-      attr(,"params")$data$nrow
+      $ale$single$params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $ale$single$params$y_col
       [1] "vs"
       
-      attr(,"params")$comp
+      $ale$single$params$comp
       [1] "auto"
       
-      attr(,"params")$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $ale$single$params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $ale$single$params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $ale$single$params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $ale$single$params$pred_type
       [1] "response"
       
-      attr(,"params")$p_values
-      <ale::ALEpDist>
-       @ rand_stats           :List of 1
-       .. $ vs: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 2.79e-23 3.31e-23 9.74e-25 1.72e-24 1.28e-23 ...
-       ..  ..$ aler_min : num [1:100] -5.61e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
-       ..  ..$ aler_max : num [1:100] 6.74e-23 6.93e-23 2.12e-24 2.92e-24 2.77e-23 ...
-       ..  ..$ naled    : num [1:100] 28.1 32.2 24 27.6 28.1 ...
-       ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
-       ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
-       @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
-       .. - attr(*, "logLik")= num 1784
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
-       .. - attr(*, "n")= int 64
-       .. - attr(*, "model")= chr "Uniform"
-       .. - attr(*, "density")= chr "stats::dunif"
-       .. - attr(*, "support")= num [1:2] -3.93e-13 3.93e-13
-       .. - attr(*, "names")= chr [1:2] "min" "max"
-       .. - attr(*, "default")= num [1:2] 0 1
-       .. - attr(*, "continuous")= logi TRUE
-       @ residuals            : NULL
-       @ params               :List of 12
-       .. $ model                        :List of 2
-       ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "9a9ce6b31df30a04ef54ba6e3e33112b"
-       .. $ y_col                        : chr "vs"
-       .. $ rand_it                      : NULL
-       .. $ parallel                     : num 0
-       .. $ model_packages               : NULL
-       .. $ random_model_call_string     : NULL
-       .. $ random_model_call_string_vars: chr(0) 
-       .. $ positive                     : logi TRUE
-       .. $ aled_fun                     : chr "mad"
-       .. $ seed                         : num 0
-       .. $ rand_it_ok                   : int 100
-       .. $ exactness                    : chr "surrogate"
+      $ale$single$params$p_values
+      $ale$single$params$p_values$rand_stats
+      $ale$single$params$p_values$rand_stats$vs
+      # A tibble: 100 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0  28.1       -50  56.2      6.25
+       2     0        0     0        0  32.2       -50  56.2      6.25
+       3     0        0     0        0  24.0       -50  56.2      6.25
+       4     0        0     0        0  27.6       -50  56.2      6.25
+       5     0        0     0        0  28.1       -50  56.2      6.25
+       6     0        0     0        0  28.1       -50  56.2      6.25
+       7     0        0     0        0  28.1       -50  56.2      6.25
+       8     0        0     0        0  28.1       -50  56.2      6.25
+       9     0        0     0        0  32.9       -50  56.2      6.25
+      10     0        0     0        0  28.1       -50  56.2      6.25
+      # i 90 more rows
       
-      attr(,"params")$require_same_p
-      [1] FALSE
       
-      attr(,"params")$aler_alpha
-      [1] 0.01 0.05
+      $ale$single$params$p_values$residual_distribution
+      Maximum likelihood estimates for the Uniform model 
+      min  max  
+        0    0  
       
-      attr(,"params")$aled_fun
+      $ale$single$params$p_values$residuals
+      NULL
+      
+      $ale$single$params$p_values$params
+      $ale$single$params$p_values$params$model
+      $ale$single$params$p_values$params$model$class
+      [1] "gam" "glm" "lm" 
+      
+      
+      $ale$single$params$p_values$params$y_col
+      [1] "vs"
+      
+      $ale$single$params$p_values$params$rand_it
+      NULL
+      
+      $ale$single$params$p_values$params$parallel
+      [1] 0
+      
+      $ale$single$params$p_values$params$model_packages
+      NULL
+      
+      $ale$single$params$p_values$params$random_model_call_string
+      NULL
+      
+      $ale$single$params$p_values$params$random_model_call_string_vars
+      character(0)
+      
+      $ale$single$params$p_values$params$positive
+      [1] TRUE
+      
+      $ale$single$params$p_values$params$aled_fun
       [1] "mad"
       
-      attr(,"params")$max_num_bins
+      $ale$single$params$p_values$params$seed
+      [1] 0
+      
+      $ale$single$params$p_values$params$rand_it_ok
+      [1] 100
+      
+      $ale$single$params$p_values$params$exactness
+      [1] "surrogate"
+      
+      
+      
+      $ale$single$params$require_same_p
+      [1] FALSE
+      
+      $ale$single$params$aler_alpha
+      [1] 0.01 0.05
+      
+      $ale$single$params$aled_fun
+      [1] "mad"
+      
+      $ale$single$params$max_num_bins
       [1] 10
       
-      attr(,"params")$fct_order
+      $ale$single$params$fct_order
       [1] "levels"
       
-      attr(,"params")$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      attr(,"params")$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $ale$single$params$seed
       [1] 0
       
-      attr(,"params")$y_type
+      $ale$single$params$y_type
       [1] "binary"
       
-      attr(,"params")$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
       
-      attr(,"ale")$boot
-      attr(,"ale")$boot$composite
-      attr(,"ale")$boot$composite$vs
-      attr(,"ale")$boot$composite$vs$ale
-      attr(,"ale")$boot$composite$vs$ale$d1
-      attr(,"ale")$boot$composite$vs$ale$d1$continent
+      
+      $ale$boot
+      $ale$boot$composite
+      $ale$boot$composite$vs
+      $ale$boot$composite$vs$ale
+      $ale$boot$composite$vs$ale$d1
+      $ale$boot$composite$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1365,140 +1369,132 @@
       2 Europe           28     0     0       0         0     0
       3 North America    24     0     0       0         0     0
       
-      attr(,"ale")$boot$composite$vs$ale$d1$wt
+      $ale$boot$composite$vs$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1    1.50     1  6.87e-20 -7.57e-21  6.87e-20  6.87e-20 1.45e-19
-       2    1.93     6  6.87e-20 -7.57e-21  6.87e-20  6.87e-20 1.45e-19
-       3    2.31     6  6.98e-20 -5.48e-21  6.98e-20  6.98e-20 1.45e-19
-       4    2.78     7  2.88e-20 -3.86e-21  2.88e-20  2.88e-20 6.15e-20
-       5    3.16     6  1.65e-20  2.71e-23  1.65e-20  1.65e-20 3.30e-20
-       6    3.22     6  1.27e-20  7.16e-23  1.27e-20  1.27e-20 2.54e-20
-       7    3.44     7 -1.03e-21 -2.93e-21 -1.03e-21 -1.03e-21 8.73e-22
-       8    3.56     6 -1.21e-20 -2.52e-20 -1.21e-20 -1.21e-20 9.42e-22
-       9    3.79     7 -4.64e-20 -9.57e-20 -4.64e-20 -4.64e-20 2.94e-21
-      10    4.07     6 -8.66e-20 -1.78e-19 -8.66e-20 -8.66e-20 5.28e-21
-      11    5.45     6 -2.88e-19 -5.93e-19 -2.88e-19 -2.88e-19 1.70e-20
+         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1    1.50     1     0     0       0         0     0
+       2    1.93     6     0     0       0         0     0
+       3    2.31     6     0     0       0         0     0
+       4    2.78     7     0     0       0         0     0
+       5    3.16     6     0     0       0         0     0
+       6    3.22     6     0     0       0         0     0
+       7    3.44     7     0     0       0         0     0
+       8    3.56     6     0     0       0         0     0
+       9    3.79     7     0     0       0         0     0
+      10    4.07     6     0     0       0         0     0
+      11    5.45     6     0     0       0         0     0
       
       
-      attr(,"ale")$boot$composite$vs$ale$d2
-      attr(,"ale")$boot$composite$vs$ale$d2$`gear:carb`
+      $ale$boot$composite$vs$ale$d2
+      $ale$boot$composite$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1 three            1     6  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
-       2 four             1     8  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
-       3 five             1     0  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
-       4 three            2     8  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
-       5 four             2     7 -8.11e-21 -1.79e-20 -8.11e-21 -8.11e-21 1.71e-21
-       6 five             2     4 -8.11e-21 -1.79e-20 -8.11e-21 -8.11e-21 1.71e-21
-       7 three            3     7  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
-       8 four             3     2  4.82e-21  3.02e-21  4.82e-21  4.82e-21 6.63e-21
-       9 five             3     0  4.82e-21  3.02e-21  4.82e-21  4.82e-21 6.63e-21
-      10 three            4     8  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
-      11 four             4     6  4.37e-21  2.99e-21  4.37e-21  4.37e-21 5.75e-21
-      12 five             4     2  4.37e-21  2.99e-21  4.37e-21  4.37e-21 5.75e-21
-      13 three            8     1  3.25e-22 -2.14e-21  3.25e-22  3.25e-22 2.79e-21
-      14 four             8     1 -2.94e-20 -7.99e-20 -2.94e-20 -2.94e-20 2.12e-20
-      15 five             8     4 -2.94e-20 -7.99e-20 -2.94e-20 -2.94e-20 2.12e-20
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
-      attr(,"ale")$boot$composite$vs$stats
-      # A tibble: 18 x 9
-         term      statistic  estimate p.value  conf.low    median      mean conf.high
-         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 continent aled       0         1       0         0         0         0       
-       2 continent aler_min   0         1       0         0         0         0       
-       3 continent aler_max   0         1       0         0         0         0       
-       4 continent naled      0         1       0         0         0         0       
-       5 continent naler_min  0         1       0         0         0         0       
-       6 continent naler_max  0         1       0         0         0         0       
-       7 wt        aled       5.13e-20  0.0500  8.06e-21  5.13e-20  5.13e-20  9.46e-20
-       8 wt        aler_min  -3.10e-19  0.01   -5.94e-19 -3.10e-19 -3.10e-19 -2.65e-20
-       9 wt        aler_max   9.11e-20  0.0500  3.60e-20  9.11e-20  9.11e-20  1.46e-19
-      10 wt        naled      2.40e+ 1  0.92    2.06e+ 1  2.40e+ 1  2.40e+ 1  2.74e+ 1
-      11 wt        naler_min -4.92e+ 1  1      -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      12 wt        naler_max  7.58e+ 0  0       7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
-      13 gear:carb aled       5.10e-21  0.28    3.28e-21  5.10e-21  5.10e-21  6.92e-21
-      14 gear:carb aler_min  -2.10e-20  0.19   -3.89e-20 -2.10e-20 -2.10e-20 -3.21e-21
-      15 gear:carb aler_max   8.87e-21  0.3     3.22e-21  8.87e-21  8.87e-21  1.45e-20
-      16 gear:carb naled      1.93e+ 1  1       1.62e+ 1  1.93e+ 1  1.93e+ 1  2.25e+ 1
-      17 gear:carb naler_min -4.53e+ 1  1      -4.98e+ 1 -4.53e+ 1 -4.53e+ 1 -4.09e+ 1
-      18 gear:carb naler_max  3.91e+ 0  1       1.95e- 1  3.91e+ 0  3.91e+ 0  7.62e+ 0
-      # i 1 more variable: d <int>
+      $ale$boot$composite$vs$stats
+      # A tibble: 24 x 9
+         term      statistic estimate p.value conf.low median  mean conf.high     d
+         <fct>     <fct>        <dbl>   <dbl>    <dbl>  <dbl> <dbl>     <dbl> <int>
+       1 continent aled             0    1           0      0     0         0     1
+       2 continent aler_min         0    1           0      0     0         0     1
+       3 continent aler             0    1           0      0     0         0     1
+       4 continent aler_max         0    1           0      0     0         0     1
+       5 continent naled            0    1           0      0     0         0     1
+       6 continent naler_min        0    1           0      0     0         0     1
+       7 continent naler            0    1           0      0     0         0     1
+       8 continent naler_max        0    1           0      0     0         0     1
+       9 wt        aled             0    0.05        0      0     0         0     1
+      10 wt        aler_min         0    0.01        0      0     0         0     1
+      # i 14 more rows
       
       
       
-      attr(,"ale")$boot$distinct
-      attr(,"ale")$boot$distinct$vs
-      attr(,"ale")$boot$distinct$vs$ale
-      attr(,"ale")$boot$distinct$vs$ale$d2
-      attr(,"ale")$boot$distinct$vs$ale$d2$`gear:carb`
+      $ale$boot$distinct
+      $ale$boot$distinct$vs
+      $ale$boot$distinct$vs$ale
+      $ale$boot$distinct$vs$ale$d2
+      $ale$boot$distinct$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -1.46e-21 -3.61e-21 -1.46e-21 -1.46e-21  6.89e-22
-       2 four             1     8  1.53e-21 -3.19e-21  1.53e-21  1.53e-21  6.26e-21
-       3 five             1     0  1.54e-21 -3.19e-21  1.54e-21  1.54e-21  6.26e-21
-       4 three            2     8  1.58e-22 -7.16e-22  1.58e-22  1.58e-22  1.03e-21
-       5 four             2     7 -5.28e-21 -9.81e-21 -5.28e-21 -5.28e-21 -7.44e-22
-       6 five             2     4 -5.28e-21 -9.81e-21 -5.28e-21 -5.28e-21 -7.44e-22
-       7 three            3     7 -1.03e-21 -1.06e-21 -1.03e-21 -1.03e-21 -1.01e-21
-       8 four             3     2  6.46e-21  3.88e-21  6.46e-21  6.46e-21  9.04e-21
-       9 five             3     0  6.46e-21  3.88e-21  6.46e-21  6.46e-21  9.04e-21
-      10 three            4     8 -8.89e-22 -1.05e-21 -8.89e-22 -8.89e-22 -7.30e-22
-      11 four             4     6  6.16e-21  3.28e-21  6.16e-21  6.16e-21  9.03e-21
-      12 five             4     2  6.16e-21  3.28e-21  6.16e-21  6.16e-21  9.03e-21
-      13 three            8     1  1.66e-20 -1.52e-20  1.66e-20  1.66e-20  4.85e-20
-      14 four             8     1 -1.00e-20 -2.43e-20 -1.00e-20 -1.00e-20  4.18e-21
-      15 five             8     4 -1.00e-20 -2.43e-20 -1.00e-20 -1.00e-20  4.18e-21
+         gear.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6     0     0       0         0     0
+       2 four             1     8     0     0       0         0     0
+       3 five             1     0     0     0       0         0     0
+       4 three            2     8     0     0       0         0     0
+       5 four             2     7     0     0       0         0     0
+       6 five             2     4     0     0       0         0     0
+       7 three            3     7     0     0       0         0     0
+       8 four             3     2     0     0       0         0     0
+       9 five             3     0     0     0       0         0     0
+      10 three            4     8     0     0       0         0     0
+      11 four             4     6     0     0       0         0     0
+      12 five             4     2     0     0       0         0     0
+      13 three            8     1     0     0       0         0     0
+      14 four             8     1     0     0       0         0     0
+      15 five             8     4     0     0       0         0     0
       
       
       
-      attr(,"ale")$boot$distinct$vs$stats
-      # A tibble: 6 x 9
-        term      statistic  estimate p.value  conf.low    median      mean conf.high
-        <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       2.05e-21    0.34  1.56e-21  2.05e-21  2.05e-21  2.55e-21
-      2 gear:carb aler_min  -8.36e-21    0.29 -8.79e-21 -8.36e-21 -8.36e-21 -7.93e-21
-      3 gear:carb aler_max   1.43e-20    0.24  4.55e-21  1.43e-20  1.43e-20  2.41e-20
-      4 gear:carb naled      2.13e+ 1    1     5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
-      5 gear:carb naler_min -4.92e+ 1    1    -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      6 gear:carb naler_max  7.58e+ 0    0     7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
-      # i 1 more variable: d <int>
+      $ale$boot$distinct$vs$stats
+      # A tibble: 8 x 9
+        term      statistic estimate p.value conf.low median   mean conf.high     d
+        <fct>     <fct>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl> <int>
+      1 gear:carb aled          0       0.34     0      0      0         0        2
+      2 gear:carb aler_min      0       0.29     0      0      0         0        2
+      3 gear:carb aler          0       0.28     0      0      0         0        2
+      4 gear:carb aler_max      0       0.24     0      0      0         0        2
+      5 gear:carb naled        21.3     1        5.84  21.3   21.3      36.8      2
+      6 gear:carb naler_min   -49.2     1      -50.0  -49.2  -49.2     -48.5      2
+      7 gear:carb naler        56.8     0       55.9   56.8   56.8      57.8      2
+      8 gear:carb naler_max     7.58    0        7.36   7.58   7.58      7.80     2
       
       
       
       
-      attr(,"boot_data")
+      
+      $boot_data
       # A tibble: 3 x 7
            it row_idxs   model  ale        tidy             stats            perf    
         <int> <list>     <list> <list>     <list>           <list>           <list>  
       1     0 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <NULL>  
       2     1 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
       3     2 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
-      attr(,"params")
-      attr(,"params")$class_model
+      
+      $params
+      $params$class_model
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$y_type
+      $params$y_type
       [1] "binary"
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "vs"
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "gam" "glm" "lm" 
       
-      attr(,"params")$model$hash
-      [1] "9a9ce6b31df30a04ef54ba6e3e33112b"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -1514,7 +1510,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                       vs
        [1,] 3.925673e-13
        [2,] 3.925673e-13
@@ -1581,128 +1577,150 @@
       [63,] 3.925673e-13
       [64,] 1.000000e+00
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$model_call_string
+      $params$model_call_string
       NULL
       
-      attr(,"params")$model_call_string_vars
+      $params$model_call_string_vars
       character(0)
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "vs"
       
-      attr(,"params")$positive
+      $params$positive
       [1] TRUE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "response"
       
-      attr(,"params")$boot_it
+      $params$boot_it
       [1] 2
       
-      attr(,"params")$boot_alpha
+      $params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 0
       
-      attr(,"params")$output_model_stats
+      $params$output_model_stats
       [1] TRUE
       
-      attr(,"params")$output_model_coefs
+      $params$output_model_coefs
       [1] TRUE
       
-      attr(,"params")$output_ale
+      $params$output_ale
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] TRUE
       
-      attr(,"params")$ale_options
-      attr(,"params")$ale_options$x_cols
+      $params$ale_options
+      $params$ale_options$x_cols
       [1] "wt"        "continent" "gear:carb"
       
       
-      attr(,"params")$ale_p
-      <ale::ALEpDist>
-       @ rand_stats           :List of 1
-       .. $ vs: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 2.79e-23 3.31e-23 9.74e-25 1.72e-24 1.28e-23 ...
-       ..  ..$ aler_min : num [1:100] -5.61e-23 -6.76e-23 -2.46e-24 -3.19e-24 -2.38e-23 ...
-       ..  ..$ aler_max : num [1:100] 6.74e-23 6.93e-23 2.12e-24 2.92e-24 2.77e-23 ...
-       ..  ..$ naled    : num [1:100] 28.1 32.2 24 27.6 28.1 ...
-       ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
-       ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
-       @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
-       .. - attr(*, "logLik")= num 1784
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
-       .. - attr(*, "n")= int 64
-       .. - attr(*, "model")= chr "Uniform"
-       .. - attr(*, "density")= chr "stats::dunif"
-       .. - attr(*, "support")= num [1:2] -3.93e-13 3.93e-13
-       .. - attr(*, "names")= chr [1:2] "min" "max"
-       .. - attr(*, "default")= num [1:2] 0 1
-       .. - attr(*, "continuous")= logi TRUE
-       @ residuals            : NULL
-       @ params               :List of 12
-       .. $ model                        :List of 2
-       ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "9a9ce6b31df30a04ef54ba6e3e33112b"
-       .. $ y_col                        : chr "vs"
-       .. $ rand_it                      : NULL
-       .. $ parallel                     : num 0
-       .. $ model_packages               : NULL
-       .. $ random_model_call_string     : NULL
-       .. $ random_model_call_string_vars: chr(0) 
-       .. $ positive                     : logi TRUE
-       .. $ aled_fun                     : chr "mad"
-       .. $ seed                         : num 0
-       .. $ rand_it_ok                   : int 100
-       .. $ exactness                    : chr "surrogate"
+      $params$ale_p
+      $params$ale_p$rand_stats
+      $params$ale_p$rand_stats$vs
+      # A tibble: 100 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0  28.1       -50  56.2      6.25
+       2     0        0     0        0  32.2       -50  56.2      6.25
+       3     0        0     0        0  24.0       -50  56.2      6.25
+       4     0        0     0        0  27.6       -50  56.2      6.25
+       5     0        0     0        0  28.1       -50  56.2      6.25
+       6     0        0     0        0  28.1       -50  56.2      6.25
+       7     0        0     0        0  28.1       -50  56.2      6.25
+       8     0        0     0        0  28.1       -50  56.2      6.25
+       9     0        0     0        0  32.9       -50  56.2      6.25
+      10     0        0     0        0  28.1       -50  56.2      6.25
+      # i 90 more rows
       
-      attr(,"params")$tidy_options
+      
+      $params$ale_p$residual_distribution
+      Maximum likelihood estimates for the Uniform model 
+      min  max  
+        0    0  
+      
+      $params$ale_p$residuals
+      NULL
+      
+      $params$ale_p$params
+      $params$ale_p$params$model
+      $params$ale_p$params$model$class
+      [1] "gam" "glm" "lm" 
+      
+      
+      $params$ale_p$params$y_col
+      [1] "vs"
+      
+      $params$ale_p$params$rand_it
+      NULL
+      
+      $params$ale_p$params$parallel
+      [1] 0
+      
+      $params$ale_p$params$model_packages
+      NULL
+      
+      $params$ale_p$params$random_model_call_string
+      NULL
+      
+      $params$ale_p$params$random_model_call_string_vars
+      character(0)
+      
+      $params$ale_p$params$positive
+      [1] TRUE
+      
+      $params$ale_p$params$aled_fun
+      [1] "mad"
+      
+      $params$ale_p$params$seed
+      [1] 0
+      
+      $params$ale_p$params$rand_it_ok
+      [1] 100
+      
+      $params$ale_p$params$exactness
+      [1] "surrogate"
+      
+      
+      
+      $params$tidy_options
       list()
       
-      attr(,"params")$glance_options
+      $params$glance_options
       list()
+      
       
 
 # bootstrapped categorical outcome with full 1D and all variables set
 
     Code
-      unclass(snap_mb)
+      {
+        x
+      }
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ModelBoot> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ model_stats: <list> or <NULL>
-       $ model_coefs: <list> or <NULL>
-       $ ale        : <list> or <NULL>
-       $ boot_data  : <list> or <NULL>
-       $ params     : <list>          
-      attr(,"model_stats")
+      $model_stats
       # A tibble: 5 x 7
         name             boot_valid conf.low median  mean conf.high      sd
         <chr>                 <dbl>    <dbl>  <dbl> <dbl>     <dbl>   <dbl>
@@ -1711,7 +1729,8 @@
       3 auc (setosa)          0.632    1         NA    NA     1     0      
       4 auc (versicolor)      0.624    0.974     NA    NA     0.999 0.0191 
       5 auc (virginica)       0.630    0.992     NA    NA     1.000 0.00567
-      attr(,"model_coefs")
+      
+      $model_coefs
       # A tibble: 10 x 7
          y.level    term         conf.low median   mean conf.high std.error
          <chr>      <chr>           <dbl>  <dbl>  <dbl>     <dbl>     <dbl>
@@ -1725,80 +1744,75 @@
        8 virginica  Sepal.Width    -27.8  -20.9  -20.9     -14.1      10.8 
        9 virginica  Petal.Length    25.3   44.0   44.0      62.7      29.4 
       10 virginica  Petal.Width     10.9   17.5   17.5      24.1      10.4 
-      attr(,"ale")
-      attr(,"ale")$single
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ composite: <list>          
-       $ distinct : <list> or <NULL>
-       $ params   : <list>          
-      attr(,"composite")
-      attr(,"composite")$setosa
-      attr(,"composite")$setosa$ale
-      attr(,"composite")$setosa$ale$d1
-      attr(,"composite")$setosa$ale$d1$Sepal.Length
+      
+      $ale
+      $ale$single
+      $ale$single$composite
+      $ale$single$composite$setosa
+      $ale$single$composite$setosa$ale
+      $ale$single$composite$setosa$ale$d1
+      $ale$single$composite$setosa$ale$d1$Sepal.Length
       # A tibble: 11 x 7
-         Sepal.Length.ceil    .n         .y      .y_lo    .y_mean  .y_median     .y_hi
-                     <dbl> <int>      <dbl>      <dbl>      <dbl>      <dbl>     <dbl>
-       1               4.3     1 -0.000104  -0.000104  -0.000104  -0.000104   -1.04e-4
-       2               4.8    15 -0.0000262 -0.0000262 -0.0000262 -0.0000262  -2.62e-5
-       3               5      16 -0.0000256 -0.0000256 -0.0000256 -0.0000256  -2.56e-5
-       4               5.3    14  0.0000126  0.0000126  0.0000126  0.0000126   1.26e-5
-       5               5.6    19  0.0000143  0.0000143  0.0000143  0.0000143   1.43e-5
-       6               5.8    15  0.0000149  0.0000149  0.0000149  0.0000149   1.49e-5
-       7               6.1    15  0.0000150  0.0000150  0.0000150  0.0000150   1.50e-5
-       8               6.3    13  0.0000150  0.0000150  0.0000150  0.0000150   1.50e-5
-       9               6.5    12  0.0000151  0.0000151  0.0000151  0.0000151   1.51e-5
-      10               6.9    17  0.0000154  0.0000154  0.0000154  0.0000154   1.54e-5
-      11               7.9    13  0.0000179  0.0000179  0.0000179  0.0000179   1.79e-5
+         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0001  -0.0001  -0.0001   -0.0001  -0.0001 
+       2               4.8    15 -0.00003 -0.00003 -0.00003  -0.00003 -0.00003
+       3               5      16 -0.00003 -0.00003 -0.00003  -0.00003 -0.00003
+       4               5.3    14  0.00001  0.00001  0.00001   0.00001  0.00001
+       5               5.6    19  0.00001  0.00001  0.00001   0.00001  0.00001
+       6               5.8    15  0.00001  0.00001  0.00001   0.00001  0.00001
+       7               6.1    15  0.00002  0.00002  0.00002   0.00002  0.00002
+       8               6.3    13  0.00002  0.00002  0.00002   0.00002  0.00002
+       9               6.5    12  0.00002  0.00002  0.00002   0.00002  0.00002
+      10               6.9    17  0.00002  0.00002  0.00002   0.00002  0.00002
+      11               7.9    13  0.00002  0.00002  0.00002   0.00002  0.00002
       
-      attr(,"composite")$setosa$ale$d1$Petal.Width
+      $ale$single$composite$setosa$ale$d1$Petal.Width
       # A tibble: 10 x 7
-         Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
-                    <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-       1              0.1     5 -0.0000204  -0.0000204  -0.0000204   -2.04e-5 -2.04e-5
-       2              0.2    29 -0.0000197  -0.0000197  -0.0000197   -1.97e-5 -1.97e-5
-       3              0.4    14 -0.00000860 -0.00000860 -0.00000860  -8.60e-6 -8.60e-6
-       4              1.1    12  0.00000874  0.00000874  0.00000874   8.74e-6  8.74e-6
-       5              1.3    18  0.00000980  0.00000980  0.00000980   9.80e-6  9.80e-6
-       6              1.5    20  0.00000988  0.00000988  0.00000988   9.88e-6  9.88e-6
-       7              1.8    18  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
-       8              1.9     5  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
-       9              2.2    15  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
-      10              2.5    14  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
+         Petal.Width.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1              0.1     5 -0.00002 -0.00002 -0.00002  -0.00002 -0.00002
+       2              0.2    29 -0.00002 -0.00002 -0.00002  -0.00002 -0.00002
+       3              0.4    14 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       4              1.1    12  0.00001  0.00001  0.00001   0.00001  0.00001
+       5              1.3    18  0.00001  0.00001  0.00001   0.00001  0.00001
+       6              1.5    20  0.00001  0.00001  0.00001   0.00001  0.00001
+       7              1.8    18  0.00001  0.00001  0.00001   0.00001  0.00001
+       8              1.9     5  0.00001  0.00001  0.00001   0.00001  0.00001
+       9              2.2    15  0.00001  0.00001  0.00001   0.00001  0.00001
+      10              2.5    14  0.00001  0.00001  0.00001   0.00001  0.00001
       
       
       
-      attr(,"composite")$setosa$stats
-      # A tibble: 12 x 8
-         term         statistic    estimate conf.low     mean   median conf.high     d
-         <chr>        <chr>           <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
-       1 Sepal.Length aled          2.06e-5  2.06e-5  2.06e-5  2.06e-5   2.06e-5     1
-       2 Sepal.Length aler_min     -1.04e-4 -1.04e-4 -1.04e-4 -1.04e-4  -1.04e-4     1
-       3 Sepal.Length aler_max      1.79e-5  1.79e-5  1.79e-5  1.79e-5   1.79e-5     1
-       4 Sepal.Length naled         2.60e+1  2.60e+1  2.60e+1  2.60e+1   2.60e+1     1
-       5 Sepal.Length naler_min    -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1     1
-       6 Sepal.Length naler_max     1.53e+1  1.53e+1  1.53e+1  1.53e+1   1.53e+1     1
-       7 Petal.Width  aled          1.17e-5  1.17e-5  1.17e-5  1.17e-5   1.17e-5     1
-       8 Petal.Width  aler_min     -2.04e-5 -2.04e-5 -2.04e-5 -2.04e-5  -2.04e-5     1
-       9 Petal.Width  aler_max      9.89e-6  9.89e-6  9.89e-6  9.89e-6   9.89e-6     1
-      10 Petal.Width  naled         2.57e+1  2.57e+1  2.57e+1  2.57e+1   2.57e+1     1
-      11 Petal.Width  naler_min    -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1     1
-      12 Petal.Width  naler_max     1.53e+1  1.53e+1  1.53e+1  1.53e+1   1.53e+1     1
+      $ale$single$composite$setosa$stats
+      # A tibble: 16 x 8
+         term         statistic  estimate  conf.low      mean   median conf.high     d
+         <chr>        <chr>         <dbl>     <dbl>     <dbl>    <dbl>     <dbl> <int>
+       1 Sepal.Length aled        0.00002   0.00002   0.00002  2   e-5   0.00002     1
+       2 Sepal.Length aler_min   -0.0001   -0.0001   -0.0001  -1   e-4  -0.0001      1
+       3 Sepal.Length aler        0.00012   0.00012   0.00012  1.2 e-4   0.00012     1
+       4 Sepal.Length aler_max    0.00002   0.00002   0.00002  2   e-5   0.00002     1
+       5 Sepal.Length naled      26.0      26.0      26.0      2.60e+1  26.0         1
+       6 Sepal.Length naler_min -50       -50       -50       -5   e+1 -50           1
+       7 Sepal.Length naler      65.3      65.3      65.3      6.53e+1  65.3         1
+       8 Sepal.Length naler_max  15.3      15.3      15.3      1.53e+1  15.3         1
+       9 Petal.Width  aled        0.00001   0.00001   0.00001  1   e-5   0.00001     1
+      10 Petal.Width  aler_min   -0.00002  -0.00002  -0.00002 -2   e-5  -0.00002     1
+      11 Petal.Width  aler        0.00003   0.00003   0.00003  3   e-5   0.00003     1
+      12 Petal.Width  aler_max    0.00001   0.00001   0.00001  1   e-5   0.00001     1
+      13 Petal.Width  naled      25.7      25.7      25.7      2.57e+1  25.7         1
+      14 Petal.Width  naler_min -50       -50       -50       -5   e+1 -50           1
+      15 Petal.Width  naler      65.3      65.3      65.3      6.53e+1  65.3         1
+      16 Petal.Width  naler_max  15.3      15.3      15.3      1.53e+1  15.3         1
       
-      attr(,"composite")$setosa$boot_data
+      $ale$single$composite$setosa$boot_data
       NULL
       
       
-      attr(,"composite")$versicolor
-      attr(,"composite")$versicolor$ale
-      attr(,"composite")$versicolor$ale$d1
-      attr(,"composite")$versicolor$ale$d1$Sepal.Length
+      $ale$single$composite$versicolor
+      $ale$single$composite$versicolor$ale
+      $ale$single$composite$versicolor$ale$d1
+      $ale$single$composite$versicolor$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1810,11 +1824,11 @@
        6               5.8    15 -0.0257 -0.0257 -0.0257   -0.0257 -0.0257
        7               6.1    15  0.0133  0.0133  0.0133    0.0133  0.0133
        8               6.3    13  0.0372  0.0372  0.0372    0.0372  0.0372
-       9               6.5    12  0.0379  0.0379  0.0379    0.0379  0.0379
+       9               6.5    12  0.0378  0.0378  0.0378    0.0378  0.0378
       10               6.9    17  0.0496  0.0496  0.0496    0.0496  0.0496
       11               7.9    13  0.0597  0.0597  0.0597    0.0597  0.0597
       
-      attr(,"composite")$versicolor$ale$d1$Petal.Width
+      $ale$single$composite$versicolor$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1831,31 +1845,35 @@
       
       
       
-      attr(,"composite")$versicolor$stats
-      # A tibble: 12 x 8
+      $ale$single$composite$versicolor$stats
+      # A tibble: 16 x 8
          term         statistic estimate conf.low     mean   median conf.high     d
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
        1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298     1
        2 Sepal.Length aler_min   -0.0289  -0.0289  -0.0289  -0.0289   -0.0289     1
-       3 Sepal.Length aler_max    0.0597   0.0597   0.0597   0.0597    0.0597     1
-       4 Sepal.Length naled      36.0     36.0     36.0     36.0      36.0        1
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50          1
-       6 Sepal.Length naler_max  12.7     12.7     12.7     12.7      12.7        1
-       7 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185      1
-       8 Petal.Width  aler_min   -0.343   -0.343   -0.343   -0.343    -0.343      1
-       9 Petal.Width  aler_max    0.149    0.149    0.149    0.149     0.149      1
-      10 Petal.Width  naled      26.8     26.8     26.8     26.8      26.8        1
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50          1
-      12 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7        1
+       3 Sepal.Length aler        0.0886   0.0886   0.0886   0.0886    0.0886     1
+       4 Sepal.Length aler_max    0.0597   0.0597   0.0597   0.0597    0.0597     1
+       5 Sepal.Length naled      36.0     36.0     36.0     36.0      36.0        1
+       6 Sepal.Length naler_min -50      -50      -50      -50       -50          1
+       7 Sepal.Length naler      62.7     62.7     62.7     62.7      62.7        1
+       8 Sepal.Length naler_max  12.7     12.7     12.7     12.7      12.7        1
+       9 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185      1
+      10 Petal.Width  aler_min   -0.343   -0.343   -0.343   -0.343    -0.343      1
+      11 Petal.Width  aler        0.492    0.492    0.492    0.492     0.492      1
+      12 Petal.Width  aler_max    0.149    0.149    0.149    0.149     0.149      1
+      13 Petal.Width  naled      26.8     26.8     26.8     26.8      26.8        1
+      14 Petal.Width  naler_min -50      -50      -50      -50       -50          1
+      15 Petal.Width  naler      64.7     64.7     64.7     64.7      64.7        1
+      16 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7        1
       
-      attr(,"composite")$versicolor$boot_data
+      $ale$single$composite$versicolor$boot_data
       NULL
       
       
-      attr(,"composite")$virginica
-      attr(,"composite")$virginica$ale
-      attr(,"composite")$virginica$ale$d1
-      attr(,"composite")$virginica$ale$d1$Sepal.Length
+      $ale$single$composite$virginica
+      $ale$single$composite$virginica$ale
+      $ale$single$composite$virginica$ale$d1
+      $ale$single$composite$virginica$ale$d1$Sepal.Length
       # A tibble: 11 x 7
          Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1865,13 +1883,13 @@
        4               5.3    14  0.0259  0.0259  0.0259    0.0259  0.0259
        5               5.6    19  0.0257  0.0257  0.0257    0.0257  0.0257
        6               5.8    15  0.0257  0.0257  0.0257    0.0257  0.0257
-       7               6.1    15 -0.0133 -0.0133 -0.0133   -0.0133 -0.0133
+       7               6.1    15 -0.0134 -0.0134 -0.0134   -0.0134 -0.0134
        8               6.3    13 -0.0372 -0.0372 -0.0372   -0.0372 -0.0372
        9               6.5    12 -0.0379 -0.0379 -0.0379   -0.0379 -0.0379
       10               6.9    17 -0.0496 -0.0496 -0.0496   -0.0496 -0.0496
       11               7.9    13 -0.0597 -0.0597 -0.0597   -0.0597 -0.0597
       
-      attr(,"composite")$virginica$ale$d1$Petal.Width
+      $ale$single$composite$virginica$ale$d1$Petal.Width
       # A tibble: 10 x 7
          Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1888,51 +1906,59 @@
       
       
       
-      attr(,"composite")$virginica$stats
-      # A tibble: 12 x 8
+      $ale$single$composite$virginica$stats
+      # A tibble: 16 x 8
          term         statistic estimate conf.low     mean   median conf.high     d
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
        1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298     1
        2 Sepal.Length aler_min   -0.0597  -0.0597  -0.0597  -0.0597   -0.0597     1
-       3 Sepal.Length aler_max    0.0289   0.0289   0.0289   0.0289    0.0289     1
-       4 Sepal.Length naled      26.8     26.8     26.8     26.8      26.8        1
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50          1
-       6 Sepal.Length naler_max  13.3     13.3     13.3     13.3      13.3        1
-       7 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185      1
-       8 Petal.Width  aler_min   -0.149   -0.149   -0.149   -0.149    -0.149      1
-       9 Petal.Width  aler_max    0.343    0.343    0.343    0.343     0.343      1
-      10 Petal.Width  naled      38.0     38.0     38.0     38.0      38.0        1
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50          1
-      12 Petal.Width  naler_max  16       16       16       16        16          1
+       3 Sepal.Length aler        0.0886   0.0886   0.0886   0.0886    0.0886     1
+       4 Sepal.Length aler_max    0.0289   0.0289   0.0289   0.0289    0.0289     1
+       5 Sepal.Length naled      26.8     26.8     26.8     26.8      26.8        1
+       6 Sepal.Length naler_min -50      -50      -50      -50       -50          1
+       7 Sepal.Length naler      63.3     63.3     63.3     63.3      63.3        1
+       8 Sepal.Length naler_max  13.3     13.3     13.3     13.3      13.3        1
+       9 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185      1
+      10 Petal.Width  aler_min   -0.149   -0.149   -0.149   -0.149    -0.149      1
+      11 Petal.Width  aler        0.492    0.492    0.492    0.492     0.492      1
+      12 Petal.Width  aler_max    0.343    0.343    0.343    0.343     0.343      1
+      13 Petal.Width  naled      38.0     38.0     38.0     38.0      38.0        1
+      14 Petal.Width  naler_min -50      -50      -50      -50       -50          1
+      15 Petal.Width  naler      66       66       66       66        66          1
+      16 Petal.Width  naler_max  16       16       16       16        16          1
       
-      attr(,"composite")$virginica$boot_data
+      $ale$single$composite$virginica$boot_data
       NULL
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $ale$single$distinct
+      NULL
+      
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 1
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $ale$single$params$ordered_x_cols
+      $ale$single$params$ordered_x_cols$d1
       [1] "Sepal.Length" "Petal.Width" 
       
-      attr(,"params")$ordered_x_cols$d2
+      $ale$single$params$ordered_x_cols$d2
       character(0)
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $ale$single$params$requested_x_cols
+      $ale$single$params$requested_x_cols$d1
       [1] "Sepal.Length" "Petal.Width" 
       
-      attr(,"params")$requested_x_cols$d2
+      $ale$single$params$requested_x_cols$d2
       character(0)
       
       
-      attr(,"params")$y_cats
+      $ale$single$params$y_cats
       [1] "setosa"     "versicolor" "virginica" 
       
-      attr(,"params")$y_summary
+      $ale$single$params$y_summary
                  Species       setosa   versicolor    virginica
       min   0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00
       1%    4.169110e-26 4.169110e-26 2.159110e-13 3.712741e-42
@@ -1955,16 +1981,13 @@
       99%   1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       max   1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $ale$single$params$model
+      $ale$single$params$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$hash
-      [1] "8d5e3635350e54c0e8f64908ae593e42"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $ale$single$params$data
+      $ale$single$params$data$data_sample
           Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
       1            5.1         3.5          1.4         0.2     setosa
       2            4.9         3.0          1.4         0.2     setosa
@@ -2117,7 +2140,7 @@
       149          6.2         3.4          5.4         2.3  virginica
       150          5.9         3.0          5.1         1.8  virginica
       
-      attr(,"params")$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                 setosa   versicolor    virginica
       1   1.000000e+00 1.526406e-09 2.716417e-36
       2   9.999996e-01 3.536476e-07 2.883729e-32
@@ -2270,286 +2293,300 @@
       149 6.009635e-17 4.504137e-06 9.999955e-01
       150 2.726745e-14 2.243538e-02 9.775646e-01
       
-      attr(,"params")$data$nrow
+      $ale$single$params$data$nrow
       [1] 150
       
       
-      attr(,"params")$y_col
+      $ale$single$params$y_col
       [1] "Species"
       
-      attr(,"params")$comp
+      $ale$single$params$comp
       [1] "auto"
       
-      attr(,"params")$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $ale$single$params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $ale$single$params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $ale$single$params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $ale$single$params$pred_type
       [1] "probs"
       
-      attr(,"params")$p_values
+      $ale$single$params$p_values
       NULL
       
-      attr(,"params")$require_same_p
+      $ale$single$params$require_same_p
       [1] FALSE
       
-      attr(,"params")$aler_alpha
+      $ale$single$params$aler_alpha
       [1] 0.01 0.05
       
-      attr(,"params")$aled_fun
+      $ale$single$params$aled_fun
       [1] "mad"
       
-      attr(,"params")$max_num_bins
+      $ale$single$params$max_num_bins
       [1] 10
       
-      attr(,"params")$fct_order
+      $ale$single$params$fct_order
       [1] "levels"
       
-      attr(,"params")$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      attr(,"params")$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      attr(,"params")$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      attr(,"params")$seed
+      $ale$single$params$seed
       [1] 0
       
-      attr(,"params")$y_type
+      $ale$single$params$y_type
       [1] "categorical"
       
-      attr(,"params")$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
       
-      attr(,"ale")$boot
-      attr(,"ale")$boot$composite
-      attr(,"ale")$boot$composite$setosa
-      attr(,"ale")$boot$composite$setosa$ale
-      attr(,"ale")$boot$composite$setosa$ale$d1
-      attr(,"ale")$boot$composite$setosa$ale$d1$Sepal.Length
+      
+      $ale$boot
+      $ale$boot$composite
+      $ale$boot$composite$setosa
+      $ale$boot$composite$setosa$ale
+      $ale$boot$composite$setosa$ale$d1
+      $ale$boot$composite$setosa$ale$d1$Sepal.Length
       # A tibble: 11 x 7
-         Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
-                     <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.000127   -0.000210     -1.27e-4  -1.27e-4 -4.27e-5
-       2               4.8    15 -0.0000129  -0.0000200    -1.29e-5  -1.29e-5 -5.88e-6
-       3               5      16 -0.0000119  -0.0000183    -1.19e-5  -1.19e-5 -5.53e-6
-       4               5.3    14  0.00000707  0.00000424    7.07e-6   7.07e-6  9.90e-6
-       5               5.6    19  0.00000717  0.00000441    7.17e-6   7.17e-6  9.93e-6
-       6               5.8    15  0.00000905  0.00000460    9.05e-6   9.05e-6  1.35e-5
-       7               6.1    15  0.00000921  0.00000462    9.21e-6   9.21e-6  1.38e-5
-       8               6.3    13  0.00000921  0.00000462    9.21e-6   9.21e-6  1.38e-5
-       9               6.5    12  0.00000921  0.00000462    9.21e-6   9.21e-6  1.38e-5
-      10               6.9    17  0.00000963  0.00000466    9.63e-6   9.63e-6  1.46e-5
-      11               7.9    13  0.0000145   0.00000515    1.45e-5   1.45e-5  2.39e-5
+         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.00013 -0.00021 -0.00013  -0.00013 -0.00004
+       2               4.8    15 -0.00001 -0.00002 -0.00001  -0.00001 -0.00001
+       3               5      16 -0.00001 -0.00002 -0.00001  -0.00001 -0.00001
+       4               5.3    14  0.00001  0        0.00001   0.00001  0.00001
+       5               5.6    19  0.00001  0        0.00001   0.00001  0.00001
+       6               5.8    15  0.00001  0        0.00001   0.00001  0.00001
+       7               6.1    15  0.00001  0        0.00001   0.00001  0.00001
+       8               6.3    13  0.00001  0        0.00001   0.00001  0.00001
+       9               6.5    12  0.00001  0        0.00001   0.00001  0.00001
+      10               6.9    17  0.00001  0        0.00001   0.00001  0.00001
+      11               7.9    13  0.00001  0.00001  0.00001   0.00001  0.00002
       
-      attr(,"ale")$boot$composite$setosa$ale$d1$Petal.Width
+      $ale$boot$composite$setosa$ale$d1$Petal.Width
       # A tibble: 10 x 7
-         Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
-                    <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-       1              0.1     5 -0.0000402  -0.0000735  -0.0000402   -4.02e-5 -6.91e-6
-       2              0.2    29 -0.0000315  -0.0000570  -0.0000315   -3.15e-5 -5.96e-6
-       3              0.4    14  0.00000543 -0.00000132  0.00000543   5.43e-6  1.22e-5
-       4              1.1    12  0.0000123   0.00000249  0.0000123    1.23e-5  2.21e-5
-       5              1.3    18  0.0000125   0.00000253  0.0000125    1.25e-5  2.24e-5
-       6              1.5    20  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
-       7              1.8    18  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
-       8              1.9     5  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
-       9              2.2    15  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
-      10              2.5    14  0.0000125   0.00000254  0.0000125    1.25e-5  2.24e-5
+         Petal.Width.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1              0.1     5 -0.00004 -0.00007 -0.00004  -0.00004 -0.00001
+       2              0.2    29 -0.00003 -0.00006 -0.00003  -0.00003 -0.00001
+       3              0.4    14  0.00001  0        0.00001   0.00001  0.00001
+       4              1.1    12  0.00001  0        0.00001   0.00001  0.00002
+       5              1.3    18  0.00001  0        0.00001   0.00001  0.00002
+       6              1.5    20  0.00001  0        0.00001   0.00001  0.00002
+       7              1.8    18  0.00001  0        0.00001   0.00001  0.00002
+       8              1.9     5  0.00001  0        0.00001   0.00001  0.00002
+       9              2.2    15  0.00001  0        0.00001   0.00001  0.00002
+      10              2.5    14  0.00001  0        0.00001   0.00001  0.00002
       
       
       
-      attr(,"ale")$boot$composite$setosa$stats
-      # A tibble: 12 x 8
-         term         statistic    estimate conf.low   median     mean conf.high     d
-         <fct>        <fct>           <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
-       1 Sepal.Length aled        0.0000132  6.38e-6  1.32e-5  1.32e-5   2.00e-5     1
-       2 Sepal.Length aler_min   -0.000127  -2.10e-4 -1.27e-4 -1.27e-4  -4.27e-5     1
-       3 Sepal.Length aler_max    0.0000145  5.15e-6  1.45e-5  1.45e-5   2.39e-5     1
-       4 Sepal.Length naled      28.5        2.78e+1  2.85e+1  2.85e+1   2.91e+1     1
-       5 Sepal.Length naler_min -50         -5   e+1 -5   e+1 -5   e+1  -5   e+1     1
-       6 Sepal.Length naler_max  20.1        1.98e+1  2.01e+1  2.01e+1   2.04e+1     1
-       7 Petal.Width  aled        0.0000172  3.35e-6  1.72e-5  1.72e-5   3.11e-5     1
-       8 Petal.Width  aler_min   -0.0000402 -7.35e-5 -4.02e-5 -4.02e-5  -6.91e-6     1
-       9 Petal.Width  aler_max    0.0000125  2.54e-6  1.25e-5  1.25e-5   2.24e-5     1
-      10 Petal.Width  naled      28.8        2.88e+1  2.88e+1  2.88e+1   2.89e+1     1
-      11 Petal.Width  naler_min -50         -5   e+1 -5   e+1 -5   e+1  -5   e+1     1
-      12 Petal.Width  naler_max  18.4        1.66e+1  1.84e+1  1.84e+1   2.02e+1     1
+      $ale$boot$composite$setosa$stats
+      # A tibble: 16 x 8
+         term         statistic  estimate  conf.low    median     mean conf.high     d
+         <fct>        <fct>         <dbl>     <dbl>     <dbl>    <dbl>     <dbl> <int>
+       1 Sepal.Length aled        0.00001   0.00001   0.00001  1   e-5   0.00002     1
+       2 Sepal.Length aler_min   -0.00013  -0.00021  -0.00013 -1.3 e-4  -0.00004     1
+       3 Sepal.Length aler        0.00014   0.00005   0.00014  1.4 e-4   0.00023     1
+       4 Sepal.Length aler_max    0.00001   0.00001   0.00001  1   e-5   0.00002     1
+       5 Sepal.Length naled      28.5      27.8      28.5      2.85e+1  29.1         1
+       6 Sepal.Length naler_min -50       -50       -50       -5   e+1 -50           1
+       7 Sepal.Length naler      70.1      69.8      70.1      7.01e+1  70.4         1
+       8 Sepal.Length naler_max  20.1      19.8      20.1      2.01e+1  20.4         1
+       9 Petal.Width  aled        0.00002   0         0.00002  2   e-5   0.00003     1
+      10 Petal.Width  aler_min   -0.00004  -0.00007  -0.00004 -4   e-5  -0.00001     1
+      11 Petal.Width  aler        0.00005   0.00001   0.00005  5   e-5   0.0001      1
+      12 Petal.Width  aler_max    0.00001   0         0.00001  1   e-5   0.00002     1
+      13 Petal.Width  naled      28.8      28.8      28.8      2.88e+1  28.9         1
+      14 Petal.Width  naler_min -50       -50       -50       -5   e+1 -50           1
+      15 Petal.Width  naler      68.4      66.6      68.4      6.84e+1  70.2         1
+      16 Petal.Width  naler_max  18.4      16.6      18.4      1.84e+1  20.2         1
       
       
-      attr(,"ale")$boot$composite$versicolor
-      attr(,"ale")$boot$composite$versicolor$ale
-      attr(,"ale")$boot$composite$versicolor$ale$d1
-      attr(,"ale")$boot$composite$versicolor$ale$d1$Sepal.Length
+      $ale$boot$composite$versicolor
+      $ale$boot$composite$versicolor$ale
+      $ale$boot$composite$versicolor$ale$d1
+      $ale$boot$composite$versicolor$ale$d1$Sepal.Length
       # A tibble: 11 x 7
-         Sepal.Length.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-                     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.0176   -0.0211   -0.0176   -0.0176   -0.0141 
-       2               4.8    15 -0.0177   -0.0212   -0.0177   -0.0177   -0.0141 
-       3               5      16 -0.0149   -0.0159   -0.0149   -0.0149   -0.0139 
-       4               5.3    14 -0.0149   -0.0160   -0.0149   -0.0149   -0.0139 
-       5               5.6    19 -0.0126   -0.0151   -0.0126   -0.0126   -0.0101 
-       6               5.8    15 -0.0125   -0.0150   -0.0125   -0.0125   -0.0101 
-       7               6.1    15  0.000303 -0.00231   0.000303  0.000303  0.00291
-       8               6.3    13  0.0116    0.000305  0.0116    0.0116    0.0228 
-       9               6.5    12  0.0130    0.000445  0.0130    0.0130    0.0255 
-      10               6.9    17  0.0189    0.0108    0.0189    0.0189    0.0270 
-      11               7.9    13  0.0967    0.0358    0.0967    0.0967    0.158  
+         Sepal.Length.ceil    .n      .y    .y_lo .y_mean .y_median    .y_hi
+                     <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0176 -0.0211  -0.0176   -0.0176 -0.0141 
+       2               4.8    15 -0.0177 -0.0213  -0.0177   -0.0177 -0.0141 
+       3               5      16 -0.0149 -0.0159  -0.0149   -0.0149 -0.0139 
+       4               5.3    14 -0.0149 -0.0160  -0.0149   -0.0149 -0.0139 
+       5               5.6    19 -0.0126 -0.0151  -0.0126   -0.0126 -0.0101 
+       6               5.8    15 -0.0125 -0.0150  -0.0125   -0.0125 -0.0101 
+       7               6.1    15  0.0003 -0.00231  0.0003    0.0003  0.00291
+       8               6.3    13  0.0116  0.0003   0.0116    0.0116  0.0228 
+       9               6.5    12  0.0130  0.00044  0.0130    0.0130  0.0255 
+      10               6.9    17  0.0189  0.0107   0.0189    0.0189  0.0270 
+      11               7.9    13  0.0967  0.0358   0.0967    0.0967  0.158  
       
-      attr(,"ale")$boot$composite$versicolor$ale$d1$Petal.Width
+      $ale$boot$composite$versicolor$ale$d1$Petal.Width
       # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y     .y_lo .y_mean .y_median   .y_hi
-                    <dbl> <int>   <dbl>     <dbl>   <dbl>     <dbl>   <dbl>
-       1              0.1     5  0.0855  0.0678    0.0855    0.0855  0.103 
-       2              0.2    29  0.0855  0.0678    0.0855    0.0855  0.103 
-       3              0.4    14  0.0855  0.0677    0.0855    0.0855  0.103 
-       4              1.1    12  0.0855  0.0677    0.0855    0.0855  0.103 
-       5              1.3    18  0.0852  0.0674    0.0852    0.0852  0.103 
-       6              1.5    20  0.0308 -0.000358  0.0308    0.0308  0.0619
-       7              1.8    18 -0.135  -0.147    -0.135    -0.135  -0.123 
-       8              1.9     5 -0.137  -0.151    -0.137    -0.137  -0.123 
-       9              2.2    15 -0.144  -0.164    -0.144    -0.144  -0.124 
-      10              2.5    14 -0.145  -0.165    -0.145    -0.145  -0.124 
+         Petal.Width.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
+                    <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+       1              0.1     5  0.0855  0.0678   0.0855    0.0855  0.103 
+       2              0.2    29  0.0855  0.0678   0.0855    0.0855  0.103 
+       3              0.4    14  0.0855  0.0678   0.0855    0.0855  0.103 
+       4              1.1    12  0.0855  0.0677   0.0855    0.0855  0.103 
+       5              1.3    18  0.0852  0.0674   0.0852    0.0852  0.103 
+       6              1.5    20  0.0308 -0.00036  0.0308    0.0308  0.0619
+       7              1.8    18 -0.135  -0.147   -0.135    -0.135  -0.123 
+       8              1.9     5 -0.137  -0.151   -0.137    -0.137  -0.123 
+       9              2.2    15 -0.144  -0.164   -0.144    -0.144  -0.124 
+      10              2.5    14 -0.145  -0.165   -0.145    -0.145  -0.124 
       
       
       
-      attr(,"ale")$boot$composite$versicolor$stats
-      # A tibble: 12 x 8
+      $ale$boot$composite$versicolor$stats
+      # A tibble: 16 x 8
          term         statistic estimate conf.low   median     mean conf.high     d
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
        1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180     1
-       2 Sepal.Length aler_min   -0.0177  -0.0212  -0.0177  -0.0177   -0.0141     1
-       3 Sepal.Length aler_max    0.0967   0.0358   0.0967   0.0967    0.158      1
-       4 Sepal.Length naled      38.8     35.9     38.8     38.8      41.7        1
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50          1
-       6 Sepal.Length naler_max  16.0     14.5     16.0     16.0      17.6        1
-       7 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109      1
-       8 Petal.Width  aler_min   -0.145   -0.165   -0.145   -0.145    -0.124      1
-       9 Petal.Width  aler_max    0.0855   0.0678   0.0855   0.0855    0.103      1
-      10 Petal.Width  naled      30.5     30.4     30.5     30.5      30.6        1
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50          1
-      12 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7        1
+       2 Sepal.Length aler_min   -0.0177  -0.0213  -0.0177  -0.0177   -0.0141     1
+       3 Sepal.Length aler        0.114    0.0570   0.114    0.114     0.172      1
+       4 Sepal.Length aler_max    0.0967   0.0358   0.0967   0.0967    0.158      1
+       5 Sepal.Length naled      38.8     35.9     38.8     38.8      41.7        1
+       6 Sepal.Length naler_min -50      -50      -50      -50       -50          1
+       7 Sepal.Length naler      66.0     64.5     66.0     66.0      67.6        1
+       8 Sepal.Length naler_max  16.0     14.5     16.0     16.0      17.6        1
+       9 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109      1
+      10 Petal.Width  aler_min   -0.145   -0.165   -0.145   -0.145    -0.124      1
+      11 Petal.Width  aler        0.230    0.192    0.230    0.230     0.268      1
+      12 Petal.Width  aler_max    0.0855   0.0678   0.0855   0.0855    0.103      1
+      13 Petal.Width  naled      30.5     30.4     30.5     30.5      30.6        1
+      14 Petal.Width  naler_min -50      -50      -50      -50       -50          1
+      15 Petal.Width  naler      67.3     66.9     67.3     67.3      67.7        1
+      16 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7        1
       
       
-      attr(,"ale")$boot$composite$virginica
-      attr(,"ale")$boot$composite$virginica$ale
-      attr(,"ale")$boot$composite$virginica$ale$d1
-      attr(,"ale")$boot$composite$virginica$ale$d1$Sepal.Length
+      $ale$boot$composite$virginica
+      $ale$boot$composite$virginica$ale
+      $ale$boot$composite$virginica$ale$d1
+      $ale$boot$composite$virginica$ale$d1$Sepal.Length
       # A tibble: 11 x 7
-         Sepal.Length.ceil    .n        .y    .y_lo   .y_mean .y_median     .y_hi
-                     <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>     <dbl>
-       1               4.3     1  0.0177    0.0141   0.0177    0.0177    0.0213  
-       2               4.8    15  0.0177    0.0141   0.0177    0.0177    0.0213  
-       3               5      16  0.0149    0.0139   0.0149    0.0149    0.0159  
-       4               5.3    14  0.0149    0.0139   0.0149    0.0149    0.0159  
-       5               5.6    19  0.0126    0.0101   0.0126    0.0126    0.0151  
-       6               5.8    15  0.0125    0.0101   0.0125    0.0125    0.0150  
-       7               6.1    15 -0.000312 -0.00293 -0.000312 -0.000312  0.00230 
-       8               6.3    13 -0.0116   -0.0228  -0.0116   -0.0116   -0.000309
-       9               6.5    12 -0.0130   -0.0255  -0.0130   -0.0130   -0.000449
-      10               6.9    17 -0.0189   -0.0270  -0.0189   -0.0189   -0.0108  
-      11               7.9    13 -0.0968   -0.158   -0.0968   -0.0968   -0.0358  
+         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1  0.0177   0.0142   0.0177    0.0177   0.0213 
+       2               4.8    15  0.0177   0.0142   0.0177    0.0177   0.0213 
+       3               5      16  0.0149   0.0139   0.0149    0.0149   0.0160 
+       4               5.3    14  0.0149   0.0138   0.0149    0.0149   0.0160 
+       5               5.6    19  0.0126   0.0101   0.0126    0.0126   0.0151 
+       6               5.8    15  0.0125   0.0101   0.0125    0.0125   0.0150 
+       7               6.1    15 -0.00031 -0.00293 -0.00031  -0.00031  0.0023 
+       8               6.3    13 -0.0116  -0.0228  -0.0116   -0.0116  -0.00031
+       9               6.5    12 -0.0130  -0.0255  -0.0130   -0.0130  -0.00045
+      10               6.9    17 -0.0189  -0.027   -0.0189   -0.0189  -0.0108 
+      11               7.9    13 -0.0968  -0.158   -0.0968   -0.0968  -0.0358 
       
-      attr(,"ale")$boot$composite$virginica$ale$d1$Petal.Width
+      $ale$boot$composite$virginica$ale$d1$Petal.Width
       # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median     .y_hi
-                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>     <dbl>
-       1              0.1     5 -0.0855 -0.103  -0.0855   -0.0855 -0.0678  
-       2              0.2    29 -0.0855 -0.103  -0.0855   -0.0855 -0.0678  
-       3              0.4    14 -0.0855 -0.103  -0.0855   -0.0855 -0.0678  
-       4              1.1    12 -0.0855 -0.103  -0.0855   -0.0855 -0.0678  
-       5              1.3    18 -0.0852 -0.103  -0.0852   -0.0852 -0.0674  
-       6              1.5    20 -0.0308 -0.0619 -0.0308   -0.0308  0.000356
-       7              1.8    18  0.135   0.123   0.135     0.135   0.147   
-       8              1.9     5  0.137   0.123   0.137     0.137   0.151   
-       9              2.2    15  0.144   0.124   0.144     0.144   0.164   
-      10              2.5    14  0.145   0.124   0.145     0.145   0.165   
+         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median    .y_hi
+                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>    <dbl>
+       1              0.1     5 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
+       2              0.2    29 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
+       3              0.4    14 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
+       4              1.1    12 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
+       5              1.3    18 -0.0852 -0.103  -0.0852   -0.0852 -0.0674 
+       6              1.5    20 -0.0308 -0.0619 -0.0308   -0.0308  0.00036
+       7              1.8    18  0.135   0.123   0.135     0.135   0.147  
+       8              1.9     5  0.137   0.123   0.137     0.137   0.151  
+       9              2.2    15  0.144   0.124   0.144     0.144   0.164  
+      10              2.5    14  0.145   0.124   0.145     0.145   0.165  
       
       
       
-      attr(,"ale")$boot$composite$virginica$stats
-      # A tibble: 12 x 8
+      $ale$boot$composite$virginica$stats
+      # A tibble: 16 x 8
          term         statistic estimate conf.low   median     mean conf.high     d
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl> <int>
-       1 Sepal.Length aled        0.0163   0.0145   0.0163   0.0163    0.0180     1
+       1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180     1
        2 Sepal.Length aler_min   -0.0968  -0.158   -0.0968  -0.0968   -0.0358     1
-       3 Sepal.Length aler_max    0.0177   0.0141   0.0177   0.0177    0.0213     1
-       4 Sepal.Length naled      23.2     21.6     23.2     23.2      24.9        1
-       5 Sepal.Length naler_min -50      -50      -50      -50       -50          1
-       6 Sepal.Length naler_max  10.3      8.73    10.3     10.3      11.8        1
-       7 Petal.Width  aled        0.0945   0.0804   0.0945   0.0945    0.109      1
-       8 Petal.Width  aler_min   -0.0855  -0.103   -0.0855  -0.0855   -0.0678     1
-       9 Petal.Width  aler_max    0.145    0.124    0.145    0.145     0.165      1
-      10 Petal.Width  naled      33.8     33.0     33.8     33.8      34.7        1
-      11 Petal.Width  naler_min -50      -50      -50      -50       -50          1
-      12 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8        1
+       3 Sepal.Length aler        0.114    0.0571   0.114    0.114     0.172      1
+       4 Sepal.Length aler_max    0.0177   0.0142   0.0177   0.0177    0.0213     1
+       5 Sepal.Length naled      23.2     21.6     23.2     23.2      24.9        1
+       6 Sepal.Length naler_min -50      -50      -50      -50       -50          1
+       7 Sepal.Length naler      60.3     58.7     60.3     60.3      61.8        1
+       8 Sepal.Length naler_max  10.3      8.72    10.3     10.3      11.8        1
+       9 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109      1
+      10 Petal.Width  aler_min   -0.0855  -0.103   -0.0855  -0.0855   -0.0678     1
+      11 Petal.Width  aler        0.230    0.192    0.230    0.230     0.268      1
+      12 Petal.Width  aler_max    0.145    0.124    0.145    0.145     0.165      1
+      13 Petal.Width  naled      33.8     33.0     33.8     33.8      34.7        1
+      14 Petal.Width  naler_min -50      -50      -50      -50       -50          1
+      15 Petal.Width  naler      60.3     58.7     60.3     60.3      61.8        1
+      16 Petal.Width  naler_max  10.3      8.72    10.3     10.3      11.8        1
       
       
       
-      attr(,"ale")$boot$distinct
-      attr(,"ale")$boot$distinct$setosa
-      attr(,"ale")$boot$distinct$setosa$ale
+      $ale$boot$distinct
+      $ale$boot$distinct$setosa
+      $ale$boot$distinct$setosa$ale
       list()
       
-      attr(,"ale")$boot$distinct$setosa$stats
+      $ale$boot$distinct$setosa$stats
       NULL
       
       
-      attr(,"ale")$boot$distinct$versicolor
-      attr(,"ale")$boot$distinct$versicolor$ale
+      $ale$boot$distinct$versicolor
+      $ale$boot$distinct$versicolor$ale
       list()
       
-      attr(,"ale")$boot$distinct$versicolor$stats
+      $ale$boot$distinct$versicolor$stats
       NULL
       
       
-      attr(,"ale")$boot$distinct$virginica
-      attr(,"ale")$boot$distinct$virginica$ale
+      $ale$boot$distinct$virginica
+      $ale$boot$distinct$virginica$ale
       list()
       
-      attr(,"ale")$boot$distinct$virginica$stats
+      $ale$boot$distinct$virginica$stats
       NULL
       
       
       
       
-      attr(,"params")
-      attr(,"params")$class_model
+      
+      $boot_data
+      NULL
+      
+      $params
+      $params$class_model
       [1] "multinom" "nnet"    
       
-      attr(,"params")$y_type
+      $params$y_type
       [1] "categorical"
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "setosa"     "versicolor" "virginica" 
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$hash
-      [1] "98d0d7300ac98af905946ebc87cbd59b"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
           Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
       1            5.1         3.5          1.4         0.2     setosa
       2            4.9         3.0          1.4         0.2     setosa
@@ -2702,7 +2739,7 @@
       149          6.2         3.4          5.4         2.3  virginica
       150          5.9         3.0          5.1         1.8  virginica
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                 setosa   versicolor    virginica
       1   1.000000e+00 1.526406e-09 2.716417e-36
       2   9.999996e-01 3.536476e-07 2.883729e-32
@@ -2855,83 +2892,86 @@
       149 6.009635e-17 4.504137e-06 9.999955e-01
       150 2.726745e-14 2.243538e-02 9.775646e-01
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 150
       
       
-      attr(,"params")$model_call_string
+      $params$model_call_string
       [1] "nnet::multinom(Species ~ ., data = btit.data, trace = FALSE)"
       
-      attr(,"params")$model_call_string_vars
+      $params$model_call_string_vars
       character(0)
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       [1] "nnet"
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "Species"
       
-      attr(,"params")$positive
+      $params$positive
       [1] FALSE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "probs"
       
-      attr(,"params")$boot_it
+      $params$boot_it
       [1] 2
       
-      attr(,"params")$boot_alpha
+      $params$boot_alpha
       [1] 0.1
       
-      attr(,"params")$boot_centre
+      $params$boot_centre
       [1] "median"
       
-      attr(,"params")$seed
+      $params$seed
       [1] 1234
       
-      attr(,"params")$output_model_stats
+      $params$output_model_stats
       [1] TRUE
       
-      attr(,"params")$output_model_coefs
+      $params$output_model_coefs
       [1] TRUE
       
-      attr(,"params")$output_ale
+      $params$output_ale
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] FALSE
       
-      attr(,"params")$ale_options
-      attr(,"params")$ale_options$x_cols
+      $params$ale_options
+      $params$ale_options$x_cols
       [1] "Sepal.Length" "Petal.Width" 
       
-      attr(,"params")$ale_options$pred_type
+      $params$ale_options$pred_type
       [1] "probs"
       
       
-      attr(,"params")$ale_p
+      $params$ale_p
       NULL
       
-      attr(,"params")$tidy_options
+      $params$tidy_options
       list()
       
-      attr(,"params")$glance_options
+      $params$glance_options
       list()
+      
       
 
 ---
 
     Code
-      get(mb, "Sepal.Length")
+      {
+        x
+      }
     Output
       $setosa
       # A tibble: 11 x 7
@@ -2985,7 +3025,9 @@
 ---
 
     Code
-      get(mb, "Petal.Width", type = "single")
+      {
+        x
+      }
     Output
       $setosa
       # A tibble: 10 x 7
@@ -3036,59 +3078,65 @@
 ---
 
     Code
-      suppressMessages(ale_plots_to_data(plot(mb)))
+      {
+        x
+      }
+    Message
+      `height` was translated to `width`.
+      `height` was translated to `width`.
+      `height` was translated to `width`.
     Output
       $setosa
       $setosa$d1
       $setosa$d1$Sepal.Length
-                  ymin          ymax   x             y PANEL group flipped_aes colour
-      1  -2.104544e-04 -4.265046e-05 4.3 -2.104544e-04     1    -1       FALSE     NA
-      2  -1.998976e-05 -5.872532e-06 4.8 -1.998976e-05     1    -1       FALSE     NA
-      3  -1.827810e-05 -5.524773e-06 5.0 -1.827810e-05     1    -1       FALSE     NA
-      4   4.248271e-06  9.909734e-06 5.3  4.248271e-06     1    -1       FALSE     NA
-      5   4.420385e-06  9.938662e-06 5.6  4.420385e-06     1    -1       FALSE     NA
-      6   4.608129e-06  1.350554e-05 5.8  4.608129e-06     1    -1       FALSE     NA
-      7   4.624938e-06  1.380432e-05 6.1  4.624938e-06     1    -1       FALSE     NA
-      8   4.625805e-06  1.382079e-05 6.3  4.625805e-06     1    -1       FALSE     NA
-      9   4.625830e-06  1.382080e-05 6.5  4.625830e-06     1    -1       FALSE     NA
-      10  4.667335e-06  1.460902e-05 6.9  4.667335e-06     1    -1       FALSE     NA
-      11  5.155830e-06  2.389042e-05 7.9  5.155830e-06     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
+             ymin   ymax   x        y PANEL group flipped_aes colour   fill linewidth
+      1  -0.00021 -4e-05 4.3 -0.00021     1    -1       FALSE     NA grey85       0.5
+      2  -0.00002 -1e-05 4.8 -0.00002     1    -1       FALSE     NA grey85       0.5
+      3  -0.00002 -1e-05 5.0 -0.00002     1    -1       FALSE     NA grey85       0.5
+      4   0.00000  1e-05 5.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      5   0.00000  1e-05 5.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      6   0.00000  1e-05 5.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      7   0.00000  1e-05 6.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      8   0.00000  1e-05 6.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      9   0.00000  1e-05 6.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      10  0.00000  1e-05 6.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      11  0.00001  2e-05 7.9  0.00001     1    -1       FALSE     NA grey85       0.5
+         linetype alpha
+      1         1   0.5
+      2         1   0.5
+      3         1   0.5
+      4         1   0.5
+      5         1   0.5
+      6         1   0.5
+      7         1   0.5
+      8         1   0.5
+      9         1   0.5
+      10        1   0.5
+      11        1   0.5
       
       $setosa$d1$Petal.Width
-                  ymin          ymax   x             y PANEL group flipped_aes colour
-      1  -7.344934e-05 -6.901325e-06 0.1 -7.344934e-05     1    -1       FALSE     NA
-      2  -5.701848e-05 -5.955499e-06 0.2 -5.701848e-05     1    -1       FALSE     NA
-      3  -1.312030e-06  1.218459e-05 0.4 -1.312030e-06     1    -1       FALSE     NA
-      4   2.499154e-06  2.212945e-05 1.1  2.499154e-06     1    -1       FALSE     NA
-      5   2.535712e-06  2.242669e-05 1.3  2.535712e-06     1    -1       FALSE     NA
-      6   2.547290e-06  2.242791e-05 1.5  2.547290e-06     1    -1       FALSE     NA
-      7   2.549764e-06  2.245772e-05 1.8  2.549764e-06     1    -1       FALSE     NA
-      8   2.549764e-06  2.245772e-05 1.9  2.549764e-06     1    -1       FALSE     NA
-      9   2.549761e-06  2.245772e-05 2.2  2.549761e-06     1    -1       FALSE     NA
-      10  2.549761e-06  2.245772e-05 2.5  2.549761e-06     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
+           ymin   ymax   x      y PANEL group flipped_aes colour   fill linewidth
+      1  -7e-05 -1e-05 0.1 -7e-05     1    -1       FALSE     NA grey85       0.5
+      2  -6e-05 -1e-05 0.2 -6e-05     1    -1       FALSE     NA grey85       0.5
+      3   0e+00  1e-05 0.4  0e+00     1    -1       FALSE     NA grey85       0.5
+      4   0e+00  2e-05 1.1  0e+00     1    -1       FALSE     NA grey85       0.5
+      5   0e+00  2e-05 1.3  0e+00     1    -1       FALSE     NA grey85       0.5
+      6   0e+00  2e-05 1.5  0e+00     1    -1       FALSE     NA grey85       0.5
+      7   0e+00  2e-05 1.8  0e+00     1    -1       FALSE     NA grey85       0.5
+      8   0e+00  2e-05 1.9  0e+00     1    -1       FALSE     NA grey85       0.5
+      9   0e+00  2e-05 2.2  0e+00     1    -1       FALSE     NA grey85       0.5
+      10  0e+00  2e-05 2.5  0e+00     1    -1       FALSE     NA grey85       0.5
+         linetype alpha
+      1         1   0.5
+      2         1   0.5
+      3         1   0.5
+      4         1   0.5
+      5         1   0.5
+      6         1   0.5
+      7         1   0.5
+      8         1   0.5
+      9         1   0.5
+      10        1   0.5
       
       
       $setosa$d2
@@ -3101,12 +3149,12 @@
       2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $setosa$eff[[2]]
-                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1 -1.265524e-04 1.452312e-05 1     1     1        TRUE 0.875 1.125  black
-      2 -4.017533e-05 1.250374e-05 2     1     2        TRUE 1.875 2.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
+            xmin  xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1 -0.00013 1e-05 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.00004 1e-05 2     1     2        TRUE 1.875 2.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
       
       $setosa$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
@@ -3122,17 +3170,17 @@
       2    -1    NA        1        1.2
       
       $setosa$eff[[5]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+         x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.86606     0   0.5
         vjust alpha fontface lineheight
       1   0.5    NA        1        1.2
       2   0.5    NA        1        1.2
       
       $setosa$eff[[6]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+         x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.86606     0   0.5
         vjust alpha fontface lineheight
       1   0.5    NA        1        1.2
       2   0.5    NA        1        1.2
@@ -3158,54 +3206,54 @@
       $versicolor
       $versicolor$d1
       $versicolor$d1$Sepal.Length
-                  ymin         ymax   x             y PANEL group flipped_aes colour
-      1  -0.0210108497 -0.014059110 4.3 -0.0210108497     1    -1       FALSE     NA
-      2  -0.0212013143 -0.014095888 4.8 -0.0212013143     1    -1       FALSE     NA
-      3  -0.0158845179 -0.013816315 5.0 -0.0158845179     1    -1       FALSE     NA
-      4  -0.0159094865 -0.013813103 5.3 -0.0159094865     1    -1       FALSE     NA
-      5  -0.0150620537 -0.010055297 5.6 -0.0150620537     1    -1       FALSE     NA
-      6  -0.0149387090 -0.010048805 5.8 -0.0149387090     1    -1       FALSE     NA
-      7  -0.0022607818  0.002957259 6.1 -0.0022607818     1    -1       FALSE     NA
-      8   0.0003502068  0.022862592 6.3  0.0003502068     1    -1       FALSE     NA
-      9   0.0004902782  0.025518067 6.5  0.0004902782     1    -1       FALSE     NA
-      10  0.0107970382  0.027032987 6.9  0.0107970382     1    -1       FALSE     NA
-      11  0.0358124368  0.157750506 7.9  0.0358124368     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
+             ymin     ymax   x        y PANEL group flipped_aes colour   fill
+      1  -0.02101 -0.01406 4.3 -0.02101     1    -1       FALSE     NA grey85
+      2  -0.02120 -0.01410 4.8 -0.02120     1    -1       FALSE     NA grey85
+      3  -0.01588 -0.01382 5.0 -0.01588     1    -1       FALSE     NA grey85
+      4  -0.01591 -0.01381 5.3 -0.01591     1    -1       FALSE     NA grey85
+      5  -0.01506 -0.01006 5.6 -0.01506     1    -1       FALSE     NA grey85
+      6  -0.01494 -0.01005 5.8 -0.01494     1    -1       FALSE     NA grey85
+      7  -0.00226  0.00296 6.1 -0.00226     1    -1       FALSE     NA grey85
+      8   0.00035  0.02286 6.3  0.00035     1    -1       FALSE     NA grey85
+      9   0.00049  0.02552 6.5  0.00049     1    -1       FALSE     NA grey85
+      10  0.01080  0.02703 6.9  0.01080     1    -1       FALSE     NA grey85
+      11  0.03581  0.15775 7.9  0.03581     1    -1       FALSE     NA grey85
+         linewidth linetype alpha
+      1        0.5        1   0.5
+      2        0.5        1   0.5
+      3        0.5        1   0.5
+      4        0.5        1   0.5
+      5        0.5        1   0.5
+      6        0.5        1   0.5
+      7        0.5        1   0.5
+      8        0.5        1   0.5
+      9        0.5        1   0.5
+      10       0.5        1   0.5
+      11       0.5        1   0.5
       
       $versicolor$d1$Petal.Width
-                  ymin        ymax   x             y PANEL group flipped_aes colour
-      1   0.0678790387  0.10325976 0.1  0.0678790387     1    -1       FALSE     NA
-      2   0.0678626078  0.10325882 0.2  0.0678626078     1    -1       FALSE     NA
-      3   0.0677934048  0.10325417 0.4  0.0677934048     1    -1       FALSE     NA
-      4   0.0677832873  0.10324708 1.1  0.0677832873     1    -1       FALSE     NA
-      5   0.0674208075  0.10303446 1.3  0.0674208075     1    -1       FALSE     NA
-      6  -0.0003124206  0.06195992 1.5 -0.0003124206     1    -1       FALSE     NA
-      7  -0.1466535923 -0.12320501 1.8 -0.1466535923     1    -1       FALSE     NA
-      8  -0.1507740790 -0.12342188 1.9 -0.1507740790     1    -1       FALSE     NA
-      9  -0.1643243692 -0.12414797 2.2 -0.1643243692     1    -1       FALSE     NA
-      10 -0.1648598430 -0.12419229 2.5 -0.1648598430     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
+             ymin     ymax   x        y PANEL group flipped_aes colour   fill
+      1   0.06788  0.10326 0.1  0.06788     1    -1       FALSE     NA grey85
+      2   0.06786  0.10326 0.2  0.06786     1    -1       FALSE     NA grey85
+      3   0.06779  0.10325 0.4  0.06779     1    -1       FALSE     NA grey85
+      4   0.06778  0.10325 1.1  0.06778     1    -1       FALSE     NA grey85
+      5   0.06742  0.10303 1.3  0.06742     1    -1       FALSE     NA grey85
+      6  -0.00031  0.06196 1.5 -0.00031     1    -1       FALSE     NA grey85
+      7  -0.14665 -0.12321 1.8 -0.14665     1    -1       FALSE     NA grey85
+      8  -0.15077 -0.12342 1.9 -0.15077     1    -1       FALSE     NA grey85
+      9  -0.16432 -0.12415 2.2 -0.16432     1    -1       FALSE     NA grey85
+      10 -0.16486 -0.12419 2.5 -0.16486     1    -1       FALSE     NA grey85
+         linewidth linetype alpha
+      1        0.5        1   0.5
+      2        0.5        1   0.5
+      3        0.5        1   0.5
+      4        0.5        1   0.5
+      5        0.5        1   0.5
+      6        0.5        1   0.5
+      7        0.5        1   0.5
+      8        0.5        1   0.5
+      9        0.5        1   0.5
+      10       0.5        1   0.5
       
       
       $versicolor$d2
@@ -3218,9 +3266,9 @@
       2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $versicolor$eff[[2]]
-               xmin       xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.01764874 0.09678147 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.14452607 0.08556940 2     1     2        TRUE 1.875 2.125  black       0.5
+            xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1 -0.01765 0.09678 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.14453 0.08557 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -3239,17 +3287,17 @@
       2    -1    NA        1        1.2
       
       $versicolor$eff[[5]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+         x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.86606     0   0.5
         vjust alpha fontface lineheight
       1   0.5    NA        1        1.2
       2   0.5    NA        1        1.2
       
       $versicolor$eff[[6]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+         x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.86606     0   0.5
         vjust alpha fontface lineheight
       1   0.5    NA        1        1.2
       2   0.5    NA        1        1.2
@@ -3275,54 +3323,54 @@
       $virginica
       $virginica$d1
       $virginica$d1$Sepal.Length
-                ymin          ymax   x           y PANEL group flipped_aes colour
-      1   0.01416249  0.0212820369 4.3  0.01416249     1    -1       FALSE     NA
-      2   0.01416249  0.0212820369 4.8  0.01416249     1    -1       FALSE     NA
-      3   0.01388257  0.0159635288 5.0  0.01388257     1    -1       FALSE     NA
-      4   0.01386959  0.0159603096 5.3  0.01386959     1    -1       FALSE     NA
-      5   0.01011161  0.0151128479 5.6  0.01011161     1    -1       FALSE     NA
-      6   0.01010493  0.0149859363 5.8  0.01010493     1    -1       FALSE     NA
-      7  -0.00291033  0.0023168897 6.1 -0.00291033     1    -1       FALSE     NA
-      8  -0.02281568 -0.0002940998 6.3 -0.02281568     1    -1       FALSE     NA
-      9  -0.02547116 -0.0004341712 6.5 -0.02547116     1    -1       FALSE     NA
-      10 -0.02698686 -0.0107409727 6.9 -0.02698686     1    -1       FALSE     NA
-      11 -0.15769493 -0.0357755944 7.9 -0.15769493     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
+             ymin     ymax   x        y PANEL group flipped_aes colour   fill
+      1   0.01416  0.02128 4.3  0.01416     1    -1       FALSE     NA grey85
+      2   0.01416  0.02128 4.8  0.01416     1    -1       FALSE     NA grey85
+      3   0.01388  0.01596 5.0  0.01388     1    -1       FALSE     NA grey85
+      4   0.01387  0.01596 5.3  0.01387     1    -1       FALSE     NA grey85
+      5   0.01011  0.01511 5.6  0.01011     1    -1       FALSE     NA grey85
+      6   0.01010  0.01499 5.8  0.01010     1    -1       FALSE     NA grey85
+      7  -0.00291  0.00232 6.1 -0.00291     1    -1       FALSE     NA grey85
+      8  -0.02282 -0.00029 6.3 -0.02282     1    -1       FALSE     NA grey85
+      9  -0.02547 -0.00043 6.5 -0.02547     1    -1       FALSE     NA grey85
+      10 -0.02699 -0.01074 6.9 -0.02699     1    -1       FALSE     NA grey85
+      11 -0.15769 -0.03578 7.9 -0.15769     1    -1       FALSE     NA grey85
+         linewidth linetype alpha
+      1        0.5        1   0.5
+      2        0.5        1   0.5
+      3        0.5        1   0.5
+      4        0.5        1   0.5
+      5        0.5        1   0.5
+      6        0.5        1   0.5
+      7        0.5        1   0.5
+      8        0.5        1   0.5
+      9        0.5        1   0.5
+      10       0.5        1   0.5
+      11       0.5        1   0.5
       
       $virginica$d1$Petal.Width
-                ymin          ymax   x           y PANEL group flipped_aes colour
-      1  -0.10319213 -0.0677448565 0.1 -0.10319213     1    -1       FALSE     NA
-      2  -0.10319213 -0.0677448565 0.2 -0.10319213     1    -1       FALSE     NA
-      3  -0.10319213 -0.0677448565 0.4 -0.10319213     1    -1       FALSE     NA
-      4  -0.10318885 -0.0677446839 1.1 -0.10318885     1    -1       FALSE     NA
-      5  -0.10297627 -0.0673825014 1.3 -0.10297627     1    -1       FALSE     NA
-      6  -0.06192162  0.0003706061 1.5 -0.06192162     1    -1       FALSE     NA
-      7   0.12324328  0.1467117754 1.8  0.12324328     1    -1       FALSE     NA
-      8   0.12346016  0.1508322621 1.9  0.12346016     1    -1       FALSE     NA
-      9   0.12418625  0.1643825523 2.2  0.12418625     1    -1       FALSE     NA
-      10  0.12423057  0.1649180261 2.5  0.12423057     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
+             ymin     ymax   x        y PANEL group flipped_aes colour   fill
+      1  -0.10319 -0.06774 0.1 -0.10319     1    -1       FALSE     NA grey85
+      2  -0.10319 -0.06774 0.2 -0.10319     1    -1       FALSE     NA grey85
+      3  -0.10319 -0.06774 0.4 -0.10319     1    -1       FALSE     NA grey85
+      4  -0.10319 -0.06774 1.1 -0.10319     1    -1       FALSE     NA grey85
+      5  -0.10298 -0.06738 1.3 -0.10298     1    -1       FALSE     NA grey85
+      6  -0.06192  0.00037 1.5 -0.06192     1    -1       FALSE     NA grey85
+      7   0.12324  0.14671 1.8  0.12324     1    -1       FALSE     NA grey85
+      8   0.12346  0.15083 1.9  0.12346     1    -1       FALSE     NA grey85
+      9   0.12419  0.16438 2.2  0.12419     1    -1       FALSE     NA grey85
+      10  0.12423  0.16492 2.5  0.12423     1    -1       FALSE     NA grey85
+         linewidth linetype alpha
+      1        0.5        1   0.5
+      2        0.5        1   0.5
+      3        0.5        1   0.5
+      4        0.5        1   0.5
+      5        0.5        1   0.5
+      6        0.5        1   0.5
+      7        0.5        1   0.5
+      8        0.5        1   0.5
+      9        0.5        1   0.5
+      10       0.5        1   0.5
       
       
       $virginica$d2
@@ -3335,9 +3383,9 @@
       2 2     1     2   NA   NA -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $virginica$eff[[2]]
-               xmin       xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.09673526 0.01772227 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.08546849 0.14457430 2     1     2        TRUE 1.875 2.125  black       0.5
+            xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1 -0.09674 0.01772 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.08547 0.14457 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -3356,17 +3404,17 @@
       2    -1    NA        1        1.2
       
       $virginica$eff[[5]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ( 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ( 2.02     1     2       0    0.02  black        3.866058     0   0.5
+         x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 NA     ( 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 NA     ( 2.02     1     2       0    0.02  black        3.86606     0   0.5
         vjust alpha fontface lineheight
       1   0.5    NA        1        1.2
       2   0.5    NA        1        1.2
       
       $virginica$eff[[6]]
-         x label    y PANEL group nudge_x nudge_y colour family     size angle hjust
-      1 NA     ) 1.02     1     1       0    0.02  black        3.866058     0   0.5
-      2 NA     ) 2.02     1     2       0    0.02  black        3.866058     0   0.5
+         x label    y PANEL group nudge_x nudge_y colour family    size angle hjust
+      1 NA     ) 1.02     1     1       0    0.02  black        3.86606     0   0.5
+      2 NA     ) 2.02     1     2       0    0.02  black        3.86606     0   0.5
         vjust alpha fontface lineheight
       1   0.5    NA        1        1.2
       2   0.5    NA        1        1.2

@@ -145,7 +145,7 @@
 #' # Calculate ALEs with p-values
 #' ale_gam_diamonds <- retrieve_rds(
 #'   # For speed, load a pre-created object by default.
-#'   c(serialized_objects_site, 'ale_gam_diamonds_stats_readme.0.5.3.rds'),
+#'   c(serialized_objects_site, 'ale_gam_diamonds_stats_readme.0.5.2.rds'),
 #'   {
 #'     # To run the code yourself, execute this code block directly.
 #'     ALE(
@@ -171,7 +171,7 @@
 #'
 #' pd_diamonds_special <- retrieve_rds(
 #'   # For speed, load a pre-created object by default.
-#'   c(serialized_objects_site, 'pd_diamonds_special.0.5.2.rds'),
+#'   c(serialized_objects_site, 'pd_diamonds_special.0.5.3.rds'),
 #'   {
 #'     # To run the code yourself, execute this code block directly.
 #'     ALEpDist(
@@ -467,7 +467,7 @@ ALEpDist <- new_class(
 
     # Enable parallel processing and restore former parallel plan on exit
     if (parallel > 0) {
-      future::plan(future::multisession, workers = parallel) |>
+      future::plan(future_session(), workers = parallel) |>
         # https://github.com/tripartio/ale/issues/17
         with(local = TRUE)
     }

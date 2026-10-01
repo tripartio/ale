@@ -1,23 +1,15 @@
 # bootstrapped binary outcome with full 1D and 2D ALE
 
     Code
-      unclass(cat_cars_ale)
+      {
+        x
+      }
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, comp, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ composite: <list>          
-       $ distinct : <list> or <NULL>
-       $ params   : <list>          
-      attr(,"composite")
-      attr(,"composite")$Asia
-      attr(,"composite")$Asia$ale
-      attr(,"composite")$Asia$ale$d1
-      attr(,"composite")$Asia$ale$d1$mpg
+      $composite
+      $composite$Asia
+      $composite$Asia$ale
+      $composite$Asia$ale$d1
+      $composite$Asia$ale$d1$mpg
       # A tibble: 11 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -33,21 +25,21 @@
       10     30.4     7     0     0       0         0     0
       11     33.9     5     0     0       0         0     0
       
-      attr(,"composite")$Asia$ale$d1$vs
+      $composite$Asia$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36     0     0       0         0     0
       2 TRUE      28     0     0       0         0     0
       
-      attr(,"composite")$Asia$ale$d1$am
+      $composite$Asia$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
         <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
       1 FALSE     38  0.0309   0.0298   0.0309    0.0309   0.0321 
       2 TRUE      26 -0.00838 -0.00998 -0.00838  -0.00838 -0.00678
       
-      attr(,"composite")$Asia$ale$d1$model
+      $composite$Asia$ale$d1$model
       # A tibble: 32 x 7
          model.bin             .n     .y .y_lo .y_mean .y_median  .y_hi
          <ord>              <int>  <dbl> <dbl>   <dbl>     <dbl>  <dbl>
@@ -63,7 +55,7 @@
       10 Fiat X1-9              2 -2.56  -2.91  -2.56     -2.56  -2.20 
       # i 22 more rows
       
-      attr(,"composite")$Asia$ale$d1$gear
+      $composite$Asia$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -71,35 +63,35 @@
       2 four        24 -0.0330 -0.155  -0.0330   -0.0330  0.0896
       3 five        10 -0.232  -0.449  -0.232    -0.232  -0.0155
       
-      attr(,"composite")$Asia$ale$d1$carb
+      $composite$Asia$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n       .y    .y_lo  .y_mean .y_median     .y_hi
-            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>     <dbl>
-      1         1    14  0.00549  0.00549  0.00549   0.00549  0.00549 
-      2         2    19 -0.00189 -0.00367 -0.00189  -0.00189 -0.000117
-      3         3     9 -0.00189 -0.00367 -0.00189  -0.00189 -0.000117
-      4         4    16 -0.00189 -0.00367 -0.00189  -0.00189 -0.000117
-      5         8     6 -0.00189 -0.00367 -0.00189  -0.00189 -0.000117
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14  0.00549  0.00549  0.00549   0.00549  0.00549
+      2         2    19 -0.00189 -0.00367 -0.00189  -0.00189 -0.00012
+      3         3     9 -0.00189 -0.00367 -0.00189  -0.00189 -0.00012
+      4         4    16 -0.00189 -0.00367 -0.00189  -0.00189 -0.00012
+      5         8     6 -0.00189 -0.00367 -0.00189  -0.00189 -0.00012
       
-      attr(,"composite")$Asia$ale$d1$wt
+      $composite$Asia$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n          .y      .y_lo     .y_mean   .y_median      .y_hi
-           <dbl> <int>       <dbl>      <dbl>       <dbl>       <dbl>      <dbl>
-       1    1.50     1  0.0000259   0.0000259  0.0000259   0.0000259  0.0000259 
-       2    1.93     6 -0.00000108 -0.0000137 -0.00000108 -0.00000108 0.0000115 
-       3    2.31     6 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000467
-       4    2.78     7 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000467
-       5    3.16     6 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000466
-       6    3.22     6 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000466
-       7    3.44     7 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000466
-       8    3.56     6 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000466
-       9    3.79     7 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000466
-      10    4.07     6 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000466
-      11    5.45     6 -0.00000952 -0.0000237 -0.00000952 -0.00000952 0.00000466
+         wt.ceil    .n       .y    .y_lo  .y_mean .y_median   .y_hi
+           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
+       1    1.50     1  0.00003  0.00003  0.00003   0.00003 0.00003
+       2    1.93     6  0       -0.00001  0         0       0.00001
+       3    2.31     6 -0.00001 -0.00002 -0.00001  -0.00001 0      
+       4    2.78     7 -0.00001 -0.00002 -0.00001  -0.00001 0      
+       5    3.16     6 -0.00001 -0.00002 -0.00001  -0.00001 0      
+       6    3.22     6 -0.00001 -0.00002 -0.00001  -0.00001 0      
+       7    3.44     7 -0.00001 -0.00002 -0.00001  -0.00001 0      
+       8    3.56     6 -0.00001 -0.00002 -0.00001  -0.00001 0      
+       9    3.79     7 -0.00001 -0.00002 -0.00001  -0.00001 0      
+      10    4.07     6 -0.00001 -0.00002 -0.00001  -0.00001 0      
+      11    5.45     6 -0.00001 -0.00002 -0.00001  -0.00001 0      
       
       
-      attr(,"composite")$Asia$ale$d2
-      attr(,"composite")$Asia$ale$d2$`mpg:vs`
+      $composite$Asia$ale$d2
+      $composite$Asia$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -115,7 +107,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$Asia$ale$d2$`mpg:am`
+      $composite$Asia$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -131,7 +123,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$Asia$ale$d2$`mpg:model`
+      $composite$Asia$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -147,7 +139,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"composite")$Asia$ale$d2$`mpg:gear`
+      $composite$Asia$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -163,7 +155,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"composite")$Asia$ale$d2$`mpg:carb`
+      $composite$Asia$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -179,7 +171,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"composite")$Asia$ale$d2$`mpg:wt`
+      $composite$Asia$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -195,7 +187,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"composite")$Asia$ale$d2$`vs:am`
+      $composite$Asia$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -204,7 +196,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"composite")$Asia$ale$d2$`vs:model`
+      $composite$Asia$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -220,7 +212,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"composite")$Asia$ale$d2$`vs:gear`
+      $composite$Asia$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -231,7 +223,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"composite")$Asia$ale$d2$`vs:carb`
+      $composite$Asia$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -246,7 +238,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"composite")$Asia$ale$d2$`vs:wt`
+      $composite$Asia$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -262,7 +254,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$Asia$ale$d2$`am:model`
+      $composite$Asia$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>  <ord>              <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -271,14 +263,14 @@
        3 FALSE  Cadillac Fleetwood     0  2.14   2.14    2.14      2.14   2.14 
        4 TRUE   Cadillac Fleetwood     2  1.39   1.22    1.39      1.39   1.56 
        5 FALSE  Camaro Z28             0  2.14   2.14    2.14      2.14   2.14 
-       6 TRUE   Camaro Z28             2  0.795  0.715   0.795     0.795  0.875
+       6 TRUE   Camaro Z28             2  0.795  0.716   0.795     0.795  0.875
        7 FALSE  Chrysler Imperial      2  1.64   1.64    1.64      1.64   1.64 
        8 TRUE   Chrysler Imperial      0 -0.276 -0.288  -0.276    -0.276 -0.263
        9 FALSE  Datsun 710             2  1.46   1.28    1.46      1.46   1.63 
       10 TRUE   Datsun 710             0 -1.01  -1.21   -1.01     -1.01  -0.800
       # i 54 more rows
       
-      attr(,"composite")$Asia$ale$d2$`am:gear`
+      $composite$Asia$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>  <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -289,7 +281,7 @@
       5 FALSE  five         0 -0.104  -0.188  -0.104    -0.104  -0.0210
       6 TRUE   five        10 -0.468  -0.743  -0.468    -0.468  -0.194 
       
-      attr(,"composite")$Asia$ale$d2$`am:carb`
+      $composite$Asia$ale$d2$`am:carb`
       # A tibble: 10 x 8
          am.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -304,7 +296,7 @@
        9 FALSE          8     2  0.235   0.189   0.235     0.235   0.280 
       10 TRUE           8     4  0.364   0.314   0.364     0.364   0.415 
       
-      attr(,"composite")$Asia$ale$d2$`am:wt`
+      $composite$Asia$ale$d2$`am:wt`
       # A tibble: 22 x 8
          am.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -312,15 +304,15 @@
        2 TRUE      1.50     1 -0.00669 -0.00669 -0.00669  -0.00669 -0.00669
        3 FALSE     1.93     0 -0.00669 -0.00669 -0.00669  -0.00669 -0.00669
        4 TRUE      1.93     6 -0.00672 -0.00673 -0.00672  -0.00672 -0.00671
-       5 FALSE     2.31     0 -0.00670 -0.00670 -0.00670  -0.00670 -0.00670
+       5 FALSE     2.31     0 -0.0067  -0.0067  -0.0067   -0.0067  -0.0067 
        6 TRUE      2.31     6 -0.00673 -0.00674 -0.00673  -0.00673 -0.00672
-       7 FALSE     2.78     2  0.0382   0.0339   0.0382    0.0382   0.0425 
+       7 FALSE     2.78     2  0.0382   0.0340   0.0382    0.0382   0.0425 
        8 TRUE      2.78     5  0.0567   0.0348   0.0567    0.0567   0.0786 
        9 FALSE     3.16     2  0.0641   0.0352   0.0641    0.0641   0.0930 
       10 TRUE      3.16     4  0.122    0.112    0.122     0.122    0.131  
       # i 12 more rows
       
-      attr(,"composite")$Asia$ale$d2$`model:gear`
+      $composite$Asia$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n    .y  .y_lo .y_mean .y_median .y_hi
          <ord>              <ord>    <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -328,7 +320,7 @@
        2 Cadillac Fleetwood three        0 0.989 0.989    0.989     0.989 0.989
        3 Camaro Z28         three        0 0.989 0.989    0.989     0.989 0.989
        4 Chrysler Imperial  three        2 0.489 0.489    0.489     0.489 0.489
-       5 Datsun 710         three        2 0.284 0.0883   0.284     0.284 0.479
+       5 Datsun 710         three        2 0.284 0.0884   0.284     0.284 0.479
        6 Dodge Challenger   three        2 0.289 0.0983   0.289     0.289 0.479
        7 Duster 360         three        2 0.289 0.0983   0.289     0.289 0.479
        8 Ferrari Dino       three        0 0.289 0.0984   0.289     0.289 0.479
@@ -336,7 +328,7 @@
       10 Fiat X1-9          three        0 0.289 0.0988   0.289     0.289 0.479
       # i 86 more rows
       
-      attr(,"composite")$Asia$ale$d2$`model:carb`
+      $composite$Asia$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>                  <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -352,7 +344,7 @@
       10 Fiat X1-9                  1     0 -1.37 -1.37   -1.37     -1.37 -1.37
       # i 150 more rows
       
-      attr(,"composite")$Asia$ale$d2$`model:wt`
+      $composite$Asia$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>                <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -368,7 +360,7 @@
       10 Fiat X1-9             1.50     0 -0.982 -0.982  -0.982    -0.982 -0.982
       # i 342 more rows
       
-      attr(,"composite")$Asia$ale$d2$`gear:carb`
+      $composite$Asia$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n       .y   .y_lo  .y_mean .y_median   .y_hi
          <ord>        <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
@@ -388,7 +380,7 @@
       14 four             8     1  0.203    0.124   0.203     0.203    0.282 
       15 five             8     4  0.190    0.0929  0.190     0.190    0.286 
       
-      attr(,"composite")$Asia$ale$d2$`gear:wt`
+      $composite$Asia$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
@@ -398,49 +390,49 @@
        4 three       1.93     0  0.00928 -0.0119   0.00928   0.00928  0.0305
        5 four        1.93     5  0.0139  -0.00922  0.0139    0.0139   0.0371
        6 five        1.93     1  0.0139  -0.00922  0.0139    0.0139   0.0371
-       7 three       2.31     0  0.0129  -0.0118   0.0129    0.0129   0.0375
+       7 three       2.31     0  0.0128  -0.0118   0.0128    0.0128   0.0375
        8 four        2.31     4  0.0220  -0.00621  0.0220    0.0220   0.0503
        9 five        2.31     2  0.0248  -0.00607  0.0248    0.0248   0.0557
       10 three       2.78     2  0.0132  -0.0115   0.0132    0.0132   0.0378
       # i 23 more rows
       
-      attr(,"composite")$Asia$ale$d2$`carb:wt`
+      $composite$Asia$ale$d2$`carb:wt`
       # A tibble: 55 x 8
-         carb.ceil wt.ceil    .n       .y   .y_lo  .y_mean .y_median      .y_hi
-             <dbl>   <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>      <dbl>
-       1         1    1.50     0 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192   
-       2         2    1.50     1 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192   
-       3         3    1.50     0 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192   
-       4         4    1.50     0 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192   
-       5         8    1.50     0 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192   
-       6         1    1.93     3 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192   
-       7         2    1.93     3 -0.00832 -0.0167 -0.00832  -0.00832  0.0000798
-       8         3    1.93     0 -0.00832 -0.0167 -0.00832  -0.00832  0.0000798
-       9         4    1.93     0 -0.00832 -0.0167 -0.00832  -0.00832  0.0000798
-      10         8    1.93     0 -0.00832 -0.0167 -0.00832  -0.00832  0.0000798
+         carb.ceil wt.ceil    .n       .y   .y_lo  .y_mean .y_median    .y_hi
+             <dbl>   <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>    <dbl>
+       1         1    1.50     0 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192 
+       2         2    1.50     1 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192 
+       3         3    1.50     0 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192 
+       4         4    1.50     0 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192 
+       5         8    1.50     0 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192 
+       6         1    1.93     3 -0.0192  -0.0192 -0.0192   -0.0192  -0.0192 
+       7         2    1.93     3 -0.00832 -0.0167 -0.00832  -0.00832  0.00008
+       8         3    1.93     0 -0.00832 -0.0167 -0.00832  -0.00832  0.00008
+       9         4    1.93     0 -0.00832 -0.0167 -0.00832  -0.00832  0.00008
+      10         8    1.93     0 -0.00832 -0.0167 -0.00832  -0.00832  0.00008
       # i 45 more rows
       
       
       
-      attr(,"composite")$Asia$stats
-      # A tibble: 168 x 9
+      $composite$Asia$stats
+      # A tibble: 224 x 9
          statistic estimate p.value term  conf.low  mean median conf.high     d
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl> <int>
        1 aled             0       1 mpg          0     0      0         0     1
        2 aler_min         0       1 mpg          0     0      0         0     1
-       3 aler_max         0       1 mpg          0     0      0         0     1
-       4 naled            0       0 mpg          0     0      0         0     1
-       5 naler_min        0       1 mpg          0     0      0         0     1
-       6 naler_max        0       0 mpg          0     0      0         0     1
-       7 aled             0       1 vs           0     0      0         0     1
-       8 aler_min         0       1 vs           0     0      0         0     1
-       9 aler_max         0       1 vs           0     0      0         0     1
-      10 naled            0       0 vs           0     0      0         0     1
-      # i 158 more rows
+       3 aler             0       1 mpg          0     0      0         0     1
+       4 aler_max         0       1 mpg          0     0      0         0     1
+       5 naled            0       0 mpg          0     0      0         0     1
+       6 naler_min        0       1 mpg          0     0      0         0     1
+       7 naler            0       0 mpg          0     0      0         0     1
+       8 naler_max        0       0 mpg          0     0      0         0     1
+       9 aled             0       1 vs           0     0      0         0     1
+      10 aler_min         0       1 vs           0     0      0         0     1
+      # i 214 more rows
       
-      attr(,"composite")$Asia$boot_data
-      attr(,"composite")$Asia$boot_data$d1
-      attr(,"composite")$Asia$boot_data$d1$mpg
+      $composite$Asia$boot_data
+      $composite$Asia$boot_data$d1
+      $composite$Asia$boot_data$d1$mpg
       # A tibble: 22 x 4
            .it   mpg    .y    .n
          <dbl> <dbl> <dbl> <dbl>
@@ -456,7 +448,7 @@
       10     1  30.4     0    12
       # i 12 more rows
       
-      attr(,"composite")$Asia$boot_data$d1$vs
+      $composite$Asia$boot_data$d1$vs
       # A tibble: 4 x 4
           .it vs       .y    .n
         <dbl> <fct> <dbl> <dbl>
@@ -465,16 +457,16 @@
       3     2 FALSE     0    36
       4     2 TRUE      0    28
       
-      attr(,"composite")$Asia$boot_data$d1$am
+      $composite$Asia$boot_data$d1$am
       # A tibble: 4 x 4
-          .it am          .y    .n
-        <dbl> <fct>    <dbl> <dbl>
-      1     1 FALSE  0.0321     38
-      2     1 TRUE  -0.0101     26
-      3     2 FALSE  0.0297     38
-      4     2 TRUE  -0.00670    26
+          .it am         .y    .n
+        <dbl> <fct>   <dbl> <dbl>
+      1     1 FALSE  0.0321    38
+      2     1 TRUE  -0.0101    26
+      3     2 FALSE  0.0297    38
+      4     2 TRUE  -0.0067    26
       
-      attr(,"composite")$Asia$boot_data$d1$model
+      $composite$Asia$boot_data$d1$model
       # A tibble: 64 x 4
            .it model                  .y    .n
          <dbl> <fct>               <dbl> <dbl>
@@ -490,51 +482,51 @@
       10     1 Fiat X1-9          -2.93      2
       # i 54 more rows
       
-      attr(,"composite")$Asia$boot_data$d1$gear
+      $composite$Asia$boot_data$d1$gear
       # A tibble: 6 x 4
-          .it gear        .y    .n
-        <dbl> <fct>    <dbl> <dbl>
-      1     1 three  0.0530     30
-      2     1 four  -0.162      24
-      3     1 five  -0.460      10
-      4     2 three  0.184      30
-      5     2 four   0.0960     24
-      6     2 five  -0.00410    10
+          .it gear       .y    .n
+        <dbl> <fct>   <dbl> <dbl>
+      1     1 three  0.0530    30
+      2     1 four  -0.162     24
+      3     1 five  -0.460     10
+      4     2 three  0.184     30
+      5     2 four   0.0960    24
+      6     2 five  -0.0041    10
       
-      attr(,"composite")$Asia$boot_data$d1$carb
+      $composite$Asia$boot_data$d1$carb
       # A tibble: 10 x 4
-           .it  carb         .y    .n
-         <dbl> <dbl>      <dbl> <dbl>
-       1     1     1  0.00549      18
-       2     1     2 -0.00377      16
-       3     1     3 -0.00377      13
-       4     1     4 -0.00377      15
-       5     1     8 -0.00377       2
-       6     2     1  0.00549      15
-       7     2     2 -0.0000232    13
-       8     2     3 -0.0000232    13
-       9     2     4 -0.0000232    20
-      10     2     8 -0.0000232     3
+           .it  carb       .y    .n
+         <dbl> <dbl>    <dbl> <dbl>
+       1     1     1  0.00549    18
+       2     1     2 -0.00377    16
+       3     1     3 -0.00377    13
+       4     1     4 -0.00377    15
+       5     1     8 -0.00377     2
+       6     2     1  0.00549    15
+       7     2     2 -0.00002    13
+       8     2     3 -0.00002    13
+       9     2     4 -0.00002    20
+      10     2     8 -0.00002     3
       
-      attr(,"composite")$Asia$boot_data$d1$wt
+      $composite$Asia$boot_data$d1$wt
       # A tibble: 22 x 4
-           .it    wt         .y    .n
-         <dbl> <dbl>      <dbl> <dbl>
-       1     1  1.50 0.0000259      1
-       2     1  1.93 0.0000122      6
-       3     1  2.31 0.00000542    11
-       4     1  2.78 0.00000542    12
-       5     1  3.16 0.00000541     3
-       6     1  3.22 0.00000541     1
-       7     1  3.44 0.00000541     4
-       8     1  3.56 0.00000541     8
-       9     1  3.79 0.00000541     5
-      10     1  4.07 0.00000541     7
+           .it    wt      .y    .n
+         <dbl> <dbl>   <dbl> <dbl>
+       1     1  1.50 0.00003     1
+       2     1  1.93 0.00001     6
+       3     1  2.31 0.00001    11
+       4     1  2.78 0.00001    12
+       5     1  3.16 0.00001     3
+       6     1  3.22 0.00001     1
+       7     1  3.44 0.00001     4
+       8     1  3.56 0.00001     8
+       9     1  3.79 0.00001     5
+      10     1  4.07 0.00001     7
       # i 12 more rows
       
       
-      attr(,"composite")$Asia$boot_data$d2
-      attr(,"composite")$Asia$boot_data$d2$`mpg:vs`
+      $composite$Asia$boot_data$d2
+      $composite$Asia$boot_data$d2$`mpg:vs`
       # A tibble: 44 x 5
            .it   mpg vs       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -550,7 +542,7 @@
       10     1  30.4 FALSE     0     6
       # i 34 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`mpg:am`
+      $composite$Asia$boot_data$d2$`mpg:am`
       # A tibble: 44 x 5
            .it   mpg am       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -566,7 +558,7 @@
       10     1  30.4 FALSE     0     5
       # i 34 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`mpg:model`
+      $composite$Asia$boot_data$d2$`mpg:model`
       # A tibble: 704 x 5
            .it   mpg model          .y    .n
          <dbl> <dbl> <fct>       <dbl> <dbl>
@@ -582,7 +574,7 @@
       10     1  30.4 AMC Javelin     0     1
       # i 694 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`mpg:gear`
+      $composite$Asia$boot_data$d2$`mpg:gear`
       # A tibble: 66 x 5
            .it   mpg gear     .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -598,7 +590,7 @@
       10     1  30.4 three     0     3
       # i 56 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`mpg:carb`
+      $composite$Asia$boot_data$d2$`mpg:carb`
       # A tibble: 110 x 5
            .it   mpg  carb    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -614,7 +606,7 @@
       10     1  30.4     1     0     4
       # i 100 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`mpg:wt`
+      $composite$Asia$boot_data$d2$`mpg:wt`
       # A tibble: 242 x 5
            .it   mpg    wt    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -630,7 +622,7 @@
       10     1  30.4  1.50     0     1
       # i 232 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`vs:am`
+      $composite$Asia$boot_data$d2$`vs:am`
       # A tibble: 8 x 5
           .it vs    am       .y    .n
         <dbl> <fct> <fct> <dbl> <dbl>
@@ -643,7 +635,7 @@
       7     2 FALSE TRUE      0    12
       8     2 TRUE  TRUE      0    14
       
-      attr(,"composite")$Asia$boot_data$d2$`vs:model`
+      $composite$Asia$boot_data$d2$`vs:model`
       # A tibble: 128 x 5
            .it vs    model                 .y    .n
          <dbl> <fct> <fct>              <dbl> <dbl>
@@ -659,7 +651,7 @@
       10     1 TRUE  Datsun 710             0     0
       # i 118 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`vs:gear`
+      $composite$Asia$boot_data$d2$`vs:gear`
       # A tibble: 12 x 5
            .it vs    gear     .y    .n
          <dbl> <fct> <fct> <dbl> <dbl>
@@ -676,7 +668,7 @@
       11     2 FALSE five      0     8
       12     2 TRUE  five      0     2
       
-      attr(,"composite")$Asia$boot_data$d2$`vs:carb`
+      $composite$Asia$boot_data$d2$`vs:carb`
       # A tibble: 20 x 5
            .it vs     carb    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -701,7 +693,7 @@
       19     2 FALSE     8     0     2
       20     2 TRUE      8     0     1
       
-      attr(,"composite")$Asia$boot_data$d2$`vs:wt`
+      $composite$Asia$boot_data$d2$`vs:wt`
       # A tibble: 44 x 5
            .it vs       wt    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -717,7 +709,7 @@
       10     1 TRUE   3.16     0     2
       # i 34 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`am:model`
+      $composite$Asia$boot_data$d2$`am:model`
       # A tibble: 128 x 5
            .it am    model                  .y    .n
          <dbl> <fct> <fct>               <dbl> <dbl>
@@ -733,7 +725,7 @@
       10     1 TRUE  Datsun 710         -1.23      0
       # i 118 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`am:gear`
+      $composite$Asia$boot_data$d2$`am:gear`
       # A tibble: 12 x 5
            .it am    gear       .y    .n
          <dbl> <fct> <fct>   <dbl> <dbl>
@@ -750,7 +742,7 @@
       11     2 FALSE five  -0.0166     0
       12     2 TRUE  five  -0.179     10
       
-      attr(,"composite")$Asia$boot_data$d2$`am:carb`
+      $composite$Asia$boot_data$d2$`am:carb`
       # A tibble: 20 x 5
            .it am     carb      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -775,7 +767,7 @@
       19     2 FALSE     8  0.187      1
       20     2 TRUE      8  0.311      2
       
-      attr(,"composite")$Asia$boot_data$d2$`am:wt`
+      $composite$Asia$boot_data$d2$`am:wt`
       # A tibble: 44 x 5
            .it am       wt       .y    .n
          <dbl> <fct> <dbl>    <dbl> <dbl>
@@ -783,7 +775,7 @@
        2     1 TRUE   1.50 -0.00669     0
        3     1 FALSE  1.93 -0.00669     2
        4     1 TRUE   1.93 -0.00671     4
-       5     1 FALSE  2.31 -0.00670     5
+       5     1 FALSE  2.31 -0.0067      5
        6     1 TRUE   2.31 -0.00672     6
        7     1 FALSE  2.78  0.0337     11
        8     1 TRUE   2.78  0.0337      1
@@ -791,7 +783,7 @@
       10     1 TRUE   3.16  0.111       2
       # i 34 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`model:gear`
+      $composite$Asia$boot_data$d2$`model:gear`
       # A tibble: 192 x 5
            .it model              gear      .y    .n
          <dbl> <fct>              <fct>  <dbl> <dbl>
@@ -807,7 +799,7 @@
       10     1 Fiat X1-9          three 0.0888     0
       # i 182 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`model:carb`
+      $composite$Asia$boot_data$d2$`model:carb`
       # A tibble: 320 x 5
            .it model               carb    .y    .n
          <dbl> <fct>              <dbl> <dbl> <dbl>
@@ -823,7 +815,7 @@
       10     1 Fiat X1-9              1 -1.37     1
       # i 310 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`model:wt`
+      $composite$Asia$boot_data$d2$`model:wt`
       # A tibble: 704 x 5
            .it model                 wt     .y    .n
          <dbl> <fct>              <dbl>  <dbl> <dbl>
@@ -839,7 +831,7 @@
       10     1 Fiat X1-9           1.50 -0.982     0
       # i 694 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`gear:carb`
+      $composite$Asia$boot_data$d2$`gear:carb`
       # A tibble: 30 x 5
            .it gear   carb      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -852,10 +844,10 @@
        7     1 three     3 -0.0380     8
        8     1 four      3  0.113      4
        9     1 five      3  0.114      1
-      10     1 three     4 -0.0178     7
+      10     1 three     4 -0.0177     7
       # i 20 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`gear:wt`
+      $composite$Asia$boot_data$d2$`gear:wt`
       # A tibble: 66 x 5
            .it gear     wt      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -867,33 +859,33 @@
        6     1 five   1.93  0.0383     2
        7     1 three  2.31  0.0388     3
        8     1 four   2.31  0.0518     5
-       9     1 five   2.31  0.0573     3
+       9     1 five   2.31  0.0574     3
       10     1 three  2.78  0.0391     8
       # i 56 more rows
       
-      attr(,"composite")$Asia$boot_data$d2$`carb:wt`
+      $composite$Asia$boot_data$d2$`carb:wt`
       # A tibble: 110 x 5
-           .it  carb    wt        .y    .n
-         <dbl> <dbl> <dbl>     <dbl> <dbl>
-       1     1     1  1.50 -0.0192       0
-       2     1     2  1.50 -0.0192       1
-       3     1     3  1.50 -0.0192       0
-       4     1     4  1.50 -0.0192       0
-       5     1     8  1.50 -0.0192       0
-       6     1     1  1.93 -0.0192       3
-       7     1     2  1.93  0.000522     3
-       8     1     3  1.93  0.000522     0
-       9     1     4  1.93  0.000522     0
-      10     1     8  1.93  0.000522     0
+           .it  carb    wt       .y    .n
+         <dbl> <dbl> <dbl>    <dbl> <dbl>
+       1     1     1  1.50 -0.0192      0
+       2     1     2  1.50 -0.0192      1
+       3     1     3  1.50 -0.0192      0
+       4     1     4  1.50 -0.0192      0
+       5     1     8  1.50 -0.0192      0
+       6     1     1  1.93 -0.0192      3
+       7     1     2  1.93  0.00052     3
+       8     1     3  1.93  0.00052     0
+       9     1     4  1.93  0.00052     0
+      10     1     8  1.93  0.00052     0
       # i 100 more rows
       
       
       
       
-      attr(,"composite")$Europe
-      attr(,"composite")$Europe$ale
-      attr(,"composite")$Europe$ale$d1
-      attr(,"composite")$Europe$ale$d1$mpg
+      $composite$Europe
+      $composite$Europe$ale
+      $composite$Europe$ale$d1
+      $composite$Europe$ale$d1$mpg
       # A tibble: 11 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -909,21 +901,21 @@
       10     30.4     7     0     0       0         0     0
       11     33.9     5     0     0       0         0     0
       
-      attr(,"composite")$Europe$ale$d1$vs
+      $composite$Europe$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36     0     0       0         0     0
       2 TRUE      28     0     0       0         0     0
       
-      attr(,"composite")$Europe$ale$d1$am
+      $composite$Europe$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
         <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
       1 FALSE     38 -0.0309  -0.0321  -0.0309   -0.0309  -0.0298 
       2 TRUE      26  0.00838  0.00678  0.00838   0.00838  0.00998
       
-      attr(,"composite")$Europe$ale$d1$model
+      $composite$Europe$ale$d1$model
       # A tibble: 32 x 7
          model.bin             .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>              <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -939,7 +931,7 @@
       10 Fiat X1-9              2  1.91   1.70    1.91      1.91   2.12 
       # i 22 more rows
       
-      attr(,"composite")$Europe$ale$d1$gear
+      $composite$Europe$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -947,35 +939,35 @@
       2 four        24  0.265  0.143    0.265     0.265  0.388
       3 five        10  0.265 -0.0474   0.265     0.265  0.577
       
-      attr(,"composite")$Europe$ale$d1$carb
+      $composite$Europe$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
-            <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
-      1         1    14 -0.00549 -0.00549  -0.00549  -0.00549 -0.00549
-      2         2    19  0.00189  0.000117  0.00189   0.00189  0.00367
-      3         3     9  0.00189  0.000117  0.00189   0.00189  0.00367
-      4         4    16  0.00189  0.000117  0.00189   0.00189  0.00367
-      5         8     6  0.00189  0.000117  0.00189   0.00189  0.00367
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14 -0.00549 -0.00549 -0.00549  -0.00549 -0.00549
+      2         2    19  0.00189  0.00012  0.00189   0.00189  0.00367
+      3         3     9  0.00189  0.00012  0.00189   0.00189  0.00367
+      4         4    16  0.00189  0.00012  0.00189   0.00189  0.00367
+      5         8     6  0.00189  0.00012  0.00189   0.00189  0.00367
       
-      attr(,"composite")$Europe$ale$d1$wt
+      $composite$Europe$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n          .y       .y_lo     .y_mean   .y_median      .y_hi
-           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>      <dbl>
-       1    1.50     1 -0.0000259  -0.0000259  -0.0000259  -0.0000259  -0.0000259
-       2    1.93     6  0.00000108 -0.0000115   0.00000108  0.00000108  0.0000137
-       3    2.31     6  0.00000952 -0.00000467  0.00000952  0.00000952  0.0000237
-       4    2.78     7  0.00000952 -0.00000467  0.00000952  0.00000952  0.0000237
-       5    3.16     6  0.00000952 -0.00000466  0.00000952  0.00000952  0.0000237
-       6    3.22     6  0.00000952 -0.00000466  0.00000952  0.00000952  0.0000237
-       7    3.44     7  0.00000952 -0.00000466  0.00000952  0.00000952  0.0000237
-       8    3.56     6  0.00000952 -0.00000466  0.00000952  0.00000952  0.0000237
-       9    3.79     7  0.00000952 -0.00000466  0.00000952  0.00000952  0.0000237
-      10    4.07     6  0.00000952 -0.00000466  0.00000952  0.00000952  0.0000237
-      11    5.45     6  0.00000952 -0.00000466  0.00000952  0.00000952  0.0000237
+         wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1    1.50     1 -0.00003 -0.00003 -0.00003  -0.00003 -0.00003
+       2    1.93     6  0       -0.00001  0         0        0.00001
+       3    2.31     6  0.00001  0        0.00001   0.00001  0.00002
+       4    2.78     7  0.00001  0        0.00001   0.00001  0.00002
+       5    3.16     6  0.00001  0        0.00001   0.00001  0.00002
+       6    3.22     6  0.00001  0        0.00001   0.00001  0.00002
+       7    3.44     7  0.00001  0        0.00001   0.00001  0.00002
+       8    3.56     6  0.00001  0        0.00001   0.00001  0.00002
+       9    3.79     7  0.00001  0        0.00001   0.00001  0.00002
+      10    4.07     6  0.00001  0        0.00001   0.00001  0.00002
+      11    5.45     6  0.00001  0        0.00001   0.00001  0.00002
       
       
-      attr(,"composite")$Europe$ale$d2
-      attr(,"composite")$Europe$ale$d2$`mpg:vs`
+      $composite$Europe$ale$d2
+      $composite$Europe$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -991,7 +983,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$Europe$ale$d2$`mpg:am`
+      $composite$Europe$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1007,7 +999,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$Europe$ale$d2$`mpg:model`
+      $composite$Europe$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1023,7 +1015,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"composite")$Europe$ale$d2$`mpg:gear`
+      $composite$Europe$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1039,7 +1031,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"composite")$Europe$ale$d2$`mpg:carb`
+      $composite$Europe$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1055,7 +1047,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"composite")$Europe$ale$d2$`mpg:wt`
+      $composite$Europe$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1071,7 +1063,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"composite")$Europe$ale$d2$`vs:am`
+      $composite$Europe$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1080,7 +1072,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"composite")$Europe$ale$d2$`vs:model`
+      $composite$Europe$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1096,7 +1088,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"composite")$Europe$ale$d2$`vs:gear`
+      $composite$Europe$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1107,7 +1099,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"composite")$Europe$ale$d2$`vs:carb`
+      $composite$Europe$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1122,7 +1114,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"composite")$Europe$ale$d2$`vs:wt`
+      $composite$Europe$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1138,7 +1130,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$Europe$ale$d2$`am:model`
+      $composite$Europe$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>  <ord>              <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -1154,7 +1146,7 @@
       10 TRUE   Datsun 710             0  0.982  0.714   0.982     0.982  1.25 
       # i 54 more rows
       
-      attr(,"composite")$Europe$ale$d2$`am:gear`
+      $composite$Europe$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>  <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1165,7 +1157,7 @@
       5 FALSE  five         0 -0.169  -0.174  -0.169    -0.169  -0.163 
       6 TRUE   five        10 -0.0448 -0.0618 -0.0448   -0.0448 -0.0278
       
-      attr(,"composite")$Europe$ale$d2$`am:carb`
+      $composite$Europe$ale$d2$`am:carb`
       # A tibble: 10 x 8
          am.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1180,7 +1172,7 @@
        9 FALSE          8     2 -0.235  -0.280  -0.235    -0.235  -0.189 
       10 TRUE           8     4 -0.364  -0.415  -0.364    -0.364  -0.314 
       
-      attr(,"composite")$Europe$ale$d2$`am:wt`
+      $composite$Europe$ale$d2$`am:wt`
       # A tibble: 22 x 8
          am.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1188,15 +1180,15 @@
        2 TRUE      1.50     1  0.00669  0.00669  0.00669   0.00669  0.00669
        3 FALSE     1.93     0  0.00669  0.00669  0.00669   0.00669  0.00669
        4 TRUE      1.93     6  0.00672  0.00671  0.00672   0.00672  0.00673
-       5 FALSE     2.31     0  0.00670  0.00670  0.00670   0.00670  0.00670
+       5 FALSE     2.31     0  0.0067   0.0067   0.0067    0.0067   0.0067 
        6 TRUE      2.31     6  0.00673  0.00672  0.00673   0.00673  0.00674
-       7 FALSE     2.78     2 -0.0382  -0.0425  -0.0382   -0.0382  -0.0339 
+       7 FALSE     2.78     2 -0.0382  -0.0425  -0.0382   -0.0382  -0.0340 
        8 TRUE      2.78     5 -0.0567  -0.0786  -0.0567   -0.0567  -0.0348 
        9 FALSE     3.16     2 -0.0641  -0.0930  -0.0641   -0.0641  -0.0352 
       10 TRUE      3.16     4 -0.122   -0.131   -0.122    -0.122   -0.112  
       # i 12 more rows
       
-      attr(,"composite")$Europe$ale$d2$`model:gear`
+      $composite$Europe$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>              <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1212,7 +1204,7 @@
       10 Fiat X1-9          three        0 -1.32 -1.53   -1.32     -1.32 -1.10
       # i 86 more rows
       
-      attr(,"composite")$Europe$ale$d2$`model:carb`
+      $composite$Europe$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>                  <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1228,7 +1220,7 @@
       10 Fiat X1-9                  1     0  1.74  1.74    1.74      1.74  1.74
       # i 150 more rows
       
-      attr(,"composite")$Europe$ale$d2$`model:wt`
+      $composite$Europe$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>                <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1244,7 +1236,7 @@
       10 Fiat X1-9             1.50     0 0.696 0.696   0.696     0.696 0.696
       # i 342 more rows
       
-      attr(,"composite")$Europe$ale$d2$`gear:carb`
+      $composite$Europe$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>        <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1264,59 +1256,59 @@
       14 four             8     1  0.00943 -0.00185  0.00943   0.00943  0.0207 
       15 five             8     4  0.0249   0.0202   0.0249    0.0249   0.0297 
       
-      attr(,"composite")$Europe$ale$d2$`gear:wt`
+      $composite$Europe$ale$d2$`gear:wt`
       # A tibble: 33 x 8
-         gear.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-         <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1 three       1.50     0  0.000491  0.000491  0.000491  0.000491 0.000491
-       2 four        1.50     0  0.000491  0.000491  0.000491  0.000491 0.000491
-       3 five        1.50     1  0.000491  0.000491  0.000491  0.000491 0.000491
-       4 three       1.93     0  0.000491  0.000491  0.000491  0.000491 0.000491
-       5 four        1.93     5  0.000552  0.000533  0.000552  0.000552 0.000571
-       6 five        1.93     1  0.000552  0.000533  0.000552  0.000552 0.000571
-       7 three       2.31     0  0.000500  0.000492  0.000500  0.000500 0.000508
-       8 four        2.31     4  0.000568  0.000555  0.000568  0.000568 0.000581
-       9 five        2.31     2 -0.00221  -0.00487  -0.00221  -0.00221  0.000442
-      10 three       2.78     2  0.000500  0.000492  0.000500  0.000500 0.000508
+         gear.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median   .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
+       1 three       1.50     0  0.00049  0.00049  0.00049   0.00049 0.00049
+       2 four        1.50     0  0.00049  0.00049  0.00049   0.00049 0.00049
+       3 five        1.50     1  0.00049  0.00049  0.00049   0.00049 0.00049
+       4 three       1.93     0  0.00049  0.00049  0.00049   0.00049 0.00049
+       5 four        1.93     5  0.00055  0.00053  0.00055   0.00055 0.00057
+       6 five        1.93     1  0.00055  0.00053  0.00055   0.00055 0.00057
+       7 three       2.31     0  0.0005   0.00049  0.0005    0.0005  0.00051
+       8 four        2.31     4  0.00057  0.00055  0.00057   0.00057 0.00058
+       9 five        2.31     2 -0.00221 -0.00487 -0.00221  -0.00221 0.00044
+      10 three       2.78     2  0.0005   0.00049  0.0005    0.0005  0.00051
       # i 23 more rows
       
-      attr(,"composite")$Europe$ale$d2$`carb:wt`
+      $composite$Europe$ale$d2$`carb:wt`
       # A tibble: 55 x 8
-         carb.ceil wt.ceil    .n      .y      .y_lo .y_mean .y_median  .y_hi
-             <dbl>   <dbl> <int>   <dbl>      <dbl>   <dbl>     <dbl>  <dbl>
-       1         1    1.50     0 0.0192   0.0192    0.0192    0.0192  0.0192
-       2         2    1.50     1 0.0192   0.0192    0.0192    0.0192  0.0192
-       3         3    1.50     0 0.0192   0.0192    0.0192    0.0192  0.0192
-       4         4    1.50     0 0.0192   0.0192    0.0192    0.0192  0.0192
-       5         8    1.50     0 0.0192   0.0192    0.0192    0.0192  0.0192
-       6         1    1.93     3 0.0192   0.0192    0.0192    0.0192  0.0192
-       7         2    1.93     3 0.00832 -0.0000798 0.00832   0.00832 0.0167
-       8         3    1.93     0 0.00832 -0.0000798 0.00832   0.00832 0.0167
-       9         4    1.93     0 0.00832 -0.0000798 0.00832   0.00832 0.0167
-      10         8    1.93     0 0.00832 -0.0000798 0.00832   0.00832 0.0167
+         carb.ceil wt.ceil    .n      .y    .y_lo .y_mean .y_median  .y_hi
+             <dbl>   <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1         1    1.50     0 0.0192   0.0192  0.0192    0.0192  0.0192
+       2         2    1.50     1 0.0192   0.0192  0.0192    0.0192  0.0192
+       3         3    1.50     0 0.0192   0.0192  0.0192    0.0192  0.0192
+       4         4    1.50     0 0.0192   0.0192  0.0192    0.0192  0.0192
+       5         8    1.50     0 0.0192   0.0192  0.0192    0.0192  0.0192
+       6         1    1.93     3 0.0192   0.0192  0.0192    0.0192  0.0192
+       7         2    1.93     3 0.00832 -0.00008 0.00832   0.00832 0.0167
+       8         3    1.93     0 0.00832 -0.00008 0.00832   0.00832 0.0167
+       9         4    1.93     0 0.00832 -0.00008 0.00832   0.00832 0.0167
+      10         8    1.93     0 0.00832 -0.00008 0.00832   0.00832 0.0167
       # i 45 more rows
       
       
       
-      attr(,"composite")$Europe$stats
-      # A tibble: 168 x 9
+      $composite$Europe$stats
+      # A tibble: 224 x 9
          statistic estimate p.value term  conf.low  mean median conf.high     d
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl> <int>
        1 aled             0       1 mpg          0     0      0         0     1
        2 aler_min         0       1 mpg          0     0      0         0     1
-       3 aler_max         0       1 mpg          0     0      0         0     1
-       4 naled            0       0 mpg          0     0      0         0     1
-       5 naler_min        0       1 mpg          0     0      0         0     1
-       6 naler_max        0       0 mpg          0     0      0         0     1
-       7 aled             0       1 vs           0     0      0         0     1
-       8 aler_min         0       1 vs           0     0      0         0     1
-       9 aler_max         0       1 vs           0     0      0         0     1
-      10 naled            0       0 vs           0     0      0         0     1
-      # i 158 more rows
+       3 aler             0       1 mpg          0     0      0         0     1
+       4 aler_max         0       1 mpg          0     0      0         0     1
+       5 naled            0       0 mpg          0     0      0         0     1
+       6 naler_min        0       1 mpg          0     0      0         0     1
+       7 naler            0       0 mpg          0     0      0         0     1
+       8 naler_max        0       0 mpg          0     0      0         0     1
+       9 aled             0       1 vs           0     0      0         0     1
+      10 aler_min         0       1 vs           0     0      0         0     1
+      # i 214 more rows
       
-      attr(,"composite")$Europe$boot_data
-      attr(,"composite")$Europe$boot_data$d1
-      attr(,"composite")$Europe$boot_data$d1$mpg
+      $composite$Europe$boot_data
+      $composite$Europe$boot_data$d1
+      $composite$Europe$boot_data$d1$mpg
       # A tibble: 22 x 4
            .it   mpg    .y    .n
          <dbl> <dbl> <dbl> <dbl>
@@ -1332,7 +1324,7 @@
       10     1  30.4     0    12
       # i 12 more rows
       
-      attr(,"composite")$Europe$boot_data$d1$vs
+      $composite$Europe$boot_data$d1$vs
       # A tibble: 4 x 4
           .it vs       .y    .n
         <dbl> <fct> <dbl> <dbl>
@@ -1341,16 +1333,16 @@
       3     2 FALSE     0    36
       4     2 TRUE      0    28
       
-      attr(,"composite")$Europe$boot_data$d1$am
+      $composite$Europe$boot_data$d1$am
       # A tibble: 4 x 4
-          .it am          .y    .n
-        <dbl> <fct>    <dbl> <dbl>
-      1     1 FALSE -0.0321     38
-      2     1 TRUE   0.0101     26
-      3     2 FALSE -0.0297     38
-      4     2 TRUE   0.00670    26
+          .it am         .y    .n
+        <dbl> <fct>   <dbl> <dbl>
+      1     1 FALSE -0.0321    38
+      2     1 TRUE   0.0101    26
+      3     2 FALSE -0.0297    38
+      4     2 TRUE   0.0067    26
       
-      attr(,"composite")$Europe$boot_data$d1$model
+      $composite$Europe$boot_data$d1$model
       # A tibble: 64 x 4
            .it model                  .y    .n
          <dbl> <fct>               <dbl> <dbl>
@@ -1366,7 +1358,7 @@
       10     1 Fiat X1-9           1.69      2
       # i 54 more rows
       
-      attr(,"composite")$Europe$boot_data$d1$gear
+      $composite$Europe$boot_data$d1$gear
       # A tibble: 6 x 4
           .it gear       .y    .n
         <dbl> <fct>   <dbl> <dbl>
@@ -1377,40 +1369,40 @@
       5     2 four   0.136     24
       6     2 five  -0.0638    10
       
-      attr(,"composite")$Europe$boot_data$d1$carb
+      $composite$Europe$boot_data$d1$carb
       # A tibble: 10 x 4
-           .it  carb         .y    .n
-         <dbl> <dbl>      <dbl> <dbl>
-       1     1     1 -0.00549      18
-       2     1     2  0.00377      16
-       3     1     3  0.00377      13
-       4     1     4  0.00377      15
-       5     1     8  0.00377       2
-       6     2     1 -0.00549      15
-       7     2     2  0.0000232    13
-       8     2     3  0.0000232    13
-       9     2     4  0.0000232    20
-      10     2     8  0.0000232     3
+           .it  carb       .y    .n
+         <dbl> <dbl>    <dbl> <dbl>
+       1     1     1 -0.00549    18
+       2     1     2  0.00377    16
+       3     1     3  0.00377    13
+       4     1     4  0.00377    15
+       5     1     8  0.00377     2
+       6     2     1 -0.00549    15
+       7     2     2  0.00002    13
+       8     2     3  0.00002    13
+       9     2     4  0.00002    20
+      10     2     8  0.00002     3
       
-      attr(,"composite")$Europe$boot_data$d1$wt
+      $composite$Europe$boot_data$d1$wt
       # A tibble: 22 x 4
-           .it    wt          .y    .n
-         <dbl> <dbl>       <dbl> <dbl>
-       1     1  1.50 -0.0000259      1
-       2     1  1.93 -0.0000122      6
-       3     1  2.31 -0.00000542    11
-       4     1  2.78 -0.00000542    12
-       5     1  3.16 -0.00000541     3
-       6     1  3.22 -0.00000541     1
-       7     1  3.44 -0.00000541     4
-       8     1  3.56 -0.00000541     8
-       9     1  3.79 -0.00000541     5
-      10     1  4.07 -0.00000541     7
+           .it    wt       .y    .n
+         <dbl> <dbl>    <dbl> <dbl>
+       1     1  1.50 -0.00003     1
+       2     1  1.93 -0.00001     6
+       3     1  2.31 -0.00001    11
+       4     1  2.78 -0.00001    12
+       5     1  3.16 -0.00001     3
+       6     1  3.22 -0.00001     1
+       7     1  3.44 -0.00001     4
+       8     1  3.56 -0.00001     8
+       9     1  3.79 -0.00001     5
+      10     1  4.07 -0.00001     7
       # i 12 more rows
       
       
-      attr(,"composite")$Europe$boot_data$d2
-      attr(,"composite")$Europe$boot_data$d2$`mpg:vs`
+      $composite$Europe$boot_data$d2
+      $composite$Europe$boot_data$d2$`mpg:vs`
       # A tibble: 44 x 5
            .it   mpg vs       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -1426,7 +1418,7 @@
       10     1  30.4 FALSE     0     6
       # i 34 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`mpg:am`
+      $composite$Europe$boot_data$d2$`mpg:am`
       # A tibble: 44 x 5
            .it   mpg am       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -1442,7 +1434,7 @@
       10     1  30.4 FALSE     0     5
       # i 34 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`mpg:model`
+      $composite$Europe$boot_data$d2$`mpg:model`
       # A tibble: 704 x 5
            .it   mpg model          .y    .n
          <dbl> <dbl> <fct>       <dbl> <dbl>
@@ -1458,7 +1450,7 @@
       10     1  30.4 AMC Javelin     0     1
       # i 694 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`mpg:gear`
+      $composite$Europe$boot_data$d2$`mpg:gear`
       # A tibble: 66 x 5
            .it   mpg gear     .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -1474,7 +1466,7 @@
       10     1  30.4 three     0     3
       # i 56 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`mpg:carb`
+      $composite$Europe$boot_data$d2$`mpg:carb`
       # A tibble: 110 x 5
            .it   mpg  carb    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -1490,7 +1482,7 @@
       10     1  30.4     1     0     4
       # i 100 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`mpg:wt`
+      $composite$Europe$boot_data$d2$`mpg:wt`
       # A tibble: 242 x 5
            .it   mpg    wt    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -1506,7 +1498,7 @@
       10     1  30.4  1.50     0     1
       # i 232 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`vs:am`
+      $composite$Europe$boot_data$d2$`vs:am`
       # A tibble: 8 x 5
           .it vs    am       .y    .n
         <dbl> <fct> <fct> <dbl> <dbl>
@@ -1519,7 +1511,7 @@
       7     2 FALSE TRUE      0    12
       8     2 TRUE  TRUE      0    14
       
-      attr(,"composite")$Europe$boot_data$d2$`vs:model`
+      $composite$Europe$boot_data$d2$`vs:model`
       # A tibble: 128 x 5
            .it vs    model                 .y    .n
          <dbl> <fct> <fct>              <dbl> <dbl>
@@ -1535,7 +1527,7 @@
       10     1 TRUE  Datsun 710             0     0
       # i 118 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`vs:gear`
+      $composite$Europe$boot_data$d2$`vs:gear`
       # A tibble: 12 x 5
            .it vs    gear     .y    .n
          <dbl> <fct> <fct> <dbl> <dbl>
@@ -1552,7 +1544,7 @@
       11     2 FALSE five      0     8
       12     2 TRUE  five      0     2
       
-      attr(,"composite")$Europe$boot_data$d2$`vs:carb`
+      $composite$Europe$boot_data$d2$`vs:carb`
       # A tibble: 20 x 5
            .it vs     carb    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -1577,7 +1569,7 @@
       19     2 FALSE     8     0     2
       20     2 TRUE      8     0     1
       
-      attr(,"composite")$Europe$boot_data$d2$`vs:wt`
+      $composite$Europe$boot_data$d2$`vs:wt`
       # A tibble: 44 x 5
            .it vs       wt    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -1593,7 +1585,7 @@
       10     1 TRUE   3.16     0     2
       # i 34 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`am:model`
+      $composite$Europe$boot_data$d2$`am:model`
       # A tibble: 128 x 5
            .it am    model                  .y    .n
          <dbl> <fct> <fct>               <dbl> <dbl>
@@ -1609,7 +1601,7 @@
       10     1 TRUE  Datsun 710          1.26      0
       # i 118 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`am:gear`
+      $composite$Europe$boot_data$d2$`am:gear`
       # A tibble: 12 x 5
            .it am    gear       .y    .n
          <dbl> <fct> <fct>   <dbl> <dbl>
@@ -1619,14 +1611,14 @@
        4     1 TRUE  four  -0.228     16
        5     1 FALSE five  -0.174      0
        6     1 TRUE  five  -0.0269    10
-       7     2 FALSE three -0.0551    30
-       8     2 TRUE  three -0.0551     0
+       7     2 FALSE three -0.0550    30
+       8     2 TRUE  three -0.0550     0
        9     2 FALSE four  -0.163      8
       10     2 TRUE  four  -0.163     16
       11     2 FALSE five  -0.163      0
       12     2 TRUE  five  -0.0626    10
       
-      attr(,"composite")$Europe$boot_data$d2$`am:carb`
+      $composite$Europe$boot_data$d2$`am:carb`
       # A tibble: 20 x 5
            .it am     carb      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -1651,7 +1643,7 @@
       19     2 FALSE     8 -0.187      1
       20     2 TRUE      8 -0.311      2
       
-      attr(,"composite")$Europe$boot_data$d2$`am:wt`
+      $composite$Europe$boot_data$d2$`am:wt`
       # A tibble: 44 x 5
            .it am       wt       .y    .n
          <dbl> <fct> <dbl>    <dbl> <dbl>
@@ -1659,7 +1651,7 @@
        2     1 TRUE   1.50  0.00669     0
        3     1 FALSE  1.93  0.00669     2
        4     1 TRUE   1.93  0.00671     4
-       5     1 FALSE  2.31  0.00670     5
+       5     1 FALSE  2.31  0.0067      5
        6     1 TRUE   2.31  0.00672     6
        7     1 FALSE  2.78 -0.0337     11
        8     1 TRUE   2.78 -0.0337      1
@@ -1667,7 +1659,7 @@
       10     1 TRUE   3.16 -0.111       2
       # i 34 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`model:gear`
+      $composite$Europe$boot_data$d2$`model:gear`
       # A tibble: 192 x 5
            .it model              gear     .y    .n
          <dbl> <fct>              <fct> <dbl> <dbl>
@@ -1683,7 +1675,7 @@
       10     1 Fiat X1-9          three -1.09     0
       # i 182 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`model:carb`
+      $composite$Europe$boot_data$d2$`model:carb`
       # A tibble: 320 x 5
            .it model               carb    .y    .n
          <dbl> <fct>              <dbl> <dbl> <dbl>
@@ -1699,7 +1691,7 @@
       10     1 Fiat X1-9              1  1.74     1
       # i 310 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`model:wt`
+      $composite$Europe$boot_data$d2$`model:wt`
       # A tibble: 704 x 5
            .it model                 wt    .y    .n
          <dbl> <fct>              <dbl> <dbl> <dbl>
@@ -1715,7 +1707,7 @@
       10     1 Fiat X1-9           1.50 0.696     0
       # i 694 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`gear:carb`
+      $composite$Europe$boot_data$d2$`gear:carb`
       # A tibble: 30 x 5
            .it gear   carb       .y    .n
          <dbl> <fct> <dbl>    <dbl> <dbl>
@@ -1731,45 +1723,45 @@
       10     1 three     4  0.00923     7
       # i 20 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`gear:wt`
+      $composite$Europe$boot_data$d2$`gear:wt`
       # A tibble: 66 x 5
-           .it gear     wt        .y    .n
-         <dbl> <fct> <dbl>     <dbl> <dbl>
-       1     1 three  1.50  0.000491     1
-       2     1 four   1.50  0.000491     0
-       3     1 five   1.50  0.000491     0
-       4     1 three  1.93  0.000491     2
-       5     1 four   1.93  0.000532     2
-       6     1 five   1.93  0.000532     2
-       7     1 three  2.31  0.000508     3
-       8     1 four   2.31  0.000554     5
-       9     1 five   2.31 -0.00501      3
-      10     1 three  2.78  0.000508     8
+           .it gear     wt       .y    .n
+         <dbl> <fct> <dbl>    <dbl> <dbl>
+       1     1 three  1.50  0.00049     1
+       2     1 four   1.50  0.00049     0
+       3     1 five   1.50  0.00049     0
+       4     1 three  1.93  0.00049     2
+       5     1 four   1.93  0.00053     2
+       6     1 five   1.93  0.00053     2
+       7     1 three  2.31  0.00051     3
+       8     1 four   2.31  0.00055     5
+       9     1 five   2.31 -0.00501     3
+      10     1 three  2.78  0.00051     8
       # i 56 more rows
       
-      attr(,"composite")$Europe$boot_data$d2$`carb:wt`
+      $composite$Europe$boot_data$d2$`carb:wt`
       # A tibble: 110 x 5
-           .it  carb    wt        .y    .n
-         <dbl> <dbl> <dbl>     <dbl> <dbl>
-       1     1     1  1.50  0.0192       0
-       2     1     2  1.50  0.0192       1
-       3     1     3  1.50  0.0192       0
-       4     1     4  1.50  0.0192       0
-       5     1     8  1.50  0.0192       0
-       6     1     1  1.93  0.0192       3
-       7     1     2  1.93 -0.000522     3
-       8     1     3  1.93 -0.000522     0
-       9     1     4  1.93 -0.000522     0
-      10     1     8  1.93 -0.000522     0
+           .it  carb    wt       .y    .n
+         <dbl> <dbl> <dbl>    <dbl> <dbl>
+       1     1     1  1.50  0.0192      0
+       2     1     2  1.50  0.0192      1
+       3     1     3  1.50  0.0192      0
+       4     1     4  1.50  0.0192      0
+       5     1     8  1.50  0.0192      0
+       6     1     1  1.93  0.0192      3
+       7     1     2  1.93 -0.00052     3
+       8     1     3  1.93 -0.00052     0
+       9     1     4  1.93 -0.00052     0
+      10     1     8  1.93 -0.00052     0
       # i 100 more rows
       
       
       
       
-      attr(,"composite")$`North America`
-      attr(,"composite")$`North America`$ale
-      attr(,"composite")$`North America`$ale$d1
-      attr(,"composite")$`North America`$ale$d1$mpg
+      $composite$`North America`
+      $composite$`North America`$ale
+      $composite$`North America`$ale$d1
+      $composite$`North America`$ale$d1$mpg
       # A tibble: 11 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1785,21 +1777,21 @@
       10     30.4     7     0     0       0         0     0
       11     33.9     5     0     0       0         0     0
       
-      attr(,"composite")$`North America`$ale$d1$vs
+      $composite$`North America`$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36     0     0       0         0     0
       2 TRUE      28     0     0       0         0     0
       
-      attr(,"composite")$`North America`$ale$d1$am
+      $composite$`North America`$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 FALSE     38 -9.12e-10 -9.68e-10 -9.12e-10 -9.12e-10 -8.55e-10
-      2 TRUE      26  3.46e-10 -2.75e-11  3.46e-10  3.46e-10  7.20e-10
+        am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     38     0     0       0         0     0
+      2 TRUE      26     0     0       0         0     0
       
-      attr(,"composite")$`North America`$ale$d1$model
+      $composite$`North America`$ale$d1$model
       # A tibble: 32 x 7
          model.bin             .n    .y  .y_lo .y_mean .y_median .y_hi
          <ord>              <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -1815,7 +1807,7 @@
       10 Fiat X1-9              2 0.642 0.0756   0.642     0.642  1.21
       # i 22 more rows
       
-      attr(,"composite")$`North America`$ale$d1$gear
+      $composite$`North America`$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1823,35 +1815,35 @@
       2 four        24 -0.232  -0.232  -0.232    -0.232  -0.232 
       3 five        10 -0.0326 -0.128  -0.0326   -0.0326  0.0629
       
-      attr(,"composite")$`North America`$ale$d1$carb
+      $composite$`North America`$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n            .y         .y_lo       .y_mean  .y_median     .y_hi
-            <dbl> <int>         <dbl>         <dbl>         <dbl>      <dbl>     <dbl>
-      1         1    14  0.000000108   0.000000108   0.000000108     1.08e-7  1.08e- 7
-      2         2    19 -0.0000000354 -0.0000000703 -0.0000000354   -3.54e-8 -4.34e-10
-      3         3     9 -0.0000000354 -0.0000000703 -0.0000000354   -3.54e-8 -4.36e-10
-      4         4    16 -0.0000000354 -0.0000000703 -0.0000000354   -3.54e-8 -4.36e-10
-      5         8     6 -0.0000000413 -0.0000000817 -0.0000000413   -4.13e-8 -9.53e-10
+        carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1         1    14     0     0       0         0     0
+      2         2    19     0     0       0         0     0
+      3         3     9     0     0       0         0     0
+      4         4    16     0     0       0         0     0
+      5         8     6     0     0       0         0     0
       
-      attr(,"composite")$`North America`$ale$d1$wt
+      $composite$`North America`$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
-       1    1.50     1 7.56e-10  7.56e-10 7.56e-10  7.56e-10 7.56e-10
-       2    1.93     6 3.73e-10  8.23e-12 3.73e-10  3.73e-10 7.37e-10
-       3    2.31     6 3.29e-10 -5.16e-11 3.29e-10  3.29e-10 7.09e-10
-       4    2.78     7 3.29e-10 -5.16e-11 3.29e-10  3.29e-10 7.09e-10
-       5    3.16     6 3.29e-10 -5.16e-11 3.29e-10  3.29e-10 7.09e-10
-       6    3.22     6 3.29e-10 -5.16e-11 3.29e-10  3.29e-10 7.09e-10
-       7    3.44     7 3.29e-10 -5.16e-11 3.29e-10  3.29e-10 7.10e-10
-       8    3.56     6 3.29e-10 -5.13e-11 3.29e-10  3.29e-10 7.10e-10
-       9    3.79     7 3.29e-10 -5.14e-11 3.29e-10  3.29e-10 7.10e-10
-      10    4.07     6 3.29e-10 -5.14e-11 3.29e-10  3.29e-10 7.10e-10
-      11    5.45     6 3.29e-10 -5.14e-11 3.29e-10  3.29e-10 7.10e-10
+         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1    1.50     1     0     0       0         0     0
+       2    1.93     6     0     0       0         0     0
+       3    2.31     6     0     0       0         0     0
+       4    2.78     7     0     0       0         0     0
+       5    3.16     6     0     0       0         0     0
+       6    3.22     6     0     0       0         0     0
+       7    3.44     7     0     0       0         0     0
+       8    3.56     6     0     0       0         0     0
+       9    3.79     7     0     0       0         0     0
+      10    4.07     6     0     0       0         0     0
+      11    5.45     6     0     0       0         0     0
       
       
-      attr(,"composite")$`North America`$ale$d2
-      attr(,"composite")$`North America`$ale$d2$`mpg:vs`
+      $composite$`North America`$ale$d2
+      $composite$`North America`$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1867,7 +1859,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`mpg:am`
+      $composite$`North America`$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1883,7 +1875,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`mpg:model`
+      $composite$`North America`$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1899,7 +1891,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`mpg:gear`
+      $composite$`North America`$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1915,7 +1907,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`mpg:carb`
+      $composite$`North America`$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1931,7 +1923,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`mpg:wt`
+      $composite$`North America`$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1947,7 +1939,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`vs:am`
+      $composite$`North America`$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1956,7 +1948,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"composite")$`North America`$ale$d2$`vs:model`
+      $composite$`North America`$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1972,7 +1964,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`vs:gear`
+      $composite$`North America`$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1983,7 +1975,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"composite")$`North America`$ale$d2$`vs:carb`
+      $composite$`North America`$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1998,7 +1990,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"composite")$`North America`$ale$d2$`vs:wt`
+      $composite$`North America`$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2014,7 +2006,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`am:model`
+      $composite$`North America`$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n     .y    .y_lo .y_mean .y_median  .y_hi
          <ord>  <ord>              <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
@@ -2030,7 +2022,7 @@
       10 TRUE   Datsun 710             0 0.0251 -0.0357   0.0251    0.0251 0.0860
       # i 54 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`am:gear`
+      $composite$`North America`$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n     .y   .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
@@ -2041,38 +2033,38 @@
       5 FALSE  five         0 0.273   0.184   0.273     0.273  0.362
       6 TRUE   five        10 0.513   0.256   0.513     0.513  0.771
       
-      attr(,"composite")$`North America`$ale$d2$`am:carb`
+      $composite$`North America`$ale$d2$`am:carb`
       # A tibble: 10 x 8
-         am.bin carb.ceil    .n            .y        .y_lo  .y_mean .y_median    .y_hi
-         <ord>      <dbl> <int>         <dbl>        <dbl>    <dbl>     <dbl>    <dbl>
-       1 FALSE          1     6  0.0000000449      4.49e-8  4.49e-8   4.49e-8  4.49e-8
-       2 TRUE           1     8  0.0000000449      4.49e-8  4.49e-8   4.49e-8  4.49e-8
-       3 FALSE          2    12 -0.0000000456     -1.27e-7 -4.56e-8  -4.56e-8  3.61e-8
-       4 TRUE           2     7 -0.000000250      -3.11e-7 -2.50e-7  -2.50e-7 -1.88e-7
-       5 FALSE          3     7 -0.0000000456     -1.27e-7 -4.56e-8  -4.56e-8  3.61e-8
-       6 TRUE           3     2 -0.000000250      -3.11e-7 -2.50e-7  -2.50e-7 -1.88e-7
-       7 FALSE          4    11 -0.0000000500     -1.33e-7 -5.00e-8  -5.00e-8  3.33e-8
-       8 TRUE           4     5 -0.000000255      -3.17e-7 -2.55e-7  -2.55e-7 -1.93e-7
-       9 FALSE          8     2 -0.0000000504     -1.33e-7 -5.04e-8  -5.04e-8  3.26e-8
-      10 TRUE           8     4 -0.000000256      -3.17e-7 -2.56e-7  -2.56e-7 -1.94e-7
+         am.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     6     0     0       0         0     0
+       2 TRUE           1     8     0     0       0         0     0
+       3 FALSE          2    12     0     0       0         0     0
+       4 TRUE           2     7     0     0       0         0     0
+       5 FALSE          3     7     0     0       0         0     0
+       6 TRUE           3     2     0     0       0         0     0
+       7 FALSE          4    11     0     0       0         0     0
+       8 TRUE           4     5     0     0       0         0     0
+       9 FALSE          8     2     0     0       0         0     0
+      10 TRUE           8     4     0     0       0         0     0
       
-      attr(,"composite")$`North America`$ale$d2$`am:wt`
+      $composite$`North America`$ale$d2$`am:wt`
       # A tibble: 22 x 8
-         am.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>    <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 FALSE     1.50     0 -3.02e-11 -3.02e-11 -3.02e-11 -3.02e-11 -3.02e-11
-       2 TRUE      1.50     1 -3.02e-11 -3.02e-11 -3.02e-11 -3.02e-11 -3.02e-11
-       3 FALSE     1.93     0 -3.24e-11 -3.44e-11 -3.24e-11 -3.24e-11 -3.03e-11
-       4 TRUE      1.93     6 -6.08e-10 -1.16e- 9 -6.08e-10 -6.08e-10 -5.91e-11
-       5 FALSE     2.31     0 -7.32e-11 -7.87e-11 -7.32e-11 -7.32e-11 -6.76e-11
-       6 TRUE      2.31     6 -6.86e-10 -1.27e- 9 -6.86e-10 -6.86e-10 -9.82e-11
-       7 FALSE     2.78     2  1.47e- 9  1.32e- 9  1.47e- 9  1.47e- 9  1.62e- 9
-       8 TRUE      2.78     5  1.49e- 9  1.53e-10  1.49e- 9  1.49e- 9  2.83e- 9
-       9 FALSE     3.16     2  1.47e- 9  1.32e- 9  1.47e- 9  1.47e- 9  1.62e- 9
-      10 TRUE      3.16     4  1.50e- 9  1.59e-10  1.50e- 9  1.50e- 9  2.83e- 9
+         am.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.93     0     0     0       0         0     0
+       4 TRUE      1.93     6     0     0       0         0     0
+       5 FALSE     2.31     0     0     0       0         0     0
+       6 TRUE      2.31     6     0     0       0         0     0
+       7 FALSE     2.78     2     0     0       0         0     0
+       8 TRUE      2.78     5     0     0       0         0     0
+       9 FALSE     3.16     2     0     0       0         0     0
+      10 TRUE      3.16     4     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`model:gear`
+      $composite$`North America`$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>              <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2088,7 +2080,7 @@
       10 Fiat X1-9          three        0  1.03  1.00    1.03      1.03  1.05
       # i 86 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`model:carb`
+      $composite$`North America`$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>                  <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -2104,7 +2096,7 @@
       10 Fiat X1-9                  1     0 -0.372 -0.372  -0.372    -0.372 -0.372
       # i 150 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`model:wt`
+      $composite$`North America`$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>                <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2120,7 +2112,7 @@
       10 Fiat X1-9             1.50     0 0.287 0.287   0.287     0.287 0.287
       # i 342 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`gear:carb`
+      $composite$`North America`$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
          <ord>        <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
@@ -2137,62 +2129,62 @@
       11 four             4     6 -0.212  -0.302   -0.212    -0.212  -0.122 
       12 five             4     2 -0.214  -0.306   -0.214    -0.214  -0.122 
       13 three            8     1  0.0212  0.00916  0.0212    0.0212  0.0332
-      14 four             8     1 -0.213  -0.303   -0.213    -0.213  -0.123 
+      14 four             8     1 -0.213  -0.303   -0.213    -0.213  -0.122 
       15 five             8     4 -0.214  -0.306   -0.214    -0.214  -0.123 
       
-      attr(,"composite")$`North America`$ale$d2$`gear:wt`
+      $composite$`North America`$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n       .y   .y_lo  .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
        1 three       1.50     0  0.0126   0.0126  0.0126    0.0126  0.0126 
        2 four        1.50     0  0.0126   0.0126  0.0126    0.0126  0.0126 
        3 five        1.50     1  0.0126   0.0126  0.0126    0.0126  0.0126 
-       4 three       1.93     0 -0.00978 -0.0310 -0.00978  -0.00978 0.0115 
+       4 three       1.93     0 -0.00978 -0.031  -0.00978  -0.00978 0.0114 
        5 four        1.93     5 -0.0145  -0.0376 -0.0145   -0.0145  0.00865
        6 five        1.93     1 -0.0145  -0.0376 -0.0145   -0.0145  0.00865
        7 three       2.31     0 -0.0134  -0.0380 -0.0134   -0.0134  0.0113 
-       8 four        2.31     4 -0.0226  -0.0509 -0.0226   -0.0226  0.00562
-       9 five        2.31     2 -0.0226  -0.0509 -0.0226   -0.0226  0.00562
+       8 four        2.31     4 -0.0226  -0.0508 -0.0226   -0.0226  0.00562
+       9 five        2.31     2 -0.0226  -0.0508 -0.0226   -0.0226  0.00562
       10 three       2.78     2 -0.0137  -0.0383 -0.0137   -0.0137  0.0110 
       # i 23 more rows
       
-      attr(,"composite")$`North America`$ale$d2$`carb:wt`
+      $composite$`North America`$ale$d2$`carb:wt`
       # A tibble: 55 x 8
-         carb.ceil wt.ceil    .n            .y       .y_lo  .y_mean .y_median    .y_hi
-             <dbl>   <dbl> <int>         <dbl>       <dbl>    <dbl>     <dbl>    <dbl>
-       1         1    1.50     0 -0.000000110     -1.10e-7 -1.10e-7  -1.10e-7 -1.10e-7
-       2         2    1.50     1 -0.000000110     -1.10e-7 -1.10e-7  -1.10e-7 -1.10e-7
-       3         3    1.50     0 -0.000000110     -1.10e-7 -1.10e-7  -1.10e-7 -1.10e-7
-       4         4    1.50     0 -0.000000110     -1.10e-7 -1.10e-7  -1.10e-7 -1.10e-7
-       5         8    1.50     0 -0.000000110     -1.10e-7 -1.10e-7  -1.10e-7 -1.10e-7
-       6         1    1.93     3 -0.000000110     -1.10e-7 -1.10e-7  -1.10e-7 -1.10e-7
-       7         2    1.93     3 -0.0000000449    -1.02e-7 -4.49e-8  -4.49e-8  1.20e-8
-       8         3    1.93     0 -0.0000000449    -1.02e-7 -4.49e-8  -4.49e-8  1.20e-8
-       9         4    1.93     0 -0.0000000449    -1.02e-7 -4.49e-8  -4.49e-8  1.20e-8
-      10         8    1.93     0 -0.0000000449    -1.02e-7 -4.49e-8  -4.49e-8  1.20e-8
+         carb.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1         1    1.50     0     0     0       0         0     0
+       2         2    1.50     1     0     0       0         0     0
+       3         3    1.50     0     0     0       0         0     0
+       4         4    1.50     0     0     0       0         0     0
+       5         8    1.50     0     0     0       0         0     0
+       6         1    1.93     3     0     0       0         0     0
+       7         2    1.93     3     0     0       0         0     0
+       8         3    1.93     0     0     0       0         0     0
+       9         4    1.93     0     0     0       0         0     0
+      10         8    1.93     0     0     0       0         0     0
       # i 45 more rows
       
       
       
-      attr(,"composite")$`North America`$stats
-      # A tibble: 168 x 9
+      $composite$`North America`$stats
+      # A tibble: 224 x 9
          statistic estimate p.value term  conf.low  mean median conf.high     d
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl> <int>
        1 aled             0       1 mpg          0     0      0         0     1
        2 aler_min         0       1 mpg          0     0      0         0     1
-       3 aler_max         0       1 mpg          0     0      0         0     1
-       4 naled            0       0 mpg          0     0      0         0     1
-       5 naler_min        0       1 mpg          0     0      0         0     1
-       6 naler_max        0       0 mpg          0     0      0         0     1
-       7 aled             0       1 vs           0     0      0         0     1
-       8 aler_min         0       1 vs           0     0      0         0     1
-       9 aler_max         0       1 vs           0     0      0         0     1
-      10 naled            0       0 vs           0     0      0         0     1
-      # i 158 more rows
+       3 aler             0       1 mpg          0     0      0         0     1
+       4 aler_max         0       1 mpg          0     0      0         0     1
+       5 naled            0       0 mpg          0     0      0         0     1
+       6 naler_min        0       1 mpg          0     0      0         0     1
+       7 naler            0       0 mpg          0     0      0         0     1
+       8 naler_max        0       0 mpg          0     0      0         0     1
+       9 aled             0       1 vs           0     0      0         0     1
+      10 aler_min         0       1 vs           0     0      0         0     1
+      # i 214 more rows
       
-      attr(,"composite")$`North America`$boot_data
-      attr(,"composite")$`North America`$boot_data$d1
-      attr(,"composite")$`North America`$boot_data$d1$mpg
+      $composite$`North America`$boot_data
+      $composite$`North America`$boot_data$d1
+      $composite$`North America`$boot_data$d1$mpg
       # A tibble: 22 x 4
            .it   mpg    .y    .n
          <dbl> <dbl> <dbl> <dbl>
@@ -2208,7 +2200,7 @@
       10     1  30.4     0    12
       # i 12 more rows
       
-      attr(,"composite")$`North America`$boot_data$d1$vs
+      $composite$`North America`$boot_data$d1$vs
       # A tibble: 4 x 4
           .it vs       .y    .n
         <dbl> <fct> <dbl> <dbl>
@@ -2217,16 +2209,16 @@
       3     2 FALSE     0    36
       4     2 TRUE      0    28
       
-      attr(,"composite")$`North America`$boot_data$d1$am
+      $composite$`North America`$boot_data$d1$am
       # A tibble: 4 x 4
-          .it am           .y    .n
-        <dbl> <fct>     <dbl> <dbl>
-      1     1 FALSE -9.71e-10    38
-      2     1 TRUE   7.39e-10    26
-      3     2 FALSE -8.52e-10    38
-      4     2 TRUE  -4.72e-11    26
+          .it am       .y    .n
+        <dbl> <fct> <dbl> <dbl>
+      1     1 FALSE     0    38
+      2     1 TRUE      0    26
+      3     2 FALSE     0    38
+      4     2 TRUE      0    26
       
-      attr(,"composite")$`North America`$boot_data$d1$model
+      $composite$`North America`$boot_data$d1$model
       # A tibble: 64 x 4
            .it model                 .y    .n
          <dbl> <fct>              <dbl> <dbl>
@@ -2242,7 +2234,7 @@
       10     1 Fiat X1-9           1.24     2
       # i 54 more rows
       
-      attr(,"composite")$`North America`$boot_data$d1$gear
+      $composite$`North America`$boot_data$d1$gear
       # A tibble: 6 x 4
           .it gear       .y    .n
         <dbl> <fct>   <dbl> <dbl>
@@ -2253,40 +2245,40 @@
       5     2 four  -0.232     24
       6     2 five   0.0679    10
       
-      attr(,"composite")$`North America`$boot_data$d1$carb
+      $composite$`North America`$boot_data$d1$carb
       # A tibble: 10 x 4
-           .it  carb       .y    .n
-         <dbl> <dbl>    <dbl> <dbl>
-       1     1     1  1.08e-7    18
-       2     1     2 -7.21e-8    16
-       3     1     3 -7.21e-8    13
-       4     1     4 -7.21e-8    15
-       5     1     8 -8.38e-8     2
-       6     2     1  1.08e-7    15
-       7     2     2  1.40e-9    13
-       8     2     3  1.40e-9    13
-       9     2     4  1.40e-9    20
-      10     2     8  1.17e-9     3
+           .it  carb    .y    .n
+         <dbl> <dbl> <dbl> <dbl>
+       1     1     1     0    18
+       2     1     2     0    16
+       3     1     3     0    13
+       4     1     4     0    15
+       5     1     8     0     2
+       6     2     1     0    15
+       7     2     2     0    13
+       8     2     3     0    13
+       9     2     4     0    20
+      10     2     8     0     3
       
-      attr(,"composite")$`North America`$boot_data$d1$wt
+      $composite$`North America`$boot_data$d1$wt
       # A tibble: 22 x 4
-           .it    wt        .y    .n
-         <dbl> <dbl>     <dbl> <dbl>
-       1     1  1.50  7.56e-10     1
-       2     1  1.93 -1.10e-11     6
-       3     1  2.31 -7.17e-11    11
-       4     1  2.78 -7.17e-11    12
-       5     1  3.16 -7.17e-11     3
-       6     1  3.22 -7.17e-11     1
-       7     1  3.44 -7.17e-11     4
-       8     1  3.56 -7.13e-11     8
-       9     1  3.79 -7.14e-11     5
-      10     1  4.07 -7.14e-11     7
+           .it    wt    .y    .n
+         <dbl> <dbl> <dbl> <dbl>
+       1     1  1.50     0     1
+       2     1  1.93     0     6
+       3     1  2.31     0    11
+       4     1  2.78     0    12
+       5     1  3.16     0     3
+       6     1  3.22     0     1
+       7     1  3.44     0     4
+       8     1  3.56     0     8
+       9     1  3.79     0     5
+      10     1  4.07     0     7
       # i 12 more rows
       
       
-      attr(,"composite")$`North America`$boot_data$d2
-      attr(,"composite")$`North America`$boot_data$d2$`mpg:vs`
+      $composite$`North America`$boot_data$d2
+      $composite$`North America`$boot_data$d2$`mpg:vs`
       # A tibble: 44 x 5
            .it   mpg vs       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -2302,7 +2294,7 @@
       10     1  30.4 FALSE     0     6
       # i 34 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`mpg:am`
+      $composite$`North America`$boot_data$d2$`mpg:am`
       # A tibble: 44 x 5
            .it   mpg am       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -2318,7 +2310,7 @@
       10     1  30.4 FALSE     0     5
       # i 34 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`mpg:model`
+      $composite$`North America`$boot_data$d2$`mpg:model`
       # A tibble: 704 x 5
            .it   mpg model          .y    .n
          <dbl> <dbl> <fct>       <dbl> <dbl>
@@ -2334,7 +2326,7 @@
       10     1  30.4 AMC Javelin     0     1
       # i 694 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`mpg:gear`
+      $composite$`North America`$boot_data$d2$`mpg:gear`
       # A tibble: 66 x 5
            .it   mpg gear     .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -2350,7 +2342,7 @@
       10     1  30.4 three     0     3
       # i 56 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`mpg:carb`
+      $composite$`North America`$boot_data$d2$`mpg:carb`
       # A tibble: 110 x 5
            .it   mpg  carb    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -2366,7 +2358,7 @@
       10     1  30.4     1     0     4
       # i 100 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`mpg:wt`
+      $composite$`North America`$boot_data$d2$`mpg:wt`
       # A tibble: 242 x 5
            .it   mpg    wt    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -2382,7 +2374,7 @@
       10     1  30.4  1.50     0     1
       # i 232 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`vs:am`
+      $composite$`North America`$boot_data$d2$`vs:am`
       # A tibble: 8 x 5
           .it vs    am       .y    .n
         <dbl> <fct> <fct> <dbl> <dbl>
@@ -2395,7 +2387,7 @@
       7     2 FALSE TRUE      0    12
       8     2 TRUE  TRUE      0    14
       
-      attr(,"composite")$`North America`$boot_data$d2$`vs:model`
+      $composite$`North America`$boot_data$d2$`vs:model`
       # A tibble: 128 x 5
            .it vs    model                 .y    .n
          <dbl> <fct> <fct>              <dbl> <dbl>
@@ -2411,7 +2403,7 @@
       10     1 TRUE  Datsun 710             0     0
       # i 118 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`vs:gear`
+      $composite$`North America`$boot_data$d2$`vs:gear`
       # A tibble: 12 x 5
            .it vs    gear     .y    .n
          <dbl> <fct> <fct> <dbl> <dbl>
@@ -2428,7 +2420,7 @@
       11     2 FALSE five      0     8
       12     2 TRUE  five      0     2
       
-      attr(,"composite")$`North America`$boot_data$d2$`vs:carb`
+      $composite$`North America`$boot_data$d2$`vs:carb`
       # A tibble: 20 x 5
            .it vs     carb    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -2453,7 +2445,7 @@
       19     2 FALSE     8     0     2
       20     2 TRUE      8     0     1
       
-      attr(,"composite")$`North America`$boot_data$d2$`vs:wt`
+      $composite$`North America`$boot_data$d2$`vs:wt`
       # A tibble: 44 x 5
            .it vs       wt    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -2469,23 +2461,23 @@
       10     1 TRUE   3.16     0     2
       # i 34 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`am:model`
+      $composite$`North America`$boot_data$d2$`am:model`
       # A tibble: 128 x 5
-           .it am    model                     .y    .n
-         <dbl> <fct> <fct>                  <dbl> <dbl>
-       1     1 FALSE AMC Javelin         0.0892       0
-       2     1 TRUE  AMC Javelin         0.0565       2
-       3     1 FALSE Cadillac Fleetwood  0.0892       0
-       4     1 TRUE  Cadillac Fleetwood  0.0565       2
-       5     1 FALSE Camaro Z28          0.0892       0
-       6     1 TRUE  Camaro Z28          0.0541       2
-       7     1 FALSE Chrysler Imperial   0.0892       2
-       8     1 TRUE  Chrysler Imperial   0.0517       0
-       9     1 FALSE Datsun 710          0.000634     2
-      10     1 TRUE  Datsun 710         -0.0389       0
+           .it am    model                    .y    .n
+         <dbl> <fct> <fct>                 <dbl> <dbl>
+       1     1 FALSE AMC Javelin         0.0892      0
+       2     1 TRUE  AMC Javelin         0.0565      2
+       3     1 FALSE Cadillac Fleetwood  0.0892      0
+       4     1 TRUE  Cadillac Fleetwood  0.0565      2
+       5     1 FALSE Camaro Z28          0.0892      0
+       6     1 TRUE  Camaro Z28          0.0541      2
+       7     1 FALSE Chrysler Imperial   0.0892      2
+       8     1 TRUE  Chrysler Imperial   0.0518      0
+       9     1 FALSE Datsun 710          0.00063     2
+      10     1 TRUE  Datsun 710         -0.0389      0
       # i 118 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`am:gear`
+      $composite$`North America`$boot_data$d2$`am:gear`
       # A tibble: 12 x 5
            .it am    gear       .y    .n
          <dbl> <fct> <fct>   <dbl> <dbl>
@@ -2502,48 +2494,48 @@
       11     2 FALSE five   0.180      0
       12     2 TRUE  five   0.242     10
       
-      attr(,"composite")$`North America`$boot_data$d2$`am:carb`
+      $composite$`North America`$boot_data$d2$`am:carb`
       # A tibble: 20 x 5
-           .it am     carb            .y    .n
-         <dbl> <fct> <dbl>         <dbl> <dbl>
-       1     1 FALSE     1  0.0000000449    10
-       2     1 TRUE      1  0.0000000449     8
-       3     1 FALSE     2 -0.000000132      8
-       4     1 TRUE      2 -0.000000315      8
-       5     1 FALSE     3 -0.000000132     10
-       6     1 TRUE      3 -0.000000315      3
-       7     1 FALSE     4 -0.000000138      9
-       8     1 TRUE      4 -0.000000321      6
-       9     1 FALSE     8 -0.000000138      1
-      10     1 TRUE      8 -0.000000321      1
-      11     2 FALSE     1  0.0000000449     8
-      12     2 TRUE      1  0.0000000449     7
-      13     2 FALSE     2  0.0000000404     7
-      14     2 TRUE      2 -0.000000185      6
-      15     2 FALSE     3  0.0000000404     9
-      16     2 TRUE      3 -0.000000185      4
-      17     2 FALSE     4  0.0000000376    13
-      18     2 TRUE      4 -0.000000190      7
-      19     2 FALSE     8  0.0000000369     1
-      20     2 TRUE      8 -0.000000191      2
+           .it am     carb    .y    .n
+         <dbl> <fct> <dbl> <dbl> <dbl>
+       1     1 FALSE     1     0    10
+       2     1 TRUE      1     0     8
+       3     1 FALSE     2     0     8
+       4     1 TRUE      2     0     8
+       5     1 FALSE     3     0    10
+       6     1 TRUE      3     0     3
+       7     1 FALSE     4     0     9
+       8     1 TRUE      4     0     6
+       9     1 FALSE     8     0     1
+      10     1 TRUE      8     0     1
+      11     2 FALSE     1     0     8
+      12     2 TRUE      1     0     7
+      13     2 FALSE     2     0     7
+      14     2 TRUE      2     0     6
+      15     2 FALSE     3     0     9
+      16     2 TRUE      3     0     4
+      17     2 FALSE     4     0    13
+      18     2 TRUE      4     0     7
+      19     2 FALSE     8     0     1
+      20     2 TRUE      8     0     2
       
-      attr(,"composite")$`North America`$boot_data$d2$`am:wt`
+      $composite$`North America`$boot_data$d2$`am:wt`
       # A tibble: 44 x 5
-           .it am       wt        .y    .n
-         <dbl> <fct> <dbl>     <dbl> <dbl>
-       1     1 FALSE  1.50 -3.02e-11     1
-       2     1 TRUE   1.50 -3.02e-11     0
-       3     1 FALSE  1.93 -3.45e-11     2
-       4     1 TRUE   1.93 -1.19e- 9     4
-       5     1 FALSE  2.31 -7.90e-11     5
-       6     1 TRUE   2.31 -1.30e- 9     6
-       7     1 FALSE  2.78  1.31e- 9    11
-       8     1 TRUE   2.78  8.29e-11     1
-       9     1 FALSE  3.16  1.31e- 9     1
-      10     1 TRUE   3.16  8.91e-11     2
+           .it am       wt    .y    .n
+         <dbl> <fct> <dbl> <dbl> <dbl>
+       1     1 FALSE  1.50     0     1
+       2     1 TRUE   1.50     0     0
+       3     1 FALSE  1.93     0     2
+       4     1 TRUE   1.93     0     4
+       5     1 FALSE  2.31     0     5
+       6     1 TRUE   2.31     0     6
+       7     1 FALSE  2.78     0    11
+       8     1 TRUE   2.78     0     1
+       9     1 FALSE  3.16     0     1
+      10     1 TRUE   3.16     0     2
       # i 34 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`model:gear`
+      $composite$`North America`$boot_data$d2$`model:gear`
       # A tibble: 192 x 5
            .it model              gear     .y    .n
          <dbl> <fct>              <fct> <dbl> <dbl>
@@ -2559,7 +2551,7 @@
       10     1 Fiat X1-9          three  1.00     0
       # i 182 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`model:carb`
+      $composite$`North America`$boot_data$d2$`model:carb`
       # A tibble: 320 x 5
            .it model               carb     .y    .n
          <dbl> <fct>              <dbl>  <dbl> <dbl>
@@ -2575,7 +2567,7 @@
       10     1 Fiat X1-9              1 -0.372     1
       # i 310 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`model:wt`
+      $composite$`North America`$boot_data$d2$`model:wt`
       # A tibble: 704 x 5
            .it model                 wt    .y    .n
          <dbl> <fct>              <dbl> <dbl> <dbl>
@@ -2591,7 +2583,7 @@
       10     1 Fiat X1-9           1.50 0.287     0
       # i 694 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`gear:carb`
+      $composite$`North America`$boot_data$d2$`gear:carb`
       # A tibble: 30 x 5
            .it gear   carb       .y    .n
          <dbl> <fct> <dbl>    <dbl> <dbl>
@@ -2607,7 +2599,7 @@
       10     1 three     4  0.00853     7
       # i 20 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`gear:wt`
+      $composite$`North America`$boot_data$d2$`gear:wt`
       # A tibble: 66 x 5
            .it gear     wt      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -2623,30 +2615,31 @@
       10     1 three  2.78 -0.0396     8
       # i 56 more rows
       
-      attr(,"composite")$`North America`$boot_data$d2$`carb:wt`
+      $composite$`North America`$boot_data$d2$`carb:wt`
       # A tibble: 110 x 5
-           .it  carb    wt            .y    .n
-         <dbl> <dbl> <dbl>         <dbl> <dbl>
-       1     1     1  1.50 -0.000000110      0
-       2     1     2  1.50 -0.000000110      1
-       3     1     3  1.50 -0.000000110      0
-       4     1     4  1.50 -0.000000110      0
-       5     1     8  1.50 -0.000000110      0
-       6     1     1  1.93 -0.000000110      3
-       7     1     2  1.93  0.0000000150     3
-       8     1     3  1.93  0.0000000150     0
-       9     1     4  1.93  0.0000000150     0
-      10     1     8  1.93  0.0000000150     0
+           .it  carb    wt    .y    .n
+         <dbl> <dbl> <dbl> <dbl> <dbl>
+       1     1     1  1.50     0     0
+       2     1     2  1.50     0     1
+       3     1     3  1.50     0     0
+       4     1     4  1.50     0     0
+       5     1     8  1.50     0     0
+       6     1     1  1.93     0     3
+       7     1     2  1.93     0     3
+       8     1     3  1.93     0     0
+       9     1     4  1.93     0     0
+      10     1     8  1.93     0     0
       # i 100 more rows
       
       
       
       
-      attr(,"distinct")
-      attr(,"distinct")$Asia
-      attr(,"distinct")$Asia$ale
-      attr(,"distinct")$Asia$ale$d2
-      attr(,"distinct")$Asia$ale$d2$`mpg:vs`
+      
+      $distinct
+      $distinct$Asia
+      $distinct$Asia$ale
+      $distinct$Asia$ale$d2
+      $distinct$Asia$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2662,7 +2655,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`mpg:am`
+      $distinct$Asia$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2678,7 +2671,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`mpg:model`
+      $distinct$Asia$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2694,7 +2687,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`mpg:gear`
+      $distinct$Asia$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2710,7 +2703,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`mpg:carb`
+      $distinct$Asia$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2726,7 +2719,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`mpg:wt`
+      $distinct$Asia$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2742,7 +2735,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`vs:am`
+      $distinct$Asia$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2751,7 +2744,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"distinct")$Asia$ale$d2$`vs:model`
+      $distinct$Asia$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2767,7 +2760,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`vs:gear`
+      $distinct$Asia$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2778,7 +2771,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"distinct")$Asia$ale$d2$`vs:carb`
+      $distinct$Asia$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2793,7 +2786,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"distinct")$Asia$ale$d2$`vs:wt`
+      $distinct$Asia$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2809,7 +2802,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`am:model`
+      $distinct$Asia$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>  <ord>              <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -2825,7 +2818,7 @@
       10 TRUE   Datsun 710             0  0.634  0.634   0.634     0.634  0.634
       # i 54 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`am:gear`
+      $distinct$Asia$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>  <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2836,7 +2829,7 @@
       5 FALSE  five         0 -0.0688 -0.0688 -0.0688   -0.0688 -0.0688
       6 TRUE   five        10 -0.121  -0.121  -0.121    -0.121  -0.121 
       
-      attr(,"distinct")$Asia$ale$d2$`am:carb`
+      $distinct$Asia$ale$d2$`am:carb`
       # A tibble: 10 x 8
          am.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2851,12 +2844,12 @@
        9 FALSE          8     2  0.0166  0.0166  0.0166    0.0166  0.0166
       10 TRUE           8     4  0.0166  0.0166  0.0166    0.0166  0.0166
       
-      attr(,"distinct")$Asia$ale$d2$`am:wt`
+      $distinct$Asia$ale$d2$`am:wt`
       # A tibble: 22 x 8
          am.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
        1 FALSE     1.50     0  0.0240   0.0240   0.0240    0.0240   0.0240 
-       2 TRUE      1.50     1 -0.00890 -0.00890 -0.00890  -0.00890 -0.00890
+       2 TRUE      1.50     1 -0.0089  -0.0089  -0.0089   -0.0089  -0.0089 
        3 FALSE     1.93     0  0.00287  0.00287  0.00287   0.00287  0.00287
        4 TRUE      1.93     6  0.0552   0.0552   0.0552    0.0552   0.0552 
        5 FALSE     2.31     0 -0.0101  -0.0101  -0.0101   -0.0101  -0.0101 
@@ -2867,7 +2860,7 @@
       10 TRUE      3.16     4  0.0570   0.0570   0.0570    0.0570   0.0570 
       # i 12 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`model:gear`
+      $distinct$Asia$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>              <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2883,7 +2876,7 @@
       10 Fiat X1-9          three        0  1.72    1.72    1.72      1.72    1.72  
       # i 86 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`model:carb`
+      $distinct$Asia$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>                  <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2899,7 +2892,7 @@
       10 Fiat X1-9                  1     0 -0.299  -0.299  -0.299    -0.299  -0.299 
       # i 150 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`model:wt`
+      $distinct$Asia$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>                <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -2915,13 +2908,13 @@
       10 Fiat X1-9             1.50     0 -1.37  -1.37   -1.37     -1.37  -1.37 
       # i 342 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`gear:carb`
+      $distinct$Asia$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>        <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
        1 three            1     6  0.0284  0.0284  0.0284    0.0284  0.0284
        2 four             1     8 -0.0211 -0.0211 -0.0211   -0.0211 -0.0211
-       3 five             1     0 -0.0245 -0.0245 -0.0245   -0.0245 -0.0245
+       3 five             1     0 -0.0244 -0.0244 -0.0244   -0.0244 -0.0244
        4 three            2     8 -0.0766 -0.0766 -0.0766   -0.0766 -0.0766
        5 four             2     7 -0.0767 -0.0767 -0.0767   -0.0767 -0.0767
        6 five             2     4  0.0284  0.0284  0.0284    0.0284  0.0284
@@ -2930,17 +2923,17 @@
        9 five             3     0  0.0249  0.0249  0.0249    0.0249  0.0249
       10 three            4     8  0.0272  0.0272  0.0272    0.0272  0.0272
       11 four             4     6  0.0284  0.0284  0.0284    0.0284  0.0284
-      12 five             4     2  0.0813  0.0813  0.0813    0.0813  0.0813
+      12 five             4     2  0.0814  0.0814  0.0814    0.0814  0.0814
       13 three            8     1  0.0847  0.0847  0.0847    0.0847  0.0847
       14 four             8     1  0.137   0.137   0.137     0.137   0.137 
       15 five             8     4  0.135   0.135   0.135     0.135   0.135 
       
-      attr(,"distinct")$Asia$ale$d2$`gear:wt`
+      $distinct$Asia$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
        1 three       1.50     0  0.0293  0.0293  0.0293    0.0293  0.0293
-       2 four        1.50     0  0.0185  0.0185  0.0185    0.0185  0.0185
+       2 four        1.50     0  0.0186  0.0186  0.0186    0.0186  0.0186
        3 five        1.50     1  0.0130  0.0130  0.0130    0.0130  0.0130
        4 three       1.93     0  0.0128  0.0128  0.0128    0.0128  0.0128
        5 four        1.93     5 -0.0101 -0.0101 -0.0101   -0.0101 -0.0101
@@ -2951,7 +2944,7 @@
       10 three       2.78     2 -0.0104 -0.0104 -0.0104   -0.0104 -0.0104
       # i 23 more rows
       
-      attr(,"distinct")$Asia$ale$d2$`carb:wt`
+      $distinct$Asia$ale$d2$`carb:wt`
       # A tibble: 55 x 8
          carb.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
              <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2969,25 +2962,25 @@
       
       
       
-      attr(,"distinct")$Asia$stats
-      # A tibble: 126 x 9
+      $distinct$Asia$stats
+      # A tibble: 168 x 9
          statistic estimate p.value term   conf.low  mean median conf.high     d
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl> <int>
        1 aled             0       1 mpg:vs        0     0      0         0     2
        2 aler_min         0       1 mpg:vs        0     0      0         0     2
-       3 aler_max         0       1 mpg:vs        0     0      0         0     2
-       4 naled            0       0 mpg:vs        0     0      0         0     2
-       5 naler_min        0       1 mpg:vs        0     0      0         0     2
-       6 naler_max        0       0 mpg:vs        0     0      0         0     2
-       7 aled             0       1 mpg:am        0     0      0         0     2
-       8 aler_min         0       1 mpg:am        0     0      0         0     2
-       9 aler_max         0       1 mpg:am        0     0      0         0     2
-      10 naled            0       0 mpg:am        0     0      0         0     2
-      # i 116 more rows
+       3 aler             0       1 mpg:vs        0     0      0         0     2
+       4 aler_max         0       1 mpg:vs        0     0      0         0     2
+       5 naled            0       0 mpg:vs        0     0      0         0     2
+       6 naler_min        0       1 mpg:vs        0     0      0         0     2
+       7 naler            0       0 mpg:vs        0     0      0         0     2
+       8 naler_max        0       0 mpg:vs        0     0      0         0     2
+       9 aled             0       1 mpg:am        0     0      0         0     2
+      10 aler_min         0       1 mpg:am        0     0      0         0     2
+      # i 158 more rows
       
-      attr(,"distinct")$Asia$boot_data
-      attr(,"distinct")$Asia$boot_data$d2
-      attr(,"distinct")$Asia$boot_data$d2$`mpg:vs`
+      $distinct$Asia$boot_data
+      $distinct$Asia$boot_data$d2
+      $distinct$Asia$boot_data$d2$`mpg:vs`
       # A tibble: 44 x 5
            .it   mpg vs       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -3003,7 +2996,7 @@
       10     1  30.4 FALSE     0     6
       # i 34 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`mpg:am`
+      $distinct$Asia$boot_data$d2$`mpg:am`
       # A tibble: 44 x 5
            .it   mpg am       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -3019,7 +3012,7 @@
       10     1  30.4 FALSE     0     5
       # i 34 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`mpg:model`
+      $distinct$Asia$boot_data$d2$`mpg:model`
       # A tibble: 704 x 5
            .it   mpg model          .y    .n
          <dbl> <dbl> <fct>       <dbl> <dbl>
@@ -3035,7 +3028,7 @@
       10     1  30.4 AMC Javelin     0     1
       # i 694 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`mpg:gear`
+      $distinct$Asia$boot_data$d2$`mpg:gear`
       # A tibble: 66 x 5
            .it   mpg gear     .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -3051,7 +3044,7 @@
       10     1  30.4 three     0     3
       # i 56 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`mpg:carb`
+      $distinct$Asia$boot_data$d2$`mpg:carb`
       # A tibble: 110 x 5
            .it   mpg  carb    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -3067,7 +3060,7 @@
       10     1  30.4     1     0     4
       # i 100 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`mpg:wt`
+      $distinct$Asia$boot_data$d2$`mpg:wt`
       # A tibble: 242 x 5
            .it   mpg    wt    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -3083,7 +3076,7 @@
       10     1  30.4  1.50     0     1
       # i 232 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`vs:am`
+      $distinct$Asia$boot_data$d2$`vs:am`
       # A tibble: 8 x 5
           .it vs    am       .y    .n
         <dbl> <fct> <fct> <dbl> <dbl>
@@ -3096,7 +3089,7 @@
       7     2 FALSE TRUE      0    12
       8     2 TRUE  TRUE      0    14
       
-      attr(,"distinct")$Asia$boot_data$d2$`vs:model`
+      $distinct$Asia$boot_data$d2$`vs:model`
       # A tibble: 128 x 5
            .it vs    model                 .y    .n
          <dbl> <fct> <fct>              <dbl> <dbl>
@@ -3112,7 +3105,7 @@
       10     1 TRUE  Datsun 710             0     0
       # i 118 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`vs:gear`
+      $distinct$Asia$boot_data$d2$`vs:gear`
       # A tibble: 12 x 5
            .it vs    gear     .y    .n
          <dbl> <fct> <fct> <dbl> <dbl>
@@ -3129,7 +3122,7 @@
       11     2 FALSE five      0     8
       12     2 TRUE  five      0     2
       
-      attr(,"distinct")$Asia$boot_data$d2$`vs:carb`
+      $distinct$Asia$boot_data$d2$`vs:carb`
       # A tibble: 20 x 5
            .it vs     carb    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -3154,7 +3147,7 @@
       19     2 FALSE     8     0     2
       20     2 TRUE      8     0     1
       
-      attr(,"distinct")$Asia$boot_data$d2$`vs:wt`
+      $distinct$Asia$boot_data$d2$`vs:wt`
       # A tibble: 44 x 5
            .it vs       wt    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -3170,7 +3163,7 @@
       10     1 TRUE   3.16     0     2
       # i 34 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`am:model`
+      $distinct$Asia$boot_data$d2$`am:model`
       # A tibble: 128 x 5
            .it am    model                  .y    .n
          <dbl> <fct> <fct>               <dbl> <dbl>
@@ -3186,7 +3179,7 @@
       10     1 TRUE  Datsun 710          0.634     0
       # i 118 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`am:gear`
+      $distinct$Asia$boot_data$d2$`am:gear`
       # A tibble: 12 x 5
            .it am    gear       .y    .n
          <dbl> <fct> <fct>   <dbl> <dbl>
@@ -3203,7 +3196,7 @@
       11     2 FALSE five  -0.0688     0
       12     2 TRUE  five  -0.121     10
       
-      attr(,"distinct")$Asia$boot_data$d2$`am:carb`
+      $distinct$Asia$boot_data$d2$`am:carb`
       # A tibble: 20 x 5
            .it am     carb      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -3228,12 +3221,12 @@
       19     2 FALSE     8  0.0166     1
       20     2 TRUE      8  0.0166     2
       
-      attr(,"distinct")$Asia$boot_data$d2$`am:wt`
+      $distinct$Asia$boot_data$d2$`am:wt`
       # A tibble: 44 x 5
            .it am       wt       .y    .n
          <dbl> <fct> <dbl>    <dbl> <dbl>
        1     1 FALSE  1.50  0.0240      1
-       2     1 TRUE   1.50 -0.00890     0
+       2     1 TRUE   1.50 -0.0089      0
        3     1 FALSE  1.93  0.00287     2
        4     1 TRUE   1.93  0.0552      4
        5     1 FALSE  2.31 -0.0101      5
@@ -3244,7 +3237,7 @@
       10     1 TRUE   3.16  0.0570      2
       # i 34 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`model:gear`
+      $distinct$Asia$boot_data$d2$`model:gear`
       # A tibble: 192 x 5
            .it model              gear       .y    .n
          <dbl> <fct>              <fct>   <dbl> <dbl>
@@ -3260,7 +3253,7 @@
       10     1 Fiat X1-9          three  1.72       0
       # i 182 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`model:carb`
+      $distinct$Asia$boot_data$d2$`model:carb`
       # A tibble: 320 x 5
            .it model               carb      .y    .n
          <dbl> <fct>              <dbl>   <dbl> <dbl>
@@ -3276,7 +3269,7 @@
       10     1 Fiat X1-9              1 -0.299      1
       # i 310 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`model:wt`
+      $distinct$Asia$boot_data$d2$`model:wt`
       # A tibble: 704 x 5
            .it model                 wt     .y    .n
          <dbl> <fct>              <dbl>  <dbl> <dbl>
@@ -3292,13 +3285,13 @@
       10     1 Fiat X1-9           1.50 -1.37      0
       # i 694 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`gear:carb`
+      $distinct$Asia$boot_data$d2$`gear:carb`
       # A tibble: 30 x 5
            .it gear   carb      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
        1     1 three     1  0.0284     8
        2     1 four      1 -0.0211     7
-       3     1 five      1 -0.0245     3
+       3     1 five      1 -0.0244     3
        4     1 three     2 -0.0766     6
        5     1 four      2 -0.0767     6
        6     1 five      2  0.0284     4
@@ -3308,12 +3301,12 @@
       10     1 three     4  0.0272     7
       # i 20 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`gear:wt`
+      $distinct$Asia$boot_data$d2$`gear:wt`
       # A tibble: 66 x 5
            .it gear     wt      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
        1     1 three  1.50  0.0293     1
-       2     1 four   1.50  0.0185     0
+       2     1 four   1.50  0.0186     0
        3     1 five   1.50  0.0130     0
        4     1 three  1.93  0.0128     2
        5     1 four   1.93 -0.0101     2
@@ -3324,7 +3317,7 @@
       10     1 three  2.78 -0.0104     8
       # i 56 more rows
       
-      attr(,"distinct")$Asia$boot_data$d2$`carb:wt`
+      $distinct$Asia$boot_data$d2$`carb:wt`
       # A tibble: 110 x 5
            .it  carb    wt       .y    .n
          <dbl> <dbl> <dbl>    <dbl> <dbl>
@@ -3343,10 +3336,10 @@
       
       
       
-      attr(,"distinct")$Europe
-      attr(,"distinct")$Europe$ale
-      attr(,"distinct")$Europe$ale$d2
-      attr(,"distinct")$Europe$ale$d2$`mpg:vs`
+      $distinct$Europe
+      $distinct$Europe$ale
+      $distinct$Europe$ale$d2
+      $distinct$Europe$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3362,7 +3355,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`mpg:am`
+      $distinct$Europe$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3378,7 +3371,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`mpg:model`
+      $distinct$Europe$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3394,7 +3387,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`mpg:gear`
+      $distinct$Europe$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3410,7 +3403,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`mpg:carb`
+      $distinct$Europe$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3426,7 +3419,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`mpg:wt`
+      $distinct$Europe$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3442,7 +3435,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`vs:am`
+      $distinct$Europe$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3451,7 +3444,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"distinct")$Europe$ale$d2$`vs:model`
+      $distinct$Europe$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3467,7 +3460,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`vs:gear`
+      $distinct$Europe$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3478,7 +3471,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"distinct")$Europe$ale$d2$`vs:carb`
+      $distinct$Europe$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3493,7 +3486,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"distinct")$Europe$ale$d2$`vs:wt`
+      $distinct$Europe$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3509,7 +3502,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`am:model`
+      $distinct$Europe$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -3525,7 +3518,7 @@
       10 TRUE   Datsun 710             0  1.20  1.20    1.20      1.20  1.20
       # i 54 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`am:gear`
+      $distinct$Europe$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>  <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -3536,7 +3529,7 @@
       5 FALSE  five         0 -0.436  -0.436  -0.436    -0.436  -0.436 
       6 TRUE   five        10 -0.291  -0.291  -0.291    -0.291  -0.291 
       
-      attr(,"distinct")$Europe$ale$d2$`am:carb`
+      $distinct$Europe$ale$d2$`am:carb`
       # A tibble: 10 x 8
          am.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -3551,7 +3544,7 @@
        9 FALSE          8     2 -0.0166 -0.0166 -0.0166   -0.0166 -0.0166
       10 TRUE           8     4 -0.0166 -0.0166 -0.0166   -0.0166 -0.0166
       
-      attr(,"distinct")$Europe$ale$d2$`am:wt`
+      $distinct$Europe$ale$d2$`am:wt`
       # A tibble: 22 x 8
          am.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -3563,15 +3556,15 @@
        6 TRUE      2.31     6 -0.0582  -0.0582  -0.0582   -0.0582  -0.0582 
        7 FALSE     2.78     2  0.00715  0.00715  0.00715   0.00715  0.00715
        8 TRUE      2.78     5 -0.0240  -0.0240  -0.0240   -0.0240  -0.0240 
-       9 FALSE     3.16     2  0.00890  0.00890  0.00890   0.00890  0.00890
+       9 FALSE     3.16     2  0.0089   0.0089   0.0089    0.0089   0.0089 
       10 TRUE      3.16     4 -0.00287 -0.00287 -0.00287  -0.00287 -0.00287
       # i 12 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`model:gear`
+      $distinct$Europe$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>              <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 AMC Javelin        three        0 0.171 0.171   0.171     0.171 0.171
+       1 AMC Javelin        three        0 0.172 0.172   0.172     0.172 0.172
        2 Cadillac Fleetwood three        0 0.172 0.172   0.172     0.172 0.172
        3 Camaro Z28         three        0 0.172 0.172   0.172     0.172 0.172
        4 Chrysler Imperial  three        2 0.172 0.172   0.172     0.172 0.172
@@ -3583,7 +3576,7 @@
       10 Fiat X1-9          three        0 3.00  3.00    3.00      3.00  3.00 
       # i 86 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`model:carb`
+      $distinct$Europe$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>                  <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -3599,7 +3592,7 @@
       10 Fiat X1-9                  1     0 -2.42  -2.42   -2.42     -2.42  -2.42 
       # i 150 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`model:wt`
+      $distinct$Europe$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>                <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -3615,13 +3608,13 @@
       10 Fiat X1-9             1.50     0 -3.25  -3.25   -3.25     -3.25  -3.25 
       # i 342 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`gear:carb`
+      $distinct$Europe$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>        <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
        1 three            1     6 -0.105   -0.105   -0.105    -0.105   -0.105  
        2 four             1     8 -0.0208  -0.0208  -0.0208   -0.0208  -0.0208 
-       3 five             1     0  0.00610  0.00610  0.00610   0.00610  0.00610
+       3 five             1     0  0.0061   0.0061   0.0061    0.0061   0.0061 
        4 three            2     8  0.120    0.120    0.120     0.120    0.120  
        5 four             2     7  0.120    0.120    0.120     0.120    0.120  
        6 five             2     4  0.00214  0.00214  0.00214   0.00214  0.00214
@@ -3635,7 +3628,7 @@
       14 four             8     1 -0.112   -0.112   -0.112    -0.112   -0.112  
       15 five             8     4 -0.111   -0.111   -0.111    -0.111   -0.111  
       
-      attr(,"distinct")$Europe$ale$d2$`gear:wt`
+      $distinct$Europe$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -3651,7 +3644,7 @@
       10 three       2.78     2 -0.0116 -0.0116 -0.0116   -0.0116 -0.0116
       # i 23 more rows
       
-      attr(,"distinct")$Europe$ale$d2$`carb:wt`
+      $distinct$Europe$ale$d2$`carb:wt`
       # A tibble: 55 x 8
          carb.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
              <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -3659,7 +3652,7 @@
        2         2    1.50     1 -0.0345  -0.0345  -0.0345   -0.0345  -0.0345 
        3         3    1.50     0 -0.0197  -0.0197  -0.0197   -0.0197  -0.0197 
        4         4    1.50     0 -0.00939 -0.00939 -0.00939  -0.00939 -0.00939
-       5         8    1.50     0 -0.00650 -0.00650 -0.00650  -0.00650 -0.00650
+       5         8    1.50     0 -0.0065  -0.0065  -0.0065   -0.0065  -0.0065 
        6         1    1.93     3 -0.00615 -0.00615 -0.00615  -0.00615 -0.00615
        7         2    1.93     3 -0.00619 -0.00619 -0.00619  -0.00619 -0.00619
        8         3    1.93     0 -0.00609 -0.00609 -0.00609  -0.00609 -0.00609
@@ -3669,25 +3662,25 @@
       
       
       
-      attr(,"distinct")$Europe$stats
-      # A tibble: 126 x 9
+      $distinct$Europe$stats
+      # A tibble: 168 x 9
          statistic estimate p.value term   conf.low  mean median conf.high     d
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl> <int>
        1 aled             0       1 mpg:vs        0     0      0         0     2
        2 aler_min         0       1 mpg:vs        0     0      0         0     2
-       3 aler_max         0       1 mpg:vs        0     0      0         0     2
-       4 naled            0       0 mpg:vs        0     0      0         0     2
-       5 naler_min        0       1 mpg:vs        0     0      0         0     2
-       6 naler_max        0       0 mpg:vs        0     0      0         0     2
-       7 aled             0       1 mpg:am        0     0      0         0     2
-       8 aler_min         0       1 mpg:am        0     0      0         0     2
-       9 aler_max         0       1 mpg:am        0     0      0         0     2
-      10 naled            0       0 mpg:am        0     0      0         0     2
-      # i 116 more rows
+       3 aler             0       1 mpg:vs        0     0      0         0     2
+       4 aler_max         0       1 mpg:vs        0     0      0         0     2
+       5 naled            0       0 mpg:vs        0     0      0         0     2
+       6 naler_min        0       1 mpg:vs        0     0      0         0     2
+       7 naler            0       0 mpg:vs        0     0      0         0     2
+       8 naler_max        0       0 mpg:vs        0     0      0         0     2
+       9 aled             0       1 mpg:am        0     0      0         0     2
+      10 aler_min         0       1 mpg:am        0     0      0         0     2
+      # i 158 more rows
       
-      attr(,"distinct")$Europe$boot_data
-      attr(,"distinct")$Europe$boot_data$d2
-      attr(,"distinct")$Europe$boot_data$d2$`mpg:vs`
+      $distinct$Europe$boot_data
+      $distinct$Europe$boot_data$d2
+      $distinct$Europe$boot_data$d2$`mpg:vs`
       # A tibble: 44 x 5
            .it   mpg vs       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -3703,7 +3696,7 @@
       10     1  30.4 FALSE     0     6
       # i 34 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`mpg:am`
+      $distinct$Europe$boot_data$d2$`mpg:am`
       # A tibble: 44 x 5
            .it   mpg am       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -3719,7 +3712,7 @@
       10     1  30.4 FALSE     0     5
       # i 34 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`mpg:model`
+      $distinct$Europe$boot_data$d2$`mpg:model`
       # A tibble: 704 x 5
            .it   mpg model          .y    .n
          <dbl> <dbl> <fct>       <dbl> <dbl>
@@ -3735,7 +3728,7 @@
       10     1  30.4 AMC Javelin     0     1
       # i 694 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`mpg:gear`
+      $distinct$Europe$boot_data$d2$`mpg:gear`
       # A tibble: 66 x 5
            .it   mpg gear     .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -3751,7 +3744,7 @@
       10     1  30.4 three     0     3
       # i 56 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`mpg:carb`
+      $distinct$Europe$boot_data$d2$`mpg:carb`
       # A tibble: 110 x 5
            .it   mpg  carb    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -3767,7 +3760,7 @@
       10     1  30.4     1     0     4
       # i 100 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`mpg:wt`
+      $distinct$Europe$boot_data$d2$`mpg:wt`
       # A tibble: 242 x 5
            .it   mpg    wt    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -3783,7 +3776,7 @@
       10     1  30.4  1.50     0     1
       # i 232 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`vs:am`
+      $distinct$Europe$boot_data$d2$`vs:am`
       # A tibble: 8 x 5
           .it vs    am       .y    .n
         <dbl> <fct> <fct> <dbl> <dbl>
@@ -3796,7 +3789,7 @@
       7     2 FALSE TRUE      0    12
       8     2 TRUE  TRUE      0    14
       
-      attr(,"distinct")$Europe$boot_data$d2$`vs:model`
+      $distinct$Europe$boot_data$d2$`vs:model`
       # A tibble: 128 x 5
            .it vs    model                 .y    .n
          <dbl> <fct> <fct>              <dbl> <dbl>
@@ -3812,7 +3805,7 @@
       10     1 TRUE  Datsun 710             0     0
       # i 118 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`vs:gear`
+      $distinct$Europe$boot_data$d2$`vs:gear`
       # A tibble: 12 x 5
            .it vs    gear     .y    .n
          <dbl> <fct> <fct> <dbl> <dbl>
@@ -3829,7 +3822,7 @@
       11     2 FALSE five      0     8
       12     2 TRUE  five      0     2
       
-      attr(,"distinct")$Europe$boot_data$d2$`vs:carb`
+      $distinct$Europe$boot_data$d2$`vs:carb`
       # A tibble: 20 x 5
            .it vs     carb    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -3854,7 +3847,7 @@
       19     2 FALSE     8     0     2
       20     2 TRUE      8     0     1
       
-      attr(,"distinct")$Europe$boot_data$d2$`vs:wt`
+      $distinct$Europe$boot_data$d2$`vs:wt`
       # A tibble: 44 x 5
            .it vs       wt    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -3870,7 +3863,7 @@
       10     1 TRUE   3.16     0     2
       # i 34 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`am:model`
+      $distinct$Europe$boot_data$d2$`am:model`
       # A tibble: 128 x 5
            .it am    model                 .y    .n
          <dbl> <fct> <fct>              <dbl> <dbl>
@@ -3886,7 +3879,7 @@
       10     1 TRUE  Datsun 710          1.20     0
       # i 118 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`am:gear`
+      $distinct$Europe$boot_data$d2$`am:gear`
       # A tibble: 12 x 5
            .it am    gear       .y    .n
          <dbl> <fct> <fct>   <dbl> <dbl>
@@ -3903,7 +3896,7 @@
       11     2 FALSE five  -0.436      0
       12     2 TRUE  five  -0.291     10
       
-      attr(,"distinct")$Europe$boot_data$d2$`am:carb`
+      $distinct$Europe$boot_data$d2$`am:carb`
       # A tibble: 20 x 5
            .it am     carb      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -3928,7 +3921,7 @@
       19     2 FALSE     8 -0.0166     1
       20     2 TRUE      8 -0.0166     2
       
-      attr(,"distinct")$Europe$boot_data$d2$`am:wt`
+      $distinct$Europe$boot_data$d2$`am:wt`
       # A tibble: 44 x 5
            .it am       wt       .y    .n
          <dbl> <fct> <dbl>    <dbl> <dbl>
@@ -3940,15 +3933,15 @@
        6     1 TRUE   2.31 -0.0582      6
        7     1 FALSE  2.78  0.00715    11
        8     1 TRUE   2.78 -0.0240      1
-       9     1 FALSE  3.16  0.00890     1
+       9     1 FALSE  3.16  0.0089      1
       10     1 TRUE   3.16 -0.00287     2
       # i 34 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`model:gear`
+      $distinct$Europe$boot_data$d2$`model:gear`
       # A tibble: 192 x 5
            .it model              gear     .y    .n
          <dbl> <fct>              <fct> <dbl> <dbl>
-       1     1 AMC Javelin        three 0.171     0
+       1     1 AMC Javelin        three 0.172     0
        2     1 Cadillac Fleetwood three 0.172     0
        3     1 Camaro Z28         three 0.172     0
        4     1 Chrysler Imperial  three 0.172     2
@@ -3960,7 +3953,7 @@
       10     1 Fiat X1-9          three 3.00      0
       # i 182 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`model:carb`
+      $distinct$Europe$boot_data$d2$`model:carb`
       # A tibble: 320 x 5
            .it model               carb     .y    .n
          <dbl> <fct>              <dbl>  <dbl> <dbl>
@@ -3976,7 +3969,7 @@
       10     1 Fiat X1-9              1 -2.42      1
       # i 310 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`model:wt`
+      $distinct$Europe$boot_data$d2$`model:wt`
       # A tibble: 704 x 5
            .it model                 wt     .y    .n
          <dbl> <fct>              <dbl>  <dbl> <dbl>
@@ -3992,13 +3985,13 @@
       10     1 Fiat X1-9           1.50 -3.25      0
       # i 694 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`gear:carb`
+      $distinct$Europe$boot_data$d2$`gear:carb`
       # A tibble: 30 x 5
            .it gear   carb       .y    .n
          <dbl> <fct> <dbl>    <dbl> <dbl>
        1     1 three     1 -0.105       8
        2     1 four      1 -0.0208      7
-       3     1 five      1  0.00610     3
+       3     1 five      1  0.0061      3
        4     1 three     2  0.120       6
        5     1 four      2  0.120       6
        6     1 five      2  0.00214     4
@@ -4008,7 +4001,7 @@
       10     1 three     4 -0.00189     7
       # i 20 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`gear:wt`
+      $distinct$Europe$boot_data$d2$`gear:wt`
       # A tibble: 66 x 5
            .it gear     wt      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -4024,7 +4017,7 @@
       10     1 three  2.78 -0.0116     8
       # i 56 more rows
       
-      attr(,"distinct")$Europe$boot_data$d2$`carb:wt`
+      $distinct$Europe$boot_data$d2$`carb:wt`
       # A tibble: 110 x 5
            .it  carb    wt       .y    .n
          <dbl> <dbl> <dbl>    <dbl> <dbl>
@@ -4032,7 +4025,7 @@
        2     1     2  1.50 -0.0345      1
        3     1     3  1.50 -0.0197      0
        4     1     4  1.50 -0.00939     0
-       5     1     8  1.50 -0.00650     0
+       5     1     8  1.50 -0.0065      0
        6     1     1  1.93 -0.00615     3
        7     1     2  1.93 -0.00619     3
        8     1     3  1.93 -0.00609     0
@@ -4043,10 +4036,10 @@
       
       
       
-      attr(,"distinct")$`North America`
-      attr(,"distinct")$`North America`$ale
-      attr(,"distinct")$`North America`$ale$d2
-      attr(,"distinct")$`North America`$ale$d2$`mpg:vs`
+      $distinct$`North America`
+      $distinct$`North America`$ale
+      $distinct$`North America`$ale$d2
+      $distinct$`North America`$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4062,7 +4055,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`mpg:am`
+      $distinct$`North America`$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4078,7 +4071,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`mpg:model`
+      $distinct$`North America`$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4094,7 +4087,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`mpg:gear`
+      $distinct$`North America`$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4110,7 +4103,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`mpg:carb`
+      $distinct$`North America`$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4126,7 +4119,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`mpg:wt`
+      $distinct$`North America`$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4142,7 +4135,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`vs:am`
+      $distinct$`North America`$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4151,7 +4144,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"distinct")$`North America`$ale$d2$`vs:model`
+      $distinct$`North America`$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4167,7 +4160,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`vs:gear`
+      $distinct$`North America`$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4178,7 +4171,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"distinct")$`North America`$ale$d2$`vs:carb`
+      $distinct$`North America`$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4193,7 +4186,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"distinct")$`North America`$ale$d2$`vs:wt`
+      $distinct$`North America`$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -4209,7 +4202,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`am:model`
+      $distinct$`North America`$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>  <ord>              <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -4225,7 +4218,7 @@
       10 TRUE   Datsun 710             0  0.252   0.252   0.252     0.252   0.252 
       # i 54 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`am:gear`
+      $distinct$`North America`$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>  <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -4236,54 +4229,54 @@
       5 FALSE  five         0 -0.117 -0.117  -0.117    -0.117 -0.117
       6 TRUE   five        10  0.118  0.118   0.118     0.118  0.118
       
-      attr(,"distinct")$`North America`$ale$d2$`am:carb`
+      $distinct$`North America`$ale$d2$`am:carb`
       # A tibble: 10 x 8
-         am.bin carb.ceil    .n            .y        .y_lo  .y_mean .y_median    .y_hi
-         <ord>      <dbl> <int>         <dbl>        <dbl>    <dbl>     <dbl>    <dbl>
-       1 FALSE          1     6  0.00370           3.70e-3  3.70e-3   3.70e-3  3.70e-3
-       2 TRUE           1     8 -0.143            -1.43e-1 -1.43e-1  -1.43e-1 -1.43e-1
-       3 FALSE          2    12 -0.0828           -8.28e-2 -8.28e-2  -8.28e-2 -8.28e-2
-       4 TRUE           2     7  0.127             1.27e-1  1.27e-1   1.27e-1  1.27e-1
-       5 FALSE          3     7 -0.00369          -3.69e-3 -3.69e-3  -3.69e-3 -3.69e-3
-       6 TRUE           3     2 -0.323            -3.23e-1 -3.23e-1  -3.23e-1 -3.23e-1
-       7 FALSE          4    11 -0.0000000460     -4.60e-8 -4.60e-8  -4.60e-8 -4.60e-8
-       8 TRUE           4     5 -0.000000146      -1.46e-7 -1.46e-7  -1.46e-7 -1.46e-7
-       9 FALSE          8     2  0.0000000275      2.75e-8  2.75e-8   2.75e-8  2.75e-8
-      10 TRUE           8     4 -0.000000152      -1.52e-7 -1.52e-7  -1.52e-7 -1.52e-7
+         am.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     6  0.0037   0.0037   0.0037    0.0037   0.0037 
+       2 TRUE           1     8 -0.143   -0.143   -0.143    -0.143   -0.143  
+       3 FALSE          2    12 -0.0828  -0.0828  -0.0828   -0.0828  -0.0828 
+       4 TRUE           2     7  0.127    0.127    0.127     0.127    0.127  
+       5 FALSE          3     7 -0.00369 -0.00369 -0.00369  -0.00369 -0.00369
+       6 TRUE           3     2 -0.323   -0.323   -0.323    -0.323   -0.323  
+       7 FALSE          4    11  0        0        0         0        0      
+       8 TRUE           4     5  0        0        0         0        0      
+       9 FALSE          8     2  0        0        0         0        0      
+      10 TRUE           8     4  0        0        0         0        0      
       
-      attr(,"distinct")$`North America`$ale$d2$`am:wt`
+      $distinct$`North America`$ale$d2$`am:wt`
       # A tibble: 22 x 8
-         am.bin wt.ceil    .n          .y       .y_lo     .y_mean   .y_median    .y_hi
-         <ord>    <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>    <dbl>
-       1 FALSE     1.50     0  0.00000682  0.00000682  0.00000682  0.00000682  6.82e-6
-       2 TRUE      1.50     1 -0.0329     -0.0329     -0.0329     -0.0329     -3.29e-2
-       3 FALSE     1.93     0 -0.0342     -0.0342     -0.0342     -0.0342     -3.42e-2
-       4 TRUE      1.93     6  0.0312      0.0312      0.0312      0.0312      3.12e-2
-       5 FALSE     2.31     0 -0.0342     -0.0342     -0.0342     -0.0342     -3.42e-2
-       6 TRUE      2.31     6  0.0312      0.0312      0.0312      0.0312      3.12e-2
-       7 FALSE     2.78     2 -0.0342     -0.0342     -0.0342     -0.0342     -3.42e-2
-       8 TRUE      2.78     5  0.0329      0.0329      0.0329      0.0329      3.29e-2
-       9 FALSE     3.16     2 -0.0000145  -0.0000145  -0.0000145  -0.0000145  -1.45e-5
-      10 TRUE      3.16     4 -0.00517    -0.00517    -0.00517    -0.00517    -5.17e-3
+         am.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0  0.00001  0.00001  0.00001   0.00001  0.00001
+       2 TRUE      1.50     1 -0.0329  -0.0329  -0.0329   -0.0329  -0.0329 
+       3 FALSE     1.93     0 -0.0342  -0.0342  -0.0342   -0.0342  -0.0342 
+       4 TRUE      1.93     6  0.0312   0.0312   0.0312    0.0312   0.0312 
+       5 FALSE     2.31     0 -0.0342  -0.0342  -0.0342   -0.0342  -0.0342 
+       6 TRUE      2.31     6  0.0312   0.0312   0.0312    0.0312   0.0312 
+       7 FALSE     2.78     2 -0.0342  -0.0342  -0.0342   -0.0342  -0.0342 
+       8 TRUE      2.78     5  0.0329   0.0329   0.0329    0.0329   0.0329 
+       9 FALSE     3.16     2 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+      10 TRUE      3.16     4 -0.00517 -0.00517 -0.00517  -0.00517 -0.00517
       # i 12 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`model:gear`
+      $distinct$`North America`$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin        gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>            <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1 AMC Javelin      three        0 -2.77e-4 -2.77e-4 -2.77e-4 -0.000277 -2.77e-4
-       2 Cadillac Fleetw~ three        0 -2.77e-4 -2.77e-4 -2.77e-4 -0.000277 -2.77e-4
-       3 Camaro Z28       three        0 -2.69e-4 -2.69e-4 -2.69e-4 -0.000269 -2.69e-4
-       4 Chrysler Imperi~ three        2 -2.69e-4 -2.69e-4 -2.69e-4 -0.000269 -2.69e-4
-       5 Datsun 710       three        2 -2.69e-4 -2.69e-4 -2.69e-4 -0.000269 -2.69e-4
-       6 Dodge Challenger three        2  4.96e-1  4.96e-1  4.96e-1  0.496     4.96e-1
-       7 Duster 360       three        2  4.87e-1  4.87e-1  4.87e-1  0.487     4.87e-1
-       8 Ferrari Dino     three        0  4.87e-1  4.87e-1  4.87e-1  0.487     4.87e-1
-       9 Fiat 128         three        0  1.26e+0  1.26e+0  1.26e+0  1.26      1.26e+0
-      10 Fiat X1-9        three        0  3.04e+0  3.04e+0  3.04e+0  3.04      3.04e+0
+       1 AMC Javelin      three        0 -0.00028 -0.00028 -0.00028  -0.00028 -0.00028
+       2 Cadillac Fleetw~ three        0 -0.00028 -0.00028 -0.00028  -0.00028 -0.00028
+       3 Camaro Z28       three        0 -0.00027 -0.00027 -0.00027  -0.00027 -0.00027
+       4 Chrysler Imperi~ three        2 -0.00027 -0.00027 -0.00027  -0.00027 -0.00027
+       5 Datsun 710       three        2 -0.00027 -0.00027 -0.00027  -0.00027 -0.00027
+       6 Dodge Challenger three        2  0.496    0.496    0.496     0.496    0.496  
+       7 Duster 360       three        2  0.487    0.487    0.487     0.487    0.487  
+       8 Ferrari Dino     three        0  0.487    0.487    0.487     0.487    0.487  
+       9 Fiat 128         three        0  1.26     1.26     1.26      1.26     1.26   
+      10 Fiat X1-9        three        0  3.04     3.04     3.04      3.04     3.04   
       # i 86 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`model:carb`
+      $distinct$`North America`$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>                  <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -4299,7 +4292,7 @@
       10 Fiat X1-9                  1     0 -2.95  -2.95   -2.95     -2.95  -2.95 
       # i 150 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`model:wt`
+      $distinct$`North America`$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>                <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -4315,7 +4308,7 @@
       10 Fiat X1-9             1.50     0 -2.74  -2.74   -2.74     -2.74  -2.74 
       # i 342 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`gear:carb`
+      $distinct$`North America`$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>        <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -4323,7 +4316,7 @@
        2 four             1     8 -0.0556  -0.0556  -0.0556   -0.0556  -0.0556 
        3 five             1     0 -0.0416  -0.0416  -0.0416   -0.0416  -0.0416 
        4 three            2     8  0.0785   0.0785   0.0785    0.0785   0.0785 
-       5 four             2     7  0.0785   0.0785   0.0785    0.0785   0.0785 
+       5 four             2     7  0.0786   0.0786   0.0786    0.0786   0.0786 
        6 five             2     4 -0.0663  -0.0663  -0.0663   -0.0663  -0.0663 
        7 three            3     7 -0.0371  -0.0371  -0.0371   -0.0371  -0.0371 
        8 four             3     2 -0.0209  -0.0209  -0.0209   -0.0209  -0.0209 
@@ -4335,7 +4328,7 @@
       14 four             8     1 -0.149   -0.149   -0.149    -0.149   -0.149  
       15 five             8     4 -0.149   -0.149   -0.149    -0.149   -0.149  
       
-      attr(,"distinct")$`North America`$ale$d2$`gear:wt`
+      $distinct$`North America`$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -4351,7 +4344,7 @@
       10 three       2.78     2 -0.0342 -0.0342 -0.0342   -0.0342 -0.0342
       # i 23 more rows
       
-      attr(,"distinct")$`North America`$ale$d2$`carb:wt`
+      $distinct$`North America`$ale$d2$`carb:wt`
       # A tibble: 55 x 8
          carb.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
              <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -4360,34 +4353,34 @@
        3         3    1.50     0 -0.0160  -0.0160  -0.0160   -0.0160  -0.0160 
        4         4    1.50     0 -0.00268 -0.00268 -0.00268  -0.00268 -0.00268
        5         8    1.50     0 -0.00271 -0.00271 -0.00271  -0.00271 -0.00271
-       6         1    1.93     3 -0.00240 -0.00240 -0.00240  -0.00240 -0.00240
+       6         1    1.93     3 -0.0024  -0.0024  -0.0024   -0.0024  -0.0024 
        7         2    1.93     3 -0.00631 -0.00631 -0.00631  -0.00631 -0.00631
-       8         3    1.93     0 -0.00230 -0.00230 -0.00230  -0.00230 -0.00230
+       8         3    1.93     0 -0.0023  -0.0023  -0.0023   -0.0023  -0.0023 
        9         4    1.93     0 -0.00228 -0.00228 -0.00228  -0.00228 -0.00228
       10         8    1.93     0 -0.00227 -0.00227 -0.00227  -0.00227 -0.00227
       # i 45 more rows
       
       
       
-      attr(,"distinct")$`North America`$stats
-      # A tibble: 126 x 9
+      $distinct$`North America`$stats
+      # A tibble: 168 x 9
          statistic estimate p.value term   conf.low  mean median conf.high     d
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl> <int>
        1 aled             0       1 mpg:vs        0     0      0         0     2
        2 aler_min         0       1 mpg:vs        0     0      0         0     2
-       3 aler_max         0       1 mpg:vs        0     0      0         0     2
-       4 naled            0       0 mpg:vs        0     0      0         0     2
-       5 naler_min        0       1 mpg:vs        0     0      0         0     2
-       6 naler_max        0       0 mpg:vs        0     0      0         0     2
-       7 aled             0       1 mpg:am        0     0      0         0     2
-       8 aler_min         0       1 mpg:am        0     0      0         0     2
-       9 aler_max         0       1 mpg:am        0     0      0         0     2
-      10 naled            0       0 mpg:am        0     0      0         0     2
-      # i 116 more rows
+       3 aler             0       1 mpg:vs        0     0      0         0     2
+       4 aler_max         0       1 mpg:vs        0     0      0         0     2
+       5 naled            0       0 mpg:vs        0     0      0         0     2
+       6 naler_min        0       1 mpg:vs        0     0      0         0     2
+       7 naler            0       0 mpg:vs        0     0      0         0     2
+       8 naler_max        0       0 mpg:vs        0     0      0         0     2
+       9 aled             0       1 mpg:am        0     0      0         0     2
+      10 aler_min         0       1 mpg:am        0     0      0         0     2
+      # i 158 more rows
       
-      attr(,"distinct")$`North America`$boot_data
-      attr(,"distinct")$`North America`$boot_data$d2
-      attr(,"distinct")$`North America`$boot_data$d2$`mpg:vs`
+      $distinct$`North America`$boot_data
+      $distinct$`North America`$boot_data$d2
+      $distinct$`North America`$boot_data$d2$`mpg:vs`
       # A tibble: 44 x 5
            .it   mpg vs       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -4403,7 +4396,7 @@
       10     1  30.4 FALSE     0     6
       # i 34 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`mpg:am`
+      $distinct$`North America`$boot_data$d2$`mpg:am`
       # A tibble: 44 x 5
            .it   mpg am       .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -4419,7 +4412,7 @@
       10     1  30.4 FALSE     0     5
       # i 34 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`mpg:model`
+      $distinct$`North America`$boot_data$d2$`mpg:model`
       # A tibble: 704 x 5
            .it   mpg model          .y    .n
          <dbl> <dbl> <fct>       <dbl> <dbl>
@@ -4435,7 +4428,7 @@
       10     1  30.4 AMC Javelin     0     1
       # i 694 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`mpg:gear`
+      $distinct$`North America`$boot_data$d2$`mpg:gear`
       # A tibble: 66 x 5
            .it   mpg gear     .y    .n
          <dbl> <dbl> <fct> <dbl> <dbl>
@@ -4451,7 +4444,7 @@
       10     1  30.4 three     0     3
       # i 56 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`mpg:carb`
+      $distinct$`North America`$boot_data$d2$`mpg:carb`
       # A tibble: 110 x 5
            .it   mpg  carb    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -4467,7 +4460,7 @@
       10     1  30.4     1     0     4
       # i 100 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`mpg:wt`
+      $distinct$`North America`$boot_data$d2$`mpg:wt`
       # A tibble: 242 x 5
            .it   mpg    wt    .y    .n
          <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -4483,7 +4476,7 @@
       10     1  30.4  1.50     0     1
       # i 232 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`vs:am`
+      $distinct$`North America`$boot_data$d2$`vs:am`
       # A tibble: 8 x 5
           .it vs    am       .y    .n
         <dbl> <fct> <fct> <dbl> <dbl>
@@ -4496,7 +4489,7 @@
       7     2 FALSE TRUE      0    12
       8     2 TRUE  TRUE      0    14
       
-      attr(,"distinct")$`North America`$boot_data$d2$`vs:model`
+      $distinct$`North America`$boot_data$d2$`vs:model`
       # A tibble: 128 x 5
            .it vs    model                 .y    .n
          <dbl> <fct> <fct>              <dbl> <dbl>
@@ -4512,7 +4505,7 @@
       10     1 TRUE  Datsun 710             0     0
       # i 118 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`vs:gear`
+      $distinct$`North America`$boot_data$d2$`vs:gear`
       # A tibble: 12 x 5
            .it vs    gear     .y    .n
          <dbl> <fct> <fct> <dbl> <dbl>
@@ -4529,7 +4522,7 @@
       11     2 FALSE five      0     8
       12     2 TRUE  five      0     2
       
-      attr(,"distinct")$`North America`$boot_data$d2$`vs:carb`
+      $distinct$`North America`$boot_data$d2$`vs:carb`
       # A tibble: 20 x 5
            .it vs     carb    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -4554,7 +4547,7 @@
       19     2 FALSE     8     0     2
       20     2 TRUE      8     0     1
       
-      attr(,"distinct")$`North America`$boot_data$d2$`vs:wt`
+      $distinct$`North America`$boot_data$d2$`vs:wt`
       # A tibble: 44 x 5
            .it vs       wt    .y    .n
          <dbl> <fct> <dbl> <dbl> <dbl>
@@ -4570,7 +4563,7 @@
       10     1 TRUE   3.16     0     2
       # i 34 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`am:model`
+      $distinct$`North America`$boot_data$d2$`am:model`
       # A tibble: 128 x 5
            .it am    model                   .y    .n
          <dbl> <fct> <fct>                <dbl> <dbl>
@@ -4586,7 +4579,7 @@
       10     1 TRUE  Datsun 710          0.252      0
       # i 118 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`am:gear`
+      $distinct$`North America`$boot_data$d2$`am:gear`
       # A tibble: 12 x 5
            .it am    gear      .y    .n
          <dbl> <fct> <fct>  <dbl> <dbl>
@@ -4603,64 +4596,64 @@
       11     2 FALSE five  -0.117     0
       12     2 TRUE  five   0.118    10
       
-      attr(,"distinct")$`North America`$boot_data$d2$`am:carb`
+      $distinct$`North America`$boot_data$d2$`am:carb`
       # A tibble: 20 x 5
-           .it am     carb            .y    .n
-         <dbl> <fct> <dbl>         <dbl> <dbl>
-       1     1 FALSE     1  0.00370         10
-       2     1 TRUE      1 -0.143            8
-       3     1 FALSE     2 -0.0828           8
-       4     1 TRUE      2  0.127            8
-       5     1 FALSE     3 -0.00369         10
-       6     1 TRUE      3 -0.323            3
-       7     1 FALSE     4 -0.0000000460     9
-       8     1 TRUE      4 -0.000000146      6
-       9     1 FALSE     8  0.0000000275     1
-      10     1 TRUE      8 -0.000000152      1
-      11     2 FALSE     1  0.00370          8
-      12     2 TRUE      1 -0.143            7
-      13     2 FALSE     2 -0.0828           7
-      14     2 TRUE      2  0.127            6
-      15     2 FALSE     3 -0.00369          9
-      16     2 TRUE      3 -0.323            4
-      17     2 FALSE     4 -0.0000000460    13
-      18     2 TRUE      4 -0.000000146      7
-      19     2 FALSE     8  0.0000000275     1
-      20     2 TRUE      8 -0.000000152      2
+           .it am     carb       .y    .n
+         <dbl> <fct> <dbl>    <dbl> <dbl>
+       1     1 FALSE     1  0.0037     10
+       2     1 TRUE      1 -0.143       8
+       3     1 FALSE     2 -0.0828      8
+       4     1 TRUE      2  0.127       8
+       5     1 FALSE     3 -0.00369    10
+       6     1 TRUE      3 -0.323       3
+       7     1 FALSE     4  0           9
+       8     1 TRUE      4  0           6
+       9     1 FALSE     8  0           1
+      10     1 TRUE      8  0           1
+      11     2 FALSE     1  0.0037      8
+      12     2 TRUE      1 -0.143       7
+      13     2 FALSE     2 -0.0828      7
+      14     2 TRUE      2  0.127       6
+      15     2 FALSE     3 -0.00369     9
+      16     2 TRUE      3 -0.323       4
+      17     2 FALSE     4  0          13
+      18     2 TRUE      4  0           7
+      19     2 FALSE     8  0           1
+      20     2 TRUE      8  0           2
       
-      attr(,"distinct")$`North America`$boot_data$d2$`am:wt`
+      $distinct$`North America`$boot_data$d2$`am:wt`
       # A tibble: 44 x 5
-           .it am       wt          .y    .n
-         <dbl> <fct> <dbl>       <dbl> <dbl>
-       1     1 FALSE  1.50  0.00000682     1
-       2     1 TRUE   1.50 -0.0329         0
-       3     1 FALSE  1.93 -0.0342         2
-       4     1 TRUE   1.93  0.0312         4
-       5     1 FALSE  2.31 -0.0342         5
-       6     1 TRUE   2.31  0.0312         6
-       7     1 FALSE  2.78 -0.0342        11
-       8     1 TRUE   2.78  0.0329         1
-       9     1 FALSE  3.16 -0.0000145      1
-      10     1 TRUE   3.16 -0.00517        2
+           .it am       wt       .y    .n
+         <dbl> <fct> <dbl>    <dbl> <dbl>
+       1     1 FALSE  1.50  0.00001     1
+       2     1 TRUE   1.50 -0.0329      0
+       3     1 FALSE  1.93 -0.0342      2
+       4     1 TRUE   1.93  0.0312      4
+       5     1 FALSE  2.31 -0.0342      5
+       6     1 TRUE   2.31  0.0312      6
+       7     1 FALSE  2.78 -0.0342     11
+       8     1 TRUE   2.78  0.0329      1
+       9     1 FALSE  3.16 -0.00001     1
+      10     1 TRUE   3.16 -0.00517     2
       # i 34 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`model:gear`
+      $distinct$`North America`$boot_data$d2$`model:gear`
       # A tibble: 192 x 5
-           .it model              gear         .y    .n
-         <dbl> <fct>              <fct>     <dbl> <dbl>
-       1     1 AMC Javelin        three -0.000277     0
-       2     1 Cadillac Fleetwood three -0.000277     0
-       3     1 Camaro Z28         three -0.000269     0
-       4     1 Chrysler Imperial  three -0.000269     2
-       5     1 Datsun 710         three -0.000269     2
-       6     1 Dodge Challenger   three  0.496        2
-       7     1 Duster 360         three  0.487        2
-       8     1 Ferrari Dino       three  0.487        0
-       9     1 Fiat 128           three  1.26         0
-      10     1 Fiat X1-9          three  3.04         0
+           .it model              gear        .y    .n
+         <dbl> <fct>              <fct>    <dbl> <dbl>
+       1     1 AMC Javelin        three -0.00028     0
+       2     1 Cadillac Fleetwood three -0.00028     0
+       3     1 Camaro Z28         three -0.00027     0
+       4     1 Chrysler Imperial  three -0.00027     2
+       5     1 Datsun 710         three -0.00027     2
+       6     1 Dodge Challenger   three  0.496       2
+       7     1 Duster 360         three  0.487       2
+       8     1 Ferrari Dino       three  0.487       0
+       9     1 Fiat 128           three  1.26        0
+      10     1 Fiat X1-9          three  3.04        0
       # i 182 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`model:carb`
+      $distinct$`North America`$boot_data$d2$`model:carb`
       # A tibble: 320 x 5
            .it model               carb     .y    .n
          <dbl> <fct>              <dbl>  <dbl> <dbl>
@@ -4676,7 +4669,7 @@
       10     1 Fiat X1-9              1 -2.95      1
       # i 310 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`model:wt`
+      $distinct$`North America`$boot_data$d2$`model:wt`
       # A tibble: 704 x 5
            .it model                 wt     .y    .n
          <dbl> <fct>              <dbl>  <dbl> <dbl>
@@ -4692,7 +4685,7 @@
       10     1 Fiat X1-9           1.50 -2.74      0
       # i 694 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`gear:carb`
+      $distinct$`North America`$boot_data$d2$`gear:carb`
       # A tibble: 30 x 5
            .it gear   carb      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -4700,7 +4693,7 @@
        2     1 four      1 -0.0556     7
        3     1 five      1 -0.0416     3
        4     1 three     2  0.0785     6
-       5     1 four      2  0.0785     6
+       5     1 four      2  0.0786     6
        6     1 five      2 -0.0663     4
        7     1 three     3 -0.0371     8
        8     1 four      3 -0.0209     4
@@ -4708,7 +4701,7 @@
       10     1 three     4 -0.0217     7
       # i 20 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`gear:wt`
+      $distinct$`North America`$boot_data$d2$`gear:wt`
       # A tibble: 66 x 5
            .it gear     wt      .y    .n
          <dbl> <fct> <dbl>   <dbl> <dbl>
@@ -4724,7 +4717,7 @@
       10     1 three  2.78 -0.0342     8
       # i 56 more rows
       
-      attr(,"distinct")$`North America`$boot_data$d2$`carb:wt`
+      $distinct$`North America`$boot_data$d2$`carb:wt`
       # A tibble: 110 x 5
            .it  carb    wt       .y    .n
          <dbl> <dbl> <dbl>    <dbl> <dbl>
@@ -4733,9 +4726,9 @@
        3     1     3  1.50 -0.0160      0
        4     1     4  1.50 -0.00268     0
        5     1     8  1.50 -0.00271     0
-       6     1     1  1.93 -0.00240     3
+       6     1     1  1.93 -0.0024      3
        7     1     2  1.93 -0.00631     3
-       8     1     3  1.93 -0.00230     0
+       8     1     3  1.93 -0.0023      0
        9     1     4  1.93 -0.00228     0
       10     1     8  1.93 -0.00227     0
       # i 100 more rows
@@ -4743,15 +4736,16 @@
       
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $params
+      $params$max_d
       [1] 2
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $params$ordered_x_cols
+      $params$ordered_x_cols$d1
       [1] "mpg"   "vs"    "am"    "model" "gear"  "carb"  "wt"   
       
-      attr(,"params")$ordered_x_cols$d2
+      $params$ordered_x_cols$d2
        [1] "mpg:vs"     "mpg:am"     "mpg:model"  "mpg:gear"   "mpg:carb"  
        [6] "mpg:wt"     "vs:am"      "vs:model"   "vs:gear"    "vs:carb"   
       [11] "vs:wt"      "am:model"   "am:gear"    "am:carb"    "am:wt"     
@@ -4759,11 +4753,11 @@
       [21] "carb:wt"   
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $params$requested_x_cols
+      $params$requested_x_cols$d1
       [1] "mpg"   "vs"    "am"    "model" "gear"  "carb"  "wt"   
       
-      attr(,"params")$requested_x_cols$d2
+      $params$requested_x_cols$d2
        [1] "mpg:vs"     "mpg:am"     "mpg:model"  "mpg:gear"   "mpg:carb"  
        [6] "mpg:wt"     "vs:am"      "vs:model"   "vs:gear"    "vs:carb"   
       [11] "vs:wt"      "am:model"   "am:gear"    "am:carb"    "am:wt"     
@@ -4771,10 +4765,10 @@
       [21] "carb:wt"   
       
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "Asia"          "Europe"        "North America"
       
-      attr(,"params")$y_summary
+      $params$y_summary
                     continent         Asia       Europe North America
       min        0.000000e+00 0.000000e+00 0.000000e+00  0.000000e+00
       1%         1.069668e-33 2.992722e-30 1.069668e-33  2.347822e-34
@@ -4801,16 +4795,13 @@
       99%        1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       max        1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$hash
-      [1] "d9d0442ac3829c2b2e010e5e47dc6255"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -4826,7 +4817,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                  Asia       Europe North America
       1  1.000000e+00 3.101887e-14  6.537610e-18
       2  1.000000e+00 1.018274e-14  9.489785e-21
@@ -4893,126 +4884,178 @@
       63 4.750282e-30 1.000000e+00  7.370275e-19
       64 9.953285e-13 1.000000e+00  1.160579e-29
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "continent"
       
-      attr(,"params")$comp
+      $params$comp
       [1] "auto"
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] TRUE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "probs"
       
-      attr(,"params")$p_values
-      <ale::ALEpDist>
-       @ rand_stats           :List of 3
-       .. $ Asia         : tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.47e-22 ...
-       ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.70e-21 ...
-       ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.46e-21 ...
-       ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       .. $ Europe       : tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.47e-22 ...
-       ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.70e-21 ...
-       ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.46e-21 ...
-       ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       .. $ North America: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.47e-22 ...
-       ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.70e-21 ...
-       ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.46e-21 ...
-       ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       @ residual_distribution: 'univariateML' Named num [1:2] -2.04e-23 1.50e-17
-       .. - attr(*, "logLik")= num 2371
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
-       .. - attr(*, "n")= int 64
-       .. - attr(*, "model")= chr "Laplace"
-       .. - attr(*, "density")= chr "extraDistr::dlaplace"
-       .. - attr(*, "support")= num [1:2] -Inf Inf
-       .. - attr(*, "names")= chr [1:2] "mu" "sigma"
-       .. - attr(*, "default")= num [1:2] 0 1
-       .. - attr(*, "continuous")= logi TRUE
-       @ residuals            : NULL
-       @ params               :List of 12
-       .. $ model                        :List of 2
-       ..  ..$ class: chr [1:2] "multinom" "nnet"
-       ..  ..$ hash : chr "d9d0442ac3829c2b2e010e5e47dc6255"
-       .. $ y_col                        : chr "continent"
-       .. $ rand_it                      : NULL
-       .. $ parallel                     : num 0
-       .. $ model_packages               : NULL
-       .. $ random_model_call_string     : NULL
-       .. $ random_model_call_string_vars: chr(0) 
-       .. $ positive                     : logi TRUE
-       .. $ aled_fun                     : chr "mad"
-       .. $ seed                         : num 0
-       .. $ rand_it_ok                   : int 100
-       .. $ exactness                    : chr "surrogate"
+      $params$p_values
+      $params$p_values$rand_stats
+      $params$p_values$rand_stats$Asia
+      # A tibble: 100 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      # i 90 more rows
       
-      attr(,"params")$require_same_p
-      [1] TRUE
+      $params$p_values$rand_stats$Europe
+      # A tibble: 100 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      # i 90 more rows
       
-      attr(,"params")$aler_alpha
-      [1] 0.01 0.05
+      $params$p_values$rand_stats$`North America`
+      # A tibble: 100 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      # i 90 more rows
       
-      attr(,"params")$aled_fun
-      [1] "mad"
       
-      attr(,"params")$max_num_bins
-      [1] 10
+      $params$p_values$residual_distribution
+      Maximum likelihood estimates for the Laplace model 
+         mu  sigma  
+          0      0  
       
-      attr(,"params")$fct_order
-      [1] "levels"
+      $params$p_values$residuals
+      NULL
       
-      attr(,"params")$boot_it
-      [1] 2
+      $params$p_values$params
+      $params$p_values$params$model
+      $params$p_values$params$model$class
+      [1] "multinom" "nnet"    
       
-      attr(,"params")$boot_alpha
-      [1] 0.05
       
-      attr(,"params")$boot_centre
-      [1] "mean"
+      $params$p_values$params$y_col
+      [1] "continent"
       
-      attr(,"params")$seed
+      $params$p_values$params$rand_it
+      NULL
+      
+      $params$p_values$params$parallel
       [1] 0
       
-      attr(,"params")$y_type
+      $params$p_values$params$model_packages
+      NULL
+      
+      $params$p_values$params$random_model_call_string
+      NULL
+      
+      $params$p_values$params$random_model_call_string_vars
+      character(0)
+      
+      $params$p_values$params$positive
+      [1] TRUE
+      
+      $params$p_values$params$aled_fun
+      [1] "mad"
+      
+      $params$p_values$params$seed
+      [1] 0
+      
+      $params$p_values$params$rand_it_ok
+      [1] 100
+      
+      $params$p_values$params$exactness
+      [1] "surrogate"
+      
+      
+      
+      $params$require_same_p
+      [1] TRUE
+      
+      $params$aler_alpha
+      [1] 0.01 0.05
+      
+      $params$aled_fun
+      [1] "mad"
+      
+      $params$max_num_bins
+      [1] 10
+      
+      $params$fct_order
+      [1] "levels"
+      
+      $params$boot_it
+      [1] 2
+      
+      $params$boot_alpha
+      [1] 0.05
+      
+      $params$boot_centre
+      [1] "mean"
+      
+      $params$seed
+      [1] 0
+      
+      $params$y_type
       [1] "categorical"
       
-      attr(,"params")$sample_size
+      $params$sample_size
       [1] 500
+      
       
 
 ---
 
     Code
-      get(cat_cars_ale)
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -6239,7 +6282,9 @@
 ---
 
     Code
-      get(cat_cars_ale, what = "boot_data")
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -7598,61 +7643,65 @@
 ---
 
     Code
-      get(cat_cars_ale, stats = "estimate")
+      {
+        x
+      }
     Output
       $Asia
-      # A tibble: 28 x 7
-         term           aled    aler_min   aler_max naled naler_min naler_max
-         <chr>         <dbl>       <dbl>      <dbl> <dbl>     <dbl>     <dbl>
-       1 mpg       0          0           0           0         0        0   
-       2 vs        0          0           0           0         0        0   
-       3 am        0.0218    -0.00838     0.0309     38.9     -50       31.2 
-       4 model     2.16      -3.57       -0.283      49.4     -50       -9.38
-       5 gear      0.140     -0.232       0.119      37.7     -50       31.2 
-       6 carb      0.00172   -0.00189     0.00549    40.9     -50       31.2 
-       7 wt        0.0000154 -0.00000952  0.0000259  37.3     -12.5     31.2 
-       8 mpg:vs    0          0           0           0         0        0   
-       9 mpg:am    0          0           0           0         0        0   
-      10 mpg:model 0          0           0           0         0        0   
+      # A tibble: 28 x 9
+         term           aled aler_min    aler aler_max naled naler_min naler naler_max
+         <chr>         <dbl>    <dbl>   <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 mpg       0          0       0        0         0         0     0        0   
+       2 vs        0          0       0        0         0         0     0        0   
+       3 am        0.0218    -8.38e-3 3.93e-2  3.09e-2  38.9     -50    81.2     31.2 
+       4 model     2.16      -3.57e+0 3.28e+0 -2.83e-1  49.4     -50    40.6     -9.38
+       5 gear      0.140     -2.32e-1 3.51e-1  1.19e-1  37.7     -50    81.2     31.2 
+       6 carb      0.00172   -1.89e-3 7.38e-3  5.49e-3  40.9     -50    81.2     31.2 
+       7 wt        0.0000154 -9.52e-6 3.54e-5  2.59e-5  37.3     -12.5  43.8     31.2 
+       8 mpg:vs    0          0       0        0         0         0     0        0   
+       9 mpg:am    0          0       0        0         0         0     0        0   
+      10 mpg:model 0          0       0        0         0         0     0        0   
       # i 18 more rows
       
       $Europe
-      # A tibble: 28 x 7
-         term           aled   aler_min   aler_max naled naler_min naler_max
-         <chr>         <dbl>      <dbl>      <dbl> <dbl>     <dbl>     <dbl>
-       1 mpg       0          0         0            0           0      0   
-       2 vs        0          0         0            0           0      0   
-       3 am        0.0218    -0.0309    0.00838     32.2       -50      6.25
-       4 model     2.52      -0.555     4.53        45.2       -50     50   
-       5 gear      0.232     -0.172     0.365       30.2       -50      6.25
-       6 carb      0.00172   -0.00549   0.00189     27.4       -50      6.25
-       7 wt        0.0000154 -0.0000259 0.00000952  29.2       -50    -21.9 
-       8 mpg:vs    0          0         0            0           0      0   
-       9 mpg:am    0          0         0            0           0      0   
-      10 mpg:model 0          0         0            0           0      0   
+      # A tibble: 28 x 9
+         term           aled aler_min    aler aler_max naled naler_min naler naler_max
+         <chr>         <dbl>    <dbl>   <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 mpg       0          0       0        0         0           0   0        0   
+       2 vs        0          0       0        0         0           0   0        0   
+       3 am        0.0218    -3.09e-2 3.93e-2  8.38e-3  32.2       -50  56.2      6.25
+       4 model     2.52      -5.55e-1 5.08e+0  4.53e+0  45.2       -50 100       50   
+       5 gear      0.232     -1.72e-1 5.37e-1  3.65e-1  30.2       -50  56.2      6.25
+       6 carb      0.00172   -5.49e-3 7.38e-3  1.89e-3  27.4       -50  56.2      6.25
+       7 wt        0.0000154 -2.59e-5 3.54e-5  9.52e-6  29.2       -50  28.1    -21.9 
+       8 mpg:vs    0          0       0        0         0           0   0        0   
+       9 mpg:am    0          0       0        0         0           0   0        0   
+      10 mpg:model 0          0       0        0         0           0   0        0   
       # i 18 more rows
       
       $`North America`
-      # A tibble: 28 x 7
-         term          aled  aler_min aler_max naled naler_min naler_max
-         <chr>        <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 mpg       0         0        0          0         0        0   
-       2 vs        0         0        0          0         0        0   
-       3 am        7.01e-10 -9.12e-10 3.46e-10  41.7     -50      -20.3 
-       4 model     1.11e+ 0 -1.65e+ 0 1.64e+ 0  42.4     -50       50   
-       5 gear      1.28e- 1 -2.32e- 1 6.02e- 2  29.5     -50       12.5 
-       6 carb      3.40e- 8 -4.13e- 8 1.08e- 7  20.4     -20.3     12.5 
-       7 wt        4.15e-10  3.29e-10 7.56e-10  27.5     -20.3      9.38
-       8 mpg:vs    0         0        0          0         0        0   
-       9 mpg:am    0         0        0          0         0        0   
-      10 mpg:model 0         0        0          0         0        0   
+      # A tibble: 28 x 9
+         term         aled  aler_min     aler aler_max naled naler_min naler naler_max
+         <chr>       <dbl>     <dbl>    <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1 mpg      0         0        0        0          0         0     0        0   
+       2 vs       0         0        0        0          0         0     0        0   
+       3 am       7.01e-10 -9.12e-10 1.26e- 9 3.46e-10  41.7     -50    29.7    -20.3 
+       4 model    1.11e+ 0 -1.65e+ 0 3.30e+ 0 1.64e+ 0  42.4     -50   100       50   
+       5 gear     1.28e- 1 -2.32e- 1 2.93e- 1 6.02e- 2  29.5     -50    62.5     12.5 
+       6 carb     3.40e- 8 -4.13e- 8 1.49e- 7 1.08e- 7  20.4     -20.3  32.8     12.5 
+       7 wt       4.15e-10  3.29e-10 4.28e-10 7.56e-10  27.5     -20.3  29.7      9.38
+       8 mpg:vs   0         0        0        0          0         0     0        0   
+       9 mpg:am   0         0        0        0          0         0     0        0   
+      10 mpg:mod~ 0         0        0        0          0         0     0        0   
       # i 18 more rows
       
 
 ---
 
     Code
-      get(cat_cars_ale, cats = c("Asia", "Europe"))
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -8472,7 +8521,9 @@
 ---
 
     Code
-      get(cat_cars_ale, exclude_cols = list(d2_all = "am"))
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -9699,7 +9750,9 @@
 ---
 
     Code
-      get(cat_cars_ale, stats = "conf_regions")
+      {
+        x
+      }
     Message
       ! Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.
       i There are 2 bootstrap iterations.
@@ -9814,7 +9867,9 @@
 ---
 
     Code
-      get(cat_cars_ale, stats = "conf_sig")
+      {
+        x
+      }
     Message
       ! Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.
       i There are 2 bootstrap iterations.
@@ -9929,7 +9984,9 @@
 ---
 
     Code
-      ale_plots_to_data(cat_cars_ale_plots)
+      {
+        x
+      }
     Condition
       Warning:
       Position guide is perpendicular to the intended axis.
@@ -10204,120 +10261,117 @@
       $Asia
       $Asia$d1
       $Asia$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2  14.30000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3  15.11249 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4  15.80000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5  17.80000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      6  19.20000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      7  21.00000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      8  21.50000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      9  24.61700 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      10 30.40000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      11 33.90000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $Asia$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.197411e-14     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 1.197411e-14     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $Asia$d1$am
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.030907500     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 -0.008380929     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.03091     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.00838     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
       
       $Asia$d1$model
-          x         y PANEL group xmin xmax         ymin         ymax colour
-      1   1 -2.468879     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2   2 -2.558928     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3   3 -2.558928     1     3 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4   4 -2.556029     1     4 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5   5 -2.556029     1     5 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      6   6 -2.556038     1     6 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      7   7 -2.548234     1     7 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      8   8 -2.798220     1     8 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      9   9 -2.778082     1     9 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      10 10 -1.972071     1    10 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1 -2.46888     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2 -2.55893     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3 -2.55893     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4 -2.55603     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 -2.55603     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 -2.55604     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 -2.54823     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 -2.79822     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 -2.77808     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 -1.97207     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $Asia$d1$gear
-        x           y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.11874550     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 -0.03295851     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3 3 -0.23223027     1     3 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.11875     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.03296     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.23223     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $Asia$d1$carb
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.005489234     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 -0.001894143     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3 3 -0.001894153     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4 4 -0.001894153     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5 8 -0.001894153     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.00189     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.00189     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 4 -0.00189     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 8 -0.00189     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
       
       $Asia$d1$wt
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275  2.589681e-05     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      2  1.925991 -1.076824e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      3  2.314067 -9.516646e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      4  2.779004 -9.516648e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      5  3.160130 -9.521727e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      6  3.219684 -9.521727e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      7  3.440000 -9.521728e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      8  3.558601 -9.521728e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      9  3.794139 -9.521728e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      10 4.070000 -9.521731e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      11 5.453272 -9.521731e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828  3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $Asia$d2
@@ -19552,130 +19606,122 @@
       
       $Asia$eff
       $Asia$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $Asia$eff[[2]]
-                 xmin          xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  1.197411e-14  1.197411e-14 1     1     1        TRUE 0.875 1.125  black
-      2  1.197411e-14  1.197411e-14 2     1     2        TRUE 1.875 2.125  black
-      3 -9.521731e-06  2.589681e-05 3     1     3        TRUE 2.875 3.125  black
-      4 -1.894153e-03  5.489234e-03 4     1     4        TRUE 3.875 4.125  black
-      5 -8.380929e-03  3.090750e-02 5     1     5        TRUE 4.875 5.125  black
-      6 -2.322303e-01  1.187455e-01 6     1     6        TRUE 5.875 6.125  black
-      7 -3.567085e+00 -2.829877e-01 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin     xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000  0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000  0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3 -0.00001  0.00003 3     1     3        TRUE 2.875 3.125  black       0.5
+      4 -0.00189  0.00549 4     1     4        TRUE 3.875 4.125  black       0.5
+      5 -0.00838  0.03091 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.23223  0.11875 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -3.56709 -0.28299 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $Asia$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  1.197396e-14 1.197396e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  1.197396e-14 1.197396e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -7.686611e-06 7.686611e-06  2.7  3.3 3     1     3     NA white       0.5
-      4 -8.579039e-04 8.579039e-04  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.087804e-02 1.087804e-02  4.7  5.3 5     1     5     NA white       0.5
-      6 -7.015474e-02 7.015474e-02  5.7  6.3 6     1     6     NA white       0.5
-      7 -1.080418e+00           NA  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3 -0.00001 0.00001  2.7  3.3 3     1     3     NA white       0.5        1
+      4 -0.00086 0.00086  3.7  4.3 4     1     4     NA white       0.5        1
+      5 -0.01088 0.01088  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.07015 0.07015  5.7  6.3 6     1     6     NA white       0.5        1
+      7 -1.08042      NA  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $Asia$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 1.197396e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 1.197396e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 1.197396e-14 NALED 37.3% 3     1     3       0       0  black           3
-      4 1.197396e-14 NALED 40.9% 4     1     4       0       0  black           3
-      5 1.197396e-14 NALED 38.9% 5     1     5       0       0  black           3
-      6 1.197396e-14 NALED 37.7% 6     1     6       0       0  black           3
-      7 1.197396e-14 NALED 49.4% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 37.3% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 40.9% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 38.9% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 37.7% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 49.4% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $Asia$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  1.197396e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  1.197396e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -7.686611e-06     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -8.579039e-04     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.087804e-02     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -7.015474e-02     ( 6.02     1     6       0    0.02  black        3.866058
-      7 -1.080418e+00     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3 -0.00001     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4 -0.00086     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5 -0.01088     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.07015     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7 -1.08042     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Asia$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 1.197396e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 1.197396e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 7.686611e-06     ) 3.02     1     3       0    0.02  black        3.866058
-      4 8.579039e-04     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.087804e-02     ) 5.02     1     5       0    0.02  black        3.866058
-      6 7.015474e-02     ) 6.02     1     6       0    0.02  black        3.866058
-      7           NA     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00001     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00086     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.01088     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.07015     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7      NA     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Asia$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 1.197396e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 1.197396e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 1.197396e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 1.197396e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 1.197396e-14 ALED 0.02 5     1     5       0       0  black           3     0
-      6 1.197396e-14 ALED 0.14 6     1     6       0       0  black           3     0
-      7 1.197396e-14 ALED 2.16 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.02 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.14 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 2.16 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $Asia$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -19690,120 +19736,117 @@
       $Europe
       $Europe$d1
       $Europe$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2  14.30000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      3  15.11249 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      4  15.80000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      5  17.80000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      6  19.20000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      7  21.00000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      8  21.50000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      9  24.61700 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      10 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      11 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $Europe$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.305186e-14     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2 1.305186e-14     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $Europe$d1$am
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -0.030907500     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2  0.008380929     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.03091     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00838     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
       
       $Europe$d1$model
-          x        y PANEL group xmin xmax         ymin         ymax colour      fill
-      1   1 3.470375     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      2   2 3.757585     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      3   3 3.507585     1     3 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      4   4 3.757585     1     4 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      5   5 3.757582     1     5 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      6   6 3.767827     1     6 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      7   7 3.517827     1     7 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      8   8 3.526965     1     8 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      9   9 3.776962     1     9 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      10 10 1.992789     1    10 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-         linewidth linetype alpha
-      1        0.5        1    NA
-      2        0.5        1    NA
-      3        0.5        1    NA
-      4        0.5        1    NA
-      5        0.5        1    NA
-      6        0.5        1    NA
-      7        0.5        1    NA
-      8        0.5        1    NA
-      9        0.5        1    NA
-      10       0.5        1    NA
+          x       y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1 3.47038     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2 3.75759     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3 3.50759     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4 3.75759     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 3.75758     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 3.76783     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 3.51783     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 3.52696     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 3.77696     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 1.99279     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $Europe$d1$gear
-        x          y PANEL group xmin xmax         ymin         ymax colour      fill
-      1 1 -0.1722488     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      2 2  0.2652497     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      3 3  0.2648479     1     3 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.17225     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.26525     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3  0.26485     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $Europe$d1$carb
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -0.005489341     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2  0.001894178     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      3 3  0.001894188     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      4 4  0.001894188     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      5 8  0.001894194     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00189     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3  0.00189     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 4  0.00189     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 8  0.00189     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
       
       $Europe$d1$wt
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275 -2.589756e-05     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      2  1.925991  1.076451e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      3  2.314067  9.516317e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      4  2.779004  9.516320e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      5  3.160130  9.521399e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      6  3.219684  9.521399e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      7  3.440000  9.521399e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      8  3.558601  9.521399e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      9  3.794139  9.521399e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      10 4.070000  9.521401e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      11 5.453272  9.521402e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828 -3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $Europe$d2
@@ -29038,130 +29081,122 @@
       
       $Europe$eff
       $Europe$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $Europe$eff[[2]]
-                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  1.305186e-14 1.305186e-14 1     1     1        TRUE 0.875 1.125  black
-      2  1.305186e-14 1.305186e-14 2     1     2        TRUE 1.875 2.125  black
-      3 -2.589756e-05 9.521402e-06 3     1     3        TRUE 2.875 3.125  black
-      4 -5.489341e-03 1.894194e-03 4     1     4        TRUE 3.875 4.125  black
-      5 -3.090750e-02 8.380929e-03 5     1     5        TRUE 4.875 5.125  black
-      6 -1.722488e-01 3.647938e-01 6     1     6        TRUE 5.875 6.125  black
-      7 -5.554874e-01           NA 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000 0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000 0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3 -0.00003 0.00001 3     1     3        TRUE 2.875 3.125  black       0.5
+      4 -0.00549 0.00189 4     1     4        TRUE 3.875 4.125  black       0.5
+      5 -0.03091 0.00838 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.17225 0.36479 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -0.55549      NA 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $Europe$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  1.305171e-14 1.305171e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  1.305171e-14 1.305171e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -7.686441e-06 7.686441e-06  2.7  3.3 3     1     3     NA white       0.5
-      4 -8.579205e-04 8.579205e-04  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.087804e-02 1.087804e-02  4.7  5.3 5     1     5     NA white       0.5
-      6 -1.157814e-01 1.157814e-01  5.7  6.3 6     1     6     NA white       0.5
-      7            NA 1.258276e+00  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3 -0.00001 0.00001  2.7  3.3 3     1     3     NA white       0.5        1
+      4 -0.00086 0.00086  3.7  4.3 4     1     4     NA white       0.5        1
+      5 -0.01088 0.01088  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.11578 0.11578  5.7  6.3 6     1     6     NA white       0.5        1
+      7       NA 1.25828  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $Europe$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 1.305171e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 1.305171e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 1.305171e-14 NALED 29.2% 3     1     3       0       0  black           3
-      4 1.305171e-14 NALED 27.4% 4     1     4       0       0  black           3
-      5 1.305171e-14 NALED 32.2% 5     1     5       0       0  black           3
-      6 1.305171e-14 NALED 30.2% 6     1     6       0       0  black           3
-      7 1.305171e-14 NALED 45.2% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 29.2% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 27.4% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 32.2% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 30.2% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 45.2% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $Europe$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  1.305171e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  1.305171e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -7.686441e-06     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -8.579205e-04     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.087804e-02     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -1.157814e-01     ( 6.02     1     6       0    0.02  black        3.866058
-      7            NA     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3 -0.00001     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4 -0.00086     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5 -0.01088     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.11578     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7       NA     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Europe$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 1.305171e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 1.305171e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 7.686441e-06     ) 3.02     1     3       0    0.02  black        3.866058
-      4 8.579205e-04     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.087804e-02     ) 5.02     1     5       0    0.02  black        3.866058
-      6 1.157814e-01     ) 6.02     1     6       0    0.02  black        3.866058
-      7 1.258276e+00     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00001     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00086     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.01088     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.11578     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7 1.25828     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Europe$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 1.305171e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 1.305171e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 1.305171e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 1.305171e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 1.305171e-14 ALED 0.02 5     1     5       0       0  black           3     0
-      6 1.305171e-14 ALED 0.23 6     1     6       0       0  black           3     0
-      7 1.305171e-14 ALED 2.52 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.02 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.23 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 2.52 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $Europe$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -29176,120 +29211,108 @@
       $`North America`
       $`North America`$d1
       $`North America`$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2  14.30000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3  15.11249 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4  15.80000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5  17.80000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6  19.20000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7  21.00000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8  21.50000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9  24.61700 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 30.40000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      11 33.90000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $`North America`$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 2.637774e-14     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 2.637774e-14     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$am
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -9.118766e-10     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2  3.461658e-10     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$model
-          x          y PANEL group xmin xmax         ymin         ymax colour
-      1   1  1.5322307     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2   2  1.5322307     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3   3 -1.4031059     1     3 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4   4 -1.4031055     1     4 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5   5 -1.6531055     1     5 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6   6 -1.6531055     1     6 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7   7 -1.4031055     1     7 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8   8 -1.4031051     1     8 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9   9 -1.4022709     1     9 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 10 -0.1165643     1    10 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1  1.53223     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2  1.53223     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3 -1.40311     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4 -1.40311     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 -1.65311     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 -1.65311     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 -1.40311     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 -1.40311     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 -1.40227     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 -0.11656     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $`North America`$d1$gear
-        x           y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.05350334     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 -0.23229119     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3 3 -0.03261765     1     3 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.05350     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.23229     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.03262     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $`North America`$d1$carb
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1  1.076012e-07     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 -3.535585e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3 3 -3.536147e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4 4 -3.536157e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5 8 -4.132864e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      3 3 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      4 4 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      5 8 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$wt
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  1.498275 7.565048e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2  1.925991 3.727855e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3  2.314067 3.285313e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4  2.779004 3.285319e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5  3.160130 3.285295e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6  3.219684 3.285427e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7  3.440000 3.289853e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8  3.558601 3.291609e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9  3.794139 3.291284e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 4.070000 3.291293e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      11 5.453272 3.291253e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+               x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $`North America`$d2
@@ -38524,130 +38547,122 @@
       
       $`North America`$eff
       $`North America`$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $`North America`$eff[[2]]
-                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  2.637774e-14 2.637774e-14 1     1     1        TRUE 0.875 1.125  black
-      2  2.637774e-14 2.637774e-14 2     1     2        TRUE 1.875 2.125  black
-      3  3.285293e-10 7.565048e-10 3     1     3        TRUE 2.875 3.125  black
-      4 -9.118766e-10 3.461658e-10 4     1     4        TRUE 3.875 4.125  black
-      5 -4.132864e-08 1.076012e-07 5     1     5        TRUE 4.875 5.125  black
-      6 -2.322912e-01 6.023659e-02 6     1     6        TRUE 5.875 6.125  black
-      7 -1.653106e+00           NA 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000 0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000 0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3  0.00000 0.00000 3     1     3        TRUE 2.875 3.125  black       0.5
+      4  0.00000 0.00000 4     1     4        TRUE 3.875 4.125  black       0.5
+      5  0.00000 0.00000 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.23229 0.06024 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -1.65311      NA 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $`North America`$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  2.637759e-14 2.637759e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  2.637759e-14 2.637759e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -2.076332e-10 2.076860e-10  2.7  3.3 3     1     3     NA white       0.5
-      4 -3.505835e-10 3.506362e-10  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.701125e-08 1.701130e-08  4.7  5.3 5     1     5     NA white       0.5
-      6 -6.394821e-02 6.394821e-02  5.7  6.3 6     1     6     NA white       0.5
-      7 -5.527189e-01 5.527189e-01  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3  0.00000 0.00000  2.7  3.3 3     1     3     NA white       0.5        1
+      4  0.00000 0.00000  3.7  4.3 4     1     4     NA white       0.5        1
+      5  0.00000 0.00000  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.06395 0.06395  5.7  6.3 6     1     6     NA white       0.5        1
+      7 -0.55272 0.55272  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $`North America`$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 2.637759e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 2.637759e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 2.637759e-14 NALED 27.5% 3     1     3       0       0  black           3
-      4 2.637759e-14 NALED 41.7% 4     1     4       0       0  black           3
-      5 2.637759e-14 NALED 20.4% 5     1     5       0       0  black           3
-      6 2.637759e-14 NALED 29.5% 6     1     6       0       0  black           3
-      7 2.637759e-14 NALED 42.4% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 27.5% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 41.7% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 20.4% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 29.5% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 42.4% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $`North America`$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  2.637759e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  2.637759e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -2.076332e-10     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -3.505835e-10     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.701125e-08     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -6.394821e-02     ( 6.02     1     6       0    0.02  black        3.866058
-      7 -5.527189e-01     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3  0.00000     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4  0.00000     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5  0.00000     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.06395     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7 -0.55272     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $`North America`$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 2.637759e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 2.637759e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 2.076860e-10     ) 3.02     1     3       0    0.02  black        3.866058
-      4 3.506362e-10     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.701130e-08     ) 5.02     1     5       0    0.02  black        3.866058
-      6 6.394821e-02     ) 6.02     1     6       0    0.02  black        3.866058
-      7 5.527189e-01     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00000     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00000     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.00000     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.06395     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7 0.55272     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $`North America`$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 2.637759e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 2.637759e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 2.637759e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 2.637759e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 2.637759e-14 ALED 0.00 5     1     5       0       0  black           3     0
-      6 2.637759e-14 ALED 0.13 6     1     6       0       0  black           3     0
-      7 2.637759e-14 ALED 1.11 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.00 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.13 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 1.11 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $`North America`$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -38663,7 +38678,9 @@
 ---
 
     Code
-      capture.output(print(cat_cars_ale))
+      {
+        x
+      }
     Output
       [1] "<ALE> object of a <multinom/nnet> model that predicts `continent` (a categorical outcome) from a 64-row by 8-column dataset."                                                                                 
       [2] "ALE data, statistics, surrogate p-values, and raw bootstrap data are provided for the following terms:"                                                                                                       

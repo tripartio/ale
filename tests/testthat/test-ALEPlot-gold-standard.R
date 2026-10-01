@@ -2,15 +2,12 @@
 # Tests to ensure that ale package gives exactly the same results
 # as the gold standard reference ALEPlot package.
 
-# test_file('tests/testthat/test-ALEPlot.R')
-
 # To minimize test time, the reference output should be serialized with expect_snapshot_value.
 
 # Do not run these on CRAN or on CI like GitHub Actions:
-# Thus, the required packages are not included as dependencies and
+# Thus, the required packages are only suggested dependencies and
 # we avoid CI problems with refALEPlot().
 # https://community.rstudio.com/t/skip-an-entire-test-file-on-cran-only/162842
-# https://chatgpt.com/share/e/68938c65-fc80-8008-b595-f8b3c4bbc197
 if (!identical(Sys.getenv("NOT_CRAN"), "true") || Sys.getenv("CI") == "true") return()
 
 

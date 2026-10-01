@@ -6,9 +6,10 @@
 # ALEPlots object ------------------
 
 #' @title ALE plots with print and plot methods
+#' @export
 #'
 #' @description
-#' An `ALEPlots` S7 object contains the ALE plots from `ALE` or `ModelBoot` objects stored as `ggplot` objects. The `ALEPlots` constructor creates all possible plots from the `ALE` or `ModelBoot` passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an `ALEPlots` object is a collection of plots, almost never a single plot. To retrieve specific plots, use the [get.ALEPlots()] method. See the examples with the [ALE()] and [ModelBoot()] objects for how to manipulate `ALEPlots` objects.
+#' An `ALEPlots` S7 object contains the ALE plots from `ALE` or `ModelBoot` objects stored as `ggplot` objects. The `ALEPlots` constructor creates all possible plots from the `ALE` or `ModelBoot` passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an `ALEPlots` object is a collection of plots, almost never a single plot. To retrieve specific plots, use the [get() method][get-ALEPlots-method]. See the examples with the [ALE()] and [ModelBoot()] objects for how to manipulate `ALEPlots` objects.
 
 #' @param obj `ALE` or `ModelBoot` object. The object containing ALE data to be plotted.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
@@ -28,9 +29,16 @@
 #'
 #' @returns An object of class `ALEPlots` with properties `plots` and `params`.
 #'
+#' @section Methods:
+#' `ALEPlots` objects support [get()][get-ALEPlots-method],
+#' [plot()][plot-ALEPlots-method], [print()][print-ALEPlots-method],
+#' [subset()][subset-ALEPlots-method], and
+#' [summary()][summary-ALEPlots-method]. Each method topic documents its
+#' complete signature and class-specific arguments.
+#'
 #' @section Properties:
 #' \describe{
-#'   \item{plots}{Stores the ALE plots. Use [get.ALEPlots()] to access them.}
+#'   \item{plots}{Stores the ALE plots. Use the [get() method][get-ALEPlots-method] to access them.}
 #'   \item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the `ALEPlots` object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 #'
 #'     * `y_col`, `y_cats`: See documentation for [ALE()]
@@ -472,4 +480,3 @@ ALEPlots <- new_class(
     ))
   }  # ALEPlots constructor
 )  # ALEPlots
-

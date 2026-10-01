@@ -17,7 +17,7 @@ test_that(
 
     # Test the ModelBoot print method
     print(pll_mb) |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -45,14 +45,12 @@ test_that(
       plot() |>  # create ALEPlots object
       # plot(type = 'boot') |>  # invoke ALEPlots object
       ale_plots_to_data() |>
-      suppressMessages() |>
-      expect_snapshot()
+      expect_snap_variant()
 
-    # Create serializable snapshot
-    mb@ale$single <- unclass(mb@ale$single)
+    expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
   }
 )
 
@@ -77,14 +75,12 @@ test_that(
       plot() |>  # create ALEPlots object
       # plot(type = 'boot') |>  # invoke ALEPlots object
       ale_plots_to_data() |>
-      suppressMessages() |>
-      expect_snapshot()
+      expect_snap_variant()
 
-    # Create serializable snapshot
-    mb@ale$single <- unclass(mb@ale$single)
+    expect_true(S7::S7_inherits(mb, ModelBoot))
     mb |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
   }
 )
 
@@ -94,6 +90,7 @@ test_that(
     skip_on_ci()
 
     # Regular test_nn_categorical is too small a dataset; bootstrapping turns up problems. So, use iris here.
+    set.seed(0)
     test_nn_iris <- nnet::multinom(
       Species ~ .,
       data = iris,
@@ -128,28 +125,23 @@ test_that(
       silent = TRUE
     )
 
-    # Create serializable snapshot
-    snap_mb <- mb
-    snap_mb@ale$single <- unclass(mb@ale$single)
-    snap_mb |>
-      unclass() |>
-      expect_snapshot()
+    expect_true(S7::S7_inherits(mb, ModelBoot))
+    mb |>
+      s7_snapshot() |>
+      expect_snap_variant()
 
 
     # Test methods
 
-    get(mb, 'Sepal.Length') |> expect_snapshot()
-    get(mb, 'Petal.Width', type = 'single') |> expect_snapshot()
+    get(mb, 'Sepal.Length') |> expect_snap_variant()
+    get(mb, 'Petal.Width', type = 'single') |> expect_snap_variant()
 
     mb |>
       plot() |>  # create ALEPlots object
       # plot(type = 'boot') |>  # invoke ALEPlots object
       ale_plots_to_data() |>
-      suppressMessages() |>
-      expect_snapshot()
-
+      expect_snap_variant()
   }
 )
-
 
 

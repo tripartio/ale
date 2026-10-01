@@ -63,6 +63,9 @@ calc_ale <- function(
   n_row <- nrow(X)
   ixn_d <- length(x_cols)  # number of dimensions of interaction
 
+  # There should be no missing ALE values except perhaps in the case of full-model bootstrapping
+  allow_bootstrap_na <- boot_it > 0 || !is.null(.bins)
+
   # Create bootstrap tbl
   original_seed <- if (exists('.Random.seed')) .Random.seed else seed
   on.exit(set.seed(original_seed))
@@ -254,7 +257,7 @@ calc_ale <- function(
       btit.X_lo[[x_cols]] <- btit.x_vars[[x_cols]]$lo
 
       # Difference between low and high boundary predictions
-      pred_fun(model, btit.X_hi, pred_type) - pred_fun(model, btit.X_lo, pred_type)
+      pred_fun(object = model, newdata = btit.X_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_lo, type = pred_type)
     }
     else if (ixn_d == 2) {
       # Initialize border datasets
@@ -271,8 +274,8 @@ calc_ale <- function(
       btit.X_lo_lo[[x_cols[2]]] <- btit.x_vars[[x_cols[2]]]$lo
 
       # Difference between boundary predictions
-      (pred_fun(model, btit.X_hi_hi, pred_type) - pred_fun(model, btit.X_hi_lo, pred_type)) -
-        (pred_fun(model, btit.X_lo_hi, pred_type) - pred_fun(model, btit.X_lo_lo, pred_type))
+      (pred_fun(object = model, newdata = btit.X_hi_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_hi_lo, type = pred_type)) -
+        (pred_fun(object = model, newdata = btit.X_lo_hi, type = pred_type) - pred_fun(object = model, newdata = btit.X_lo_lo, type = pred_type))
     }
     else {
       stop('Interactions beyond 2 are not yet supported.')  # nocov
@@ -374,8 +377,19 @@ calc_ale <- function(
       # Generate the cumulative ALE y predictions.
       if (ixn_d == 1) {
         if (xd[[x_cols]]$x_type == 'numeric') {
-          # For 1D ALE, set origin effect for minimum numeric value to zero; there should be no other missing values.
+          # For 1D ALE, set origin effect for minimum numeric value to zero
           btit.local_eff_ray[it.cat, 1] <- 0
+
+          it.na_idx <- is.na(btit.local_eff_ray[it.cat, ])
+          if (any(it.na_idx)) {
+            if (!allow_bootstrap_na) {
+              cli_abort('There should be no other missing values in 1D ALE at this point. Please submit a bug report.')
+            }
+
+            # Full-model bootstrapping might occasionally leave missing bins here, so interpolate them
+            btit.local_eff_ray[it.cat, ] <- btit.local_eff_ray[it.cat, ] |>
+                intrapolate_1D()
+          }
         }
 
         # Accumulate the effects.
@@ -749,6 +763,9 @@ calc_ale <- function(
     ) |>
     select(-.shift)
 
+  if (!allow_bootstrap_na && anyNA(boot_ale_tbl$.y)) {
+    cli_abort('Missing ALE values occurred without bootstrapping. Please submit a bug report.')
+  }
 
   # Summarize bootstrapped values -----------------
 
@@ -863,9 +880,9 @@ calc_ale <- function(
   boot_summary <- boot_summary |>
     mutate(
       .y = if (boot_centre == 'mean') {
-        .y_mean
+        .data$.y_mean
       } else if (boot_centre == 'median') {
-        .y_median
+        .data$.y_median
       },
     ) |>
     select('.comp', '.cat', all_of(x_cols), '.n', '.y', everything())

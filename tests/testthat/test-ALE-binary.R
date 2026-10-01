@@ -17,12 +17,12 @@ test_that(
     )
 
     cars_ale |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
 
     plot(cars_ale) |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 
@@ -56,12 +56,12 @@ test_that(
     )
 
     cars_ale |>
-      unclass() |>
-      expect_snapshot()
+      s7_snapshot() |>
+      expect_snap_variant()
 
     plot(cars_ale) |>
       ale_plots_to_data() |>
-      expect_snapshot()
+      expect_snap_variant()
   }
 )
 

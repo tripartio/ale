@@ -61,6 +61,11 @@
 #'
 #' @returns An object of class `ALE` with properties `composite`, `distinct`, and `params`.
 #'
+#' @section Methods:
+#' `ALE` objects support [get()][get-ALE-method], [plot()][plot-ALE-method],
+#' [print()][print-ALE-method], and [summary()][summary-ALE-method]. Each method
+#' topic documents its complete signature and class-specific arguments.
+#'
 #' @section Properties:
 #' \describe{
 #'   \item{composite}{Stores the composite ALE data and, optionally, ALE statistics and bootstrap data for one or more categories. Composite ALE is always provided for all requested variables and interactions.}
@@ -115,7 +120,7 @@
 #'
 #'
 #' @section Progress bars:
-#' Progress bars are implemented with the `{progressr}` package. For details on customizing the progress bars, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
+#' Progress bars are implemented with the `{progressr}` package. For details on customizing the progress bars, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-01-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
 #'
 #'
 #' @section Sorting of unordered factors:
@@ -263,11 +268,11 @@
 #' )
 #' # saveRDS(ale_diamonds_with_boot_data, file.choose())
 #'
-#' # See ?get.ALE for details on the various kinds of data that may be retrieved.
+#' # See ?`get-ALE-method` for the kinds of data that may be retrieved.
 #' get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
 #' get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
 #' get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
-#' get(ale_diamonds_with_boot_data, stats = c('aled', 'naled'))
+#' get(ale_diamonds_with_boot_data, stats = c('aled', 'naler'))
 #' get(ale_diamonds_with_boot_data, stats = 'all')
 #' get(ale_diamonds_with_boot_data, stats = 'conf_regions')
 #' get(ale_diamonds_with_boot_data, stats = 'conf_sig')
@@ -728,7 +733,7 @@ ALE <- new_class(
     # https://cran.r-project.org/web/packages/future/vignettes/future-7-for-package-developers.html
     # However, don't presume that all users will use future, so just use on.exit strategy.
     if (parallel > 0) {
-      future::plan(future::multisession, workers = parallel) |>
+      future::plan(future_session(), workers = parallel) |>
         # https://github.com/tripartio/ale/issues/17
         with(local = TRUE)
     }
