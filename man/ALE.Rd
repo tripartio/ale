@@ -113,6 +113,13 @@ An object of class \code{ALE} with properties \code{effect} and \code{params}.
 \description{
 An \code{ALE} S7 object contains ALE data and statistics. For details, see \code{vignette('ale-intro')} or the details and examples below.
 }
+\section{Methods}{
+
+\code{ALE} objects support \link[=get-ALE-method]{get()}, \link[=plot-ALE-method]{plot()},
+\link[=print-ALE-method]{print()}, and \link[=summary-ALE-method]{summary()}. Each method
+topic documents its complete signature and class-specific arguments.
+}
+
 \section{Properties}{
 
 \describe{
@@ -179,7 +186,7 @@ For time-to-event (survival) models, set the following arguments:
 
 \section{Progress bars}{
 
-Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
+Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-01-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
 }
 
 \section{Sorting of unordered factors}{
@@ -323,7 +330,7 @@ ale_diamonds_with_boot_data <- retrieve_rds(
 )
 # saveRDS(ale_diamonds_with_boot_data, file.choose())
 
-# See ?get.ALE for details on the various kinds of data that may be retrieved.
+# See ?`get-ALE-method` for the kinds of data that may be retrieved.
 get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
 get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
 get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics

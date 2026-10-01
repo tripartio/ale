@@ -15,7 +15,7 @@ test_that(
       silent = TRUE
     )
     expect_true(S7::S7_inherits(pd, ALEpDist))
-    expect_snapshot(s7_snapshot(pd))
+    expect_snap_variant(s7_snapshot(pd))
 
     cars_ale <- ALE(
       test_gam,
@@ -25,14 +25,14 @@ test_that(
       silent = TRUE,
     )
     expect_true(S7::S7_inherits(cars_ale, ALE))
-    expect_snapshot(s7_snapshot(cars_ale))
+    expect_snap_variant(s7_snapshot(cars_ale))
 
     # Verify that value_to_p() gives the expected output (verify p_to_random_value() in the next test)
     test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
     stats_names <- pd@rand_stats$mpg |>
       names()
 
-    expect_snapshot(unclass(
+    expect_snap_variant(unclass(
       stats_names |>  # iterate the statistics by name
         map(\(.stat) {
           value_to_p(pd@rand_stats$mpg, .stat, test_vals)
@@ -57,14 +57,14 @@ test_that(
       silent = TRUE
     )
     expect_true(S7::S7_inherits(pd, ALEpDist))
-    expect_snapshot(s7_snapshot(pd))
+    expect_snap_variant(s7_snapshot(pd))
 
     # Verify that p_to_random_value() gives the expected output (verified value_to_p() in the previous test)
     test_p <- c(0, 0.001, 0.01, 0.01, 0.05, 0.1, 0.5, 1)
     stats_names <- pd@rand_stats$mpg |>
       names()
 
-    expect_snapshot(unclass(
+    expect_snap_variant(unclass(
       stats_names |>  # iterate the statistics by name
         map(\(.stat) {
           p_to_random_value(pd@rand_stats$mpg, .stat, test_p)
@@ -95,7 +95,7 @@ test_that(
       .skip_validation = TRUE
     )
     expect_true(S7::S7_inherits(pd, ALEpDist))
-    expect_snapshot(s7_snapshot(pd))
+    expect_snap_variant(s7_snapshot(pd))
   }
 )
 
@@ -113,7 +113,7 @@ test_that(
       .skip_validation = TRUE
     )
     expect_true(S7::S7_inherits(pd, ALEpDist))
-    expect_snapshot(s7_snapshot(pd))
+    expect_snap_variant(s7_snapshot(pd))
   }
 )
 
@@ -132,6 +132,6 @@ test_that(
       .skip_validation = TRUE
     )
     expect_true(S7::S7_inherits(pd, ALEpDist))
-    expect_snapshot(s7_snapshot(pd))
+    expect_snap_variant(s7_snapshot(pd))
   }
 )

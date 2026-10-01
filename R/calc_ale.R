@@ -850,9 +850,9 @@ calc_ale <- function(
   boot_summary <- boot_summary |>
     mutate(
       .y = if (boot_centre == 'mean') {
-        .y_mean
+        .data$.y_mean
       } else if (boot_centre == 'median') {
-        .y_median
+        .data$.y_median
       },
     ) |>
     select('.cat', all_of(x_cols), '.n', '.y', everything())

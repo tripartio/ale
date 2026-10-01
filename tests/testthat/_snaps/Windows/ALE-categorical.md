@@ -1,22 +1,15 @@
 # bootstrapped binary outcome with full 1D and 2D ALE
 
     Code
-      unclass(cat_cars_ale)
+      {
+        x
+      }
     Output
-      <object>
-      attr(,"S7_class")
-      <ale::ALE> class
-      @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
-      @ validator  : <NULL>
-      @ properties :
-       $ effect: <list>
-       $ params: <list>
-      attr(,"effect")
-      attr(,"effect")$Asia
-      attr(,"effect")$Asia$ale
-      attr(,"effect")$Asia$ale$d1
-      attr(,"effect")$Asia$ale$d1$mpg
+      $effect
+      $effect$Asia
+      $effect$Asia$ale
+      $effect$Asia$ale$d1
+      $effect$Asia$ale$d1$mpg
       # A tibble: 11 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -32,21 +25,21 @@
       10     30.4     7     0     0       0         0     0
       11     33.9     5     0     0       0         0     0
       
-      attr(,"effect")$Asia$ale$d1$vs
+      $effect$Asia$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36     0     0       0         0     0
       2 TRUE      28     0     0       0         0     0
       
-      attr(,"effect")$Asia$ale$d1$am
+      $effect$Asia$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n      .y    .y_lo .y_mean .y_median  .y_hi
-        <ord>  <int>   <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
-      1 FALSE     38 0.00619 -0.0396  0.00619   0.0297  0.0320
-      2 TRUE      26 0.0155  -0.00990 0.0155   -0.00670 0.0597
+        am.bin    .n      .y   .y_lo .y_mean .y_median  .y_hi
+        <ord>  <int>   <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+      1 FALSE     38 0.00619 -0.0396 0.00619    0.0297 0.032 
+      2 TRUE      26 0.0155  -0.0099 0.0155    -0.0067 0.0597
       
-      attr(,"effect")$Asia$ale$d1$model
+      $effect$Asia$ale$d1$model
       # A tibble: 32 x 7
          model.bin             .n     .y .y_lo .y_mean .y_median   .y_hi
          <ord>              <int>  <dbl> <dbl>   <dbl>     <dbl>   <dbl>
@@ -62,7 +55,7 @@
       10 Fiat X1-9              2 -1.67  -2.89  -1.67     -2.18  -0.0156
       # i 22 more rows
       
-      attr(,"effect")$Asia$ale$d1$gear
+      $effect$Asia$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
         <ord>    <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
@@ -70,35 +63,35 @@
       2 four        24  0.00198 -0.150   0.00198    0.0718  0.0948
       3 five        10 -0.330   -0.523  -0.330     -0.460  -0.0269
       
-      attr(,"effect")$Asia$ale$d1$carb
+      $effect$Asia$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n       .y    .y_lo  .y_mean .y_median     .y_hi
-            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>     <dbl>
-      1         1    14  0.00549  0.00549  0.00549   0.00549  0.00549 
-      2         2    19 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
-      3         3     9 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
-      4         4    16 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
-      5         8     6 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14  0.00549  0.00549  0.00549   0.00549  0.00549
+      2         2    19 -0.0019  -0.00367 -0.0019   -0.00191 -0.00012
+      3         3     9 -0.0019  -0.00367 -0.0019   -0.00191 -0.00012
+      4         4    16 -0.0019  -0.00367 -0.0019   -0.00191 -0.00012
+      5         8     6 -0.0019  -0.00367 -0.0019   -0.00191 -0.00012
       
-      attr(,"effect")$Asia$ale$d1$wt
+      $effect$Asia$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n          .y      .y_lo     .y_mean   .y_median      .y_hi
-           <dbl> <int>       <dbl>      <dbl>       <dbl>       <dbl>      <dbl>
-       1    1.50     1  0.0000259   0.0000259  0.0000259   0.0000259  0.0000259 
-       2    1.93     6  0.00000335 -0.0000130  0.00000335  0.0000122  0.0000122 
-       3    2.31     6 -0.00000739 -0.0000234 -0.00000739 -0.00000314 0.00000499
-       4    2.78     7 -0.00000739 -0.0000234 -0.00000739 -0.00000314 0.00000499
-       5    3.16     6 -0.00000740 -0.0000234 -0.00000740 -0.00000315 0.00000498
-       6    3.22     6 -0.00000740 -0.0000234 -0.00000740 -0.00000315 0.00000498
-       7    3.44     7 -0.00000740 -0.0000234 -0.00000740 -0.00000315 0.00000498
-       8    3.56     6 -0.00000740 -0.0000234 -0.00000740 -0.00000315 0.00000498
-       9    3.79     7 -0.00000740 -0.0000234 -0.00000740 -0.00000315 0.00000498
-      10    4.07     6 -0.00000740 -0.0000234 -0.00000740 -0.00000315 0.00000498
-      11    5.45     6 -0.00000740 -0.0000234 -0.00000740 -0.00000315 0.00000498
+         wt.ceil    .n       .y    .y_lo  .y_mean .y_median   .y_hi
+           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
+       1    1.50     1  0.00003  0.00003  0.00003   0.00003 0.00003
+       2    1.93     6  0       -0.00001  0         0.00001 0.00001
+       3    2.31     6 -0.00001 -0.00002 -0.00001   0       0      
+       4    2.78     7 -0.00001 -0.00002 -0.00001   0       0      
+       5    3.16     6 -0.00001 -0.00002 -0.00001   0       0      
+       6    3.22     6 -0.00001 -0.00002 -0.00001   0       0      
+       7    3.44     7 -0.00001 -0.00002 -0.00001   0       0      
+       8    3.56     6 -0.00001 -0.00002 -0.00001   0       0      
+       9    3.79     7 -0.00001 -0.00002 -0.00001   0       0      
+      10    4.07     6 -0.00001 -0.00002 -0.00001   0       0      
+      11    5.45     6 -0.00001 -0.00002 -0.00001   0       0      
       
       
-      attr(,"effect")$Asia$ale$d2
-      attr(,"effect")$Asia$ale$d2$`mpg:vs`
+      $effect$Asia$ale$d2
+      $effect$Asia$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -114,7 +107,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$Asia$ale$d2$`mpg:am`
+      $effect$Asia$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -130,7 +123,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$Asia$ale$d2$`mpg:model`
+      $effect$Asia$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -146,7 +139,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"effect")$Asia$ale$d2$`mpg:gear`
+      $effect$Asia$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -162,7 +155,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$Asia$ale$d2$`mpg:carb`
+      $effect$Asia$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -178,7 +171,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"effect")$Asia$ale$d2$`mpg:wt`
+      $effect$Asia$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -194,7 +187,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"effect")$Asia$ale$d2$`vs:am`
+      $effect$Asia$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -203,7 +196,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"effect")$Asia$ale$d2$`vs:model`
+      $effect$Asia$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -219,7 +212,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"effect")$Asia$ale$d2$`vs:gear`
+      $effect$Asia$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -230,7 +223,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"effect")$Asia$ale$d2$`vs:carb`
+      $effect$Asia$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -245,7 +238,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"effect")$Asia$ale$d2$`vs:wt`
+      $effect$Asia$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -261,7 +254,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$Asia$ale$d2$`am:model`
+      $effect$Asia$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n     .y   .y_lo .y_mean .y_median  .y_hi
          <ord>  <ord>              <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -277,33 +270,33 @@
       10 TRUE   Datsun 710             0 -3.32  -14.8    -3.32     -3.16   8.09 
       # i 54 more rows
       
-      attr(,"effect")$Asia$ale$d2$`am:gear`
+      $effect$Asia$ale$d2$`am:gear`
       # A tibble: 6 x 8
-        am.bin gear.bin    .n      .y  .y_lo .y_mean .y_median    .y_hi
-        <ord>  <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
-      1 FALSE  three       30 -0.0927 -0.197 -0.0927   -0.0688 -0.00870
-      2 TRUE   three        0 -0.0927 -0.601 -0.0927   -0.104   0.425  
-      3 FALSE  four         8 -0.191  -0.332 -0.191    -0.165  -0.0736 
-      4 TRUE   four        16 -0.433  -0.832 -0.433    -0.507   0.0281 
-      5 FALSE  five         0 -0.191  -0.332 -0.191    -0.165  -0.0736 
-      6 TRUE   five        10 -0.766  -0.942 -0.766    -0.806  -0.555  
+        am.bin gear.bin    .n      .y  .y_lo .y_mean .y_median   .y_hi
+        <ord>  <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
+      1 FALSE  three       30 -0.0927 -0.197 -0.0927   -0.0688 -0.0087
+      2 TRUE   three        0 -0.0927 -0.601 -0.0927   -0.104   0.425 
+      3 FALSE  four         8 -0.191  -0.332 -0.191    -0.165  -0.0736
+      4 TRUE   four        16 -0.433  -0.832 -0.433    -0.507   0.0281
+      5 FALSE  five         0 -0.191  -0.332 -0.191    -0.165  -0.0736
+      6 TRUE   five        10 -0.766  -0.942 -0.766    -0.806  -0.555 
       
-      attr(,"effect")$Asia$ale$d2$`am:carb`
+      $effect$Asia$ale$d2$`am:carb`
       # A tibble: 10 x 8
-         am.bin carb.ceil    .n        .y    .y_lo   .y_mean .y_median  .y_hi
-         <ord>      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>  <dbl>
-       1 FALSE          1     6  0.0166    0.0166   0.0166     0.0166  0.0166
-       2 TRUE           1     8  0.0166   -0.101    0.0166     0.0166  0.134 
-       3 FALSE          2    12  0.0134   -0.0621   0.0134     0.0163  0.0863
-       4 TRUE           2     7 -0.000253 -0.203   -0.000253   0.00468 0.198 
-       5 FALSE          3     7  0.0134    0.00415  0.0134     0.0163  0.0201
-       6 TRUE           3     2 -0.000226 -0.120   -0.000226   0.00468 0.116 
-       7 FALSE          4    11  0.190    -0.0514   0.190      0.229   0.399 
-       8 TRUE           4     5  0.454     0.357    0.454      0.423   0.579 
-       9 FALSE          8     2  0.190     0.0307   0.190      0.229   0.317 
-      10 TRUE           8     4  0.454     0.341    0.454      0.353   0.654 
+         am.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>  <dbl>
+       1 FALSE          1     6  0.0166   0.0166   0.0166    0.0166  0.0166
+       2 TRUE           1     8  0.0166  -0.101    0.0166    0.0166  0.134 
+       3 FALSE          2    12  0.0134  -0.0621   0.0134    0.0163  0.0863
+       4 TRUE           2     7 -0.00025 -0.203   -0.00025   0.00468 0.198 
+       5 FALSE          3     7  0.0134   0.00415  0.0134    0.0163  0.0201
+       6 TRUE           3     2 -0.00023 -0.120   -0.00023   0.00468 0.116 
+       7 FALSE          4    11  0.190   -0.0514   0.190     0.229   0.399 
+       8 TRUE           4     5  0.454    0.357    0.454     0.423   0.579 
+       9 FALSE          8     2  0.190    0.0307   0.190     0.229   0.317 
+      10 TRUE           8     4  0.454    0.341    0.454     0.353   0.654 
       
-      attr(,"effect")$Asia$ale$d2$`am:wt`
+      $effect$Asia$ale$d2$`am:wt`
       # A tibble: 22 x 8
          am.bin wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
          <ord>    <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
@@ -313,13 +306,13 @@
        4 TRUE      1.93     6 0.0240 -0.0397   0.0240    0.0240 0.0877
        5 FALSE     2.31     0 0.0240 -0.00842  0.0240    0.0240 0.0565
        6 TRUE      2.31     6 0.0240 -0.0397   0.0240    0.0240 0.0877
-       7 FALSE     2.78     2 0.0540 -0.00595  0.0540    0.0734 0.0973
+       7 FALSE     2.78     2 0.0540 -0.00595  0.0540    0.0734 0.0974
        8 TRUE      2.78     5 0.0860  0.0209   0.0860    0.110  0.130 
        9 FALSE     3.16     2 0.0712  0.0261   0.0712    0.0644 0.122 
       10 TRUE      3.16     4 0.142   0.0930   0.142     0.162  0.174 
       # i 12 more rows
       
-      attr(,"effect")$Asia$ale$d2$`model:gear`
+      $effect$Asia$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n     .y  .y_lo .y_mean .y_median   .y_hi
          <ord>              <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
@@ -335,7 +328,7 @@
       10 Fiat X1-9          three        0 -0.567 -3.70   -0.567    0.501   1.66  
       # i 86 more rows
       
-      attr(,"effect")$Asia$ale$d2$`model:carb`
+      $effect$Asia$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n    .y   .y_lo .y_mean .y_median .y_hi
          <ord>                  <dbl> <int> <dbl>   <dbl>   <dbl>     <dbl> <dbl>
@@ -351,7 +344,7 @@
       10 Fiat X1-9                  1     0 0.580 -0.247    0.580     0.736 1.27 
       # i 150 more rows
       
-      attr(,"effect")$Asia$ale$d2$`model:wt`
+      $effect$Asia$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
          <ord>                <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -367,32 +360,32 @@
       10 Fiat X1-9             1.50     0  1.02 -1.23     1.02      1.47  2.89
       # i 342 more rows
       
-      attr(,"effect")$Asia$ale$d2$`gear:carb`
+      $effect$Asia$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
          <ord>        <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
        1 three            1     6 0.0284  0.0284   0.0284    0.0284 0.0284
        2 four             1     8 0.0284 -0.0188   0.0284    0.0249 0.0785
        3 five             1     0 0.0284 -0.0220   0.0284    0.0249 0.0817
-       4 three            2     8 0.0270 -0.0718   0.0270    0.0206 0.131 
+       4 three            2     8 0.0270 -0.0718   0.0270    0.0207 0.131 
        5 four             2     7 0.118   0.0612   0.118     0.135  0.161 
        6 five             2     4 0.0970  0.00282  0.0970    0.130  0.163 
        7 three            3     7 0.0341 -0.0182   0.0341    0.0372 0.0838
        8 four             3     2 0.149   0.120    0.149     0.140  0.185 
        9 five             3     0 0.123   0.0471   0.123     0.139  0.187 
-      10 three            4     8 0.0456 -0.0699   0.0456    0.0598 0.149 
+      10 three            4     8 0.0456 -0.0698   0.0456    0.0598 0.149 
       11 four             4     6 0.307   0.206    0.307     0.358  0.364 
       12 five             4     2 0.285   0.221    0.285     0.270  0.361 
       13 three            8     1 0.0456 -0.0204   0.0456    0.0574 0.102 
       14 four             8     1 0.308   0.256    0.308     0.307  0.359 
       15 five             8     4 0.285   0.217    0.285     0.273  0.364 
       
-      attr(,"effect")$Asia$ale$d2$`gear:wt`
+      $effect$Asia$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
          <ord>      <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
        1 three       1.50     0 0.0293  0.0293   0.0293    0.0293 0.0293
-       2 four        1.50     0 0.0293  0.0191   0.0293    0.0294 0.0395
+       2 four        1.50     0 0.0293  0.0191   0.0293    0.0294 0.0396
        3 five        1.50     1 0.0293  0.0138   0.0293    0.0308 0.0436
        4 three       1.93     0 0.0442  0.0144   0.0442    0.0445 0.0739
        5 four        1.93     5 0.0535  0.0114   0.0535    0.0700 0.0815
@@ -403,7 +396,7 @@
       10 three       2.78     2 0.0468 -0.00648  0.0468    0.0679 0.0822
       # i 23 more rows
       
-      attr(,"effect")$Asia$ale$d2$`carb:wt`
+      $effect$Asia$ale$d2$`carb:wt`
       # A tibble: 55 x 8
          carb.ceil wt.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
              <dbl>   <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
@@ -421,8 +414,8 @@
       
       
       
-      attr(,"effect")$Asia$stats
-      attr(,"effect")$Asia$stats$d1
+      $effect$Asia$stats
+      $effect$Asia$stats$d1
       # A tibble: 56 x 8
          statistic estimate p.value term  conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl>
@@ -438,7 +431,7 @@
       10 aler_min         0       1 vs           0     0      0         0
       # i 46 more rows
       
-      attr(,"effect")$Asia$stats$d2
+      $effect$Asia$stats$d2
       # A tibble: 168 x 8
          statistic estimate p.value term   conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl>
@@ -455,9 +448,9 @@
       # i 158 more rows
       
       
-      attr(,"effect")$Asia$boot_data
-      attr(,"effect")$Asia$boot_data$d1
-      attr(,"effect")$Asia$boot_data$d1$mpg
+      $effect$Asia$boot_data
+      $effect$Asia$boot_data$d1
+      $effect$Asia$boot_data$d1$mpg
       # A tibble: 33 x 6
            .it   mpg .y_composite    .n .y_distinct    .y
          <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -473,7 +466,7 @@
       10     0  30.4            0     7           0     0
       # i 23 more rows
       
-      attr(,"effect")$Asia$boot_data$d1$vs
+      $effect$Asia$boot_data$d1$vs
       # A tibble: 6 x 6
           .it vs    .y_composite    .n .y_distinct    .y
         <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -484,18 +477,18 @@
       5     2 FALSE            0    36           0     0
       6     2 TRUE             0    28           0     0
       
-      attr(,"effect")$Asia$boot_data$d1$am
+      $effect$Asia$boot_data$d1$am
       # A tibble: 6 x 6
-          .it am    .y_composite    .n .y_distinct       .y
-        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
-      1     0 FALSE     -0.0432     38    -0.0432  -0.0432 
-      2     0 TRUE       0.0632     26     0.0632   0.0632 
-      3     1 FALSE      0.0321     38     0.0321   0.0321 
-      4     1 TRUE      -0.0101     26    -0.0101  -0.0101 
-      5     2 FALSE      0.0297     38     0.0297   0.0297 
-      6     2 TRUE      -0.00670    26    -0.00670 -0.00670
+          .it am    .y_composite    .n .y_distinct      .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
+      1     0 FALSE      -0.0432    38     -0.0432 -0.0432
+      2     0 TRUE        0.0632    26      0.0632  0.0632
+      3     1 FALSE       0.0321    38      0.0321  0.0321
+      4     1 TRUE       -0.0101    26     -0.0101 -0.0101
+      5     2 FALSE       0.0297    38      0.0297  0.0297
+      6     2 TRUE       -0.0067    26     -0.0067 -0.0067
       
-      attr(,"effect")$Asia$boot_data$d1$model
+      $effect$Asia$boot_data$d1$model
       # A tibble: 96 x 6
            .it model              .y_composite    .n .y_distinct     .y
          <dbl> <fct>                     <dbl> <dbl>       <dbl>  <dbl>
@@ -511,59 +504,59 @@
       10     0 Fiat X1-9                0.0984     2      0.0984 0.0984
       # i 86 more rows
       
-      attr(,"effect")$Asia$boot_data$d1$gear
+      $effect$Asia$boot_data$d1$gear
       # A tibble: 9 x 6
-          .it gear  .y_composite    .n .y_distinct       .y
-        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
-      1     0 three      0.118      30     0.118    0.118  
-      2     0 four       0.0718     24     0.0718   0.0718 
-      3     0 five      -0.526      10    -0.526   -0.526  
-      4     1 three      0.0530     30     0.0530   0.0530 
-      5     1 four      -0.162      24    -0.162   -0.162  
-      6     1 five      -0.460      10    -0.460   -0.460  
-      7     2 three      0.184      30     0.184    0.184  
-      8     2 four       0.0960     24     0.0960   0.0960 
-      9     2 five      -0.00410    10    -0.00410 -0.00410
+          .it gear  .y_composite    .n .y_distinct      .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
+      1     0 three       0.118     30      0.118   0.118 
+      2     0 four        0.0718    24      0.0718  0.0718
+      3     0 five       -0.526     10     -0.526  -0.526 
+      4     1 three       0.0530    30      0.0530  0.0530
+      5     1 four       -0.162     24     -0.162  -0.162 
+      6     1 five       -0.460     10     -0.460  -0.460 
+      7     2 three       0.184     30      0.184   0.184 
+      8     2 four        0.0960    24      0.0960  0.0960
+      9     2 five       -0.0041    10     -0.0041 -0.0041
       
-      attr(,"effect")$Asia$boot_data$d1$carb
+      $effect$Asia$boot_data$d1$carb
       # A tibble: 15 x 6
-           .it  carb .y_composite    .n .y_distinct         .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl>      <dbl>
-       1     0     1    0.00549      14   0.00549    0.00549  
-       2     0     2   -0.00191      19  -0.00191   -0.00191  
-       3     0     3   -0.00191       9  -0.00191   -0.00191  
-       4     0     4   -0.00191      16  -0.00191   -0.00191  
-       5     0     8   -0.00191       6  -0.00191   -0.00191  
-       6     1     1    0.00549      18   0.00549    0.00549  
-       7     1     2   -0.00377      16  -0.00377   -0.00377  
-       8     1     3   -0.00377      13  -0.00377   -0.00377  
-       9     1     4   -0.00377      15  -0.00377   -0.00377  
-      10     1     8   -0.00377       2  -0.00377   -0.00377  
-      11     2     1    0.00549      15   0.00549    0.00549  
-      12     2     2   -0.0000232    13  -0.0000232 -0.0000232
-      13     2     3   -0.0000232    13  -0.0000232 -0.0000232
-      14     2     4   -0.0000232    20  -0.0000232 -0.0000232
-      15     2     8   -0.0000232     3  -0.0000232 -0.0000232
+           .it  carb .y_composite    .n .y_distinct       .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0     1      0.00549    14     0.00549  0.00549
+       2     0     2     -0.00191    19    -0.00191 -0.00191
+       3     0     3     -0.00191     9    -0.00191 -0.00191
+       4     0     4     -0.00191    16    -0.00191 -0.00191
+       5     0     8     -0.00191     6    -0.00191 -0.00191
+       6     1     1      0.00549    18     0.00549  0.00549
+       7     1     2     -0.00377    16    -0.00377 -0.00377
+       8     1     3     -0.00377    13    -0.00377 -0.00377
+       9     1     4     -0.00377    15    -0.00377 -0.00377
+      10     1     8     -0.00377     2    -0.00377 -0.00377
+      11     2     1      0.00549    15     0.00549  0.00549
+      12     2     2     -0.00002    13    -0.00002 -0.00002
+      13     2     3     -0.00002    13    -0.00002 -0.00002
+      14     2     4     -0.00002    20    -0.00002 -0.00002
+      15     2     8     -0.00002     3    -0.00002 -0.00002
       
-      attr(,"effect")$Asia$boot_data$d1$wt
+      $effect$Asia$boot_data$d1$wt
       # A tibble: 33 x 6
-           .it    wt .y_composite    .n .y_distinct          .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl>       <dbl>
-       1     0  1.50   0.0000259      1  0.0000259   0.0000259 
-       2     0  1.93   0.0000122      6  0.0000122   0.0000122 
-       3     0  2.31  -0.00000314     6 -0.00000314 -0.00000314
-       4     0  2.78  -0.00000314     7 -0.00000314 -0.00000314
-       5     0  3.16  -0.00000315     6 -0.00000315 -0.00000315
-       6     0  3.22  -0.00000315     6 -0.00000315 -0.00000315
-       7     0  3.44  -0.00000315     7 -0.00000315 -0.00000315
-       8     0  3.56  -0.00000315     6 -0.00000315 -0.00000315
-       9     0  3.79  -0.00000315     7 -0.00000315 -0.00000315
-      10     0  4.07  -0.00000315     6 -0.00000315 -0.00000315
+           .it    wt .y_composite    .n .y_distinct      .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0  1.50      0.00003     1     0.00003 0.00003
+       2     0  1.93      0.00001     6     0.00001 0.00001
+       3     0  2.31      0           6     0       0      
+       4     0  2.78      0           7     0       0      
+       5     0  3.16      0           6     0       0      
+       6     0  3.22      0           6     0       0      
+       7     0  3.44      0           7     0       0      
+       8     0  3.56      0           6     0       0      
+       9     0  3.79      0           7     0       0      
+      10     0  4.07      0           6     0       0      
       # i 23 more rows
       
       
-      attr(,"effect")$Asia$boot_data$d2
-      attr(,"effect")$Asia$boot_data$d2$`mpg:vs`
+      $effect$Asia$boot_data$d2
+      $effect$Asia$boot_data$d2$`mpg:vs`
       # A tibble: 66 x 7
            .it   mpg vs    .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -579,7 +572,7 @@
       10     0  30.4 FALSE            0     2           0     0
       # i 56 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`mpg:am`
+      $effect$Asia$boot_data$d2$`mpg:am`
       # A tibble: 66 x 7
            .it   mpg am    .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -595,7 +588,7 @@
       10     0  30.4 FALSE            0     0           0     0
       # i 56 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`mpg:model`
+      $effect$Asia$boot_data$d2$`mpg:model`
       # A tibble: 1,056 x 7
            .it   mpg model       .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>              <dbl> <dbl>       <dbl> <dbl>
@@ -611,7 +604,7 @@
       10     0  30.4 AMC Javelin            0     0           0     0
       # i 1,046 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`mpg:gear`
+      $effect$Asia$boot_data$d2$`mpg:gear`
       # A tibble: 99 x 7
            .it   mpg gear  .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -627,7 +620,7 @@
       10     0  30.4 three            0     0           0     0
       # i 89 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`mpg:carb`
+      $effect$Asia$boot_data$d2$`mpg:carb`
       # A tibble: 165 x 7
            .it   mpg  carb .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -643,7 +636,7 @@
       10     0  30.4     1            0     2           0     0
       # i 155 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`mpg:wt`
+      $effect$Asia$boot_data$d2$`mpg:wt`
       # A tibble: 363 x 7
            .it   mpg    wt .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -659,7 +652,7 @@
       10     0  30.4  1.50            0     1           0     0
       # i 353 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`vs:am`
+      $effect$Asia$boot_data$d2$`vs:am`
       # A tibble: 12 x 7
            .it vs    am    .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -676,7 +669,7 @@
       11     2 FALSE TRUE             0    12           0     0
       12     2 TRUE  TRUE             0    14           0     0
       
-      attr(,"effect")$Asia$boot_data$d2$`vs:model`
+      $effect$Asia$boot_data$d2$`vs:model`
       # A tibble: 192 x 7
            .it vs    model              .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>                     <dbl> <dbl>       <dbl> <dbl>
@@ -692,7 +685,7 @@
       10     0 TRUE  Datsun 710                    0     0           0     0
       # i 182 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`vs:gear`
+      $effect$Asia$boot_data$d2$`vs:gear`
       # A tibble: 18 x 7
            .it vs    gear  .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -715,7 +708,7 @@
       17     2 FALSE five             0     8           0     0
       18     2 TRUE  five             0     2           0     0
       
-      attr(,"effect")$Asia$boot_data$d2$`vs:carb`
+      $effect$Asia$boot_data$d2$`vs:carb`
       # A tibble: 30 x 7
            .it vs     carb .y_composite    .n .y_distinct    .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -731,7 +724,7 @@
       10     0 TRUE      8            0     1           0     0
       # i 20 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`vs:wt`
+      $effect$Asia$boot_data$d2$`vs:wt`
       # A tibble: 66 x 7
            .it vs       wt .y_composite    .n .y_distinct    .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -747,7 +740,7 @@
       10     0 TRUE   3.16            0     3           0     0
       # i 56 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`am:model`
+      $effect$Asia$boot_data$d2$`am:model`
       # A tibble: 192 x 7
            .it am    model              .y_composite    .n .y_distinct     .y
          <dbl> <fct> <fct>                     <dbl> <dbl>       <dbl>  <dbl>
@@ -763,7 +756,7 @@
       10     0 TRUE  Datsun 710               -2.31      0       8.68   8.68 
       # i 182 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`am:gear`
+      $effect$Asia$boot_data$d2$`am:gear`
       # A tibble: 18 x 7
            .it am    gear  .y_composite    .n .y_distinct       .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>    <dbl>
@@ -786,14 +779,14 @@
       17     2 FALSE five      -0.165       0    -0.165   -0.165  
       18     2 TRUE  five      -0.328      10    -0.950   -0.950  
       
-      attr(,"effect")$Asia$boot_data$d2$`am:carb`
+      $effect$Asia$boot_data$d2$`am:carb`
       # A tibble: 30 x 7
            .it am     carb .y_composite    .n .y_distinct      .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
        1     0 FALSE     1      0.0166      6      0.0166  0.0166
        2     0 TRUE      1      0.0166      8     -0.107  -0.107 
        3     0 FALSE     2      0.0166     12     -0.0662 -0.0662
-       4     0 TRUE      2     -0.00350     7     -0.213  -0.213 
+       4     0 TRUE      2     -0.0035      7     -0.213  -0.213 
        5     0 FALSE     3      0.0166      7      0.0203  0.0203
        6     0 TRUE      3     -0.00342     2     -0.127  -0.127 
        7     0 FALSE     4      0.0166     11     -0.0662 -0.0662
@@ -802,7 +795,7 @@
       10     0 TRUE      8      0.550       4      0.340   0.340 
       # i 20 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`am:wt`
+      $effect$Asia$boot_data$d2$`am:wt`
       # A tibble: 66 x 7
            .it am       wt .y_composite    .n .y_distinct       .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
@@ -811,14 +804,14 @@
        3     0 FALSE  1.93       0.0240     0     0.00287  0.00287
        4     0 TRUE   1.93       0.0240     6    -0.0431  -0.0431 
        5     0 FALSE  2.31       0.0240     0    -0.0101  -0.0101 
-       6     0 TRUE   2.31       0.0240     6    -0.0431  -0.0431 
+       6     0 TRUE   2.31       0.024      6    -0.0431  -0.0431 
        7     0 FALSE  2.78       0.0240     2    -0.0101  -0.0101 
        8     0 TRUE   2.78       0.0833     5     0.0162   0.0162 
        9     0 FALSE  3.16       0.0240     2     0.0240   0.0240 
       10     0 TRUE   3.16       0.122      4     0.0894   0.0894 
       # i 56 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`model:gear`
+      $effect$Asia$boot_data$d2$`model:gear`
       # A tibble: 288 x 7
            .it model              gear  .y_composite    .n .y_distinct      .y
          <dbl> <fct>              <fct>        <dbl> <dbl>       <dbl>   <dbl>
@@ -834,7 +827,7 @@
       10     0 Fiat X1-9          three       -0.100     0      1.72    1.72  
       # i 278 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`model:carb`
+      $effect$Asia$boot_data$d2$`model:carb`
       # A tibble: 480 x 7
            .it model               carb .y_composite    .n .y_distinct      .y
          <dbl> <fct>              <dbl>        <dbl> <dbl>       <dbl>   <dbl>
@@ -850,7 +843,7 @@
       10     0 Fiat X1-9              1        0.580     0     -0.299  -0.299 
       # i 470 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`model:wt`
+      $effect$Asia$boot_data$d2$`model:wt`
       # A tibble: 1,056 x 7
            .it model                 wt .y_composite    .n .y_distinct     .y
          <dbl> <fct>              <dbl>        <dbl> <dbl>       <dbl>  <dbl>
@@ -866,13 +859,13 @@
       10     0 Fiat X1-9           1.50         1.02     0      -1.37  -1.37 
       # i 1,046 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`gear:carb`
+      $effect$Asia$boot_data$d2$`gear:carb`
       # A tibble: 45 x 7
            .it gear   carb .y_composite    .n .y_distinct      .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
        1     0 three     1       0.0284     6      0.0284  0.0284
        2     0 four      1       0.0284     8     -0.0211 -0.0211
-       3     0 five      1       0.0284     0     -0.0245 -0.0245
+       3     0 five      1       0.0284     0     -0.0244 -0.0244
        4     0 three     2       0.0284     8     -0.0766 -0.0766
        5     0 four      2       0.162      7      0.0573  0.0573
        6     0 five      2       0.130      4      0.130   0.130 
@@ -882,12 +875,12 @@
       10     0 three     4       0.0284     8     -0.0767 -0.0767
       # i 35 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`gear:wt`
+      $effect$Asia$boot_data$d2$`gear:wt`
       # A tibble: 99 x 7
            .it gear     wt .y_composite    .n .y_distinct       .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
        1     0 three  1.50       0.0293     0     0.0293   0.0293 
-       2     0 four   1.50       0.0293     0     0.0185   0.0185 
+       2     0 four   1.50       0.0293     0     0.0186   0.0186 
        3     0 five   1.50       0.0293     1     0.0130   0.0130 
        4     0 three  1.93       0.0293     0     0.0128   0.0128 
        5     0 four   1.93       0.0477     5     0.00826  0.00826
@@ -898,7 +891,7 @@
       10     0 three  2.78       0.0293     2    -0.0104  -0.0104 
       # i 89 more rows
       
-      attr(,"effect")$Asia$boot_data$d2$`carb:wt`
+      $effect$Asia$boot_data$d2$`carb:wt`
       # A tibble: 165 x 7
            .it  carb    wt .y_composite    .n .y_distinct       .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
@@ -917,10 +910,10 @@
       
       
       
-      attr(,"effect")$Europe
-      attr(,"effect")$Europe$ale
-      attr(,"effect")$Europe$ale$d1
-      attr(,"effect")$Europe$ale$d1$mpg
+      $effect$Europe
+      $effect$Europe$ale
+      $effect$Europe$ale$d1
+      $effect$Europe$ale$d1$mpg
       # A tibble: 11 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -936,21 +929,21 @@
       10     30.4     7     0     0       0         0     0
       11     33.9     5     0     0       0         0     0
       
-      attr(,"effect")$Europe$ale$d1$vs
+      $effect$Europe$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36     0     0       0         0     0
       2 TRUE      28     0     0       0         0     0
       
-      attr(,"effect")$Europe$ale$d1$am
+      $effect$Europe$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
-        <ord>  <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
-      1 FALSE     38 -0.00619 -0.0320 -0.00619  -0.0297  0.0396 
-      2 TRUE      26 -0.0155  -0.0597 -0.0155    0.00670 0.00990
+        am.bin    .n       .y   .y_lo  .y_mean .y_median  .y_hi
+        <ord>  <int>    <dbl>   <dbl>    <dbl>     <dbl>  <dbl>
+      1 FALSE     38 -0.00619 -0.032  -0.00619   -0.0297 0.0396
+      2 TRUE      26 -0.0155  -0.0597 -0.0155     0.0067 0.0099
       
-      attr(,"effect")$Europe$ale$d1$model
+      $effect$Europe$ale$d1$model
       # A tibble: 32 x 7
          model.bin             .n      .y .y_lo .y_mean .y_median   .y_hi
          <ord>              <int>   <dbl> <dbl>   <dbl>     <dbl>   <dbl>
@@ -966,7 +959,7 @@
       10 Fiat X1-9              2  0.515  -2.08  0.515      1.69   2.11  
       # i 22 more rows
       
-      attr(,"effect")$Europe$ale$d1$gear
+      $effect$Europe$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -974,35 +967,35 @@
       2 four        24  0.247  0.140    0.247     0.211  0.385
       3 five        10  0.380 -0.0309   0.380     0.594  0.609
       
-      attr(,"effect")$Europe$ale$d1$carb
+      $effect$Europe$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
-            <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
-      1         1    14 -0.00549 -0.00549  -0.00549  -0.00549 -0.00549
-      2         2    19  0.00190  0.000117  0.00190   0.00191  0.00367
-      3         3     9  0.00190  0.000117  0.00190   0.00191  0.00367
-      4         4    16  0.00190  0.000117  0.00190   0.00191  0.00367
-      5         8     6  0.00190  0.000117  0.00190   0.00191  0.00367
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14 -0.00549 -0.00549 -0.00549  -0.00549 -0.00549
+      2         2    19  0.0019   0.00012  0.0019    0.00191  0.00367
+      3         3     9  0.0019   0.00012  0.0019    0.00191  0.00367
+      4         4    16  0.0019   0.00012  0.0019    0.00191  0.00367
+      5         8     6  0.0019   0.00012  0.0019    0.00191  0.00367
       
-      attr(,"effect")$Europe$ale$d1$wt
+      $effect$Europe$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n          .y       .y_lo     .y_mean   .y_median      .y_hi
-           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>      <dbl>
-       1    1.50     1 -0.0000259  -0.0000259  -0.0000259  -0.0000259  -0.0000259
-       2    1.93     6 -0.00000335 -0.0000122  -0.00000335 -0.0000122   0.0000130
-       3    2.31     6  0.00000739 -0.00000499  0.00000739  0.00000314  0.0000234
-       4    2.78     7  0.00000739 -0.00000499  0.00000739  0.00000314  0.0000234
-       5    3.16     6  0.00000740 -0.00000498  0.00000740  0.00000315  0.0000234
-       6    3.22     6  0.00000740 -0.00000498  0.00000740  0.00000315  0.0000234
-       7    3.44     7  0.00000740 -0.00000498  0.00000740  0.00000315  0.0000234
-       8    3.56     6  0.00000740 -0.00000498  0.00000740  0.00000315  0.0000234
-       9    3.79     7  0.00000740 -0.00000498  0.00000740  0.00000315  0.0000234
-      10    4.07     6  0.00000740 -0.00000498  0.00000740  0.00000315  0.0000234
-      11    5.45     6  0.00000740 -0.00000498  0.00000740  0.00000315  0.0000234
+         wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1    1.50     1 -0.00003 -0.00003 -0.00003  -0.00003 -0.00003
+       2    1.93     6  0       -0.00001  0        -0.00001  0.00001
+       3    2.31     6  0.00001  0        0.00001   0        0.00002
+       4    2.78     7  0.00001  0        0.00001   0        0.00002
+       5    3.16     6  0.00001  0        0.00001   0        0.00002
+       6    3.22     6  0.00001  0        0.00001   0        0.00002
+       7    3.44     7  0.00001  0        0.00001   0        0.00002
+       8    3.56     6  0.00001  0        0.00001   0        0.00002
+       9    3.79     7  0.00001  0        0.00001   0        0.00002
+      10    4.07     6  0.00001  0        0.00001   0        0.00002
+      11    5.45     6  0.00001  0        0.00001   0        0.00002
       
       
-      attr(,"effect")$Europe$ale$d2
-      attr(,"effect")$Europe$ale$d2$`mpg:vs`
+      $effect$Europe$ale$d2
+      $effect$Europe$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1018,7 +1011,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$Europe$ale$d2$`mpg:am`
+      $effect$Europe$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1034,7 +1027,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$Europe$ale$d2$`mpg:model`
+      $effect$Europe$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1050,7 +1043,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"effect")$Europe$ale$d2$`mpg:gear`
+      $effect$Europe$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1066,7 +1059,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$Europe$ale$d2$`mpg:carb`
+      $effect$Europe$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1082,7 +1075,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"effect")$Europe$ale$d2$`mpg:wt`
+      $effect$Europe$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1098,7 +1091,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"effect")$Europe$ale$d2$`vs:am`
+      $effect$Europe$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1107,7 +1100,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"effect")$Europe$ale$d2$`vs:model`
+      $effect$Europe$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1123,7 +1116,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"effect")$Europe$ale$d2$`vs:gear`
+      $effect$Europe$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1134,7 +1127,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"effect")$Europe$ale$d2$`vs:carb`
+      $effect$Europe$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1149,7 +1142,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"effect")$Europe$ale$d2$`vs:wt`
+      $effect$Europe$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1165,7 +1158,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$Europe$ale$d2$`am:model`
+      $effect$Europe$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n    .y   .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl>   <dbl>   <dbl>     <dbl> <dbl>
@@ -1181,7 +1174,7 @@
       10 TRUE   Datsun 710             0 3.45    2.88    3.45      3.69   3.81
       # i 54 more rows
       
-      attr(,"effect")$Europe$ale$d2$`am:gear`
+      $effect$Europe$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n      .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -1192,42 +1185,42 @@
       5 FALSE  five         0 -0.122  -0.584 -0.122    -0.145  0.359
       6 TRUE   five        10  0.0371 -0.354  0.0371   -0.183  0.615
       
-      attr(,"effect")$Europe$ale$d2$`am:carb`
+      $effect$Europe$ale$d2$`am:carb`
       # A tibble: 10 x 8
-         am.bin carb.ceil    .n        .y    .y_lo   .y_mean .y_median    .y_hi
-         <ord>      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>    <dbl>
-       1 FALSE          1     6 -0.0166   -0.137   -0.0166    -0.0166   0.104  
-       2 TRUE           1     8 -0.0166   -0.0201  -0.0166    -0.0166  -0.0131 
-       3 FALSE          2    12 -0.0134   -0.216   -0.0134    -0.0163   0.192  
-       4 TRUE           2     7  0.000253 -0.00434  0.000253   0.00193  0.00342
-       5 FALSE          3     7 -0.0134   -0.134   -0.0134    -0.0163   0.110  
-       6 TRUE           3     2  0.000227 -0.0756   0.000227  -0.00468  0.0802 
-       7 FALSE          4    11 -0.190    -0.229   -0.190     -0.226   -0.121  
-       8 TRUE           4     5 -0.454    -0.542   -0.454     -0.464   -0.359  
-       9 FALSE          8     2 -0.190    -0.228   -0.190     -0.202   -0.143  
-      10 TRUE           8     4 -0.454    -0.620   -0.454     -0.377   -0.355  
+         am.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     6 -0.0166  -0.137   -0.0166   -0.0166   0.104  
+       2 TRUE           1     8 -0.0166  -0.0201  -0.0166   -0.0166  -0.0131 
+       3 FALSE          2    12 -0.0134  -0.216   -0.0134   -0.0163   0.192  
+       4 TRUE           2     7  0.00025 -0.00434  0.00025   0.00193  0.00342
+       5 FALSE          3     7 -0.0134  -0.134   -0.0134   -0.0163   0.110  
+       6 TRUE           3     2  0.00023 -0.0756   0.00023  -0.00468  0.0802 
+       7 FALSE          4    11 -0.190   -0.229   -0.190    -0.226   -0.121  
+       8 TRUE           4     5 -0.454   -0.542   -0.454    -0.464   -0.359  
+       9 FALSE          8     2 -0.190   -0.228   -0.190    -0.202   -0.143  
+      10 TRUE           8     4 -0.454   -0.620   -0.454    -0.377   -0.355  
       
-      attr(,"effect")$Europe$ale$d2$`am:wt`
+      $effect$Europe$ale$d2$`am:wt`
       # A tibble: 22 x 8
          am.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median    .y_hi
          <ord>    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>    <dbl>
        1 FALSE     1.50     0 -0.0240 -0.0553 -0.0240   -0.0240  0.00725
        2 TRUE      1.50     1 -0.0240 -0.0240 -0.0240   -0.0240 -0.0240 
-       3 FALSE     1.93     0 -0.0240 -0.0754 -0.0240   -0.0240  0.0273 
+       3 FALSE     1.93     0 -0.0240 -0.0754 -0.0240   -0.0240  0.0274 
        4 TRUE      1.93     6 -0.0240 -0.0565 -0.0240   -0.0240  0.00844
        5 FALSE     2.31     0 -0.0240 -0.0878 -0.0240   -0.0240  0.0397 
        6 TRUE      2.31     6 -0.0240 -0.0565 -0.0240   -0.0240  0.00846
        7 FALSE     2.78     2 -0.0540 -0.0902 -0.0540   -0.0734 -0.00116
        8 TRUE      2.78     5 -0.0860 -0.109  -0.0860   -0.0833 -0.0654 
-       9 FALSE     3.16     2 -0.0712 -0.122  -0.0712   -0.0569 -0.0328 
+       9 FALSE     3.16     2 -0.0712 -0.122  -0.0712   -0.0570 -0.0328 
       10 TRUE      3.16     4 -0.142  -0.161  -0.142    -0.143  -0.122  
       # i 12 more rows
       
-      attr(,"effect")$Europe$ale$d2$`model:gear`
+      $effect$Europe$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n    .y  .y_lo .y_mean .y_median .y_hi
          <ord>              <ord>    <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-       1 AMC Javelin        three        0 0.136 -0.128   0.136     0.171 0.370
+       1 AMC Javelin        three        0 0.136 -0.128   0.136     0.172 0.370
        2 Cadillac Fleetwood three        0 0.136 -0.128   0.136     0.172 0.370
        3 Camaro Z28         three        0 0.136 -0.128   0.136     0.172 0.370
        4 Chrysler Imperial  three        2 0.469 -0.102   0.469     0.172 1.29 
@@ -1239,7 +1232,7 @@
       10 Fiat X1-9          three        0 0.621 -2.19    0.621     1.23  2.91 
       # i 86 more rows
       
-      attr(,"effect")$Europe$ale$d2$`model:carb`
+      $effect$Europe$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n     .y  .y_lo .y_mean .y_median   .y_hi
          <ord>                  <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
@@ -1255,7 +1248,7 @@
       10 Fiat X1-9                  1     0 -0.641 -2.29   -0.641     0.176  0.312 
       # i 150 more rows
       
-      attr(,"effect")$Europe$ale$d2$`model:wt`
+      $effect$Europe$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n     .y  .y_lo .y_mean .y_median   .y_hi
          <ord>                <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
@@ -1271,7 +1264,7 @@
       10 Fiat X1-9             1.50     0 -0.770 -3.10   -0.770    -0.242  1.11  
       # i 342 more rows
       
-      attr(,"effect")$Europe$ale$d2$`gear:carb`
+      $effect$Europe$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median .y_hi
          <ord>        <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl> <dbl>
@@ -1279,35 +1272,35 @@
        2 four             1     8 0.00218 -0.147  0.00218  -0.00135 0.154
        3 five             1     0 0.00218 -0.150  0.00218  -0.00135 0.158
        4 three            2     8 0.00616 -0.199  0.00616   0.0106  0.208
-       5 four             2     7 0.0104  -0.198  0.0104    0.0250  0.207
-       6 five             2     4 0.0315  -0.0678 0.0315    0.0249  0.137
+       5 four             2     7 0.0104  -0.198  0.0104    0.025   0.207
+       6 five             2     4 0.0315  -0.0678 0.0315    0.0248  0.137
        7 three            3     7 0.00616 -0.147  0.00616   0.0106  0.155
        8 four             3     2 0.0104  -0.149  0.0104    0.0227  0.159
        9 five             3     0 0.0369  -0.152  0.0369    0.0214  0.239
       10 three            4     8 0.00616 -0.199  0.00616   0.0129  0.206
-      11 four             4     6 0.0104  -0.0985 0.0104    0.0262  0.106
-      12 five             4     2 0.0369  -0.0995 0.0369    0.0214  0.187
+      11 four             4     6 0.0104  -0.0986 0.0104    0.0262  0.106
+      12 five             4     2 0.0369  -0.0996 0.0369    0.0214  0.187
       13 three            8     1 0.00616 -0.150  0.00616   0.0106  0.158
       14 four             8     1 0.00933 -0.201  0.00933   0.0227  0.209
       15 five             8     4 0.0359  -0.155  0.0359    0.0236  0.237
       
-      attr(,"effect")$Europe$ale$d2$`gear:wt`
+      $effect$Europe$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n       .y   .y_lo  .y_mean .y_median  .y_hi
          <ord>      <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>  <dbl>
-       1 three       1.50     0 -0.00120 -0.0345 -0.00120 -0.00124  0.0322
-       2 four        1.50     0 -0.00120 -0.0448 -0.00120 -0.00119  0.0424
-       3 five        1.50     1 -0.00120 -0.0500 -0.00120  0.000187 0.0464
-       4 three       1.93     0 -0.00120 -0.0502 -0.00120  0.000187 0.0466
-       5 four        1.93     5 -0.00116 -0.0719 -0.00116  0.000228 0.0685
-       6 five        1.93     1 -0.00139 -0.0728 -0.00139  0.000228 0.0687
-       7 three       2.31     0 -0.00120 -0.0722 -0.00120  0.000204 0.0686
-       8 four        2.31     4 -0.00114 -0.0722 -0.00114  0.000250 0.0687
-       9 five        2.31     2 -0.00600 -0.0810 -0.00600 -0.00531  0.0684
-      10 three       2.78     2 -0.00120 -0.0722 -0.00120  0.000204 0.0686
+       1 three       1.50     0 -0.0012  -0.0345 -0.0012   -0.00124 0.0322
+       2 four        1.50     0 -0.0012  -0.0448 -0.0012   -0.00119 0.0424
+       3 five        1.50     1 -0.0012  -0.0500 -0.0012    0.00019 0.0464
+       4 three       1.93     0 -0.0012  -0.0502 -0.0012    0.00019 0.0466
+       5 four        1.93     5 -0.00116 -0.0720 -0.00116   0.00023 0.0684
+       6 five        1.93     1 -0.00139 -0.0728 -0.00139   0.00023 0.0687
+       7 three       2.31     0 -0.0012  -0.0722 -0.0012    0.0002  0.0686
+       8 four        2.31     4 -0.00114 -0.0722 -0.00114   0.00025 0.0687
+       9 five        2.31     2 -0.006   -0.0810 -0.006    -0.00531 0.0684
+      10 three       2.78     2 -0.0012  -0.0722 -0.0012    0.0002  0.0686
       # i 23 more rows
       
-      attr(,"effect")$Europe$ale$d2$`carb:wt`
+      $effect$Europe$ale$d2$`carb:wt`
       # A tibble: 55 x 8
          carb.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
              <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1325,8 +1318,8 @@
       
       
       
-      attr(,"effect")$Europe$stats
-      attr(,"effect")$Europe$stats$d1
+      $effect$Europe$stats
+      $effect$Europe$stats$d1
       # A tibble: 56 x 8
          statistic estimate p.value term  conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1342,7 +1335,7 @@
       10 aler_min         0       1 vs           0     0      0         0
       # i 46 more rows
       
-      attr(,"effect")$Europe$stats$d2
+      $effect$Europe$stats$d2
       # A tibble: 168 x 8
          statistic estimate p.value term   conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl>
@@ -1359,9 +1352,9 @@
       # i 158 more rows
       
       
-      attr(,"effect")$Europe$boot_data
-      attr(,"effect")$Europe$boot_data$d1
-      attr(,"effect")$Europe$boot_data$d1$mpg
+      $effect$Europe$boot_data
+      $effect$Europe$boot_data$d1
+      $effect$Europe$boot_data$d1$mpg
       # A tibble: 33 x 6
            .it   mpg .y_composite    .n .y_distinct    .y
          <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -1377,7 +1370,7 @@
       10     0  30.4            0     7           0     0
       # i 23 more rows
       
-      attr(,"effect")$Europe$boot_data$d1$vs
+      $effect$Europe$boot_data$d1$vs
       # A tibble: 6 x 6
           .it vs    .y_composite    .n .y_distinct    .y
         <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -1388,18 +1381,18 @@
       5     2 FALSE            0    36           0     0
       6     2 TRUE             0    28           0     0
       
-      attr(,"effect")$Europe$boot_data$d1$am
+      $effect$Europe$boot_data$d1$am
       # A tibble: 6 x 6
-          .it am    .y_composite    .n .y_distinct       .y
-        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
-      1     0 FALSE      0.0432     38     0.0432   0.0432 
-      2     0 TRUE      -0.0632     26    -0.0632  -0.0632 
-      3     1 FALSE     -0.0321     38    -0.0321  -0.0321 
-      4     1 TRUE       0.0101     26     0.0101   0.0101 
-      5     2 FALSE     -0.0297     38    -0.0297  -0.0297 
-      6     2 TRUE       0.00670    26     0.00670  0.00670
+          .it am    .y_composite    .n .y_distinct      .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
+      1     0 FALSE       0.0432    38      0.0432  0.0432
+      2     0 TRUE       -0.0632    26     -0.0632 -0.0632
+      3     1 FALSE      -0.0321    38     -0.0321 -0.0321
+      4     1 TRUE        0.0101    26      0.0101  0.0101
+      5     2 FALSE      -0.0297    38     -0.0297 -0.0297
+      6     2 TRUE        0.0067    26      0.0067  0.0067
       
-      attr(,"effect")$Europe$boot_data$d1$model
+      $effect$Europe$boot_data$d1$model
       # A tibble: 96 x 6
            .it model              .y_composite    .n .y_distinct    .y
          <dbl> <fct>                     <dbl> <dbl>       <dbl> <dbl>
@@ -1415,7 +1408,7 @@
       10     0 Fiat X1-9                 -2.28     2       -2.28 -2.28
       # i 86 more rows
       
-      attr(,"effect")$Europe$boot_data$d1$gear
+      $effect$Europe$boot_data$d1$gear
       # A tibble: 9 x 6
           .it gear  .y_composite    .n .y_distinct      .y
         <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
@@ -1429,45 +1422,45 @@
       8     2 four        0.136     24      0.136   0.136 
       9     2 five       -0.0638    10     -0.0638 -0.0638
       
-      attr(,"effect")$Europe$boot_data$d1$carb
+      $effect$Europe$boot_data$d1$carb
       # A tibble: 15 x 6
-           .it  carb .y_composite    .n .y_distinct         .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl>      <dbl>
-       1     0     1   -0.00549      14  -0.00549   -0.00549  
-       2     0     2    0.00191      19   0.00191    0.00191  
-       3     0     3    0.00191       9   0.00191    0.00191  
-       4     0     4    0.00191      16   0.00191    0.00191  
-       5     0     8    0.00191       6   0.00191    0.00191  
-       6     1     1   -0.00549      18  -0.00549   -0.00549  
-       7     1     2    0.00377      16   0.00377    0.00377  
-       8     1     3    0.00377      13   0.00377    0.00377  
-       9     1     4    0.00377      15   0.00377    0.00377  
-      10     1     8    0.00377       2   0.00377    0.00377  
-      11     2     1   -0.00549      15  -0.00549   -0.00549  
-      12     2     2    0.0000232    13   0.0000232  0.0000232
-      13     2     3    0.0000232    13   0.0000232  0.0000232
-      14     2     4    0.0000232    20   0.0000232  0.0000232
-      15     2     8    0.0000232     3   0.0000232  0.0000232
+           .it  carb .y_composite    .n .y_distinct       .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0     1     -0.00549    14    -0.00549 -0.00549
+       2     0     2      0.00191    19     0.00191  0.00191
+       3     0     3      0.00191     9     0.00191  0.00191
+       4     0     4      0.00191    16     0.00191  0.00191
+       5     0     8      0.00191     6     0.00191  0.00191
+       6     1     1     -0.00549    18    -0.00549 -0.00549
+       7     1     2      0.00377    16     0.00377  0.00377
+       8     1     3      0.00377    13     0.00377  0.00377
+       9     1     4      0.00377    15     0.00377  0.00377
+      10     1     8      0.00377     2     0.00377  0.00377
+      11     2     1     -0.00549    15    -0.00549 -0.00549
+      12     2     2      0.00002    13     0.00002  0.00002
+      13     2     3      0.00002    13     0.00002  0.00002
+      14     2     4      0.00002    20     0.00002  0.00002
+      15     2     8      0.00002     3     0.00002  0.00002
       
-      attr(,"effect")$Europe$boot_data$d1$wt
+      $effect$Europe$boot_data$d1$wt
       # A tibble: 33 x 6
-           .it    wt .y_composite    .n .y_distinct          .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl>       <dbl>
-       1     0  1.50  -0.0000259      1 -0.0000259  -0.0000259 
-       2     0  1.93  -0.0000122      6 -0.0000122  -0.0000122 
-       3     0  2.31   0.00000314     6  0.00000314  0.00000314
-       4     0  2.78   0.00000314     7  0.00000314  0.00000314
-       5     0  3.16   0.00000315     6  0.00000315  0.00000315
-       6     0  3.22   0.00000315     6  0.00000315  0.00000315
-       7     0  3.44   0.00000315     7  0.00000315  0.00000315
-       8     0  3.56   0.00000315     6  0.00000315  0.00000315
-       9     0  3.79   0.00000315     7  0.00000315  0.00000315
-      10     0  4.07   0.00000315     6  0.00000315  0.00000315
+           .it    wt .y_composite    .n .y_distinct       .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  1.50     -0.00003     1    -0.00003 -0.00003
+       2     0  1.93     -0.00001     6    -0.00001 -0.00001
+       3     0  2.31      0           6     0        0      
+       4     0  2.78      0           7     0        0      
+       5     0  3.16      0           6     0        0      
+       6     0  3.22      0           6     0        0      
+       7     0  3.44      0           7     0        0      
+       8     0  3.56      0           6     0        0      
+       9     0  3.79      0           7     0        0      
+      10     0  4.07      0           6     0        0      
       # i 23 more rows
       
       
-      attr(,"effect")$Europe$boot_data$d2
-      attr(,"effect")$Europe$boot_data$d2$`mpg:vs`
+      $effect$Europe$boot_data$d2
+      $effect$Europe$boot_data$d2$`mpg:vs`
       # A tibble: 66 x 7
            .it   mpg vs    .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -1483,7 +1476,7 @@
       10     0  30.4 FALSE            0     2           0     0
       # i 56 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`mpg:am`
+      $effect$Europe$boot_data$d2$`mpg:am`
       # A tibble: 66 x 7
            .it   mpg am    .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -1499,7 +1492,7 @@
       10     0  30.4 FALSE            0     0           0     0
       # i 56 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`mpg:model`
+      $effect$Europe$boot_data$d2$`mpg:model`
       # A tibble: 1,056 x 7
            .it   mpg model       .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>              <dbl> <dbl>       <dbl> <dbl>
@@ -1515,7 +1508,7 @@
       10     0  30.4 AMC Javelin            0     0           0     0
       # i 1,046 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`mpg:gear`
+      $effect$Europe$boot_data$d2$`mpg:gear`
       # A tibble: 99 x 7
            .it   mpg gear  .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -1531,7 +1524,7 @@
       10     0  30.4 three            0     0           0     0
       # i 89 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`mpg:carb`
+      $effect$Europe$boot_data$d2$`mpg:carb`
       # A tibble: 165 x 7
            .it   mpg  carb .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -1547,7 +1540,7 @@
       10     0  30.4     1            0     2           0     0
       # i 155 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`mpg:wt`
+      $effect$Europe$boot_data$d2$`mpg:wt`
       # A tibble: 363 x 7
            .it   mpg    wt .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -1563,7 +1556,7 @@
       10     0  30.4  1.50            0     1           0     0
       # i 353 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`vs:am`
+      $effect$Europe$boot_data$d2$`vs:am`
       # A tibble: 12 x 7
            .it vs    am    .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -1580,7 +1573,7 @@
       11     2 FALSE TRUE             0    12           0     0
       12     2 TRUE  TRUE             0    14           0     0
       
-      attr(,"effect")$Europe$boot_data$d2$`vs:model`
+      $effect$Europe$boot_data$d2$`vs:model`
       # A tibble: 192 x 7
            .it vs    model              .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>                     <dbl> <dbl>       <dbl> <dbl>
@@ -1596,7 +1589,7 @@
       10     0 TRUE  Datsun 710                    0     0           0     0
       # i 182 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`vs:gear`
+      $effect$Europe$boot_data$d2$`vs:gear`
       # A tibble: 18 x 7
            .it vs    gear  .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -1619,7 +1612,7 @@
       17     2 FALSE five             0     8           0     0
       18     2 TRUE  five             0     2           0     0
       
-      attr(,"effect")$Europe$boot_data$d2$`vs:carb`
+      $effect$Europe$boot_data$d2$`vs:carb`
       # A tibble: 30 x 7
            .it vs     carb .y_composite    .n .y_distinct    .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -1635,7 +1628,7 @@
       10     0 TRUE      8            0     1           0     0
       # i 20 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`vs:wt`
+      $effect$Europe$boot_data$d2$`vs:wt`
       # A tibble: 66 x 7
            .it vs       wt .y_composite    .n .y_distinct    .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -1651,7 +1644,7 @@
       10     0 TRUE   3.16            0     3           0     0
       # i 56 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`am:model`
+      $effect$Europe$boot_data$d2$`am:model`
       # A tibble: 192 x 7
            .it am    model              .y_composite    .n .y_distinct     .y
          <dbl> <fct> <fct>                     <dbl> <dbl>       <dbl>  <dbl>
@@ -1667,7 +1660,7 @@
       10     0 TRUE  Datsun 710               2.40       0       2.84   2.84 
       # i 182 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`am:gear`
+      $effect$Europe$boot_data$d2$`am:gear`
       # A tibble: 18 x 7
            .it am    gear  .y_composite    .n .y_distinct      .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>   <dbl>
@@ -1690,23 +1683,23 @@
       17     2 FALSE five      -0.176       0     -0.608  -0.608 
       18     2 TRUE  five      -0.0753     10     -0.363  -0.363 
       
-      attr(,"effect")$Europe$boot_data$d2$`am:carb`
+      $effect$Europe$boot_data$d2$`am:carb`
       # A tibble: 30 x 7
-           .it am     carb .y_composite    .n .y_distinct       .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
-       1     0 FALSE     1     -0.0166      6    -0.144   -0.144  
-       2     0 TRUE      1     -0.0166      8    -0.0129  -0.0129 
-       3     0 FALSE     2     -0.0166     12    -0.226   -0.226  
-       4     0 TRUE      2      0.00350     7     0.00350  0.00350
-       5     0 FALSE     3     -0.0166      7    -0.140   -0.140  
-       6     0 TRUE      3      0.00342     2    -0.0793  -0.0793 
-       7     0 FALSE     4     -0.0166     11    -0.226   -0.226  
-       8     0 TRUE      4     -0.550       5    -0.546   -0.546  
-       9     0 FALSE     8     -0.0166      2    -0.140   -0.140  
-      10     0 TRUE      8     -0.550       4    -0.633   -0.633  
+           .it am     carb .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 FALSE     1     -0.0166      6     -0.144  -0.144 
+       2     0 TRUE      1     -0.0166      8     -0.0129 -0.0129
+       3     0 FALSE     2     -0.0166     12     -0.226  -0.226 
+       4     0 TRUE      2      0.0035      7      0.0035  0.0035
+       5     0 FALSE     3     -0.0166      7     -0.140  -0.140 
+       6     0 TRUE      3      0.00342     2     -0.0793 -0.0793
+       7     0 FALSE     4     -0.0166     11     -0.226  -0.226 
+       8     0 TRUE      4     -0.550       5     -0.546  -0.546 
+       9     0 FALSE     8     -0.0166      2     -0.140  -0.140 
+      10     0 TRUE      8     -0.550       4     -0.633  -0.633 
       # i 20 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`am:wt`
+      $effect$Europe$boot_data$d2$`am:wt`
       # A tibble: 66 x 7
            .it am       wt .y_composite    .n .y_distinct      .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
@@ -1715,18 +1708,18 @@
        3     0 FALSE  1.93      -0.0240     0     -0.0781 -0.0781
        4     0 TRUE   1.93      -0.0240     6     -0.0582 -0.0582
        5     0 FALSE  2.31      -0.0240     0     -0.0911 -0.0911
-       6     0 TRUE   2.31      -0.0240     6     -0.0582 -0.0582
+       6     0 TRUE   2.31      -0.024      6     -0.0582 -0.0582
        7     0 FALSE  2.78      -0.0240     2     -0.0911 -0.0911
        8     0 TRUE   2.78      -0.0833     5     -0.0833 -0.0833
-       9     0 FALSE  3.16      -0.0240     2     -0.0569 -0.0569
+       9     0 FALSE  3.16      -0.0240     2     -0.0570 -0.0570
       10     0 TRUE   3.16      -0.122      4     -0.143  -0.143 
       # i 56 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`model:gear`
+      $effect$Europe$boot_data$d2$`model:gear`
       # A tibble: 288 x 7
            .it model              gear  .y_composite    .n .y_distinct    .y
          <dbl> <fct>              <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 AMC Javelin        three        0.136     0       0.171 0.171
+       1     0 AMC Javelin        three        0.136     0       0.172 0.172
        2     0 Cadillac Fleetwood three        0.136     0       0.172 0.172
        3     0 Camaro Z28         three        0.136     0       0.172 0.172
        4     0 Chrysler Imperial  three        0.136     2       0.172 0.172
@@ -1738,7 +1731,7 @@
       10     0 Fiat X1-9          three        0.136     0       3.00  3.00 
       # i 278 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`model:carb`
+      $effect$Europe$boot_data$d2$`model:carb`
       # A tibble: 480 x 7
            .it model               carb .y_composite    .n .y_distinct     .y
          <dbl> <fct>              <dbl>        <dbl> <dbl>       <dbl>  <dbl>
@@ -1754,7 +1747,7 @@
       10     0 Fiat X1-9              1       -0.641     0      -2.42  -2.42 
       # i 470 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`model:wt`
+      $effect$Europe$boot_data$d2$`model:wt`
       # A tibble: 1,056 x 7
            .it model                 wt .y_composite    .n .y_distinct     .y
          <dbl> <fct>              <dbl>        <dbl> <dbl>       <dbl>  <dbl>
@@ -1770,7 +1763,7 @@
       10     0 Fiat X1-9           1.50       -0.770     0      -3.25  -3.25 
       # i 1,046 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`gear:carb`
+      $effect$Europe$boot_data$d2$`gear:carb`
       # A tibble: 45 x 7
            .it gear   carb .y_composite    .n .y_distinct      .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
@@ -1786,23 +1779,23 @@
       10     0 three     4      0.00218     8     -0.210  -0.210 
       # i 35 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`gear:wt`
+      $effect$Europe$boot_data$d2$`gear:wt`
       # A tibble: 99 x 7
            .it gear     wt .y_composite    .n .y_distinct      .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
-       1     0 three  1.50     -0.00120     0     -0.0363 -0.0363
-       2     0 four   1.50     -0.00120     0     -0.0471 -0.0471
-       3     0 five   1.50     -0.00120     1     -0.0527 -0.0527
-       4     0 three  1.93     -0.00120     0     -0.0528 -0.0528
-       5     0 four   1.93     -0.00119     5     -0.0757 -0.0757
+       1     0 three  1.50     -0.0012      0     -0.0363 -0.0363
+       2     0 four   1.50     -0.0012      0     -0.0471 -0.0471
+       3     0 five   1.50     -0.0012      1     -0.0527 -0.0527
+       4     0 three  1.93     -0.0012      0     -0.0528 -0.0528
+       5     0 four   1.93     -0.00119     5     -0.0758 -0.0758
        6     0 five   1.93     -0.00187     1     -0.0767 -0.0767
-       7     0 three  2.31     -0.00120     0     -0.0760 -0.0760
+       7     0 three  2.31     -0.0012      0     -0.0760 -0.0760
        8     0 four   2.31     -0.00117     4     -0.0760 -0.0760
        9     0 five   2.31     -0.0102      2     -0.0850 -0.0850
-      10     0 three  2.78     -0.00120     2     -0.0760 -0.0760
+      10     0 three  2.78     -0.0012      2     -0.0760 -0.0760
       # i 89 more rows
       
-      attr(,"effect")$Europe$boot_data$d2$`carb:wt`
+      $effect$Europe$boot_data$d2$`carb:wt`
       # A tibble: 165 x 7
            .it  carb    wt .y_composite    .n .y_distinct       .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
@@ -1821,10 +1814,10 @@
       
       
       
-      attr(,"effect")$`North America`
-      attr(,"effect")$`North America`$ale
-      attr(,"effect")$`North America`$ale$d1
-      attr(,"effect")$`North America`$ale$d1$mpg
+      $effect$`North America`
+      $effect$`North America`$ale
+      $effect$`North America`$ale$d1
+      $effect$`North America`$ale$d1$mpg
       # A tibble: 11 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1840,21 +1833,21 @@
       10     30.4     7     0     0       0         0     0
       11     33.9     5     0     0       0         0     0
       
-      attr(,"effect")$`North America`$ale$d1$vs
+      $effect$`North America`$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36     0     0       0         0     0
       2 TRUE      28     0     0       0         0     0
       
-      attr(,"effect")$`North America`$ale$d1$am
+      $effect$`North America`$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-      1 FALSE     38 -5.57e-10 -9.65e-10 -5.57e-10 -8.52e-10 1.02e-10
-      2 TRUE      26  1.57e-10 -2.14e-10  1.57e-10 -4.72e-11 7.00e-10
+        am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     38     0     0       0         0     0
+      2 TRUE      26     0     0       0         0     0
       
-      attr(,"effect")$`North America`$ale$d1$model
+      $effect$`North America`$ale$d1$model
       # A tibble: 32 x 7
          model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1870,43 +1863,43 @@
       10 Fiat X1-9              2  1.16 0.105    1.16      1.24  2.14
       # i 22 more rows
       
-      attr(,"effect")$`North America`$ale$d1$gear
+      $effect$`North America`$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
       1 three       30  0.120   0.0527  0.120     0.0544  0.244 
       2 four        24 -0.249  -0.280  -0.249    -0.232  -0.232 
-      3 five        10 -0.0498 -0.131  -0.0498   -0.0843  0.0603
+      3 five        10 -0.0498 -0.131  -0.0498   -0.0842  0.0603
       
-      attr(,"effect")$`North America`$ale$d1$carb
+      $effect$`North America`$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n            .y         .y_lo       .y_mean  .y_median     .y_hi
-            <dbl> <int>         <dbl>         <dbl>         <dbl>      <dbl>     <dbl>
-      1         1    14  0.000000108   0.000000108   0.000000108     1.08e-7  1.08e- 7
-      2         2    19 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.22e-10
-      3         3     9 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.24e-10
-      4         4    16 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.24e-10
-      5         8     6 -0.0000000413 -0.0000000817 -0.0000000413   -4.13e-8 -9.49e-10
+        carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1         1    14     0     0       0         0     0
+      2         2    19     0     0       0         0     0
+      3         3     9     0     0       0         0     0
+      4         4    16     0     0       0         0     0
+      5         8     6     0     0       0         0     0
       
-      attr(,"effect")$`North America`$ale$d1$wt
+      $effect$`North America`$ale$d1$wt
       # A tibble: 11 x 7
-         wt.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
-       1    1.50     1 7.56e-10  7.56e-10 7.56e-10  7.56e-10 7.56e-10
-       2    1.93     6 2.45e-10 -1.10e-11 2.45e-10 -1.10e-11 7.18e-10
-       3    2.31     6 2.03e-10 -7.05e-11 2.03e-10 -4.80e-11 6.90e-10
-       4    2.78     7 2.03e-10 -7.05e-11 2.03e-10 -4.81e-11 6.90e-10
-       5    3.16     6 2.03e-10 -7.05e-11 2.03e-10 -4.81e-11 6.90e-10
-       6    3.22     6 2.03e-10 -7.05e-11 2.03e-10 -4.80e-11 6.90e-10
-       7    3.44     7 2.03e-10 -7.04e-11 2.03e-10 -4.74e-11 6.91e-10
-       8    3.56     6 2.04e-10 -7.01e-11 2.04e-10 -4.74e-11 6.91e-10
-       9    3.79     7 2.04e-10 -7.02e-11 2.04e-10 -4.74e-11 6.91e-10
-      10    4.07     6 2.04e-10 -7.02e-11 2.04e-10 -4.74e-11 6.91e-10
-      11    5.45     6 2.04e-10 -7.02e-11 2.04e-10 -4.74e-11 6.91e-10
+         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1    1.50     1     0     0       0         0     0
+       2    1.93     6     0     0       0         0     0
+       3    2.31     6     0     0       0         0     0
+       4    2.78     7     0     0       0         0     0
+       5    3.16     6     0     0       0         0     0
+       6    3.22     6     0     0       0         0     0
+       7    3.44     7     0     0       0         0     0
+       8    3.56     6     0     0       0         0     0
+       9    3.79     7     0     0       0         0     0
+      10    4.07     6     0     0       0         0     0
+      11    5.45     6     0     0       0         0     0
       
       
-      attr(,"effect")$`North America`$ale$d2
-      attr(,"effect")$`North America`$ale$d2$`mpg:vs`
+      $effect$`North America`$ale$d2
+      $effect$`North America`$ale$d2$`mpg:vs`
       # A tibble: 22 x 8
          mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1922,7 +1915,7 @@
       10     30.4 FALSE      2     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`mpg:am`
+      $effect$`North America`$ale$d2$`mpg:am`
       # A tibble: 22 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1938,7 +1931,7 @@
       10     30.4 FALSE      0     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`mpg:model`
+      $effect$`North America`$ale$d2$`mpg:model`
       # A tibble: 352 x 8
          mpg.ceil model.bin      .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1954,7 +1947,7 @@
       10     30.4 AMC Javelin     0     0     0       0         0     0
       # i 342 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`mpg:gear`
+      $effect$`North America`$ale$d2$`mpg:gear`
       # A tibble: 33 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1970,7 +1963,7 @@
       10     30.4 three        0     0     0       0         0     0
       # i 23 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`mpg:carb`
+      $effect$`North America`$ale$d2$`mpg:carb`
       # A tibble: 55 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1986,7 +1979,7 @@
       10     30.4         1     2     0     0       0         0     0
       # i 45 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`mpg:wt`
+      $effect$`North America`$ale$d2$`mpg:wt`
       # A tibble: 121 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2002,7 +1995,7 @@
       10     30.4    1.50     1     0     0       0         0     0
       # i 111 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`vs:am`
+      $effect$`North America`$ale$d2$`vs:am`
       # A tibble: 4 x 8
         vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2011,7 +2004,7 @@
       3 FALSE  TRUE      12     0     0       0         0     0
       4 TRUE   TRUE      14     0     0       0         0     0
       
-      attr(,"effect")$`North America`$ale$d2$`vs:model`
+      $effect$`North America`$ale$d2$`vs:model`
       # A tibble: 64 x 8
          vs.bin model.bin             .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>  <ord>              <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2027,7 +2020,7 @@
       10 TRUE   Datsun 710             0     0     0       0         0     0
       # i 54 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`vs:gear`
+      $effect$`North America`$ale$d2$`vs:gear`
       # A tibble: 6 x 8
         vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2038,7 +2031,7 @@
       5 FALSE  five         8     0     0       0         0     0
       6 TRUE   five         2     0     0       0         0     0
       
-      attr(,"effect")$`North America`$ale$d2$`vs:carb`
+      $effect$`North America`$ale$d2$`vs:carb`
       # A tibble: 10 x 8
          vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2053,7 +2046,7 @@
        9 FALSE          8     5     0     0       0         0     0
       10 TRUE           8     1     0     0       0         0     0
       
-      attr(,"effect")$`North America`$ale$d2$`vs:wt`
+      $effect$`North America`$ale$d2$`vs:wt`
       # A tibble: 22 x 8
          vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -2069,7 +2062,7 @@
       10 TRUE      3.16     3     0     0       0         0     0
       # i 12 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`am:model`
+      $effect$`North America`$ale$d2$`am:model`
       # A tibble: 64 x 8
          am.bin model.bin             .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>  <ord>              <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2085,7 +2078,7 @@
       10 TRUE   Datsun 710             0 -0.132  -11.0   -0.132     0.350  10.4   
       # i 54 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`am:gear`
+      $effect$`North America`$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n    .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <ord>    <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -2096,54 +2089,54 @@
       5 FALSE  five         0 0.313  0.153   0.313     0.205 0.566
       6 TRUE   five        10 0.728 -0.259   0.728     0.843 1.62 
       
-      attr(,"effect")$`North America`$ale$d2$`am:carb`
+      $effect$`North America`$ale$d2$`am:carb`
       # A tibble: 10 x 8
-         am.bin carb.ceil    .n            .y        .y_lo  .y_mean .y_median    .y_hi
-         <ord>      <dbl> <int>         <dbl>        <dbl>    <dbl>     <dbl>    <dbl>
-       1 FALSE          1     6 -0.0000000460 -0.00351     -4.60e-8   2.63e-8  3.51e-3
-       2 TRUE           1     8 -0.0000000460 -0.117       -4.60e-8   2.47e-7  1.17e-1
-       3 FALSE          2    12 -0.000000106  -0.0786      -1.06e-7   2.31e-8  7.86e-2
-       4 TRUE           2     7 -0.000000373  -0.121       -3.73e-7  -5.45e-8  1.21e-1
-       5 FALSE          3     7 -0.000000106  -0.00351     -1.06e-7   2.19e-8  3.50e-3
-       6 TRUE           3     2 -0.000000373  -0.199       -3.73e-7   1.90e-8  1.99e-1
-       7 FALSE          4    11 -0.000000109  -0.000000220 -1.09e-7  -5.33e-8 -4.64e-8
-       8 TRUE           4     5 -0.000000380  -0.117       -3.80e-7   1.25e-8  1.17e-1
-       9 FALSE          8     2 -0.000000110  -0.0786      -1.10e-7   1.95e-8  7.86e-2
-      10 TRUE           8     4 -0.000000380  -0.199       -3.80e-7   1.30e-8  1.99e-1
+         am.bin carb.ceil    .n    .y    .y_lo .y_mean .y_median   .y_hi
+         <ord>      <dbl> <int> <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+       1 FALSE          1     6     0 -0.00351       0         0 0.00351
+       2 TRUE           1     8     0 -0.117         0         0 0.117  
+       3 FALSE          2    12     0 -0.0786        0         0 0.0786 
+       4 TRUE           2     7     0 -0.121         0         0 0.121  
+       5 FALSE          3     7     0 -0.00351       0         0 0.0035 
+       6 TRUE           3     2     0 -0.199         0         0 0.199  
+       7 FALSE          4    11     0  0             0         0 0      
+       8 TRUE           4     5     0 -0.117         0         0 0.117  
+       9 FALSE          8     2     0 -0.0786        0         0 0.0786 
+      10 TRUE           8     4     0 -0.199         0         0 0.199  
       
-      attr(,"effect")$`North America`$ale$d2$`am:wt`
+      $effect$`North America`$ale$d2$`am:wt`
       # A tibble: 22 x 8
-         am.bin wt.ceil    .n        .y       .y_lo   .y_mean .y_median      .y_hi
-         <ord>    <dbl> <int>     <dbl>       <dbl>     <dbl>     <dbl>      <dbl>
-       1 FALSE     1.50     0  1.64e-10 -0.00000648  1.64e-10  5.48e-10 0.00000648
-       2 TRUE      1.50     1  1.64e-10 -0.0313      1.64e-10  4.18e-10 0.0313    
-       3 FALSE     1.93     0  1.62e-10 -0.0325      1.62e-10 -1.61e-10 0.0325    
-       4 TRUE      1.93     6 -4.78e-10 -0.0637     -4.78e-10 -3.09e-10 0.0637    
-       5 FALSE     2.31     0  1.35e-10 -0.0325      1.35e-10 -1.98e-10 0.0325    
-       6 TRUE      2.31     6 -5.42e-10 -0.0637     -5.42e-10 -3.47e-10 0.0637    
-       7 FALSE     2.78     2  1.16e- 9 -0.0325      1.16e- 9  1.50e- 9 0.0325    
-       8 TRUE      2.78     5  1.59e- 9 -0.0313      1.59e- 9  2.94e- 9 0.0313    
-       9 FALSE     3.16     2  1.16e- 9 -0.0000138   1.16e- 9  2.23e- 9 0.0000138 
-      10 TRUE      3.16     4  1.59e- 9 -0.0514      1.59e- 9  2.63e- 9 0.0514    
+         am.bin wt.ceil    .n    .y    .y_lo .y_mean .y_median   .y_hi
+         <ord>    <dbl> <int> <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+       1 FALSE     1.50     0     0 -0.00001       0         0 0.00001
+       2 TRUE      1.50     1     0 -0.0313        0         0 0.0313 
+       3 FALSE     1.93     0     0 -0.0324        0         0 0.0324 
+       4 TRUE      1.93     6     0 -0.0637        0         0 0.0637 
+       5 FALSE     2.31     0     0 -0.0324        0         0 0.0324 
+       6 TRUE      2.31     6     0 -0.0637        0         0 0.0637 
+       7 FALSE     2.78     2     0 -0.0324        0         0 0.0324 
+       8 TRUE      2.78     5     0 -0.0313        0         0 0.0313 
+       9 FALSE     3.16     2     0 -0.00001       0         0 0.00001
+      10 TRUE      3.16     4     0 -0.0514        0         0 0.0514 
       # i 12 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`model:gear`
+      $effect$`North America`$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin          gear.bin    .n      .y  .y_lo .y_mean .y_median .y_hi
          <ord>              <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-       1 AMC Javelin        three        0 -0.0358 -0.299 -0.0358 -0.000277 0.198
-       2 Cadillac Fleetwood three        0 -0.0358 -0.299 -0.0358 -0.000277 0.198
-       3 Camaro Z28         three        0 -0.0358 -0.299 -0.0358 -0.000269 0.198
-       4 Chrysler Imperial  three        2 -0.0357 -0.749 -0.0357 -0.000269 0.648
-       5 Datsun 710         three        2 -0.0505 -0.791 -0.0505 -0.000269 0.648
-       6 Dodge Challenger   three        2 -0.0539 -1.25  -0.0539  0.496    0.676
-       7 Duster 360         three        2 -0.0539 -1.25  -0.0539  0.487    0.684
-       8 Ferrari Dino       three        0 -0.0539 -1.25  -0.0539  0.487    0.684
-       9 Fiat 128           three        0 -0.0540 -1.98  -0.0540  0.696    1.24 
-      10 Fiat X1-9          three        0 -0.0541 -3.98  -0.0541  1.04     2.94 
+       1 AMC Javelin        three        0 -0.0357 -0.299 -0.0357  -0.00028 0.198
+       2 Cadillac Fleetwood three        0 -0.0357 -0.299 -0.0357  -0.00028 0.198
+       3 Camaro Z28         three        0 -0.0357 -0.299 -0.0357  -0.00027 0.198
+       4 Chrysler Imperial  three        2 -0.0357 -0.749 -0.0357  -0.00027 0.648
+       5 Datsun 710         three        2 -0.0505 -0.791 -0.0505  -0.00027 0.648
+       6 Dodge Challenger   three        2 -0.0539 -1.25  -0.0539   0.496   0.676
+       7 Duster 360         three        2 -0.0539 -1.25  -0.0539   0.487   0.684
+       8 Ferrari Dino       three        0 -0.0539 -1.25  -0.0539   0.487   0.684
+       9 Fiat 128           three        0 -0.0540 -1.98  -0.0540   0.696   1.24 
+      10 Fiat X1-9          three        0 -0.0541 -3.98  -0.0541   1.04    2.94 
       # i 86 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`model:carb`
+      $effect$`North America`$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin          carb.ceil    .n     .y  .y_lo .y_mean .y_median .y_hi
          <ord>                  <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -2159,7 +2152,7 @@
       10 Fiat X1-9                  1     0 0.0619 -2.75   0.0619    1.15   1.95 
       # i 150 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`model:wt`
+      $effect$`North America`$ale$d2$`model:wt`
       # A tibble: 352 x 8
          model.bin          wt.ceil    .n     .y  .y_lo .y_mean .y_median   .y_hi
          <ord>                <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
@@ -2175,7 +2168,7 @@
       10 Fiat X1-9             1.50     0 -0.252 -2.58   -0.252    0.271   1.64  
       # i 342 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`gear:carb`
+      $effect$`North America`$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n      .y  .y_lo .y_mean .y_median    .y_hi
          <ord>        <dbl> <int>   <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
@@ -2195,7 +2188,7 @@
       14 four             8     1 -0.317  -0.534 -0.317    -0.431  -0.00255
       15 five             8     4 -0.321  -0.544 -0.321    -0.432  -0.00476
       
-      attr(,"effect")$`North America`$ale$d2$`gear:wt`
+      $effect$`North America`$ale$d2$`gear:wt`
       # A tibble: 33 x 8
          gear.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2211,26 +2204,26 @@
       10 three       2.78     2 -0.0456 -0.108  -0.0456   -0.0725 0.0397 
       # i 23 more rows
       
-      attr(,"effect")$`North America`$ale$d2$`carb:wt`
+      $effect$`North America`$ale$d2$`carb:wt`
       # A tibble: 55 x 8
-         carb.ceil wt.ceil    .n           .y    .y_lo      .y_mean .y_median   .y_hi
-             <dbl>   <dbl> <int>        <dbl>    <dbl>        <dbl>     <dbl>   <dbl>
-       1         1    1.50     0 0.0000000220 -0.0292  0.0000000220  -1.59e-7 0.0292 
-       2         2    1.50     1 0.0000000220 -0.00468 0.0000000220  -9.33e-9 0.00468
-       3         3    1.50     0 0.0000000220 -0.0339  0.0000000220  -1.90e-7 0.0339 
-       4         4    1.50     0 0.0000000220 -0.0251  0.0000000220  -1.29e-7 0.0251 
-       5         8    1.50     0 0.0000000220 -0.0345  0.0000000220  -1.90e-7 0.0345 
-       6         1    1.93     3 0.0000000220 -0.0349  0.0000000220  -1.93e-7 0.0349 
-       7         2    1.93     3 0.000000107  -0.00599 0.000000107   -6.72e-9 0.00599
-       8         3    1.93     0 0.000000107  -0.0352  0.000000107   -1.88e-7 0.0352 
-       9         4    1.93     0 0.000000107  -0.0258  0.000000107   -1.25e-7 0.0258 
-      10         8    1.93     0 0.000000107  -0.0352  0.000000107   -1.85e-7 0.0352 
+         carb.ceil wt.ceil    .n    .y    .y_lo .y_mean .y_median   .y_hi
+             <dbl>   <dbl> <int> <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+       1         1    1.50     0     0 -0.0292        0         0 0.0292 
+       2         2    1.50     1     0 -0.00468       0         0 0.00468
+       3         3    1.50     0     0 -0.0339        0         0 0.0339 
+       4         4    1.50     0     0 -0.0251        0         0 0.0251 
+       5         8    1.50     0     0 -0.0345        0         0 0.0345 
+       6         1    1.93     3     0 -0.0349        0         0 0.0349 
+       7         2    1.93     3     0 -0.00599       0         0 0.00599
+       8         3    1.93     0     0 -0.0352        0         0 0.0352 
+       9         4    1.93     0     0 -0.0258        0         0 0.0258 
+      10         8    1.93     0     0 -0.0352        0         0 0.0352 
       # i 45 more rows
       
       
       
-      attr(,"effect")$`North America`$stats
-      attr(,"effect")$`North America`$stats$d1
+      $effect$`North America`$stats
+      $effect$`North America`$stats$d1
       # A tibble: 56 x 8
          statistic estimate p.value term  conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2246,7 +2239,7 @@
       10 aler_min         0       1 vs           0     0      0         0
       # i 46 more rows
       
-      attr(,"effect")$`North America`$stats$d2
+      $effect$`North America`$stats$d2
       # A tibble: 168 x 8
          statistic estimate p.value term   conf.low  mean median conf.high
          <chr>        <dbl>   <dbl> <chr>     <dbl> <dbl>  <dbl>     <dbl>
@@ -2263,9 +2256,9 @@
       # i 158 more rows
       
       
-      attr(,"effect")$`North America`$boot_data
-      attr(,"effect")$`North America`$boot_data$d1
-      attr(,"effect")$`North America`$boot_data$d1$mpg
+      $effect$`North America`$boot_data
+      $effect$`North America`$boot_data$d1
+      $effect$`North America`$boot_data$d1$mpg
       # A tibble: 33 x 6
            .it   mpg .y_composite    .n .y_distinct    .y
          <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -2281,7 +2274,7 @@
       10     0  30.4            0     7           0     0
       # i 23 more rows
       
-      attr(,"effect")$`North America`$boot_data$d1$vs
+      $effect$`North America`$boot_data$d1$vs
       # A tibble: 6 x 6
           .it vs    .y_composite    .n .y_distinct    .y
         <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -2292,18 +2285,18 @@
       5     2 FALSE            0    36           0     0
       6     2 TRUE             0    28           0     0
       
-      attr(,"effect")$`North America`$boot_data$d1$am
+      $effect$`North America`$boot_data$d1$am
       # A tibble: 6 x 6
-          .it am    .y_composite    .n .y_distinct        .y
-        <dbl> <fct>        <dbl> <dbl>       <dbl>     <dbl>
-      1     0 FALSE     1.52e-10    38    1.52e-10  1.52e-10
-      2     0 TRUE     -2.23e-10    26   -2.23e-10 -2.23e-10
-      3     1 FALSE    -9.71e-10    38   -9.71e-10 -9.71e-10
-      4     1 TRUE      7.39e-10    26    7.39e-10  7.39e-10
-      5     2 FALSE    -8.52e-10    38   -8.52e-10 -8.52e-10
-      6     2 TRUE     -4.72e-11    26   -4.72e-11 -4.72e-11
+          .it am    .y_composite    .n .y_distinct    .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+      1     0 FALSE            0    38           0     0
+      2     0 TRUE             0    26           0     0
+      3     1 FALSE            0    38           0     0
+      4     1 TRUE             0    26           0     0
+      5     2 FALSE            0    38           0     0
+      6     2 TRUE             0    26           0     0
       
-      attr(,"effect")$`North America`$boot_data$d1$model
+      $effect$`North America`$boot_data$d1$model
       # A tibble: 96 x 6
            .it model              .y_composite    .n .y_distinct    .y
          <dbl> <fct>                     <dbl> <dbl>       <dbl> <dbl>
@@ -2319,13 +2312,13 @@
       10     0 Fiat X1-9                  2.18     2        2.18  2.18
       # i 86 more rows
       
-      attr(,"effect")$`North America`$boot_data$d1$gear
+      $effect$`North America`$boot_data$d1$gear
       # A tibble: 9 x 6
           .it gear  .y_composite    .n .y_distinct      .y
         <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
       1     0 three       0.254     30      0.254   0.254 
       2     0 four       -0.283     24     -0.283  -0.283 
-      3     0 five       -0.0843    10     -0.0843 -0.0843
+      3     0 five       -0.0842    10     -0.0842 -0.0842
       4     1 three       0.0526    30      0.0526  0.0526
       5     1 four       -0.232     24     -0.232  -0.232 
       6     1 five       -0.133     10     -0.133  -0.133 
@@ -2333,45 +2326,45 @@
       8     2 four       -0.232     24     -0.232  -0.232 
       9     2 five        0.0679    10      0.0679  0.0679
       
-      attr(,"effect")$`North America`$boot_data$d1$carb
+      $effect$`North America`$boot_data$d1$carb
       # A tibble: 15 x 6
-           .it  carb .y_composite    .n .y_distinct       .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
-       1     0     1      1.08e-7    14     1.08e-7  1.08e-7
-       2     0     2     -3.71e-8    19    -3.71e-8 -3.71e-8
-       3     0     3     -3.71e-8     9    -3.71e-8 -3.71e-8
-       4     0     4     -3.71e-8    16    -3.71e-8 -3.71e-8
-       5     0     8     -4.13e-8     6    -4.13e-8 -4.13e-8
-       6     1     1      1.08e-7    18     1.08e-7  1.08e-7
-       7     1     2     -7.21e-8    16    -7.21e-8 -7.21e-8
-       8     1     3     -7.21e-8    13    -7.21e-8 -7.21e-8
-       9     1     4     -7.21e-8    15    -7.21e-8 -7.21e-8
-      10     1     8     -8.38e-8     2    -8.38e-8 -8.38e-8
-      11     2     1      1.08e-7    15     1.08e-7  1.08e-7
-      12     2     2      1.40e-9    13     1.40e-9  1.40e-9
-      13     2     3      1.40e-9    13     1.40e-9  1.40e-9
-      14     2     4      1.40e-9    20     1.40e-9  1.40e-9
-      15     2     8      1.17e-9     3     1.17e-9  1.17e-9
+           .it  carb .y_composite    .n .y_distinct    .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0     1            0    14           0     0
+       2     0     2            0    19           0     0
+       3     0     3            0     9           0     0
+       4     0     4            0    16           0     0
+       5     0     8            0     6           0     0
+       6     1     1            0    18           0     0
+       7     1     2            0    16           0     0
+       8     1     3            0    13           0     0
+       9     1     4            0    15           0     0
+      10     1     8            0     2           0     0
+      11     2     1            0    15           0     0
+      12     2     2            0    13           0     0
+      13     2     3            0    13           0     0
+      14     2     4            0    20           0     0
+      15     2     8            0     3           0     0
       
-      attr(,"effect")$`North America`$boot_data$d1$wt
+      $effect$`North America`$boot_data$d1$wt
       # A tibble: 33 x 6
-           .it    wt .y_composite    .n .y_distinct        .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
-       1     0  1.50     7.56e-10     1    7.56e-10  7.56e-10
-       2     0  1.93    -1.10e-11     6   -1.10e-11 -1.10e-11
-       3     0  2.31    -4.80e-11     6   -4.80e-11 -4.80e-11
-       4     0  2.78    -4.81e-11     7   -4.81e-11 -4.81e-11
-       5     0  3.16    -4.81e-11     6   -4.81e-11 -4.81e-11
-       6     0  3.22    -4.80e-11     6   -4.80e-11 -4.80e-11
-       7     0  3.44    -4.74e-11     7   -4.74e-11 -4.74e-11
-       8     0  3.56    -4.74e-11     6   -4.74e-11 -4.74e-11
-       9     0  3.79    -4.74e-11     7   -4.74e-11 -4.74e-11
-      10     0  4.07    -4.74e-11     6   -4.74e-11 -4.74e-11
+           .it    wt .y_composite    .n .y_distinct    .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  1.50            0     1           0     0
+       2     0  1.93            0     6           0     0
+       3     0  2.31            0     6           0     0
+       4     0  2.78            0     7           0     0
+       5     0  3.16            0     6           0     0
+       6     0  3.22            0     6           0     0
+       7     0  3.44            0     7           0     0
+       8     0  3.56            0     6           0     0
+       9     0  3.79            0     7           0     0
+      10     0  4.07            0     6           0     0
       # i 23 more rows
       
       
-      attr(,"effect")$`North America`$boot_data$d2
-      attr(,"effect")$`North America`$boot_data$d2$`mpg:vs`
+      $effect$`North America`$boot_data$d2
+      $effect$`North America`$boot_data$d2$`mpg:vs`
       # A tibble: 66 x 7
            .it   mpg vs    .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -2387,7 +2380,7 @@
       10     0  30.4 FALSE            0     2           0     0
       # i 56 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`mpg:am`
+      $effect$`North America`$boot_data$d2$`mpg:am`
       # A tibble: 66 x 7
            .it   mpg am    .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -2403,7 +2396,7 @@
       10     0  30.4 FALSE            0     0           0     0
       # i 56 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`mpg:model`
+      $effect$`North America`$boot_data$d2$`mpg:model`
       # A tibble: 1,056 x 7
            .it   mpg model       .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>              <dbl> <dbl>       <dbl> <dbl>
@@ -2419,7 +2412,7 @@
       10     0  30.4 AMC Javelin            0     0           0     0
       # i 1,046 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`mpg:gear`
+      $effect$`North America`$boot_data$d2$`mpg:gear`
       # A tibble: 99 x 7
            .it   mpg gear  .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -2435,7 +2428,7 @@
       10     0  30.4 three            0     0           0     0
       # i 89 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`mpg:carb`
+      $effect$`North America`$boot_data$d2$`mpg:carb`
       # A tibble: 165 x 7
            .it   mpg  carb .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -2451,7 +2444,7 @@
       10     0  30.4     1            0     2           0     0
       # i 155 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`mpg:wt`
+      $effect$`North America`$boot_data$d2$`mpg:wt`
       # A tibble: 363 x 7
            .it   mpg    wt .y_composite    .n .y_distinct    .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -2467,7 +2460,7 @@
       10     0  30.4  1.50            0     1           0     0
       # i 353 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`vs:am`
+      $effect$`North America`$boot_data$d2$`vs:am`
       # A tibble: 12 x 7
            .it vs    am    .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -2484,7 +2477,7 @@
       11     2 FALSE TRUE             0    12           0     0
       12     2 TRUE  TRUE             0    14           0     0
       
-      attr(,"effect")$`North America`$boot_data$d2$`vs:model`
+      $effect$`North America`$boot_data$d2$`vs:model`
       # A tibble: 192 x 7
            .it vs    model              .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>                     <dbl> <dbl>       <dbl> <dbl>
@@ -2500,7 +2493,7 @@
       10     0 TRUE  Datsun 710                    0     0           0     0
       # i 182 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`vs:gear`
+      $effect$`North America`$boot_data$d2$`vs:gear`
       # A tibble: 18 x 7
            .it vs    gear  .y_composite    .n .y_distinct    .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
@@ -2523,7 +2516,7 @@
       17     2 FALSE five             0     8           0     0
       18     2 TRUE  five             0     2           0     0
       
-      attr(,"effect")$`North America`$boot_data$d2$`vs:carb`
+      $effect$`North America`$boot_data$d2$`vs:carb`
       # A tibble: 30 x 7
            .it vs     carb .y_composite    .n .y_distinct    .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -2539,7 +2532,7 @@
       10     0 TRUE      8            0     1           0     0
       # i 20 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`vs:wt`
+      $effect$`North America`$boot_data$d2$`vs:wt`
       # A tibble: 66 x 7
            .it vs       wt .y_composite    .n .y_distinct    .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
@@ -2555,7 +2548,7 @@
       10     0 TRUE   3.16            0     3           0     0
       # i 56 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`am:model`
+      $effect$`North America`$boot_data$d2$`am:model`
       # A tibble: 192 x 7
            .it am    model              .y_composite    .n .y_distinct      .y
          <dbl> <fct> <fct>                     <dbl> <dbl>       <dbl>   <dbl>
@@ -2571,7 +2564,7 @@
       10     0 TRUE  Datsun 710              -0.0892     0     10.9    10.9   
       # i 182 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`am:gear`
+      $effect$`North America`$boot_data$d2$`am:gear`
       # A tibble: 18 x 7
            .it am    gear  .y_composite    .n .y_distinct     .y
          <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>  <dbl>
@@ -2594,55 +2587,55 @@
       17     2 FALSE five        0.340      0       0.150  0.150
       18     2 TRUE  five        0.403     10      -0.317 -0.317
       
-      attr(,"effect")$`North America`$boot_data$d2$`am:carb`
+      $effect$`North America`$boot_data$d2$`am:carb`
       # A tibble: 30 x 7
-           .it am     carb  .y_composite    .n   .y_distinct            .y
-         <dbl> <fct> <dbl>         <dbl> <dbl>         <dbl>         <dbl>
-       1     0 FALSE     1 -0.0000000460     6  0.00370       0.00370     
-       2     0 TRUE      1 -0.0000000460     8 -0.123        -0.123       
-       3     0 FALSE     2 -0.0000000460    12 -0.0828       -0.0828      
-       4     0 TRUE      2 -0.000000439      7 -0.127        -0.127       
-       5     0 FALSE     3 -0.0000000460     7  0.00369       0.00369     
-       6     0 TRUE      3 -0.000000439      2 -0.210        -0.210       
-       7     0 FALSE     4 -0.0000000460    11 -0.0000000460 -0.0000000460
-       8     0 TRUE      4 -0.000000446      5 -0.123        -0.123       
-       9     0 FALSE     8 -0.0000000460     2 -0.0828       -0.0828      
-      10     0 TRUE      8 -0.000000447      4 -0.210        -0.210       
+           .it am     carb .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE     1            0     6     0.0037   0.0037 
+       2     0 TRUE      1            0     8    -0.123   -0.123  
+       3     0 FALSE     2            0    12    -0.0828  -0.0828 
+       4     0 TRUE      2            0     7    -0.127   -0.127  
+       5     0 FALSE     3            0     7     0.00369  0.00369
+       6     0 TRUE      3            0     2    -0.210   -0.210  
+       7     0 FALSE     4            0    11     0        0      
+       8     0 TRUE      4            0     5    -0.123   -0.123  
+       9     0 FALSE     8            0     2    -0.0828  -0.0828 
+      10     0 TRUE      8            0     4    -0.210   -0.210  
       # i 20 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`am:wt`
+      $effect$`North America`$boot_data$d2$`am:wt`
       # A tibble: 66 x 7
-           .it am       wt .y_composite    .n .y_distinct          .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>       <dbl>
-       1     0 FALSE  1.50     1.64e-10     0  0.00000682  0.00000682
-       2     0 TRUE   1.50     1.64e-10     1 -0.0329     -0.0329    
-       3     0 FALSE  1.93     1.64e-10     0 -0.0342     -0.0342    
-       4     0 TRUE   1.93    -6.05e-10     6 -0.0671     -0.0671    
-       5     0 FALSE  2.31     1.64e-10     0 -0.0342     -0.0342    
-       6     0 TRUE   2.31    -6.42e-10     6 -0.0671     -0.0671    
-       7     0 FALSE  2.78     1.64e-10     2 -0.0342     -0.0342    
-       8     0 TRUE   2.78     1.39e- 9     5 -0.0329     -0.0329    
-       9     0 FALSE  3.16     1.64e-10     2  0.0000145   0.0000145 
-      10     0 TRUE   3.16     1.39e- 9     4 -0.0541     -0.0541    
+           .it am       wt .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE  1.50            0     0     0.00001  0.00001
+       2     0 TRUE   1.50            0     1    -0.0329  -0.0329 
+       3     0 FALSE  1.93            0     0    -0.0342  -0.0342 
+       4     0 TRUE   1.93            0     6    -0.0671  -0.0671 
+       5     0 FALSE  2.31            0     0    -0.0342  -0.0342 
+       6     0 TRUE   2.31            0     6    -0.0671  -0.0671 
+       7     0 FALSE  2.78            0     2    -0.0342  -0.0342 
+       8     0 TRUE   2.78            0     5    -0.0329  -0.0329 
+       9     0 FALSE  3.16            0     2     0.00001  0.00001
+      10     0 TRUE   3.16            0     4    -0.0541  -0.0541 
       # i 56 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`model:gear`
+      $effect$`North America`$boot_data$d2$`model:gear`
       # A tibble: 288 x 7
-           .it model              gear  .y_composite    .n .y_distinct        .y
-         <dbl> <fct>              <fct>        <dbl> <dbl>       <dbl>     <dbl>
-       1     0 AMC Javelin        three      -0.0358     0   -0.000277 -0.000277
-       2     0 Cadillac Fleetwood three      -0.0358     0   -0.000277 -0.000277
-       3     0 Camaro Z28         three      -0.0358     0   -0.000269 -0.000269
-       4     0 Chrysler Imperial  three      -0.0358     2   -0.000269 -0.000269
-       5     0 Datsun 710         three      -0.0358     2   -0.000269 -0.000269
-       6     0 Dodge Challenger   three      -0.0358     2    0.496     0.496   
-       7     0 Duster 360         three      -0.0358     2    0.487     0.487   
-       8     0 Ferrari Dino       three      -0.0358     0    0.487     0.487   
-       9     0 Fiat 128           three      -0.0358     0    1.26      1.26    
-      10     0 Fiat X1-9          three      -0.0358     0    3.04      3.04    
+           .it model              gear  .y_composite    .n .y_distinct       .y
+         <dbl> <fct>              <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 AMC Javelin        three      -0.0357     0    -0.00028 -0.00028
+       2     0 Cadillac Fleetwood three      -0.0357     0    -0.00028 -0.00028
+       3     0 Camaro Z28         three      -0.0357     0    -0.00027 -0.00027
+       4     0 Chrysler Imperial  three      -0.0357     2    -0.00027 -0.00027
+       5     0 Datsun 710         three      -0.0357     2    -0.00027 -0.00027
+       6     0 Dodge Challenger   three      -0.0357     2     0.496    0.496  
+       7     0 Duster 360         three      -0.0357     2     0.487    0.487  
+       8     0 Ferrari Dino       three      -0.0357     0     0.487    0.487  
+       9     0 Fiat 128           three      -0.0357     0     1.26     1.26   
+      10     0 Fiat X1-9          three      -0.0357     0     3.04     3.04   
       # i 278 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`model:carb`
+      $effect$`North America`$boot_data$d2$`model:carb`
       # A tibble: 480 x 7
            .it model               carb .y_composite    .n .y_distinct     .y
          <dbl> <fct>              <dbl>        <dbl> <dbl>       <dbl>  <dbl>
@@ -2658,7 +2651,7 @@
       10     0 Fiat X1-9              1       0.0619     0      -2.95  -2.95 
       # i 470 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`model:wt`
+      $effect$`North America`$boot_data$d2$`model:wt`
       # A tibble: 1,056 x 7
            .it model                 wt .y_composite    .n .y_distinct     .y
          <dbl> <fct>              <dbl>        <dbl> <dbl>       <dbl>  <dbl>
@@ -2674,7 +2667,7 @@
       10     0 Fiat X1-9           1.50       -0.252     0      -2.74  -2.74 
       # i 1,046 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`gear:carb`
+      $effect$`North America`$boot_data$d2$`gear:carb`
       # A tibble: 45 x 7
            .it gear   carb .y_composite    .n .y_distinct     .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>  <dbl>
@@ -2690,7 +2683,7 @@
       10     0 three     4      -0.0306     8      -0.213 -0.213
       # i 35 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`gear:wt`
+      $effect$`North America`$boot_data$d2$`gear:wt`
       # A tibble: 99 x 7
            .it gear     wt .y_composite    .n .y_distinct      .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
@@ -2698,42 +2691,43 @@
        2     0 four   1.50      -0.0281     0     -0.0810 -0.0810
        3     0 five   1.50      -0.0281     1     -0.0866 -0.0866
        4     0 three  1.93      -0.0281     0     -0.0868 -0.0868
-       5     0 four   1.93      -0.0465     5     -0.128  -0.128 
-       6     0 five   1.93      -0.0465     1     -0.128  -0.128 
+       5     0 four   1.93      -0.0466     5     -0.128  -0.128 
+       6     0 five   1.93      -0.0466     1     -0.128  -0.128 
        7     0 three  2.31      -0.0281     0     -0.110  -0.110 
        8     0 four   2.31      -0.0529     4     -0.135  -0.135 
        9     0 five   2.31      -0.0529     2     -0.135  -0.135 
       10     0 three  2.78      -0.0281     2     -0.110  -0.110 
       # i 89 more rows
       
-      attr(,"effect")$`North America`$boot_data$d2$`carb:wt`
+      $effect$`North America`$boot_data$d2$`carb:wt`
       # A tibble: 165 x 7
            .it  carb    wt .y_composite    .n .y_distinct       .y
          <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
-       1     0     1  1.50 0.0000000220     0    -0.0307  -0.0307 
-       2     0     2  1.50 0.0000000220     1    -0.00493 -0.00493
-       3     0     3  1.50 0.0000000220     0    -0.0357  -0.0357 
-       4     0     4  1.50 0.0000000220     0    -0.0264  -0.0264 
-       5     0     8  1.50 0.0000000220     0    -0.0363  -0.0363 
-       6     0     1  1.93 0.0000000220     3    -0.0368  -0.0368 
-       7     0     2  1.93 0.000000147      3    -0.00631 -0.00631
-       8     0     3  1.93 0.000000147      0    -0.0370  -0.0370 
-       9     0     4  1.93 0.000000147      0    -0.0272  -0.0272 
-      10     0     8  1.93 0.000000147      0    -0.0371  -0.0371 
+       1     0     1  1.50            0     0    -0.0307  -0.0307 
+       2     0     2  1.50            0     1    -0.00493 -0.00493
+       3     0     3  1.50            0     0    -0.0357  -0.0357 
+       4     0     4  1.50            0     0    -0.0264  -0.0264 
+       5     0     8  1.50            0     0    -0.0363  -0.0363 
+       6     0     1  1.93            0     3    -0.0368  -0.0368 
+       7     0     2  1.93            0     3    -0.00631 -0.00631
+       8     0     3  1.93            0     0    -0.0370  -0.0370 
+       9     0     4  1.93            0     0    -0.0272  -0.0272 
+      10     0     8  1.93            0     0    -0.0371  -0.0371 
       # i 155 more rows
       
       
       
       
-      attr(,"params")
-      attr(,"params")$max_d
+      
+      $params
+      $params$max_d
       [1] 2
       
-      attr(,"params")$ordered_x_cols
-      attr(,"params")$ordered_x_cols$d1
+      $params$ordered_x_cols
+      $params$ordered_x_cols$d1
       [1] "mpg"   "vs"    "am"    "model" "gear"  "carb"  "wt"   
       
-      attr(,"params")$ordered_x_cols$d2
+      $params$ordered_x_cols$d2
        [1] "mpg:vs"     "mpg:am"     "mpg:model"  "mpg:gear"   "mpg:carb"  
        [6] "mpg:wt"     "vs:am"      "vs:model"   "vs:gear"    "vs:carb"   
       [11] "vs:wt"      "am:model"   "am:gear"    "am:carb"    "am:wt"     
@@ -2741,11 +2735,11 @@
       [21] "carb:wt"   
       
       
-      attr(,"params")$requested_x_cols
-      attr(,"params")$requested_x_cols$d1
+      $params$requested_x_cols
+      $params$requested_x_cols$d1
       [1] "mpg"   "vs"    "am"    "model" "gear"  "carb"  "wt"   
       
-      attr(,"params")$requested_x_cols$d2
+      $params$requested_x_cols$d2
        [1] "mpg:vs"     "mpg:am"     "mpg:model"  "mpg:gear"   "mpg:carb"  
        [6] "mpg:wt"     "vs:am"      "vs:model"   "vs:gear"    "vs:carb"   
       [11] "vs:wt"      "am:model"   "am:gear"    "am:carb"    "am:wt"     
@@ -2753,10 +2747,10 @@
       [21] "carb:wt"   
       
       
-      attr(,"params")$y_cats
+      $params$y_cats
       [1] "Asia"          "Europe"        "North America"
       
-      attr(,"params")$y_summary
+      $params$y_summary
                     continent         Asia       Europe North America
       min        0.000000e+00 0.000000e+00 0.000000e+00  0.000000e+00
       1%         1.069668e-33 2.992722e-30 1.069668e-33  2.347822e-34
@@ -2783,16 +2777,13 @@
       99%        1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       max        1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
-      attr(,"params")$model
-      attr(,"params")$model$class
+      $params$model
+      $params$model$class
       [1] "multinom" "nnet"    
       
-      attr(,"params")$model$hash
-      [1] "618a910f9f636a0d673e03eeae7cf86d"
       
-      
-      attr(,"params")$data
-      attr(,"params")$data$data_sample
+      $params$data
+      $params$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
@@ -2808,7 +2799,7 @@
       10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
       
-      attr(,"params")$data$y_vals_sample
+      $params$data$y_vals_sample
                  Asia       Europe North America
       1  1.000000e+00 3.101887e-14  6.537610e-18
       2  1.000000e+00 1.018274e-14  9.489785e-21
@@ -2875,129 +2866,175 @@
       63 4.750282e-30 1.000000e+00  7.370275e-19
       64 9.953285e-13 1.000000e+00  1.160579e-29
       
-      attr(,"params")$data$nrow
+      $params$data$nrow
       [1] 64
       
       
-      attr(,"params")$y_col
+      $params$y_col
       [1] "continent"
       
-      attr(,"params")$parallel
+      $params$parallel
       [1] 0
       
-      attr(,"params")$model_packages
+      $params$model_packages
       NULL
       
-      attr(,"params")$output_stats
+      $params$output_stats
       [1] TRUE
       
-      attr(,"params")$output_boot_data
+      $params$output_boot_data
       [1] TRUE
       
-      attr(,"params")$pred_fun
+      $params$pred_fun
       [1] "function (object, newdata, type = pred_type) "                      
       [2] "{"                                                                  
       [3] "    stats::predict(object = object, newdata = newdata, type = type)"
       [4] "}"                                                                  
       
-      attr(,"params")$pred_type
+      $params$pred_type
       [1] "probs"
       
-      attr(,"params")$p_values
-      <ale::ALEpDist>
-       @ rand_stats           :List of 3
-       .. $ Asia         : tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.44e-22 ...
-       ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.69e-21 ...
-       ..  ..$ aler     : num [1:100] 3.58e-19 1.73e-21 1.00e-20 7.89e-22 4.13e-21 ...
-       ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.44e-21 ...
-       ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       .. $ Europe       : tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.44e-22 ...
-       ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.69e-21 ...
-       ..  ..$ aler     : num [1:100] 3.58e-19 1.73e-21 1.00e-20 7.89e-22 4.13e-21 ...
-       ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.44e-21 ...
-       ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       .. $ North America: tibble [100 x 8] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:100] 4.83e-20 1.96e-22 1.36e-21 7.02e-23 4.44e-22 ...
-       ..  ..$ aler_min : num [1:100] -6.32e-20 -5.85e-22 -4.52e-21 -3.41e-22 -1.69e-21 ...
-       ..  ..$ aler     : num [1:100] 3.58e-19 1.73e-21 1.00e-20 7.89e-22 4.13e-21 ...
-       ..  ..$ aler_max : num [1:100] 2.95e-19 1.14e-21 5.52e-21 4.48e-22 2.44e-21 ...
-       ..  ..$ naled    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_min: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       ..  ..$ naler_max: num [1:100] 0 0 0 0 0 0 0 0 0 0 ...
-       @ residual_distribution: 'univariateML' Named num [1:2] -2.04e-23 1.50e-17
-       .. - attr(*, "logLik")= num 2371
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
-       .. - attr(*, "n")= int 64
-       .. - attr(*, "model")= chr "Laplace"
-       .. - attr(*, "density")= chr "extraDistr::dlaplace"
-       .. - attr(*, "support")= num [1:2] -Inf Inf
-       .. - attr(*, "names")= chr [1:2] "mu" "sigma"
-       .. - attr(*, "default")= num [1:2] 0 1
-       .. - attr(*, "continuous")= logi TRUE
-       @ residuals            : NULL
-       @ params               :List of 12
-       .. $ model                        :List of 2
-       ..  ..$ class: chr [1:2] "multinom" "nnet"
-       ..  ..$ hash : chr "618a910f9f636a0d673e03eeae7cf86d"
-       .. $ y_col                        : chr "continent"
-       .. $ rand_it                      : NULL
-       .. $ parallel                     : num 0
-       .. $ model_packages               : NULL
-       .. $ random_model_call_string     : NULL
-       .. $ random_model_call_string_vars: chr(0) 
-       .. $ positive                     : logi TRUE
-       .. $ aled_fun                     : chr "mad"
-       .. $ seed                         : num 0
-       .. $ rand_it_ok                   : int 100
-       .. $ exactness                    : chr "surrogate"
+      $params$p_values
+      $params$p_values$rand_stats
+      $params$p_values$rand_stats$Asia
+      # A tibble: 100 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      # i 90 more rows
       
-      attr(,"params")$require_same_p
-      [1] TRUE
+      $params$p_values$rand_stats$Europe
+      # A tibble: 100 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      # i 90 more rows
       
-      attr(,"params")$aler_alpha
-      [1] 0.01 0.05
+      $params$p_values$rand_stats$`North America`
+      # A tibble: 100 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      # i 90 more rows
       
-      attr(,"params")$aled_fun
-      [1] "mad"
       
-      attr(,"params")$max_num_bins
-      [1] 10
+      $params$p_values$residual_distribution
+      Maximum likelihood estimates for the Laplace model 
+         mu  sigma  
+          0      0  
       
-      attr(,"params")$fct_order
-      [1] "levels"
+      $params$p_values$residuals
+      NULL
       
-      attr(,"params")$boot_it
-      [1] 2
+      $params$p_values$params
+      $params$p_values$params$model
+      $params$p_values$params$model$class
+      [1] "multinom" "nnet"    
       
-      attr(,"params")$boot_alpha
-      [1] 0.05
       
-      attr(,"params")$boot_centre
-      [1] "mean"
+      $params$p_values$params$y_col
+      [1] "continent"
       
-      attr(,"params")$seed
+      $params$p_values$params$rand_it
+      NULL
+      
+      $params$p_values$params$parallel
       [1] 0
       
-      attr(,"params")$y_type
+      $params$p_values$params$model_packages
+      NULL
+      
+      $params$p_values$params$random_model_call_string
+      NULL
+      
+      $params$p_values$params$random_model_call_string_vars
+      character(0)
+      
+      $params$p_values$params$positive
+      [1] TRUE
+      
+      $params$p_values$params$aled_fun
+      [1] "mad"
+      
+      $params$p_values$params$seed
+      [1] 0
+      
+      $params$p_values$params$rand_it_ok
+      [1] 100
+      
+      $params$p_values$params$exactness
+      [1] "surrogate"
+      
+      
+      
+      $params$require_same_p
+      [1] TRUE
+      
+      $params$aler_alpha
+      [1] 0.01 0.05
+      
+      $params$aled_fun
+      [1] "mad"
+      
+      $params$max_num_bins
+      [1] 10
+      
+      $params$fct_order
+      [1] "levels"
+      
+      $params$boot_it
+      [1] 2
+      
+      $params$boot_alpha
+      [1] 0.05
+      
+      $params$boot_centre
+      [1] "mean"
+      
+      $params$seed
+      [1] 0
+      
+      $params$y_type
       [1] "categorical"
       
-      attr(,"params")$sample_size
+      $params$sample_size
       [1] 500
+      
       
 
 ---
 
     Code
-      get(cat_cars_ale)
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -4224,7 +4261,9 @@
 ---
 
     Code
-      get(cat_cars_ale, what = "boot_data")
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -5613,7 +5652,9 @@
 ---
 
     Code
-      get(cat_cars_ale, stats = "estimate")
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -5709,7 +5750,9 @@
 ---
 
     Code
-      get(cat_cars_ale, cats = c("Asia", "Europe"))
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -6529,7 +6572,9 @@
 ---
 
     Code
-      get(cat_cars_ale, exclude_cols = list(d2_all = "am"))
+      {
+        x
+      }
     Output
       $Asia
       $Asia$d1
@@ -7582,7 +7627,9 @@
 ---
 
     Code
-      get(cat_cars_ale, stats = "conf_regions")
+      {
+        x
+      }
     Message
       ! Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.
       i There are 2 bootstrap iterations.
@@ -7697,7 +7744,9 @@
 ---
 
     Code
-      get(cat_cars_ale, stats = "conf_sig")
+      {
+        x
+      }
     Message
       ! Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.
       i There are 2 bootstrap iterations.
@@ -7812,7 +7861,9 @@
 ---
 
     Code
-      ale_plots_to_data(cat_cars_ale_plots)
+      {
+        x
+      }
     Condition
       Warning:
       Position guide is perpendicular to the intended axis.
@@ -8192,120 +8243,117 @@
       $Asia
       $Asia$d1
       $Asia$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2  14.30000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3  15.11249 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4  15.80000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5  17.80000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      6  19.20000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      7  21.00000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      8  21.50000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      9  24.61700 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      10 30.40000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      11 33.90000 1.197411e-14     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $Asia$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.197411e-14     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 1.197411e-14     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $Asia$d1$am
-        x           y PANEL group xmin xmax         ymin         ymax colour
-      1 1 0.006188871     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 0.015482442     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x       y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype
+      1 1 0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1
+      2 2 0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1
+        alpha
+      1    NA
+      2    NA
       
       $Asia$d1$model
-          x         y PANEL group xmin xmax         ymin         ymax colour
-      1   1 -1.673149     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2   2 -1.673149     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3   3 -1.671227     1     3 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4   4 -1.832682     1     4 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5   5 -1.819256     1     5 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      6   6 -1.703513     1     6 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      7   7 -1.703513     1     7 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      8   8 -1.870184     1     8 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      9   9 -1.994674     1     9 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      10 10 -1.299275     1    10 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1 -1.67315     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2 -1.67315     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3 -1.67123     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4 -1.83268     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 -1.81926     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 -1.70351     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 -1.70351     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 -1.87018     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 -1.99467     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 -1.29927     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $Asia$d1$gear
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.118437865     1     1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2  0.001975945     1     2 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3 3 -0.330118650     1     3 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.11844     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00198     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.33012     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $Asia$d1$carb
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.005489234     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      2 2 -0.001898356     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      3 3 -0.001898365     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      4 4 -0.001898365     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-      5 8 -0.001898365     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 4 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 8 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
       
       $Asia$d1$wt
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275  2.589681e-05     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      2  1.925991  3.346877e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      3  2.314067 -7.391920e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      4  2.779004 -7.391922e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      5  3.160130 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      6  3.219684 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      7  3.440000 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      8  3.558601 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      9  3.794139 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      10 4.070000 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-      11 5.453272 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 1.197441e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828  3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $Asia$d2
@@ -17540,130 +17588,122 @@
       
       $Asia$eff
       $Asia$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 1.197351e-14 1.197441e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $Asia$eff[[2]]
-                 xmin          xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  1.197411e-14  1.197411e-14 1     1     1        TRUE 0.875 1.125  black
-      2  1.197411e-14  1.197411e-14 2     1     2        TRUE 1.875 2.125  black
-      3 -9.521731e-06  2.589681e-05 3     1     3        TRUE 2.875 3.125  black
-      4 -1.894153e-03  5.489234e-03 4     1     4        TRUE 3.875 4.125  black
-      5 -8.380929e-03  3.090750e-02 5     1     5        TRUE 4.875 5.125  black
-      6 -2.322303e-01  1.187455e-01 6     1     6        TRUE 5.875 6.125  black
-      7 -3.567085e+00 -2.829877e-01 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin     xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000  0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000  0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3 -0.00001  0.00003 3     1     3        TRUE 2.875 3.125  black       0.5
+      4 -0.00189  0.00549 4     1     4        TRUE 3.875 4.125  black       0.5
+      5 -0.00838  0.03091 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.23223  0.11875 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -3.56709 -0.28299 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $Asia$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  1.197396e-14 1.197396e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  1.197396e-14 1.197396e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -7.686611e-06 7.686611e-06  2.7  3.3 3     1     3     NA white       0.5
-      4 -8.579039e-04 8.579039e-04  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.087804e-02 1.087804e-02  4.7  5.3 5     1     5     NA white       0.5
-      6 -7.015474e-02 7.015474e-02  5.7  6.3 6     1     6     NA white       0.5
-      7 -1.080418e+00           NA  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3 -0.00001 0.00001  2.7  3.3 3     1     3     NA white       0.5        1
+      4 -0.00086 0.00086  3.7  4.3 4     1     4     NA white       0.5        1
+      5 -0.01088 0.01088  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.07015 0.07015  5.7  6.3 6     1     6     NA white       0.5        1
+      7 -1.08042      NA  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $Asia$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 1.197396e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 1.197396e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 1.197396e-14 NALED 37.3% 3     1     3       0       0  black           3
-      4 1.197396e-14 NALED 40.9% 4     1     4       0       0  black           3
-      5 1.197396e-14 NALED 38.9% 5     1     5       0       0  black           3
-      6 1.197396e-14 NALED 37.7% 6     1     6       0       0  black           3
-      7 1.197396e-14 NALED 49.4% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 37.3% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 40.9% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 38.9% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 37.7% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 49.4% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $Asia$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  1.197396e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  1.197396e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -7.686611e-06     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -8.579039e-04     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.087804e-02     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -7.015474e-02     ( 6.02     1     6       0    0.02  black        3.866058
-      7 -1.080418e+00     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3 -0.00001     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4 -0.00086     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5 -0.01088     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.07015     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7 -1.08042     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Asia$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 1.197396e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 1.197396e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 7.686611e-06     ) 3.02     1     3       0    0.02  black        3.866058
-      4 8.579039e-04     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.087804e-02     ) 5.02     1     5       0    0.02  black        3.866058
-      6 7.015474e-02     ) 6.02     1     6       0    0.02  black        3.866058
-      7           NA     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00001     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00086     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.01088     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.07015     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7      NA     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Asia$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 1.197396e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 1.197396e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 1.197396e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 1.197396e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 1.197396e-14 ALED 0.02 5     1     5       0       0  black           3     0
-      6 1.197396e-14 ALED 0.14 6     1     6       0       0  black           3     0
-      7 1.197396e-14 ALED 2.16 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.02 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.14 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 2.16 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $Asia$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -17678,120 +17718,117 @@
       $Europe
       $Europe$d1
       $Europe$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2  14.30000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      3  15.11249 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      4  15.80000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      5  17.80000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      6  19.20000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      7  21.00000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      8  21.50000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      9  24.61700 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      10 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      11 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $Europe$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.305186e-14     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2 1.305186e-14     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $Europe$d1$am
-        x           y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -0.00618887     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2 -0.01548244     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
       
       $Europe$d1$model
-          x        y PANEL group xmin xmax         ymin         ymax colour      fill
-      1   1 2.886207     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      2   2 2.886207     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      3   3 3.077681     1     3 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      4   4 2.911014     1     4 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      5   5 3.077681     1     5 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      6   6 3.077679     1     6 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      7   7 3.084509     1     7 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      8   8 2.946479     1     8 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      9   9 3.446463     1     9 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      10 10 1.089378     1    10 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-         linewidth linetype alpha
-      1        0.5        1    NA
-      2        0.5        1    NA
-      3        0.5        1    NA
-      4        0.5        1    NA
-      5        0.5        1    NA
-      6        0.5        1    NA
-      7        0.5        1    NA
-      8        0.5        1    NA
-      9        0.5        1    NA
-      10       0.5        1    NA
+          x       y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1 2.88621     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2 2.88621     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3 3.07768     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4 2.91101     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 3.07768     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 3.07768     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 3.08451     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 2.94648     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 3.44646     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 1.08938     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $Europe$d1$gear
-        x          y PANEL group xmin xmax         ymin         ymax colour      fill
-      1 1 -0.2389154     1     1 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      2 2  0.2471940     1     2 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-      3 3  0.3799475     1     3 -Inf  Inf 1.305126e-14 1.305216e-14     NA lightgrey
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.23892     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.24719     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3  0.37995     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $Europe$d1$carb
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -0.005489341     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      2 2  0.001898392     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      3 3  0.001898401     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      4 4  0.001898401     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-      5 8  0.001898406     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1 -0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 4  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 8  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
       
       $Europe$d1$wt
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275 -2.589756e-05     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      2  1.925991 -3.347122e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      3  2.314067  7.391717e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      4  2.779004  7.391719e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      5  3.160130  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      6  3.219684  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      7  3.440000  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      8  3.558601  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      9  3.794139  7.396798e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      10 4.070000  7.396801e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-      11 5.453272  7.396801e-06     1    -1 -Inf  Inf 1.305126e-14 1.305216e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828 -3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $Europe$d2
@@ -27026,130 +27063,122 @@
       
       $Europe$eff
       $Europe$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 1.305126e-14 1.305216e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $Europe$eff[[2]]
-                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  1.305186e-14 1.305186e-14 1     1     1        TRUE 0.875 1.125  black
-      2  1.305186e-14 1.305186e-14 2     1     2        TRUE 1.875 2.125  black
-      3 -2.589756e-05 9.521402e-06 3     1     3        TRUE 2.875 3.125  black
-      4 -5.489341e-03 1.894194e-03 4     1     4        TRUE 3.875 4.125  black
-      5 -3.090750e-02 8.380929e-03 5     1     5        TRUE 4.875 5.125  black
-      6 -1.722488e-01 3.647938e-01 6     1     6        TRUE 5.875 6.125  black
-      7 -5.554874e-01           NA 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000 0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000 0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3 -0.00003 0.00001 3     1     3        TRUE 2.875 3.125  black       0.5
+      4 -0.00549 0.00189 4     1     4        TRUE 3.875 4.125  black       0.5
+      5 -0.03091 0.00838 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.17225 0.36479 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -0.55549      NA 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $Europe$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  1.305171e-14 1.305171e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  1.305171e-14 1.305171e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -7.686441e-06 7.686441e-06  2.7  3.3 3     1     3     NA white       0.5
-      4 -8.579205e-04 8.579205e-04  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.087804e-02 1.087804e-02  4.7  5.3 5     1     5     NA white       0.5
-      6 -1.157814e-01 1.157814e-01  5.7  6.3 6     1     6     NA white       0.5
-      7            NA 1.258276e+00  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3 -0.00001 0.00001  2.7  3.3 3     1     3     NA white       0.5        1
+      4 -0.00086 0.00086  3.7  4.3 4     1     4     NA white       0.5        1
+      5 -0.01088 0.01088  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.11578 0.11578  5.7  6.3 6     1     6     NA white       0.5        1
+      7       NA 1.25828  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $Europe$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 1.305171e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 1.305171e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 1.305171e-14 NALED 29.2% 3     1     3       0       0  black           3
-      4 1.305171e-14 NALED 27.4% 4     1     4       0       0  black           3
-      5 1.305171e-14 NALED 32.2% 5     1     5       0       0  black           3
-      6 1.305171e-14 NALED 30.2% 6     1     6       0       0  black           3
-      7 1.305171e-14 NALED 45.2% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 29.2% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 27.4% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 32.2% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 30.2% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 45.2% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $Europe$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  1.305171e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  1.305171e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -7.686441e-06     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -8.579205e-04     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.087804e-02     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -1.157814e-01     ( 6.02     1     6       0    0.02  black        3.866058
-      7            NA     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3 -0.00001     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4 -0.00086     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5 -0.01088     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.11578     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7       NA     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Europe$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 1.305171e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 1.305171e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 7.686441e-06     ) 3.02     1     3       0    0.02  black        3.866058
-      4 8.579205e-04     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.087804e-02     ) 5.02     1     5       0    0.02  black        3.866058
-      6 1.157814e-01     ) 6.02     1     6       0    0.02  black        3.866058
-      7 1.258276e+00     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00001     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00086     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.01088     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.11578     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7 1.25828     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $Europe$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 1.305171e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 1.305171e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 1.305171e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 1.305171e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 1.305171e-14 ALED 0.02 5     1     5       0       0  black           3     0
-      6 1.305171e-14 ALED 0.23 6     1     6       0       0  black           3     0
-      7 1.305171e-14 ALED 2.52 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.02 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.23 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 2.52 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $Europe$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -27164,120 +27193,108 @@
       $`North America`
       $`North America`$d1
       $`North America`$d1$mpg
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2  14.30000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3  15.11249 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4  15.80000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5  17.80000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6  19.20000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7  21.00000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8  21.50000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9  24.61700 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 30.40000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      11 33.90000 2.637774e-14     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       $`North America`$d1$vs
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 2.637774e-14     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 2.637774e-14     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$am
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1 -5.571100e-10     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2  1.565414e-10     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$model
-          x          y PANEL group xmin xmax         ymin         ymax colour
-      1   1  1.5376698     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2   2  1.5376698     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3   3  1.4901105     1     3 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4   4  1.4901105     1     4 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5   5 -1.5408301     1     5 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6   6 -1.7074968     1     6 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7   7 -1.7074968     1     7 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8   8 -1.4517884     1     8 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9   9 -1.4517884     1     9 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 10 -0.2096134     1    10 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   1  1.53767     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   2  1.53767     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   3  1.49011     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   4  1.49011     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   5 -1.54083     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   6 -1.70750     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   7 -1.70750     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      8   8 -1.45179     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      9   9 -1.45179     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 10 -0.20961     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
       
       $`North America`$d1$gear
-        x           y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.12047749     1     1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 -0.24916998     1     2 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3 3 -0.04982882     1     3 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.12048     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2 -0.24917     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.04983     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $`North America`$d1$carb
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1  1.076012e-07     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2 2 -3.593976e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3 3 -3.594862e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4 4 -3.594871e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5 8 -4.130466e-08     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      3 3 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      4 4 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      5 8 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $`North America`$d1$wt
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  1.498275 7.565048e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      2  1.925991 2.448790e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      3  2.314067 2.030132e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      4  2.779004 2.030121e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      5  3.160130 2.030094e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      6  3.219684 2.030271e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      7  3.440000 2.035159e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      8  3.558601 2.036598e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      9  3.794139 2.036234e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      10 4.070000 2.036243e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-      11 5.453272 2.036202e-10     1    -1 -Inf  Inf 2.637714e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
+               x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
       
       
       $`North America`$d2
@@ -36512,130 +36529,122 @@
       
       $`North America`$eff
       $`North America`$eff[[1]]
-        y PANEL group         xmin         xmax ymin ymax colour      fill linewidth
-      1 1     1     1 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      2 2     1     2 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      3 3     1     3 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      4 4     1     4 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      5 5     1     5 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      6 6     1     6 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-      7 7     1     7 2.637714e-14 2.637804e-14 -Inf  Inf     NA lightgrey       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+        y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1     1     1    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      2 2     1     2    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      3 3     1     3    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      4 4     1     4    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      5 5     1     5    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      6 6     1     6    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
+      7 7     1     7    0    0 -Inf  Inf     NA lightgrey       0.5        1    NA
       
       $`North America`$eff[[2]]
-                 xmin         xmax y PANEL group flipped_aes  ymin  ymax colour
-      1  2.637774e-14 2.637774e-14 1     1     1        TRUE 0.875 1.125  black
-      2  2.637774e-14 2.637774e-14 2     1     2        TRUE 1.875 2.125  black
-      3  3.285293e-10 7.565048e-10 3     1     3        TRUE 2.875 3.125  black
-      4 -9.118766e-10 3.461658e-10 4     1     4        TRUE 3.875 4.125  black
-      5 -4.132864e-08 1.076012e-07 5     1     5        TRUE 4.875 5.125  black
-      6 -2.322912e-01 6.023659e-02 6     1     6        TRUE 5.875 6.125  black
-      7 -1.653106e+00           NA 7     1     7        TRUE 6.875 7.125  black
-        linewidth linetype width alpha
-      1       0.5        1   0.9    NA
-      2       0.5        1   0.9    NA
-      3       0.5        1   0.9    NA
-      4       0.5        1   0.9    NA
-      5       0.5        1   0.9    NA
-      6       0.5        1   0.9    NA
-      7       0.5        1   0.9    NA
+            xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
+      1  0.00000 0.00000 1     1     1        TRUE 0.875 1.125  black       0.5
+      2  0.00000 0.00000 2     1     2        TRUE 1.875 2.125  black       0.5
+      3  0.00000 0.00000 3     1     3        TRUE 2.875 3.125  black       0.5
+      4  0.00000 0.00000 4     1     4        TRUE 3.875 4.125  black       0.5
+      5  0.00000 0.00000 5     1     5        TRUE 4.875 5.125  black       0.5
+      6 -0.23229 0.06024 6     1     6        TRUE 5.875 6.125  black       0.5
+      7 -1.65311      NA 7     1     7        TRUE 6.875 7.125  black       0.5
+        linetype width alpha
+      1        1   0.9    NA
+      2        1   0.9    NA
+      3        1   0.9    NA
+      4        1   0.9    NA
+      5        1   0.9    NA
+      6        1   0.9    NA
+      7        1   0.9    NA
       
       $`North America`$eff[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1  2.637759e-14 2.637759e-14  0.7  1.3 1     1     1     NA white       0.5
-      2  2.637759e-14 2.637759e-14  1.7  2.3 2     1     2     NA white       0.5
-      3 -2.076332e-10 2.076860e-10  2.7  3.3 3     1     3     NA white       0.5
-      4 -3.505835e-10 3.506362e-10  3.7  4.3 4     1     4     NA white       0.5
-      5 -1.701125e-08 1.701130e-08  4.7  5.3 5     1     5     NA white       0.5
-      6 -6.394821e-02 6.394821e-02  5.7  6.3 6     1     6     NA white       0.5
-      7 -5.527189e-01 5.527189e-01  6.7  7.3 7     1     7     NA white       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      4        1    NA
-      5        1    NA
-      6        1    NA
-      7        1    NA
+            xmin    xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1  0.00000 0.00000  0.7  1.3 1     1     1     NA white       0.5        1
+      2  0.00000 0.00000  1.7  2.3 2     1     2     NA white       0.5        1
+      3  0.00000 0.00000  2.7  3.3 3     1     3     NA white       0.5        1
+      4  0.00000 0.00000  3.7  4.3 4     1     4     NA white       0.5        1
+      5  0.00000 0.00000  4.7  5.3 5     1     5     NA white       0.5        1
+      6 -0.06395 0.06395  5.7  6.3 6     1     6     NA white       0.5        1
+      7 -0.55272 0.55272  6.7  7.3 7     1     7     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
+      7    NA
       
       $`North America`$eff[[4]]
-                   x       label y PANEL group nudge_x nudge_y colour family size
-      1 2.637759e-14 NALED  0.0% 1     1     1       0       0  black           3
-      2 2.637759e-14 NALED  0.0% 2     1     2       0       0  black           3
-      3 2.637759e-14 NALED 27.5% 3     1     3       0       0  black           3
-      4 2.637759e-14 NALED 41.7% 4     1     4       0       0  black           3
-      5 2.637759e-14 NALED 20.4% 5     1     5       0       0  black           3
-      6 2.637759e-14 NALED 29.5% 6     1     6       0       0  black           3
-      7 2.637759e-14 NALED 42.4% 7     1     7       0       0  black           3
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5    -1    NA        1        1.2
-      2     0   0.5    -1    NA        1        1.2
-      3     0   0.5    -1    NA        1        1.2
-      4     0   0.5    -1    NA        1        1.2
-      5     0   0.5    -1    NA        1        1.2
-      6     0   0.5    -1    NA        1        1.2
-      7     0   0.5    -1    NA        1        1.2
+        x       label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
+      2 0 NALED  0.0% 2     1     2       0       0  black           3     0   0.5
+      3 0 NALED 27.5% 3     1     3       0       0  black           3     0   0.5
+      4 0 NALED 41.7% 4     1     4       0       0  black           3     0   0.5
+      5 0 NALED 20.4% 5     1     5       0       0  black           3     0   0.5
+      6 0 NALED 29.5% 6     1     6       0       0  black           3     0   0.5
+      7 0 NALED 42.4% 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1    -1    NA        1        1.2
+      2    -1    NA        1        1.2
+      3    -1    NA        1        1.2
+      4    -1    NA        1        1.2
+      5    -1    NA        1        1.2
+      6    -1    NA        1        1.2
+      7    -1    NA        1        1.2
       
       $`North America`$eff[[5]]
-                    x label    y PANEL group nudge_x nudge_y colour family     size
-      1  2.637759e-14     ( 1.02     1     1       0    0.02  black        3.866058
-      2  2.637759e-14     ( 2.02     1     2       0    0.02  black        3.866058
-      3 -2.076332e-10     ( 3.02     1     3       0    0.02  black        3.866058
-      4 -3.505835e-10     ( 4.02     1     4       0    0.02  black        3.866058
-      5 -1.701125e-08     ( 5.02     1     5       0    0.02  black        3.866058
-      6 -6.394821e-02     ( 6.02     1     6       0    0.02  black        3.866058
-      7 -5.527189e-01     ( 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+               x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1  0.00000     ( 1.02     1     1       0    0.02  black        3.86606     0
+      2  0.00000     ( 2.02     1     2       0    0.02  black        3.86606     0
+      3  0.00000     ( 3.02     1     3       0    0.02  black        3.86606     0
+      4  0.00000     ( 4.02     1     4       0    0.02  black        3.86606     0
+      5  0.00000     ( 5.02     1     5       0    0.02  black        3.86606     0
+      6 -0.06395     ( 6.02     1     6       0    0.02  black        3.86606     0
+      7 -0.55272     ( 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $`North America`$eff[[6]]
-                   x label    y PANEL group nudge_x nudge_y colour family     size
-      1 2.637759e-14     ) 1.02     1     1       0    0.02  black        3.866058
-      2 2.637759e-14     ) 2.02     1     2       0    0.02  black        3.866058
-      3 2.076860e-10     ) 3.02     1     3       0    0.02  black        3.866058
-      4 3.506362e-10     ) 4.02     1     4       0    0.02  black        3.866058
-      5 1.701130e-08     ) 5.02     1     5       0    0.02  black        3.866058
-      6 6.394821e-02     ) 6.02     1     6       0    0.02  black        3.866058
-      7 5.527189e-01     ) 7.02     1     7       0    0.02  black        3.866058
-        angle hjust vjust alpha fontface lineheight
-      1     0   0.5   0.5    NA        1        1.2
-      2     0   0.5   0.5    NA        1        1.2
-      3     0   0.5   0.5    NA        1        1.2
-      4     0   0.5   0.5    NA        1        1.2
-      5     0   0.5   0.5    NA        1        1.2
-      6     0   0.5   0.5    NA        1        1.2
-      7     0   0.5   0.5    NA        1        1.2
+              x label    y PANEL group nudge_x nudge_y colour family    size angle
+      1 0.00000     ) 1.02     1     1       0    0.02  black        3.86606     0
+      2 0.00000     ) 2.02     1     2       0    0.02  black        3.86606     0
+      3 0.00000     ) 3.02     1     3       0    0.02  black        3.86606     0
+      4 0.00000     ) 4.02     1     4       0    0.02  black        3.86606     0
+      5 0.00000     ) 5.02     1     5       0    0.02  black        3.86606     0
+      6 0.06395     ) 6.02     1     6       0    0.02  black        3.86606     0
+      7 0.55272     ) 7.02     1     7       0    0.02  black        3.86606     0
+        hjust vjust alpha fontface lineheight
+      1   0.5   0.5    NA        1        1.2
+      2   0.5   0.5    NA        1        1.2
+      3   0.5   0.5    NA        1        1.2
+      4   0.5   0.5    NA        1        1.2
+      5   0.5   0.5    NA        1        1.2
+      6   0.5   0.5    NA        1        1.2
+      7   0.5   0.5    NA        1        1.2
       
       $`North America`$eff[[7]]
-                   x     label y PANEL group nudge_x nudge_y colour family size angle
-      1 2.637759e-14 ALED 0.00 1     1     1       0       0  black           3     0
-      2 2.637759e-14 ALED 0.00 2     1     2       0       0  black           3     0
-      3 2.637759e-14 ALED 0.00 3     1     3       0       0  black           3     0
-      4 2.637759e-14 ALED 0.00 4     1     4       0       0  black           3     0
-      5 2.637759e-14 ALED 0.00 5     1     5       0       0  black           3     0
-      6 2.637759e-14 ALED 0.13 6     1     6       0       0  black           3     0
-      7 2.637759e-14 ALED 1.11 7     1     7       0       0  black           3     0
-        hjust vjust alpha fontface lineheight
-      1   0.5     2    NA        1        1.2
-      2   0.5     2    NA        1        1.2
-      3   0.5     2    NA        1        1.2
-      4   0.5     2    NA        1        1.2
-      5   0.5     2    NA        1        1.2
-      6   0.5     2    NA        1        1.2
-      7   0.5     2    NA        1        1.2
+        x     label y PANEL group nudge_x nudge_y colour family size angle hjust
+      1 0 ALED 0.00 1     1     1       0       0  black           3     0   0.5
+      2 0 ALED 0.00 2     1     2       0       0  black           3     0   0.5
+      3 0 ALED 0.00 3     1     3       0       0  black           3     0   0.5
+      4 0 ALED 0.00 4     1     4       0       0  black           3     0   0.5
+      5 0 ALED 0.00 5     1     5       0       0  black           3     0   0.5
+      6 0 ALED 0.13 6     1     6       0       0  black           3     0   0.5
+      7 0 ALED 1.11 7     1     7       0       0  black           3     0   0.5
+        vjust alpha fontface lineheight
+      1     2    NA        1        1.2
+      2     2    NA        1        1.2
+      3     2    NA        1        1.2
+      4     2    NA        1        1.2
+      5     2    NA        1        1.2
+      6     2    NA        1        1.2
+      7     2    NA        1        1.2
       
       $`North America`$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
@@ -36651,600 +36660,586 @@
       $.all_cats$d1
       $.all_cats$d1$mpg
       $.all_cats$d1$mpg$overlay
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2  14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3  15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4  15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5  17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6  19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7  21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12 10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      16 17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      17 19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      18 21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      19 21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      20 24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      21 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      22 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      23 10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      24 14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      25 15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      26 15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      27 17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      28 19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      29 21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      30 21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      31 24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      32 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      33 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
-      16 lightgrey       0.5        1    NA
-      17 lightgrey       0.5        1    NA
-      18 lightgrey       0.5        1    NA
-      19 lightgrey       0.5        1    NA
-      20 lightgrey       0.5        1    NA
-      21 lightgrey       0.5        1    NA
-      22 lightgrey       0.5        1    NA
-      23 lightgrey       0.5        1    NA
-      24 lightgrey       0.5        1    NA
-      25 lightgrey       0.5        1    NA
-      26 lightgrey       0.5        1    NA
-      27 lightgrey       0.5        1    NA
-      28 lightgrey       0.5        1    NA
-      29 lightgrey       0.5        1    NA
-      30 lightgrey       0.5        1    NA
-      31 lightgrey       0.5        1    NA
-      32 lightgrey       0.5        1    NA
-      33 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
       
       $.all_cats$d1$mpg$facet
-                x            y PANEL group xmin xmax         ymin         ymax colour
-      1  10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2  14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3  15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4  15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5  17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6  19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7  21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12 10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      16 17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      17 19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      18 21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      19 21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      20 24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      21 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      22 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      23 10.37589 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      24 14.30000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      25 15.11249 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      26 15.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      27 17.80000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      28 19.20000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      29 21.00000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      30 21.50000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      31 24.61700 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      32 30.40000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      33 33.90000 1.305186e-14     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
-      16 lightgrey       0.5        1    NA
-      17 lightgrey       0.5        1    NA
-      18 lightgrey       0.5        1    NA
-      19 lightgrey       0.5        1    NA
-      20 lightgrey       0.5        1    NA
-      21 lightgrey       0.5        1    NA
-      22 lightgrey       0.5        1    NA
-      23 lightgrey       0.5        1    NA
-      24 lightgrey       0.5        1    NA
-      25 lightgrey       0.5        1    NA
-      26 lightgrey       0.5        1    NA
-      27 lightgrey       0.5        1    NA
-      28 lightgrey       0.5        1    NA
-      29 lightgrey       0.5        1    NA
-      30 lightgrey       0.5        1    NA
-      31 lightgrey       0.5        1    NA
-      32 lightgrey       0.5        1    NA
-      33 lightgrey       0.5        1    NA
+                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 10.37589 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 14.30000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 15.11249 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 15.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 17.80000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 19.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 21.00000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 21.50000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 24.61700 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 30.40000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 33.90000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
       
       
       $.all_cats$d1$vs
       $.all_cats$d1$vs$overlay
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      3 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      4 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      5 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      6 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       $.all_cats$d1$vs$facet
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 1 1.305186e-14     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 2 1.305186e-14     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
+        x y PANEL group xmin xmax ymin ymax colour      fill linewidth linetype alpha
+      1 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      2 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      3 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      4 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      5 1 0     1     1 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
+      6 2 0     1     2 -Inf  Inf    0    0     NA lightgrey       0.5        1    NA
       
       
       $.all_cats$d1$am
       $.all_cats$d1$am$overlay
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1  6.188871e-03     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2  1.548244e-02     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 1 -6.188870e-03     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 2 -1.548244e-02     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 1 -5.571233e-10     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 2  1.565281e-10     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 1 -0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 2 -0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 1  0.00000     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6 2  0.00000     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
+      6        1    NA
       
       $.all_cats$d1$am$facet
-        x             y PANEL group xmin xmax         ymin         ymax colour
-      1 1  6.188871e-03     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2  1.548244e-02     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 1 -6.188870e-03     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 2 -1.548244e-02     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 1 -5.571233e-10     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 2  1.565281e-10     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 1 -0.00619     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 2 -0.01548     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 1  0.00000     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6 2  0.00000     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
+      6        1    NA
       
       
       $.all_cats$d1$model
       $.all_cats$d1$model$overlay
-          x          y PANEL group xmin xmax         ymin         ymax colour
-      1   3 -1.6731489     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2   4 -1.6731489     1     4 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3   5 -1.6712272     1     5 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4   6 -1.8326822     1     6 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5   7 -1.8192565     1     7 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6   8 -1.7035135     1     8 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7   9 -1.7035135     1     9 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  10 -1.8701840     1    10 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  16 -1.9946743     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 17 -1.2992749     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11  8  2.8862073     1     8 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12  9  2.8862073     1     9 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 10  3.0776810     1    10 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 11  2.9110141     1    11 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 12  3.0776807     1    12 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      16 13  3.0776786     1    13 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      17 14  3.0845086     1    14 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      18 15  2.9464791     1    15 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      19 16  3.4464627     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      20 17  1.0893783     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      21  1  1.5376698     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      22  2  1.5376698     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      23  3  1.4901105     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      24  4  1.4901105     1     4 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      25 12 -1.5408301     1    12 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      26 13 -1.7074968     1    13 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      27 14 -1.7074968     1    14 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      28 15 -1.4517884     1    15 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      29 16 -1.4517884     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      30 17 -0.2096134     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
-      16 lightgrey       0.5        1    NA
-      17 lightgrey       0.5        1    NA
-      18 lightgrey       0.5        1    NA
-      19 lightgrey       0.5        1    NA
-      20 lightgrey       0.5        1    NA
-      21 lightgrey       0.5        1    NA
-      22 lightgrey       0.5        1    NA
-      23 lightgrey       0.5        1    NA
-      24 lightgrey       0.5        1    NA
-      25 lightgrey       0.5        1    NA
-      26 lightgrey       0.5        1    NA
-      27 lightgrey       0.5        1    NA
-      28 lightgrey       0.5        1    NA
-      29 lightgrey       0.5        1    NA
-      30 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   3 -1.67315     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   4 -1.67315     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   5 -1.67123     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   6 -1.83268     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   7 -1.81926     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   8 -1.70351     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   9 -1.70351     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  10 -1.87018     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  16 -1.99467     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 17 -1.29927     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+      11  8  2.88621     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      12  9  2.88621     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 10  3.07768     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 11  2.91101     1    11 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 12  3.07768     1    12 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 13  3.07768     1    13 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 14  3.08451     1    14 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 15  2.94648     1    15 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 16  3.44646     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 17  1.08938     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+      21  1  1.53767     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22  2  1.53767     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      23  3  1.49011     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      24  4  1.49011     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 12 -1.54083     1    12 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 13 -1.70750     1    13 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 14 -1.70750     1    14 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 15 -1.45179     1    15 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 16 -1.45179     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 17 -0.20961     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
       
       $.all_cats$d1$model$facet
-          x          y PANEL group xmin xmax         ymin         ymax colour
-      1   3 -1.6731489     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2   4 -1.6731489     1     4 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3   5 -1.6712272     1     5 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4   6 -1.8326822     1     6 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5   7 -1.8192565     1     7 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6   8 -1.7035135     1     8 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7   9 -1.7035135     1     9 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  10 -1.8701840     1    10 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  16 -1.9946743     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 17 -1.2992749     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11  8  2.8862073     1     8 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12  9  2.8862073     1     9 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 10  3.0776810     1    10 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 11  2.9110141     1    11 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 12  3.0776807     1    12 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      16 13  3.0776786     1    13 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      17 14  3.0845086     1    14 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      18 15  2.9464791     1    15 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      19 16  3.4464627     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      20 17  1.0893783     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      21  1  1.5376698     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      22  2  1.5376698     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      23  3  1.4901105     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      24  4  1.4901105     1     4 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      25 12 -1.5408301     1    12 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      26 13 -1.7074968     1    13 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      27 14 -1.7074968     1    14 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      28 15 -1.4517884     1    15 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      29 16 -1.4517884     1    16 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      30 17 -0.2096134     1    17 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
-      16 lightgrey       0.5        1    NA
-      17 lightgrey       0.5        1    NA
-      18 lightgrey       0.5        1    NA
-      19 lightgrey       0.5        1    NA
-      20 lightgrey       0.5        1    NA
-      21 lightgrey       0.5        1    NA
-      22 lightgrey       0.5        1    NA
-      23 lightgrey       0.5        1    NA
-      24 lightgrey       0.5        1    NA
-      25 lightgrey       0.5        1    NA
-      26 lightgrey       0.5        1    NA
-      27 lightgrey       0.5        1    NA
-      28 lightgrey       0.5        1    NA
-      29 lightgrey       0.5        1    NA
-      30 lightgrey       0.5        1    NA
+          x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1   3 -1.67315     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      2   4 -1.67315     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      3   5 -1.67123     1     5 -Inf  Inf    0    0     NA lightgrey       0.5
+      4   6 -1.83268     1     6 -Inf  Inf    0    0     NA lightgrey       0.5
+      5   7 -1.81926     1     7 -Inf  Inf    0    0     NA lightgrey       0.5
+      6   8 -1.70351     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      7   9 -1.70351     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  10 -1.87018     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  16 -1.99467     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 17 -1.29927     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+      11  8  2.88621     1     8 -Inf  Inf    0    0     NA lightgrey       0.5
+      12  9  2.88621     1     9 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 10  3.07768     1    10 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 11  2.91101     1    11 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 12  3.07768     1    12 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 13  3.07768     1    13 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 14  3.08451     1    14 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 15  2.94648     1    15 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 16  3.44646     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 17  1.08938     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+      21  1  1.53767     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22  2  1.53767     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      23  3  1.49011     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      24  4  1.49011     1     4 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 12 -1.54083     1    12 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 13 -1.70750     1    13 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 14 -1.70750     1    14 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 15 -1.45179     1    15 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 16 -1.45179     1    16 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 17 -0.20961     1    17 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
       
       
       $.all_cats$d1$gear
       $.all_cats$d1$gear$overlay
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.118437865     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2  0.001975945     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 3 -0.330118650     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 1 -0.238915351     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 2  0.247194038     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 3  0.379947472     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7 1  0.120477486     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8 2 -0.249169983     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9 3 -0.049828823     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
-      7 lightgrey       0.5        1    NA
-      8 lightgrey       0.5        1    NA
-      9 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.11844     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00198     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.33012     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 1 -0.23892     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 2  0.24719     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      6 3  0.37995     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      7 1  0.12048     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8 2 -0.24917     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      9 3 -0.04983     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
+      6        1    NA
+      7        1    NA
+      8        1    NA
+      9        1    NA
       
       $.all_cats$d1$gear$facet
-        x            y PANEL group xmin xmax         ymin         ymax colour
-      1 1  0.118437865     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2 2  0.001975945     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3 3 -0.330118650     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4 1 -0.238915351     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5 2  0.247194038     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6 3  0.379947472     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7 1  0.120477486     1     1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8 2 -0.249169983     1     2 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9 3 -0.049828823     1     3 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-             fill linewidth linetype alpha
-      1 lightgrey       0.5        1    NA
-      2 lightgrey       0.5        1    NA
-      3 lightgrey       0.5        1    NA
-      4 lightgrey       0.5        1    NA
-      5 lightgrey       0.5        1    NA
-      6 lightgrey       0.5        1    NA
-      7 lightgrey       0.5        1    NA
-      8 lightgrey       0.5        1    NA
-      9 lightgrey       0.5        1    NA
+        x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1 1  0.11844     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2 2  0.00198     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      3 3 -0.33012     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      4 1 -0.23892     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5 2  0.24719     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      6 3  0.37995     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+      7 1  0.12048     1     1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8 2 -0.24917     1     2 -Inf  Inf    0    0     NA lightgrey       0.5
+      9 3 -0.04983     1     3 -Inf  Inf    0    0     NA lightgrey       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
+      4        1    NA
+      5        1    NA
+      6        1    NA
+      7        1    NA
+      8        1    NA
+      9        1    NA
       
       
       $.all_cats$d1$carb
       $.all_cats$d1$carb$overlay
-         x             y PANEL group xmin xmax         ymin         ymax colour
-      1  1  5.489234e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2  2 -1.898356e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3  3 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4  4 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5  8 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6  1 -5.489341e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7  2  1.898392e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  3  1.898401e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  4  1.898401e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 8  1.898406e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11 1  1.076012e-07     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12 2 -3.593977e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 3 -3.594863e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 4 -3.594873e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 8 -4.130468e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
+         x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1  0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  2 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  3 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  4 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  8 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  1 -0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  2  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  4  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 8  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 1  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 2  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 3  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 4  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 8  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
       
       $.all_cats$d1$carb$facet
-         x             y PANEL group xmin xmax         ymin         ymax colour
-      1  1  5.489234e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      2  2 -1.898356e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      3  3 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      4  4 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      5  8 -1.898365e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      6  1 -5.489341e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      7  2  1.898392e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      8  3  1.898401e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      9  4  1.898401e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      10 8  1.898406e-03     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      11 1  1.076012e-07     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      12 2 -3.593977e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      13 3 -3.594863e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      14 4 -3.594873e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-      15 8 -4.130468e-08     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14     NA
-              fill linewidth linetype alpha
-      1  lightgrey       0.5        1    NA
-      2  lightgrey       0.5        1    NA
-      3  lightgrey       0.5        1    NA
-      4  lightgrey       0.5        1    NA
-      5  lightgrey       0.5        1    NA
-      6  lightgrey       0.5        1    NA
-      7  lightgrey       0.5        1    NA
-      8  lightgrey       0.5        1    NA
-      9  lightgrey       0.5        1    NA
-      10 lightgrey       0.5        1    NA
-      11 lightgrey       0.5        1    NA
-      12 lightgrey       0.5        1    NA
-      13 lightgrey       0.5        1    NA
-      14 lightgrey       0.5        1    NA
-      15 lightgrey       0.5        1    NA
+         x        y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1  0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  2 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  3 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  4 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  8 -0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  1 -0.00549     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  2  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  4  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 8  0.00190     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 1  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 2  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 3  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 4  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 8  0.00000     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
       
       
       $.all_cats$d1$wt
       $.all_cats$d1$wt$overlay
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275  2.589681e-05     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      2  1.925991  3.346877e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      3  2.314067 -7.391920e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      4  2.779004 -7.391922e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      5  3.160130 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      6  3.219684 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      7  3.440000 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      8  3.558601 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      9  3.794139 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      10 4.070000 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      11 5.453272 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      12 1.498275 -2.589756e-05     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      13 1.925991 -3.347122e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      14 2.314067  7.391717e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      15 2.779004  7.391719e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      16 3.160130  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      17 3.219684  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      18 3.440000  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      19 3.558601  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      20 3.794139  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      21 4.070000  7.396801e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      22 5.453272  7.396801e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      23 1.498275  7.564915e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      24 1.925991  2.448657e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      25 2.314067  2.029998e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      26 2.779004  2.029988e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      27 3.160130  2.029961e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      28 3.219684  2.030138e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      29 3.440000  2.035025e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      30 3.558601  2.036465e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      31 3.794139  2.036101e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      32 4.070000  2.036110e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      33 5.453272  2.036069e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
-      12     NA lightgrey       0.5        1    NA
-      13     NA lightgrey       0.5        1    NA
-      14     NA lightgrey       0.5        1    NA
-      15     NA lightgrey       0.5        1    NA
-      16     NA lightgrey       0.5        1    NA
-      17     NA lightgrey       0.5        1    NA
-      18     NA lightgrey       0.5        1    NA
-      19     NA lightgrey       0.5        1    NA
-      20     NA lightgrey       0.5        1    NA
-      21     NA lightgrey       0.5        1    NA
-      22     NA lightgrey       0.5        1    NA
-      23     NA lightgrey       0.5        1    NA
-      24     NA lightgrey       0.5        1    NA
-      25     NA lightgrey       0.5        1    NA
-      26     NA lightgrey       0.5        1    NA
-      27     NA lightgrey       0.5        1    NA
-      28     NA lightgrey       0.5        1    NA
-      29     NA lightgrey       0.5        1    NA
-      30     NA lightgrey       0.5        1    NA
-      31     NA lightgrey       0.5        1    NA
-      32     NA lightgrey       0.5        1    NA
-      33     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828  3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 1.49828 -3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 2.31407  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 2.77900  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 3.16013  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 3.21968  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 3.44000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 3.55860  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 3.79414  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 4.07000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 5.45327  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 1.49828  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 2.31407  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 2.77900  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 3.16013  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 3.21968  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 3.44000  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 3.55860  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 3.79414  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 4.07000  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 5.45327  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
       
       $.all_cats$d1$wt$facet
-                x             y PANEL group xmin xmax         ymin         ymax
-      1  1.498275  2.589681e-05     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      2  1.925991  3.346877e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      3  2.314067 -7.391920e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      4  2.779004 -7.391922e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      5  3.160130 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      6  3.219684 -7.397001e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      7  3.440000 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      8  3.558601 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      9  3.794139 -7.397002e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      10 4.070000 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      11 5.453272 -7.397004e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      12 1.498275 -2.589756e-05     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      13 1.925991 -3.347122e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      14 2.314067  7.391717e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      15 2.779004  7.391719e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      16 3.160130  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      17 3.219684  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      18 3.440000  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      19 3.558601  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      20 3.794139  7.396798e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      21 4.070000  7.396801e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      22 5.453272  7.396801e-06     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      23 1.498275  7.564915e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      24 1.925991  2.448657e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      25 2.314067  2.029998e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      26 2.779004  2.029988e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      27 3.160130  2.029961e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      28 3.219684  2.030138e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      29 3.440000  2.035025e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      30 3.558601  2.036465e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      31 3.794139  2.036101e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      32 4.070000  2.036110e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-      33 5.453272  2.036069e-10     1    -1 -Inf  Inf 1.197351e-14 2.637804e-14
-         colour      fill linewidth linetype alpha
-      1      NA lightgrey       0.5        1    NA
-      2      NA lightgrey       0.5        1    NA
-      3      NA lightgrey       0.5        1    NA
-      4      NA lightgrey       0.5        1    NA
-      5      NA lightgrey       0.5        1    NA
-      6      NA lightgrey       0.5        1    NA
-      7      NA lightgrey       0.5        1    NA
-      8      NA lightgrey       0.5        1    NA
-      9      NA lightgrey       0.5        1    NA
-      10     NA lightgrey       0.5        1    NA
-      11     NA lightgrey       0.5        1    NA
-      12     NA lightgrey       0.5        1    NA
-      13     NA lightgrey       0.5        1    NA
-      14     NA lightgrey       0.5        1    NA
-      15     NA lightgrey       0.5        1    NA
-      16     NA lightgrey       0.5        1    NA
-      17     NA lightgrey       0.5        1    NA
-      18     NA lightgrey       0.5        1    NA
-      19     NA lightgrey       0.5        1    NA
-      20     NA lightgrey       0.5        1    NA
-      21     NA lightgrey       0.5        1    NA
-      22     NA lightgrey       0.5        1    NA
-      23     NA lightgrey       0.5        1    NA
-      24     NA lightgrey       0.5        1    NA
-      25     NA lightgrey       0.5        1    NA
-      26     NA lightgrey       0.5        1    NA
-      27     NA lightgrey       0.5        1    NA
-      28     NA lightgrey       0.5        1    NA
-      29     NA lightgrey       0.5        1    NA
-      30     NA lightgrey       0.5        1    NA
-      31     NA lightgrey       0.5        1    NA
-      32     NA lightgrey       0.5        1    NA
-      33     NA lightgrey       0.5        1    NA
+               x      y PANEL group xmin xmax ymin ymax colour      fill linewidth
+      1  1.49828  3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  2.31407 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  2.77900 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  3.16013 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  3.21968 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  3.44000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  3.55860 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  3.79414 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 4.07000 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 5.45327 -1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 1.49828 -3e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 2.31407  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 2.77900  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 3.16013  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 3.21968  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 3.44000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 3.55860  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 3.79414  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 4.07000  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 5.45327  1e-05     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 1.49828  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 1.92599  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 2.31407  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 2.77900  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 3.16013  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 3.21968  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 3.44000  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 3.55860  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 3.79414  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 4.07000  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 5.45327  0e+00     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
       
       
       
@@ -64774,7 +64769,9 @@
 ---
 
     Code
-      capture.output(print(cat_cars_ale))
+      {
+        x
+      }
     Output
       [1] "<ALE> object of a <multinom/nnet> model that predicts `continent` (a categorical outcome) from a 64-row by 8-column dataset."                                                                                 
       [2] "ALE data, statistics, surrogate p-values, and raw bootstrap data are provided for the following terms:"                                                                                                       

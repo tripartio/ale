@@ -49,12 +49,21 @@ An example of the list format would be:
 An object of class \code{ALEPlots} with properties \code{plots} and \code{params}.
 }
 \description{
-An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{ModelBoot} objects stored as \code{ggplot} objects. The \code{ALEPlots} constructor creates all possible plots from the \code{ALE} or \code{ModelBoot} passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an \code{ALEPlots} object is a collection of plots, almost never a single plot. To retrieve specific plots, use the \code{\link[=get.ALEPlots]{get.ALEPlots()}} method. See the examples with the \code{\link[=ALE]{ALE()}} and \code{\link[=ModelBoot]{ModelBoot()}} objects for how to manipulate \code{ALEPlots} objects.
+An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{ModelBoot} objects stored as \code{ggplot} objects. The \code{ALEPlots} constructor creates all possible plots from the \code{ALE} or \code{ModelBoot} passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an \code{ALEPlots} object is a collection of plots, almost never a single plot. To retrieve specific plots, use the \link[=get-ALEPlots-method]{get() method}. See the examples with the \code{\link[=ALE]{ALE()}} and \code{\link[=ModelBoot]{ModelBoot()}} objects for how to manipulate \code{ALEPlots} objects.
 }
+\section{Methods}{
+
+\code{ALEPlots} objects support \link[=get-ALEPlots-method]{get()},
+\link[=plot-ALEPlots-method]{plot()}, \link[=print-ALEPlots-method]{print()},
+\link[=subset-ALEPlots-method]{subset()}, and
+\link[=summary-ALEPlots-method]{summary()}. Each method topic documents its
+complete signature and class-specific arguments.
+}
+
 \section{Properties}{
 
 \describe{
-\item{plots}{Stores the ALE plots. Use \code{\link[=get.ALEPlots]{get.ALEPlots()}} to access them.}
+\item{plots}{Stores the ALE plots. Use the \link[=get-ALEPlots-method]{get() method} to access them.}
 \item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the \code{ALEPlots} object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{* `y_col`, `y_cats`: See documentation for [ALE()]

@@ -25,12 +25,12 @@ test_that("calc_stats basic usage", {
 
   # Default numeric x
   calc_stats(test_y, test_bin_n, test_y_vals) |>
-    expect_snapshot()
+    expect_snap_variant()
 
   # Binary x
   binary_y_vals <- (test_y_vals - min(test_y_vals)) / (max(test_y_vals) - min(test_y_vals))
   calc_stats(test_y, test_bin_n, binary_y_vals, x_type = 'binary') |>
-    expect_snapshot()
+    expect_snap_variant()
 
 
   # calc_stats triggers else condition for pre_median (median == max) in create_ale_y_norm_function
@@ -41,6 +41,6 @@ test_that("calc_stats basic usage", {
     # This triggers both else arms: pre_median = 0, post_median = 0
     y_vals = rep(mean(test_y_vals), length(test_y_vals))
   ) |>
-    expect_snapshot()
+    expect_snap_variant()
 })
 
