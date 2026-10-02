@@ -1,4 +1,17 @@
 url: https://tripartio.github.io/ale/
+
 template:
   bootstrap: 5
 
+articles:
+- title: Getting started
+  contents:
+  - ale-intro
+  - articles/ale-statistics
+
+- title: Examples
+  contents:
+  - articles/ale-x-datatypes
+  - articles/ale-small-datasets
+  - articles/ale-adcc-con
+  - articles/ale-gomez-rice
