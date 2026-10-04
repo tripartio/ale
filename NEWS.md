@@ -61,7 +61,7 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 
 ## Under the hood
 
-We now use [OpenAI Codex](https://chatgpt.com/codex/) to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
+We now use OpenAI Codex to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
 
 
 # ale (0.5.3)
