@@ -95,9 +95,9 @@ gam_diamonds <- mgcv::gam(
 summary(gam_diamonds)
 ```
 
-## `ALE` object for ALE data
+## Creating an `ALE` object
 
-The core object in the `{ale}` package is the `{S7}` `ALE` object. `effect` stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories. The first argument to the `ALE()` constructor is a model object--any R model object that can generate numeric predictions is acceptable. By default, it generates 1D (or "first order") ALE on all the variables in the dataset that was used to train the model, if the dataset is included in the model object. If not, the dataset can be specified with the `data` argument. It can optionally create ALE only for specified variables and interactions using the `x_cols` argument. To change these options (e.g., to calculate ALE for only a subset of variables; to output the data only or to use a custom predict function for the model), see details in the help file for the object: `help(ALE)`. In this introduction, we only demonstrate The basics of retrieving and plotting ALE data. For details on ALE statistics see [the dedicated vignette](ale-statistics.html "ALE-based statistics") on that topic.
+The core object in the `{ale}` package is the `{S7}` `ALE` object. Its `effect` property stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more outcome categories. The first argument to the `ALE()` constructor is a model object--any R model object that can generate numeric predictions is acceptable. By default, `ALE()` calculates 1D (or "first-order") ALE for every predictor in the model's training data. Models such as `mgcv::gam` retain their training data, so neither `data` nor the outcome column needs to be supplied here. For models that do not retain this information, specify `data` and, if it cannot be detected, `y_col` explicitly.
 
 ```{r parallel}
 # For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
@@ -130,6 +130,9 @@ ale_gam_diamonds <- serialized_objects_site |>
   url() |> 
   readRDS()
 
+# Print a statistical summary of the ALE object
+summary(ale_gam_diamonds)
+
 ```
 
 ```{r ale_simple-rds, eval=TRUE, echo=FALSE}
@@ -147,9 +150,12 @@ ale_gam_diamonds <- retrieve_rds(
   }
 )
 # saveRDS(ale_gam_diamonds, file.choose())
+
+# Print a statistical summary of the ALE object
+summary(ale_gam_diamonds)
 ```
 
-
+The `summary()` method reports the model and data represented by the object, followed by its ALE statistics and statistically significant confidence regions when available. It returns the `ALE` object invisibly, so it is intended for inspection rather than data extraction. The default constructor calculates ALE statistics, although p-values and their confidence regions are not calculated unless p-values are supplied or generated during bootstrapping. See the [ALE statistics vignette](ale-statistics.html "ALE-based statistics") for their interpretation.
 
 Most core functions in the `{ale}` package support parallel processing. You can enable parallelization globally with `options(ale.parallel = x)`, where "x" is the number of CPU cores you want to use. It can also be enabled for specific function runs with the `parallel` argument. Parallelization is disabled by default with `parallel = 0`. See the documentation for `ALE()` for details.
 
@@ -174,6 +180,28 @@ To display all the ALE plots in an `ALEPlots` object, we can simply call its `pr
 plot(diamonds_plots, ncol = 2)
 ```
 
+## Selecting variables and interactions
+
+The `x_cols` argument controls the effects that `ALE()` calculates. Its list syntax can request 1D effects, 2D interactions, or both in the same object. For example, the following requests every 1D effect and only the interaction between `carat` and `clarity`:
+
+```r
+ALE(
+  gam_diamonds,
+  x_cols = list(d1 = TRUE, d2 = "carat:clarity")
+)
+```
+
+Formula syntax is convenient when selecting particular effects. Terms on their own request 1D ALE, while terms joined by `:` request 2D ALE:
+
+```r
+ALE(
+  gam_diamonds,
+  x_cols = ~ carat + cut + clarity + carat:clarity + color:depth_pct
+)
+```
+
+These formats can be combined with other selection options. See `help(resolve_x_cols)` for the complete set of formats, including ways to request all interactions involving a particular variable and to exclude variables.
+
 ## Bootstrapped ALE
 
 One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was trained. As mentioned above, this assumes that IML analysis is carried out on a model whose hyperparameters were determined by cross-validation. When samples are too small for cross-validation, we provide a different approach by bootstrapping the entire model with a `ModelBoot` object, explained in the vignette for [small datasets](ale-small-datasets.html "ale package for small datasets").
@@ -189,6 +217,8 @@ We create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a
 # # there is no need to specify the data argument.
 # ale_gam_diamonds_boot <- ALE(
 #   gam_diamonds,
+#   # Request all 1D effects and one specific 2D interaction.
+#   x_cols = list(d1 = TRUE, d2 = "carat:clarity"),
 #   boot_it = 100
 # )
 
@@ -213,6 +243,8 @@ ale_gam_diamonds_boot <- retrieve_rds(
     # there is no need to specify the data argument.
     ALE(
       gam_diamonds,
+      # Request all 1D effects and one specific 2D interaction.
+      x_cols = list(d1 = TRUE, d2 = "carat:clarity"),
       boot_it = 100
     )
   }
@@ -227,62 +259,129 @@ plot(ale_gam_diamonds_boot) |>
 
 In this case, the bootstrapped results are mostly similar to single (non-bootstrapped) ALE results. In principle, we should always bootstrap the results and trust only in bootstrapped results. The most unusual result is that values of `x_length` (the length of the diamond) from 6.2 mm or so and higher are associated with lower diamond prices. When we compare this with the `y_width` value (width of the diamond), we suspect that when both the length and width (that is, the size) of a diamond become increasingly large, the price increases so much more rapidly with the width than with the length that the width has an inordinately high effect that is tempered by a decreased effect of the length at those high values. This would be worth further exploration for real analysis, but here we are just introducing the key features of the package.
 
+By default, requesting bootstrapping while retaining ALE statistics also asks `ALE()` to generate fast surrogate p-values. These are useful for exploratory analysis but should not be used for definitive or published conclusions. See `help(ALEpDist)` and the [ALE statistics vignette](ale-statistics.html) for more rigorous options.
+
 ## ALE interactions
 
-Another advantage of ALE is that it provides data for 2D interactions between variables. This is also implemented with the `ALE()` constructor. When the `d2` element of the `x_cols` list argument is set to `TRUE`, `ALE()` generates ALE data on all possible 2D interactions from the input dataset. To change the default options (e.g., to calculate interactions for only certain pairs of variables), see details in the help file for the object: `help(ALE)`.
-
-```{r ale_2D, eval=FALSE, echo=TRUE}
-# ALE two-way interactions
-
-# # To run the slow code yourself, uncomment and execute this code block directly.
-# ale_2D_gam_diamonds <- ALE(
-#   gam_diamonds,
-#   x_cols = list(d2 = TRUE)
-# )
-
-ale_2D_gam_diamonds <- serialized_objects_site |> 
-  file.path('ale_2D_gam_diamonds.0.5.2.rds') |>
-  url() |> 
-  readRDS()
-
-```
-
-```{r ale_2D-rds, eval=TRUE, echo=FALSE}
-# ALE two-way interactions
-
-ale_2D_gam_diamonds <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_2D_gam_diamonds.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      x_cols = list(d2 = TRUE)
-    )
-  }
-)
-# saveRDS(ale_2D_gam_diamonds, file.choose())
-
-```
-
-
-The `plot()` method similarly creates 2D ALE plots from the `ALE` object. The `subset()` method of `ALEPlots` extracts a new `ALEPlots` object with only the selected variables or interaction terms:
-
-```{r print-all-2D, fig.width=7, fig.height=7}
-diamonds_2D_plots <- plot(ale_2D_gam_diamonds)
-
-diamonds_2D_plots |>
-  # Select all 2D interactions that involve 'carat'
-  subset(list(d2_all = 'carat')) |> 
-  print(ncol = 2)
-```
-
-Because we are printing all plots together, some of them might appear vertically distorted because each plot is forced to be of the same height. For more fine-tuned presentation, we would need to refer to a specific plot. The `ale` package supports the standard R formula notation for specifying variables. For example, we can print the interaction plot between carat and depth by referring to it thus: `get(diamonds_2D_plots, ~ carat:clarity)`.
+Another advantage of ALE is that it provides data for 2D interactions between variables. Because the bootstrapped object contains the selected `carat:clarity` interaction as well as all 1D effects, the same `ALEPlots` object provides both kinds of plots. The `get()` method accepts either a character term or standard R formula notation:
 
 ```{r print-specific-ixn, fig.width=5, fig.height=3}
-get(diamonds_2D_plots, ~ carat:clarity)
+get(plot(ale_gam_diamonds_boot), ~ carat:clarity)
 ```
 
 This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all being grey, the middle range of data. In the plots, the darker squares indicate the relative percentage of actual data in each interaction intersection. So, there is very little actual data for 0.2 carats; there is much more higher carat ranges.
 
-Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course `x_length` and `y_width` both have effects on the price, as the one-way ALE plots show, but their interaction has no additional composite effect.
+Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. Two predictors can each have strong one-way effects without their combination having an additional interaction effect.
+
+## Custom prediction functions
+
+`ALE()` normally calls a model's `predict()` method with `type = "response"`. For some models, selecting another supported prediction type is sufficient. If the desired predictions require a different call or return structure, supply a custom `pred_fun`. It must accept `object`, `newdata`, and `type`, and return a numeric vector or matrix. Here, we request GAM predictions on the link scale and extract the fitted values from the richer result returned when standard errors are requested:
+
+```{r ale_custom, eval=FALSE, echo=TRUE}
+custom_predict <- function(object, newdata, type = pred_type) {
+  predict(object, newdata, type = type, se.fit = TRUE)$fit
+}
+
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# ale_gam_diamonds_custom <- ALE(
+#   gam_diamonds,
+#   pred_fun = custom_predict,
+#   pred_type = "link"
+# )
+
+ale_gam_diamonds_custom <- serialized_objects_site |>
+  file.path("ale_gam_diamonds_custom.0.5.2.rds") |>
+  url() |>
+  readRDS()
+
+plot(ale_gam_diamonds_custom)
+```
+
+```{r ale_custom-rds, eval=TRUE, echo=FALSE}
+custom_predict <- function(object, newdata, type = pred_type) {
+  predict(object, newdata, type = type, se.fit = TRUE)$fit
+}
+
+ale_gam_diamonds_custom <- retrieve_rds(
+  c(serialized_objects_site, "ale_gam_diamonds_custom.0.5.2.rds"),
+  {
+    ALE(
+      gam_diamonds,
+      pred_fun = custom_predict,
+      pred_type = "link"
+    )
+  }
+)
+
+plot(ale_gam_diamonds_custom)
+```
+
+The ALE values in this object are expressed on the requested link scale rather than the default response scale. A custom function is especially useful for model classes whose prediction method has a non-standard signature or returns a structured object.
+
+## Retrieving ALE data and statistics
+
+Plots are useful for interpretation, but the `get()` method retrieves the underlying data for further analysis. To demonstrate all of its principal outputs, we create a smaller selection of 1D and 2D effects, run ten bootstrap iterations, and retain the otherwise-discarded iteration-level data with `output_boot_data = TRUE`:
+
+```{r ale_boot_data, eval=FALSE, echo=TRUE}
+# # To run the slow code yourself, uncomment and execute this code block directly.
+# ale_diamonds_with_boot_data <- ALE(
+#   gam_diamonds,
+#   x_cols = ~ carat + cut + clarity + carat:clarity + color:depth_pct,
+#   output_boot_data = TRUE,
+#   boot_it = 10
+# )
+
+ale_diamonds_with_boot_data <- serialized_objects_site |>
+  file.path("ale_diamonds_with_boot_data.0.5.2.rds") |>
+  url() |>
+  readRDS()
+```
+
+```{r ale_boot_data-rds, eval=TRUE, echo=FALSE}
+ale_diamonds_with_boot_data <- retrieve_rds(
+  c(serialized_objects_site, "ale_diamonds_with_boot_data.0.5.2.rds"),
+  {
+    ALE(
+      gam_diamonds,
+      x_cols = ~ carat + cut + clarity + carat:clarity + color:depth_pct,
+      output_boot_data = TRUE,
+      boot_it = 10
+    )
+  }
+)
+```
+
+By default, `get()` returns ALE data. A formula can limit the result to selected 1D and 2D terms:
+
+```{r get_ale_data}
+get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)
+```
+
+Because this object was constructed with `output_boot_data = TRUE`, the raw results from individual bootstrap iterations are also available:
+
+```{r get_boot_data}
+get(ale_diamonds_with_boot_data, what = "boot_data")
+```
+
+The `stats` argument retrieves different summaries of the effects:
+
+```{r get_ale_stats}
+# Estimates for every available statistic
+get(ale_diamonds_with_boot_data, stats = "estimate")
+
+# Complete results for selected statistics
+get(ale_diamonds_with_boot_data, stats = c("aled", "naler"))
+
+# Complete results for all available statistics
+get(ale_diamonds_with_boot_data, stats = "all")
+
+# All confidence regions, or only statistically significant regions
+get(ale_diamonds_with_boot_data, stats = "conf_regions")
+get(ale_diamonds_with_boot_data, stats = "conf_sig")
+```
+
+These calls return data rather than plots: `"estimate"` provides a compact overview, named statistics return their estimates and inferential details, and the confidence-region options identify portions of an ALE curve or surface that exceed the relevant threshold. See `help("get-ALE-method")` for the precise return structures and the [ALE statistics vignette](ale-statistics.html) before drawing inferential conclusions.
+
+## Where to go next
+
+This introduction has covered the main `ALE()` workflow: default effects, selected 1D and 2D terms, bootstrapping, custom prediction functions, plotting, and data extraction. The other vignettes cover [ALE-based statistical inference](ale-statistics.html), [different predictor datatypes](ale-x-datatypes.html), and [small datasets and full-model bootstrapping](ale-small-datasets.html). For exhaustive argument and selection details, see `help(ALE)`, `help(resolve_x_cols)`, and `help("get-ALE-method")`.
