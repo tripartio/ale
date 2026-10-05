@@ -2959,6 +2959,11 @@
       [1] "multinom" "nnet"    
       
       
+      $params$p_values$params$data
+      # A tibble: 0 x 8
+      # i 8 variables: mpg <dbl>, vs <lgl>, continent <fct>, am <lgl>, model <chr>,
+      #   gear <ord>, carb <int>, wt <dbl>
+      
       $params$p_values$params$y_col
       [1] "continent"
       
@@ -2980,11 +2985,17 @@
       $params$p_values$params$positive
       [1] TRUE
       
+      $params$p_values$params$pred_type
+      [1] "probs"
+      
       $params$p_values$params$aled_fun
       [1] "mad"
       
       $params$p_values$params$seed
       [1] 0
+      
+      $params$p_values$params$n_rows
+      [1] 64
       
       $params$p_values$params$rand_it_ok
       [1] 100
@@ -2994,7 +3005,7 @@
       
       
       
-      $params$require_same_p
+      $params$require_p_model_match
       [1] TRUE
       
       $params$aler_alpha

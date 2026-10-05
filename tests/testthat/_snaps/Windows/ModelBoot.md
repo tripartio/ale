@@ -504,7 +504,7 @@
       $ale$single$params$p_values
       NULL
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha
@@ -1232,6 +1232,11 @@
       [1] "gam" "glm" "lm" 
       
       
+      $ale$single$params$p_values$params$data
+      # A tibble: 0 x 8
+      # i 8 variables: mpg <dbl>, vs <lgl>, continent <fct>, am <lgl>, model <chr>,
+      #   gear <ord>, carb <int>, wt <dbl>
+      
       $ale$single$params$p_values$params$y_col
       [1] "vs"
       
@@ -1253,11 +1258,17 @@
       $ale$single$params$p_values$params$positive
       [1] TRUE
       
+      $ale$single$params$p_values$params$pred_type
+      [1] "response"
+      
       $ale$single$params$p_values$params$aled_fun
       [1] "mad"
       
       $ale$single$params$p_values$params$seed
       [1] 0
+      
+      $ale$single$params$p_values$params$n_rows
+      [1] 64
       
       $ale$single$params$p_values$params$rand_it_ok
       [1] 100
@@ -1267,7 +1278,7 @@
       
       
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha
@@ -1595,6 +1606,11 @@
       [1] "gam" "glm" "lm" 
       
       
+      $params$ale_p$params$data
+      # A tibble: 0 x 8
+      # i 8 variables: mpg <dbl>, vs <lgl>, continent <fct>, am <lgl>, model <chr>,
+      #   gear <ord>, carb <int>, wt <dbl>
+      
       $params$ale_p$params$y_col
       [1] "vs"
       
@@ -1616,11 +1632,17 @@
       $params$ale_p$params$positive
       [1] TRUE
       
+      $params$ale_p$params$pred_type
+      [1] "response"
+      
       $params$ale_p$params$aled_fun
       [1] "mad"
       
       $params$ale_p$params$seed
       [1] 0
+      
+      $params$ale_p$params$n_rows
+      [1] 64
       
       $params$ale_p$params$rand_it_ok
       [1] 100
@@ -2252,7 +2274,7 @@
       $ale$single$params$p_values
       NULL
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha

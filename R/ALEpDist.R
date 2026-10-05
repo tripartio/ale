@@ -49,6 +49,9 @@
 #'     Parameters used to generate p-value distributions. Most of these repeat selected arguments passed to `ALEpDist()`. These are either values provided by the user or used by default if the user did not change them but the following additional or modified objects are notable:
 #'
 #'     * `model`: selected elements that describe the `model` used to generate the random distributions.
+#'     * `data`: a zero-row tibble retaining the column names and datatypes of the original input data, without storing observations.
+#'     * `n_rows`: the number of rows in the original input data, before any surrogate subsampling.
+#'     * `y_col`, `pred_type`: the original outcome column and requested prediction type, before any surrogate changes. Together with `model` and the data metadata, these are used by `ALE()` when `require_p_model_match = TRUE`.
 #'     * `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
 #'     * `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
 #'     * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model. `'invalid'` if `rand_it_ok < 100`.
@@ -346,6 +349,8 @@ ALEpDist <- new_class(
 
     # Capture model paramaters early because they might be changed for surrogates
     params$model <- params_model(model)
+    params$data <- data[0, , drop = FALSE] |> dplyr::as_tibble()
+    params$n_rows <- nrow(data)
 
     ## Begin main code -------------
 
@@ -663,8 +668,8 @@ ALEpDist <- new_class(
       names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
-      'data', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
-      'pred_type', 'silent', 'surrogate', 'val_pll', 'val_pred', 'y_preds'
+      'model_call', 'output_residuals', 'pred_fun',
+      'silent', 'surrogate', 'val_pll', 'val_pred', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
@@ -832,4 +837,3 @@ invert_probs_p <- function(
 
   return(p_obj)
 }
-

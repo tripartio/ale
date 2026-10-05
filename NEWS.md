@@ -44,11 +44,15 @@ The numbering system described above is used for packages released to CRAN. For 
 
 We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
 
+* `ALE()` now checks the outcome column, prediction type, and input column names when accepting an `ALEpDist` distribution, in addition to the model identity. Different row counts produce a warning. `ALEpDist` retains only a zero-row tibble and row count for this check, along with the original prediction settings, including for surrogates. Older distributions missing this metadata give a clear error.
+
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
 * Use `parallelly::availableCores()` directly in preparation for its re-export being removed from `{future}`. The `{future}` and `{parallelly}` packages are now suggested dependencies because both are required dependencies of the imported `{furrr}` package (#18).
 * Handle missing 1D ALE bins during model bootstrapping (#19).
 
 ## Changed functionality
+
+* The `require_same_p` argument of `ALE()` has been renamed to `require_p_model_match` without a compatibility alias. Setting it to `FALSE` disables all p-value compatibility checks and related warnings.
 
 * `max_num_bins` now creates `n+1` bins instead of exactly the specified `n` bins. The bottom bin is reserved for the minimum value in the data. This is a reversion to the original behaviour of the reference {ALEPlot} package.
 * Parallelization has been disabled by default (`parallel` = 0) (#16).

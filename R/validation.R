@@ -37,6 +37,54 @@ validate_data <- function(
 }
 
 
+# Check p-value distributions against their original inputs, including surrogates.
+validate_p_model_match <- function(p_values, model, data, y_col, pred_type) {
+  pp <- p_values@params
+  validate(
+    is_string(pp$y_col),
+    is_string(pp$pred_type),
+    inherits(pp$data, 'tbl_df'),
+    is_scalar_whole(pp$n_rows),
+    is.list(pp$model),
+    !is.null(pp$model$class),
+    is_string(pp$model$hash),
+    msg = c(
+      x = 'The {.cls ALEpDist} object supplied as {.arg p_values} lacks the metadata required to check compatibility.',
+      i = 'Regenerate it with the current version of {.fun ALEpDist}, or set {.arg require_p_model_match} to {.val FALSE} to disable compatibility checks.'
+    )
+  )
+
+  pm <- params_model(model)
+  validate(
+    isTRUE(all.equal(pm$class, pp$model$class)),
+    identical(pm$hash, pp$model$hash),
+    msg = c(
+      x = 'The {.arg p_values} distribution was generated from a different model from the present one.',
+      i = 'If this is deliberate (e.g., with bootstrapping), set {.arg require_p_model_match} to {.val FALSE}.'
+    )
+  )
+  validate(
+    identical(y_col, pp$y_col),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg y_col}: {.val {pp$y_col}} rather than {.val {y_col}}.'
+  )
+  validate(
+    identical(pred_type, pp$pred_type),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg pred_type}: {.val {pp$pred_type}} rather than {.val {pred_type}}.'
+  )
+  validate(
+    setequal(names(data), names(pp$data)),
+    msg = 'The original data for {.arg p_values} has different column names from {.arg data}.'
+  )
+  if (nrow(data) != pp$n_rows) {
+    cli_warn(c(
+      'The original data for {.arg p_values} has {pp$n_rows} rows, but {.arg data} has {nrow(data)} rows.',
+      i = 'The data might be compatible, but it is not identical.'
+    ))
+  }
+  invisible(NULL)
+}
+
+
 # Validate y_col.
 # If y_col is NULL, try to automatically detect it.
 validate_y_col <- function(

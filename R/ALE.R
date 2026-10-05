@@ -26,7 +26,7 @@
 #' * `NULL`: p-values are not calculated.
 #' * An `ALEpDist` object: the object will be used to calculate p-values.
 #' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
-#' @param require_same_p logical(1). If `TRUE` (default), `p_values` must be generated with exactly the same `model` object, even in the case of surrogate p-values. Only disable this option with `FALSE` if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.
+#' @param require_p_model_match logical(1). If `TRUE` (default), `p_values` must be generated with exactly the same `model` object, `y_col`, and `pred_type`, even in the case of surrogate p-values. The input data must have the same column names (column order may differ); a different number of rows is allowed with a warning that the data might be compatible but is not identical. Matching names and row counts do not establish that the data values are identical. Surrogate distributions are checked against their original input metadata. Older `ALEpDist` objects without the required metadata must be regenerated. Setting `FALSE` disables all these compatibility checks and warnings. Only disable this option if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.
 #' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
 #' @param aled_fun character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. `"mad"` is the mean absolute deviation; `"sd"` is the standard deviation. The default `NULL` will normally use `"mad"` except if an `ALEpDist` object is provided for `p_values`; in that case, the `aled_fun` is taken from the `ALEpDist` object.
 #' @param max_num_bins integer(1) > 1 or list. For numeric `x_cols`, this sets an upper bound on
@@ -213,7 +213,7 @@ ALE <- new_class(
     pred_fun = NULL,
     pred_type = 'response',
     p_values = 'auto',
-    require_same_p = TRUE,
+    require_p_model_match = TRUE,
     aler_alpha = c(0.01, 0.05),
     aled_fun = NULL,
     max_num_bins = 10L,
@@ -254,6 +254,7 @@ ALE <- new_class(
     )
 
     validate(is_string(pred_type))
+    validate(is_bool(require_p_model_match))
 
     # Validate the model:
     # A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector with length equal to the number of rows in the dataset.
@@ -340,21 +341,11 @@ ALE <- new_class(
               'i' = 'See {.fun ale::ALE} for instructions for obtaining p-values.'
             )
           )
-
-          if (require_same_p) {
-            # Ensure that p_values was generated using the exact same model as the present model.
-            # This applies to surrogate p-values, as well.
-            pm <- params_model(model)
-            validate(
-              all.equal(pm$class, p_values@params$model$class) |> isTRUE(),
-              pm$hash == p_values@params$model$hash,
-              msg = c(
-                x = 'It seems that {.arg p_values} was generated from a different model from the present one. An {.cls ALEpDist} object is only valid for one model trained on the same dataset:',
-                i = 'If you are sure this is not a problem (e.g., with bootstrapping), set {.arg require_same_p} to {.val FALSE}.'
-              )
-            )
-          }
         }  # nocov end
+
+        if (require_p_model_match && !is.null(p_values)) {
+          validate_p_model_match(p_values, model, data, y_col, pred_type)
+        }
       }  # if (!is.null(p_values))
     }
     else {
