@@ -504,7 +504,7 @@
       $ale$single$params$p_values
       NULL
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha
@@ -1253,6 +1253,9 @@
       $ale$single$params$p_values$params$positive
       [1] TRUE
       
+      $ale$single$params$p_values$params$pred_type
+      [1] "response"
+      
       $ale$single$params$p_values$params$aled_fun
       [1] "mad"
       
@@ -1267,7 +1270,7 @@
       
       
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha
@@ -1615,6 +1618,9 @@
       
       $params$ale_p$params$positive
       [1] TRUE
+      
+      $params$ale_p$params$pred_type
+      [1] "response"
       
       $params$ale_p$params$aled_fun
       [1] "mad"
@@ -2252,7 +2258,7 @@
       $ale$single$params$p_values
       NULL
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha

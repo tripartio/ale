@@ -746,7 +746,7 @@ ModelBoot <- new_class(
                       parallel = 0,  # do not parallelize at this inner level
                       boot_it = 0,  # do not bootstrap at this inner level
                       p_values = if (btit == 0) NULL else ale_p,
-                      require_same_p = FALSE,  # must be disabled for bootstrapping
+                      require_p_model_match = FALSE,  # must be disabled for bootstrapping
                       .bins = if (btit == 0) NULL else ale_bins,
                       silent = TRUE  # silence inner bootstrap loop
                     ),

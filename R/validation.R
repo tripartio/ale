@@ -37,6 +37,30 @@ validate_data <- function(
 }
 
 
+# Check p-value distributions against their original inputs, including surrogates.
+validate_p_model_match <- function(p_values, model, y_col, pred_type) {
+  pp <- p_values@params
+  pm <- params_model(model)
+  validate(
+    isTRUE(all.equal(pm$class, pp$model$class)),
+    identical(pm$hash, pp$model$hash),
+    msg = c(
+      x = 'The {.arg p_values} distribution was generated from a different model from the present one.',
+      i = 'If this is deliberate (e.g., with bootstrapping), set {.arg require_p_model_match} to {.val FALSE}.'
+    )
+  )
+  validate(
+    identical(y_col, pp$y_col),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg y_col}: {.val {pp$y_col}} rather than {.val {y_col}}.'
+  )
+  validate(
+    identical(pred_type, pp$pred_type),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg pred_type}: {.val {pp$pred_type}} rather than {.val {pred_type}}.'
+  )
+  invisible(TRUE)
+}
+
+
 # Validate y_col.
 # If y_col is NULL, try to automatically detect it.
 validate_y_col <- function(
