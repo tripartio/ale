@@ -202,143 +202,59 @@ The original \code{ALEPlot} reference implementation sorts factor levels based o
 
 \examples{
 
-# Load diamonds dataset with some cleanup
 library(dplyr)
-diamonds <- ggplot2::diamonds |>
-  filter(!(x == 0 | y == 0 | z == 0)) |>
-  # https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/
-  distinct(
-    price, carat, cut, color, clarity,
-    .keep_all = TRUE
+# Load co2 dataset with some cleanup
+co2 <- CO2 |>
+  as_tibble() |>
+  rename(origin = Type) |>
+  mutate(
+    plant_id = Plant |> factor(ordered = FALSE),
+    chilled = Treatment == 'chilled'
   ) |>
-  rename(
-    x_length = x,
-    y_width = y,
-    z_depth = z,
-    depth_pct = depth
-  )
+  select(plant_id, origin, chilled, conc, uptake)
 
+co2
 
-# Create a GAM model with flexible curves to predict diamond price
-# Smooth all numeric variables and include all other variables
-gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
-    cut + color + clarity,
-  data = diamonds
+# Create a GAM model with flexible curves to predict CO2 uptake.
+gam_co2 <- mgcv::gam(
+  formula = uptake ~ s(conc, k = 3, bs = "cr") + plant_id + chilled +
+    ti(conc, plant_id, bs = c('ps', 're'), k = 4),
+  data = co2
 )
-summary(gam_diamonds)
+summary(gam_co2)
 
 
-\donttest{
+# Set default number of cores to use for parallel processing.
+# Without setting this option, the default is 0 (no parallel processing).
+options(ale.parallel = 2)
 
-# Simple ALE without bootstrapping: by default, all 1D ALE effects
 
-# For speed, these examples use retrieve_rds() to load pre-created objects
+# For speed, this example uses retrieve_rds() to load pre-created objects
 # from an online repository.
-# To run the code yourself, execute the code blocks directly.
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+# To run the code yourself, execute the code block directly.
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 
-# Create ALE data
-ale_gam_diamonds <- retrieve_rds(
+# Create default ALE data (1D main effects only by default)
+ale_gam_co2 <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
+  c(serialized_objects_site, 'ale_gam_co2.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
     # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
-    ALE(gam_diamonds)
+    ALE(gam_co2)
   }
 )
+
+
+# Summary of ALE statistics
+summary(ale_gam_co2)
 
 # Simple printing of all plots
-plot(ale_gam_diamonds)
+plot(ale_gam_co2)
 
-# Bootstrapped ALE
-# This can be slow, since bootstrapping runs the algorithm boot_it times.
-# In addition, bootstrapping automatically generates surrogate p-values by default.
-
-# Create ALE with 100 bootstrap samples
-ale_gam_diamonds_boot <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_boot.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      # request all 1D ALE effects and only the carat:clarity 2D effect
-      list(d1 = TRUE, d2 = 'carat:clarity'),
-      boot_it = 100
-    )
-  }
-)
-# saveRDS(ale_gam_diamonds_boot, file.choose())
-
-# More advanced plot manipulation
-ale_plots <- plot(ale_gam_diamonds_boot) # Create an ALEPlots object
-
-# Print the plots: First page prints 1D ALE; second page prints 2D ALE
-ale_plots  # or print(ale_plots) to be explicit
-
-# Extract specific plots (as lists of ggplot objects)
-get(ale_plots, 'carat')  # extract a specific 1D plot
-get(ale_plots, 'carat:clarity')  # extract a specific 2D plot
-get(ale_plots, type = 'effect')  # ALE effects plot
-# See help(get.ALEPlots) for more options, such as for categorical plots
-
-
-
-# If the predict function you want does not work automatically, you may
-# define a custom predict function. It must return a single numeric vector.
-custom_predict <- function(object, newdata, type = pred_type) {
-  predict(object, newdata, type = type, se.fit = TRUE)$fit
-}
-
-ale_gam_diamonds_custom <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_custom.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      pred_fun = custom_predict,
-      pred_type = 'link'
-    )
-  }
-)
-# saveRDS(ale_gam_diamonds_custom, file.choose())
-
-# Plot the ALE data
-plot(ale_gam_diamonds_custom)
-
-
-# How to retrieve specific types of ALE data from an ALE object.
-ale_diamonds_with_boot_data <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_diamonds_with_boot_data.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ALE(
-      gam_diamonds,
-      # For detailed options for x_cols, see examples at resolve_x_cols()
-      x_cols = ~ carat + cut + clarity + carat:clarity + color:depth_pct,
-      output_boot_data = TRUE,
-      boot_it = 10  # just for demonstration
-    )
-  }
-)
-# saveRDS(ale_diamonds_with_boot_data, file.choose())
-
-# See ?`get-ALE-method` for the kinds of data that may be retrieved.
-get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
-get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
-get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
-get(ale_diamonds_with_boot_data, stats = c('aled', 'naler'))
-get(ale_diamonds_with_boot_data, stats = 'all')
-get(ale_diamonds_with_boot_data, stats = 'conf_regions')
-get(ale_diamonds_with_boot_data, stats = 'conf_sig')
-}
+# For a more thorough introduction to creating and working with ALE objects,
+# see vignette("ale-intro").
 
 
 }
