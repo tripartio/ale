@@ -1,0 +1,1 @@
+When asked to check a branch, check its latest remote commit with R CMD build and R CMD check --as-cran. Preserve all configured environment variables, including CRAN-check overrides. Do not modify repository files. Report errors, warnings, notes, and any check limitations.
