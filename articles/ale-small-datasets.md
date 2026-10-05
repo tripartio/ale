@@ -621,9 +621,9 @@ mb_gam_attitude_special@model_stats
     #> 3 nobs              NA       30     30     30        30      0     
     #> 4 adj.r.squared     NA        0.746  1.000  0.945     1      0.0832
     #> 5 npar              NA       23     23     23        23      0     
-    #> 6 mae               12.7      4.50  NA     NA        62.6   14.7   
-    #> 7 sa_mae             0.323   -1.83  NA     NA         0.769  0.728 
-    #> 8 rmse              15.8      5.51  NA     NA        79.4   18.7   
-    #> 9 sa_rmse            0.353   -1.94  NA     NA         0.786  0.702
+    #> 6 mae               12.9      4.50  NA     NA        62.6   15.0   
+    #> 7 sa_mae             0.308   -2.00  NA     NA         0.769  0.772 
+    #> 8 rmse              16.3      5.51  NA     NA        79.4   19.5   
+    #> 9 sa_rmse            0.332   -2.08  NA     NA         0.786  0.754
 
 Everything else works as usual.

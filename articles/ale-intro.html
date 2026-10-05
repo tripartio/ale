@@ -248,119 +248,153 @@ dataset is too small to feasibly split into training and test sets, then
 the ale package has tools to appropriately handle such <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>.</p>
 </div>
 <div class="section level2">
-<h2 id="modelling-with-generalized-additive-models-gam">Modelling with generalized additive models (GAM)<a class="anchor" aria-label="anchor" href="#modelling-with-generalized-additive-models-gam"></a>
+<h2 id="modelling-with-a-random-forest">Modelling with a random forest<a class="anchor" aria-label="anchor" href="#modelling-with-a-random-forest"></a>
 </h2>
 <p>ALE is a model-agnostic IML approach, that is, it works with any kind
 of machine learning model. As such, <a href="https://github.com/tripartio/ale" class="external-link">ale</a> works with any R
 model with the only condition that it can predict numeric outcomes (such
 as raw estimates for regression and probabilities or odds ratios for
-classification). For this demonstration, we will use generalized
-additive models (GAM), a relatively fast algorithm that models data more
-flexibly than ordinary least squares regression. It is beyond our scope
-here to explain how GAM works (you can learn more with <a href="https://noamross.github.io/gams-in-r-course/chapter1/" title="Tutorial on GAM" class="external-link">Noam Ross’s excellent tutorial</a>), but the
-examples here will work with any statistical or machine learning
-algorithm.</p>
-<p>We train a GAM model to predict diamond prices:</p>
+classification). For this demonstration, we use a random forest from the
+<a href="https://imbs-hl.github.io/ranger/" class="external-link">ranger</a> package. A random forest combines predictions from
+multiple decision trees and can capture nonlinear effects and
+interactions. The examples here will work with any statistical or
+machine learning algorithm that produces numeric predictions.</p>
+<p>We train a random forest to predict diamond prices:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create a GAM model with flexible curves to predict diamond prices.</span></span>
-<span><span class="co"># Smooth all numeric variables and include all other variables.</span></span>
-<span><span class="va">gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
-<span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth_pct</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x_length</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y_width</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z_depth</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">diamonds</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">rf_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ranger</span><span class="fu">::</span><span class="fu"><a href="http://imbs-hl.github.io/ranger/reference/ranger.html" class="external-link">ranger</a></span><span class="op">(</span></span>
+<span>  <span class="va">price</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">diamonds</span>,  <span class="co"># train for IML on full dataset</span></span>
+<span>  mtry <span class="op">=</span> <span class="fl">7</span>,  <span class="co"># number of variables per tree</span></span>
+<span>  min.node.size <span class="op">=</span> <span class="fl">4</span>,  <span class="co"># minimum leaf (terminal node) size</span></span>
+<span>  sample.fraction <span class="op">=</span> <span class="fl">0.465</span>,  <span class="co"># fraction of rows to sample</span></span>
+<span>  <span class="co"># small forest still accurate for a large dataset; 10× faster than 500 trees</span></span>
+<span>  num.trees <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">0</span>  <span class="co"># keep the random forest consistent</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">rf_diamonds</span></span>
+<span><span class="co">#&gt; Ranger result</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Family: gaussian </span></span>
-<span><span class="co">#&gt; Link function: identity </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt;  ranger::ranger(price ~ ., diamonds, mtry = 7, min.node.size = 4,      sample.fraction = 0.465, num.trees = 50, seed = 0) </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Formula:</span></span>
-<span><span class="co">#&gt; price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + </span></span>
-<span><span class="co">#&gt;     s(z_depth) + cut + color + clarity</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Parametric coefficients:</span></span>
-<span><span class="co">#&gt;              Estimate Std. Error  t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">#&gt; (Intercept)  4436.199     13.315  333.165  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; cut.L         263.124     39.117    6.727 1.76e-11 ***</span></span>
-<span><span class="co">#&gt; cut.Q           1.792     27.558    0.065 0.948151    </span></span>
-<span><span class="co">#&gt; cut.C          74.074     20.169    3.673 0.000240 ***</span></span>
-<span><span class="co">#&gt; cut^4          27.694     14.373    1.927 0.054004 .  </span></span>
-<span><span class="co">#&gt; color.L     -2152.488     18.996 -113.313  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; color.Q      -704.604     17.385  -40.528  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; color.C       -66.839     16.366   -4.084 4.43e-05 ***</span></span>
-<span><span class="co">#&gt; color^4        80.376     15.289    5.257 1.47e-07 ***</span></span>
-<span><span class="co">#&gt; color^5      -110.164     14.484   -7.606 2.89e-14 ***</span></span>
-<span><span class="co">#&gt; color^6       -49.565     13.464   -3.681 0.000232 ***</span></span>
-<span><span class="co">#&gt; clarity.L    4111.691     33.499  122.742  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity.Q   -1539.959     31.211  -49.341  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity.C     762.680     27.013   28.234  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity^4    -232.214     21.977  -10.566  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity^5     193.854     18.324   10.579  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity^6      46.812     16.172    2.895 0.003799 ** </span></span>
-<span><span class="co">#&gt; clarity^7     132.621     14.274    9.291  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Approximate significance of smooth terms:</span></span>
-<span><span class="co">#&gt;                edf Ref.df       F  p-value    </span></span>
-<span><span class="co">#&gt; s(carat)     8.695  8.949  37.027  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; s(depth_pct) 7.606  8.429   6.758  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; s(table)     5.759  6.856   3.682 0.000736 ***</span></span>
-<span><span class="co">#&gt; s(x_length)  8.078  8.527  60.936  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; s(y_width)   7.477  8.144 211.202  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; s(z_depth)   9.000  9.000  16.266  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; R-sq.(adj) =  0.929   Deviance explained = 92.9%</span></span>
-<span><span class="co">#&gt; GCV = 1.2602e+06  Scale est. = 1.2581e+06  n = 39739</span></span></code></pre></div>
+<span><span class="co">#&gt; Type:                             Regression </span></span>
+<span><span class="co">#&gt; Number of trees:                  50 </span></span>
+<span><span class="co">#&gt; Sample size:                      39739 </span></span>
+<span><span class="co">#&gt; Number of independent variables:  9 </span></span>
+<span><span class="co">#&gt; Mtry:                             7 </span></span>
+<span><span class="co">#&gt; Target node size:                 4 </span></span>
+<span><span class="co">#&gt; Variable importance mode:         none </span></span>
+<span><span class="co">#&gt; Splitrule:                        variance </span></span>
+<span><span class="co">#&gt; OOB prediction error (MSE):       378726.9 </span></span>
+<span><span class="co">#&gt; R squared (OOB):                  0.9785278</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="ale-object-for-ale-data">
-<code>ALE</code> object for ALE data<a class="anchor" aria-label="anchor" href="#ale-object-for-ale-data"></a>
+<h2 id="creating-an-ale-object">Creating an <code>ALE</code> object<a class="anchor" aria-label="anchor" href="#creating-an-ale-object"></a>
 </h2>
 <p>The core object in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is the
-<a href="https://rconsortium.github.io/S7/" class="external-link">S7</a> <code>ALE</code> object. <code>effect</code> stores
-the ALE data and, optionally, ALE statistics and bootstrap data for one
-or more categories. The first argument to the <code><a href="../reference/ALE.html">ALE()</a></code>
-constructor is a model object–any R model object that can generate
-numeric predictions is acceptable. By default, it generates 1D (or
-“first order”) ALE on all the variables in the dataset that was used to
-train the model, if the dataset is included in the model object. If not,
-the dataset can be specified with the <code>data</code> argument. It can
-optionally create ALE only for specified variables and interactions
-using the <code>x_cols</code> argument. To change these options (e.g.,
-to calculate ALE for only a subset of variables; to output the data only
-or to use a custom predict function for the model), see details in the
-help file for the object: <code><a href="../reference/ALE.html">help(ALE)</a></code>. In this introduction,
-we only demonstrate The basics of retrieving and plotting ALE data. For
-details on ALE statistics see <a href="ale-statistics.html" title="ALE-based statistics">the dedicated vignette</a> on that
-topic.</p>
+<a href="https://rconsortium.github.io/S7/" class="external-link">S7</a> <code>ALE</code> object. Its <code>effect</code>
+property stores the ALE data and, optionally, ALE statistics and
+bootstrap data for one or more outcome categories. The first argument to
+the <code><a href="../reference/ALE.html">ALE()</a></code> constructor is a model object–any R model object
+that can generate numeric predictions is acceptable. By default,
+<code><a href="../reference/ALE.html">ALE()</a></code> calculates 1D (or “first-order”) ALE for every
+predictor in the model’s training data. Ranger models do not retain
+their training data, so we supply <code>data = diamonds</code>
+explicitly. The outcome column can be detected from this model; for
+models where it cannot be detected, also supply <code>y_col</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.</span></span>
+<code class="sourceCode R"><span><span class="co"># For faster processing, set the number of CPU cores available. See help(ALE).</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>ale.parallel <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>For faster demonstrations, this vignette uses precreated ALE objects.
 For the full experience, you can uncomment the relevant lines in the
 code below.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects </span></span>
-<span><span class="co"># from an online repository.</span></span>
-<span><span class="co"># To run the code yourself, execute the code blocks directly.  </span></span>
-<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># For speed, load pre-created objects from the current wip branch.</span></span>
+<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/wip/download"</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Simple ALE without bootstrapping</span></span>
+<code class="sourceCode R"><span><span class="co"># To run the slow code yourself, uncomment and execute the following call.</span></span>
+<span><span class="co"># ale_rf_diamonds &lt;- ALE(</span></span>
+<span><span class="co">#   rf_diamonds,</span></span>
+<span><span class="co">#   data = diamonds</span></span>
+<span><span class="co"># )</span></span>
 <span></span>
-<span><span class="co"># Create ALE data</span></span>
+<span><span class="va">ale_rf_diamonds</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"ale_rf_diamonds.0.5.3.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
-<span><span class="co"># # For models like mgcv::gam that store their data,</span></span>
-<span><span class="co"># # there is no need to specify the data argument.</span></span>
-<span><span class="co"># ale_gam_diamonds &lt;- ALE(gam_diamonds)</span></span>
-<span></span>
-<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"ale_gam_diamonds.0.5.2.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Print a statistical summary of the ALE object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ale_rf_diamonds</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; <span style="color: #0000BB;">&lt;ALE&gt;</span> object of a <span style="color: #0000BB;">&lt;ranger&gt;</span> model that predicts `price` (a numeric outcome) from a 39739-row by 10-column dataset.</span></span>
+<span><span class="co">#&gt; The results were not bootstrapped.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Mean ALE statistics [get(object, stats = "estimate")]:</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 9</span></span></span>
+<span><span class="co">#&gt;   term        aled aler_min  aler aler_max  naled naler_min naler naler_max</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> carat     <span style="text-decoration: underline;">1</span>333.   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">734.</span>  <span style="text-decoration: underline;">5</span>916.   <span style="text-decoration: underline;">4</span>182.  14.2     -<span style="color: #BB0000;">22.8</span>   52.9     30.1  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> cut         49.1    -<span style="color: #BB0000;">80.0</span>  146.     66.3  0.478    -<span style="color: #BB0000;">0.788</span>  1.41     0.626</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> color      588.   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">709.</span>  <span style="text-decoration: underline;">2</span>513.    804.   6.12    -<span style="color: #BB0000;">22.3</span>   29.8      7.45 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> clarity    715.   -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">866.</span>  <span style="text-decoration: underline;">4</span>400.   <span style="text-decoration: underline;">1</span>534.   7.67    -<span style="color: #BB0000;">47.6</span>   62.4     14.8  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> depth_pct   24.9   -<span style="color: #BB0000;">134.</span>   166.     31.2  0.247    -<span style="color: #BB0000;">1.33</span>   1.61     0.284</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> table       23.4   -<span style="color: #BB0000;">113.</span>   146.     32.4  0.235    -<span style="color: #BB0000;">1.11</span>   1.40     0.289</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> x_length   263.    -<span style="color: #BB0000;">860.</span>  <span style="text-decoration: underline;">1</span>430.    569.   2.58     -<span style="color: #BB0000;">9.65</span>  14.9      5.21 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> y_width   <span style="text-decoration: underline;">1</span>472.   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">573.</span>  <span style="text-decoration: underline;">8</span>629.   <span style="text-decoration: underline;">7</span>056.  14.5     -<span style="color: #BB0000;">20.0</span>   58.5     38.4  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> z_depth    370.    -<span style="color: #BB0000;">441.</span>  <span style="text-decoration: underline;">1</span>903.   <span style="text-decoration: underline;">1</span>462.   3.58     -<span style="color: #BB0000;">4.39</span>  18.5     14.2  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 36 × 7</span></span></span>
+<span><span class="co">#&gt;    statistic term      estimate conf.low     mean   median conf.high</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> aled      carat     <span style="text-decoration: underline;">1</span>333.    <span style="text-decoration: underline;">1</span>333.    <span style="text-decoration: underline;">1</span>333.    <span style="text-decoration: underline;">1</span>333.     <span style="text-decoration: underline;">1</span>333.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> aled      cut         49.1     49.1     49.1     49.1      49.1  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> aled      color      588.     588.     588.     588.      588.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> aled      clarity    715.     715.     715.     715.      715.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> aled      depth_pct   24.9     24.9     24.9     24.9      24.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> aled      table       23.4     23.4     23.4     23.4      23.4  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> aled      x_length   263.     263.     263.     263.      263.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> aled      y_width   <span style="text-decoration: underline;">1</span>472.    <span style="text-decoration: underline;">1</span>472.    <span style="text-decoration: underline;">1</span>472.    <span style="text-decoration: underline;">1</span>472.     <span style="text-decoration: underline;">1</span>472.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> aled      z_depth    370.     370.     370.     370.      370.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> aler      carat     <span style="text-decoration: underline;">5</span>916.    <span style="text-decoration: underline;">5</span>916.    <span style="text-decoration: underline;">5</span>916.    <span style="text-decoration: underline;">5</span>916.     <span style="text-decoration: underline;">5</span>916.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> aler      cut        146.     146.     146.     146.      146.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> aler      color     <span style="text-decoration: underline;">2</span>513.    <span style="text-decoration: underline;">2</span>513.    <span style="text-decoration: underline;">2</span>513.    <span style="text-decoration: underline;">2</span>513.     <span style="text-decoration: underline;">2</span>513.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> aler      clarity   <span style="text-decoration: underline;">4</span>400.    <span style="text-decoration: underline;">4</span>400.    <span style="text-decoration: underline;">4</span>400.    <span style="text-decoration: underline;">4</span>400.     <span style="text-decoration: underline;">4</span>400.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> aler      depth_pct  166.     166.     166.     166.      166.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> aler      table      146.     146.     146.     146.      146.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> aler      x_length  <span style="text-decoration: underline;">1</span>430.    <span style="text-decoration: underline;">1</span>430.    <span style="text-decoration: underline;">1</span>430.    <span style="text-decoration: underline;">1</span>430.     <span style="text-decoration: underline;">1</span>430.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> aler      y_width   <span style="text-decoration: underline;">8</span>629.    <span style="text-decoration: underline;">8</span>629.    <span style="text-decoration: underline;">8</span>629.    <span style="text-decoration: underline;">8</span>629.     <span style="text-decoration: underline;">8</span>629.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> aler      z_depth   <span style="text-decoration: underline;">1</span>903.    <span style="text-decoration: underline;">1</span>903.    <span style="text-decoration: underline;">1</span>903.    <span style="text-decoration: underline;">1</span>903.     <span style="text-decoration: underline;">1</span>903.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> naled     carat       14.2     14.2     14.2     14.2      14.2  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> naled     cut          0.478    0.478    0.478    0.478     0.478</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">21</span> naled     color        6.12     6.12     6.12     6.12      6.12 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">22</span> naled     clarity      7.67     7.67     7.67     7.67      7.67 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">23</span> naled     depth_pct    0.247    0.247    0.247    0.247     0.247</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">24</span> naled     table        0.235    0.235    0.235    0.235     0.235</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">25</span> naled     x_length     2.58     2.58     2.58     2.58      2.58 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">26</span> naled     y_width     14.5     14.5     14.5     14.5      14.5  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">27</span> naled     z_depth      3.58     3.58     3.58     3.58      3.58 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">28</span> naler     carat       52.9     52.9     52.9     52.9      52.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">29</span> naler     cut          1.41     1.41     1.41     1.41      1.41 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">30</span> naler     color       29.8     29.8     29.8     29.8      29.8  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">31</span> naler     clarity     62.4     62.4     62.4     62.4      62.4  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">32</span> naler     depth_pct    1.61     1.61     1.61     1.61      1.61 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">33</span> naler     table        1.40     1.40     1.40     1.40      1.40 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">34</span> naler     x_length    14.9     14.9     14.9     14.9      14.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">35</span> naler     y_width     58.5     58.5     58.5     58.5      58.5  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">36</span> naler     z_depth     18.5     18.5     18.5     18.5      18.5  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Statistically significant confidence regions [get(object, stats = "conf_sig")]:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Confidence regions are meaningless without p-values.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The ALE statistics were calculated without p-values.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 0</span></span></span></code></pre>
+<p>The <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> method reports the model and data
+represented by the object, followed by its ALE statistics and
+statistically significant confidence regions when available. It returns
+the <code>ALE</code> object invisibly, so it is intended for inspection
+rather than data extraction. The default constructor calculates ALE
+statistics, although p-values and their confidence regions are not
+calculated unless p-values are supplied or generated during
+bootstrapping. See the <a href="ale-statistics.html" title="ALE-based statistics">ALE statistics vignette</a> for their
+interpretation.</p>
 <p>Most core functions in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package support
 parallel processing. You can enable parallelization globally with
 <code>options(ale.parallel = x)</code>, where “x” is the number of CPU
@@ -372,17 +406,17 @@ default with <code>parallel = 0</code>. See the documentation for
 <code>ALEPlots</code> object by calling the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method
 on the <code>ALE</code> object which internally generates
 <code>ggplot</code> objects with the full flexibility of {ggplot2}:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
-<span><span class="va">diamonds_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">diamonds_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_rf_diamonds</span><span class="op">)</span></span></code></pre></div>
 <p>To retrieve a specific variable plot, you can use the
 <code><a href="../reference/get.html">get()</a></code> method of the <code>ALEPlots</code> object. For
 example, to access and print the <code>carat</code> ALE plot, we can
 simply refer to <code>get(diamonds_plots, 'carat')</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
 <span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_plots</span>, <span class="st">'carat'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-carat-1.png" class="r-plt" alt="" width="384"></p>
+<p><img src="ale-intro_files/figure-html/print-carat-1.png" class="r-plt" alt="" width="336"></p>
 <p>To display all the ALE plots in an <code>ALEPlots</code> object, we
 can simply call its <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> or <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods.
 Behind the scenes, they use the <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> package to
@@ -390,10 +424,38 @@ arrange multiple plots in a common plot grid using
 <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>, so we can pass arguments from that
 function. For example, we can specify that we want two plots per row
 with the <code>ncol</code> argument:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">diamonds_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-ale_simple-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="ale-intro_files/figure-html/print-ale_simple-1.png" class="r-plt" alt="" width="1152"></p>
+</div>
+<div class="section level2">
+<h2 id="selecting-variables-and-interactions">Selecting variables and interactions<a class="anchor" aria-label="anchor" href="#selecting-variables-and-interactions"></a>
+</h2>
+<p>The <code>x_cols</code> argument controls the effects that
+<code><a href="../reference/ALE.html">ALE()</a></code> calculates. Its list syntax can request 1D effects,
+2D interactions, or both in the same object. For example, the following
+requests every 1D effect and only the interaction between
+<code>carat</code> and <code>clarity</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
+<span>  <span class="va">rf_diamonds</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">diamonds</span>,</span>
+<span>  x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span>, d2 <span class="op">=</span> <span class="st">"carat:clarity"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Formula syntax is convenient when selecting particular effects. Terms
+on their own request 1D ALE, while terms joined by <code>:</code>
+request 2D ALE:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
+<span>  <span class="va">rf_diamonds</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">diamonds</span>,</span>
+<span>  x_cols <span class="op">=</span> <span class="op">~</span> <span class="va">carat</span> <span class="op">+</span> <span class="va">cut</span> <span class="op">+</span> <span class="va">clarity</span> <span class="op">+</span> <span class="va">carat</span><span class="op">:</span><span class="va">clarity</span> <span class="op">+</span> <span class="va">cut</span><span class="op">:</span><span class="va">table</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>These formats can be combined with other selection options. See
+<code><a href="../reference/resolve_x_cols.html">help(resolve_x_cols)</a></code> for the complete set of formats,
+including ways to request all interactions involving a particular
+variable and to exclude variables.</p>
 </div>
 <div class="section level2">
 <h2 id="bootstrapped-ale">Bootstrapped ALE<a class="anchor" aria-label="anchor" href="#bootstrapped-ale"></a>
@@ -417,97 +479,440 @@ sufficient for relatively stable results, especially for model
 development. Final results could be confirmed with 1000 bootstrap
 samples or more, but there should not be much difference in the results
 beyond 100 iterations.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
-<span><span class="co"># # For models like mgcv::gam that store their data,</span></span>
-<span><span class="co"># # there is no need to specify the data argument.</span></span>
-<span><span class="co"># ale_gam_diamonds_boot &lt;- ALE(</span></span>
-<span><span class="co">#   gam_diamonds,</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># To run the slow code yourself, uncomment and execute the following call.</span></span>
+<span><span class="co"># ale_rf_diamonds_boot &lt;- ALE(</span></span>
+<span><span class="co">#   rf_diamonds,</span></span>
+<span><span class="co">#   data = diamonds,</span></span>
+<span><span class="co">#   # Request all 1D effects and two specific 2D interactions.</span></span>
+<span><span class="co">#   x_cols = list(d1 = TRUE, d2 = c("carat:clarity", "cut:table")),</span></span>
 <span><span class="co">#   boot_it = 100</span></span>
 <span><span class="co"># )</span></span>
 <span></span>
-<span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">'ale_gam_diamonds_boot.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">ale_rf_diamonds_boot</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"ale_rf_diamonds_boot.0.5.3.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Bootstrapping produces confidence intervals</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="co"># Bootstrapping produces confidence intervals for the 1D effects</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_rf_diamonds_boot</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/ale_boot-rds-1.png" class="r-plt" alt="" width="672"><img src="ale-intro_files/figure-html/ale_boot-rds-2.png" class="r-plt" alt="" width="672"></p>
-<p>In this case, the bootstrapped results are mostly similar to single
-(non-bootstrapped) ALE results. In principle, we should always bootstrap
-the results and trust only in bootstrapped results. The most unusual
-result is that values of <code>x_length</code> (the length of the
-diamond) from 6.2 mm or so and higher are associated with lower diamond
-prices. When we compare this with the <code>y_width</code> value (width
-of the diamond), we suspect that when both the length and width (that
-is, the size) of a diamond become increasingly large, the price
-increases so much more rapidly with the width than with the length that
-the width has an inordinately high effect that is tempered by a
-decreased effect of the length at those high values. This would be worth
-further exploration for real analysis, but here we are just introducing
-the key features of the package.</p>
+<p><img src="ale-intro_files/figure-html/ale_boot-rds-1.png" class="r-plt" alt="" width="1152"></p>
+<p>Compare the bootstrapped confidence intervals with the single
+(non-bootstrapped) ALE curves above. The intervals show how much the
+estimated effects vary when the training data are resampled while
+keeping the fitted forest fixed. Use the bootstrapped results to assess
+the reliability of the patterns rather than relying on a single
+curve.</p>
+<p>By default, requesting bootstrapping while retaining ALE statistics
+also asks <code><a href="../reference/ALE.html">ALE()</a></code> to generate fast surrogate p-values. These
+are useful for exploratory analysis but should not be used for
+definitive or published conclusions. See <code><a href="../reference/ALEpDist.html">help(ALEpDist)</a></code> and
+the <a href="ale-statistics.html">ALE statistics vignette</a> for more
+rigorous options.</p>
 </div>
 <div class="section level2">
 <h2 id="ale-interactions">ALE interactions<a class="anchor" aria-label="anchor" href="#ale-interactions"></a>
 </h2>
 <p>Another advantage of ALE is that it provides data for 2D interactions
-between variables. This is also implemented with the <code><a href="../reference/ALE.html">ALE()</a></code>
-constructor. When the <code>d2</code> element of the <code>x_cols</code>
-list argument is set to <code>TRUE</code>, <code><a href="../reference/ALE.html">ALE()</a></code> generates
-ALE data on all possible 2D interactions from the input dataset. To
-change the default options (e.g., to calculate interactions for only
-certain pairs of variables), see details in the help file for the
-object: <code><a href="../reference/ALE.html">help(ALE)</a></code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># ALE two-way interactions</span></span>
-<span></span>
-<span><span class="co"># # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
-<span><span class="co"># ale_2D_gam_diamonds &lt;- ALE(</span></span>
-<span><span class="co">#   gam_diamonds,</span></span>
-<span><span class="co">#   x_cols = list(d2 = TRUE)</span></span>
-<span><span class="co"># )</span></span>
-<span></span>
-<span><span class="va">ale_2D_gam_diamonds</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">'ale_2D_gam_diamonds.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method similarly creates 2D ALE plots from
-the <code>ALE</code> object. The <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset()</a></code> method of
-<code>ALEPlots</code> extracts a new <code>ALEPlots</code> object with
-only the selected variables or interaction terms:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diamonds_2D_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_2D_gam_diamonds</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">diamonds_2D_plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="co"># Select all 2D interactions that involve 'carat'</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2_all <span class="op">=</span> <span class="st">'carat'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+between variables. Because the bootstrapped object contains the selected
+<code>carat:clarity</code> and <code>cut:table</code> interactions as
+well as all 1D effects, the same <code>ALEPlots</code> object provides
+both kinds of plots. We can use <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset()</a></code> to select just the
+interactions for a separate grid:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ale_rf_diamonds_boot</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-all-2D-1.png" class="r-plt" alt="" width="672"></p>
-<p>Because we are printing all plots together, some of them might appear
-vertically distorted because each plot is forced to be of the same
-height. For more fine-tuned presentation, we would need to refer to a
-specific plot. The <code>ale</code> package supports the standard R
-formula notation for specifying variables. For example, we can print the
-interaction plot between carat and depth by referring to it thus:
-<code>get(diamonds_2D_plots, ~ carat:clarity)</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_2D_plots</span>, <span class="op">~</span> <span class="va">carat</span><span class="op">:</span><span class="va">clarity</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" class="r-plt" alt="" width="480"></p>
-<p>This is not the best dataset to use to illustrate ALE interactions
-because there are none here. This is expressed in the graphs by the ALE
-y values all being grey, the middle range of data. In the plots, the
-darker squares indicate the relative percentage of actual data in each
-interaction intersection. So, there is very little actual data for 0.2
-carats; there is much more higher carat ranges.</p>
+<p><img src="ale-intro_files/figure-html/print-interactions-1.png" class="r-plt" alt="" width="1152"></p>
+<p>The <code><a href="../reference/get.html">get()</a></code> method accepts either a character term or
+standard R formula notation:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ale_rf_diamonds_boot</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="st">"carat:clarity"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" class="r-plt" alt="" width="576"></p>
+<p>The interaction plot shows the joint effect beyond the separate 1D
+effects. Grey values fall in the middle range of ALE values; colours
+away from grey indicate an additional joint effect. The sizes of the
+squares indicate the relative percentage of actual data in each
+interaction intersection, helping us assess where the data support the
+estimated interaction.</p>
 <p>Note that ALE interactions are very particular: an ALE interaction
 means that two variables have a composite effect over and above their
-separate independent effects. So, of course <code>x_length</code> and
-<code>y_width</code> both have effects on the price, as the one-way ALE
-plots show, but their interaction has no additional composite
-effect.</p>
+separate independent effects. Two predictors can each have strong
+one-way effects without their combination having an additional
+interaction effect.</p>
+</div>
+<div class="section level2">
+<h2 id="custom-prediction-functions">Custom prediction functions<a class="anchor" aria-label="anchor" href="#custom-prediction-functions"></a>
+</h2>
+<p><code><a href="../reference/ALE.html">ALE()</a></code> normally calls a model’s prediction method and
+handles ranger’s prediction format automatically. To demonstrate a
+custom <code>pred_fun</code>, we explicitly call ranger’s prediction
+method and extract its numeric predictions. The function must accept
+<code>object</code>, <code>newdata</code>, and <code>type</code>, and
+return a numeric vector or matrix. Explicitly invoking ranger’s method
+also makes this custom function available during parallel
+processing:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">custom_predict</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="st">'response'</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">ranger</span><span class="fu">:::</span><span class="fu"><a href="http://imbs-hl.github.io/ranger/reference/predict.ranger.html" class="external-link">predict.ranger</a></span><span class="op">(</span> <span class="co"># must explicitly invoke ranger for parallelization to work</span></span>
+<span>    object <span class="op">=</span> <span class="va">object</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">newdata</span>,</span>
+<span>    type <span class="op">=</span> <span class="va">type</span></span>
+<span>  <span class="op">)</span><span class="op">$</span><span class="va">predictions</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># To run the slow code yourself, uncomment and execute the following call.</span></span>
+<span><span class="co"># ale_rf_diamonds_custom &lt;- ALE(</span></span>
+<span><span class="co">#   rf_diamonds,</span></span>
+<span><span class="co">#   data = diamonds,</span></span>
+<span><span class="co">#   pred_fun = custom_predict</span></span>
+<span><span class="co"># )</span></span>
+<span></span>
+<span><span class="va">ale_rf_diamonds_custom</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"ale_rf_diamonds_custom.0.5.3.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_rf_diamonds_custom</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-intro_files/figure-html/ale_custom-rds-1.png" class="r-plt" alt="" width="1152"></p>
+<p>A custom function is especially useful for model classes whose
+prediction method has a non-standard signature or returns a structured
+object.</p>
+</div>
+<div class="section level2">
+<h2 id="retrieving-ale-data-and-statistics">Retrieving ALE data and statistics<a class="anchor" aria-label="anchor" href="#retrieving-ale-data-and-statistics"></a>
+</h2>
+<p>Plots are useful for interpretation, but the <code><a href="../reference/get.html">get()</a></code>
+method retrieves the underlying data for further analysis. To
+demonstrate all of its principal outputs, we create a smaller selection
+of 1D and 2D effects, run ten bootstrap iterations, and retain the
+otherwise-discarded iteration-level data with
+<code>output_boot_data = TRUE</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># To run the slow code yourself, uncomment and execute the following call.</span></span>
+<span><span class="co"># ale_diamonds_with_boot_data &lt;- ALE(</span></span>
+<span><span class="co">#   rf_diamonds,</span></span>
+<span><span class="co">#   data = diamonds,</span></span>
+<span><span class="co">#   x_cols = ~ carat + cut + clarity + carat:clarity + cut:table,</span></span>
+<span><span class="co">#   output_boot_data = TRUE,</span></span>
+<span><span class="co">#   boot_it = 10</span></span>
+<span><span class="co"># )</span></span>
+<span></span>
+<span><span class="va">ale_diamonds_with_boot_data</span> <span class="op">&lt;-</span> <span class="va">serialized_objects_site</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"ale_rf_diamonds_with_boot_data.0.5.3.rds"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>By default, <code><a href="../reference/get.html">get()</a></code> returns ALE data. A formula can limit
+the result to selected 1D and 2D terms:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, <span class="op">~</span> <span class="va">carat</span> <span class="op">+</span> <span class="va">cut</span><span class="op">:</span><span class="va">table</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $d1</span></span>
+<span><span class="co">#&gt; $d1$carat</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 7</span></span></span>
+<span><span class="co">#&gt;    carat.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span></span>
+<span><span class="co">#&gt;         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       0.2      7 <span style="text-decoration: underline;">1</span>631. <span style="text-decoration: underline;">1</span>631.   <span style="text-decoration: underline;">1</span>631.     <span style="text-decoration: underline;">1</span>631. <span style="text-decoration: underline;">1</span>631.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       0.34  <span style="text-decoration: underline;">4</span>038 <span style="text-decoration: underline;">1</span>691. <span style="text-decoration: underline;">1</span>689.   <span style="text-decoration: underline;">1</span>691.     <span style="text-decoration: underline;">1</span>691. <span style="text-decoration: underline;">1</span>694.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       0.45  <span style="text-decoration: underline;">3</span>940 <span style="text-decoration: underline;">1</span>739. <span style="text-decoration: underline;">1</span>736.   <span style="text-decoration: underline;">1</span>739.     <span style="text-decoration: underline;">1</span>739. <span style="text-decoration: underline;">1</span>742.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>       0.56  <span style="text-decoration: underline;">4</span>214 <span style="text-decoration: underline;">2</span>063. <span style="text-decoration: underline;">2</span>059.   <span style="text-decoration: underline;">2</span>063.     <span style="text-decoration: underline;">2</span>063. <span style="text-decoration: underline;">2</span>068.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>       0.71  <span style="text-decoration: underline;">4</span>410 <span style="text-decoration: underline;">2</span>549. <span style="text-decoration: underline;">2</span>545.   <span style="text-decoration: underline;">2</span>549.     <span style="text-decoration: underline;">2</span>549. <span style="text-decoration: underline;">2</span>553.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>       0.85  <span style="text-decoration: underline;">3</span>315 <span style="text-decoration: underline;">2</span>818. <span style="text-decoration: underline;">2</span>812.   <span style="text-decoration: underline;">2</span>818.     <span style="text-decoration: underline;">2</span>818. <span style="text-decoration: underline;">2</span>824.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>       1.01  <span style="text-decoration: underline;">5</span>489 <span style="text-decoration: underline;">4</span>145. <span style="text-decoration: underline;">4</span>129.   <span style="text-decoration: underline;">4</span>145.     <span style="text-decoration: underline;">4</span>146. <span style="text-decoration: underline;">4</span>159.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       1.07  <span style="text-decoration: underline;">2</span>681 <span style="text-decoration: underline;">4</span>290. <span style="text-decoration: underline;">4</span>275.   <span style="text-decoration: underline;">4</span>290.     <span style="text-decoration: underline;">4</span>295. <span style="text-decoration: underline;">4</span>307.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       1.23  <span style="text-decoration: underline;">3</span>916 <span style="text-decoration: underline;">4</span>647. <span style="text-decoration: underline;">4</span>628.   <span style="text-decoration: underline;">4</span>647.     <span style="text-decoration: underline;">4</span>649. <span style="text-decoration: underline;">4</span>667.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       1.53  <span style="text-decoration: underline;">3</span>832 <span style="text-decoration: underline;">5</span>578. <span style="text-decoration: underline;">5</span>560.   <span style="text-decoration: underline;">5</span>578.     <span style="text-decoration: underline;">5</span>579. <span style="text-decoration: underline;">5</span>595.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span>       5.01  <span style="text-decoration: underline;">3</span>897 <span style="text-decoration: underline;">7</span>546. <span style="text-decoration: underline;">7</span>526.   <span style="text-decoration: underline;">7</span>546.     <span style="text-decoration: underline;">7</span>547. <span style="text-decoration: underline;">7</span>570.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d2</span></span>
+<span><span class="co">#&gt; $d2$`cut:table`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 40 × 8</span></span></span>
+<span><span class="co">#&gt;    cut.bin   table.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Fair              43     0 <span style="text-decoration: underline;">3</span>361. <span style="text-decoration: underline;">3</span>361.   <span style="text-decoration: underline;">3</span>361.     <span style="text-decoration: underline;">3</span>361. <span style="text-decoration: underline;">3</span>361.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Good              43     0 <span style="text-decoration: underline;">3</span>362. <span style="text-decoration: underline;">3</span>362.   <span style="text-decoration: underline;">3</span>362.     <span style="text-decoration: underline;">3</span>362. <span style="text-decoration: underline;">3</span>362.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Very Good         43     0 <span style="text-decoration: underline;">3</span>365. <span style="text-decoration: underline;">3</span>365.   <span style="text-decoration: underline;">3</span>365.     <span style="text-decoration: underline;">3</span>365. <span style="text-decoration: underline;">3</span>365.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Premium           43     0 <span style="text-decoration: underline;">3</span>366. <span style="text-decoration: underline;">3</span>366.   <span style="text-decoration: underline;">3</span>366.     <span style="text-decoration: underline;">3</span>366. <span style="text-decoration: underline;">3</span>366.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Ideal             43     1 <span style="text-decoration: underline;">3</span>364. <span style="text-decoration: underline;">3</span>364.   <span style="text-decoration: underline;">3</span>364.     <span style="text-decoration: underline;">3</span>364. <span style="text-decoration: underline;">3</span>364.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Fair              55   200 <span style="text-decoration: underline;">3</span>362. <span style="text-decoration: underline;">3</span>359.   <span style="text-decoration: underline;">3</span>362.     <span style="text-decoration: underline;">3</span>362. <span style="text-decoration: underline;">3</span>366.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Good              55   490 <span style="text-decoration: underline;">3</span>366. <span style="text-decoration: underline;">3</span>362.   <span style="text-decoration: underline;">3</span>366.     <span style="text-decoration: underline;">3</span>367. <span style="text-decoration: underline;">3</span>370.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Very Good         55  <span style="text-decoration: underline;">1</span>106 <span style="text-decoration: underline;">3</span>371. <span style="text-decoration: underline;">3</span>365.   <span style="text-decoration: underline;">3</span>371.     <span style="text-decoration: underline;">3</span>372. <span style="text-decoration: underline;">3</span>375.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Premium           55   266 <span style="text-decoration: underline;">3</span>375. <span style="text-decoration: underline;">3</span>367.   <span style="text-decoration: underline;">3</span>375.     <span style="text-decoration: underline;">3</span>376. <span style="text-decoration: underline;">3</span>378.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Ideal             55  <span style="text-decoration: underline;">4</span>669 <span style="text-decoration: underline;">3</span>375. <span style="text-decoration: underline;">3</span>368.   <span style="text-decoration: underline;">3</span>375.     <span style="text-decoration: underline;">3</span>375. <span style="text-decoration: underline;">3</span>378.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 30 more rows</span></span></span></code></pre></div>
+<p>Because this object was constructed with
+<code>output_boot_data = TRUE</code>, the raw results from individual
+bootstrap iterations are also available:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, what <span class="op">=</span> <span class="st">"boot_data"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $d1</span></span>
+<span><span class="co">#&gt; $d1$carat</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 121 × 6</span></span></span>
+<span><span class="co">#&gt;      .it carat .y_composite    .n .y_distinct    .y</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0  0.2         <span style="text-decoration: underline;">1</span>631.     7       <span style="text-decoration: underline;">1</span>631. <span style="text-decoration: underline;">1</span>631.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     0  0.34        <span style="text-decoration: underline;">1</span>691.  <span style="text-decoration: underline;">4</span>038       <span style="text-decoration: underline;">1</span>691. <span style="text-decoration: underline;">1</span>691.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0  0.45        <span style="text-decoration: underline;">1</span>739.  <span style="text-decoration: underline;">3</span>940       <span style="text-decoration: underline;">1</span>739. <span style="text-decoration: underline;">1</span>739.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0  0.56        <span style="text-decoration: underline;">2</span>064.  <span style="text-decoration: underline;">4</span>214       <span style="text-decoration: underline;">2</span>064. <span style="text-decoration: underline;">2</span>064.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     0  0.71        <span style="text-decoration: underline;">2</span>550.  <span style="text-decoration: underline;">4</span>410       <span style="text-decoration: underline;">2</span>550. <span style="text-decoration: underline;">2</span>550.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     0  0.85        <span style="text-decoration: underline;">2</span>820.  <span style="text-decoration: underline;">3</span>315       <span style="text-decoration: underline;">2</span>820. <span style="text-decoration: underline;">2</span>820.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     0  1.01        <span style="text-decoration: underline;">4</span>152.  <span style="text-decoration: underline;">5</span>489       <span style="text-decoration: underline;">4</span>152. <span style="text-decoration: underline;">4</span>152.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     0  1.07        <span style="text-decoration: underline;">4</span>295.  <span style="text-decoration: underline;">2</span>681       <span style="text-decoration: underline;">4</span>295. <span style="text-decoration: underline;">4</span>295.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     0  1.23        <span style="text-decoration: underline;">4</span>650.  <span style="text-decoration: underline;">3</span>916       <span style="text-decoration: underline;">4</span>650. <span style="text-decoration: underline;">4</span>650.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     0  1.53        <span style="text-decoration: underline;">5</span>581.  <span style="text-decoration: underline;">3</span>832       <span style="text-decoration: underline;">5</span>581. <span style="text-decoration: underline;">5</span>581.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 111 more rows</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d1$cut</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 55 × 6</span></span></span>
+<span><span class="co">#&gt;      .it cut       .y_composite    .n .y_distinct    .y</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0 Fair             <span style="text-decoration: underline;">3</span>285.  <span style="text-decoration: underline;">1</span>492       <span style="text-decoration: underline;">3</span>285. <span style="text-decoration: underline;">3</span>285.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     0 Good             <span style="text-decoration: underline;">3</span>304.  <span style="text-decoration: underline;">4</span>173       <span style="text-decoration: underline;">3</span>304. <span style="text-decoration: underline;">3</span>304.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0 Very Good        <span style="text-decoration: underline;">3</span>331.  <span style="text-decoration: underline;">9</span>714       <span style="text-decoration: underline;">3</span>331. <span style="text-decoration: underline;">3</span>331.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0 Premium          <span style="text-decoration: underline;">3</span>337.  <span style="text-decoration: underline;">9</span>657       <span style="text-decoration: underline;">3</span>337. <span style="text-decoration: underline;">3</span>337.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     0 Ideal            <span style="text-decoration: underline;">3</span>431. <span style="text-decoration: underline;">14</span>703       <span style="text-decoration: underline;">3</span>431. <span style="text-decoration: underline;">3</span>431.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     1 Fair             <span style="text-decoration: underline;">3</span>360.  <span style="text-decoration: underline;">1</span>492       <span style="text-decoration: underline;">3</span>360. <span style="text-decoration: underline;">3</span>360.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     1 Good             <span style="text-decoration: underline;">3</span>441.  <span style="text-decoration: underline;">4</span>173       <span style="text-decoration: underline;">3</span>441. <span style="text-decoration: underline;">3</span>441.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     1 Very Good        <span style="text-decoration: underline;">3</span>503.  <span style="text-decoration: underline;">9</span>714       <span style="text-decoration: underline;">3</span>503. <span style="text-decoration: underline;">3</span>503.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     1 Premium          <span style="text-decoration: underline;">3</span>540.  <span style="text-decoration: underline;">9</span>657       <span style="text-decoration: underline;">3</span>540. <span style="text-decoration: underline;">3</span>540.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     1 Ideal            <span style="text-decoration: underline;">3</span>565. <span style="text-decoration: underline;">14</span>703       <span style="text-decoration: underline;">3</span>565. <span style="text-decoration: underline;">3</span>565.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 45 more rows</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d1$clarity</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 88 × 6</span></span></span>
+<span><span class="co">#&gt;      .it clarity .y_composite    .n .y_distinct    .y</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0 I1              499.   704        499.  499.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     0 SI2            <span style="text-decoration: underline;">2</span>313.  <span style="text-decoration: underline;">7</span>916       <span style="text-decoration: underline;">2</span>313. <span style="text-decoration: underline;">2</span>313.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0 SI1            <span style="text-decoration: underline;">2</span>974.  <span style="text-decoration: underline;">9</span>857       <span style="text-decoration: underline;">2</span>974. <span style="text-decoration: underline;">2</span>974.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0 VS2            <span style="text-decoration: underline;">3</span>632.  <span style="text-decoration: underline;">8</span>227       <span style="text-decoration: underline;">3</span>632. <span style="text-decoration: underline;">3</span>632.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     0 VS1            <span style="text-decoration: underline;">3</span>927.  <span style="text-decoration: underline;">6</span>007       <span style="text-decoration: underline;">3</span>927. <span style="text-decoration: underline;">3</span>927.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     0 VVS2           <span style="text-decoration: underline;">4</span>443.  <span style="text-decoration: underline;">3</span>463       <span style="text-decoration: underline;">4</span>443. <span style="text-decoration: underline;">4</span>443.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     0 VVS1           <span style="text-decoration: underline;">4</span>660.  <span style="text-decoration: underline;">2</span>413       <span style="text-decoration: underline;">4</span>660. <span style="text-decoration: underline;">4</span>660.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     0 IF             <span style="text-decoration: underline;">4</span>899.  <span style="text-decoration: underline;">1</span>152       <span style="text-decoration: underline;">4</span>899. <span style="text-decoration: underline;">4</span>899.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     1 I1             <span style="text-decoration: underline;">2</span>483.   704       <span style="text-decoration: underline;">2</span>483. <span style="text-decoration: underline;">2</span>483.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     1 SI2            <span style="text-decoration: underline;">4</span>560.  <span style="text-decoration: underline;">7</span>916       <span style="text-decoration: underline;">4</span>560. <span style="text-decoration: underline;">4</span>560.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 78 more rows</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d2</span></span>
+<span><span class="co">#&gt; $d2$`carat:clarity`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 968 × 7</span></span></span>
+<span><span class="co">#&gt;      .it carat clarity .y_composite    .n .y_distinct    .y</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0  0.2  I1             <span style="text-decoration: underline;">4</span>911.     0       <span style="text-decoration: underline;">4</span>911. <span style="text-decoration: underline;">4</span>911.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     0  0.34 I1             <span style="text-decoration: underline;">4</span>911.    10       <span style="text-decoration: underline;">4</span>824. <span style="text-decoration: underline;">4</span>824.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0  0.45 I1             <span style="text-decoration: underline;">4</span>911.    14       <span style="text-decoration: underline;">4</span>736. <span style="text-decoration: underline;">4</span>736.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0  0.56 I1             <span style="text-decoration: underline;">4</span>911.    21       <span style="text-decoration: underline;">4</span>545. <span style="text-decoration: underline;">4</span>545.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     0  0.71 I1             <span style="text-decoration: underline;">4</span>911.    50       <span style="text-decoration: underline;">4</span>295. <span style="text-decoration: underline;">4</span>295.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     0  0.85 I1             <span style="text-decoration: underline;">4</span>911.    27       <span style="text-decoration: underline;">4</span>130. <span style="text-decoration: underline;">4</span>130.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     0  1.01 I1             <span style="text-decoration: underline;">4</span>911.   136       <span style="text-decoration: underline;">3</span>237. <span style="text-decoration: underline;">3</span>237.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     0  1.07 I1             <span style="text-decoration: underline;">4</span>911.    70       <span style="text-decoration: underline;">3</span>125. <span style="text-decoration: underline;">3</span>125.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     0  1.23 I1             <span style="text-decoration: underline;">4</span>911.   114       <span style="text-decoration: underline;">2</span>811. <span style="text-decoration: underline;">2</span>811.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     0  1.53 I1             <span style="text-decoration: underline;">4</span>911.   102       <span style="text-decoration: underline;">2</span>226. <span style="text-decoration: underline;">2</span>226.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 958 more rows</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d2$`cut:table`</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 440 × 7</span></span></span>
+<span><span class="co">#&gt;      .it cut       table .y_composite    .n .y_distinct    .y</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0 Fair         43        <span style="text-decoration: underline;">3</span>361.     0       <span style="text-decoration: underline;">3</span>361. <span style="text-decoration: underline;">3</span>361.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     0 Good         43        <span style="text-decoration: underline;">3</span>361.     0       <span style="text-decoration: underline;">3</span>362. <span style="text-decoration: underline;">3</span>362.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0 Very Good    43        <span style="text-decoration: underline;">3</span>361.     0       <span style="text-decoration: underline;">3</span>365. <span style="text-decoration: underline;">3</span>365.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0 Premium      43        <span style="text-decoration: underline;">3</span>361.     0       <span style="text-decoration: underline;">3</span>366. <span style="text-decoration: underline;">3</span>366.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     0 Ideal        43        <span style="text-decoration: underline;">3</span>361.     1       <span style="text-decoration: underline;">3</span>364. <span style="text-decoration: underline;">3</span>364.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     0 Fair         55        <span style="text-decoration: underline;">3</span>361.   200       <span style="text-decoration: underline;">3</span>360. <span style="text-decoration: underline;">3</span>360.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     0 Good         55        <span style="text-decoration: underline;">3</span>361.   490       <span style="text-decoration: underline;">3</span>361. <span style="text-decoration: underline;">3</span>361.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     0 Very Good    55        <span style="text-decoration: underline;">3</span>361.  <span style="text-decoration: underline;">1</span>106       <span style="text-decoration: underline;">3</span>364. <span style="text-decoration: underline;">3</span>364.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     0 Premium      55        <span style="text-decoration: underline;">3</span>361.   266       <span style="text-decoration: underline;">3</span>365. <span style="text-decoration: underline;">3</span>365.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     0 Ideal        55        <span style="text-decoration: underline;">3</span>364.  <span style="text-decoration: underline;">4</span>669       <span style="text-decoration: underline;">3</span>366. <span style="text-decoration: underline;">3</span>366.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 430 more rows</span></span></span></code></pre></div>
+<p>The <code>stats</code> argument retrieves different summaries of the
+effects:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimates for every available statistic</span></span>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="st">"estimate"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $d1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 9</span></span></span>
+<span><span class="co">#&gt;   term     aled aler_min  aler aler_max naled naler_min naler naler_max</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> carat   <span style="text-decoration: underline;">1</span>330. -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">734.</span>   <span style="text-decoration: underline;">5</span>915.    <span style="text-decoration: underline;">4</span>181. 14.2   -<span style="color: #BB0000;">22.8</span>    52.9      30.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> cut      160.    -<span style="color: #BB0000;">1.06</span>  203.     202.  1.42   -<span style="color: #BB0000;">0.014</span><span style="color: #BB0000; text-decoration: underline;">3</span>  1.79      1.77</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> clarity <span style="text-decoration: underline;">1</span>741. -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">505.</span>   <span style="text-decoration: underline;">3</span>891.    <span style="text-decoration: underline;">2</span>386. 16.3   -<span style="color: #BB0000;">19.0</span>    40.3      21.3 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d2</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
+<span><span class="co">#&gt;   term          aled aler_min   aler aler_max   naled naler_min  naler naler_max</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> carat:clar… 1.80<span style="color: #949494;">e</span>3  -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">171.</span>  <span style="text-decoration: underline;">6</span>524.    <span style="text-decoration: underline;">5</span>353.  14.5      -<span style="color: #BB0000;">14.2</span>   48.2      33.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> cut:table   8.56<span style="color: #949494;">e</span>0    -<span style="color: #BB0000;">18.7</span>   32.7     14.1  0.091<span style="text-decoration: underline;">4</span>    -<span style="color: #BB0000;">0.210</span>  0.344     0.135</span></span>
+<span></span>
+<span><span class="co"># Complete results for selected statistics</span></span>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aled"</span>, <span class="st">"naler"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $d1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
+<span><span class="co">#&gt;   statistic estimate p.value term    conf.low    mean  median conf.high</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled       <span style="text-decoration: underline;">1</span>330.      0    carat    <span style="text-decoration: underline;">1</span>323.   <span style="text-decoration: underline;">1</span>330.   <span style="text-decoration: underline;">1</span>330.     <span style="text-decoration: underline;">1</span>339.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> naler        52.9     0    carat      52.9    52.9    52.9      53.0 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aled        160.      0    cut       156.    160.    160.      164.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naler         1.79    0.77 cut         1.75    1.79    1.79      1.83</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> aled       <span style="text-decoration: underline;">1</span>741.      0    clarity  <span style="text-decoration: underline;">1</span>600.   <span style="text-decoration: underline;">1</span>741.   <span style="text-decoration: underline;">1</span>737.     <span style="text-decoration: underline;">1</span>868.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler        40.3     0    clarity    39.1    40.3    39.9      42.4 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d2</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 8</span></span></span>
+<span><span class="co">#&gt;   statistic estimate p.value term          conf.low     mean   median conf.high</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled      <span style="text-decoration: underline;">1</span>797.       0    carat:clarity <span style="text-decoration: underline;">1</span>748.    <span style="text-decoration: underline;">1</span>797.    <span style="text-decoration: underline;">1</span>803.     <span style="text-decoration: underline;">1</span>846.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> naler       48.2      0    carat:clarity   45.8     48.2     48.1      49.8  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aled         8.56     0.88 cut:table        5.76     8.56     8.48     12.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naler        0.344    0.95 cut:table        0.277    0.344    0.367     0.396</span></span>
+<span></span>
+<span><span class="co"># Complete results for all available statistics</span></span>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $d1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 24 × 8</span></span></span>
+<span><span class="co">#&gt;    statistic estimate p.value term  conf.low     mean   median conf.high</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> aled       <span style="text-decoration: underline;">1</span>330.      0    carat  <span style="text-decoration: underline;">1</span>323.    <span style="text-decoration: underline;">1</span>330.    <span style="text-decoration: underline;">1</span>330.     <span style="text-decoration: underline;">1</span>339.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> aler_min  -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">734.</span>      0    carat -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">734.</span>   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">734.</span>   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">734.</span>    -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">734.</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> aler       <span style="text-decoration: underline;">5</span>915.      0    carat  <span style="text-decoration: underline;">5</span>895.    <span style="text-decoration: underline;">5</span>915.    <span style="text-decoration: underline;">5</span>913.     <span style="text-decoration: underline;">5</span>939.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> aler_max   <span style="text-decoration: underline;">4</span>181.      0    carat  <span style="text-decoration: underline;">4</span>161.    <span style="text-decoration: underline;">4</span>181.    <span style="text-decoration: underline;">4</span>179.     <span style="text-decoration: underline;">4</span>205.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> naled        14.2     0    carat    14.2     14.2     14.2      14.3 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> naler_min   -<span style="color: #BB0000;">22.8</span>     0    carat   -<span style="color: #BB0000;">22.8</span>    -<span style="color: #BB0000;">22.8</span>    -<span style="color: #BB0000;">22.8</span>     -<span style="color: #BB0000;">22.8</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> naler        52.9     0    carat    52.9     52.9     52.9      53.0 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> naler_max    30.1     0    carat    30.1     30.1     30.1      30.2 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> aled        160.      0    cut     156.     160.     160.      164.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> aler_min     -<span style="color: #BB0000;">1.06</span>    0.99 cut      -<span style="color: #BB0000;">6.27</span>    -<span style="color: #BB0000;">1.06</span>    -<span style="color: #BB0000;">1.14</span>      2.94</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more rows</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d2</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16 × 8</span></span></span>
+<span><span class="co">#&gt;    statistic   estimate p.value term        conf.low     mean   median conf.high</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> aled       <span style="text-decoration: underline;">1</span>797.        0    carat:clar…  1.75<span style="color: #949494;">e</span>+3  1.80<span style="color: #949494;">e</span>+3  1.80<span style="color: #949494;">e</span>+3  <span style="text-decoration: underline;">1</span>846.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> aler_min  -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">171.</span>        0    carat:clar… -<span style="color: #BB0000;">1.31</span><span style="color: #949494;">e</span>+3 -<span style="color: #BB0000;">1.17</span><span style="color: #949494;">e</span>+3 -<span style="color: #BB0000;">1.16</span><span style="color: #949494;">e</span>+3 -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">000.</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> aler       <span style="text-decoration: underline;">6</span>524.        0    carat:clar…  6.39<span style="color: #949494;">e</span>+3  6.52<span style="color: #949494;">e</span>+3  6.53<span style="color: #949494;">e</span>+3  <span style="text-decoration: underline;">6</span>643.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> aler_max   <span style="text-decoration: underline;">5</span>353.        0    carat:clar…  5.24<span style="color: #949494;">e</span>+3  5.35<span style="color: #949494;">e</span>+3  5.35<span style="color: #949494;">e</span>+3  <span style="text-decoration: underline;">5</span>474.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> naled        14.5       0    carat:clar…  1.42<span style="color: #949494;">e</span>+1  1.45<span style="color: #949494;">e</span>+1  1.45<span style="color: #949494;">e</span>+1    14.8  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> naler_min   -<span style="color: #BB0000;">14.2</span>       0    carat:clar… -<span style="color: #BB0000;">1.62</span><span style="color: #949494;">e</span>+1 -<span style="color: #BB0000;">1.42</span><span style="color: #949494;">e</span>+1 -<span style="color: #BB0000;">1.42</span><span style="color: #949494;">e</span>+1   -<span style="color: #BB0000;">11.7</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> naler        48.2       0    carat:clar…  4.58<span style="color: #949494;">e</span>+1  4.82<span style="color: #949494;">e</span>+1  4.81<span style="color: #949494;">e</span>+1    49.8  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> naler_max    33.9       0    carat:clar…  3.36<span style="color: #949494;">e</span>+1  3.39<span style="color: #949494;">e</span>+1  3.39<span style="color: #949494;">e</span>+1    34.3  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> aled          8.56      0.88 cut:table    5.76<span style="color: #949494;">e</span>+0  8.56<span style="color: #949494;">e</span>+0  8.48<span style="color: #949494;">e</span>+0    12.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> aler_min    -<span style="color: #BB0000;">18.7</span>       0.95 cut:table   -<span style="color: #BB0000;">2.60</span><span style="color: #949494;">e</span>+1 -<span style="color: #BB0000;">1.87</span><span style="color: #949494;">e</span>+1 -<span style="color: #BB0000;">1.96</span><span style="color: #949494;">e</span>+1   -<span style="color: #BB0000;">11.5</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> aler         32.7       0.96 cut:table    2.52<span style="color: #949494;">e</span>+1  3.27<span style="color: #949494;">e</span>+1  3.50<span style="color: #949494;">e</span>+1    38.8  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> aler_max     14.1       0.97 cut:table    1.07<span style="color: #949494;">e</span>+1  1.41<span style="color: #949494;">e</span>+1  1.41<span style="color: #949494;">e</span>+1    16.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> naled         0.091<span style="text-decoration: underline;">4</span>    0.87 cut:table    6.11<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>  9.14<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>  8.95<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>     0.138</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> naler_min    -<span style="color: #BB0000;">0.210</span>     0.95 cut:table   -<span style="color: #BB0000;">2.77</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> -<span style="color: #BB0000;">2.10</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> -<span style="color: #BB0000;">2.21</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>    -<span style="color: #BB0000;">0.138</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> naler         0.344     0.95 cut:table    2.77<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  3.44<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  3.67<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>     0.396</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> naler_max     0.135     0.94 cut:table    9.54<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>  1.35<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  1.38<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>     0.156</span></span>
+<span></span>
+<span><span class="co"># All confidence regions, or only statistically significant regions</span></span>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="st">"conf_regions"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Note that confidence regions are not reliable with fewer than 100 bootstrap</span></span>
+<span><span class="co">#&gt;   iterations or p-values based on fewer than 100 random iterations.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> There are 10 bootstrap iterations.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> p-values are based on 100 iterations.</span></span>
+<span><span class="co">#&gt; $d1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16 × 12</span></span></span>
+<span><span class="co">#&gt;    term    x     start_x end_x x_span_pct     n   pct     y start_y end_y  trend</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> carat   <span style="color: #BB0000;">NA</span>       0.2   0.71      10.6  <span style="text-decoration: underline;">16</span>609 41.8    <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">1</span>631. <span style="text-decoration: underline;">2</span>549.  0.501</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> carat   <span style="color: #BB0000;">NA</span>       0.85  1.01       3.33  <span style="text-decoration: underline;">8</span>804 22.2    <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">2</span>818. <span style="text-decoration: underline;">4</span>145.  2.31 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> carat   <span style="color: #BB0000;">NA</span>       1.07  5.01      81.9  <span style="text-decoration: underline;">14</span>326 36.1    <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">4</span>290. <span style="text-decoration: underline;">7</span>546.  0.230</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> cut     Fair    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">1</span>492  3.75 <span style="text-decoration: underline;">3</span>357.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> cut     Good    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">4</span>173 10.5  <span style="text-decoration: underline;">3</span>430.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> cut     Very…   <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">9</span>714 24.4  <span style="text-decoration: underline;">3</span>489.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> cut     Prem…   <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">9</span>657 24.3  <span style="text-decoration: underline;">3</span>522.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> cut     Ideal   <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">14</span>703 37.0  <span style="text-decoration: underline;">3</span>555.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> clarity I1      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>      704  1.77 <span style="text-decoration: underline;">2</span>342.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> clarity SI2     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">7</span>916 19.9  <span style="text-decoration: underline;">4</span>347.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> clarity SI1     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">9</span>857 24.8  <span style="text-decoration: underline;">5</span>241.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> clarity VS2     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">8</span>227 20.7  <span style="text-decoration: underline;">5</span>558.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> clarity VS1     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">6</span>007 15.1  <span style="text-decoration: underline;">5</span>259.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> clarity VVS2    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">3</span>463  8.71 <span style="text-decoration: underline;">4</span>696.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> clarity VVS1    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">2</span>413  6.07 <span style="text-decoration: underline;">3</span>547.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> clarity IF      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">1</span>152  2.90 <span style="text-decoration: underline;">2</span>136.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: aler_band &lt;ord&gt;</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d2</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 47 × 8</span></span></span>
+<span><span class="co">#&gt;    term1 x1          term2   x2    aler_band     n    pct     y</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> carat [0.2,0.71]  clarity I1    above        95 0.239  <span style="text-decoration: underline;">4</span>901.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> carat (0.71,1.07] clarity I1    above        27 0.067<span style="text-decoration: underline;">9</span> <span style="text-decoration: underline;">4</span>899.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> carat (0.71,1.07] clarity I1    overlap     206 0.518  <span style="text-decoration: underline;">5</span>001.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> carat (1.07,5.01] clarity I1    overlap     376 0.946  <span style="text-decoration: underline;">5</span>140.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> carat [0.2,0.71]  clarity SI2   overlap    <span style="text-decoration: underline;">1</span>697 4.27   <span style="text-decoration: underline;">4</span>088.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> carat (0.71,1.07] clarity SI2   overlap    <span style="text-decoration: underline;">2</span>894 7.28   <span style="text-decoration: underline;">5</span>457.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> carat (1.07,5.01] clarity SI2   overlap    <span style="text-decoration: underline;">1</span>881 4.73   <span style="text-decoration: underline;">6</span>631.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> carat (1.07,5.01] clarity SI2   above      <span style="text-decoration: underline;">1</span>444 3.63   <span style="text-decoration: underline;">7</span>921.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> carat [0.2,0.71]  clarity SI1   overlap    <span style="text-decoration: underline;">3</span>572 8.99   <span style="text-decoration: underline;">4</span>023.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> carat (0.71,1.07] clarity SI1   overlap     994 2.50   <span style="text-decoration: underline;">4</span>635.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 37 more rows</span></span></span>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="st">"conf_sig"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Note that confidence regions are not reliable with fewer than 100 bootstrap</span></span>
+<span><span class="co">#&gt;   iterations or p-values based on fewer than 100 random iterations.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> There are 10 bootstrap iterations.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> p-values are based on 100 iterations.</span></span>
+<span><span class="co">#&gt; $d1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 12</span></span></span>
+<span><span class="co">#&gt;    term    x     start_x end_x x_span_pct     n   pct     y start_y end_y  trend</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> carat   <span style="color: #BB0000;">NA</span>       0.2   0.71      10.6  <span style="text-decoration: underline;">16</span>609 41.8    <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">1</span>631. <span style="text-decoration: underline;">2</span>549.  0.501</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> carat   <span style="color: #BB0000;">NA</span>       0.85  1.01       3.33  <span style="text-decoration: underline;">8</span>804 22.2    <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">2</span>818. <span style="text-decoration: underline;">4</span>145.  2.31 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> carat   <span style="color: #BB0000;">NA</span>       1.07  5.01      81.9  <span style="text-decoration: underline;">14</span>326 36.1    <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">4</span>290. <span style="text-decoration: underline;">7</span>546.  0.230</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> clarity I1      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>      704  1.77 <span style="text-decoration: underline;">2</span>342.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> clarity SI2     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">7</span>916 19.9  <span style="text-decoration: underline;">4</span>347.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> clarity SI1     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">9</span>857 24.8  <span style="text-decoration: underline;">5</span>241.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> clarity VS2     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">8</span>227 20.7  <span style="text-decoration: underline;">5</span>558.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> clarity VS1     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">6</span>007 15.1  <span style="text-decoration: underline;">5</span>259.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> clarity VVS2    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">3</span>463  8.71 <span style="text-decoration: underline;">4</span>696.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> clarity VVS1    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">2</span>413  6.07 <span style="text-decoration: underline;">3</span>547.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> clarity IF      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>     <span style="text-decoration: underline;">1</span>152  2.90 <span style="text-decoration: underline;">2</span>136.     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: aler_band &lt;ord&gt;</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $d2</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 32 × 8</span></span></span>
+<span><span class="co">#&gt;    term1 x1          term2   x2    aler_band     n    pct     y</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> carat [0.2,0.71]  clarity I1    above        95 0.239  <span style="text-decoration: underline;">4</span>901.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> carat (0.71,1.07] clarity I1    above        27 0.067<span style="text-decoration: underline;">9</span> <span style="text-decoration: underline;">4</span>899.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> carat (0.71,1.07] clarity I1    overlap     206 0.518  <span style="text-decoration: underline;">5</span>001.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> carat (1.07,5.01] clarity I1    overlap     376 0.946  <span style="text-decoration: underline;">5</span>140.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> carat [0.2,0.71]  clarity SI2   overlap    <span style="text-decoration: underline;">1</span>697 4.27   <span style="text-decoration: underline;">4</span>088.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> carat (0.71,1.07] clarity SI2   overlap    <span style="text-decoration: underline;">2</span>894 7.28   <span style="text-decoration: underline;">5</span>457.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> carat (1.07,5.01] clarity SI2   overlap    <span style="text-decoration: underline;">1</span>881 4.73   <span style="text-decoration: underline;">6</span>631.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> carat (1.07,5.01] clarity SI2   above      <span style="text-decoration: underline;">1</span>444 3.63   <span style="text-decoration: underline;">7</span>921.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> carat [0.2,0.71]  clarity SI1   overlap    <span style="text-decoration: underline;">3</span>572 8.99   <span style="text-decoration: underline;">4</span>023.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> carat (0.71,1.07] clarity SI1   overlap     994 2.50   <span style="text-decoration: underline;">4</span>635.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 22 more rows</span></span></span></code></pre></div>
+<p>These calls return data rather than plots: <code>"estimate"</code>
+provides a compact overview, named statistics return their estimates and
+inferential details, and the confidence-region options identify portions
+of an ALE curve or surface that exceed the relevant threshold. See
+<code><a href="../reference/get-ALE-method.html">help("get-ALE-method")</a></code> for the precise return structures
+and the <a href="ale-statistics.html">ALE statistics vignette</a> before
+drawing inferential conclusions.</p>
+</div>
+<div class="section level2">
+<h2 id="where-to-go-next">Where to go next<a class="anchor" aria-label="anchor" href="#where-to-go-next"></a>
+</h2>
+<p>This introduction has covered the main <code><a href="../reference/ALE.html">ALE()</a></code> workflow:
+default effects, selected 1D and 2D terms, bootstrapping, custom
+prediction functions, plotting, and data extraction. The other vignettes
+cover <a href="ale-statistics.html">ALE-based statistical inference</a>,
+<a href="ale-x-datatypes.html">different predictor datatypes</a>, and <a href="ale-small-datasets.html">small datasets and full-model
+bootstrapping</a>. For exhaustive argument and selection details, see
+<code><a href="../reference/ALE.html">help(ALE)</a></code>, <code><a href="../reference/resolve_x_cols.html">help(resolve_x_cols)</a></code>, and
+<code><a href="../reference/get-ALE-method.html">help("get-ALE-method")</a></code>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
