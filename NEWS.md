@@ -45,6 +45,7 @@ The numbering system described above is used for packages released to CRAN. For 
 We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
 
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
+* Use `parallelly::availableCores()` directly in preparation for its re-export being removed from `{future}`. The `{future}` and `{parallelly}` packages are now suggested dependencies because both are required dependencies of the imported `{furrr}` package (#18).
 * Handle missing 1D ALE bins during model bootstrapping (#19).
 
 ## Changed functionality
@@ -60,7 +61,7 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 
 ## Under the hood
 
-We now use [OpenAI Codex](https://chatgpt.com/codex/) to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
+We now use OpenAI Codex to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
 
 
 # ale (0.5.3)

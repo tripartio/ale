@@ -23,3 +23,5 @@
 ^vignettes/.*_files$
 ^vignettes/.*\\.html$
 ^vignettes/articles$
+^doc$
+^Meta$
