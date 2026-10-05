@@ -628,7 +628,7 @@
       $params$p_values
       NULL
       
-      $params$require_same_p
+      $params$require_p_model_match
       [1] TRUE
       
       $params$aler_alpha
