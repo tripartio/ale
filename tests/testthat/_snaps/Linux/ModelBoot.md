@@ -1232,11 +1232,6 @@
       [1] "gam" "glm" "lm" 
       
       
-      $ale$single$params$p_values$params$data
-      # A tibble: 0 x 8
-      # i 8 variables: mpg <dbl>, vs <lgl>, continent <fct>, am <lgl>, model <chr>,
-      #   gear <ord>, carb <int>, wt <dbl>
-      
       $ale$single$params$p_values$params$y_col
       [1] "vs"
       
@@ -1266,9 +1261,6 @@
       
       $ale$single$params$p_values$params$seed
       [1] 0
-      
-      $ale$single$params$p_values$params$n_rows
-      [1] 64
       
       $ale$single$params$p_values$params$rand_it_ok
       [1] 100
@@ -1606,11 +1598,6 @@
       [1] "gam" "glm" "lm" 
       
       
-      $params$ale_p$params$data
-      # A tibble: 0 x 8
-      # i 8 variables: mpg <dbl>, vs <lgl>, continent <fct>, am <lgl>, model <chr>,
-      #   gear <ord>, carb <int>, wt <dbl>
-      
       $params$ale_p$params$y_col
       [1] "vs"
       
@@ -1640,9 +1627,6 @@
       
       $params$ale_p$params$seed
       [1] 0
-      
-      $params$ale_p$params$n_rows
-      [1] 64
       
       $params$ale_p$params$rand_it_ok
       [1] 100

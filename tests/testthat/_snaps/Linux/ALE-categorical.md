@@ -2959,11 +2959,6 @@
       [1] "multinom" "nnet"    
       
       
-      $params$p_values$params$data
-      # A tibble: 0 x 8
-      # i 8 variables: mpg <dbl>, vs <lgl>, continent <fct>, am <lgl>, model <chr>,
-      #   gear <ord>, carb <int>, wt <dbl>
-      
       $params$p_values$params$y_col
       [1] "continent"
       
@@ -2993,9 +2988,6 @@
       
       $params$p_values$params$seed
       [1] 0
-      
-      $params$p_values$params$n_rows
-      [1] 64
       
       $params$p_values$params$rand_it_ok
       [1] 100
