@@ -10,6 +10,7 @@ tests/testthat/_snaps
 tests/testthat/_snaps/Linux
 tests/testthat/Rplots.pdf
 tests/testthattest-ALEPlot-gold-standard.R
+tmp
 vignettes/articles/ale-ALEPlot.Rmd
 vignettes/*_files
 /doc/

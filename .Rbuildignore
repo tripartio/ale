@@ -19,6 +19,7 @@
 ^revdep$
 ^scholar$
 ^tests/testthat/test-ALEPlot-gold-standard\.R$
+^tmp$
 ^vignettes/.*_auto$
 ^vignettes/.*_cache$
 ^vignettes/.*_files$
