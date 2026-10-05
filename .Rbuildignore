@@ -4,6 +4,7 @@
 ^\.Rproj\.user$
 ^\.vscode$
 ^_pkgdown\.yml$
+^AGENTS\.md$
 ^ale\.Rproj$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
