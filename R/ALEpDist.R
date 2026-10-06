@@ -447,13 +447,11 @@ ALEpDist <- new_class(
     if (!is.null(model_call)) {
       # Get the predictors when model_call is automatically detected
 
-      if (is.null(model_call$formula)) {
-        # Some models assign the formula as the default first argument without naming it.
-        # In such cases, element 1 is the function call and element 2 is the formula.
-        model_call$formula <- model_call[[2]]
-        # Element 2 must be subsequently deleted, or else it is passed to the next unnamed argument
-        model_call[[2]] <- NULL
-      }
+      # Ensure that all model_call arguments are explicitly named
+      model_call <- match.call(
+        definition = eval(model_call[[1L]]),
+        call = model_call
+      )
 
       model_predictors <-
         model_call$formula |>
