@@ -39,6 +39,18 @@ test_that(
     # get.ALE works for a categorical ALE object
     get(cat_cars_ale, cats = c('Asia', 'Europe')) |> expect_snap_variant()
 
+    # Simplify the dimension and term lists independently within every category.
+    raw_wt <- get(cat_cars_ale, 'wt', cats = c('Asia', 'Europe'), simplify = FALSE)
+    expect_equal(
+      get(cat_cars_ale, 'wt', cats = c('Asia', 'Europe')),
+      list(Asia = raw_wt$Asia$d1$wt, Europe = raw_wt$Europe$d1$wt)
+    )
+    expect_equal(get(cat_cars_ale, 'wt', cats = 'Asia'), raw_wt$Asia$d1$wt)
+    expect_equal(
+      get(cat_cars_ale, 'wt', cats = 'Asia', simplify = FALSE),
+      raw_wt$Asia
+    )
+
     # get.ALE can exclude specific columns (edge case with 2D) and still return a snapshot
     get(cat_cars_ale, exclude_cols = list(d2_all = 'am')) |> expect_snap_variant()
 
@@ -57,6 +69,19 @@ test_that(
     cat_cars_ale_plots |>
       ale_plots_to_data() |>
       expect_snap_variant()
+
+    raw_wt_plots <- get(cat_cars_ale_plots, 'wt', cats = c('Asia', 'Europe'),
+                        simplify = FALSE)
+    expect_identical(
+      get(cat_cars_ale_plots, 'wt', cats = c('Asia', 'Europe')),
+      list(Asia = raw_wt_plots$Asia$d1$wt, Europe = raw_wt_plots$Europe$d1$wt)
+    )
+    expect_identical(get(cat_cars_ale_plots, 'wt', cats = 'Asia'),
+                     raw_wt_plots$Asia$d1$wt)
+    expect_identical(
+      get(cat_cars_ale_plots, 'wt', cats = 'Asia', simplify = FALSE),
+      raw_wt_plots$Asia
+    )
 
     # Reuse the existing plots to test zooming without computing another ALE.
     x_limits <- c(2, 4)
@@ -116,4 +141,3 @@ test_that(
       expect_snap_variant()
   }
 )
-
