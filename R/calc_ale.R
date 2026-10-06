@@ -835,7 +835,8 @@ calc_ale <- function(
         xn_counts[[it.x_col]] <- xn_counts[[it.x_col]] |>
           # factors from table() must be first converted to character; otherwise, direct conversion to numeric converts to their integer positions.
           as.character() |>
-          as.numeric()
+          # Match the class restored in boot_ale_tbl, including Date boundaries.
+          cast(xd[[it.x_col]]$ceilings |> class())
       }
     }
 
