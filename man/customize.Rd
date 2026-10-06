@@ -29,7 +29,7 @@ customize(
 
 \item{layers}{List of \code{ggplot} layers. These are appended to each plot indicated by the combination of \code{x_cols}, \code{type}, and \code{cats} by applying the \code{ggplot2} \code{+} operator to them.}
 
-\item{zoom_x, zoom_y}{numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default \code{NULL} does not zoom.}
+\item{zoom_x, zoom_y}{numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default \code{NULL} preserves the existing limits for that axis, including limits set by earlier calls to \code{customize()} or by \code{layers}.}
 }
 \value{
 An \code{ALEPlots} object where elements specified by x_cols and exclude_cols are modified accordingly. Non-specified elements are not modified.
