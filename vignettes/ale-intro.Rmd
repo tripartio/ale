@@ -1,7 +1,7 @@
 ---
 title: "Introduction to the ale package"
 author: "Chitu Okoli"
-date: "August 27, 2025"
+date: "October 5, 2026"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to the ale package}
@@ -157,20 +157,20 @@ Most core functions in the `{ale}` package support parallel processing. You can 
 To access the plot for a specific variable, we must first create an `ALEPlots` object by calling the `plot()` method on the `ALE` object which internally generates `ggplot` objects with the full flexibility of {ggplot2}:
 
 ```{r create-plots}
-# Print a plot by entering its reference
+# Generate an ALEPlots object
 diamonds_plots <- plot(ale_rf_diamonds)
 ```
 
 To retrieve a specific variable plot, you can use the `get()` method of the `ALEPlots` object.  For example, to access and print the `carat` ALE plot, we can simply refer to `get(diamonds_plots, 'carat')`:
 
-```{r print-carat, fig.width=3.5, fig.height=4}
+```{r print-carat, fig.width=4, fig.height=3}
 # Print a plot by entering its reference
 get(diamonds_plots, 'carat')
 ```
 
 To display all the ALE plots in an `ALEPlots` object, we can simply call its `print()` or `plot()` methods. Behind the scenes, they use the `{patchwork}` package to arrange multiple plots in a common plot grid using `patchwork::wrap_plots()`, so we can pass arguments from that function. For example, we can specify that we want two plots per row with the `ncol` argument:
 
-```{r print-ale_simple, fig.width=12, fig.height=11}
+```{r print-ale_simple, fig.width=12, fig.height=22}
 # Print all plots
 plot(diamonds_plots, ncol = 2)
 ```
@@ -207,7 +207,7 @@ Although ALE is faster than most other IML techniques for global explanation suc
 
 We create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100 iterations. 
 
-```{r ale_boot, eval=FALSE, echo=TRUE, fig.width=12, fig.height=11}
+```{r ale_boot, eval=FALSE, echo=TRUE, fig.width=12, fig.height=22}
 # To run the slow code yourself, uncomment and execute the following call.
 # ale_rf_diamonds_boot <- ALE(
 #   rf_diamonds,
@@ -228,7 +228,7 @@ plot(ale_rf_diamonds_boot) |>
   print(ncol = 2)
 ```
 
-```{r ale_boot-rds, eval=TRUE, echo=FALSE, fig.width=12, fig.height=11}
+```{r ale_boot-rds, eval=TRUE, echo=FALSE, fig.width=12, fig.height=22}
 ale_rf_diamonds_boot <- retrieve_rds(
   # For speed, load a pre-created object by default.
   if (file.exists("../download/ale_rf_diamonds_boot.0.5.3.rds")) {
@@ -271,7 +271,7 @@ ale_rf_diamonds_boot |>
 
 The `get()` method accepts either a character term or standard R formula notation:
 
-```{r print-specific-ixn, fig.width=6, fig.height=5}
+```{r print-specific-ixn, fig.width=6, fig.height=4}
 ale_rf_diamonds_boot |>
   plot() |>
   get("carat:clarity")
@@ -285,7 +285,7 @@ Note that ALE interactions are very particular: an ALE interaction means that tw
 
 `ALE()` normally calls a model's prediction method and handles ranger's prediction format automatically. To demonstrate a custom `pred_fun`, we explicitly call ranger's prediction method and extract its numeric predictions. The function must accept `object`, `newdata`, and `type`, and return a numeric vector or matrix. Explicitly invoking ranger's method also makes this custom function available during parallel processing:
 
-```{r ale_custom, eval=FALSE, echo=TRUE, fig.width=12, fig.height=11}
+```{r ale_custom, eval=FALSE, echo=TRUE, fig.width=12, fig.height=22}
 custom_predict <- function(object, newdata, type = 'response') {
   ranger:::predict.ranger( # must explicitly invoke ranger for parallelization to work
     object = object,
@@ -310,7 +310,7 @@ plot(ale_rf_diamonds_custom) |>
   print(ncol = 2)
 ```
 
-```{r ale_custom-rds, eval=TRUE, echo=FALSE, fig.width=12, fig.height=11}
+```{r ale_custom-rds, eval=TRUE, echo=FALSE, fig.width=12, fig.height=22}
 custom_predict <- function(object, newdata, type = 'response') {
   ranger:::predict.ranger( # must explicitly invoke ranger for parallelization to work
     object = object,
