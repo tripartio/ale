@@ -58,6 +58,50 @@ test_that(
       ale_plots_to_data() |>
       expect_snap_variant()
 
+    # Reuse the existing plots to test zooming without computing another ALE.
+    x_limits <- c(2, 4)
+    y_limits <- c(-0.2, 0.2)
+    zoom_xy <- cat_cars_ale_plots |>
+      customize('wt', cats = 'Asia', zoom_x = x_limits) |>
+      customize('wt', cats = 'Asia', zoom_y = y_limits)
+    zoom_yx <- cat_cars_ale_plots |>
+      customize('wt', cats = 'Asia', zoom_y = y_limits) |>
+      customize('wt', cats = 'Asia', zoom_x = x_limits)
+    zoom_both <- cat_cars_ale_plots |>
+      customize('wt', cats = 'Asia', zoom_x = x_limits, zoom_y = y_limits)
+
+    for (zoomed in list(zoom_xy, zoom_yx, zoom_both)) {
+      expect_equal(zoomed@plots$Asia$d1$wt$coordinates$limits,
+                   list(x = x_limits, y = y_limits))
+      expect_identical(zoomed@plots$Europe, cat_cars_ale_plots@plots$Europe)
+      expect_identical(zoomed@plots$Asia$d2, cat_cars_ale_plots@plots$Asia$d2)
+    }
+
+    # Each selected plot must retain its own previous limits.
+    other_x_limits <- c(3, 5)
+    zoom_per_plot <- zoom_xy |>
+      customize('wt', cats = 'Europe', zoom_x = other_x_limits) |>
+      customize('wt', cats = c('Asia', 'Europe'), zoom_y = y_limits)
+    expect_equal(zoom_per_plot@plots$Asia$d1$wt$coordinates$limits,
+                 list(x = x_limits, y = y_limits))
+    expect_equal(zoom_per_plot@plots$Europe$d1$wt$coordinates$limits,
+                 list(x = other_x_limits, y = y_limits))
+
+    # Supplied coordinate layers are applied before zoom arguments.
+    zoom_layer <- cat_cars_ale_plots |>
+      customize('wt', cats = 'Asia',
+                layers = list(ggplot2::coord_cartesian(xlim = x_limits)),
+                zoom_y = y_limits)
+    expect_equal(zoom_layer@plots$Asia$d1$wt$coordinates$limits,
+                 list(x = x_limits, y = y_limits))
+
+    # A subsequent zoom replaces only the requested axis; NULL changes neither.
+    zoom_replaced <- zoom_xy |>
+      customize('wt', cats = 'Asia', zoom_x = other_x_limits) |>
+      customize('wt', cats = 'Asia')
+    expect_equal(zoom_replaced@plots$Asia$d1$wt$coordinates$limits,
+                 list(x = other_x_limits, y = y_limits))
+
     # # Create snapshot tests
     # get(cat_cars_ale_plots, 'wt', cats = 'Asia')
     # get(cat_cars_ale_plots, 'gear:carb', cats = c('Europe', 'North America'))
@@ -72,5 +116,4 @@ test_that(
       expect_snap_variant()
   }
 )
-
 
