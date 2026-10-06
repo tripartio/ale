@@ -24,6 +24,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 ## Bug fixes
 
+* `get()` for `ALE` and `ModelBoot` objects now returns named statistics in the requested order within each term.
 * `get()` now raises a clear error when confidence regions are requested without p-values. `summary()` for `ALE` and `ModelBoot` objects silently omits confidence-region sections when p-values are absent.
 
 We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.

@@ -21,11 +21,15 @@ test_that(
 
     for (type in c('auto', 'single', 'boot')) {
       expect_missing_p_conf(pll_mb, type = type)
+      expect_requested_stats_order(pll_mb, type = type)
+      expect_requested_stats_order(pll_mb, x_cols = "wt", type = type)
+      expect_requested_stats_order(pll_mb, x_cols = "gear:carb", type = type)
     }
     expect_conf_summary(pll_mb, has_p_values = FALSE)
 
     # Reuse the embedded ALE object to exercise silent getters on CI as well.
     expect_missing_p_conf(pll_mb@ale$single)
+    expect_requested_stats_order(pll_mb@ale$single)
     expect_missing_p_conf(pll_mb@ale$single, silent = TRUE)
     expect_conf_summary(pll_mb@ale$single, has_p_values = FALSE)
   }
