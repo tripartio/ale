@@ -2,6 +2,27 @@
 
 # Because it is complex to save entire ggplot objects, only save the core data from the plots
 
+test_that('binary nnet predictions accept an unnamed single-column matrix', {
+  set.seed(1)
+  nn_cars <- nnet::nnet(
+    vs ~ wt, data = var_cars, size = 1, maxit = 10, trace = FALSE
+  )
+  prediction <- predict(nn_cars, var_cars, type = 'raw')
+  expect_identical(dim(prediction), c(nrow(var_cars), 1L))
+  expect_null(colnames(prediction))
+
+  validated <- validate_prediction(NULL, nn_cars, var_cars, 'vs', 'raw')
+  expect_identical(colnames(validated$y_preds), 'vs')
+  expect_identical(unname(validated$y_preds), unname(prediction))
+
+  cars_ale <- ALE(
+    nn_cars, data = var_cars, x_cols = 'wt', pred_type = 'raw',
+    output_stats = FALSE, silent = TRUE
+  )
+  expect_true(S7::S7_inherits(cars_ale, ALE))
+  expect_identical(cars_ale@params$y_col, 'vs')
+})
+
 
 test_that(
   'bootstrapped binary outcome with full 1D and 2D ALE', {
