@@ -35,6 +35,7 @@ test_that(
     # get.ALE with a bootstrapped ALE object returns boot_data and stats
     get(cat_cars_ale, what = "boot_data") |> expect_snap_variant()
     get(cat_cars_ale, stats = "estimate") |> expect_snap_variant()
+    expect_requested_stats_order(cat_cars_ale)
 
     # get.ALE works for a categorical ALE object
     get(cat_cars_ale, cats = c('Asia', 'Europe')) |> expect_snap_variant()

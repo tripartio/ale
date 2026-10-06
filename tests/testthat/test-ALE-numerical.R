@@ -19,6 +19,7 @@ test_that(
       expect_snap_variant()
 
     expect_conf_summary(pll_ale, has_p_values = TRUE)
+    expect_requested_stats_order(pll_ale)
   }
 )
 
