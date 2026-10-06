@@ -54,6 +54,11 @@ method(get, ALEPlots) <- function(
   # Never skip this validation step!
   rlang::check_dots_empty()
 
+  validate(
+    is_bool(simplify),
+    msg = '{.arg simplify} must be {.val TRUE} or {.val FALSE}.'
+  )
+
   # Subset x_cols.
   # This procedure also validates the arguments used here.
   obj <- subset(
@@ -122,24 +127,8 @@ method(get, ALEPlots) <- function(
 
   ## Simplify the results ----------------
 
-  if (
-    simplify &&
-    # Only simplify if req_plots is a simple list
-    (class(req_plots) |> is_string('list'))
-  ) {
-    # If one dimension is empty, eliminate it and leave only the other
-    req_plots <- compact(req_plots)
-    if (all(names(req_plots) %in% c('d1', 'd2'))) {
-      if (is.null(req_plots[['d1']])) {
-        req_plots <- compact(req_plots[['d2']])
-      } else if (is.null(req_plots[['d2']])) {
-        req_plots <- compact(req_plots[['d1']])
-      }
-    }
-
-    if (length(req_plots) == 1) {
-      req_plots <- req_plots[[1]]
-    }
+  if (simplify) {
+    req_plots <- simplify_objs(req_plots)
   }
 
   return(req_plots)

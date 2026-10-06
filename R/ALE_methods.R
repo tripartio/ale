@@ -31,7 +31,7 @@
 #' * `stats`: character(1). Retrieve ALE statistics. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
 #' * `cats`: character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 #' * `ale_centre`: Same as in documentation for [ALEPlots()]
-#' * `simplify`: logical(1). If `TRUE` (default), the results will be simplified to the simplest list structure possible to give the requested results. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
+#' * `simplify`: logical(1). If `TRUE` (default), recursively remove empty elements and zero-row data frames, then promote the sole member of each remaining list. Nonempty data frames, ggplots, and other objects that are not simple lists are kept intact. If no objects remain, return `NULL`. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
 #' * `silent`: See documentation for [resolve_x_cols()]
 #'
 #' @returns
@@ -40,7 +40,7 @@
 #'   * The next level (or top level if there are zero or one category) is a list with one or two levels:
 #'       * `d1`: 1D ALE elements.
 #'       * `d2`: 2D ALE elements.
-#'       However, if elements of only one dimension (either 1D or 2D) are requested and `simplify = TRUE` (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no `d1` sublist but only a list of the ALE data as described for the next level. If `simplify = FALSE`, both `d1` and `d2` sublists will always be returned; the empty sublist will be `NULL`.
+#'       However, if elements of only one dimension (either 1D or 2D) are requested and `simplify = TRUE` (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no `d1` sublist but only a list of the ALE data as described for the next level. If `simplify = FALSE`, both `d1` and `d2` sublists will always be returned; the empty sublist will be `NULL` or an empty list.
 #'
 #' While all results follow the general structure just described, the specific type of data returned depends on the values of the `what` and `stats` arguments:
 #' \describe{
@@ -333,33 +333,9 @@ method(get, ALE) <- function(
 
   ## Simplify the results ----------------
   if (simplify) {
-    # If one dimension is empty, eliminate it and leave only the other
-    specific_what <- specific_what |>
-      map(\(it.cat_el) {
-        it.cat_el <- compact(it.cat_el)
-        if (
-          length(it.cat_el$d1) == 0 ||
-          (is.data.frame(it.cat_el$d1) && nrow(it.cat_el$d1) == 0)
-        ) {
-          it.cat_el <- compact(it.cat_el$d2)
-        } else if (
-          length(it.cat_el$d2) == 0 ||
-          (is.data.frame(it.cat_el$d2) && nrow(it.cat_el$d2) == 0)
-        ) {
-          it.cat_el <- compact(it.cat_el$d1)
-        }
-
-        if (length(it.cat_el) == 1) {
-          it.cat_el <- it.cat_el[[1]]
-        }
-
-        it.cat_el
-      })
-  }
-
-  # If there is only one category, results are always simplified regardless of the value of simplify
-  if (length(names(specific_what)) == 1) {
-    # Only one category: eliminate the category level
+    specific_what <- simplify_objs(specific_what)
+  } else if (length(specific_what) == 1) {
+    # A sole outcome category is always promoted, even without simplification.
     specific_what <- specific_what[[1]]
   }
 
