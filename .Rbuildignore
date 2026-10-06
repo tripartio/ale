@@ -15,7 +15,7 @@
 ^LICENSE\.md$
 ^pkgdown$
 ^R/refALEPlot\.R$
-^README\.Rmd$
+^README\.qmd$
 ^revdep$
 ^scholar$
 ^tests/testthat/test-ALEPlot-gold-standard\.R$

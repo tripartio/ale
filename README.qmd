@@ -1,10 +1,13 @@
 ---
-output: github_document
+format: gfm
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
-```{r knitr init, include = FALSE}
+```{r}
+#| label: knitr-init
+#| include: false
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -62,7 +65,7 @@ The development version in the main branch of GitHub is always thoroughly checke
 
 ## Usage
 
-We will give two demonstrations of how to use the package: first, a simple demonstration of ALE plots, and second, a more sophisticated demonstration suitable for statistical inference with p-values. For both demonstrations, we begin by fitting a GAM model. We assume that this is a final deployment model that needs to be fitted to the entire dataset. 
+We will give two demonstrations of how to use the package: first, a simple demonstration of ALE plots, and second, a more sophisticated demonstration suitable for statistical inference with p-values. For both demonstrations, we begin by fitting a random forest. We assume that this is a final deployment model that needs to be fitted to the entire dataset. 
 
 
 ```{r diamonds-data}
@@ -86,15 +89,19 @@ diamonds <- ggplot2::diamonds |>
 
 ```
 
-```{r gam}
+```{r rf}
 
-# Create a GAM model with flexible curves to predict diamond price
+# Create a random forest with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
 # Build the model on training data, not on the full dataset.
-gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
-    cut + color + clarity,
-  data = diamonds
+rf_diamonds <- ranger::ranger(
+  price ~ ., diamonds,  # train for IML on full dataset
+  mtry = 7,  # number of variables per tree
+  min.node.size = 4,  # minimum leaf (terminal node) size
+  sample.fraction = 0.465,  # fraction of rows to sample
+  # small forest still accurate for a large dataset; 10× faster than 500 trees
+  num.trees = 50,
+  seed = 0  # keep the random forest consistent
 )
 ```
 
@@ -108,39 +115,43 @@ library(ale)
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 ```
 
 
 ```{r simple-ale, eval=FALSE, echo=TRUE, fig.width=7, fig.height=11}
 # Create ALE data
 # # To run the slow code yourself, uncomment and execute this code block directly.
-ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds)
+# ale_rf_diamonds <- ALE(rf_diamonds, data = diamonds)
 
-ale_gam_diamonds <- serialized_objects_site |> 
-  file.path('ale_gam_diamonds.0.5.2.rds') |>
+ale_rf_diamonds <- serialized_objects_site |> 
+  file.path('ale_rf_diamonds.0.5.3.rds') |>
   url() |> 
   readRDS()
 
-# Plot the ALE data
-plot(ale_gam_diamonds) |> 
-  print(ncol = 2)
 ```
 
 ```{r simple-ale-rds, eval=TRUE, echo=FALSE, fig.width=7, fig.height=11}
 # Create ALE data
-ale_gam_diamonds <- retrieve_rds(
+ale_rf_diamonds <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
+  c(serialized_objects_site, 'ale_rf_diamonds.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    ALE(gam_diamonds, data = diamonds)
+    ALE(rf_diamonds, data = diamonds)
   }
 )
-# saveRDS(ale_gam_diamonds, file.choose())
+# saveRDS(ale_rf_diamonds, file.choose())
+```
 
+```{r summary-ale-rf}
+# Print a statistical summary of the ALE object
+summary(ale_rf_diamonds)
+```
+
+```{r plot-ale-rf, fig.width=7, fig.height=11}
 # Plot the ALE data
-plot(ale_gam_diamonds) |> 
+plot(ale_rf_diamonds) |> 
   print(ncol = 2)
 ```
 
@@ -157,14 +168,14 @@ First, we need to create a p-value distribution object so that the ALE statistic
 
 # # Rather slow because it retrains the model 100 times.
 # # To run the slow code yourself, uncomment and execute this code block directly.
-# p_dist_gam_diamonds_readme <- ALEpDist(
-#   gam_diamonds, diamonds,
+# p_dist_rf_diamonds_readme <- ALEpDist(
+#   rf_diamonds, diamonds,
 #   # Normally should be default 1000, but just 100 for a quicker demo.
 #   rand_it = 100
 # )
 
-p_dist_gam_diamonds_readme <- serialized_objects_site |> 
-  file.path('p_dist_gam_diamonds_readme.0.5.2.rds') |>
+p_dist_rf_diamonds_readme <- serialized_objects_site |> 
+  file.path('p_dist_rf_diamonds_readme.0.5.3.rds') |>
   url() |> 
   readRDS()
 
@@ -172,20 +183,20 @@ p_dist_gam_diamonds_readme <- serialized_objects_site |>
 
 ```{r p_values-rds, eval=TRUE, echo=FALSE}
 # Create p_value distribution object
-p_dist_gam_diamonds_readme <- retrieve_rds(
+p_dist_rf_diamonds_readme <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'p_dist_gam_diamonds_readme.0.5.2.rds'),
+  c(serialized_objects_site, 'p_dist_rf_diamonds_readme.0.5.3.rds'),
   {
     # Rather slow because it retrains the model 100 times.
     # To run the code yourself, execute this code block directly.
     ALEpDist(
-      gam_diamonds, diamonds,
+      rf_diamonds, diamonds,
       # Normally should be default 1000, but just 100 for a quicker demo.
       rand_it = 100
     )
   }
 )
-# saveRDS(p_dist_gam_diamonds_readme, file.choose())
+# saveRDS(p_dist_rf_diamonds_readme, file.choose())
 
 ```
 
@@ -195,18 +206,18 @@ Now we can create bootstrapped ALE data and see some of the differences in the p
 # Create ALE data with p-values
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
-# ale_gam_diamonds_stats_readme <- ALE(
-#   gam_diamonds,
+# ale_rf_diamonds_stats_readme <- ALE(
+#   rf_diamonds,
 #   # generate ALE for all 1D variables and the carat:clarity 2D interaction
 #   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
 #   data = diamonds,
-#   p_values = p_dist_gam_diamonds_readme,
+#   p_values = p_dist_rf_diamonds_readme,
 #   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
 #   boot_it = 10
 # )
 
-ale_gam_diamonds_stats_readme <- serialized_objects_site |> 
-  file.path('ale_gam_diamonds_stats_readme.0.5.2.rds') |>
+ale_rf_diamonds_stats_readme <- serialized_objects_site |> 
+  file.path('ale_rf_diamonds_stats_readme.0.5.3.rds') |>
   url() |> 
   readRDS()
 ```
@@ -214,29 +225,29 @@ ale_gam_diamonds_stats_readme <- serialized_objects_site |>
 ```{r ale-p-rds, eval=TRUE, echo=FALSE}
 # Create ALE data with p-values
 
-ale_gam_diamonds_stats_readme <- retrieve_rds(
+ale_rf_diamonds_stats_readme <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_stats_readme.0.5.2.rds'),
+  c(serialized_objects_site, 'ale_rf_diamonds_stats_readme.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
     ALE(
-      gam_diamonds,
+      rf_diamonds,
       # generate ALE for all 1D variables and the carat:clarity 2D interaction
       x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
       data = diamonds,
-      p_values = p_dist_gam_diamonds_readme,
+      p_values = p_dist_rf_diamonds_readme,
       # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
       boot_it = 10
     )
   }
 )
-# saveRDS(ale_gam_diamonds_stats_readme, file.choose())
+# saveRDS(ale_rf_diamonds_stats_readme, file.choose())
 ```
 
 
 ```{r ale-1D-plot, fig.width=7, fig.height=11}
 # Create an ALEPlots object for fine-tuned plotting
-ale_plots <- plot(ale_gam_diamonds_stats_readme)
+ale_plots <- plot(ale_rf_diamonds_stats_readme)
 
 # Plot 1D ALE plots 
 ale_plots |> 
