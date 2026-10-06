@@ -13,6 +13,8 @@
 #'
 #' @description
 #' Retrieve specific elements from an `ALE` object with the [get()] generic.
+#' Requests for `stats = 'conf_regions'` or `stats = 'conf_sig'` require
+#' p-values and raise an error if none are available, even with `silent = TRUE`.
 #'
 #' @section Method usage:
 #'
@@ -228,13 +230,11 @@ method(get, ALE) <- function(
       })
   }
   else if (stats |> is_string(c('conf_regions', 'conf_sig'))) {
+    if (is.null(obj@params$p_values)) {
+      cli_abort('Confidence regions cannot be calculated without p-values.')
+    }
     if (!silent) {  # nocov start
-      if (is.null(obj@params$p_values)) {
-        cli_inform(c(
-          '!' = 'Confidence regions are meaningless without p-values.',
-          'i' = 'The ALE statistics were calculated without p-values.'
-        ))
-      } else if (obj@params$boot_it < 100 || obj@params$p_values@params$rand_it_ok < 100) {
+      if (obj@params$boot_it < 100 || obj@params$p_values@params$rand_it_ok < 100) {
         cli_inform(c(
           '!' = 'Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.',
           'i' = 'There {?is/are} {obj@params$boot_it} bootstrap iteration{?s}.',
@@ -516,27 +516,29 @@ summary_ALE_stats <- function(
     n = min(nrow(ale_stats), max_rows)
   )
 
-  cat('\n')
-  cat(format_inline('Statistically significant confidence regions [get(object, stats = "conf_sig")]:\n'))
-  conf_sig <- object |>
-    get(stats = 'conf_sig') |>
-    bind_rows()
-  print(
-    conf_sig,
-    n = min(nrow(conf_sig), max_rows)
-  )
-
-  if (all_conf) {
+  if (!is.null(p_dist)) {
     cat('\n')
-    cat(format_inline('All confidence regions [get(object, stats = "conf_regions")]:\n'))
-    conf_regions <- object |>
-      get(stats = 'conf_regions') |>
-      bind_rows() |>
-      select(any_of(c('term', 'x', 'term1', 'x1', 'term2', 'x2')), everything())
+    cat(format_inline('Statistically significant confidence regions [get(object, stats = "conf_sig")]:\n'))
+    conf_sig <- object |>
+      get(stats = 'conf_sig') |>
+      bind_rows()
     print(
-      conf_regions,
-      n = min(nrow(conf_regions), max_rows)
+      conf_sig,
+      n = min(nrow(conf_sig), max_rows)
     )
+
+    if (all_conf) {
+      cat('\n')
+      cat(format_inline('All confidence regions [get(object, stats = "conf_regions")]:\n'))
+      conf_regions <- object |>
+        get(stats = 'conf_regions') |>
+        bind_rows() |>
+        select(any_of(c('term', 'x', 'term1', 'x1', 'term2', 'x2')), everything())
+      print(
+        conf_regions,
+        n = min(nrow(conf_regions), max_rows)
+      )
+    }
   }
 }
 
@@ -551,6 +553,8 @@ summary_ALE_stats <- function(
 #' object. If there are no ALE statistics, a message says so. Summarized
 #' statistics are mean or median depending on the `boot_centre` argument used
 #' for [ALE()] bootstrapping.
+#' Confidence-region sections are silently omitted when p-values are absent,
+#' including when `all_conf = TRUE`.
 #'
 #' @section Method usage:
 #'
