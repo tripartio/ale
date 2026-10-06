@@ -239,7 +239,7 @@ ALE <- new_class(
       !inherits(x_cols, 'data.frame'),
       msg = c(
         x = '{.arg x_cols} (the second argument) cannot be a {.cls data.frame}.',
-        i = 'If you skip the {.arg x_cols} argument, you must explicitly name the {.arg data} argument (e.g., {.val data = dataset_name}).'
+        i = 'If you skip the {.arg x_cols} argument, you must explicitly name the {.arg data} argument (e.g., {.val ALE(model, data = dataset_name)}).'
       )
     )
     data <- validate_data(data, model)
