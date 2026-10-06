@@ -157,10 +157,15 @@ validate_prediction <- function(
 
   if (is.matrix(y_preds)) {
     if (y_preds |> colnames() |> is.null()) {
-      # Create colnames from factor levels or unique values
-      col_names <- data[[y_col]] |>
-        as.factor() |>
-        levels()
+      # A single prediction column represents the outcome itself.
+      # For multiple columns, use factor levels or unique values.
+      col_names <- if (ncol(y_preds) == 1L) {
+        y_col
+      } else {
+        data[[y_col]] |>
+          as.factor() |>
+          levels()
+      }
 
       validate(
         ncol(y_preds) == length(col_names),
