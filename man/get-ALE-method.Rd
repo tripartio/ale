@@ -11,7 +11,7 @@ Regardless of the requested data, all calls to \code{get()} on an \code{ALE} obj
 \itemize{
 \item \code{d1}: 1D ALE elements.
 \item \code{d2}: 2D ALE elements.
-However, if elements of only one dimension (either 1D or 2D) are requested and \code{simplify = TRUE} (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no \code{d1} sublist but only a list of the ALE data as described for the next level. If \code{simplify = FALSE}, both \code{d1} and \code{d2} sublists will always be returned; the empty sublist will be \code{NULL}.
+However, if elements of only one dimension (either 1D or 2D) are requested and \code{simplify = TRUE} (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no \code{d1} sublist but only a list of the ALE data as described for the next level. If \code{simplify = FALSE}, both \code{d1} and \code{d2} sublists will always be returned; the empty sublist will be \code{NULL} or an empty list.
 }
 }
 
@@ -74,7 +74,7 @@ p-values and raise an error if none are available, even with \code{silent = TRUE
 \item \code{stats}: character(1). Retrieve ALE statistics. If \code{stats} is specified, then \code{what} must be left at the default ("ale"). Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value. See the return value details below for valid values for \code{stats}.
 \item \code{cats}: character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 \item \code{ale_centre}: Same as in documentation for \code{\link[=ALEPlots]{ALEPlots()}}
-\item \code{simplify}: logical(1). If \code{TRUE} (default), the results will be simplified to the simplest list structure possible to give the requested results. If \code{FALSE}, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
+\item \code{simplify}: logical(1). If \code{TRUE} (default), recursively remove empty elements and zero-row data frames, then promote the sole member of each remaining list. Nonempty data frames, ggplots, and other objects that are not simple lists are kept intact. If no objects remain, return \code{NULL}. If \code{FALSE}, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
 \item \code{silent}: See documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}
 }
 }
