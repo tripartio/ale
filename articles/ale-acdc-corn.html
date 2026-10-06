@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,17 +38,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/ale-acdc-corn.html">Analyzing a Large Corn Yield Dataset with ALE-Based Inference</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-gomez-rice.html">Analyzing a Small Rice Yield Dataset with ALE-Based Inference</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
-  </ul>
-</li>
+<li class="active nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -69,7 +59,7 @@
       <p class="author">Chitu Okoli</p>
       <p class="date">February 17, 2026</p>
 
-      <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-acdc-corn.qmd" class="external-link"><code>vignettes/ale-acdc-corn.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/articles/ale-acdc-corn.qmd" class="external-link"><code>vignettes/articles/ale-acdc-corn.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -386,7 +376,7 @@ $ tfactor    &lt;dbl&gt; 4.950716, 4.936530, 4.926214, 3.174986, 4.988563, 4.889
 <span><span class="va">lm_corn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">corn</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">corn_data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html" class="external-link">toc</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># 0.14 sec (with county 3539.29 sec elapsed (59 minutes = 1 hour))</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.202 sec elapsed</code></pre>
+<pre><code>0.215 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lm_corn</span><span class="op">)</span></span></code></pre></div>
@@ -480,7 +470,7 @@ F-statistic:  3649 on 19 and 89990 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html" class="external-link">toc</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># 7.92  sec elapsed</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>21.908 sec elapsed</code></pre>
+<pre><code>20.204 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># default 500 trees: 86.52 sec elapsed</span></span>

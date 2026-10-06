@@ -120,8 +120,7 @@ specific type of data returned depends on the values of the `what` and
   requested `d1` and `d2` sub-elements as described in the general
   structure above. Each data element is a tibble with confidence regions
   for a single variable or interaction. For an explanation of the
-  columns, see
-  [`vignette('ale-statistics')`](https://tripartio.github.io/ale/articles/ale-statistics.md).
+  columns, see `vignette('ale-statistics')`.
 
 - `what = 'ale'` (default) and `stats = 'conf_sig'`:
 
@@ -130,8 +129,7 @@ specific type of data returned depends on the values of the `what` and
   have statistically significant confidence regions exceeding the
   threshold of the inner ALER band, specifically, at least
   `obj@params$aler_alpha[2]` of the rows of data. See
-  [`vignette("ale-statistics")`](https://tripartio.github.io/ale/articles/ale-statistics.md)
-  for details.
+  `vignette("ale-statistics")` for details.
 
 ## Method usage
 

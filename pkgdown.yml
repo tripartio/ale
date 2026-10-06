@@ -2,13 +2,13 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
-  ale-acdc-corn: ale-acdc-corn.html
-  ale-gomez-rice: ale-gomez-rice.html
+  articles/ale-acdc-corn: ale-acdc-corn.html
+  articles/ale-gomez-rice: ale-gomez-rice.html
   ale-intro: ale-intro.html
-  ale-small-datasets: ale-small-datasets.html
-  ale-statistics: ale-statistics.html
-  ale-x-datatypes: ale-x-datatypes.html
-last_built: 2026-10-05T08:20Z
+  articles/ale-small-datasets: ale-small-datasets.html
+  articles/ale-statistics: ale-statistics.html
+  articles/ale-x-datatypes: ale-x-datatypes.html
+last_built: 2026-10-06T08:44Z
 urls:
   reference: https://tripartio.github.io/ale/reference
   article: https://tripartio.github.io/ale/articles

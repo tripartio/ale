@@ -70,7 +70,9 @@ customize(
 
   numeric(2). Zoom the specified plots in or out to match the specified
   x or y limits, respectively. Must be a two-element numeric vector
-  where the first element \<= the second. Default `NULL` does not zoom.
+  where the first element \<= the second. Default `NULL` preserves the
+  existing limits for that axis, including limits set by earlier calls
+  to `customize()` or by `layers`.
 
 ## Value
 

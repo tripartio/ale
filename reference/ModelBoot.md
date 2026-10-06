@@ -14,8 +14,7 @@ infeasible for slow machine-learning models trained on large datasets,
 which should rather be cross-validated to assure their reliability.
 However, for models that have not been cross-validated, full-model
 bootstrapping with `ModelBoot` is necessary for reliable results.
-Further details follow below; see also
-[`vignette('ale-statistics')`](https://tripartio.github.io/ale/articles/ale-statistics.md).
+Further details follow below; see also `vignette('ale-statistics')`.
 
 ## Usage
 

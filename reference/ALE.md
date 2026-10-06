@@ -21,7 +21,7 @@ ALE(
   pred_fun = NULL,
   pred_type = "response",
   p_values = "auto",
-  require_same_p = TRUE,
+  require_p_model_match = TRUE,
   aler_alpha = c(0.01, 0.05),
   aled_fun = NULL,
   max_num_bins = 10L,
@@ -123,15 +123,17 @@ ALE(
     interactive analysis, they are not acceptable for definitive
     conclusions or publication. See details below.
 
-- require_same_p:
+- require_p_model_match:
 
   logical(1). If `TRUE` (default), `p_values` must be generated with
-  exactly the same `model` object, even in the case of surrogate
-  p-values. Only disable this option with `FALSE` if certain that a
-  deliberate exception is appropriate, otherwise calculated p-values may
-  be completely invalid. A notable valid exception is resampling the
-  same model specification on various samples, such as with
-  bootstrapping or cross-validation.
+  exactly the same `model` object, `y_col`, and `pred_type`, even in the
+  case of surrogate p-values. Surrogate distributions are checked
+  against their original model and prediction settings. Setting `FALSE`
+  disables all these compatibility checks. Only disable this option if
+  certain that a deliberate exception is appropriate, otherwise
+  calculated p-values may be completely invalid. A notable valid
+  exception is resampling the same model specification on various
+  samples, such as with bootstrapping or cross-validation.
 
 - aler_alpha:
 
@@ -349,9 +351,8 @@ You can see an example below of a custom prediction function.
 ## ALE statistics and p-values
 
 For details about the ALE-based statistics (ALED, ALER, NALED, and
-NALER), see
-[`vignette('ale-statistics')`](https://tripartio.github.io/ale/articles/ale-statistics.md).
-For general details about the calculation of p-values, see
+NALER), see `vignette('ale-statistics')`. For general details about the
+calculation of p-values, see
 [`ALEpDist()`](https://tripartio.github.io/ale/reference/ALEpDist.md).
 Here, we clarify the automatic calculation of p-values with the `ALE()`
 constructor.
@@ -400,7 +401,7 @@ argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
 
 For time-to-event (survival) models, set the following arguments:
 
-- `y_col` must be the set to the name of the binary event column.
+- `y_col` must be set to the name of the binary event column.
 
 - Include the time column in the `exclude_cols` argument so that its ALE
   will not be calculated, e.g., `exclude_cols = 'time'`. This is not
@@ -472,7 +473,6 @@ Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv.
 
 ``` r
 
-# Load diamonds dataset with some cleanup
 library(dplyr)
 #> 
 #> Attaching package: ‘dplyr’
@@ -482,442 +482,140 @@ library(dplyr)
 #> The following objects are masked from ‘package:base’:
 #> 
 #>     intersect, setdiff, setequal, union
-diamonds <- ggplot2::diamonds |>
-  filter(!(x == 0 | y == 0 | z == 0)) |>
-  # https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/
-  distinct(
-    price, carat, cut, color, clarity,
-    .keep_all = TRUE
+# Load co2 dataset with some cleanup
+co2 <- CO2 |>
+  as_tibble() |>
+  rename(origin = Type) |>
+  mutate(
+    plant_id = Plant |> factor(ordered = FALSE),
+    chilled = Treatment == 'chilled'
   ) |>
-  rename(
-    x_length = x,
-    y_width = y,
-    z_depth = z,
-    depth_pct = depth
-  )
+  select(plant_id, origin, chilled, conc, uptake)
 
+co2
+#> # A tibble: 84 × 5
+#>    plant_id origin chilled  conc uptake
+#>    <fct>    <fct>  <lgl>   <dbl>  <dbl>
+#>  1 Qn1      Quebec FALSE      95   16  
+#>  2 Qn1      Quebec FALSE     175   30.4
+#>  3 Qn1      Quebec FALSE     250   34.8
+#>  4 Qn1      Quebec FALSE     350   37.2
+#>  5 Qn1      Quebec FALSE     500   35.3
+#>  6 Qn1      Quebec FALSE     675   39.2
+#>  7 Qn1      Quebec FALSE    1000   39.7
+#>  8 Qn2      Quebec FALSE      95   13.6
+#>  9 Qn2      Quebec FALSE     175   27.3
+#> 10 Qn2      Quebec FALSE     250   37.1
+#> # ℹ 74 more rows
 
-# Create a GAM model with flexible curves to predict diamond price
-# Smooth all numeric variables and include all other variables
-gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
-    cut + color + clarity,
-  data = diamonds
+# Create a GAM model with flexible curves to predict CO2 uptake.
+gam_co2 <- mgcv::gam(
+  formula = uptake ~ s(conc, k = 3, bs = "cr") + plant_id + chilled +
+    ti(conc, plant_id, bs = c('ps', 're'), k = 4),
+  data = co2
 )
-summary(gam_diamonds)
+summary(gam_co2)
 #> 
 #> Family: gaussian 
 #> Link function: identity 
 #> 
 #> Formula:
-#> price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + 
-#>     s(z_depth) + cut + color + clarity
+#> uptake ~ s(conc, k = 3, bs = "cr") + plant_id + chilled + ti(conc, 
+#>     plant_id, bs = c("ps", "re"), k = 4)
 #> 
 #> Parametric coefficients:
-#>              Estimate Std. Error  t value Pr(>|t|)    
-#> (Intercept)  4436.199     13.315  333.165  < 2e-16 ***
-#> cut.L         263.124     39.117    6.727 1.76e-11 ***
-#> cut.Q           1.792     27.558    0.065 0.948151    
-#> cut.C          74.074     20.169    3.673 0.000240 ***
-#> cut^4          27.694     14.373    1.927 0.054004 .  
-#> color.L     -2152.488     18.996 -113.313  < 2e-16 ***
-#> color.Q      -704.604     17.385  -40.528  < 2e-16 ***
-#> color.C       -66.839     16.366   -4.084 4.43e-05 ***
-#> color^4        80.376     15.289    5.257 1.47e-07 ***
-#> color^5      -110.164     14.484   -7.606 2.89e-14 ***
-#> color^6       -49.565     13.464   -3.681 0.000232 ***
-#> clarity.L    4111.691     33.499  122.742  < 2e-16 ***
-#> clarity.Q   -1539.959     31.211  -49.341  < 2e-16 ***
-#> clarity.C     762.680     27.013   28.234  < 2e-16 ***
-#> clarity^4    -232.214     21.977  -10.566  < 2e-16 ***
-#> clarity^5     193.854     18.324   10.579  < 2e-16 ***
-#> clarity^6      46.812     16.172    2.895 0.003799 ** 
-#> clarity^7     132.621     14.274    9.291  < 2e-16 ***
+#>             Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)  33.2286     0.9039  36.763  < 2e-16 ***
+#> plant_idQn2   1.9286     1.2782   1.509  0.13951    
+#> plant_idQn3   4.3857     1.2782   3.431  0.00145 ** 
+#> plant_idQc1   4.8388     0.8368   5.782 1.08e-06 ***
+#> plant_idQc3   7.4531     0.8368   8.907 6.77e-11 ***
+#> plant_idQc2   7.5673     0.8368   9.043 4.53e-11 ***
+#> plant_idMn3  -9.1143     1.2782  -7.130 1.51e-08 ***
+#> plant_idMn2  -5.8857     1.2782  -4.605 4.41e-05 ***
+#> plant_idMn1  -6.8286     1.2782  -5.342 4.37e-06 ***
+#> plant_idMc2 -12.9898     0.8368 -15.523  < 2e-16 ***
+#> plant_idMc3  -7.8327     0.8368  -9.360 1.80e-11 ***
+#> plant_idMc1  -7.1327     0.8368  -8.524 2.11e-10 ***
+#> chilledTRUE  -8.0959     0.8368  -9.675 7.30e-12 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> Approximate significance of smooth terms:
-#>                edf Ref.df       F  p-value    
-#> s(carat)     8.695  8.949  37.027  < 2e-16 ***
-#> s(depth_pct) 7.606  8.429   6.758  < 2e-16 ***
-#> s(table)     5.759  6.856   3.682 0.000736 ***
-#> s(x_length)  8.078  8.527  60.936  < 2e-16 ***
-#> s(y_width)   7.477  8.144 211.202  < 2e-16 ***
-#> s(z_depth)   9.000  9.000  16.266  < 2e-16 ***
+#>                     edf Ref.df     F  p-value    
+#> s(conc)            1.00      1 32.60 1.47e-06 ***
+#> ti(conc,plant_id) 32.45     35 10.49  < 2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> R-sq.(adj) =  0.929   Deviance explained = 92.9%
-#> GCV = 1.2602e+06  Scale est. = 1.2581e+06  n = 39739
+#> Rank: 50/51
+#> R-sq.(adj) =  0.951   Deviance explained = 97.7%
+#> GCV = 12.459  Scale est. = 5.7187    n = 84
 
 
-# \donttest{
+# Set default number of cores to use for parallel processing.
+# Without setting this option, the default is 0 (no parallel processing).
+options(ale.parallel = 2)
 
-# Simple ALE without bootstrapping: by default, all 1D ALE effects
 
-# For speed, these examples use retrieve_rds() to load pre-created objects
+# For speed, this example uses retrieve_rds() to load pre-created objects
 # from an online repository.
-# To run the code yourself, execute the code blocks directly.
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+# To run the code yourself, execute the code block directly.
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 
-# Create ALE data
-ale_gam_diamonds <- retrieve_rds(
+# Create default ALE data (1D main effects only by default)
+ale_gam_co2 <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
+  c(serialized_objects_site, 'ale_gam_co2.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
     # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
-    ALE(gam_diamonds)
+    ALE(gam_co2)
   }
 )
+
+
+# Summary of ALE statistics
+summary(ale_gam_co2)
+#> <ALE> object of a <gam/glm/lm> model that predicts `uptake` (a numeric outcome) from a 84-row by 4-column dataset.
+#> The results were not bootstrapped.
+#> 
+#> Mean ALE statistics [get(object, stats = "estimate")]:
+#> # A tibble: 3 × 9
+#>   term      aled aler_min  aler aler_max naled naler_min naler naler_max
+#>   <chr>    <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+#> 1 conc      5.47   -12.6  20.2      7.64 12.9     -29.8   53.6      23.8
+#> 2 plant_id  6.33   -11.0  20.6      9.53 15.3     -27.4   54.8      27.4
+#> 3 chilled   4.05    -4.05  8.10     4.05  9.52     -8.33  19.0      10.7
+#> 
+#> ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+#> # A tibble: 12 × 7
+#>    statistic term     estimate conf.low  mean median conf.high
+#>    <ord>     <chr>       <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+#>  1 aled      conc         5.47     5.47  5.47   5.47      5.47
+#>  2 aled      plant_id     6.33     6.33  6.33   6.33      6.33
+#>  3 aled      chilled      4.05     4.05  4.05   4.05      4.05
+#>  4 aler      conc        20.2     20.2  20.2   20.2      20.2 
+#>  5 aler      plant_id    20.6     20.6  20.6   20.6      20.6 
+#>  6 aler      chilled      8.10     8.10  8.10   8.10      8.10
+#>  7 naled     conc        12.9     12.9  12.9   12.9      12.9 
+#>  8 naled     plant_id    15.3     15.3  15.3   15.3      15.3 
+#>  9 naled     chilled      9.52     9.52  9.52   9.52      9.52
+#> 10 naler     conc        53.6     53.6  53.6   53.6      53.6 
+#> 11 naler     plant_id    54.8     54.8  54.8   54.8      54.8 
+#> 12 naler     chilled     19.0     19.0  19.0   19.0      19.0 
+#> 
+#> Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+#> ! Confidence regions are meaningless without p-values.
+#> ℹ The ALE statistics were calculated without p-values.
+#> # A tibble: 0 × 0
 
 # Simple printing of all plots
-plot(ale_gam_diamonds)
+plot(ale_gam_co2)
 
 
-# Bootstrapped ALE
-# This can be slow, since bootstrapping runs the algorithm boot_it times.
-# In addition, bootstrapping automatically generates surrogate p-values by default.
-
-# Create ALE with 100 bootstrap samples
-ale_gam_diamonds_boot <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_boot.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      # request all 1D ALE effects and only the carat:clarity 2D effect
-      list(d1 = TRUE, d2 = 'carat:clarity'),
-      boot_it = 100
-    )
-  }
-)
-# saveRDS(ale_gam_diamonds_boot, file.choose())
-
-# More advanced plot manipulation
-ale_plots <- plot(ale_gam_diamonds_boot) # Create an ALEPlots object
-
-# Print the plots: First page prints 1D ALE; second page prints 2D ALE
-ale_plots  # or print(ale_plots) to be explicit
-
-
-
-# Extract specific plots (as lists of ggplot objects)
-get(ale_plots, 'carat')  # extract a specific 1D plot
-
-get(ale_plots, 'carat:clarity')  # extract a specific 2D plot
-
-get(ale_plots, type = 'effect')  # ALE effects plot
-#> `height` was translated to `width`.
-
-# See help(get.ALEPlots) for more options, such as for categorical plots
-
-
-
-# If the predict function you want does not work automatically, you may
-# define a custom predict function. It must return a single numeric vector.
-custom_predict <- function(object, newdata, type = pred_type) {
-  predict(object, newdata, type = type, se.fit = TRUE)$fit
-}
-
-ale_gam_diamonds_custom <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_custom.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      pred_fun = custom_predict,
-      pred_type = 'link'
-    )
-  }
-)
-# saveRDS(ale_gam_diamonds_custom, file.choose())
-
-# Plot the ALE data
-plot(ale_gam_diamonds_custom)
-
-
-
-# How to retrieve specific types of ALE data from an ALE object.
-ale_diamonds_with_boot_data <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_diamonds_with_boot_data.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ALE(
-      gam_diamonds,
-      # For detailed options for x_cols, see examples at resolve_x_cols()
-      x_cols = ~ carat + cut + clarity + carat:clarity + color:depth_pct,
-      output_boot_data = TRUE,
-      boot_it = 10  # just for demonstration
-    )
-  }
-)
-# saveRDS(ale_diamonds_with_boot_data, file.choose())
-
-# See ?`get-ALE-method` for the kinds of data that may be retrieved.
-get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
-#> $d1
-#> $d1$carat
-#> # A tibble: 10 × 7
-#>    carat.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-#>         <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-#>  1       0.2      7 -3234. -3234.  -3234.    -3234. -3234.
-#>  2       0.36  4737 -1009. -1009.  -1009.    -1009. -1009.
-#>  3       0.5   4431   869.   869.    869.      869.   869.
-#>  4       0.6   4100  2101.  2101.   2101.     2101.  2101.
-#>  5       0.73  4442  3467.  3467.   3467.     3467.  3467.
-#>  6       0.94  4406  4910.  4910.   4910.     4910.  4910.
-#>  7       1.03  4535  5244.  5244.   5244.     5244.  5244.
-#>  8       1.2   4370  5604.  5604.   5604.     5604.  5604.
-#>  9       1.52  4605  6446.  6446.   6446.     6446.  6446.
-#> 10       5.01  4106  9489.  9489.   9489.     9489.  9489.
-#> 
-#> 
-#> $d2
-#> $d2$`color:depth_pct`
-#> # A tibble: 70 × 8
-#>    color.bin depth_pct.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-#>    <ord>              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-#>  1 D                     43     0  3365  3365    3365      3365  3365
-#>  2 E                     43     0  3365  3365    3365      3365  3365
-#>  3 F                     43     0  3365  3365    3365      3365  3365
-#>  4 G                     43     1  3365  3365    3365      3365  3365
-#>  5 H                     43     0  3365  3365    3365      3365  3365
-#>  6 I                     43     0  3365  3365    3365      3365  3365
-#>  7 J                     43     1  3365  3365    3365      3365  3365
-#>  8 D                     60   627  3365  3365    3365      3365  3365
-#>  9 E                     60   940  3365  3365    3365      3365  3365
-#> 10 F                     60   871  3365  3365    3365      3365  3365
-#> # ℹ 60 more rows
-#> 
-#> 
-get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
-#> $d1
-#> $d1$carat
-#> # A tibble: 110 × 6
-#>      .it carat .y_composite    .n .y_distinct     .y
-#>    <dbl> <dbl>        <dbl> <dbl>       <dbl>  <dbl>
-#>  1     0  0.2        -3234.     7      -3234. -3234.
-#>  2     0  0.36       -1009.  4737      -1009. -1009.
-#>  3     0  0.5          869.  4431        869.   869.
-#>  4     0  0.6         2101.  4100       2101.  2101.
-#>  5     0  0.73        3467.  4442       3467.  3467.
-#>  6     0  0.94        4910.  4406       4910.  4910.
-#>  7     0  1.03        5244.  4535       5244.  5244.
-#>  8     0  1.2         5604.  4370       5604.  5604.
-#>  9     0  1.52        6446.  4605       6446.  6446.
-#> 10     0  5.01        9489.  4106       9489.  9489.
-#> # ℹ 100 more rows
-#> 
-#> $d1$cut
-#> # A tibble: 55 × 6
-#>      .it cut       .y_composite    .n .y_distinct    .y
-#>    <dbl> <fct>            <dbl> <dbl>       <dbl> <dbl>
-#>  1     0 Fair             3110.  1492       3110. 3110.
-#>  2     0 Good             3245.  4173       3245. 3245.
-#>  3     0 Very Good        3314.  9714       3314. 3314.
-#>  4     0 Premium          3318.  9657       3318. 3318.
-#>  5     0 Ideal            3489. 14703       3489. 3489.
-#>  6     1 Fair             3361.  1492       3361. 3361.
-#>  7     1 Good             3615.  4173       3615. 3615.
-#>  8     1 Very Good        3733.  9714       3733. 3733.
-#>  9     1 Premium          3785.  9657       3785. 3785.
-#> 10     1 Ideal            3831. 14703       3831. 3831.
-#> # ℹ 45 more rows
-#> 
-#> $d1$clarity
-#> # A tibble: 88 × 6
-#>      .it clarity .y_composite    .n .y_distinct    .y
-#>    <dbl> <fct>          <dbl> <dbl>       <dbl> <dbl>
-#>  1     0 I1             -109.   704       -109. -109.
-#>  2     0 SI2            2114.  7916       2114. 2114.
-#>  3     0 SI1            3035.  9857       3035. 3035.
-#>  4     0 VS2            3702.  8227       3702. 3702.
-#>  5     0 VS1            4020.  6007       4020. 4020.
-#>  6     0 VVS2           4517.  3463       4517. 4517.
-#>  7     0 VVS1           4594.  2413       4594. 4594.
-#>  8     0 IF             5052.  1152       5052. 5052.
-#>  9     1 I1             3356.   704       3356. 3356.
-#> 10     1 SI2            6830.  7916       6830. 6830.
-#> # ℹ 78 more rows
-#> 
-#> 
-#> $d2
-#> $d2$`carat:clarity`
-#> # A tibble: 880 × 7
-#>      .it carat clarity .y_composite    .n .y_distinct    .y
-#>    <dbl> <dbl> <fct>          <dbl> <dbl>       <dbl> <dbl>
-#>  1     0  0.2  I1              3365     0       3365  3365 
-#>  2     0  0.36 I1              3365    10       3365  3365 
-#>  3     0  0.5  I1              3365    28       3365  3365 
-#>  4     0  0.6  I1              3365    14       3365  3365 
-#>  5     0  0.73 I1              3365    55       3365  3365 
-#>  6     0  0.94 I1              3365    56       3365  3365 
-#>  7     0  1.03 I1              3365   134       3365  3365 
-#>  8     0  1.2  I1              3365   125       3365  3365 
-#>  9     0  1.52 I1              3365   119       3365  3365 
-#> 10     0  5.01 I1              3365   163       3365. 3365.
-#> # ℹ 870 more rows
-#> 
-#> $d2$`color:depth_pct`
-#> # A tibble: 770 × 7
-#>      .it color depth_pct .y_composite    .n .y_distinct    .y
-#>    <dbl> <fct>     <dbl>        <dbl> <dbl>       <dbl> <dbl>
-#>  1     0 D            43         3365     0        3365  3365
-#>  2     0 E            43         3365     0        3365  3365
-#>  3     0 F            43         3365     0        3365  3365
-#>  4     0 G            43         3365     1        3365  3365
-#>  5     0 H            43         3365     0        3365  3365
-#>  6     0 I            43         3365     0        3365  3365
-#>  7     0 J            43         3365     1        3365  3365
-#>  8     0 D            60         3365   627        3365  3365
-#>  9     0 E            60         3365   940        3365  3365
-#> 10     0 F            60         3365   871        3365  3365
-#> # ℹ 760 more rows
-#> 
-#> 
-get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
-#> $d1
-#> # A tibble: 3 × 7
-#>   term     aled  aler_min aler_max naled naler_min naler_max
-#>   <chr>   <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-#> 1 carat   2592. -6599.       6124. 25.5  -50           36.2 
-#> 2 cut      398.     0.585     474.  3.59   0.00453      4.31
-#> 3 clarity 4185.   -16.3      5038. 29.5   -0.174       33.0 
-#> 
-#> $d2
-#> # A tibble: 2 × 7
-#>   term                aled  aler_min aler_max naled naler_min naler_max
-#>   <chr>              <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-#> 1 carat:clarity   1.08e-12 -6.27e-12 2.43e-12     0         0         0
-#> 2 color:depth_pct 6.69e-13 -1.27e-12 6.74e-13     0         0         0
-#> 
-get(ale_diamonds_with_boot_data, stats = c('aled', 'naler'))
-#> $d1
-#> # A tibble: 3 × 8
-#>   statistic estimate p.value term    conf.low  mean median conf.high
-#>   <chr>        <dbl>   <dbl> <chr>      <dbl> <dbl>  <dbl>     <dbl>
-#> 1 aled         2592.       0 carat      2583. 2592.  2592.     2597.
-#> 2 aled          398.       0 cut         392.  398.   398.      403.
-#> 3 aled         4185.       0 clarity    4081. 4185.  4195.     4252.
-#> 
-#> $d2
-#> # A tibble: 2 × 8
-#>   statistic estimate p.value term           conf.low     mean   median conf.high
-#>   <chr>        <dbl>   <dbl> <chr>             <dbl>    <dbl>    <dbl>     <dbl>
-#> 1 aled      1.08e-12       1 carat:clarity  7.67e-13 1.08e-12 1.08e-12  1.43e-12
-#> 2 aled      6.69e-13       1 color:depth_p… 1.80e-13 6.69e-13 5.33e-13  1.56e-12
-#> 
-get(ale_diamonds_with_boot_data, stats = 'all')
-#> $d1
-#> # A tibble: 18 × 8
-#>    statistic    estimate p.value term      conf.low      mean   median conf.high
-#>    <chr>           <dbl>   <dbl> <chr>        <dbl>     <dbl>    <dbl>     <dbl>
-#>  1 aled       2592.         0    carat    2583.       2.59e+3  2.59e+3   2.60e+3
-#>  2 aler_min  -6599.         0    carat   -6599.      -6.60e+3 -6.60e+3  -6.60e+3
-#>  3 aler_max   6124.         0    carat    6124.       6.12e+3  6.12e+3   6.12e+3
-#>  4 naled        25.5        0    carat      25.4      2.55e+1  2.55e+1   2.55e+1
-#>  5 naler_min   -50          0    carat     -50       -5   e+1 -5   e+1  -5   e+1
-#>  6 naler_max    36.2        0    carat      36.2      3.62e+1  3.62e+1   3.62e+1
-#>  7 aled        398.         0    cut       392.       3.98e+2  3.98e+2   4.03e+2
-#>  8 aler_min      0.585      1    cut        -3.47     5.85e-1  1.23e-1   5.89e+0
-#>  9 aler_max    474.         0.14 cut       467.       4.74e+2  4.74e+2   4.79e+2
-#> 10 naled         3.59       0    cut         3.54     3.59e+0  3.60e+0   3.64e+0
-#> 11 naler_min     0.00453    1    cut        -0.0352   4.53e-3  0         4.86e-2
-#> 12 naler_max     4.31       0.13 cut         4.26     4.31e+0  4.32e+0   4.36e+0
-#> 13 aled       4185.         0    clarity  4081.       4.18e+3  4.20e+3   4.25e+3
-#> 14 aler_min    -16.3        0.96 clarity  -129.      -1.63e+1  1.11e+0   3.68e+1
-#> 15 aler_max   5038.         0    clarity  4939.       5.04e+3  5.04e+3   5.11e+3
-#> 16 naled        29.5        0    clarity    29.1      2.95e+1  2.96e+1   2.98e+1
-#> 17 naler_min    -0.174      0.96 clarity    -1.28    -1.74e-1 -5.05e-3   3.42e-1
-#> 18 naler_max    33.0        0    clarity    32.7      3.30e+1  3.30e+1   3.32e+1
-#> 
-#> $d2
-#> # A tibble: 12 × 8
-#>    statistic  estimate p.value term       conf.low      mean    median conf.high
-#>    <chr>         <dbl>   <dbl> <chr>         <dbl>     <dbl>     <dbl>     <dbl>
-#>  1 aled       1.08e-12       1 carat:cl…  7.67e-13  1.08e-12  1.08e-12  1.43e-12
-#>  2 aler_min  -6.27e-12       1 carat:cl… -7.85e-12 -6.27e-12 -6.09e-12 -5.01e-12
-#>  3 aler_max   2.43e-12       1 carat:cl…  1.76e-12  2.43e-12  2.41e-12  3.37e-12
-#>  4 naled      0              1 carat:cl…  0         0         0         0       
-#>  5 naler_min  0              1 carat:cl…  0         0         0         0       
-#>  6 naler_max  0              1 carat:cl…  0         0         0         0       
-#>  7 aled       6.69e-13       1 color:de…  1.80e-13  6.69e-13  5.33e-13  1.56e-12
-#>  8 aler_min  -1.27e-12       1 color:de… -2.75e-12 -1.27e-12 -1.35e-12 -3.14e-13
-#>  9 aler_max   6.74e-13       1 color:de…  1.75e-13  6.74e-13  5.38e-13  1.34e-12
-#> 10 naled      0              1 color:de…  0         0         0         0       
-#> 11 naler_min  0              1 color:de…  0         0         0         0       
-#> 12 naler_max  0              1 color:de…  0         0         0         0       
-#> 
-get(ale_diamonds_with_boot_data, stats = 'conf_regions')
-#> ! Note that confidence regions are not reliable with fewer than 100 bootstrap
-#>   iterations or p-values based on fewer than 100 random iterations.
-#> ℹ There are 10 bootstrap iterations.
-#> ℹ p-values are based on 100 iterations.
-#> $d1
-#> # A tibble: 16 × 12
-#>    term    x     start_x end_x x_span_pct     n   pct     y start_y end_y  trend
-#>    <chr>   <chr>   <dbl> <dbl>      <dbl> <int> <dbl> <dbl>   <dbl> <dbl>  <dbl>
-#>  1 carat   NA       0.2   0.6        8.32 13275 33.4    NA   -3234. 2101.  3.71 
-#>  2 carat   NA       0.73  0.73       0     4442 11.2    NA    3467. 3467.  0    
-#>  3 carat   NA       0.94  5.01      84.6  22022 55.4    NA    4910. 9489.  0.313
-#>  4 cut     Fair    NA    NA         NA     1492  3.75 3342.     NA    NA  NA    
-#>  5 cut     Good    NA    NA         NA     4173 10.5  3587.     NA    NA  NA    
-#>  6 cut     Very…   NA    NA         NA     9714 24.4  3702.     NA    NA  NA    
-#>  7 cut     Prem…   NA    NA         NA     9657 24.3  3748.     NA    NA  NA    
-#>  8 cut     Ideal   NA    NA         NA    14703 37.0  3807.     NA    NA  NA    
-#>  9 clarity I1      NA    NA         NA      704  1.77 3034.     NA    NA  NA    
-#> 10 clarity SI2     NA    NA         NA     7916 19.9  6392.     NA    NA  NA    
-#> 11 clarity SI1     NA    NA         NA     9857 24.8  7610.     NA    NA  NA    
-#> 12 clarity VS2     NA    NA         NA     8227 20.7  7975.     NA    NA  NA    
-#> 13 clarity VS1     NA    NA         NA     6007 15.1  7695.     NA    NA  NA    
-#> 14 clarity VVS2    NA    NA         NA     3463  8.71 7144.     NA    NA  NA    
-#> 15 clarity VVS1    NA    NA         NA     2413  6.07 6101.     NA    NA  NA    
-#> 16 clarity IF      NA    NA         NA     1152  2.90 5045.     NA    NA  NA    
-#> # ℹ 1 more variable: aler_band <ord>
-#> 
-#> $d2
-#> # A tibble: 45 × 8
-#>    term1 x1          term2   x2    aler_band     n   pct     y
-#>    <chr> <chr>       <chr>   <chr> <ord>     <int> <dbl> <dbl>
-#>  1 carat [0.2,0.6]   clarity I1    overlap      52 0.131  3365
-#>  2 carat (0.6,1.03]  clarity I1    overlap     245 0.617  3365
-#>  3 carat (1.03,5.01] clarity I1    overlap     407 1.02   3365
-#>  4 carat [0.2,0.6]   clarity SI2   overlap    1180 2.97   3365
-#>  5 carat (0.6,1.03]  clarity SI2   overlap    3036 7.64   3365
-#>  6 carat (1.03,5.01] clarity SI2   overlap    3700 9.31   3365
-#>  7 carat [0.2,0.6]   clarity SI1   overlap    2665 6.71   3365
-#>  8 carat (0.6,1.03]  clarity SI1   overlap    3921 9.87   3365
-#>  9 carat (1.03,5.01] clarity SI1   overlap    3271 8.23   3365
-#> 10 carat [0.2,0.6]   clarity VS2   overlap    2693 6.78   3365
-#> # ℹ 35 more rows
-#> 
-get(ale_diamonds_with_boot_data, stats = 'conf_sig')
-#> ! Note that confidence regions are not reliable with fewer than 100 bootstrap
-#>   iterations or p-values based on fewer than 100 random iterations.
-#> ℹ There are 10 bootstrap iterations.
-#> ℹ p-values are based on 100 iterations.
-#> # A tibble: 11 × 12
-#>    term    x     start_x end_x x_span_pct     n   pct     y start_y end_y  trend
-#>    <chr>   <chr>   <dbl> <dbl>      <dbl> <int> <dbl> <dbl>   <dbl> <dbl>  <dbl>
-#>  1 carat   NA       0.2   0.6        8.32 13275 33.4    NA   -3234. 2101.  3.71 
-#>  2 carat   NA       0.73  0.73       0     4442 11.2    NA    3467. 3467.  0    
-#>  3 carat   NA       0.94  5.01      84.6  22022 55.4    NA    4910. 9489.  0.313
-#>  4 clarity I1      NA    NA         NA      704  1.77 3034.     NA    NA  NA    
-#>  5 clarity SI2     NA    NA         NA     7916 19.9  6392.     NA    NA  NA    
-#>  6 clarity SI1     NA    NA         NA     9857 24.8  7610.     NA    NA  NA    
-#>  7 clarity VS2     NA    NA         NA     8227 20.7  7975.     NA    NA  NA    
-#>  8 clarity VS1     NA    NA         NA     6007 15.1  7695.     NA    NA  NA    
-#>  9 clarity VVS2    NA    NA         NA     3463  8.71 7144.     NA    NA  NA    
-#> 10 clarity VVS1    NA    NA         NA     2413  6.07 6101.     NA    NA  NA    
-#> 11 clarity IF      NA    NA         NA     1152  2.90 5045.     NA    NA  NA    
-#> # ℹ 1 more variable: aler_band <ord>
-# }
+# For a more thorough introduction to creating and working with ALE objects,
+# see vignette("ale-intro").
 
 ```

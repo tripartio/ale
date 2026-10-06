@@ -175,6 +175,7 @@ An object of class `ALEpDist` with properties `rand_stats`,
   notable:
 
       * `model`: selected elements that describe the `model` used to generate the random distributions.
+      * `y_col`, `pred_type`: the original outcome column and requested prediction type, before any surrogate changes. Together with `model`, these are used by `ALE()` when `require_p_model_match = TRUE`.
       * `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
       * `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
       * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model. `'invalid'` if `rand_it_ok < 100`.

@@ -57,20 +57,48 @@ We have dealt with innumerable bugs during our development journey but,
 fortunately, very few publicly signalled bugs. Only fixes for publicly
 reported bugs are indicated here.
 
+- Chained
+  [`customize()`](https://tripartio.github.io/ale/reference/customize.md)
+  calls with `zoom_x` or `zoom_y` now preserve the existing limits of
+  the other axis.
+
+- [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) now checks
+  the outcome column and prediction type when accepting an `ALEpDist`
+  distribution, in addition to the model identity. `ALEpDist` retains
+  the original prediction settings, including for surrogates.
+
 - Update parallelization settings to handle massive parallelization
   ([\#16](https://github.com/tripartio/ale/issues/16)) and refactor code
   ([\#17](https://github.com/tripartio/ale/issues/17)).
+
+- Use
+  [`parallelly::availableCores()`](https://parallelly.futureverse.org/reference/availableCores.html)
+  directly in preparation for its re-export being removed from
+  [future](https://future.futureverse.org). The
+  [future](https://future.futureverse.org) and
+  [parallelly](https://parallelly.futureverse.org) packages are now
+  suggested dependencies because both are required dependencies of the
+  imported [furrr](https://github.com/futureverse/furrr) package
+  ([\#18](https://github.com/tripartio/ale/issues/18)).
+
 - Handle missing 1D ALE bins during model bootstrapping
   ([\#19](https://github.com/tripartio/ale/issues/19)).
 
 ### Changed functionality
 
+- The `require_same_p` argument of
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) has been
+  renamed to `require_p_model_match` without a compatibility alias.
+  Setting it to `FALSE` disables all p-value compatibility checks.
+
 - `max_num_bins` now creates `n+1` bins instead of exactly the specified
   `n` bins. The bottom bin is reserved for the minimum value in the
   data. This is a reversion to the original behaviour of the reference
   {ALEPlot} package.
+
 - Parallelization has been disabled by default (`parallel` = 0)
   ([\#16](https://github.com/tripartio/ale/issues/16)).
+
 - The `pred_fun` argument in
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and other
   constructors now defaults to `NULL`. However, the functionality is
@@ -87,9 +115,9 @@ reported bugs are indicated here.
 
 ### Under the hood
 
-We now use [OpenAI Codex](https://chatgpt.com/codex/) to help
-development and maintenance. Codex changes are not specifically
-highlighted in this change log, but [numerous
+We now use OpenAI Codex to help development and maintenance. Codex
+changes are not specifically highlighted in this change log, but
+[numerous
 PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed)
 are heavily assisted by Codex.
 
@@ -373,16 +401,14 @@ functions with a resulting performance boost.
   very minor differences from the median are normalized as zero. Before
   this adjustment, the former normalization formula could give some tiny
   differences apparently large normalized effects. See the updated
-  documentation in
-  [`vignette('ale-statistics')`](https://tripartio.github.io/ale/articles/ale-statistics.md)
-  for details. The vignette has been expanded with more details on how
-  to properly interpret normalized ALE statistics.
+  documentation in `vignette('ale-statistics')` for details. The
+  vignette has been expanded with more details on how to properly
+  interpret normalized ALE statistics.
 - **Normalized ALE range (NALER) is now expressed as percentile points
   relative to the median** (ranging from -50% to +50%) rather than its
   original formulation as absolute percentiles (ranging from 0 to 100%).
-  See the updated documentation in
-  [`vignette('ale-statistics')`](https://tripartio.github.io/ale/articles/ale-statistics.md)
-  for details.
+  See the updated documentation in `vignette('ale-statistics')` for
+  details.
 - Performance has been dramatically improved by the addition of
   **parallelization** by default. We use the
   [furrr](https://github.com/futureverse/furrr) library. In our tests,
