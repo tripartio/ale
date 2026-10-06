@@ -36,6 +36,38 @@ expect_snap_variant <- function(x, ...) {
 }
 
 
+# Check statistic order using existing test objects ------------
+expect_requested_stats_order <- function(object, ...) {
+  check_tables <- function(result, reference, stats) {
+    if (is.data.frame(result)) {
+      if (nrow(reference) == 0L) {
+        expect_identical(result, reference)
+        return(invisible(NULL))
+      }
+      expected_terms <- unique(reference$term)
+      expect_identical(unique(result$term), expected_terms)
+      expect_identical(as.character(result$statistic), rep(stats, length(expected_terms)))
+      expected <- do.call(rbind, lapply(expected_terms, function(term) {
+        rows <- reference[reference$term == term, ]
+        rows[match(stats, rows$statistic), ]
+      }))
+      expect_equal(result, expected)
+    } else if (is.list(result)) {
+      for (name in names(result)) {
+        check_tables(result[[name]], reference[[name]], stats)
+      }
+    }
+  }
+
+  for (simplify in c(FALSE, TRUE)) {
+    reference <- get(object, stats = 'all', simplify = simplify, ...)
+    for (stats in list(c('aler_max', 'aler_min'), c('naler', 'aled', 'aler_max'), 'aler_min')) {
+      result <- get(object, stats = stats, simplify = simplify, ...)
+      check_tables(result, reference, stats)
+    }
+  }
+}
+
 # Check confidence-region availability using existing test objects ------------
 expect_missing_p_conf <- function(object, ...) {
   for (stat in c('conf_regions', 'conf_sig')) {

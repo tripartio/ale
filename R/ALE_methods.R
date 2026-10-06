@@ -28,7 +28,7 @@
 #' * `x_cols`, `exclude_cols`: character, list, or formula. Columns names and interaction terms from `obj` requested in one of the special `x_cols` formats. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`. See details in the documentation for [resolve_x_cols()].
 #' * `what`: character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the `stats` argument.
 #' * `...`: not used. Inserted to require explicit naming of subsequent arguments.
-#' * `stats`: character(1). Retrieve ALE statistics. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
+#' * `stats`: character. Retrieve ALE statistics. Named statistics are returned in the requested order within each term. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
 #' * `cats`: character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 #' * `ale_centre`: Same as in documentation for [ALEPlots()]
 #' * `simplify`: logical(1). If `TRUE` (default), recursively remove empty elements and zero-row data frames, then promote the sole member of each remaining list. Nonempty data frames, ggplots, and other objects that are not simple lists are kept intact. If no objects remain, return `NULL`. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
@@ -212,7 +212,8 @@ method(get, ALE) <- function(
               }
               else if (all(stats %in% stats_names)) {
                 it.d_stats |>
-                  filter(statistic %in% stats)
+                  filter(statistic %in% stats) |>
+                  arrange(match(term, unique(term)), match(statistic, stats))
               }
               else if (stats |> is_string('all')) {
                 it.d_stats
