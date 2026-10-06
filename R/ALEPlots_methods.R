@@ -446,7 +446,7 @@ validate_ALEPlots_method_args <- function(
 #' @param type See the [get() method for ALEPlots objects][get-ALEPlots-method].
 #' @param cats See the [get() method for ALEPlots objects][get-ALEPlots-method].
 #' @param layers List of `ggplot` layers. These are appended to each plot indicated by the combination of `x_cols`, `type`, and `cats` by applying the `ggplot2` `+` operator to them.
-#' @param zoom_x,zoom_y numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default `NULL` does not zoom.
+#' @param zoom_x,zoom_y numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default `NULL` preserves the existing limits for that axis, including limits set by earlier calls to `customize()` or by `layers`.
 #'
 #' @returns An `ALEPlots` object where elements specified by x_cols and exclude_cols are modified accordingly. Non-specified elements are not modified.
 #'
@@ -465,7 +465,15 @@ customize <- function(
   add_layers <- function(plot, lyrs) {
     tryCatch(
       {
-        plot + lyrs
+        plot <- plot + lyrs
+        if (!is.null(zoom_x) || !is.null(zoom_y)) {
+          # Resolve limits per plot, after applying any supplied layers.
+          plot <- plot + coord_cartesian(
+            xlim = zoom_x %||% plot$coordinates$limits$x,
+            ylim = zoom_y %||% plot$coordinates$limits$y
+          )
+        }
+        plot
       },
       error = \(e) {
         cli_abort(c(
@@ -541,15 +549,6 @@ customize <- function(
   # The procedure is sometimes problematic if the input isn't wrapped in a list, so, automatically wrap a single layer that is not a bare list.
   if (!rlang::is_bare_list(layers)) {
     layers <- list(layers)
-  }
-
-
-  # Add zoom layers
-  if (!is.null(zoom_x) || !is.null(zoom_y)) {
-    custom_layers <- c(
-      custom_layers,
-      coord_cartesian(xlim = zoom_x, ylim = zoom_y)
-    )
   }
 
 
