@@ -36,6 +36,48 @@ expect_snap_variant <- function(x, ...) {
 }
 
 
+# Check confidence-region availability using existing test objects ------------
+expect_missing_p_conf <- function(object, ...) {
+  for (stat in c('conf_regions', 'conf_sig')) {
+    expect_error(
+      get(object, stats = stat, ...),
+      'Confidence regions cannot be calculated without p-values.',
+      fixed = TRUE,
+      class = 'rlang_error'
+    )
+  }
+}
+
+expect_conf_summary <- function(object, has_p_values) {
+  for (all_conf in c(FALSE, TRUE)) {
+    if (has_p_values) {
+      output <- capture.output(
+        returned <- withVisible(suppressMessages(summary(object, all_conf = all_conf)))
+      )
+    } else {
+      expect_no_condition(
+        output <- capture.output(
+          returned <- withVisible(summary(object, all_conf = all_conf))
+        )
+      )
+    }
+
+    expect_identical(returned$value, object)
+    expect_false(returned$visible)
+    expect_true(any(grepl('ALE statistics [get(', output, fixed = TRUE)))
+    expect_true(any(grepl('ALE statistic distributions', output, fixed = TRUE)))
+    expect_identical(
+      any(grepl('Statistically significant confidence regions', output, fixed = TRUE)),
+      has_p_values
+    )
+    expect_identical(
+      any(grepl('All confidence regions', output, fixed = TRUE)),
+      has_p_values && all_conf
+    )
+  }
+}
+
+
 # Create stable snapshots of S7 objects -------------------
 
 # S7 stores properties as attributes alongside class-definition metadata. That

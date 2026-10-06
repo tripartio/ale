@@ -54,6 +54,8 @@ While all results follow the general structure just described, the specific type
 }
 \description{
 Retrieve specific elements from an \code{ALE} object with the \code{\link[=get]{get()}} generic.
+Requests for \code{stats = 'conf_regions'} or \code{stats = 'conf_sig'} require
+p-values and raise an error if none are available, even with \code{silent = TRUE}.
 }
 \section{Method usage}{
 

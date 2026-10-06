@@ -42,6 +42,8 @@ The numbering system described above is used for packages released to CRAN. For 
 
 ## Bug fixes
 
+* `get()` now raises a clear error when confidence regions are requested without p-values. `summary()` for `ALE` and `ModelBoot` objects silently omits confidence-region sections when p-values are absent.
+
 We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
 
 * Chained `customize()` calls with `zoom_x` or `zoom_y` now preserve the existing limits of the other axis.
