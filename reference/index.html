@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,9 +32,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="ale-creation-and-manipulation">ALE creation and manipulation<a class="anchor" aria-label="anchor" href="#ale-creation-and-manipulation"></a></h2>
 
-
+      <div class="section-desc"><p>Create and manipulate ALE S7 objects for data and statistics for accumulated local effects.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -50,38 +50,17 @@
 
         <dt>
 
-          <code><a href="ALEPlots.html">ALEPlots()</a></code>
+          <code><a href="print-ALE-method.html">print-ALE-method</a></code>
 
         </dt>
-        <dd>ALE plots with print and plot methods</dd>
+        <dd>print Method for ALE object</dd>
 
         <dt>
 
-          <code><a href="ALEpDist.html">ALEpDist()</a></code>
+          <code><a href="summary-ALE-method.html">summary-ALE-method</a></code>
 
         </dt>
-        <dd>Random variable distributions of ALE statistics for generating p-values</dd>
-
-        <dt>
-
-          <code><a href="ModelBoot.html">ModelBoot()</a></code>
-
-        </dt>
-        <dd>Statistics and ALE data for a bootstrapped model</dd>
-
-        <dt>
-
-          <code><a href="census.html">census</a></code>
-
-        </dt>
-        <dd>Census Income</dd>
-
-        <dt>
-
-          <code><a href="customize.html">customize()</a></code>
-
-        </dt>
-        <dd>Customize plots contained in an ALEPlots object</dd>
+        <dd>summary Method for ALE object</dd>
 
         <dt>
 
@@ -92,34 +71,6 @@
 
         <dt>
 
-          <code><a href="get-ALEPlots-method.html">get-ALEPlots-method</a></code>
-
-        </dt>
-        <dd>get method for ALEPlots objects</dd>
-
-        <dt>
-
-          <code><a href="get-ModelBoot-method.html">get-ModelBoot-method</a></code>
-
-        </dt>
-        <dd>get method for ModelBoot objects</dd>
-
-        <dt>
-
-          <code><a href="get.html">get()</a></code>
-
-        </dt>
-        <dd>S7 generic get method for objects in the ale package</dd>
-
-        <dt>
-
-          <code><a href="invert_probs.html">invert_probs()</a></code>
-
-        </dt>
-        <dd>Invert ALE Probabilities</dd>
-
-        <dt>
-
           <code><a href="plot-ALE-method.html">plot-ALE-method</a></code>
 
         </dt>
@@ -127,24 +78,26 @@
 
         <dt>
 
-          <code><a href="plot-ALEPlots-method.html">plot-ALEPlots-method</a></code>
+          <code><a href="invert_probs.html">invert_probs()</a></code>
 
         </dt>
-        <dd>Plot method for ALEPlots object</dd>
+        <dd>Invert ALE Probabilities</dd>
+      </dl></div><div class="section level2">
+      <h2 id="advanced-visualization">Advanced visualization<a class="anchor" aria-label="anchor" href="#advanced-visualization"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>Generate ALEPlots S7 objects, manipulate them, and plot ALE.</p></div>
 
-          <code><a href="plot-ModelBoot-method.html">plot-ModelBoot-method</a></code>
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="ALEPlots.html">ALEPlots()</a></code>
 
         </dt>
-        <dd>plot method for <code>ModelBoot</code> objects</dd>
-
-        <dt>
-
-          <code><a href="print-ALE-method.html">print-ALE-method</a></code>
-
-        </dt>
-        <dd>print Method for ALE object</dd>
+        <dd>ALE plots with print and plot methods</dd>
 
         <dt>
 
@@ -155,12 +108,125 @@
 
         <dt>
 
+          <code><a href="plot-ALEPlots-method.html">plot-ALEPlots-method</a></code>
+
+        </dt>
+        <dd>Plot method for ALEPlots object</dd>
+
+        <dt>
+
+          <code><a href="customize.html">customize()</a></code>
+
+        </dt>
+        <dd>Customize plots contained in an ALEPlots object</dd>
+
+        <dt>
+
+          <code><a href="summary-ALEPlots-method.html">summary-ALEPlots-method</a></code>
+
+        </dt>
+        <dd>summary method for ALEPlots object</dd>
+
+        <dt>
+
+          <code><a href="get-ALEPlots-method.html">get-ALEPlots-method</a></code>
+
+        </dt>
+        <dd>get method for ALEPlots objects</dd>
+
+        <dt>
+
+          <code><a href="subset-ALEPlots-method.html">subset-ALEPlots-method</a></code>
+
+        </dt>
+        <dd>subset method for ALEPlots object</dd>
+      </dl></div><div class="section level2">
+      <h2 id="p-values">p-values<a class="anchor" aria-label="anchor" href="#p-values"></a></h2>
+
+      <div class="section-desc"><p>Create ALEpDist S7 objects for p-values distributions for ALE statistics.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="ALEpDist.html">ALEpDist()</a></code>
+
+        </dt>
+        <dd>Random variable distributions of ALE statistics for generating p-values</dd>
+      </dl></div><div class="section level2">
+      <h2 id="full-model-bootstrapping">Full-model bootstrapping<a class="anchor" aria-label="anchor" href="#full-model-bootstrapping"></a></h2>
+
+      <div class="section-desc"><p>Bootstrap a full model with a ModelBoot S7 object, with ALE and other calculations.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="ModelBoot.html">ModelBoot()</a></code>
+
+        </dt>
+        <dd>Statistics and ALE data for a bootstrapped model</dd>
+
+        <dt>
+
           <code><a href="print-ModelBoot-method.html">print-ModelBoot-method</a></code>
 
         </dt>
         <dd>print method for ModelBoot object</dd>
 
         <dt>
+
+          <code><a href="summary-ModelBoot-method.html">summary-ModelBoot-method</a></code>
+
+        </dt>
+        <dd>summary Method for ModelBoot object</dd>
+
+        <dt>
+
+          <code><a href="plot-ModelBoot-method.html">plot-ModelBoot-method</a></code>
+
+        </dt>
+        <dd>plot method for <code>ModelBoot</code> objects</dd>
+
+        <dt>
+
+          <code><a href="get-ModelBoot-method.html">get-ModelBoot-method</a></code>
+
+        </dt>
+        <dd>get method for ModelBoot objects</dd>
+      </dl></div><div class="section level2">
+      <h2 id="s-generics">S7 generics<a class="anchor" aria-label="anchor" href="#s-generics"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="get.html">get()</a></code>
+
+        </dt>
+        <dd>S7 generic get method for objects in the ale package</dd>
+      </dl></div><div class="section level2">
+      <h2 id="supporting-utilities">Supporting utilities<a class="anchor" aria-label="anchor" href="#supporting-utilities"></a></h2>
+
+      <div class="section-desc"><p>Helper functions for data preparation and analysis.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="resolve_x_cols.html">resolve_x_cols()</a></code>
 
@@ -176,33 +242,21 @@
 
         <dt>
 
-          <code><a href="subset-ALEPlots-method.html">subset-ALEPlots-method</a></code>
+          <code><a href="x_medoids.html">x_medoids()</a></code>
 
         </dt>
-        <dd>subset method for ALEPlots object</dd>
+        <dd>k-medoids across a range, returning all internal cluster-quality measures</dd>
+      </dl></div><div class="section level2">
+      <h2 id="example-datasets">Example datasets<a class="anchor" aria-label="anchor" href="#example-datasets"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>Datasets for illustrating ALE analysis.</p></div>
 
-          <code><a href="summary-ALE-method.html">summary-ALE-method</a></code>
+      <dl></dl></div><div class="section level2">
 
-        </dt>
-        <dd>summary Method for ALE object</dd>
 
-        <dt>
 
-          <code><a href="summary-ALEPlots-method.html">summary-ALEPlots-method</a></code>
 
-        </dt>
-        <dd>summary method for ALEPlots object</dd>
-
-        <dt>
-
-          <code><a href="summary-ModelBoot-method.html">summary-ModelBoot-method</a></code>
-
-        </dt>
-        <dd>summary Method for ModelBoot object</dd>
-
-        <dt>
+      <dl><dt>
 
           <code><a href="var_cars.html">var_cars</a></code>
 
@@ -211,12 +265,13 @@
 
         <dt>
 
-          <code><a href="x_medoids.html">x_medoids()</a></code>
+          <code><a href="census.html">census</a></code>
 
         </dt>
-        <dd>k-medoids across a range, returning all internal cluster-quality measures</dd>
+        <dd>Census Income</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

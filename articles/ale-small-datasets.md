@@ -8,7 +8,7 @@ vignette](https://tripartio.github.io/ale/articles/ale-intro.md "Introduction to
 that explains general functionality of the package; this vignette goes
 beyond those details to discuss issues unique to small datasets.
 
-### What is a “small” dataset?
+### 0.1 What is a “small” dataset?
 
 An obvious question is, “How small is ‘small’?” This is a very complex
 question and it is way beyond the scope of this vignette to try to
@@ -44,7 +44,7 @@ library(ale)
 #>     get
 ```
 
-### attitude dataset
+### 0.2 attitude dataset
 
 For this analysis, we use the `attitude` dataset, built-in with R: “From
 a survey of the clerical employees of a large financial organization,
@@ -55,7 +55,7 @@ in each department. Since we’re talking about “small” datasets, we
 figure that we might as well demonstrate principles with extremely small
 examples.
 
-#### Format
+#### 0.2.1 Format
 
 A data frame with 30 observations on 7 variables. The first column are
 the short names from the reference, the second one the variable names in
@@ -71,7 +71,7 @@ the data frame:
 | X\[5\] | critical   | numeric | Too critical                      |
 | X\[6\] | advance    | numeric | Advancement                       |
 
-#### Source
+#### 0.2.2 Source
 
 Chatterjee, S. and Price, B. (1977) *Regression Analysis by Example*.
 New York: Wiley. (Section 3.7, p.68ff of 2nd ed.(1991).)
@@ -115,7 +115,7 @@ This is a small-scale demonstration mainly to demonstrate that
 even small datasets, not just the large datasets typically used for
 machine learning.
 
-### ALE for ordinary least squares regression (multiple linear regression)
+### 0.3 ALE for ordinary least squares regression (multiple linear regression)
 
 Ordinary least squares (OLS) regression is the most generic multivariate
 statistical technique. Thus, we use it as a baseline illustration to
@@ -172,7 +172,7 @@ options(ale.parallel = 2)
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 ```
 
 ``` r
@@ -205,7 +205,7 @@ have relatively little effect on ratings. We will see shortly that
 proper bootstrapping of the model can shed some light on the
 discrepancies.
 
-### Full model bootstrapping
+### 0.4 Full model bootstrapping
 
 We have referred frequently to the importance of bootstrapping. None of
 our model results, with or without ALE, should be considered reliable
@@ -350,7 +350,7 @@ Although this is a basic demonstration, it readily shows how crucial
 proper bootstrapping is to make meaningful inferences from data
 analysis.
 
-### ALE for generalized additive models (GAM)
+### 0.5 ALE for generalized additive models (GAM)
 
 A major limitation of OLS regression is that it models all relationships
 between the x variables and y as straight lines. But it is unlikely that
@@ -461,14 +461,14 @@ mb_gam_attitude@model_stats
     #> # A tibble: 9 × 7
     #>   name          boot_valid conf.low median   mean conf.high      sd
     #>   <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>   <dbl>
-    #> 1 df                NA        8.36  17.0   15.8      21.0    4.08  
-    #> 2 df.residual       NA        9.00  13.0   14.2      21.6    4.08  
-    #> 3 nobs              NA       30     30     30        30      0     
+    #> 1 df                NA        8.36  17.0   15.8      21.0    4.08
+    #> 2 df.residual       NA        9.00  13.0   14.2      21.6    4.08
+    #> 3 nobs              NA       30     30     30        30      0
     #> 4 adj.r.squared     NA        0.746  1.000  0.945     1      0.0832
-    #> 5 npar              NA       23     23     23        23      0     
-    #> 6 mae               12.9      4.50  NA     NA        62.6   15.0   
-    #> 7 sa_mae             0.307   -2.00  NA     NA         0.769  0.772 
-    #> 8 rmse              16.3      5.51  NA     NA        79.4   19.5   
+    #> 5 npar              NA       23     23     23        23      0
+    #> 6 mae               12.9      4.50  NA     NA        62.6   15.0
+    #> 7 sa_mae             0.307   -2.00  NA     NA         0.769  0.772
+    #> 8 rmse              16.3      5.51  NA     NA        79.4   19.5
     #> 9 sa_rmse            0.332   -2.08  NA     NA         0.786  0.754
 
 ``` r
@@ -513,7 +513,7 @@ No doubt, the inconclusive results are because the dataset is so small
 (only 30 rows). A dataset even double that size might show significant
 effects at least for complaints, if not for other variables.
 
-## `model_call_string` argument for models not automatically detected
+## 1 `model_call_string` argument for models not automatically detected
 
 The
 [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
@@ -603,27 +603,24 @@ type that is not automatically detected:
 # )
 
 mb_gam_attitude_special <- serialized_objects_site |> 
-  file.path('mb_gam_attitude_special.0.5.2.rds') |>
+  file.path('mb_gam_attitude_special.0.5.3.rds') |>
   url() |> 
   readRDS()
 
 mb_gam_attitude_special@model_stats
 ```
 
-    #> Warning in readRDS(url(paste0(it.attempt, collapse = "/"))): cannot open URL
-    #> 'https://github.com/tripartio/ale/raw/main/download/mb_gam_attitude_special.0.5.2.rds':
-    #> HTTP status was '404 Not Found'
     #> # A tibble: 9 × 7
     #>   name          boot_valid conf.low median   mean conf.high      sd
     #>   <chr>              <dbl>    <dbl>  <dbl>  <dbl>     <dbl>   <dbl>
-    #> 1 df                NA        8.36  17.0   15.8      21.0    4.08  
-    #> 2 df.residual       NA        9.00  13.0   14.2      21.6    4.08  
-    #> 3 nobs              NA       30     30     30        30      0     
+    #> 1 df                NA        8.36  17.0   15.8      21.0    4.08
+    #> 2 df.residual       NA        9.00  13.0   14.2      21.6    4.08
+    #> 3 nobs              NA       30     30     30        30      0
     #> 4 adj.r.squared     NA        0.746  1.000  0.945     1      0.0832
-    #> 5 npar              NA       23     23     23        23      0     
-    #> 6 mae               12.7      4.50  NA     NA        62.6   14.7   
-    #> 7 sa_mae             0.323   -1.83  NA     NA         0.769  0.728 
-    #> 8 rmse              15.8      5.51  NA     NA        79.4   18.7   
-    #> 9 sa_rmse            0.353   -1.94  NA     NA         0.786  0.702
+    #> 5 npar              NA       23     23     23        23      0
+    #> 6 mae               12.9      4.50  NA     NA        62.6   15.0
+    #> 7 sa_mae             0.307   -2.00  NA     NA         0.769  0.772
+    #> 8 rmse              16.3      5.51  NA     NA        79.4   19.5
+    #> 9 sa_rmse            0.332   -2.08  NA     NA         0.786  0.754
 
 Everything else works as usual.

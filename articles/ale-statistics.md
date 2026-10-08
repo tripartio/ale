@@ -18,29 +18,45 @@ We begin by loading the necessary libraries.
 ``` r
 
 library(mgcv)   # for datasets and the gam function
-#> Loading required package: nlme
-#> This is mgcv 1.9-4. For overview type '?mgcv'.
-library(dplyr)  # for data manipulation
-#> 
-#> Attaching package: 'dplyr'
-#> The following object is masked from 'package:nlme':
-#> 
-#>     collapse
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-library(ale)
-#> 
-#> Attaching package: 'ale'
-#> The following object is masked from 'package:base':
-#> 
-#>     get
 ```
 
-## Example dataset
+    Loading required package: nlme
+
+    This is mgcv 1.9-4. For overview type '?mgcv'.
+
+``` r
+
+library(dplyr)  # for data manipulation
+```
+
+
+    Attaching package: 'dplyr'
+
+    The following object is masked from 'package:nlme':
+
+        collapse
+
+    The following objects are masked from 'package:stats':
+
+        filter, lag
+
+    The following objects are masked from 'package:base':
+
+        intersect, setdiff, setequal, union
+
+``` r
+
+library(ale)
+```
+
+
+    Attaching package: 'ale'
+
+    The following object is masked from 'package:base':
+
+        get
+
+## 1 Example dataset
 
 We will demonstrate ALE statistics using a dataset composed and
 transformed from the `mgcv` package. This package is required to create
@@ -101,19 +117,20 @@ math <-
   )
 
 glimpse(math)
-#> Rows: 160
-#> Columns: 10
-#> $ math_avg       <dbl> 9.715447, 13.510800, 7.635958, 16.255500, 13.177687, 11…
-#> $ size           <dbl> 842, 1855, 1719, 716, 455, 1430, 2400, 899, 185, 1672, …
-#> $ public         <lgl> TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, FALS…
-#> $ academic_ratio <dbl> 0.35, 0.27, 0.32, 0.96, 0.95, 0.25, 0.50, 0.96, 1.00, 0…
-#> $ female_ratio   <dbl> 0.5957447, 0.4400000, 0.6458333, 0.0000000, 1.0000000, …
-#> $ mean_ses       <dbl> -0.428, 0.128, -0.420, 0.534, 0.351, -0.014, -0.007, 0.…
-#> $ minority_ratio <dbl> 0.08510638, 0.12000000, 0.97916667, 0.40000000, 0.72916…
-#> $ high_minority  <lgl> FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, F…
-#> $ discrim        <dbl> 1.597, 0.174, -0.137, -0.622, -1.694, 1.535, 2.016, -0.…
-#> $ rand_norm      <dbl> 0.26960598, -0.62998541, 0.86865983, 1.72719552, 0.0241…
 ```
+
+    Rows: 160
+    Columns: 10
+    $ math_avg       <dbl> 9.715447, 13.510800, 7.635958, 16.255500, 13.177687, 11…
+    $ size           <dbl> 842, 1855, 1719, 716, 455, 1430, 2400, 899, 185, 1672, …
+    $ public         <lgl> TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, FALS…
+    $ academic_ratio <dbl> 0.35, 0.27, 0.32, 0.96, 0.95, 0.25, 0.50, 0.96, 1.00, 0…
+    $ female_ratio   <dbl> 0.5957447, 0.4400000, 0.6458333, 0.0000000, 1.0000000, …
+    $ mean_ses       <dbl> -0.428, 0.128, -0.420, 0.534, 0.351, -0.014, -0.007, 0.…
+    $ minority_ratio <dbl> 0.08510638, 0.12000000, 0.97916667, 0.40000000, 0.72916…
+    $ high_minority  <lgl> FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, F…
+    $ discrim        <dbl> 1.597, 0.174, -0.137, -0.622, -1.694, 1.535, 2.016, -0.…
+    $ rand_norm      <dbl> 0.26960598, -0.62998541, 0.86865983, 1.72719552, 0.0241…
 
 The structure has 160 rows, each of which refers to a school whose
 students have taken a mathematics achievement test. We describe the data
@@ -146,11 +163,12 @@ school. Here are its descriptive statistics:
 ``` r
 
 summary(math$math_avg)
-#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>    4.24   10.47   12.90   12.62   14.65   19.72
 ```
 
-## Full model bootstrap
+       Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+       4.24   10.47   12.90   12.62   14.65   19.72 
+
+## 2 Full model bootstrap
 
 Now we create a model and compute statistics on it. Because this is a
 [relatively small
@@ -170,23 +188,24 @@ gam_math <- gam(
    )
 
 gam_math
-#> 
-#> Family: gaussian 
-#> Link function: identity 
-#> 
-#> Formula:
-#> math_avg ~ public + high_minority + s(size) + s(academic_ratio) + 
-#>     s(female_ratio) + s(mean_ses) + s(minority_ratio) + s(discrim) + 
-#>     s(rand_norm)
-#> 
-#> Estimated degrees of freedom:
-#> 1.00 6.34 2.74 8.66 5.27 1.00 1.38 
-#>  total = 29.39 
-#> 
-#> GCV score: 2.158011
 ```
 
-### Create p-value distribution objects
+
+    Family: gaussian
+    Link function: identity
+
+    Formula:
+    math_avg ~ public + high_minority + s(size) + s(academic_ratio) +
+        s(female_ratio) + s(mean_ses) + s(minority_ratio) + s(discrim) +
+        s(rand_norm)
+
+    Estimated degrees of freedom:
+    1.00 6.34 2.74 8.66 5.27 1.00 1.38
+     total = 29.39
+
+    GCV score: 2.158011     
+
+### 2.1 Create p-value distribution objects
 
 Before we bootstrap the model to create ALE and other data, there is an
 important preliminary step when our goal is to analyze ALE statistics.
@@ -246,11 +265,10 @@ options(ale.parallel = 2)
 
 ``` r
 
-
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
@@ -266,7 +284,7 @@ gam_math_p_dist <- serialized_objects_site |>
 
 We can now proceed to bootstrap the model for ALE analysis.
 
-### Bootstrap the model with p-values
+### 2.2 Bootstrap the model with p-values
 
 By default, a `ModelBoot` object runs 100 bootstrap iterations; this can
 be controlled with the `boot_it` argument. Bootstrapping is usually
@@ -309,19 +327,20 @@ by printing the `model_stats` property of the model bootstrap object:
 ``` r
 
 mb_gam_math@model_stats
-#> # A tibble: 9 × 7
-#>   name          boot_valid conf.low  median    mean conf.high     sd
-#>   <chr>              <dbl>    <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
-#> 1 df                NA       29.5    42.3    42.6      58.0   7.78  
-#> 2 df.residual       NA      102.    118.    117.      131.    7.78  
-#> 3 nobs              NA      160     160     160       160     0     
-#> 4 adj.r.squared     NA        0.844   0.896   0.895     0.938 0.0249
-#> 5 npar              NA       66      66      66        66     0     
-#> 6 mae                1.35     1.25   NA      NA         2.13  0.211 
-#> 7 sa_mae             0.726    0.541  NA      NA         0.754 0.0512
-#> 8 rmse               1.71     1.58   NA      NA         2.77  0.294 
-#> 9 sa_rmse            0.724    0.574  NA      NA         0.748 0.0528
 ```
+
+    # A tibble: 9 × 7
+      name          boot_valid conf.low  median    mean conf.high     sd
+      <chr>              <dbl>    <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+    1 df                NA       29.5    42.3    42.6      58.0   7.78
+    2 df.residual       NA      102.    118.    117.      131.    7.78
+    3 nobs              NA      160     160     160       160     0
+    4 adj.r.squared     NA        0.844   0.896   0.895     0.938 0.0249
+    5 npar              NA       66      66      66        66     0
+    6 mae                1.35     1.25   NA      NA         2.13  0.211
+    7 sa_mae             0.726    0.541  NA      NA         0.754 0.0512
+    8 rmse               1.71     1.58   NA      NA         2.77  0.294
+    9 sa_rmse            0.724    0.574  NA      NA         0.748 0.0528
 
 The names of the columns follow the `broom` package conventions:
 
@@ -330,7 +349,7 @@ The names of the columns follow the `broom` package conventions:
   metric specified in the `name` column. This is available only for
   machine-learning–style performance metrics like MAE and AUC; they are
   validated with (bootstrap validation with the .632
-  correction)\[<https://www.jstor.org/stable/2288636>\].
+  correction)\[https://www.jstor.org/stable/2288636\].
 - `conf.low` and `conf.high` are the lower and upper confidence
   intervals respectively. `ModelBoot` defaults to a 95% confidence
   interval; this can be changed by setting the `boot_alpha` argument of
@@ -347,13 +366,14 @@ bootstrap object:
 ``` r
 
 mb_gam_math@model_coefs
-#> # A tibble: 3 × 6
-#>   term              conf.low median   mean conf.high std.error
-#>   <chr>                <dbl>  <dbl>  <dbl>     <dbl>     <dbl>
-#> 1 (Intercept)         11.7   12.7   12.7      13.6       0.484
-#> 2 publicTRUE          -2.02  -0.652 -0.689     0.415     0.637
-#> 3 high_minorityTRUE   -0.318  1.05   1.03      2.32      0.676
 ```
+
+    # A tibble: 3 × 6
+      term              conf.low median   mean conf.high std.error
+      <chr>                <dbl>  <dbl>  <dbl>     <dbl>     <dbl>
+    1 (Intercept)         11.7   12.7   12.7      13.6       0.484
+    2 publicTRUE          -2.02  -0.652 -0.689     0.415     0.637
+    3 high_minorityTRUE   -0.318  1.05   1.03      2.32      0.676
 
 In this vignette, we cannot go into the details of how GAM models work
 (you can learn more with [Noam Ross’s excellent
@@ -386,11 +406,12 @@ mb_gam_math@model_coefs |>
   # filter is TRUE if conf.low and conf.high are both positive or both negative because
   # multiplying two numbers of the same sign results in a positive number.
   filter((conf.low * conf.high) > 0)
-#> # A tibble: 1 × 6
-#>   term        conf.low median  mean conf.high std.error
-#>   <chr>          <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-#> 1 (Intercept)     11.7   12.7  12.7      13.6     0.484
 ```
+
+    # A tibble: 1 × 6
+      term        conf.low median  mean conf.high std.error
+      <chr>          <dbl>  <dbl> <dbl>     <dbl>     <dbl>
+    1 (Intercept)     11.7   12.7  12.7      13.6     0.484
 
 The statistical significance of the `estimate` (EDF) of the smooth terms
 is meaningless here because EDF cannot go below 1.0. Thus, even the
@@ -416,7 +437,7 @@ meaningful. As we will see, ALE-based statistics are explicitly tailored
 to emphasize practical implications beyond the notion of mere
 “statistical significance”.
 
-## ALE effect size measures
+## 3 ALE effect size measures
 
 ALE was developed to graphically display the relationship between
 predictor variables in a model and the outcome regardless of the nature
@@ -424,7 +445,7 @@ of the model. Thus, before we proceed to describe our extension of
 effect size measures based on ALE, let us first briefly examine the ALE
 plots for each variable.
 
-### ALE plots with p-values
+### 3.1 ALE plots with p-values
 
 ``` r
 
@@ -499,7 +520,7 @@ random variables to partially escape the bounds of the ALER band. We
 will return below to the implications of random variables in ALE
 analysis.
 
-### ALE plots without p-values
+### 3.2 ALE plots without p-values
 
 Before we continue, let us take a brief detour to see what we get if we
 create a `ModelBoot` object without giving it a `ALEpDist` object. This
@@ -544,7 +565,7 @@ For most of the rest of this article, we will only analyze the results
 with ALER bands generated from p-values, though we will briefly revisit
 ALE plots without p-values.
 
-### ALE effect size measures on the scale of the *y* outcome variable
+### 3.3 ALE effect size measures on the scale of the *y* outcome variable
 
 Although ALE plots allow rapid and intuitive conclusions for statistical
 inference, it is often helpful to have summary numbers that quantify the
@@ -560,8 +581,9 @@ variables in the ALE analysis. This is generated with the
 ``` r
 
 get(mb_gam_plots, type = 'effect')
-#> `height` was translated to `width`.
 ```
+
+    `height` was translated to `width`.
 
 ![](ale-statistics_files/figure-html/ALE-effects-plot-1.png)
 
@@ -610,7 +632,7 @@ certain effect on the *y* outcome; we can only say that the ALE effect
 size measures indicate associated or related variations between the two
 variables.
 
-#### ALE range (ALER)
+#### 3.3.1 ALE range (ALER)
 
 The easiest ALE statistic to understand is the ALE range (ALER), so we
 begin there. It is simply the range from the minimum to the maximum of
@@ -651,16 +673,17 @@ Here are the effect size measures for the categorical `public`:
 ``` r
 
 get(mb_gam_math, 'public', stats = 'all')
-#> # A tibble: 6 × 7
-#>   term   statistic estimate conf.low median   mean conf.high
-#>   <fct>  <fct>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-#> 1 public aled         0.375   0.0184  0.332  0.375    0.968 
-#> 2 public aler_min    -0.344  -0.846  -0.320 -0.344   -0.0201
-#> 3 public aler_max     0.421   0.0174  0.369  0.421    1.20  
-#> 4 public naled        5.03    0       4.72   5.03    11.7   
-#> 5 public naler_min   -4.26  -11.2    -3.41  -4.26     0     
-#> 6 public naler_max    6.07    0       5.62   6.07    17.8
 ```
+
+    # A tibble: 6 × 7
+      term   statistic estimate conf.low median   mean conf.high
+      <fct>  <fct>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+    1 public aled         0.375   0.0184  0.332  0.375    0.968
+    2 public aler_min    -0.344  -0.846  -0.320 -0.344   -0.0201
+    3 public aler_max     0.421   0.0174  0.369  0.421    1.20
+    4 public naled        5.03    0       4.72   5.03    11.7
+    5 public naler_min   -4.26  -11.2    -3.41  -4.26     0
+    6 public naler_max    6.07    0       5.62   6.07    17.8   
 
 We see there that `public` has an ALER of \[-0.34, 0.42\]. When we
 consider that the median math score in the dataset is 12.9, this ALER
@@ -688,21 +711,22 @@ Here are its ALE effect size measures:
 ``` r
 
 get(mb_gam_math, 'academic_ratio', stats = 'all')
-#> # A tibble: 6 × 7
-#>   term           statistic estimate conf.low  median    mean conf.high
-#>   <fct>          <fct>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-#> 1 academic_ratio aled         0.810    0.408   0.795   0.810     1.29 
-#> 2 academic_ratio aler_min    -4.09    -7.78   -4.41   -4.09     -0.568
-#> 3 academic_ratio aler_max     2.09     0.895   2.08    2.09      3.43 
-#> 4 academic_ratio naled       10.2      4.39   10.2    10.2      15.9  
-#> 5 academic_ratio naler_min  -33.3    -48.1   -38.8   -33.3      -5.23 
-#> 6 academic_ratio naler_max   28.1     11.7    27.7    28.1      42.3
 ```
+
+    # A tibble: 6 × 7
+      term           statistic estimate conf.low  median    mean conf.high
+      <fct>          <fct>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+    1 academic_ratio aled         0.810    0.408   0.795   0.810     1.29
+    2 academic_ratio aler_min    -4.09    -7.78   -4.41   -4.09     -0.568
+    3 academic_ratio aler_max     2.09     0.895   2.08    2.09      3.43
+    4 academic_ratio naled       10.2      4.39   10.2    10.2      15.9
+    5 academic_ratio naler_min  -33.3    -48.1   -38.8   -33.3      -5.23
+    6 academic_ratio naler_max   28.1     11.7    27.7    28.1      42.3  
 
 The ALER for `academic_ratio` is considerably broader with -4.09 below
 and 2.09 above the median.
 
-#### ALE deviation (ALED)
+#### 3.3.2 ALE deviation (ALED)
 
 While the ALE range shows the most extreme effects a variable might have
 on the outcome, the ALE deviation indicates its average effect over its
@@ -741,7 +765,7 @@ where:
   interval, with the first element adjusted to include the number of
   rows from the minimum interval.
   ``` math
-  \mathrm{ale\_n}_i' = 
+  \mathrm{ale\_n}_i' =
   \begin{cases}
   \mathrm{ale\_n}_i + \mathrm{ale\_n}_{i+1} & \text{if } i = 1 \\
   \mathrm{ale\_n}_i & \text{otherwise}
@@ -765,7 +789,7 @@ sides, indicating its slightly stronger effect. We will comment on the
 values of other variables when we discuss the normalized versions of
 these scores, to which we proceed next.
 
-### Normalized ALE effect size measures
+### 3.4 Normalized ALE effect size measures
 
 Since ALER and ALED scores are scaled on the range of *y* for a given
 dataset, these scores cannot be compared across datasets. Thus, we
@@ -801,11 +825,11 @@ ALE *y* values as zero.
 Its formula is:
 
 ``` math
-norm\_ale\_y = 100 \times \begin{cases} 
+norm\_ale\_y = 100 \times \begin{cases}
 0 & \text{if } \max(centred\_y < 0) \leq ale\_y \leq \min(centred\_y > 0), \\
 \frac{-ECDF_{y_{\leq 0}}(ale\_y)}{2} & \text{if }ale\_y < 0 \\
 \frac{ECDF_{y_{\geq 0}}(ale\_y)}{2} & \text{if }ale\_y > 0 \\
-\end{cases} 
+\end{cases}
 ```
 where - $`centred\_y`$ is the vector of `y` values centred on the median
 (that is, the median is subtracted from all values). -
@@ -818,15 +842,15 @@ of by 100 and not dividing the ECDFs by two each. But we prefer the form
 we have given because it is explicit that each ECDF represents only half
 the percentile range and that the result is scored to 100 percentiles.
 
-#### Normalized ALER (NALER)
+#### 3.4.1 Normalized ALER (NALER)
 
 Based on this normalization, we first have the normalized ALER (NALER),
 which scales the minimum and maximum ALE *y* values from -50% to +50%,
 centred on 0%, which represents the median:
 
 ``` math
-\mathrm{NALER}(\mathrm{y, ale\_y}) = 
-\{\min(\mathrm{norm\_ale\_y}) + 50, 
+\mathrm{NALER}(\mathrm{y, ale\_y}) =
+\{\min(\mathrm{norm\_ale\_y}) + 50,
 \max(\mathrm{norm\_ale\_y}) + 50 \}
 ```
 
@@ -860,7 +884,7 @@ points whereas the maximum (`public == FALSE`) shifts math scores by 6
 percentile points. Academic track ratio has a NALER of -33.32, 28.08,
 ranging from -33 to 28 percentile points of math scores.
 
-#### Normalized ALED (NALED)
+#### 3.4.2 Normalized ALED (NALED)
 
 The normalization of ALED scores applies the same ALED formula as before
 but on the normalized ALE values instead of on the original ALE *y*
@@ -877,7 +901,7 @@ over its full domain of values. So, the NALED of public school status of
 percent of scores. Academic ratio has an average effect expressed in
 NALED of 10.2% of scores.
 
-### The ALER band and random variables
+### 3.5 The ALER band and random variables
 
 It is particularly striking to note the ALE effect size measures for the
 random `rand_norm`:
@@ -892,16 +916,17 @@ get(mb_gam_plots, 'rand_norm')
 ``` r
 
 get(mb_gam_math, 'rand_norm', stats = 'all')
-#> # A tibble: 6 × 7
-#>   term      statistic estimate conf.low  median    mean conf.high
-#>   <fct>     <fct>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-#> 1 rand_norm aled         0.295    0.107   0.282   0.295     0.631
-#> 2 rand_norm aler_min    -1.26    -3.98   -1.01   -1.26     -0.180
-#> 3 rand_norm aler_max     0.978    0.287   0.788   0.978     2.63 
-#> 4 rand_norm naled        4.00     1.31    3.65    4.00      7.93 
-#> 5 rand_norm naler_min  -13.7    -37.5   -11.2   -13.7      -3.75 
-#> 6 rand_norm naler_max   13.4      2.5    11.2    13.4      35.5
 ```
+
+    # A tibble: 6 × 7
+      term      statistic estimate conf.low  median    mean conf.high
+      <fct>     <fct>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+    1 rand_norm aled         0.295    0.107   0.282   0.295     0.631
+    2 rand_norm aler_min    -1.26    -3.98   -1.01   -1.26     -0.180
+    3 rand_norm aler_max     0.978    0.287   0.788   0.978     2.63
+    4 rand_norm naled        4.00     1.31    3.65    4.00      7.93
+    5 rand_norm naler_min  -13.7    -37.5   -11.2   -13.7      -3.75
+    6 rand_norm naler_max   13.4      2.5    11.2    13.4      35.5  
 
 `rand_norm` has a NALED of 4. It might be surprising that a purely
 random value has any “effect size” to speak of but statistically, it
@@ -915,7 +940,7 @@ considered meaningful. This threshold is the same scale as the NALED.
 So, we can tell that public school status with its NALED of 5 just
 barely crosses our threshold.
 
-### Interpretation of normalized ALE effect sizes
+### 3.6 Interpretation of normalized ALE effect sizes
 
 Here we summarize some general principles for interpreting normalized
 ALE effect sizes.
@@ -996,7 +1021,7 @@ lowers the outcome values. - NALER maximum \> +5% means that there might
 be at least one input value that significantly increases the outcome
 values.
 
-## Statistical inference with ALE
+## 4 Statistical inference with ALE
 
 Although effect sizes are valuable in summarizing the global effects of
 each variable, they mask much nuance since each variable varies in its
@@ -1004,7 +1029,7 @@ effect along its domain of values. Thus, ALE is particularly powerful in
 its ability to make fine-grained inferences of a variable’s effect
 depending on its specific value.
 
-### ALE data structures for categorical and numeric variables
+### 4.1 ALE data structures for categorical and numeric variables
 
 To understand how bootstrapped ALE can be used for statistical
 inference, we must understand the structure of ALE data. Let’s begin
@@ -1013,12 +1038,13 @@ simple with a binary variable with just two categories, `public`:
 ``` r
 
 get(mb_gam_math, 'public')
-#> # A tibble: 2 × 7
-#>   public.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-#>   <ord>      <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-#> 1 FALSE         70  13.3  12.7    13.3      13.3  14.1
-#> 2 TRUE          90  12.6  12.1    12.6      12.6  13.1
 ```
+
+    # A tibble: 2 × 7
+      public.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+      <ord>      <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+    1 FALSE         70  13.3  12.7    13.3      13.3  14.1
+    2 TRUE          90  12.6  12.1    12.6      12.6  13.1
 
 Here is the meaning of each column of `ale$data` for a categorical
 variable:
@@ -1053,20 +1079,21 @@ Here is the ALE data structure for a numeric variable, `academic_ratio`:
 ``` r
 
 get(mb_gam_math, 'academic_ratio')
-#> # A tibble: 10 × 7
-#>    academic_ratio.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-#>                  <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-#>  1                0        1  7.79  5.08    7.79      7.83  11.4
-#>  2                0.2     19 12.5  11.6    12.5      12.5   13.8
-#>  3                0.28    16 12.5  11.8    12.5      12.5   13.6
-#>  4                0.38    18 12.7  12.3    12.7      12.7   13.3
-#>  5                0.45    18 12.7  11.9    12.7      12.7   13.3
-#>  6                0.53    17 13.0  12.5    13.0      13.0   13.4
-#>  7                0.6     18 13.3  12.7    13.3      13.2   13.9
-#>  8                0.71    18 13.4  12.4    13.4      13.5   14.1
-#>  9                0.9     18 13.9  12.8    13.9      13.7   15.0
-#> 10                1       17 14.9  13.4    14.9      15.0   16.3
 ```
+
+    # A tibble: 10 × 7
+       academic_ratio.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+                     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+     1                0        1  7.79  5.08    7.79      7.83  11.4
+     2                0.2     19 12.5  11.6    12.5      12.5   13.8
+     3                0.28    16 12.5  11.8    12.5      12.5   13.6
+     4                0.38    18 12.7  12.3    12.7      12.7   13.3
+     5                0.45    18 12.7  11.9    12.7      12.7   13.3
+     6                0.53    17 13.0  12.5    13.0      13.0   13.4
+     7                0.6     18 13.3  12.7    13.3      13.2   13.9
+     8                0.71    18 13.4  12.4    13.4      13.5   14.1
+     9                0.9     18 13.9  12.8    13.9      13.7   15.0
+    10                1       17 14.9  13.4    14.9      15.0   16.3
 
 The columns are the same as with a categorical variable, but instead of
 `x.bin`, we have `x.ceil` since there are no categories. To calculate
@@ -1085,7 +1112,7 @@ only one. The other columns mean the same thing as with categorical
 variables: `.n` is the number of rows of data in each bin and `.y` is
 the calculated ALE for the bin whose ceiling is `.ceil`.
 
-### Bootstrap-based inference with ALE
+### 4.2 Bootstrap-based inference with ALE
 
 In a bootstrapped ALE plot, values within the confidence intervals are
 statistically significant; values outside of the ALER band can be
@@ -1111,12 +1138,13 @@ variable from its `by_term` element:
 ``` r
 
 get(mb_gam_math, 'mean_ses', stats = 'conf_regions')
-#> # A tibble: 2 × 10
-#>   term     start_x  end_x x_span_pct     n   pct start_y end_y trend aler_band
-#>   <chr>      <dbl>  <dbl>      <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>    
-#> 1 mean_ses  -1.19  -0.517       33.2    18  11.2    5.32  11.3 1.20  below    
-#> 2 mean_ses  -0.335  0.831       57.8   142  88.8   12.3   15.0 0.314 overlap
 ```
+
+    # A tibble: 2 × 10
+      term     start_x  end_x x_span_pct     n   pct start_y end_y trend aler_band
+      <chr>      <dbl>  <dbl>      <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>
+    1 mean_ses  -1.19  -0.517       33.2    18  11.2    5.32  11.3 1.20  below
+    2 mean_ses  -0.335  0.831       57.8   142  88.8   12.3   15.0 0.314 overlap  
 
 For numeric variables, the confidence regions summary has one row for
 each consecutive sequence of *x* values that have the same status: all
@@ -1168,8 +1196,9 @@ want to access it.)
 
 get(mb_gam_math, 'mean_ses', stats = 'conf_regions') |> 
   ale:::summarize_conf_regions_1D_in_words()
-#> [1] "From -1.19 to -0.517, ALE is below the ALER band from 5.32 to 11.3. From -0.335 to 0.831, ALE overlaps the ALER band from 12.3 to 15."
 ```
+
+    [1] "From -1.19 to -0.517, ALE is below the ALER band from 5.32 to 11.3. From -0.335 to 0.831, ALE overlaps the ALER band from 12.3 to 15."
 
 While the wording is rather mechanical, it nonetheless illustrates the
 potential value of being able to summarize the inferentially relevant
@@ -1191,12 +1220,13 @@ And here is its confidence regions summary table:
 ``` r
 
 get(mb_gam_math, 'public', stats = 'conf_regions')
-#> # A tibble: 2 × 6
-#>   term   x         n   pct     y aler_band
-#>   <chr>  <chr> <int> <dbl> <dbl> <ord>    
-#> 1 public FALSE    70  43.8  13.3 overlap  
-#> 2 public TRUE     90  56.2  12.6 overlap
 ```
+
+    # A tibble: 2 × 6
+      term   x         n   pct     y aler_band
+      <chr>  <chr> <int> <dbl> <dbl> <ord>
+    1 public FALSE    70  43.8  13.3 overlap
+    2 public TRUE     90  56.2  12.6 overlap  
 
 Since we have categories here, there is no start or end position and
 there is no trend. We instead have each `x` category and its single ALE
@@ -1224,11 +1254,12 @@ And here is its confidence regions summary table:
 ``` r
 
 get(mb_gam_math, 'rand_norm', stats = 'conf_regions')
-#> # A tibble: 1 × 10
-#>   term      start_x end_x x_span_pct     n   pct start_y end_y  trend aler_band
-#>   <chr>       <dbl> <dbl>      <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>    
-#> 1 rand_norm   -2.40  2.61        100   160   100    11.7  12.5 0.0555 overlap
 ```
+
+    # A tibble: 1 × 10
+      term      start_x end_x x_span_pct     n   pct start_y end_y  trend aler_band
+      <chr>       <dbl> <dbl>      <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>
+    1 rand_norm   -2.40  2.61        100   160   100    11.7  12.5 0.0555 overlap  
 
 Despite any apparent pattern (even though we deliberately selected a
 random seed for a particularly erratic random variable), we see that
@@ -1244,16 +1275,17 @@ the `conf_regions$significant` element:
 ``` r
 
 get(mb_gam_math, stats = 'conf_sig')
-#> # A tibble: 5 × 12
-#>   term   x     start_x   end_x x_span_pct     n   pct     y start_y end_y  trend
-#>   <chr>  <chr>   <dbl>   <dbl>      <dbl> <int> <dbl> <dbl>   <dbl> <dbl>  <dbl>
-#> 1 mean_… NA    -1.19   -0.517       33.2     18  11.2    NA    5.32 11.3   1.20 
-#> 2 mean_… NA    -0.335   0.831       57.8    142  88.8    NA   12.3  15.0   0.314
-#> 3 minor… NA     0       0.0339       3.39    36  22.5    NA   14.5  14.2  -0.742
-#> 4 minor… NA     0.0638  0.792       72.8    107  66.9    NA   13.8  11.8  -0.184
-#> 5 minor… NA     1       1            0       17  10.6    NA    9.10  9.10  0    
-#> # ℹ 1 more variable: aler_band <ord>
 ```
+
+    # A tibble: 5 × 12
+      term   x     start_x   end_x x_span_pct     n   pct     y start_y end_y  trend
+      <chr>  <chr>   <dbl>   <dbl>      <dbl> <int> <dbl> <dbl>   <dbl> <dbl>  <dbl>
+    1 mean_… <NA>  -1.19   -0.517       33.2     18  11.2    NA    5.32 11.3   1.20
+    2 mean_… <NA>  -0.335   0.831       57.8    142  88.8    NA   12.3  15.0   0.314
+    3 minor… <NA>   0       0.0339       3.39    36  22.5    NA   14.5  14.2  -0.742
+    4 minor… <NA>   0.0638  0.792       72.8    107  66.9    NA   13.8  11.8  -0.184
+    5 minor… <NA>   1       1            0       17  10.6    NA    9.10  9.10  0
+    # ℹ 1 more variable: aler_band <ord>
 
 This summary focuses only on the *x* variables that have meaningful ALE
 regions anywhere in their domain. We can also conveniently isolate which
@@ -1264,8 +1296,9 @@ values in the `term` column:
 
 get(mb_gam_math, stats = 'conf_sig')$term |> 
   unique()
-#> [1] "mean_ses"       "minority_ratio"
 ```
+
+    [1] "mean_ses"       "minority_ratio"
 
 This is especially useful for analyses with dozens of variables; we can
 thus quickly isolate and focus on the most meaningful ones.

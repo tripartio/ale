@@ -54,7 +54,7 @@ library(ale)  # load the ale package only after installing the development versi
 # For speed, these examples use retrieve_rds() to load precreated objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/corn_objects"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download/corn_objects"
 ```
 
 ## 3 Dataset: ACDC corn yields
@@ -382,7 +382,7 @@ lm_corn <- lm(corn ~ ., data = corn_data)
 toc()  # 0.14 sec (with county 3539.29 sec elapsed (59 minutes = 1 hour))
 ```
 
-    0.215 sec elapsed
+    0.233 sec elapsed
 
 ``` r
 
@@ -514,7 +514,7 @@ rf_corn <- ranger(
 toc()  # 7.92  sec elapsed
 ```
 
-    20.204 sec elapsed
+    23.725 sec elapsed
 
 ``` r
 
@@ -859,13 +859,6 @@ summary(ale_single_rf_corn)
      99 aled      temp_11_20:clay         0.0908   0.0908  0.0908  0.0908    0.0908
     100 aled      temp_11_20:om           0.297    0.297   0.297   0.297     0.297
     # ℹ 320 more rows
-
-    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
-
-    ! Confidence regions are meaningless without p-values.
-    ℹ The ALE statistics were calculated without p-values.
-
-    # A tibble: 0 × 0
 
 The initial ALE run produces a large set of results (about 210 terms),
 so the immediate practical problem is triage: which effects are large

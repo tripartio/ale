@@ -24,6 +24,7 @@ ALEPlots(
   rug_sample_size = obj@params$sample_size,
   min_rug_per_interval = 1L,
   min_col_width = 0.05,
+  show_2d_bin_sizes = TRUE,
   y_nonsig_band = 0.05,
   seed = 0,
   silent = FALSE
@@ -97,6 +98,13 @@ ALEPlots(
   However, for visibility, no column is displayed narrower than a scale
   of `min_col_width`. To disable scaling by width, set
   `min_col_width = 1`.
+
+- show_2d_bin_sizes:
+
+  logical(1). If `TRUE` (default), 2D ALE plots display hollow squares
+  whose areas represent the percentage of data in each bin, with a
+  corresponding size legend. Set to `FALSE` to omit the squares and
+  their legend, including in faceted plots.
 
 - y_nonsig_band:
 

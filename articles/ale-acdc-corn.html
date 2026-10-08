@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +105,7 @@
 <code class="sourceCode R"><span><span class="co"># For speed, these examples use retrieve_rds() to load precreated objects </span></span>
 <span><span class="co"># from an online repository.</span></span>
 <span><span class="co"># To run the code yourself, execute the code blocks directly.  </span></span>
-<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download/corn_objects"</span></span></code></pre></div>
+<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/wip/download/corn_objects"</span></span></code></pre></div>
 </div>
 </section><section class="level2" data-number="3"><h2 data-number="3" id="dataset-acdc-corn-yields">
 <span class="header-section-number">3</span> Dataset: ACDC corn yields<a class="anchor" aria-label="anchor" href="#dataset-acdc-corn-yields"></a>
@@ -376,7 +376,7 @@ $ tfactor    &lt;dbl&gt; 4.950716, 4.936530, 4.926214, 3.174986, 4.988563, 4.889
 <span><span class="va">lm_corn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">corn</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">corn_data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html" class="external-link">toc</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># 0.14 sec (with county 3539.29 sec elapsed (59 minutes = 1 hour))</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.215 sec elapsed</code></pre>
+<pre><code>0.233 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lm_corn</span><span class="op">)</span></span></code></pre></div>
@@ -470,7 +470,7 @@ F-statistic:  3649 on 19 and 89990 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html" class="external-link">toc</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># 7.92  sec elapsed</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>20.204 sec elapsed</code></pre>
+<pre><code>23.725 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># default 500 trees: 86.52 sec elapsed</span></span>
@@ -787,16 +787,7 @@ ALE statistic distributions (no p-values requested) [get(object, stats = c("aled
  98 aled      temp_11_20:silt         0.098    0.098   0.098   0.098     0.098
  99 aled      temp_11_20:clay         0.0908   0.0908  0.0908  0.0908    0.0908
 100 aled      temp_11_20:om           0.297    0.297   0.297   0.297     0.297
-# ℹ 320 more rows
-
-Statistically significant confidence regions [get(object, stats = "conf_sig")]:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>! Confidence regions are meaningless without p-values.
-ℹ The ALE statistics were calculated without p-values.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
+# ℹ 320 more rows</code></pre>
 </div>
 </div>
 <p>The initial ALE run produces a large set of results (about 210 terms), so the immediate practical problem is triage: which effects are large enough to justify deeper inspection and bootstrapping? On a dataset this big, the non-bootstrapped results are often close to the bootstrapped ones, but for any analysis we want to stand behind, we still need bootstrapping.</p>
@@ -806,7 +797,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 <span class="header-section-number">7.2</span> Statistical reliability vs practical importance<a class="anchor" aria-label="anchor" href="#statistical-reliability-vs-practical-importance"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SLOW: uncomment to run yourself; load the saved object for rapid execution</span></span>
 <span></span>
 <span><span class="co"># # p-value distribution</span></span>
@@ -829,7 +820,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lsd_rf</span> <span class="op">&lt;-</span>  <span class="va">pd_rf_corn</span><span class="op">@</span><span class="va">rand_stats</span><span class="op">$</span><span class="va">corn</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">ale</span><span class="fu">:::</span><span class="fu">p_to_random_value</span><span class="op">(</span><span class="st">'aled'</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -853,7 +844,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 <p>Before bootstrapping, let’s first generate an ALE p-value distribution. This is the slowest step in ALE analysis because it relies on simulation rather than parametric assumptions.</p>
 <p>We can then use the p-value distribution for the data-only bootstrapping procedure from the {ale} package, specifying the <code>boot_it</code> argument of the <code><a href="../reference/ALE.html">ALE()</a></code> constructor. We specifically request ALE for the filtered set of variables that meet our 1 bu/ac threshold for ALED. Only after this bootstrap process do the ALE results become reliable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create variable lists to focus on</span></span>
 <span><span class="va">vars_aled_1</span> <span class="op">&lt;-</span> <span class="va">ale_single_rf_corn</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span>stats <span class="op">=</span> <span class="st">'estimate'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -862,7 +853,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">term</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SLOW: uncomment to run yourself; load the saved object for rapid execution</span></span>
 <span></span>
 <span><span class="co"># # Data-only bootstrapping for a slow-training, cross-validated model.</span></span>
@@ -1012,7 +1003,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 </h3>
 <p>To make the ALE plots readable, we adjust the default output. We print 1D and 2D plots separately by subsetting the plot objects, and we apply a customization step to zoom the y-axis of the 1D ALE plots. The y-axis limits are chosen to improve visibility while keeping plots on a common scale, which makes relative effect sizes easier to compare across variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_boot_rf_corn</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># create ALEPlots object</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># subset only for 1D plots</span></span>
@@ -1027,7 +1018,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 </div>
 <p>With this view, the plots align cleanly with the ALED rankings: year shows the largest range, followed by the key temperature ranges (especially 21–30°C and 31–35°C). We also interpret these plots with the rug marks in mind. Extreme x-values often have sparse support, so we put most interpretive weight on regions of the predictor where the data are dense and the ALE curve is well supported.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_boot_rf_corn</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># create ALEPlots object</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span>   <span class="co"># subset only for 2D plots</span></span>
@@ -1058,7 +1049,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 <p>With a dataset of this size, statistical significance is almost guaranteed. Indeed, all effects are statistically significant. That is not the interesting part.</p>
 <p>What matters is magnitude. Only eight variables exhibit ALED effects of at least two bushels per acre. These are the effects that clear our threshold for practical importance, and we display their ALE plots accordingly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create variable lists to focus on</span></span>
 <span><span class="va">vars_aled_2</span> <span class="op">&lt;-</span> <span class="va">ale_boot_rf_corn</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span>stats <span class="op">=</span> <span class="st">'estimate'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>

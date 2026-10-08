@@ -15,7 +15,10 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="ale package handling of various input datatypes">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="ale-x-datatypes_files/libs/quarto-html/popper.min.js"></script><script src="ale-x-datatypes_files/libs/quarto-html/tippy.umd.min.js"></script><link href="ale-x-datatypes_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ale-x-datatypes_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="ale package handling of various input datatypes">
+<meta property="og:image" content="https://tripartio.github.io/ale/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -25,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,60 +51,60 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>ale package handling of various input datatypes</h1>
-                        <h4 data-toc-skip class="author">Chitu
-Okoli</h4>
-            
-            <h4 data-toc-skip class="date">August 27, 2025</h4>
-      
-      <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/articles/ale-x-datatypes.Rmd" class="external-link"><code>vignettes/articles/ale-x-datatypes.Rmd</code></a></small>
-      <div class="d-none name"><code>ale-x-datatypes.Rmd</code></div>
+
+      <p class="author">Chitu Okoli</p>
+      <p class="date">August 27, 2025</p>
+
+      <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/articles/ale-x-datatypes.qmd" class="external-link"><code>vignettes/articles/ale-x-datatypes.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<p>This vignette demonstrates how <a href="https://github.com/tripartio/ale" class="external-link">ale</a> works for various
-input datatypes. You should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that
-explains general functionality of the package; this vignette is a
-demonstration of specific functionality.</p>
+
+
+
+
+
+    <p>This vignette demonstrates how <a href="https://github.com/tripartio/ale" class="external-link">ale</a> works for various input datatypes. You should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that explains general functionality of the package; this vignette is a demonstration of specific functionality.</p>
 <p>We begin by loading the necessary libraries.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'ale'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:base':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     get</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     filter, lag</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="var_cars-modified-mtcars-dataset-motor-trend-car-road-tests">
-<code>var_cars</code>: modified <code>mtcars</code> dataset (Motor
-Trend Car Road Tests)<a class="anchor" aria-label="anchor" href="#var_cars-modified-mtcars-dataset-motor-trend-car-road-tests"></a>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'ale'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:base':
+
+    get</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+</div>
+<section class="level2" data-number="1"><h2 data-number="1" id="var_cars-modified-mtcars-dataset-motor-trend-car-road-tests">
+<span class="header-section-number">1</span> <code>var_cars</code>: modified <code>mtcars</code> dataset (Motor Trend Car Road Tests)<a class="anchor" aria-label="anchor" href="#var_cars-modified-mtcars-dataset-motor-trend-car-road-tests"></a>
 </h2>
-<p>For this demonstration, we use a modified version of the built-in
-<code>mtcars</code> dataset so that it has binary (logical), categorical
-(factor, that is, non-ordered categories), ordinal (ordered factor),
-discrete interval (integer), and continuous interval (numeric or double)
-values. This modified version, called <code>var_cars</code>, will let us
-test all the different basic variations of x variables. For the factor,
-it adds the country of the car manufacturer.</p>
+<p>For this demonstration, we use a modified version of the built-in <code>mtcars</code> dataset so that it has binary (logical), categorical (factor, that is, non-ordered categories), ordinal (ordered factor), discrete interval (integer), and continuous interval (numeric or double) values. This modified version, called <code>var_cars</code>, will let us test all the different basic variations of x variables. For the factor, it adds the country of the car manufacturer.</p>
 <p>The data is a tibble with 32 observations on 12 variables:</p>
-<table class="table">
+<table class="table caption-top">
 <thead><tr class="header">
 <th>Variable</th>
 <th>Format</th>
@@ -170,115 +173,121 @@ it adds the country of the car manufacturer.</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">var_cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 32 × 14</span></span></span>
-<span><span class="co">#&gt;    model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Mazda RX4 …  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Hornet 4 D…  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Hornet Spo…  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 22 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: country &lt;fct&gt;, continent &lt;fct&gt;</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">var_cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        model         mpg             cyl             disp             hp       </span></span>
-<span><span class="co">#&gt;  Length   :32   Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  </span></span>
-<span><span class="co">#&gt;  N.unique :32   1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  </span></span>
-<span><span class="co">#&gt;  N.blank  : 0   Median :19.20   Median :6.000   Median :196.3   Median :123.0  </span></span>
-<span><span class="co">#&gt;  Min.nchar: 7   Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  </span></span>
-<span><span class="co">#&gt;  Max.nchar:19   3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  </span></span>
-<span><span class="co">#&gt;                 Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  </span></span>
-<span><span class="co">#&gt;       drat             wt             qsec           vs         </span></span>
-<span><span class="co">#&gt;  Min.   :2.760   Min.   :1.513   Min.   :14.50   Mode :logical  </span></span>
-<span><span class="co">#&gt;  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   FALSE:18       </span></span>
-<span><span class="co">#&gt;  Median :3.695   Median :3.325   Median :17.71   TRUE :14       </span></span>
-<span><span class="co">#&gt;  Mean   :3.597   Mean   :3.217   Mean   :17.85                  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90                  </span></span>
-<span><span class="co">#&gt;  Max.   :4.930   Max.   :5.424   Max.   :22.90                  </span></span>
-<span><span class="co">#&gt;      am             gear         carb          country           continent </span></span>
-<span><span class="co">#&gt;  Mode :logical   three:15   Min.   :1.000   Germany: 8   Asia         : 6  </span></span>
-<span><span class="co">#&gt;  FALSE:19        four :12   1st Qu.:2.000   Italy  : 4   Europe       :14  </span></span>
-<span><span class="co">#&gt;  TRUE :13        five : 5   Median :2.000   Japan  : 6   North America:12  </span></span>
-<span><span class="co">#&gt;                             Mean   :2.812   Sweden : 1                     </span></span>
-<span><span class="co">#&gt;                             3rd Qu.:4.000   UK     : 1                     </span></span>
-<span><span class="co">#&gt;                             Max.   :8.000   USA    :12</span></span></code></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">var_cars</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 14
+   model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+   &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;ord&gt; &lt;int&gt;
+ 1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+ 2 Mazda RX4 …  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+ 3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+ 4 Hornet 4 D…  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+ 5 Hornet Spo…  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+ 6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+ 7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+ 8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+ 9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+# ℹ 22 more rows
+# ℹ 2 more variables: country &lt;fct&gt;, continent &lt;fct&gt;</code></pre>
 </div>
-<div class="section level2">
-<h2 id="modelling-with-ale-and-gam">Modelling with ALE and GAM<a class="anchor" aria-label="anchor" href="#modelling-with-ale-and-gam"></a>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">var_cars</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       model         mpg             cyl             disp             hp
+ Length   :32   Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0
+ N.unique :32   1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5
+ N.blank  : 0   Median :19.20   Median :6.000   Median :196.3   Median :123.0
+ Min.nchar: 7   Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7
+ Max.nchar:19   3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0
+                Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0
+      drat             wt             qsec           vs
+ Min.   :2.760   Min.   :1.513   Min.   :14.50   Mode :logical
+ 1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   FALSE:18
+ Median :3.695   Median :3.325   Median :17.71   TRUE :14
+ Mean   :3.597   Mean   :3.217   Mean   :17.85
+ 3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90
+ Max.   :4.930   Max.   :5.424   Max.   :22.90
+     am             gear         carb          country           continent
+ Mode :logical   three:15   Min.   :1.000   Germany: 8   Asia         : 6
+ FALSE:19        four :12   1st Qu.:2.000   Italy  : 4   Europe       :14
+ TRUE :13        five : 5   Median :2.000   Japan  : 6   North America:12
+                            Mean   :2.812   Sweden : 1
+                            3rd Qu.:4.000   UK     : 1
+                            Max.   :8.000   USA    :12                     </code></pre>
+</div>
+</div>
+</section><section class="level2" data-number="2"><h2 data-number="2" id="modelling-with-ale-and-gam">
+<span class="header-section-number">2</span> Modelling with ALE and GAM<a class="anchor" aria-label="anchor" href="#modelling-with-ale-and-gam"></a>
 </h2>
-<p>With GAM, only numeric variables can be smoothed, not binary or
-categorical ones. However, smoothing does not always help improve the
-model since some variables are not related to the outcome and some that
-are related actually do have a simple linear relationship. To keep this
-demonstration simple, we have done some earlier analysis (not shown
-here) that determines where smoothing is worthwhile on the modified
-<code>var_cars</code> dataset, so only some of the numeric variables are
-smoothed. Our goal here is not to demonstrate the best modelling
-procedure but rather to demonstrate the flexibility of the
-<a href="https://github.com/tripartio/ale" class="external-link">ale</a> package.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified <code>var_cars</code> dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gam_cars</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
 <span>  <span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">disp</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">drat</span> <span class="op">+</span> <span class="va">wt</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">qsec</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">gear</span> <span class="op">+</span> <span class="va">carb</span> <span class="op">+</span> <span class="va">country</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">var_cars</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Family: gaussian </span></span>
-<span><span class="co">#&gt; Link function: identity </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Formula:</span></span>
-<span><span class="co">#&gt; mpg ~ cyl + disp + hp + drat + wt + s(qsec) + vs + am + gear + </span></span>
-<span><span class="co">#&gt;     carb + country</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Parametric coefficients:</span></span>
-<span><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
-<span><span class="co">#&gt; (Intercept)   -7.84775   12.47080  -0.629  0.54628   </span></span>
-<span><span class="co">#&gt; cyl            1.66078    1.09449   1.517  0.16671   </span></span>
-<span><span class="co">#&gt; disp           0.06627    0.01861   3.561  0.00710 **</span></span>
-<span><span class="co">#&gt; hp            -0.01241    0.02502  -0.496  0.63305   </span></span>
-<span><span class="co">#&gt; drat           4.54975    1.48971   3.054  0.01526 * </span></span>
-<span><span class="co">#&gt; wt            -5.03737    1.53979  -3.271  0.01095 * </span></span>
-<span><span class="co">#&gt; vsTRUE        12.45630    3.62342   3.438  0.00852 **</span></span>
-<span><span class="co">#&gt; amTRUE         8.77813    2.67611   3.280  0.01080 * </span></span>
-<span><span class="co">#&gt; gear.L         0.53111    3.03337   0.175  0.86525   </span></span>
-<span><span class="co">#&gt; gear.Q         0.57129    1.18201   0.483  0.64150   </span></span>
-<span><span class="co">#&gt; carb          -0.34479    0.78600  -0.439  0.67223   </span></span>
-<span><span class="co">#&gt; countryItaly  -0.08633    2.22316  -0.039  0.96995   </span></span>
-<span><span class="co">#&gt; countryJapan  -3.31948    2.22723  -1.490  0.17353   </span></span>
-<span><span class="co">#&gt; countrySweden -3.83437    2.74934  -1.395  0.19973   </span></span>
-<span><span class="co">#&gt; countryUK     -7.24222    3.81985  -1.896  0.09365 . </span></span>
-<span><span class="co">#&gt; countryUSA    -7.69317    2.37998  -3.232  0.01162 * </span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Approximate significance of smooth terms:</span></span>
-<span><span class="co">#&gt;           edf Ref.df     F p-value  </span></span>
-<span><span class="co">#&gt; s(qsec) 7.797  8.641 5.975  0.0101 *</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; R-sq.(adj) =  0.955   Deviance explained = 98.8%</span></span>
-<span><span class="co">#&gt; GCV = 6.4263  Scale est. = 1.6474    n = 32</span></span></code></pre></div>
-<p>Now we generate ALE data from the <code>gam_cars</code> GAM model and
-plot it.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_cars</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Family: gaussian
+Link function: identity
+
+Formula:
+mpg ~ cyl + disp + hp + drat + wt + s(qsec) + vs + am + gear +
+    carb + country
+
+Parametric coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)   -7.84775   12.47080  -0.629  0.54628
+cyl            1.66078    1.09449   1.517  0.16671
+disp           0.06627    0.01861   3.561  0.00710 **
+hp            -0.01241    0.02502  -0.496  0.63305
+drat           4.54975    1.48971   3.054  0.01526 *
+wt            -5.03737    1.53979  -3.271  0.01095 *
+vsTRUE        12.45630    3.62342   3.438  0.00852 **
+amTRUE         8.77813    2.67611   3.280  0.01080 *
+gear.L         0.53111    3.03337   0.175  0.86525
+gear.Q         0.57129    1.18201   0.483  0.64150
+carb          -0.34479    0.78600  -0.439  0.67223
+countryItaly  -0.08633    2.22316  -0.039  0.96995
+countryJapan  -3.31948    2.22723  -1.490  0.17353
+countrySweden -3.83437    2.74934  -1.395  0.19973
+countryUK     -7.24222    3.81985  -1.896  0.09365 .
+countryUSA    -7.69317    2.37998  -3.232  0.01162 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Approximate significance of smooth terms:
+          edf Ref.df     F p-value
+s(qsec) 7.797  8.641 5.975  0.0101 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+R-sq.(adj) =  0.955   Deviance explained = 98.8%
+GCV = 6.4263  Scale est. = 1.6474    n = 32</code></pre>
+</div>
+</div>
+<p>Now we generate ALE data from the <code>gam_cars</code> GAM model and plot it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>ale.parallel <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects </span></span>
 <span><span class="co"># from an online repository.</span></span>
 <span><span class="co"># To run the code yourself, execute the code blocks directly.  </span></span>
-<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/wip/download"</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
 <span><span class="co"># # For models like mgcv::gam that store their data,</span></span>
 <span><span class="co"># # there is no need to specify the data argument.</span></span>
@@ -295,20 +304,20 @@ plot it.</p>
 <span><span class="co"># Print all plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_cars_1D</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-x-datatypes_files/figure-html/ale_cars_1D-rds-1.png" class="r-plt" alt="" width="672"></p>
-<p>We can see that <code><a href="../reference/ALE.html">ALE()</a></code> has no trouble modelling any of
-the datatypes in our sample (logical, factor, ordered, integer, or
-double). It plots line charts for the numeric predictors and column
-charts for everything else.</p>
-<p>The numeric predictors have rug plots that indicate in which ranges
-of the x (predictor) and y (<code>mpg</code>) values data actually
-exists in the dataset. This helps us to not over-interpret regions where
-data is sparse. Since column charts are on a discrete scale, they cannot
-display rug plots. Instead, the percentage of data represented by each
-column is displayed.</p>
-<p>We can also generate and plot the ALE data for all two-way
-interactions.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ale-x-datatypes_files/figure-html/ale_cars_1D-rds-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see that <code><a href="../reference/ALE.html">ALE()</a></code> has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double). It plots line charts for the numeric predictors and column charts for everything else.</p>
+<p>The numeric predictors have rug plots that indicate in which ranges of the x (predictor) and y (<code>mpg</code>) values data actually exists in the dataset. This helps us to not over-interpret regions where data is sparse. Since column charts are on a discrete scale, they cannot display rug plots. Instead, the percentage of data represented by each column is displayed.</p>
+<p>We can also generate and plot the ALE data for all two-way interactions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
 <span><span class="co"># # For models like mgcv::gam that store their data,</span></span>
 <span><span class="co"># # there is no need to specify the data argument.</span></span>
@@ -329,15 +338,19 @@ interactions.</p>
 <span>    <span class="co"># By default, at most 20 plots are printed. Set max_print to increase this limit</span></span>
 <span>    max_print <span class="op">=</span> <span class="fl">100</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ale-x-datatypes_files/figure-html/ale_cars_2D-rds-1.png" class="r-plt" alt="" width="672"></p>
-<p>There are no interactions in this model but the point of this
-demonstration is to show that the <code>ale</code> package can handle 2D
-interactions between just about any pair of interaction types:
-numeric-numeric, ordinal-binary, categorical-ordinal, etc.</p>
-<p>Finally, as explained in the vignette on modelling with <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>, a more
-appropriate modelling workflow would require bootstrapping the entire
-model, not just the ALE data. So, let’s do that now.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ale-x-datatypes_files/figure-html/ale_cars_2D-rds-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There are no interactions in this model but the point of this demonstration is to show that the <code>ale</code> package can handle 2D interactions between just about any pair of interaction types: numeric-numeric, ordinal-binary, categorical-ordinal, etc.</p>
+<p>Finally, as explained in the vignette on modelling with <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>, a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let’s do that now.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To run the slow code yourself, uncomment and execute this code block directly.</span></span>
 <span><span class="co"># # For models like mgcv::gam that store their data,</span></span>
 <span><span class="co"># # there is no need to specify the data argument.</span></span>
@@ -350,22 +363,103 @@ model, not just the ALE data. So, let’s do that now.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_cars</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-x-datatypes_files/figure-html/cars_full-rds-1.png" class="r-plt" alt="" width="672"></p>
-<p>(By default, a <code>ModelBoot</code> object creates 100 bootstrap
-samples but, so that this illustration runs faster, we demonstrate it
-here with only 10 iterations.)</p>
-<p>With such a small dataset, the bootstrap confidence interval always
-overlap the median, indicating that this dataset cannot support any
-claims that any of its variables has a meaningful effect on fuel
-efficiency (mpg). Considering that the average bootstrapped ALE values
-suggest various intriguing patterns, the problem is no doubt that the
-dataset is too small–if more data were collected and analyzed, some of
-the patterns would probably be confirmed.</p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ale-x-datatypes_files/figure-html/cars_full-rds-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>(By default, a <code>ModelBoot</code> object creates 100 bootstrap samples but, so that this illustration runs faster, we demonstrate it here with only 10 iterations.)</p>
+<p>With such a small dataset, the bootstrap confidence interval always overlap the median, indicating that this dataset cannot support any claims that any of its variables has a meaningful effect on fuel efficiency (mpg). Considering that the average bootstrapped ALE values suggest various intriguing patterns, the problem is no doubt that the dataset is too small–if more data were collected and analyzed, some of the patterns would probably be confirmed.</p>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
     <footer><div class="pkgdown-footer-left">

@@ -544,7 +544,7 @@ summary(gam_co2)
 #> Approximate significance of smooth terms:
 #>                     edf Ref.df     F  p-value    
 #> s(conc)            1.00      1 32.60 1.47e-06 ***
-#> ti(conc,plant_id) 32.45     35 10.49  < 2e-16 ***
+#> ti(conc,plant_id) 32.45     35 10.85  < 2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -605,11 +605,6 @@ summary(ale_gam_co2)
 #> 10 naler     conc        53.6     53.6  53.6   53.6      53.6 
 #> 11 naler     plant_id    54.8     54.8  54.8   54.8      54.8 
 #> 12 naler     chilled     19.0     19.0  19.0   19.0      19.0 
-#> 
-#> Statistically significant confidence regions [get(object, stats = "conf_sig")]:
-#> ! Confidence regions are meaningless without p-values.
-#> ℹ The ALE statistics were calculated without p-values.
-#> # A tibble: 0 × 0
 
 # Simple printing of all plots
 plot(ale_gam_co2)

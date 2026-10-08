@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@
 <span>  rug_sample_size <span class="op">=</span> <span class="va">obj</span><span class="op">@</span><span class="va">params</span><span class="op">$</span><span class="va">sample_size</span>,</span>
 <span>  min_rug_per_interval <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  min_col_width <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  show_2d_bin_sizes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  y_nonsig_band <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  silent <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -88,6 +89,10 @@ An example of the list format would be:
 
 <dt id="arg-min-col-width">min_col_width<a class="anchor" aria-label="anchor" href="#arg-min-col-width"></a></dt>
 <dd><p>numeric(1) in <code>[0.01, 1]</code>. Column charts scale each column such that the column representing the category with the most elements has a scale of 1 and all other columns have a width that is a fraction of the largest category proportional to their numbers of elements. However, for visibility, no column is displayed narrower than a scale of <code>min_col_width</code>. To disable scaling by width, set <code>min_col_width = 1</code>.</p></dd>
+
+
+<dt id="arg-show-d-bin-sizes">show_2d_bin_sizes<a class="anchor" aria-label="anchor" href="#arg-show-d-bin-sizes"></a></dt>
+<dd><p>logical(1). If <code>TRUE</code> (default), 2D ALE plots display hollow squares whose areas represent the percentage of data in each bin, with a corresponding size legend. Set to <code>FALSE</code> to omit the squares and their legend, including in faceted plots.</p></dd>
 
 
 <dt id="arg-y-nonsig-band">y_nonsig_band<a class="anchor" aria-label="anchor" href="#arg-y-nonsig-band"></a></dt>

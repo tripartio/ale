@@ -5,7 +5,8 @@ prints a statistical summary of an `ALE` object. If there are no ALE
 statistics, a message says so. Summarized statistics are mean or median
 depending on the `boot_centre` argument used for
 [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
-bootstrapping.
+bootstrapping. Confidence-region sections are silently omitted when
+p-values are absent, including when `all_conf = TRUE`.
 
 ## Value
 

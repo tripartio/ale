@@ -2,6 +2,9 @@
 
 Retrieve specific elements from an `ALE` object with the
 [`get()`](https://tripartio.github.io/ale/reference/get.md) generic.
+Requests for `stats = 'conf_regions'` or `stats = 'conf_sig'` require
+p-values and raise an error if none are available, even with
+`silent = TRUE`.
 
 ## Value
 
@@ -27,7 +30,7 @@ object have a common structure:
     then there will be no `d1` sublist but only a list of the ALE data
     as described for the next level. If `simplify = FALSE`, both `d1`
     and `d2` sublists will always be returned; the empty sublist will be
-    `NULL`.
+    `NULL` or an empty list.
 
 While all results follow the general structure just described, the
 specific type of data returned depends on the values of the `what` and
@@ -153,7 +156,8 @@ specific type of data returned depends on the values of the `what` and
 - `...`: not used. Inserted to require explicit naming of subsequent
   arguments.
 
-- `stats`: character(1). Retrieve ALE statistics. If `stats` is
+- `stats`: character. Retrieve ALE statistics. Named statistics are
+  returned in the requested order within each term. If `stats` is
   specified, then `what` must be left at the default ("ale"). Otherwise,
   [`get()`](https://tripartio.github.io/ale/reference/get.md) errors if
   `stats` is specified and `what` has some other value. See the return
@@ -165,9 +169,11 @@ specific type of data returned depends on the values of the `what` and
 - `ale_centre`: Same as in documentation for
   [`ALEPlots()`](https://tripartio.github.io/ale/reference/ALEPlots.md)
 
-- `simplify`: logical(1). If `TRUE` (default), the results will be
-  simplified to the simplest list structure possible to give the
-  requested results. If `FALSE`, a complex but consistent list structure
+- `simplify`: logical(1). If `TRUE` (default), recursively remove empty
+  elements and zero-row data frames, then promote the sole member of
+  each remaining list. Nonempty data frames, ggplots, and other objects
+  that are not simple lists are kept intact. If no objects remain,
+  return `NULL`. If `FALSE`, a complex but consistent list structure
   will be returned; this might be preferred for programmatic and
   non-interactive use.
 

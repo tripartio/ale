@@ -57,7 +57,7 @@ library(ale)  # load the ale package only after installing the development versi
 # For speed, these examples use retrieve_rds() to load precreated objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/rice_objects"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download/rice_objects"
 ```
 
 ## 3 Data preparation and description
@@ -334,14 +334,7 @@ summary(ale_lm_rice)
      9 naled     season:nitrogen   14.3     14.3   14.3   14.3      14.3
     10 naler     season            26.7     26.7   26.7   26.7      26.7
     11 naler     nitrogen          26.7     26.7   26.7   26.7      26.7
-    12 naler     season:nitrogen   50       50     50     50        50
-
-    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
-
-    ! Confidence regions are meaningless without p-values.
-    ℹ The ALE statistics were calculated without p-values.
-
-    # A tibble: 0 × 0
+    12 naler     season:nitrogen   50       50     50     50        50    
 
 From the ALE summary, the season ALED effect is about 0.387 t/ha (≈ 387
 kg/ha) and that for nitrogen is about 153 kg/ha. The season × nitrogen
@@ -642,14 +635,7 @@ summary(ale_rf_rice)
      9 naled     season:nitrogen    7.67     7.67   7.67   7.67      7.67
     10 naler     season            26.7     26.7   26.7   26.7      26.7
     11 naler     nitrogen          30       30     30     30        30
-    12 naler     season:nitrogen   30       30     30     30        30
-
-    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
-
-    ! Confidence regions are meaningless without p-values.
-    ℹ The ALE statistics were calculated without p-values.
-
-    # A tibble: 0 × 0
+    12 naler     season:nitrogen   30       30     30     30        30    
 
 ``` r
 
@@ -918,14 +904,7 @@ summary(ale_gam_rice)
      9 naled     season:nitrogen   15       15     15     15        15
     10 naler     season            26.7     26.7   26.7   26.7      26.7
     11 naler     nitrogen          50       50     50     50        50
-    12 naler     season:nitrogen   50       50     50     50        50
-
-    Statistically significant confidence regions [get(object, stats = "conf_sig")]:
-
-    ! Confidence regions are meaningless without p-values.
-    ℹ The ALE statistics were calculated without p-values.
-
-    # A tibble: 0 × 0
+    12 naler     season:nitrogen   50       50     50     50        50    
 
 In the ALE summary, the GAM shows larger ALED effects (roughly 400 kg/ha
 scale) for season, nitrogen, and their interaction than the earlier

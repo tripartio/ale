@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3.20261008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,7 +117,7 @@
 <code class="sourceCode R"><span><span class="co"># For speed, these examples use retrieve_rds() to load precreated objects </span></span>
 <span><span class="co"># from an online repository.</span></span>
 <span><span class="co"># To run the code yourself, execute the code blocks directly.  </span></span>
-<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download/rice_objects"</span></span></code></pre></div>
+<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/wip/download/rice_objects"</span></span></code></pre></div>
 </div>
 </section><section class="level2" data-number="3"><h2 data-number="3" id="data-preparation-and-description">
 <span class="header-section-number">3</span> Data preparation and description<a class="anchor" aria-label="anchor" href="#data-preparation-and-description"></a>
@@ -371,22 +371,13 @@ ALE statistic distributions (no p-values requested) [get(object, stats = c("aled
  9 naled     season:nitrogen   14.3     14.3   14.3   14.3      14.3
 10 naler     season            26.7     26.7   26.7   26.7      26.7
 11 naler     nitrogen          26.7     26.7   26.7   26.7      26.7
-12 naler     season:nitrogen   50       50     50     50        50
-
-Statistically significant confidence regions [get(object, stats = "conf_sig")]:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>! Confidence regions are meaningless without p-values.
-ℹ The ALE statistics were calculated without p-values.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
+12 naler     season:nitrogen   50       50     50     50        50    </code></pre>
 </div>
 </div>
 <p>From the ALE summary, the season ALED effect is about 0.387 t/ha (≈ 387 kg/ha) and that for nitrogen is about 153 kg/ha. The season × nitrogen interaction ALED is about 391 kg/ha. However, note that without bootstrapping, these results shouldn’t be considered reliable.</p>
 <p>Next we look at the ALE plots. With only three terms, we’ll inspect them all (in bigger studies, we’d be pickier).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_lm_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -398,7 +389,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_lm_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -416,7 +407,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 <p>Before bootstrapping, let’s first generate an ALE p-value distribution. This is the slowest step in ALE analysis because it relies on simulation rather than parametric assumptions. Whenever procedures are slow in this demonstration, the code blocks are commented out and presaved objects are loaded instead, so the document runs quickly.</p>
 <p>We can then use the p-value distribution for the full-model bootstrapping procedure from the {ale} package, to create a <code>ModelBoot</code> object. We explicitly request ALE for season, nitrogen, and the season × nitrogen interaction. Only after this full bootstrap process do the ALE results become reliable</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SLOW: uncomment to run yourself; load the saved object for rapid execution</span></span>
 <span></span>
 <span><span class="co"># # p-value distribution</span></span>
@@ -452,7 +443,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mb_lm_rice</span><span class="op">)</span>  <span class="co"># boot_valid SA 48.8%: MAE 0.918</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;ModelBoot&gt; object of a &lt;lm&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
@@ -510,7 +501,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 <p>Bootstrapping gives us predictive metrics based on bootstrap validation on 100 hold-out samples. The OLS model has a predictive MAE of 0.918 t/ha and standardized accuracy of 48.8%. Any staccuracy less than 50% counts as a “bad” model–it’s worse than simply predicting the mean every time. So, our OLS model is pretty much useless. At least, we’ve learnt that we can’t trust it.</p>
 <p>This is reinforced by the complete absence of statistically significant confidence regions–ALE-based inference is telling us that we can’t trust anything this model says.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -522,7 +513,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -550,7 +541,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 </h3>
 <p>Because random forest is stochastic, we set a random seed. Otherwise, each run would produce slightly different results. Beyond that, we use the default settings.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Precise performance metrics vary slightly for a random forest</span></span>
 <span><span class="va">rf_rice</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://imbs-hl.github.io/ranger/reference/ranger.html" class="external-link">ranger</a></span><span class="op">(</span></span>
 <span>  <span class="va">yield</span> <span class="op">~</span> <span class="va">.</span>, </span>
@@ -584,7 +575,7 @@ R squared (OOB):                  0.4787994 </code></pre>
 </h3>
 <p>The {ale} package automatically recognizes the {ranger} package, so using default settings, it easily creates an ALE explanation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Single ALE description</span></span>
 <span><span class="va">ale_rf_rice</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
 <span>  <span class="va">rf_rice</span>, </span>
@@ -622,20 +613,11 @@ ALE statistic distributions (no p-values requested) [get(object, stats = c("aled
  9 naled     season:nitrogen    7.67     7.67   7.67   7.67      7.67
 10 naler     season            26.7     26.7   26.7   26.7      26.7
 11 naler     nitrogen          30       30     30     30        30
-12 naler     season:nitrogen   30       30     30     30        30
-
-Statistically significant confidence regions [get(object, stats = "conf_sig")]:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>! Confidence regions are meaningless without p-values.
-ℹ The ALE statistics were calculated without p-values.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
+12 naler     season:nitrogen   30       30     30     30        30    </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_rf_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -647,7 +629,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_rf_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -660,7 +642,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 </div>
 <p>In the random forest ALE plots, the season effect is very similar to that of ordinary least squares, but the nitrogen fertilizer effect is quite different. Here, nitrogen shows an inverted-U pattern (peaking around 60–90 kg/ha), and the interaction again suggests different nitrogen behaviour across seasons. Still, we shouldn’t get too excited until we check predictive stability.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SLOW: uncomment to run yourself; load the saved object for rapid execution</span></span>
 <span></span>
 <span><span class="co"># # p-value distribution</span></span>
@@ -699,7 +681,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mb_rf_rice</span><span class="op">)</span>  <span class="co"># boot_valid SA 64.6%; MAE 0.6400844</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;ModelBoot&gt; object of a &lt;ranger&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
@@ -739,7 +721,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 </div>
 <p>Once we bootstrap, the performance is less impressive than with purely descriptive metrics. The random forest has a predictive MAE of 0.641 t/ha and standardized accuracy of 64.6%. That said, the staccuracy of above 50% indicates that this is at least a decent model. However, we will see that we can do better, as random forests don’t shine best on small datasets like this.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_rf_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -751,7 +733,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_rf_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -772,7 +754,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 </h3>
 <p>Appropriately configuring GAMs is as much an art as a science, and so we won’t get into how we arrived at the specific configuration that we use here. However, its key structure is straightforward. We model yield as a function of season, and we include nitrogen through its interaction with season. That means nitrogen is not entered as a simple main effect; instead, its relationship with yield is allowed to differ by season. In this way, nitrogen is fully incorporated into the model. We use the {mgcv} package for the GAM.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gam_rice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
 <span>  <span class="va">yield</span> <span class="op">~</span> <span class="va">season</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/te.html" class="external-link">ti</a></span><span class="op">(</span><span class="va">nitrogen</span>, by <span class="op">=</span> <span class="va">season</span>, bs <span class="op">=</span> <span class="st">"ps"</span><span class="op">)</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">rice</span>,</span>
@@ -821,7 +803,7 @@ R-sq.(adj) =  0.745   Deviance explained = 79.3%
 </h3>
 <p>Next, we use ALE to examine the shape of the fitted relationships and give us model-agnostic statistics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Single ALE description</span></span>
 <span><span class="va">ale_gam_rice</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
 <span>  <span class="va">gam_rice</span>, </span>
@@ -859,21 +841,12 @@ ALE statistic distributions (no p-values requested) [get(object, stats = c("aled
  9 naled     season:nitrogen   15       15     15     15        15
 10 naler     season            26.7     26.7   26.7   26.7      26.7
 11 naler     nitrogen          50       50     50     50        50
-12 naler     season:nitrogen   50       50     50     50        50
-
-Statistically significant confidence regions [get(object, stats = "conf_sig")]:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>! Confidence regions are meaningless without p-values.
-ℹ The ALE statistics were calculated without p-values.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code><span><span class="co"># A tibble: 0 × 0</span></span></code></pre>
+12 naler     season:nitrogen   50       50     50     50        50    </code></pre>
 </div>
 </div>
 <p>In the ALE summary, the GAM shows larger ALED effects (roughly 400 kg/ha scale) for season, nitrogen, and their interaction than the earlier models. We’ll interpret these more carefully once we look at the plots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_gam_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -885,7 +858,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_gam_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -917,7 +890,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 </h3>
 <p>So far, these are preliminary patterns. To assess reliability, we now generate a p-value distribution and perform full model bootstrapping of the GAM.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SLOW: uncomment to run yourself; load the saved object for rapid execution</span></span>
 <span></span>
 <span><span class="co"># # p-value distribution</span></span>
@@ -953,7 +926,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:<
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mb_gam_rice</span><span class="op">)</span>  <span class="co"># boot_valid SA 70.0%; MAE 0.531</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;ModelBoot&gt; object of a &lt;gam/glm/lm&gt; model that predicts `yield` (a numeric outcome) from a 30-row by 3-column dataset.
@@ -1015,7 +988,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 <p>In the bootstrapped ALE results, all three relationships (season and nitrogen main effects and the season × nitrogen interaction effect) come out highly significant by p-values (p &lt; 0.001), with effect sizes around 400 kg/ha.</p>
 <p>Notably, compared to the OLS and random forest results, our more accurate GAM is the only model to produce statistically significant confident regions, which it does for the season × nitrogen interaction. We can better interpret the implications of this when examining the bootstrapped plots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1027,7 +1000,7 @@ Statistically significant confidence regions [get(object, stats = "conf_sig")]:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_rice</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
