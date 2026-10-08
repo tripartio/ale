@@ -45,7 +45,7 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 
 ## Documentation
 
-* Added two Quarto vignettes: "Analyzing a Large Corn Yield Dataset with ALE-Based Inference" and "Analyzing a Small Rice Yield Dataset with ALE-Based Inference". They are available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>.
+* Added two articles with examples of applying ALE: [“Analyzing a Large Corn Yield Dataset with ALE-Based Inference”](https://tripartio.github.io/ale/articles/ale-acdc-corn.html) and [“Analyzing a Small Rice Yield Dataset with ALE-Based Inference”](https://tripartio.github.io/ale/articles/ale-gomez-rice.html).
 * Replaced GAM examples in README to random forests. Converted the README file from RMarkdown to Quarto.
 * Converted all RMarkdown vignettes and articles to Quarto.
 * Updated package logo.
