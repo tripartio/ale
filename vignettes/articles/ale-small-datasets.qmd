@@ -1,13 +1,25 @@
 ---
 title: "Analyzing small datasets (fewer than 2000 rows) with ALE"
+
 author: "Chitu Okoli"
-date: "August 27, 2025"
-output: rmarkdown::html_vignette
+date: 2025-08-27
+date-format: "MMMM D, YYYY"
+
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "Outline"
+    number-sections: true
+    code-fold: false
+    smooth-scroll: true
+
 vignette: >
   %\VignetteIndexEntry{Analyzing small datasets (fewer than 2000 rows) with ALE}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
+
 
 ```{r knitr, include = FALSE}
 knitr::opts_chunk$set(
@@ -86,7 +98,7 @@ options(ale.parallel = 2)
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 ```
 
 
@@ -339,7 +351,7 @@ So, here is the form for constructing a `ModelBoot` for a model object type that
 # )
 
 mb_gam_attitude_special <- serialized_objects_site |> 
-  file.path('mb_gam_attitude_special.0.5.2.rds') |>
+  file.path('mb_gam_attitude_special.0.5.3.rds') |>
   url() |> 
   readRDS()
 
@@ -350,7 +362,7 @@ mb_gam_attitude_special@model_stats
 
 mb_gam_attitude_special <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'mb_gam_attitude_special.0.5.2.rds'),
+  c(serialized_objects_site, 'mb_gam_attitude_special.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
     # For models like mgcv::gam that store their data,

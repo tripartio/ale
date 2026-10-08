@@ -120,7 +120,7 @@
 #' # For speed, these examples use retrieve_rds() to load pre-created objects
 #' # from an online repository.
 #' # To run the code yourself, execute the code blocks directly.
-#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 #'
 #' # Create ALE data
 #' mb_gam_attitude <- retrieve_rds(

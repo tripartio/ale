@@ -1,20 +1,25 @@
 ---
 title: "ale package handling of various input datatypes"
+
 author: "Chitu Okoli"
-date: "August 27, 2025"
-output: rmarkdown::html_vignette
+date: 2025-08-27
+date-format: "MMMM D, YYYY"
+
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "Outline"
+    number-sections: true
+    code-fold: false
+    smooth-scroll: true
+
 vignette: >
   %\VignetteIndexEntry{ale package handling of various input datatypes}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r knitr, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 This vignette demonstrates how `{ale}` works for various input datatypes. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
 
@@ -81,7 +86,7 @@ options(ale.parallel = 2)
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 ```
 
 
@@ -128,7 +133,7 @@ The numeric predictors have rug plots that indicate in which ranges of the x (pr
 
 We can also generate and plot the ALE data for all two-way interactions.
 
-```{r ale_cars_2D, eval=FALSE, echo=TRUE, fig.width=7, fig.height=28}
+```{r ale_cars_2D, eval=FALSE, echo=TRUE, fig.width=7, fig.height=60}
 # # # To run the slow code yourself, uncomment and execute this code block directly.
 # # For models like mgcv::gam that store their data,
 # # there is no need to specify the data argument.
@@ -151,7 +156,7 @@ plot(ale_cars_2D) |>
   )
 ```
 
-```{r ale_cars_2D-rds, eval=TRUE, echo=FALSE, fig.width=7, fig.height=28}
+```{r ale_cars_2D-rds, eval=TRUE, echo=FALSE, fig.width=7, fig.height=60}
 ale_cars_2D <- retrieve_rds(
   # For speed, load a pre-created object by default.
   c(serialized_objects_site, 'ale_cars_2D.0.5.2.rds'),

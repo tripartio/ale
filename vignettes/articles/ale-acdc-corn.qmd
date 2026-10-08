@@ -67,7 +67,7 @@ library(ale)  # load the ale package only after installing the development versi
 # For speed, these examples use retrieve_rds() to load precreated objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/corn_objects"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download/corn_objects"
 ```
 
 ## Dataset: ACDC corn yields

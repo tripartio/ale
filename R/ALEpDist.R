@@ -124,7 +124,7 @@
 #' # For speed, these examples use retrieve_rds() to load pre-created objects
 #' # from an online repository.
 #' # To run the code yourself, execute the code blocks directly.
-#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 #'
 #' # Generating p_value distribution objects is slow because it retrains the model 100 times,
 #' # so this example loads a pre-created ALEpDist object.
