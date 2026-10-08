@@ -24,6 +24,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 ## Bug fixes
 
+* `ALE()` now warns early about requested predictors with only one observed value and returns zero main and interaction effects for them, including bootstrap iterations.
 * Unnamed single-column prediction matrices, including binary predictions from `nnet::nnet()`, are now accepted and named after the outcome column.
 * `get()` for `ALE` and `ModelBoot` objects now returns named statistics in the requested order within each term.
 * `get()` now raises a clear error when confidence regions are requested without p-values. `summary()` for `ALE` and `ModelBoot` objects silently omits confidence-region sections when p-values are absent.

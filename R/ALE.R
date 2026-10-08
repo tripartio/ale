@@ -286,6 +286,23 @@ ALE <- new_class(
       silent = silent
     )
 
+    # Warn before expensive work, and only for predictors actually requested.
+    requested_predictors <- x_cols |>
+      unlist() |>
+      str_split(':') |>
+      unlist() |>
+      unique()
+    constant_vars <- data[requested_predictors] |>
+      map(\(it.col) unique(it.col[!is.na(it.col)])) |>
+      purrr::keep(\(it.values) length(it.values) == 1L)
+    if (length(constant_vars) > 0L) {
+      cli_warn(c(
+        '!' = 'Variables with only one unique observed value: {.var {names(constant_vars)}}.',
+        'i' = 'ALE effects for these variables and interactions containing them are therefore set to zero.',
+        'i' = 'ALE should normally be calculated using the original training data, or a representative sample of it.'
+      ), class = 'ale_constant_predictor')
+    }
+
     validate(is_scalar_whole(boot_it))
 
     validate(is_bool(output_stats))
@@ -545,7 +562,11 @@ ALE <- new_class(
     # Now establish precise order for each unordered factor
     requested_fct_order <- requested_fct_order |>
       imap(\(it.fct_order_type, it.fct_name) {
-        if (it.fct_order_type == 'levels') {
+        if (it.fct_name %in% names(constant_vars)) {
+          # A single category needs no ordering, including with fct_order = 'ksd'.
+          rep(list(as.character(constant_vars[[it.fct_name]])), length(y_cats)) |>
+            set_names(y_cats)
+        } else if (it.fct_order_type == 'levels') {
           it.lvls <- if (is.factor(data[[it.fct_name]])) {
             levels(data[[it.fct_name]])
           } else {
@@ -607,7 +628,7 @@ ALE <- new_class(
       names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
-      'ale_y_norm_funs', 'col_names', 'cols_used', 'exclude_cols',
+      'ale_y_norm_funs', 'col_names', 'cols_used', 'constant_vars', 'requested_predictors', 'exclude_cols',
       'invalid_col_names', 'invalid_fct_order_col_names', 'invalid_max_num_bins_col_names', 'invalid_msg_fct_order', 'invalid_msg_max_num_bins',
       'pm', 'requested_fct_order', 'silent', 'temp_objs', 'unordered_fcts', 'valid_d', 'valid_fct_order_vals', 'valid_output_types', 'valid_x_cols', 'val_pll', 'val_pred', 'x_cols', 'y_vals', 'y_preds'
     )
@@ -724,7 +745,8 @@ ALE <- new_class(
               .bins = it.bins,
               ale_y_norm_funs = ale_y_norm_funs,
               p_dist = p_values,
-              aled_fun = aled_fun
+              aled_fun = aled_fun,
+              constant_term = constant_vars[intersect(it.x_cols_split, names(constant_vars))]
             ) |>
             list_transpose(simplify = FALSE)
 
