@@ -15,3 +15,65 @@ articles:
   - articles/ale-small-datasets
   - articles/ale-acdc-corn
   - articles/ale-gomez-rice
+
+
+
+reference:
+- title: ALE creation and manipulation
+  desc: Create and manipulate ALE S7 objects for data and statistics for accumulated local effects.
+
+- contents:
+  - ALE
+  - print-ALE-method
+  - summary-ALE-method
+  - get-ALE-method
+  - plot-ALE-method
+  - invert_probs
+
+- title: Advanced visualization
+  desc: Generate ALEPlots S7 objects, manipulate them, and plot ALE.
+
+- contents:
+  - ALEPlots
+  - print-ALEPlots-method
+  - plot-ALEPlots-method
+  - customize
+  - summary-ALEPlots-method
+  - get-ALEPlots-method
+  - subset-ALEPlots-method
+
+- title: p-values
+  desc: Create ALEpDist S7 objects for p-values distributions for ALE statistics.
+
+- contents:
+  - ALEpDist
+
+- title: Full-model bootstrapping
+  desc: Bootstrap a full model with a ModelBoot S7 object, with ALE and other calculations.
+
+- contents:
+  - ModelBoot
+  - print-ModelBoot-method
+  - summary-ModelBoot-method
+  - plot-ModelBoot-method
+  - get-ModelBoot-method
+
+- title: S7 generics
+
+- contents:
+  - get
+
+- title: Supporting utilities
+  desc: Helper functions for data preparation and analysis.
+
+- contents:
+  - resolve_x_cols
+  - retrieve_rds
+  - x_medoids
+
+- title: Example datasets
+  desc: Datasets for illustrating ALE analysis.
+
+- contents:
+  - var_cars
+  - census
