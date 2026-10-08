@@ -397,6 +397,7 @@ plot_ale_1D <- function(
 #' @param params ALE object params property. Parameters for the object for which 2D plots will be created.
 #' @param ... not used. Enforces explicit naming of subsequent arguments.
 #' @param cat_plot character(1) in c('single', 'facet'). `'single'` (default) creates a typical 2D plot for a single category; `'facet'` creates a faceted plot across all categories.
+#' @param show_2d_bin_sizes See documentation for [ALEPlots()]
 #' @param ale_centre See documentation for [ALE()]
 #'
 plot_ale_2D <- function(
@@ -404,7 +405,8 @@ plot_ale_2D <- function(
     params,
     ...,
     cat_plot = 'single',
-    ale_centre = 'median'
+    ale_centre = 'median',
+    show_2d_bin_sizes = TRUE
 ) {
   ## Internal functions -----------------
 
@@ -536,22 +538,26 @@ plot_ale_2D <- function(
         'effect of {x1_col} on the horizontal axis and {x2_col} on the vertical axis'
       )
     ) +
-    geom_point(
-      aes(size = .data$.n * 100 / total_n),
-      # shapes: https://ggplot2.tidyverse.org/articles/ggplot2-specs.html
-      shape = 0,  # hollow square
-      alpha = 0.1
-    ) +
-    scale_size_area(
-      name = "% data",  # Size legend title
-      # append % to the labels
-      labels = \(breaks) {
-        breaks |> round_dp() |> paste0('%')
-      }
-    ) +
     theme(legend.title = element_text(size = 10)) +
     theme(legend.text = element_text(size = 8)) +
     theme(legend.key.size = unit(4, "mm"))
+
+  if (show_2d_bin_sizes) {
+    plot <- plot +
+      geom_point(
+        aes(size = .data$.n * 100 / total_n),
+        # shapes: https://ggplot2.tidyverse.org/articles/ggplot2-specs.html
+        shape = 0,  # hollow square
+        alpha = 0.1
+      ) +
+      scale_size_area(
+        name = "% data",  # Size legend title
+        # append % to the labels
+        labels = \(breaks) {
+          breaks |> round_dp() |> paste0('%')
+        }
+      )
+  }
 
   min_y <- min(y_summary['min'], min(ale_data$estimate))
   max_y <- max(y_summary['max'], max(ale_data$estimate))

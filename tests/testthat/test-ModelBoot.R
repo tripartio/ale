@@ -19,6 +19,16 @@ test_that(
     print(pll_mb) |>
       expect_snap_variant()
 
+    # Reuse the bootstrapped model to check forwarding of 2D display settings.
+    hidden_bin_sizes <- plot(pll_mb, show_2d_bin_sizes = FALSE)
+    expect_false(hidden_bin_sizes@params$show_2d_bin_sizes)
+    hidden_2d <- hidden_bin_sizes@plots$mpg$d2[['gear:carb']]
+    expect_false(any(vapply(hidden_2d$layers, \(layer) {
+      inherits(layer$geom, 'GeomPoint')
+    }, logical(1))))
+    expect_null(hidden_2d$scales$get_scales('size'))
+    expect_silent(ggplot2::ggplot_build(hidden_2d))
+
     for (type in c('auto', 'single', 'boot')) {
       expect_missing_p_conf(pll_mb, type = type)
       expect_requested_stats_order(pll_mb, type = type)
