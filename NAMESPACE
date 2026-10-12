@@ -9,7 +9,7 @@ export(get)
 export(invert_probs)
 export(resolve_x_cols)
 export(retrieve_rds)
-import(S7, except = `:=`)
+import(S7)
 import(dplyr)
 import(ggplot2)
 import(staccuracy)
@@ -38,7 +38,6 @@ importFrom(purrr,
 )
 importFrom(rlang,
   '%||%',
-  ':=',
   .data,
   is_bool,
   is_string,

@@ -10,7 +10,7 @@
 #'
 #' @import dplyr
 #' @import ggplot2
-#' @rawNamespace import(S7, except = `:=`)
+#' @import S7
 #' @import staccuracy
 #' @import stringr
 #' @importFrom cli cli_abort
@@ -35,7 +35,6 @@
 #' @importFrom rlang is_bool
 #' @importFrom rlang is_string
 #' @importFrom rlang set_names
-#' @importFrom rlang ':='
 #' @importFrom rlang '%||%'
 #' @importFrom stats median
 #' @importFrom stats quantile
