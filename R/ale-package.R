@@ -10,7 +10,7 @@
 #'
 #' @import dplyr
 #' @import ggplot2
-#' @import S7
+#' @rawNamespace import(S7, except = `:=`)
 #' @import staccuracy
 #' @import stringr
 #' @importFrom cli cli_abort
@@ -47,5 +47,3 @@
 '_PACKAGE'
 
 # How to document the package: https://roxygen2.r-lib.org/articles/rd-other.html#packages
-
-
