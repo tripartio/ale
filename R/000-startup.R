@@ -5,7 +5,7 @@
 # https://rconsortium.github.io/S7/articles/packages.html#method-registration
 .onLoad <- function(libname, pkgname) {
   if ("S7_on_load" %in% getNamespaceExports("S7")) {
-    S7::S7_on_load()
+    getExportedValue("S7", "S7_on_load")()
   } else {
     S7::methods_register()
   }
@@ -88,6 +88,6 @@ get <- new_generic("get", "obj", function(obj, ...) {
 
 .onUnload <- function(...) {
   if ("S7_on_unload" %in% getNamespaceExports("S7")) {
-    S7::S7_on_unload()
+    getExportedValue("S7", "S7_on_unload")()
   }
 }
