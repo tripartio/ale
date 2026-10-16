@@ -4,7 +4,11 @@
 # Register S7 methods.
 # https://rconsortium.github.io/S7/articles/packages.html#method-registration
 .onLoad <- function(libname, pkgname) {
-  methods_register()  # nocov
+  if ("S7_on_load" %in% getNamespaceExports("S7")) {
+    getExportedValue("S7", "S7_on_load")()
+  } else {
+    S7::methods_register()
+  }
 
   # Set default option values
   op <- options()
@@ -81,3 +85,9 @@ get <- new_generic("get", "obj", function(obj, ...) {
     do.call(base::get, args)
   }
 })
+
+.onUnload <- function(...) {
+  if ("S7_on_unload" %in% getNamespaceExports("S7")) {
+    getExportedValue("S7", "S7_on_unload")()
+  }
+}
