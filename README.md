@@ -1,5 +1,6 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
 # ale <a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
@@ -93,8 +94,9 @@ up-to-date with the functionality.
 We will give two demonstrations of how to use the package: first, a
 simple demonstration of ALE plots, and second, a more sophisticated
 demonstration suitable for statistical inference with p-values. For both
-demonstrations, we begin by fitting a GAM model. We assume that this is
-a final deployment model that needs to be fitted to the entire dataset.
+demonstrations, we begin by fitting a random forest. We assume that this
+is a final deployment model that needs to be fitted to the entire
+dataset.
 
 ``` r
 
@@ -126,13 +128,17 @@ diamonds <- ggplot2::diamonds |>
 
 ``` r
 
-# Create a GAM model with flexible curves to predict diamond price
+# Create a random forest with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
 # Build the model on training data, not on the full dataset.
-gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
-    cut + color + clarity,
-  data = diamonds
+rf_diamonds <- ranger::ranger(
+  price ~ ., diamonds,  # train for IML on full dataset
+  mtry = 7,  # number of variables per tree
+  min.node.size = 4,  # minimum leaf (terminal node) size
+  sample.fraction = 0.465,  # fraction of rows to sample
+  # small forest still accurate for a large dataset; 10× faster than 500 trees
+  num.trees = 50,
+  seed = 0  # keep the random forest consistent
 )
 ```
 
@@ -152,25 +158,94 @@ library(ale)
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 ```
 
 ``` r
 # Create ALE data
 # # To run the slow code yourself, uncomment and execute this code block directly.
-ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds)
+# ale_rf_diamonds <- ALE(rf_diamonds, data = diamonds)
 
-ale_gam_diamonds <- serialized_objects_site |> 
-  file.path('ale_gam_diamonds.0.5.2.rds') |>
+ale_rf_diamonds <- serialized_objects_site |> 
+  file.path('ale_rf_diamonds.0.5.3.rds') |>
   url() |> 
   readRDS()
+```
 
+``` r
+# Print a statistical summary of the ALE object
+summary(ale_rf_diamonds)
+#> <ALE> object of a <ranger> model that predicts `price` (a numeric outcome) from a 39739-row by 10-column dataset.
+#> The results were not bootstrapped.
+#> 
+#> Mean ALE statistics [get(object, stats = "estimate")]:
+#> # A tibble: 9 × 9
+#>   term        aled aler_min  aler aler_max  naled naler_min naler naler_max
+#>   <chr>      <dbl>    <dbl> <dbl>    <dbl>  <dbl>     <dbl> <dbl>     <dbl>
+#> 1 carat     1333.   -1734.  5916.   4182.  14.2     -22.8   52.9     30.1  
+#> 2 cut         49.1    -80.0  146.     66.3  0.478    -0.788  1.41     0.626
+#> 3 color      588.   -1709.  2513.    804.   6.12    -22.3   29.8      7.45 
+#> 4 clarity    715.   -2866.  4400.   1534.   7.67    -47.6   62.4     14.8  
+#> 5 depth_pct   24.9   -134.   166.     31.2  0.247    -1.33   1.61     0.284
+#> 6 table       23.4   -113.   146.     32.4  0.235    -1.11   1.40     0.289
+#> 7 x_length   263.    -860.  1430.    569.   2.58     -9.65  14.9      5.21 
+#> 8 y_width   1472.   -1573.  8629.   7056.  14.5     -20.0   58.5     38.4  
+#> 9 z_depth    370.    -441.  1903.   1462.   3.58     -4.39  18.5     14.2  
+#> 
+#> ALE statistic distributions (no p-values requested) [get(object, stats = c("aled", "aler", "naled", "naler"))]:
+#> # A tibble: 36 × 7
+#>    statistic term      estimate conf.low     mean   median conf.high
+#>    <ord>     <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+#>  1 aled      carat     1333.    1333.    1333.    1333.     1333.   
+#>  2 aled      cut         49.1     49.1     49.1     49.1      49.1  
+#>  3 aled      color      588.     588.     588.     588.      588.   
+#>  4 aled      clarity    715.     715.     715.     715.      715.   
+#>  5 aled      depth_pct   24.9     24.9     24.9     24.9      24.9  
+#>  6 aled      table       23.4     23.4     23.4     23.4      23.4  
+#>  7 aled      x_length   263.     263.     263.     263.      263.   
+#>  8 aled      y_width   1472.    1472.    1472.    1472.     1472.   
+#>  9 aled      z_depth    370.     370.     370.     370.      370.   
+#> 10 aler      carat     5916.    5916.    5916.    5916.     5916.   
+#> 11 aler      cut        146.     146.     146.     146.      146.   
+#> 12 aler      color     2513.    2513.    2513.    2513.     2513.   
+#> 13 aler      clarity   4400.    4400.    4400.    4400.     4400.   
+#> 14 aler      depth_pct  166.     166.     166.     166.      166.   
+#> 15 aler      table      146.     146.     146.     146.      146.   
+#> 16 aler      x_length  1430.    1430.    1430.    1430.     1430.   
+#> 17 aler      y_width   8629.    8629.    8629.    8629.     8629.   
+#> 18 aler      z_depth   1903.    1903.    1903.    1903.     1903.   
+#> 19 naled     carat       14.2     14.2     14.2     14.2      14.2  
+#> 20 naled     cut          0.478    0.478    0.478    0.478     0.478
+#> 21 naled     color        6.12     6.12     6.12     6.12      6.12 
+#> 22 naled     clarity      7.67     7.67     7.67     7.67      7.67 
+#> 23 naled     depth_pct    0.247    0.247    0.247    0.247     0.247
+#> 24 naled     table        0.235    0.235    0.235    0.235     0.235
+#> 25 naled     x_length     2.58     2.58     2.58     2.58      2.58 
+#> 26 naled     y_width     14.5     14.5     14.5     14.5      14.5  
+#> 27 naled     z_depth      3.58     3.58     3.58     3.58      3.58 
+#> 28 naler     carat       52.9     52.9     52.9     52.9      52.9  
+#> 29 naler     cut          1.41     1.41     1.41     1.41      1.41 
+#> 30 naler     color       29.8     29.8     29.8     29.8      29.8  
+#> 31 naler     clarity     62.4     62.4     62.4     62.4      62.4  
+#> 32 naler     depth_pct    1.61     1.61     1.61     1.61      1.61 
+#> 33 naler     table        1.40     1.40     1.40     1.40      1.40 
+#> 34 naler     x_length    14.9     14.9     14.9     14.9      14.9  
+#> 35 naler     y_width     58.5     58.5     58.5     58.5      58.5  
+#> 36 naler     z_depth     18.5     18.5     18.5     18.5      18.5  
+#> 
+#> Statistically significant confidence regions [get(object, stats = "conf_sig")]:
+#> ! Confidence regions are meaningless without p-values.
+#> ℹ The ALE statistics were calculated without p-values.
+#> # A tibble: 0 × 0
+```
+
+``` r
 # Plot the ALE data
-plot(ale_gam_diamonds) |> 
+plot(ale_rf_diamonds) |> 
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-simple-ale-rds-1.png" alt="" width="100%" />
+<img src="man/figures/README-plot-ale-rf-1.png" style="width:100.0%" />
 
 For an explanation of these basic features, see the [introductory
 vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
@@ -192,14 +267,14 @@ statistics can be properly distinguished from random effects.
 
 # # Rather slow because it retrains the model 100 times.
 # # To run the slow code yourself, uncomment and execute this code block directly.
-# p_dist_gam_diamonds_readme <- ALEpDist(
-#   gam_diamonds, diamonds,
+# p_dist_rf_diamonds_readme <- ALEpDist(
+#   rf_diamonds, diamonds,
 #   # Normally should be default 1000, but just 100 for a quicker demo.
 #   rand_it = 100
 # )
 
-p_dist_gam_diamonds_readme <- serialized_objects_site |> 
-  file.path('p_dist_gam_diamonds_readme.0.5.2.rds') |>
+p_dist_rf_diamonds_readme <- serialized_objects_site |> 
+  file.path('p_dist_rf_diamonds_readme.0.5.3.rds') |>
   url() |> 
   readRDS()
 ```
@@ -211,25 +286,25 @@ in the plots of bootstrapped ALE with p-values:
 # Create ALE data with p-values
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
-# ale_gam_diamonds_stats_readme <- ALE(
-#   gam_diamonds,
+# ale_rf_diamonds_stats_readme <- ALE(
+#   rf_diamonds,
 #   # generate ALE for all 1D variables and the carat:clarity 2D interaction
 #   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
 #   data = diamonds,
-#   p_values = p_dist_gam_diamonds_readme,
+#   p_values = p_dist_rf_diamonds_readme,
 #   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
 #   boot_it = 10
 # )
 
-ale_gam_diamonds_stats_readme <- serialized_objects_site |> 
-  file.path('ale_gam_diamonds_stats_readme.0.5.2.rds') |>
+ale_rf_diamonds_stats_readme <- serialized_objects_site |> 
+  file.path('ale_rf_diamonds_stats_readme.0.5.3.rds') |>
   url() |> 
   readRDS()
 ```
 
 ``` r
 # Create an ALEPlots object for fine-tuned plotting
-ale_plots <- plot(ale_gam_diamonds_stats_readme)
+ale_plots <- plot(ale_rf_diamonds_stats_readme)
 
 # Plot 1D ALE plots 
 ale_plots |> 
@@ -240,7 +315,7 @@ ale_plots |>
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-ale-1D-plot-1.png" alt="" width="100%" />
+<img src="man/figures/README-ale-1D-plot-1.png" style="width:100.0%" />
 
 ``` r
 # Plot a selected 2D plot
@@ -249,7 +324,7 @@ ale_plots |>
   get('carat:clarity') 
 ```
 
-<img src="man/figures/README-2D-plot-1.png" alt="" width="100%" />
+<img src="man/figures/README-2D-plot-1.png" style="width:100.0%" />
 
 For a detailed explanation of how to interpret these plots, see the
 vignette on [ALE-based statistics for statistical inference and effect
@@ -301,4 +376,4 @@ Science 2024. Seattle
 Okoli, Chitu (\[year of package version used\]). “ale: Interpretable
 Machine Learning and Statistical Inference with Accumulated Local
 Effects (ALE)”. R software package version \[enter version number\].
-<https://CRAN.R-project.org/package=ale>.
+https://CRAN.R-project.org/package=ale.
