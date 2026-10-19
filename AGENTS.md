@@ -92,4 +92,4 @@ For any feature, fix, or refactor:
 - After implementing the fix, verify it against the MRE, add appropriate regression tests that reuse suitable test objects, and create a draft PR.
 - Run a full `R CMD build` and `R CMD check --as-cran`, preserving configured environment variables. Fix errors and rerun the checks before presenting the draft PR.
 - Report warnings, notes, and check limitations. Do not fix them unless I explicitly request it.
->>>>>>> wip
+
