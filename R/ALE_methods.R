@@ -13,6 +13,8 @@
 #'
 #' @description
 #' Retrieve specific elements from an `ALE` object with the [get()] generic.
+#' Requests for `stats = 'conf_regions'` or `stats = 'conf_sig'` require
+#' p-values and raise an error if none are available, even with `silent = TRUE`.
 #'
 #' @section Method usage:
 #'
@@ -26,10 +28,10 @@
 #' * `x_cols`, `exclude_cols`: character, list, or formula. Columns names and interaction terms from `obj` requested in one of the special `x_cols` formats. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`. See details in the documentation for [resolve_x_cols()].
 #' * `what`: character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the `stats` argument.
 #' * `...`: not used. Inserted to require explicit naming of subsequent arguments.
-#' * `stats`: character(1). Retrieve ALE statistics. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
+#' * `stats`: character. Retrieve ALE statistics. Named statistics are returned in the requested order within each term. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
 #' * `cats`: character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 #' * `ale_centre`: Same as in documentation for [ALEPlots()]
-#' * `simplify`: logical(1). If `TRUE` (default), the results will be simplified to the simplest list structure possible to give the requested results. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
+#' * `simplify`: logical(1). If `TRUE` (default), recursively remove empty elements and zero-row data frames, then promote the sole member of each remaining list. Nonempty data frames, ggplots, and other objects that are not simple lists are kept intact. If no objects remain, return `NULL`. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
 #' * `silent`: See documentation for [resolve_x_cols()]
 #'
 #' @returns
@@ -38,7 +40,7 @@
 #'   * The next level (or top level if there are zero or one category) is a list with one or two levels:
 #'       * `d1`: 1D ALE elements.
 #'       * `d2`: 2D ALE elements.
-#'       However, if elements of only one dimension (either 1D or 2D) are requested and `simplify = TRUE` (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no `d1` sublist but only a list of the ALE data as described for the next level. If `simplify = FALSE`, both `d1` and `d2` sublists will always be returned; the empty sublist will be `NULL`.
+#'       However, if elements of only one dimension (either 1D or 2D) are requested and `simplify = TRUE` (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no `d1` sublist but only a list of the ALE data as described for the next level. If `simplify = FALSE`, both `d1` and `d2` sublists will always be returned; the empty sublist will be `NULL` or an empty list.
 #'
 #' While all results follow the general structure just described, the specific type of data returned depends on the values of the `what` and `stats` arguments:
 #' \describe{
@@ -210,7 +212,8 @@ method(get, ALE) <- function(
               }
               else if (all(stats %in% stats_names)) {
                 it.d_stats |>
-                  filter(statistic %in% stats)
+                  filter(statistic %in% stats) |>
+                  arrange(match(term, unique(term)), match(statistic, stats))
               }
               else if (stats |> is_string('all')) {
                 it.d_stats
@@ -228,13 +231,11 @@ method(get, ALE) <- function(
       })
   }
   else if (stats |> is_string(c('conf_regions', 'conf_sig'))) {
+    if (is.null(obj@params$p_values)) {
+      cli_abort('Confidence regions cannot be calculated without p-values.')
+    }
     if (!silent) {  # nocov start
-      if (is.null(obj@params$p_values)) {
-        cli_inform(c(
-          '!' = 'Confidence regions are meaningless without p-values.',
-          'i' = 'The ALE statistics were calculated without p-values.'
-        ))
-      } else if (obj@params$boot_it < 100 || obj@params$p_values@params$rand_it_ok < 100) {
+      if (obj@params$boot_it < 100 || obj@params$p_values@params$rand_it_ok < 100) {
         cli_inform(c(
           '!' = 'Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.',
           'i' = 'There {?is/are} {obj@params$boot_it} bootstrap iteration{?s}.',
@@ -333,33 +334,9 @@ method(get, ALE) <- function(
 
   ## Simplify the results ----------------
   if (simplify) {
-    # If one dimension is empty, eliminate it and leave only the other
-    specific_what <- specific_what |>
-      map(\(it.cat_el) {
-        it.cat_el <- compact(it.cat_el)
-        if (
-          length(it.cat_el$d1) == 0 ||
-          (is.data.frame(it.cat_el$d1) && nrow(it.cat_el$d1) == 0)
-        ) {
-          it.cat_el <- compact(it.cat_el$d2)
-        } else if (
-          length(it.cat_el$d2) == 0 ||
-          (is.data.frame(it.cat_el$d2) && nrow(it.cat_el$d2) == 0)
-        ) {
-          it.cat_el <- compact(it.cat_el$d1)
-        }
-
-        if (length(it.cat_el) == 1) {
-          it.cat_el <- it.cat_el[[1]]
-        }
-
-        it.cat_el
-      })
-  }
-
-  # If there is only one category, results are always simplified regardless of the value of simplify
-  if (length(names(specific_what)) == 1) {
-    # Only one category: eliminate the category level
+    specific_what <- simplify_objs(specific_what)
+  } else if (length(specific_what) == 1) {
+    # A sole outcome category is always promoted, even without simplification.
     specific_what <- specific_what[[1]]
   }
 
@@ -516,27 +493,29 @@ summary_ALE_stats <- function(
     n = min(nrow(ale_stats), max_rows)
   )
 
-  cat('\n')
-  cat(format_inline('Statistically significant confidence regions [get(object, stats = "conf_sig")]:\n'))
-  conf_sig <- object |>
-    get(stats = 'conf_sig') |>
-    bind_rows()
-  print(
-    conf_sig,
-    n = min(nrow(conf_sig), max_rows)
-  )
-
-  if (all_conf) {
+  if (!is.null(p_dist)) {
     cat('\n')
-    cat(format_inline('All confidence regions [get(object, stats = "conf_regions")]:\n'))
-    conf_regions <- object |>
-      get(stats = 'conf_regions') |>
-      bind_rows() |>
-      select(any_of(c('term', 'x', 'term1', 'x1', 'term2', 'x2')), everything())
+    cat(format_inline('Statistically significant confidence regions [get(object, stats = "conf_sig")]:\n'))
+    conf_sig <- object |>
+      get(stats = 'conf_sig') |>
+      bind_rows()
     print(
-      conf_regions,
-      n = min(nrow(conf_regions), max_rows)
+      conf_sig,
+      n = min(nrow(conf_sig), max_rows)
     )
+
+    if (all_conf) {
+      cat('\n')
+      cat(format_inline('All confidence regions [get(object, stats = "conf_regions")]:\n'))
+      conf_regions <- object |>
+        get(stats = 'conf_regions') |>
+        bind_rows() |>
+        select(any_of(c('term', 'x', 'term1', 'x1', 'term2', 'x2')), everything())
+      print(
+        conf_regions,
+        n = min(nrow(conf_regions), max_rows)
+      )
+    }
   }
 }
 
@@ -551,6 +530,8 @@ summary_ALE_stats <- function(
 #' object. If there are no ALE statistics, a message says so. Summarized
 #' statistics are mean or median depending on the `boot_centre` argument used
 #' for [ALE()] bootstrapping.
+#' Confidence-region sections are silently omitted when p-values are absent,
+#' including when `all_conf = TRUE`.
 #'
 #' @section Method usage:
 #'

@@ -17,6 +17,9 @@ test_that(
     # Test the print ALE() method
     print(pll_ale) |>
       expect_snap_variant()
+
+    expect_conf_summary(pll_ale, has_p_values = TRUE)
+    expect_requested_stats_order(pll_ale)
   }
 )
 
@@ -38,6 +41,9 @@ test_that(
     )
 
     expect_true(S7::S7_inherits(cars_ale, ALE))
+    expect_missing_p_conf(cars_ale)
+    expect_missing_p_conf(cars_ale, silent = TRUE)
+    expect_conf_summary(cars_ale, has_p_values = FALSE)
     cars_ale |>
       s7_snapshot() |>
       expect_snap_variant()

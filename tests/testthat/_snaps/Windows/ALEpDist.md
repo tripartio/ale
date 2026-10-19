@@ -57,6 +57,9 @@
       $params$positive
       [1] TRUE
       
+      $params$pred_type
+      [1] "response"
+      
       $params$aled_fun
       [1] "mad"
       
@@ -401,6 +404,9 @@
       $params$p_values$params$positive
       [1] TRUE
       
+      $params$p_values$params$pred_type
+      [1] "response"
+      
       $params$p_values$params$aled_fun
       [1] "mad"
       
@@ -415,7 +421,7 @@
       
       
       
-      $params$require_same_p
+      $params$require_p_model_match
       [1] TRUE
       
       $params$aler_alpha
@@ -554,6 +560,9 @@
       $params$positive
       [1] TRUE
       
+      $params$pred_type
+      [1] "response"
+      
       $params$aled_fun
       [1] "mad"
       
@@ -680,6 +689,9 @@
       $params$positive
       [1] TRUE
       
+      $params$pred_type
+      [1] "response"
+      
       $params$aled_fun
       [1] "mad"
       
@@ -752,6 +764,9 @@
       
       $params$positive
       [1] TRUE
+      
+      $params$pred_type
+      [1] "response"
       
       $params$aled_fun
       [1] "mad"
@@ -855,6 +870,9 @@
       
       $params$positive
       [1] TRUE
+      
+      $params$pred_type
+      [1] "probs"
       
       $params$aled_fun
       [1] "mad"

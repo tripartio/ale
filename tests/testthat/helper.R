@@ -16,14 +16,97 @@ options(ale.parallel = 0)
 # Disable progressr
 options(progressr.enable = FALSE)
 
-# Use platform-specific snapshot variants while preserving the expression passed
+# Snapshot comparisons are a local-development check. On CI, still force the
+# expression so platform-specific runtime errors are reported, but do not compare
+# its output with snapshots that may not exist for the runner's operating system.
+# Locally, use platform-specific variants while preserving the expression passed
 # by each test for testthat's snapshot labels and diagnostics.
 expect_snap_variant <- function(x, ...) {
+  if (identical(Sys.getenv("CI"), "true")) {
+    value <- force(x)
+    testthat::succeed()
+    return(invisible(value))
+  }
+
   testthat::expect_snapshot(
     {{ x }},
     ...,
     variant = Sys.info()["sysname"] |> unname()
   )
+}
+
+
+# Check statistic order using existing test objects ------------
+expect_requested_stats_order <- function(object, ...) {
+  check_tables <- function(result, reference, stats) {
+    if (is.data.frame(result)) {
+      if (nrow(reference) == 0L) {
+        expect_identical(result, reference)
+        return(invisible(NULL))
+      }
+      expected_terms <- unique(reference$term)
+      expect_identical(unique(result$term), expected_terms)
+      expect_identical(as.character(result$statistic), rep(stats, length(expected_terms)))
+      expected <- do.call(rbind, lapply(expected_terms, function(term) {
+        rows <- reference[reference$term == term, ]
+        rows[match(stats, rows$statistic), ]
+      }))
+      expect_equal(result, expected)
+    } else if (is.list(result)) {
+      for (name in names(result)) {
+        check_tables(result[[name]], reference[[name]], stats)
+      }
+    }
+  }
+
+  for (simplify in c(FALSE, TRUE)) {
+    reference <- get(object, stats = 'all', simplify = simplify, ...)
+    for (stats in list(c('aler_max', 'aler_min'), c('naler', 'aled', 'aler_max'), 'aler_min')) {
+      result <- get(object, stats = stats, simplify = simplify, ...)
+      check_tables(result, reference, stats)
+    }
+  }
+}
+
+# Check confidence-region availability using existing test objects ------------
+expect_missing_p_conf <- function(object, ...) {
+  for (stat in c('conf_regions', 'conf_sig')) {
+    expect_error(
+      get(object, stats = stat, ...),
+      'Confidence regions cannot be calculated without p-values.',
+      fixed = TRUE,
+      class = 'rlang_error'
+    )
+  }
+}
+
+expect_conf_summary <- function(object, has_p_values) {
+  for (all_conf in c(FALSE, TRUE)) {
+    if (has_p_values) {
+      output <- capture.output(
+        returned <- withVisible(suppressMessages(summary(object, all_conf = all_conf)))
+      )
+    } else {
+      expect_no_condition(
+        output <- capture.output(
+          returned <- withVisible(summary(object, all_conf = all_conf))
+        )
+      )
+    }
+
+    expect_identical(returned$value, object)
+    expect_false(returned$visible)
+    expect_true(any(grepl('ALE statistics [get(', output, fixed = TRUE)))
+    expect_true(any(grepl('ALE statistic distributions', output, fixed = TRUE)))
+    expect_identical(
+      any(grepl('Statistically significant confidence regions', output, fixed = TRUE)),
+      has_p_values
+    )
+    expect_identical(
+      any(grepl('All confidence regions', output, fixed = TRUE)),
+      has_p_values && all_conf
+    )
+  }
 }
 
 

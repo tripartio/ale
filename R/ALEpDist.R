@@ -49,6 +49,7 @@
 #'     Parameters used to generate p-value distributions. Most of these repeat selected arguments passed to `ALEpDist()`. These are either values provided by the user or used by default if the user did not change them but the following additional or modified objects are notable:
 #'
 #'     * `model`: selected elements that describe the `model` used to generate the random distributions.
+#'     * `y_col`, `pred_type`: the original outcome column and requested prediction type, before any surrogate changes. Together with `model`, these are used by `ALE()` when `require_p_model_match = TRUE`.
 #'     * `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
 #'     * `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
 #'     * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model. `'invalid'` if `rand_it_ok < 100`.
@@ -123,7 +124,7 @@
 #' # For speed, these examples use retrieve_rds() to load pre-created objects
 #' # from an online repository.
 #' # To run the code yourself, execute the code blocks directly.
-#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 #'
 #' # Generating p_value distribution objects is slow because it retrains the model 100 times,
 #' # so this example loads a pre-created ALEpDist object.
@@ -446,13 +447,11 @@ ALEpDist <- new_class(
     if (!is.null(model_call)) {
       # Get the predictors when model_call is automatically detected
 
-      if (is.null(model_call$formula)) {
-        # Some models assign the formula as the default first argument without naming it.
-        # In such cases, element 1 is the function call and element 2 is the formula.
-        model_call$formula <- model_call[[2]]
-        # Element 2 must be subsequently deleted, or else it is passed to the next unnamed argument
-        model_call[[2]] <- NULL
-      }
+      # Ensure that all model_call arguments are explicitly named
+      model_call <- match.call(
+        definition = eval(model_call[[1L]]),
+        call = model_call
+      )
 
       model_predictors <-
         model_call$formula |>
@@ -664,7 +663,7 @@ ALEpDist <- new_class(
     ]
     temp_objs <- c(
       'data', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
-      'pred_type', 'silent', 'surrogate', 'val_pll', 'val_pred', 'y_preds'
+      'silent', 'surrogate', 'val_pll', 'val_pred', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
@@ -832,4 +831,3 @@ invert_probs_p <- function(
 
   return(p_obj)
 }
-

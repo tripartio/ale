@@ -37,6 +37,30 @@ validate_data <- function(
 }
 
 
+# Check p-value distributions against their original inputs, including surrogates.
+validate_p_model_match <- function(p_values, model, y_col, pred_type) {
+  pp <- p_values@params
+  pm <- params_model(model)
+  validate(
+    isTRUE(all.equal(pm$class, pp$model$class)),
+    identical(pm$hash, pp$model$hash),
+    msg = c(
+      x = 'The {.arg p_values} distribution was generated from a different model from the present one.',
+      i = 'If this is deliberate (e.g., with bootstrapping), set {.arg require_p_model_match} to {.val FALSE}.'
+    )
+  )
+  validate(
+    identical(y_col, pp$y_col),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg y_col}: {.val {pp$y_col}} rather than {.val {y_col}}.'
+  )
+  validate(
+    identical(pred_type, pp$pred_type),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg pred_type}: {.val {pp$pred_type}} rather than {.val {pred_type}}.'
+  )
+  invisible(TRUE)
+}
+
+
 # Validate y_col.
 # If y_col is NULL, try to automatically detect it.
 validate_y_col <- function(
@@ -133,10 +157,15 @@ validate_prediction <- function(
 
   if (is.matrix(y_preds)) {
     if (y_preds |> colnames() |> is.null()) {
-      # Create colnames from factor levels or unique values
-      col_names <- data[[y_col]] |>
-        as.factor() |>
-        levels()
+      # A single prediction column represents the outcome itself.
+      # For multiple columns, use factor levels or unique values.
+      col_names <- if (ncol(y_preds) == 1L) {
+        y_col
+      } else {
+        data[[y_col]] |>
+          as.factor() |>
+          levels()
+      }
 
       validate(
         ncol(y_preds) == length(col_names),
@@ -186,11 +215,11 @@ validate_parallel <- function(parallel, model, model_packages) {
   )
 
   parallel <- if (parallel == 'all') {
-    future::availableCores(constraints = "connections-16", logical = TRUE)
+    parallelly::availableCores(constraints = "connections-16", logical = TRUE)
   } else if (parallel == 'all but one') {
-    future::availableCores(constraints = "connections-16", logical = FALSE, omit = 1)
+    parallelly::availableCores(constraints = "connections-16", logical = FALSE, omit = 1)
   } else {
-    max_cores <- future::availableCores(constraints = "connections-16", logical = TRUE)
+    max_cores <- parallelly::availableCores(constraints = "connections-16", logical = TRUE)
     if (parallel > max_cores) {  # nocov start
       cli_alert_info(c(
         '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',

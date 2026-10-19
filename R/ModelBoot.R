@@ -120,7 +120,7 @@
 #' # For speed, these examples use retrieve_rds() to load pre-created objects
 #' # from an online repository.
 #' # To run the code yourself, execute the code blocks directly.
-#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 #'
 #' # Create ALE data
 #' mb_gam_attitude <- retrieve_rds(
@@ -746,7 +746,7 @@ ModelBoot <- new_class(
                       parallel = 0,  # do not parallelize at this inner level
                       boot_it = 0,  # do not bootstrap at this inner level
                       p_values = if (btit == 0) NULL else ale_p,
-                      require_same_p = FALSE,  # must be disabled for bootstrapping
+                      require_p_model_match = FALSE,  # must be disabled for bootstrapping
                       .bins = if (btit == 0) NULL else ale_bins,
                       silent = TRUE  # silence inner bootstrap loop
                     ),

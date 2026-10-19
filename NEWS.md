@@ -8,24 +8,6 @@ status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/pa
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-## Versioning system
-
-The version numbering system for the {ale} package is an adaptation of the standard three-number system. So, in a version number of M.m.b (e.g., 0.5.3), the numbers mean:
-
-* **M** in M.m.b: the major package version (e.g., major version is 0 for 0.5.3). Changes in major version indicate major changes that are fundamentally incompatible with the previous major version.
-* **m** in M.m.b: the minor package version (e.g., minor version is 0.5 for 0.5.3). Minor versions add functionality without breaking backwards compatibility with previous releases of the same major version.
-* **b** in M.m.b: a bug-fix version (e.g., bug-fix version is 3 for 0.5.3). Bug-fix versions fix bugs in the minor version without adding new functionality.
-
-## Major version 0: beta or experimental status
-
-That said, major version 0 has special meaning: it indicates that the package is in beta, that is, still in experimental status, meaning that a stable interface has not yet been settled. New features might be written that break the functionality of previous 0.x versions. That said, every minor version is tested with {revdepcheck}. A notification or pull request will be sent to the maintainers of any packages whose functionality might be broken due to a change in {ale} functionality.
-
-Normally, if new functionality is added along with bug fixes, then the bug fixes will be released with the next minor version. However, with the major version 0, small changes in functionality will sometimes be released in a bug-fix version. 
-
-## Development version numbering
-
-The numbering system described above is used for packages released to CRAN. For development versions in between CRAN releases, the {ale} package adds a fourth component D, that is, an M.m.b.D format. The D is in YYYYMMDD date format, indicating the release date of the latest development version after the latest CRAN release. So, version 0.5.3.20260217 is a development version released on February 17, 2026, after the 0.5.3 CRAN version. However, as the specific date keeps on changing, the latest development version is simply indicated in the change log below as "ale (development version)".
-
 # ale (development version)
 
 ## New features
@@ -34,33 +16,43 @@ The numbering system described above is used for packages released to CRAN. For 
 * With the `aled_fun` argument of the `ALE()` and `ALEpDist()` constructors, we may optionally choose to calculate ALE deviation based on standard deviations instead of the default mean absolute deviation.
 * The widths of 1D ALE plots for non-numerical variables are now proportional to the frequency of the data. We find these proportional widths more intuitive than the text annotations that previously indicated the percentages, which have now been removed. The minimum width can be controlled with the `min_col_widths` argument of `plot.ALE()`. 
 * For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the `consolid_cats` argument of `plot.ALE()`). The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. 
-* With the default value `"levels"` of the `fct_order` argument to the `ALE()` constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative `"y_col"` sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The `"ksd"` option allows compatibility with the original ALEPlot reference implementation.
+* With the default value `"levels"` of the `fct_order` argument to the `ALE()` constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative `"y_col"` sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The `"ksd"` option allows compatibility with the original `ALEPlot` reference implementation.
 * The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with a default for columns not named. For details, see documentation for `ALE()`.
 * Parallelization can be controlled with a global option `ale.parallel`. For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
-* The `{ranger}` package is automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages.
+* The `{ranger}` package is automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages: `pred_fun` remains the general way to customize predict functions for packages that don't work out of the box.
 * ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER max – NALER min) directly, not just the _max and _min versions, which are retained.
 
 ## Bug fixes
 
 We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
 
+* `ALE()` now warns early about requested predictors with only one observed value and returns zero main and interaction effects for them, including bootstrap iterations.
+* Unnamed single-column prediction matrices, including binary predictions from `nnet::nnet()`, are now accepted and named after the outcome column.
+* `get()` for `ALE` and `ModelBoot` objects now returns named statistics in the requested order within each term.
+* `get()` now raises a clear error when confidence regions are requested without p-values. `summary()` for `ALE` and `ModelBoot` objects silently omits confidence-region sections when p-values are absent.
+* Chained `customize()` calls with `zoom_x` or `zoom_y` now preserve the existing limits of the other axis.
+* `ALE()` now checks the outcome column and prediction type when accepting an `ALEpDist` distribution, in addition to the model identity. `ALEpDist` retains the original prediction settings, including for surrogates.
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
+* Use `parallelly::availableCores()` directly in preparation for its re-export being removed from `{future}`. The `{future}` and `{parallelly}` packages are now suggested dependencies because both are required dependencies of the imported `{furrr}` package (#18).
 * Handle missing 1D ALE bins during model bootstrapping (#19).
 
 ## Changed functionality
 
+* The `require_same_p` argument of `ALE()` has been renamed to `require_p_model_match` without a compatibility alias. Setting it to `FALSE` disables all p-value compatibility checks.
 * `max_num_bins` now creates `n+1` bins instead of exactly the specified `n` bins. The bottom bin is reserved for the minimum value in the data. This is a reversion to the original behaviour of the reference {ALEPlot} package.
 * Parallelization has been disabled by default (`parallel` = 0) (#16).
 * The `pred_fun` argument in `ALE()` and other constructors now defaults to `NULL`. However, the functionality is unchanged: the default still creates the same generic custom prediction function as before.
 
 ## Documentation
 
-* Added two Quarto vignettes: "Analyzing a Large Corn Yield Dataset with ALE-Based Inference" and "Analyzing a Small Rice Yield Dataset with ALE-Based Inference". They are available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>.
+* Added two articles with examples of applying ALE: [“Analyzing a Large Corn Yield Dataset with ALE-Based Inference”](https://tripartio.github.io/ale/articles/ale-acdc-corn.html) and [“Analyzing a Small Rice Yield Dataset with ALE-Based Inference”](https://tripartio.github.io/ale/articles/ale-gomez-rice.html).
+* Replaced GAM examples in README to random forests. Converted the README file from RMarkdown to Quarto.
+* Converted all RMarkdown vignettes and articles to Quarto.
 * Updated package logo.
 
 ## Under the hood
 
-We now use [OpenAI Codex](https://chatgpt.com/codex/) to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
+We now use OpenAI Codex to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
 
 
 # ale (0.5.3)
@@ -267,3 +259,22 @@ This release provides more details in the following vignettes (they are all avai
 -   Introduction to the `ale` package
 -   Analyzing small datasets (fewer than 2000 rows) with ALE
 -   `ale()` function handling of various datatypes for x
+
+## Versioning system
+
+The version numbering system for the {ale} package is an adaptation of the standard three-number system. So, in a version number of M.m.b (e.g., 0.5.3), the numbers mean:
+
+* **M** in M.m.b: the major package version (e.g., major version is 0 for 0.5.3). Changes in major version indicate major changes that are fundamentally incompatible with the previous major version.
+* **m** in M.m.b: the minor package version (e.g., minor version is 0.5 for 0.5.3). Minor versions add functionality without breaking backwards compatibility with previous releases of the same major version.
+* **b** in M.m.b: a bug-fix version (e.g., bug-fix version is 3 for 0.5.3). Bug-fix versions fix bugs in the minor version without adding new functionality.
+
+### Major version 0: beta or experimental status
+
+That said, major version 0 has special meaning: it indicates that the package is in beta, that is, still in experimental status, meaning that a stable interface has not yet been settled. New features might be written that break the functionality of previous 0.x versions. That said, every minor version is tested with {revdepcheck}. A notification or pull request will be sent to the maintainers of any packages whose functionality might be broken due to a change in {ale} functionality.
+
+Normally, if new functionality is added along with bug fixes, then the bug fixes will be released with the next minor version. However, with the major version 0, small changes in functionality will sometimes be released in a bug-fix version. 
+
+### Development version numbering
+
+The numbering system described above is used for packages released to CRAN. For development versions in between CRAN releases, the {ale} package adds a fourth component D, that is, an M.m.b.D format. The D is in YYYYMMDD date format, indicating the release date of the latest development version after the latest CRAN release. So, version 0.5.3.20260217 is a development version released on February 17, 2026, after the 0.5.3 CRAN version. However, as the specific date keeps on changing, the latest development version is simply indicated in the change log below as "ale (development version)".
+

@@ -11,6 +11,8 @@ This \code{\link[base:summary]{base::summary()}} method prints a statistical sum
 object. If there are no ALE statistics, a message says so. Summarized
 statistics are mean or median depending on the \code{boot_centre} argument used
 for \code{\link[=ALE]{ALE()}} bootstrapping.
+Confidence-region sections are silently omitted when p-values are absent,
+including when \code{all_conf = TRUE}.
 }
 \section{Method usage}{
 

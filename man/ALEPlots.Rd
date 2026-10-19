@@ -13,6 +13,7 @@ ALEPlots(
   rug_sample_size = obj@params$sample_size,
   min_rug_per_interval = 1L,
   min_col_width = 0.05,
+  show_2d_bin_sizes = TRUE,
   y_nonsig_band = 0.05,
   seed = 0,
   silent = FALSE
@@ -38,6 +39,8 @@ An example of the list format would be:
 \item{rug_sample_size, min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{rug_sample_size} rows, otherwise they can be very slow for large datasets. By default, their size is the value of \code{obj@params$sample_size}. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{rug_sample_size} to \code{Inf} (but then the \code{ALEPlots} object would store the entire dataset, so could become very large).}
 
 \item{min_col_width}{numeric(1) in \code{[0.01, 1]}. Column charts scale each column such that the column representing the category with the most elements has a scale of 1 and all other columns have a width that is a fraction of the largest category proportional to their numbers of elements. However, for visibility, no column is displayed narrower than a scale of \code{min_col_width}. To disable scaling by width, set \code{min_col_width = 1}.}
+
+\item{show_2d_bin_sizes}{logical(1). If \code{TRUE} (default), 2D ALE plots display hollow squares whose areas represent the percentage of data in each bin, with a corresponding size legend. Set to \code{FALSE} to omit the squares and their legend, including in faceted plots.}
 
 \item{y_nonsig_band}{numeric(1) from 0 to 1. If there are no p-values, some plots (notably the 1D effects plot) will shade grey the inner \code{y_nonsig_band} quantile below and above the \code{ale_centre} average (the median, by default) to indicate nonsignificant effects.}
 
