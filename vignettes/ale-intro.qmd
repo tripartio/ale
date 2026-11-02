@@ -172,6 +172,23 @@ To retrieve a specific variable plot, you can use the `get()` method of the `ALE
 get(diamonds_plots, 'carat')
 ```
 
+Categorical predictors use grey columns by default. To colour the categories with
+a ggplot fill scale, pass the scale through `customize(layers = ...)`. For example,
+this applies ggplot's discrete palette to the ordered `cut` categories:
+
+```{r customize-cut, fig.width=6, fig.height=4}
+customize(
+  diamonds_plots,
+  x_cols = "cut",
+  layers = list(ggplot2::scale_fill_discrete())
+) |>
+  get("cut")
+```
+
+This changes the existing columns' colours while preserving their widths, which
+represent relative category counts, along with the reference lines and error bars.
+You can also supply `ggplot2::scale_fill_manual()` to choose specific colours.
+
 To display all the ALE plots in an `ALEPlots` object, we can simply call its `print()` or `plot()` methods. Behind the scenes, they use the `{patchwork}` package to arrange multiple plots in a common plot grid using `patchwork::wrap_plots()`, so we can pass arguments from that function. For example, we can specify that we want two plots per row with the `ncol` argument:
 
 ```{r print-ale_simple, fig.width=12, fig.height=22}

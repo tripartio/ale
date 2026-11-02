@@ -715,56 +715,56 @@
       11        1   0.5
       
       $vs$d1$continent
-        x y PANEL group flipped_aes ymin ymax      xmin     xmax order xid newx
-      1 1 0     1     1       FALSE    0    0 0.7857143 1.214286     1   1    1
-      2 2 0     1     2       FALSE    0    0 1.5000000 2.500000     1   2    2
-      3 3 0     1     3       FALSE    0    0 2.5714286 3.428571     1   3    3
-        new_width colour fill linewidth linetype alpha   width
-      1   0.42857     NA grey       0.5        1    NA 0.42857
-      2   1.00000     NA grey       0.5        1    NA 1.00000
-      3   0.85714     NA grey       0.5        1    NA 0.85714
+        fill x y PANEL group flipped_aes ymin ymax      xmin     xmax order xid newx
+      1 grey 1 0     1     1       FALSE    0    0 0.7857143 1.214286     1   1    1
+      2 grey 2 0     1     2       FALSE    0    0 1.5000000 2.500000     1   2    2
+      3 grey 3 0     1     3       FALSE    0    0 2.5714286 3.428571     1   3    3
+        new_width colour linewidth linetype alpha   width
+      1   0.42857     NA       0.5        1    NA 0.42857
+      2   1.00000     NA       0.5        1    NA 1.00000
+      3   0.85714     NA       0.5        1    NA 0.85714
       
       $vs$d1$am
-        x y PANEL group flipped_aes ymin ymax     xmin     xmax order xid newx
-      1 1 0     1     1       FALSE    0    0 0.500000 1.500000     1   1    1
-      2 2 0     1     2       FALSE    0    0 1.657895 2.342105     1   2    2
-        new_width colour fill linewidth linetype alpha   width
-      1   1.00000     NA grey       0.5        1    NA 1.00000
-      2   0.68421     NA grey       0.5        1    NA 0.68421
+        fill x y PANEL group flipped_aes ymin ymax     xmin     xmax order xid newx
+      1 grey 1 0     1     1       FALSE    0    0 0.500000 1.500000     1   1    1
+      2 grey 2 0     1     2       FALSE    0    0 1.657895 2.342105     1   2    2
+        new_width colour linewidth linetype alpha   width
+      1   1.00000     NA       0.5        1    NA 1.00000
+      2   0.68421     NA       0.5        1    NA 0.68421
       
       $vs$d1$model
-          x        y PANEL group flipped_aes     ymin ymax  xmin   xmax order xid
-      1   1 -1.61458     1     1       FALSE -1.61458    0 0.975  1.025     1   1
-      2   2 -1.94792     1     2       FALSE -1.94792    0 1.975  2.025     1   2
-      3   3 -1.94792     1     3       FALSE -1.94792    0 2.975  3.025     1   3
-      4   4 -1.61458     1     4       FALSE -1.61458    0 3.975  4.025     1   4
-      5   5 -1.61458     1     5       FALSE -1.61458    0 4.975  5.025     1   5
-      6   6 -1.61458     1     6       FALSE -1.61458    0 5.975  6.025     1   6
-      7   7 -1.78125     1     7       FALSE -1.78125    0 6.975  7.025     1   7
-      8   8 -1.61458     1     8       FALSE -1.61458    0 7.975  8.025     1   8
-      9   9 -1.44792     1     9       FALSE -1.44792    0 8.975  9.025     1   9
-      10 10 -0.31024     1    10       FALSE -0.31024    0 9.500 10.500     1  10
-         newx new_width colour fill linewidth linetype alpha width
-      1     1      0.05     NA grey       0.5        1    NA  0.05
-      2     2      0.05     NA grey       0.5        1    NA  0.05
-      3     3      0.05     NA grey       0.5        1    NA  0.05
-      4     4      0.05     NA grey       0.5        1    NA  0.05
-      5     5      0.05     NA grey       0.5        1    NA  0.05
-      6     6      0.05     NA grey       0.5        1    NA  0.05
-      7     7      0.05     NA grey       0.5        1    NA  0.05
-      8     8      0.05     NA grey       0.5        1    NA  0.05
-      9     9      0.05     NA grey       0.5        1    NA  0.05
-      10   10      1.00     NA grey       0.5        1    NA  1.00
+         fill  x        y PANEL group flipped_aes     ymin ymax  xmin   xmax order
+      1  grey  1 -1.61458     1     1       FALSE -1.61458    0 0.975  1.025     1
+      2  grey  2 -1.94792     1     2       FALSE -1.94792    0 1.975  2.025     1
+      3  grey  3 -1.94792     1     3       FALSE -1.94792    0 2.975  3.025     1
+      4  grey  4 -1.61458     1     4       FALSE -1.61458    0 3.975  4.025     1
+      5  grey  5 -1.61458     1     5       FALSE -1.61458    0 4.975  5.025     1
+      6  grey  6 -1.61458     1     6       FALSE -1.61458    0 5.975  6.025     1
+      7  grey  7 -1.78125     1     7       FALSE -1.78125    0 6.975  7.025     1
+      8  grey  8 -1.61458     1     8       FALSE -1.61458    0 7.975  8.025     1
+      9  grey  9 -1.44792     1     9       FALSE -1.44792    0 8.975  9.025     1
+      10 grey 10 -0.31024     1    10       FALSE -0.31024    0 9.500 10.500     1
+         xid newx new_width colour linewidth linetype alpha width
+      1    1    1      0.05     NA       0.5        1    NA  0.05
+      2    2    2      0.05     NA       0.5        1    NA  0.05
+      3    3    3      0.05     NA       0.5        1    NA  0.05
+      4    4    4      0.05     NA       0.5        1    NA  0.05
+      5    5    5      0.05     NA       0.5        1    NA  0.05
+      6    6    6      0.05     NA       0.5        1    NA  0.05
+      7    7    7      0.05     NA       0.5        1    NA  0.05
+      8    8    8      0.05     NA       0.5        1    NA  0.05
+      9    9    9      0.05     NA       0.5        1    NA  0.05
+      10  10   10      1.00     NA       0.5        1    NA  1.00
       
       $vs$d1$gear
-        x        y PANEL group flipped_aes     ymin    ymax     xmin     xmax order
-      1 1 -0.28715     1     1       FALSE -0.28715 0.00000 0.500000 1.500000     1
-      2 2  0.25451     1     2       FALSE  0.00000 0.25451 1.600000 2.400000     1
-      3 3  0.08785     1     3       FALSE  0.00000 0.08785 2.833333 3.166667     1
-        xid newx new_width colour fill linewidth linetype alpha   width
-      1   1    1   1.00000     NA grey       0.5        1    NA 1.00000
-      2   2    2   0.80000     NA grey       0.5        1    NA 0.80000
-      3   3    3   0.33333     NA grey       0.5        1    NA 0.33333
+        fill x        y PANEL group flipped_aes     ymin    ymax     xmin     xmax
+      1 grey 1 -0.28715     1     1       FALSE -0.28715 0.00000 0.500000 1.500000
+      2 grey 2  0.25451     1     2       FALSE  0.00000 0.25451 1.600000 2.400000
+      3 grey 3  0.08785     1     3       FALSE  0.00000 0.08785 2.833333 3.166667
+        order xid newx new_width colour linewidth linetype alpha   width
+      1     1   1    1   1.00000     NA       0.5        1    NA 1.00000
+      2     1   2    2   0.80000     NA       0.5        1    NA 0.80000
+      3     1   3    3   0.33333     NA       0.5        1    NA 0.33333
       
       $vs$d1$carb
         ymin ymax x y PANEL group flipped_aes colour   fill linewidth linetype alpha
@@ -10824,12 +10824,12 @@
       $vs
       $vs$d1
       $vs$d1$am
-        x         y PANEL group flipped_aes      ymin ymax     xmin     xmax order
-      1 1 -28.56607     1     1       FALSE -28.56607    0 0.500000 1.500000     1
-      2 2 -28.56607     1     2       FALSE -28.56607    0 1.657895 2.342105     1
-        xid newx new_width colour fill linewidth linetype alpha   width
-      1   1    1   1.00000     NA grey       0.5        1    NA 1.00000
-      2   2    2   0.68421     NA grey       0.5        1    NA 0.68421
+        fill x         y PANEL group flipped_aes      ymin ymax     xmin     xmax
+      1 grey 1 -28.56607     1     1       FALSE -28.56607    0 0.500000 1.500000
+      2 grey 2 -28.56607     1     2       FALSE -28.56607    0 1.657895 2.342105
+        order xid newx new_width colour linewidth linetype alpha   width
+      1     1   1    1   1.00000     NA       0.5        1    NA 1.00000
+      2     1   2    2   0.68421     NA       0.5        1    NA 0.68421
       
       $vs$d1$wt
               ymin      ymax       x         y PANEL group flipped_aes colour   fill

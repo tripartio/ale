@@ -276,10 +276,13 @@ plot_ale_1D <- function(
     if (!all_cats) {
       plot <- plot +
         geom_col(
-          fill = 'grey',
+          aes(fill = .data$.x),
           width = col_width,
           position = position_dodge2(),
-        )
+          show.legend = FALSE
+        ) +
+        # Keep grey defaults while allowing a supplied fill scale to replace them.
+        scale_fill_manual(values = rep('grey', nrow(ale_data)))
     }
     else {
       # All categories: no bootstrap bands

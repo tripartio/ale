@@ -29,12 +29,12 @@
       $mpg
       $mpg$d1
       $mpg$d1$am
-        x        y PANEL group flipped_aes ymin     ymax     xmin     xmax order xid
-      1 1 13.91157     1     1       FALSE    0 13.91157 0.500000 1.500000     1   1
-      2 2 26.92924     1     2       FALSE    0 26.92924 1.657895 2.342105     1   2
-        newx new_width colour fill linewidth linetype alpha   width
-      1    1   1.00000     NA grey       0.5        1    NA 1.00000
-      2    2   0.68421     NA grey       0.5        1    NA 0.68421
+        fill x        y PANEL group flipped_aes ymin     ymax     xmin     xmax order
+      1 grey 1 13.91157     1     1       FALSE    0 13.91157 0.500000 1.500000     1
+      2 grey 2 26.92924     1     2       FALSE    0 26.92924 1.657895 2.342105     1
+        xid newx new_width colour linewidth linetype alpha   width
+      1   1    1   1.00000     NA       0.5        1    NA 1.00000
+      2   2    2   0.68421     NA       0.5        1    NA 0.68421
       
       $mpg$d1$wt
              ymin     ymax       x        y PANEL group flipped_aes colour   fill

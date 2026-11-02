@@ -31,6 +31,7 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 * `get()` for `ALE` and `ModelBoot` objects now returns named statistics in the requested order within each term.
 * `get()` now raises a clear error when confidence regions are requested without p-values. `summary()` for `ALE` and `ModelBoot` objects silently omits confidence-region sections when p-values are absent.
 * Chained `customize()` calls with `zoom_x` or `zoom_y` now preserve the existing limits of the other axis.
+* Categorical 1D ALE columns keep their grey default but can now be recoloured by adding a fill scale through `customize(layers = ...)`, preserving their relative widths, reference lines, and error bars.
 * `ALE()` now checks the outcome column and prediction type when accepting an `ALEpDist` distribution, in addition to the model identity. `ALEpDist` retains the original prediction settings, including for surrogates.
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
 * Use `parallelly::availableCores()` directly in preparation for its re-export being removed from `{future}`. The `{future}` and `{parallelly}` packages are now suggested dependencies because both are required dependencies of the imported `{furrr}` package (#18).
