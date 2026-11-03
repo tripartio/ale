@@ -168,7 +168,9 @@ The 2D plots show interaction effects beyond the separate 1D effects. Both axes 
 
 ## Choose which plots to customize
 
-The `x_cols` argument of `customize()` selects the plots to modify; leaving it unspecified will apply the `customize()` settings to all plots. A variable name selects a 1D plot; a term such as `"carat:cut"` selects an interaction plot. We can also use `list(d1 = TRUE)` or `list(d2 = TRUE)` to select every available plot of one dimension.
+The `x_cols` argument of `customize()` selects the plots to modify. A variable name selects a 1D plot; a term such as `"carat:cut"` selects an interaction plot. We can use `list(d1 = TRUE)` or `list(d2 = TRUE)` to select every available plot of one dimension, or `list(d1 = TRUE, d2 = TRUE)` to select both dimensions.
+
+Leaving `x_cols` unspecified applies the customization to all available plots when the object contains only one dimension. When both 1D and 2D plots exist, `x_cols` must be specified explicitly; it may select either dimension or both.
 
 Because our object contains both 1D and 2D plots, we explicitly specify `x_cols` in each call to `customize()`. The following example zooms the y-axis ranges of the 1D `carat` and `cut` plots:
 
@@ -289,6 +291,8 @@ To zoom out again, supply wider limits. To recover the original view, start from
 ## Flexible customizations with `layers`
 
 ALE plots in the `ale` package are implemented with {ggplot2}, so they retain its full flexibility in customization. This flexibility is leveraged through the `layers` argument of `customize()`, which accepts a list of additions that `{ggplot2}` supports through its `+` operator. This includes themes, geometries, and scales. The additions are applied to each selected plot in the order given in the list.
+
+The additions must be appropriate for every selected plot. Shared themes can be applied across dimensions, while scales, coordinates, and geometries may depend on each plot's axes, mappings, or data. In particular, the y-axis represents the outcome in 1D plots and the second predictor in 2D plots.
 
 ### Apply a common theme to all plots
 

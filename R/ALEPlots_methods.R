@@ -430,14 +430,19 @@ validate_ALEPlots_method_args <- function(
 #' conventions.
 #'
 #' @param plots_obj ALEPlots object to customize.
-#' @param x_cols,exclude_cols See the [get() method for ALE objects][get-ALE-method].
+#' @param x_cols character, list, or formula. Select 1D plots, 2D plots, or both, using the formats described in [resolve_x_cols()]. If `NULL`, all available plots are selected when the object contains only one dimension. When both 1D and 2D plots exist, `x_cols` must be specified explicitly; it may select either dimension or both.
+#' @param exclude_cols See the [get() method for ALE objects][get-ALE-method].
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param type See the [get() method for ALEPlots objects][get-ALEPlots-method].
 #' @param cats See the [get() method for ALEPlots objects][get-ALEPlots-method].
-#' @param layers List of `ggplot` layers. These are appended to each plot indicated by the combination of `x_cols`, `type`, and `cats` by applying the `ggplot2` `+` operator to them.
+#' @param layers List of `ggplot` layers. These are appended to each plot indicated by the combination of `x_cols`, `type`, and `cats` by applying the `ggplot2` `+` operator to them. The additions must be appropriate for every selected plot. Shared themes can be applied across 1D and 2D plots, whereas the appropriateness of scales, coordinates, and geometries may depend on each plot's axes, mappings, or data.
 #' @param zoom_x,zoom_y numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default `NULL` preserves the existing limits for that axis, including limits set by earlier calls to `customize()` or by `layers`.
 #'
 #' @returns An `ALEPlots` object where elements specified by x_cols and exclude_cols are modified accordingly. Non-specified elements are not modified.
+#'
+#' @examples
+#' # See the article https://tripartio.github.io/ale/articles/customize-plots.html
+#'
 #'
 customize <- function(
     plots_obj,
@@ -495,7 +500,8 @@ customize <- function(
       x_cols <- plots_obj@params$requested_x_cols$d2
     } else if (len_d1 >= 1 && len_d2 >= 1) {
       cli_abort(c(
-        'When both 1D and 2D plots exist, you must specify only one kind in {.arg x_cols} since they are very different kinds of plots.'
+        'When both 1D and 2D plots exist, you must specify {.arg x_cols} explicitly.',
+        'i' = 'Select 1D plots, 2D plots, or both.'
       ))
     } else if (len_d1 == 0 && len_d2 == 0) {
       cli_abort(c(
