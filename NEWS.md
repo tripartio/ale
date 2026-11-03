@@ -13,6 +13,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 ## New features
 
 * `summary()` methods have been implemented for `ALE` and `ModelBoot` objects. They print a summary of ALE statistics to the console. When there are no ALE statistics available, they print a message saying so.
+* With the `show_2d_bin_sizes` logical argument `ALEPlots()`, the 2D ALE plots display of hollow bin-size squares and a % data legend is now optional. (#44)
 * With the `aled_fun` argument of the `ALE()` and `ALEpDist()` constructors, we may optionally choose to calculate ALE deviation based on standard deviations instead of the default mean absolute deviation.
 * The widths of 1D ALE plots for non-numerical variables are now proportional to the frequency of the data. We find these proportional widths more intuitive than the text annotations that previously indicated the percentages, which have now been removed. The minimum width can be controlled with the `min_col_widths` argument of `plot.ALE()`. 
 * For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the `consolid_cats` argument of `plot.ALE()`). The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. 
@@ -26,12 +27,12 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
 
-* `ALE()` now warns early about requested predictors with only one observed value and returns zero main and interaction effects for them, including bootstrap iterations.
-* Unnamed single-column prediction matrices, including binary predictions from `nnet::nnet()`, are now accepted and named after the outcome column.
-* `get()` for `ALE` and `ModelBoot` objects now returns named statistics in the requested order within each term.
-* `get()` now raises a clear error when confidence regions are requested without p-values. `summary()` for `ALE` and `ModelBoot` objects silently omits confidence-region sections when p-values are absent.
-* Chained `customize()` calls with `zoom_x` or `zoom_y` now preserve the existing limits of the other axis.
-* `ALE()` now checks the outcome column and prediction type when accepting an `ALEpDist` distribution, in addition to the model identity. `ALEpDist` retains the original prediction settings, including for surrogates.
+* `ALE()` now warns early about requested predictors with only one observed value and returns zero main and interaction effects for them, including bootstrap iterations. (#43)
+* Unnamed single-column prediction matrices, including binary predictions from `nnet::nnet()`, are now accepted and named after the outcome column. (#41)
+* `get()` for `ALE` and `ModelBoot` objects now returns named statistics in the requested order within each term. (#40)
+* `get()` now raises a clear error when confidence regions are requested without p-values. `summary()` for `ALE` and `ModelBoot` objects silently omits confidence-region sections when p-values are absent. (#38)
+* Chained `customize()` calls with `zoom_x` or `zoom_y` now preserve the existing limits of the other axis. (#37)
+* `ALE()` now checks the outcome column and prediction type when accepting an `ALEpDist` distribution, in addition to the model identity. `ALEpDist` retains the original prediction settings, including for surrogates. (#36)
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
 * Use `parallelly::availableCores()` directly in preparation for its re-export being removed from `{future}`. The `{future}` and `{parallelly}` packages are now suggested dependencies because both are required dependencies of the imported `{furrr}` package (#18).
 * Handle missing 1D ALE bins during model bootstrapping (#19).
