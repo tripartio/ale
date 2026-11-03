@@ -39,7 +39,7 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 
 ## Changed functionality
 
-* `max_num_bins` now requires a named list containing both `d1` (default `1000L` for 1D main effects) and `d2` (default `10L` per numeric variable for 2D interactions). Optional per-column `except` overrides apply to both dimensions. Scalar inputs and the former `default` list element are no longer supported.
+* `max_num_bins` defaults to `list(d1 = 1000L, d2 = 10L)` and supports independent per-column `except_d1` and `except_d2` limits. Explicit lists need defaults or exceptions only for the numeric variables requested in each dimension. Use `list()` for non-numeric effects; `NULL`, scalar inputs, and the former `default` and `except` elements are rejected.
 
 * The `require_same_p` argument of `ALE()` has been renamed to `require_p_model_match` without a compatibility alias. Setting it to `FALSE` disables all p-value compatibility checks.
 * `max_num_bins` now creates `n+1` bins instead of exactly the specified `n` bins. The bottom bin is reserved for the minimum value in the data. This is a reversion to the original behaviour of the reference {ALEPlot} package.

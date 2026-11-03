@@ -37,47 +37,71 @@ validate_data <- function(
 }
 
 
-# Validate the numeric-bin configuration without model or prediction setup.
-validate_max_num_bins <- function(max_num_bins, col_names) {
-  validate(
-    is.list(max_num_bins) && rlang::is_named(max_num_bins) &&
-      !anyDuplicated(names(max_num_bins)),
-    msg = '{.arg max_num_bins} must be a named list with unique names containing both {.val d1} and {.val d2}.'
-  )
-  validate(
-    !('default' %in% names(max_num_bins)),
-    msg = 'The {.val default} element of {.arg max_num_bins} is no longer supported; specify both {.val d1} and {.val d2}.'
-  )
-  validate(
-    all(names(max_num_bins) %in% c('d1', 'd2', 'except')),
-    msg = '{.arg max_num_bins} may contain only {.val d1}, {.val d2}, and {.val except}.'
-  )
-  validate(
-    all(c('d1', 'd2') %in% names(max_num_bins)),
-    msg = '{.arg max_num_bins} must contain both {.val d1} and {.val d2}.'
-  )
-  validate(
-    isTRUE(is_scalar_natural(max_num_bins[['d1']])) && is.finite(max_num_bins[['d1']]),
-    msg = '{.arg max_num_bins$d1} must be a non-NULL, finite natural number (a strictly positive whole number).'
-  )
-  validate(
-    isTRUE(is_scalar_natural(max_num_bins[['d2']])) && is.finite(max_num_bins[['d2']]),
-    msg = '{.arg max_num_bins$d2} must be a non-NULL, finite natural number (a strictly positive whole number).'
-  )
-  if (!is.null(max_num_bins$except)) {
-    validate(
-      isTRUE(rlang::is_integerish(max_num_bins$except) &&
-        all(is.finite(max_num_bins$except) & max_num_bins$except > 0)) &&
-        rlang::is_named(max_num_bins$except) && !anyDuplicated(names(max_num_bins$except)),
-      msg = '{.arg max_num_bins$except} must be a named integer vector of strictly positive per-column limits with unique names.'
-    )
+# Use the same types as calc_ale(), including fixed bins passed by ModelBoot.
+numeric_ale_cols <- function(data, x_cols, .bins = NULL) {
+  purrr::imap(x_cols, function(terms, dimension) {
+    unique(as.character(unlist(lapply(terms, function(term) {
+      columns <- strsplit(term, ':', fixed = TRUE)[[1]]
+      bins <- .bins[[dimension]][[term]]
+      types <- vapply(seq_along(columns), function(i) {
+        if (is.null(bins)) var_type(data[[columns[i]]]) else var_type(bins[[i]])
+      }, character(1))
+      columns[types %in% 'numeric']
+    }), use.names = FALSE)))
+  })
+}
 
-    invalid_max_num_bins_col_names <- max_num_bins$except |>
-      names() |>
-      setdiff(col_names)
-    if (length(invalid_max_num_bins_col_names) > 0) {
-      # Fail early even for typos
-      cli_abort('The following columns listed in {.arg max_num_bins$except} were not found in the {.arg data}: {invalid_max_num_bins_col_names}')
+# Validate configuration and coverage without model or prediction setup.
+validate_max_num_bins <- function(
+    max_num_bins, col_names,
+    numeric_cols = list(d1 = character(), d2 = character())
+) {
+  validate(
+    !is.null(max_num_bins),
+    msg = '{.arg max_num_bins} cannot be NULL; use {.code list()} when no numeric limits are needed.'
+  )
+  validate(
+    is.list(max_num_bins) &&
+      (length(max_num_bins) == 0L || rlang::is_named(max_num_bins)) &&
+      !anyDuplicated(names(max_num_bins)),
+    msg = '{.arg max_num_bins} must be a named list with unique names, or {.code list()}.'
+  )
+  validate(
+    !any(c('default', 'except') %in% names(max_num_bins)),
+    msg = 'The {.val default} and {.val except} elements of {.arg max_num_bins} are no longer supported; use {.val d1}, {.val d2}, {.val except_d1}, and {.val except_d2}.'
+  )
+  validate(
+    all(names(max_num_bins) %in% c('d1', 'd2', 'except_d1', 'except_d2')),
+    msg = '{.arg max_num_bins} may contain only {.val d1}, {.val d2}, {.val except_d1}, and {.val except_d2}.'
+  )
+  for (dimension in c('d1', 'd2')) {
+    default <- max_num_bins[[dimension]]
+    if (!is.null(default)) {
+      validate(
+        isTRUE(is_scalar_natural(default)) && is.finite(default),
+        msg = paste0('{.arg max_num_bins$', dimension, '} must be a finite natural number (a strictly positive whole number).')
+      )
+    }
+    except_name <- paste0('except_', dimension)
+    overrides <- max_num_bins[[except_name]]
+    if (!is.null(overrides)) {
+      validate(
+        isTRUE(rlang::is_integerish(overrides) &&
+          all(is.finite(overrides) & overrides > 0)) &&
+          (length(overrides) == 0L || rlang::is_named(overrides)) &&
+          !anyDuplicated(names(overrides)),
+        msg = paste0('{.arg max_num_bins$', except_name, '} must be a named integer vector of strictly positive per-column limits with unique names.')
+      )
+      unknown <- setdiff(names(overrides), col_names)
+      if (length(unknown) > 0L) {
+        cli_abort(paste0('Columns listed in {.arg max_num_bins$', except_name, '} were not found in {.arg data}: {unknown}'))
+      }
+    }
+    if (is.null(default)) {
+      uncovered <- setdiff(numeric_cols[[dimension]], names(overrides))
+      if (length(uncovered) > 0L) {
+        cli_abort(paste0('Numeric variables in {.val ', dimension, '} have no bin limit: {uncovered}. Supply {.arg max_num_bins$', dimension, '} or cover them in {.arg max_num_bins$', except_name, '}.'))
+      }
     }
   }
   invisible(TRUE)

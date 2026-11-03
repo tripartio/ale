@@ -331,6 +331,10 @@ ModelBoot <- new_class(
     }
 
     validate(is.list(ale_options))
+    # Reject explicit NULL before modifyList() can remove this argument.
+    if ('max_num_bins' %in% names(ale_options)) {
+      validate_max_num_bins(ale_options$max_num_bins, names(data))
+    }
     validate(
       is.null(ale_options$p_values),
       msg = c(

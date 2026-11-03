@@ -33,97 +33,128 @@ test_that('default numeric bin limits apply separately to main effects and inter
   expect_equal(sum(effects$d2[['wt:carb']]$.n), nrow(bin_cars))
 }))
 
-test_that('explicit bin limits and overrides preserve categorical levels', with_serial_binning({
+test_that('dimension-specific exceptions override only their own defaults', with_serial_binning({
   columns <- ~ wt + wt:carb + continent + gear + am + continent:gear
   baseline <- ALE(
     test_gam, data = test_cars, x_cols = columns,
-    max_num_bins = list(d1 = 7, d2 = 3L, except = c(carb = 2L)),
+    max_num_bins = list(d1 = 7L, d2 = 3L, except_d1 = c(wt = 4L)),
     output_stats = FALSE, silent = TRUE
   )
   effects <- baseline@effect$mpg$ale
-  expect_length(effects$d1$wt$wt.ceil, 8L)
+  expect_length(effects$d1$wt$wt.ceil, 5L)
   expect_length(unique(effects$d2[['wt:carb']]$wt.ceil), 4L)
-  expect_length(unique(effects$d2[['wt:carb']]$carb.ceil), 3L)
+  expect_length(unique(effects$d2[['wt:carb']]$carb.ceil), 4L)
 
-  overridden <- ALE(
+  exceptions_only <- ALE(
     test_gam, data = test_cars, x_cols = columns,
-    max_num_bins = list(d1 = 7L, d2 = 3L,
-                        except = c(wt = 4L, carb = 2L, continent = 1L, gear = 1L, am = 1L)),
+    max_num_bins = list(
+      except_d1 = c(wt = 7L, continent = 1L, gear = 1L, am = 1L),
+      except_d2 = c(wt = 2L, carb = 2L, continent = 1L, gear = 1L)
+    ),
     output_stats = FALSE, silent = TRUE
   )
-  effects <- overridden@effect$mpg$ale
-  expect_length(effects$d1$wt$wt.ceil, 5L)
-  expect_length(unique(effects$d2[['wt:carb']]$wt.ceil), 5L)
+  effects <- exceptions_only@effect$mpg$ale
+  expect_length(effects$d1$wt$wt.ceil, 8L)
+  expect_length(unique(effects$d2[['wt:carb']]$wt.ceil), 3L)
   expect_length(unique(effects$d2[['wt:carb']]$carb.ceil), 3L)
   for (column in c('continent', 'gear', 'am')) {
     expect_equal(effects$d1[[column]], baseline@effect$mpg$ale$d1[[column]])
     expect_equal(nrow(effects$d1[[column]]), length(unique(test_cars[[column]])))
   }
-  expect_equal(effects$d2[['continent:gear']],
-               baseline@effect$mpg$ale$d2[['continent:gear']])
-  expect_equal(nrow(effects$d2[['continent:gear']]),
-               length(unique(test_cars$continent)) * length(unique(test_cars$gear)))
+  expect_equal(effects$d2[['continent:gear']], baseline@effect$mpg$ale$d2[['continent:gear']])
 }))
 
-test_that('max_num_bins requires the complete named list interface', {
-  # Exercise malformed configurations directly, without repeating model setup.
-  for (limits in list(10L, 10, c(d1 = 1000L, d2 = 10L), list(1000L, 10L),
-                      list(d1 = 1000L, d2 = 10L, d1 = 5L))) {
-    expect_error(validate_max_num_bins(limits, names(test_cars)),
-                 'max_num_bins.*named list')
-  }
-  expect_error(
-    ALE(test_gam, data = test_cars, max_num_bins = 10L, silent = TRUE),
-    'max_num_bins.*named list'
+test_that('coverage follows resolved selection and ALE variable types', with_serial_binning({
+  expect_no_error(validate_max_num_bins(list(), names(test_cars)))
+  categorical <- ALE(
+    test_gam, data = test_cars, x_cols = ~ wt + continent + am:gear,
+    exclude_cols = 'wt', max_num_bins = list(), output_stats = FALSE, silent = TRUE
   )
-  for (limits in list(list(d1 = 1000L), list(d2 = 10L), list())) {
-    expect_error(validate_max_num_bins(limits, names(test_cars)),
-                 'max_num_bins.*both.*d1.*d2')
-  }
-  # The constructor requires both defaults even when only one dimension is used.
+  expect_identical(categorical@params$max_num_bins, list())
+  expect_equal(nrow(categorical@effect$mpg$ale$d1$continent), length(unique(test_cars$continent)))
+  expect_equal(nrow(categorical@effect$mpg$ale$d2[['am:gear']]),
+               length(unique(test_cars$am)) * length(unique(test_cars$gear)))
+
+  required <- list(d1 = 'wt', d2 = c('wt', 'carb'))
+  for (limits in list(
+    list(d1 = 7L, d2 = 3L),
+    list(except_d1 = c(wt = 4L), except_d2 = c(wt = 2L, carb = 3L)),
+    list(d1 = NULL, except_d1 = c(wt = 4L), d2 = 3L)
+  )) expect_no_error(validate_max_num_bins(limits, names(test_cars), required))
+  expect_no_error(validate_max_num_bins(list(d1 = 7L), names(test_cars), list(d1 = 'wt')))
+  expect_no_error(validate_max_num_bins(list(d2 = 3L), names(test_cars), list(d2 = c('wt', 'carb'))))
+  expect_error(validate_max_num_bins(list(d1 = 7L), names(test_cars), required), 'd2.*wt.*carb')
+  expect_error(validate_max_num_bins(list(d2 = 3L), names(test_cars), required), 'd1.*wt')
   expect_error(
-    ALE(test_gam, data = test_cars, x_cols = 'wt',
-        max_num_bins = list(d1 = 1000L), silent = TRUE),
-    'max_num_bins.*both.*d1.*d2'
+    validate_max_num_bins(list(except_d1 = c(wt = 7L), except_d2 = c(wt = 3L)), names(test_cars), required),
+    'd2.*carb'
+  )
+  expect_error(validate_max_num_bins(list(d1 = NULL), names(test_cars), list(d1 = 'wt')), 'd1.*wt')
+
+  two_value_cars <- test_cars
+  two_value_cars$wt <- rep(range(test_cars$wt), length.out = nrow(test_cars))
+  selection <- list(d1 = 'wt', d2 = 'am:gear')
+  expect_identical(numeric_ale_cols(two_value_cars, selection), list(d1 = character(), d2 = character()))
+  fixed <- list(d1 = list(wt = list(bins = sort(unique(test_cars$wt)))), d2 = list())
+  expect_identical(numeric_ale_cols(two_value_cars, selection, fixed)$d1, 'wt')
+  date_cars <- test_cars
+  date_cars$carb <- as.Date(date_cars$carb, origin = '1970-01-01')
+  expect_identical(numeric_ale_cols(date_cars, list(d1 = 'carb'))$d1, 'carb')
+  constant_cars <- test_cars
+  constant_cars$wt <- test_cars$wt[1]
+  expect_identical(numeric_ale_cols(constant_cars, list(d1 = 'wt'))$d1, 'wt')
+}))
+
+test_that('invalid configurations fail before automatic p-values or option merging', {
+  for (limits in list(10L, c(d1 = 1000L, d2 = 10L), list(1000L, 10L),
+                      list(d1 = 1000L, d1 = 5L))) {
+    expect_error(validate_max_num_bins(limits, names(test_cars)), 'max_num_bins.*named list')
+  }
+  expect_error(validate_max_num_bins(NULL, names(test_cars)), 'cannot be NULL; use.*list')
+  for (limits in list(list(default = 10L), list(except = c(wt = 5L)),
+                      list(d1 = 1000L, except = c(wt = 5L)))) {
+    expect_error(validate_max_num_bins(limits, names(test_cars)), 'no longer[[:space:]]+supported')
+  }
+  expect_error(validate_max_num_bins(list(wt = 5L), names(test_cars)), 'may contain only')
+  testthat::with_mocked_bindings(
+    ALEpDist = function(...) stop('Unexpected p-value generation'), .package = 'ale', {
+      expect_error(
+        ALE(test_gam, data = test_cars, x_cols = 'wt', max_num_bins = list(), boot_it = 1, silent = TRUE),
+        'd1.*wt'
+      )
+      expect_error(
+        ALE(test_gam, data = test_cars, x_cols = list(d2 = 'wt:carb'),
+            max_num_bins = list(d1 = 7L), boot_it = 1, silent = TRUE),
+        'd2.*wt.*carb'
+      )
+    }
   )
   expect_error(
-    ALE(test_gam, data = test_cars, x_cols = list(d2 = 'wt:carb'),
-        max_num_bins = list(d2 = 10L), silent = TRUE),
-    'max_num_bins.*both.*d1.*d2'
-  )
-  for (limits in list(list(default = 10L),
-                      list(d1 = 1000L, d2 = 10L, default = 5L))) {
-    expect_error(validate_max_num_bins(limits, names(test_cars)),
-                 'default.*no longer supported')
-  }
-  expect_error(
-    validate_max_num_bins(list(d1 = 1000L, d2 = 10L, wt = 5L), names(test_cars)),
-    'max_num_bins.*only.*d1.*d2.*except'
+    ModelBoot(test_gam, data = test_cars, boot_it = 0,
+              ale_options = list(max_num_bins = NULL), silent = TRUE),
+    'cannot be NULL; use.*list'
   )
 })
 
-test_that('dimension defaults and per-column overrides validate natural numbers', {
-  expect_no_error(validate_max_num_bins(list(d1 = 1L, d2 = 1), names(test_cars)))
+test_that('dimension defaults and exceptions validate supplied natural numbers', {
+  expect_no_error(validate_max_num_bins(list(d1 = 1L), names(test_cars)))
+  expect_no_error(validate_max_num_bins(list(d1 = NULL, except_d2 = NULL), names(test_cars)))
   for (dimension in c('d1', 'd2')) {
-    for (invalid in list(NULL, 0L, -1L, 2.5, NA_real_, NaN, Inf, -Inf,
+    for (invalid in list(0L, -1L, 2.5, NA_real_, NaN, Inf, -Inf,
                          '10', TRUE, c(1L, 2L), numeric(), list(10L))) {
-      limits <- list(d1 = 1000L, d2 = 10L)
-      limits[dimension] <- list(invalid)
+      limits <- setNames(list(invalid), dimension)
       expect_error(validate_max_num_bins(limits, names(test_cars)),
-                   paste0('max_num_bins\\$', dimension, '.*natural number'))
+                   paste0('max_num_bins[$]', dimension, '.*natural number'))
     }
+    field <- paste0('except_', dimension)
+    for (invalid in list(c(wt = 0L), c(wt = -1L), c(wt = 2.5), c(wt = NA_real_),
+                         c(wt = Inf), c(wt = '10'), 5L, c(wt = 2L, wt = 3L))) {
+      expect_error(validate_max_num_bins(setNames(list(invalid), field), names(test_cars)),
+                   paste0('max_num_bins[$]', field, '.*named integer vector'))
+    }
+    expect_error(validate_max_num_bins(setNames(list(c(typo = 5L)), field), names(test_cars)),
+                 paste0(field, '.*not found.*typo'))
   }
-  for (invalid in list(c(wt = 0L), c(wt = -1L), c(wt = 2.5), c(wt = NA_real_),
-                       c(wt = Inf), c(wt = '10'), 5L, c(wt = 2L, wt = 3L))) {
-    expect_error(
-      validate_max_num_bins(list(d1 = 1000L, d2 = 10L, except = invalid), names(test_cars)),
-      'max_num_bins\\$except.*named integer vector'
-    )
-  }
-  expect_error(
-    validate_max_num_bins(list(d1 = 1000L, d2 = 10L, except = c(typo = 5L)), names(test_cars)),
-    'max_num_bins\\$except.*not found.*typo'
-  )
 })
 
 test_that(

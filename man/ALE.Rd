@@ -67,21 +67,30 @@ ALE(
 
 \item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
 
-\item{max_num_bins}{named list. Sets the maximum number of numeric ALE intervals:
+\item{max_num_bins}{list. Sets maximum numbers of numeric ALE intervals.
+The default is \code{list(d1 = 1000L, d2 = 10L)}:
 \itemize{
 \item \code{d1}: default maximum for 1D main effect variables.
 \item \code{d2}: default maximum per numeric variable for 2D interactions.
+\item \code{except_d1}, \code{except_d2}: optional named integer vectors of per-column
+limits overriding the default only in the corresponding dimension.
 }
 
-Both \code{d1} and \code{d2} are mandatory, non-\code{NULL}, finite natural numbers.
-Optional \code{except} is a named integer vector of strictly positive per-column
-limits that override both dimension defaults. Unknown column names trigger an error.
-For example, \code{max_num_bins = list(d1 = 1000, d2 = 10, except = c(wt = 25, carb = 4))}.
-Scalar inputs and the former \code{default} element are not supported.
+Defaults are optional: every requested numeric variable must have either
+its dimension's default or an exception in that dimension. Coverage is
+checked after resolving \code{x_cols} and \code{exclude_cols}. Omitted elements of an
+explicit list are not filled from the default argument. \code{NULL} elements
+are treated as absent; supplied values must be finite, strictly positive
+whole numbers.
+Unknown exception column names trigger an error.
+For example, \code{list(d1 = 1000, d2 = 10, except_d1 = c(wt = 25), except_d2 = c(wt = 5))}.
 
-When \code{n} intervals are requested, there are at most \code{n+1} bins, limited by the
-number of unique values, with the lowest bin dedicated to the minimum value.
-Higher limits can be slower for interactions. Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.}
+Use \code{list()} when no numeric variables are requested. \code{max_num_bins = NULL},
+scalar inputs, and the former \code{default} and \code{except} elements are not supported.
+Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.
+When \code{n} intervals are requested, there are at most \code{n+1} bins, limited by
+the number of unique values, with the lowest bin dedicated to the minimum.
+Higher limits can be slower for interactions.}
 
 \item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{
