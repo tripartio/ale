@@ -45,7 +45,9 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 
 ## Documentation
 
+* Added an article that demonstrates how to use the `customize()` function for `ALEPlots`: [“Customizing ALE plots”](https://tripartio.github.io/ale/articles/customize-plots.html).
 * Added two articles with examples of applying ALE: [“Analyzing a Large Corn Yield Dataset with ALE-Based Inference”](https://tripartio.github.io/ale/articles/ale-acdc-corn.html) and [“Analyzing a Small Rice Yield Dataset with ALE-Based Inference”](https://tripartio.github.io/ale/articles/ale-gomez-rice.html).
+* To minimize the size of the CRAN package, all vignettes except for `vignette('ale-intro')` have been removed from the CRAN package and are now available only on the development website at [https://tripartio.github.io/ale/articles/](https://tripartio.github.io/ale/articles/).
 * Replaced GAM examples in README to random forests. Converted the README file from RMarkdown to Quarto.
 * Converted all RMarkdown vignettes and articles to Quarto.
 * Updated package logo.
@@ -55,11 +57,11 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 We now use OpenAI Codex to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
 
 
-# ale (0.5.3)
+# ale 0.5.3
 
 ## New features
 
-* `retrieve_rds()` is a documentation utility function to either retrieve a serialized RDS file from a URL or else run a code block if the URL retrieval fails. It is used in vignettes and other documentation to create or retrieve large objects that are too slow to be created on the spot.
+* `retrieve_rds()` is a documentation utility function to either retrieve a serialized RDS file from a URL or else run a code block if the URL retrieval fails. It is used in vignettes, examples and other documentation to create or retrieve large objects that are too slow to be created on the spot.
 
 # ale 0.5.2
 
