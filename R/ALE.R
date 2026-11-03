@@ -30,11 +30,10 @@
 #' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
 #' @param aled_fun character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. `"mad"` is the mean absolute deviation; `"sd"` is the standard deviation. The default `NULL` will normally use `"mad"` except if an `ALEpDist` object is provided for `p_values`; in that case, the `aled_fun` is taken from the `ALEpDist` object.
 #' @param max_num_bins named list. Sets the maximum number of numeric ALE intervals:
-#'   * `d1`: default maximum for 1D main effect variables (default `1000L`).
-#'   * `d2`: default maximum per numeric variable for 2D interactions (default `10L`).
+#'   * `d1`: default maximum for 1D main effect variables.
+#'   * `d2`: default maximum per numeric variable for 2D interactions.
 #'
-#'   Both `d1` and `d2` are mandatory, non-`NULL`, finite natural numbers
-#'   validated using `is_scalar_natural()` (strictly positive whole numbers).
+#'   Both `d1` and `d2` are mandatory, non-`NULL`, finite natural numbers.
 #'   Optional `except` is a named integer vector of strictly positive per-column
 #'   limits that override both dimension defaults. Unknown column names trigger an error.
 #'   For example, `max_num_bins = list(d1 = 1000, d2 = 10, except = c(wt = 25, carb = 4))`.
@@ -42,8 +41,7 @@
 #'
 #'   When `n` intervals are requested, there are at most `n+1` bins, limited by the
 #'   number of unique values, with the lowest bin dedicated to the minimum value.
-#'   Higher limits can be slower, especially for interactions. Non-numeric
-#'   `x_cols` (binary/ordinal/categorical) always use all observed levels.
+#'   Higher limits can be slower for interactions. Non-numeric `x_cols` (binary/ordinal/categorical) always use all observed levels.
 #' @param fct_order character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 #' * `"levels"` (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
 #' * `"y_col"`: Sort based on the increasing mean values of the predictions of `y_col` for each factor level.

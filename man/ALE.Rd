@@ -69,12 +69,11 @@ ALE(
 
 \item{max_num_bins}{named list. Sets the maximum number of numeric ALE intervals:
 \itemize{
-\item \code{d1}: default maximum for 1D main effect variables (default \code{1000L}).
-\item \code{d2}: default maximum per numeric variable for 2D interactions (default \code{10L}).
+\item \code{d1}: default maximum for 1D main effect variables.
+\item \code{d2}: default maximum per numeric variable for 2D interactions.
 }
 
-Both \code{d1} and \code{d2} are mandatory, non-\code{NULL}, finite natural numbers
-validated using \code{is_scalar_natural()} (strictly positive whole numbers).
+Both \code{d1} and \code{d2} are mandatory, non-\code{NULL}, finite natural numbers.
 Optional \code{except} is a named integer vector of strictly positive per-column
 limits that override both dimension defaults. Unknown column names trigger an error.
 For example, \code{max_num_bins = list(d1 = 1000, d2 = 10, except = c(wt = 25, carb = 4))}.
@@ -82,8 +81,7 @@ Scalar inputs and the former \code{default} element are not supported.
 
 When \code{n} intervals are requested, there are at most \code{n+1} bins, limited by the
 number of unique values, with the lowest bin dedicated to the minimum value.
-Higher limits can be slower, especially for interactions. Non-numeric
-\code{x_cols} (binary/ordinal/categorical) always use all observed levels.}
+Higher limits can be slower for interactions. Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.}
 
 \item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{
