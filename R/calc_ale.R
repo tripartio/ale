@@ -20,7 +20,7 @@
 #' @param y_cats character. The categories of y. For most cases with non-categorical y, `y_cats == y_col`.
 #' @param pred_fun See documentation for [ALE()]
 #' @param pred_type See documentation for [ALE()]
-#' @param max_num_bins See documentation for [ALE()]
+#' @param max_num_bins Named numeric vector of resolved bin limits, one per `x_cols` variable.
 #' @param fct_order See documentation for [ALE()]
 #' @param boot_it See documentation for [ALE()]
 #' @param seed See documentation for [ALE()]
@@ -1115,7 +1115,7 @@ calc_ale <- function(
 #' @param x_type character(1). var_type() of x_col.
 #' @param x_vals vector. The values of x_col.
 #' @param bins,n  See documentation for \code{[calc_ale()]}
-#' @param max_num_bins See documentation for [ALE()]
+#' @param max_num_bins Scalar numeric bin limit resolved for this variable and ALE dimension.
 #' @param fct_order See documentation for [ALE()]
 #' @param X  See documentation for \code{[calc_ale()]}. Used only for categorical x_col.
 #'

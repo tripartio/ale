@@ -62,6 +62,8 @@ test_that('constant interaction components preserve grids and counts', {
       ), constant)
       baseline <- ALE(
         test_gam_binary, data = constant_cars, x_cols = varying,
+        # Match the 2D limit when using a 1D effect as a grid/count reference.
+        max_num_bins = list(d1 = 10L, d2 = 10L),
         p_values = NULL, silent = TRUE
       )
       summary <- result@effect$vs$ale$d2[['carb:wt']]

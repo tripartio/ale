@@ -18,7 +18,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 * The widths of 1D ALE plots for non-numerical variables are now proportional to the frequency of the data. We find these proportional widths more intuitive than the text annotations that previously indicated the percentages, which have now been removed. The minimum width can be controlled with the `min_col_widths` argument of `plot.ALE()`. 
 * For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the `consolid_cats` argument of `plot.ALE()`). The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. 
 * With the default value `"levels"` of the `fct_order` argument to the `ALE()` constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative `"y_col"` sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The `"ksd"` option allows compatibility with the original `ALEPlot` reference implementation.
-* The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with a default for columns not named. For details, see documentation for `ALE()`.
+* The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with dimension-specific defaults for columns not named. For details, see documentation for `ALE()`.
 * Parallelization can be controlled with a global option `ale.parallel`. For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
 * The `{ranger}` package is automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages: `pred_fun` remains the general way to customize predict functions for packages that don't work out of the box.
 * ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER max – NALER min) directly, not just the _max and _min versions, which are retained.
@@ -38,6 +38,8 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 * Handle missing 1D ALE bins during model bootstrapping (#19).
 
 ## Changed functionality
+
+* `max_num_bins` now requires a named list containing both `d1` (default `1000L` for 1D main effects) and `d2` (default `10L` per numeric variable for 2D interactions). Optional per-column `except` overrides apply to both dimensions. Scalar inputs and the former `default` list element are no longer supported.
 
 * The `require_same_p` argument of `ALE()` has been renamed to `require_p_model_match` without a compatibility alias. Setting it to `FALSE` disables all p-value compatibility checks.
 * `max_num_bins` now creates `n+1` bins instead of exactly the specified `n` bins. The bottom bin is reserved for the minimum value in the data. This is a reversion to the original behaviour of the reference {ALEPlot} package.

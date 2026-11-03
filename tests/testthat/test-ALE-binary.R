@@ -65,7 +65,7 @@ test_that(
       # test p-values with ALEpDist
       p_values = NULL,
       # aler_alpha = c(0.01, 0.05),
-      max_num_bins = 12,
+      max_num_bins = list(d1 = 12L, d2 = 12L),
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,

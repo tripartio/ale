@@ -37,6 +37,53 @@ validate_data <- function(
 }
 
 
+# Validate the numeric-bin configuration without model or prediction setup.
+validate_max_num_bins <- function(max_num_bins, col_names) {
+  validate(
+    is.list(max_num_bins) && rlang::is_named(max_num_bins) &&
+      !anyDuplicated(names(max_num_bins)),
+    msg = '{.arg max_num_bins} must be a named list with unique names containing both {.val d1} and {.val d2}.'
+  )
+  validate(
+    !('default' %in% names(max_num_bins)),
+    msg = 'The {.val default} element of {.arg max_num_bins} is no longer supported; specify both {.val d1} and {.val d2}.'
+  )
+  validate(
+    all(names(max_num_bins) %in% c('d1', 'd2', 'except')),
+    msg = '{.arg max_num_bins} may contain only {.val d1}, {.val d2}, and {.val except}.'
+  )
+  validate(
+    all(c('d1', 'd2') %in% names(max_num_bins)),
+    msg = '{.arg max_num_bins} must contain both {.val d1} and {.val d2}.'
+  )
+  validate(
+    isTRUE(is_scalar_natural(max_num_bins[['d1']])) && is.finite(max_num_bins[['d1']]),
+    msg = '{.arg max_num_bins$d1} must be a non-NULL, finite natural number (a strictly positive whole number).'
+  )
+  validate(
+    isTRUE(is_scalar_natural(max_num_bins[['d2']])) && is.finite(max_num_bins[['d2']]),
+    msg = '{.arg max_num_bins$d2} must be a non-NULL, finite natural number (a strictly positive whole number).'
+  )
+  if (!is.null(max_num_bins$except)) {
+    validate(
+      isTRUE(rlang::is_integerish(max_num_bins$except) &&
+        all(is.finite(max_num_bins$except) & max_num_bins$except > 0)) &&
+        rlang::is_named(max_num_bins$except) && !anyDuplicated(names(max_num_bins$except)),
+      msg = '{.arg max_num_bins$except} must be a named integer vector of strictly positive per-column limits with unique names.'
+    )
+
+    invalid_max_num_bins_col_names <- max_num_bins$except |>
+      names() |>
+      setdiff(col_names)
+    if (length(invalid_max_num_bins_col_names) > 0) {
+      # Fail early even for typos
+      cli_abort('The following columns listed in {.arg max_num_bins$except} were not found in the {.arg data}: {invalid_max_num_bins_col_names}')
+    }
+  }
+  invisible(TRUE)
+}
+
+
 # Check p-value distributions against their original inputs, including surrogates.
 validate_p_model_match <- function(p_values, model, y_col, pred_type) {
   pp <- p_values@params
