@@ -29,7 +29,6 @@ jobs:
           needs: build, check, website
           # Extra packages include things referenced in skills, to make sure the
           # agent has them available.
-          optional-packages: any::astgrepr
           extra-packages: >-
             any::cli
             any::covr
@@ -41,7 +40,6 @@ jobs:
             any::rcmdcheck
             any::rlang
             any::roxygen2
-            any::stbl
             any::testthat
             any::usethis
             any::withr

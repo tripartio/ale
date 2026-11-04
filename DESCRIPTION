@@ -12,7 +12,6 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Suggests: 
     agridat,
-    astgrepr,
     cluster,
     future,
     gbm,
@@ -48,7 +47,6 @@ Imports:
     S7,
     staccuracy,
     stats,
-    stbl (>= 0.3.0.9000),
     stringr,
     tidyr,
     univariateML,
