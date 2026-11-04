@@ -88,7 +88,7 @@ testthat::test_that('terminal returns change at a body span of 50 lines (#noissu
     '  function() return(x)',
     '}'
   )
-  testthat::expect_length(lintr::lint(text = nested, linters = linter), 1L)
+  testthat::expect_length(lintr::lint(text = nested, linters = linter), 2L)
 })
 
 testthat::test_that('parameter declarations require compact type prefixes (#noissue)', {

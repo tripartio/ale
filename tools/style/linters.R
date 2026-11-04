@@ -57,7 +57,7 @@ ale_terminal_return_linter <- function(min_lines = 50L) {
         1L
       it.tail_call <- xml2::xml_text(xml2::xml_find_first(
         it.tail,
-        './expr[1]/SYMBOL_FUNCTION_CALL | ./expr[1]/expr[1]/SYMBOL_FUNCTION_CALL'
+        './expr[1]/SYMBOL_FUNCTION_CALL | ./expr[1]/expr[1][SYMBOL_PACKAGE]/SYMBOL_FUNCTION_CALL'
       ))
       if (
         it.span >= min_lines &&
