@@ -1078,7 +1078,7 @@
       $vs$eff[[4]]
         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
       1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
-      2 0 NALED 30.6% 2     1     2       0       0  black           3     0   0.5
+      2 0 NALED 20.1% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
       2    -1    NA        1        1.2
@@ -1213,7 +1213,7 @@
       10 wt        aler_min      0        0      0      0         0   
       11 wt        aler          0        0      0      0         0   
       12 wt        aler_max      0        0      0      0         0   
-      13 wt        naled        35.6     35.6   35.6   35.6      35.6 
+      13 wt        naled        35.5     35.5   35.5   35.5      35.5 
       14 wt        naler_min   -50      -50    -50    -50       -50   
       15 wt        naler        56.2     56.2   56.2   56.2      56.2 
       16 wt        naler_max     6.25     6.25   6.25   6.25      6.25
@@ -1581,13 +1581,13 @@
        6 continent naler_min     0       1        0      0      0         0   
        7 continent naler         0       1        0      0      0         0   
        8 continent naler_max     0       1        0      0      0         0   
-       9 wt        aled          0       0.41     0      0      0         0   
-      10 wt        aler_min      0       0.41     0      0      0         0   
-      11 wt        aler          0       0.41     0      0      0         0   
-      12 wt        aler_max      0       0.41     0      0      0         0   
-      13 wt        naled        30.6     0.11    25.4   30.6   30.6      35.8 
+       9 wt        aled          0       0.05     0      0      0         0   
+      10 wt        aler_min      0       0.05     0      0      0         0   
+      11 wt        aler          0       0.05     0      0      0         0   
+      12 wt        aler_max      0       0.05     0      0      0         0   
+      13 wt        naled        20.1     1       15.1   20.1   20.1      25.2 
       14 wt        naler_min   -49.2     1      -50.0  -49.2  -49.2     -48.5 
-      15 wt        naler        55.5     1       53.2   55.5   55.5      57.7 
+      15 wt        naler        56.8     0       55.9   56.8   56.8      57.8 
       16 wt        naler_max     7.58    0        7.36   7.58   7.58      7.80
       
       $ale$boot$effect$vs$stats$d2

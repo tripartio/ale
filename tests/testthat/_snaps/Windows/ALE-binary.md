@@ -10661,8 +10661,8 @@
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
       1 NA NALED  0.0% 1     1     1       0       0  black           3     0   0.5
       2 NA NALED  0.0% 2     1     2       0       0  black           3     0   0.5
-      3 NA NALED 13.5% 3     1     3       0       0  black           3     0   0.5
-      4 NA NALED 41.3% 4     1     4       0       0  black           3     0   0.5
+      3 NA NALED 13.3% 3     1     3       0       0  black           3     0   0.5
+      4 NA NALED 41.1% 4     1     4       0       0  black           3     0   0.5
       5 NA NALED 41.1% 5     1     5       0       0  black           3     0   0.5
       6 NA NALED 33.6% 6     1     6       0       0  black           3     0   0.5
       7 NA NALED 32.2% 7     1     7       0       0  black           3     0   0.5
