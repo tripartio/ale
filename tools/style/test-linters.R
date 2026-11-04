@@ -56,6 +56,19 @@ testthat::test_that('terminal returns change at a body span of 50 lines (#noissu
       as.integer(i.span < 50L)
     )
   }
+  for (it.call in c(
+    'base::stop("bad input")',
+    'rlang::abort("bad input")',
+    'cli::cli_abort("bad input")'
+  )) {
+    it.lines <- c(
+      'f <- function() {',
+      rep('  # Calculation phase.', 47L),
+      paste0('  ', it.call),
+      '}'
+    )
+    testthat::expect_length(lintr::lint(text = it.lines, linters = linter), 0L)
+  }
   testthat::expect_length(
     lintr::lint(
       text = c(
@@ -75,7 +88,7 @@ testthat::test_that('terminal returns change at a body span of 50 lines (#noissu
     '  function() return(x)',
     '}'
   )
-  testthat::expect_length(lintr::lint(text = nested, linters = linter), 2L)
+  testthat::expect_length(lintr::lint(text = nested, linters = linter), 1L)
 })
 
 testthat::test_that('parameter declarations require compact type prefixes (#noissue)', {
