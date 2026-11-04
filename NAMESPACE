@@ -39,7 +39,6 @@ importFrom(purrr,
 )
 importFrom(rlang,
   '%||%',
-  ':=',
   .data,
   is_bool,
   is_string,

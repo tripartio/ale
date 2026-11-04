@@ -19,17 +19,19 @@ customize(
 \arguments{
 \item{plots_obj}{ALEPlots object to customize.}
 
-\item{x_cols, exclude_cols}{See the \link[=get-ALE-method]{get() method for ALE objects}.}
+\item{x_cols}{character, list, or formula. Select 1D plots, 2D plots, or both, using the formats described in \code{\link[=resolve_x_cols]{resolve_x_cols()}}. If \code{NULL}, all available plots are selected when the object contains only one dimension. When both 1D and 2D plots exist, \code{x_cols} must be specified explicitly; it may select either dimension or both.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
+
+\item{exclude_cols}{See the \link[=get-ALE-method]{get() method for ALE objects}.}
 
 \item{type}{See the \link[=get-ALEPlots-method]{get() method for ALEPlots objects}.}
 
 \item{cats}{See the \link[=get-ALEPlots-method]{get() method for ALEPlots objects}.}
 
-\item{layers}{List of \code{ggplot} layers. These are appended to each plot indicated by the combination of \code{x_cols}, \code{type}, and \code{cats} by applying the \code{ggplot2} \code{+} operator to them.}
+\item{layers}{List of \code{ggplot} layers. These are appended to each plot indicated by the combination of \code{x_cols}, \code{type}, and \code{cats} by applying the \code{ggplot2} \code{+} operator to them. The additions must be appropriate for every selected plot. Shared themes can be applied across 1D and 2D plots, whereas the appropriateness of scales, coordinates, and geometries may depend on each plot's axes, mappings, or data.}
 
-\item{zoom_x, zoom_y}{numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default \code{NULL} does not zoom.}
+\item{zoom_x, zoom_y}{numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default \code{NULL} preserves the existing limits for that axis, including limits set by earlier calls to \code{customize()} or by \code{layers}.}
 }
 \value{
 An \code{ALEPlots} object where elements specified by x_cols and exclude_cols are modified accordingly. Non-specified elements are not modified.
@@ -41,4 +43,9 @@ The most flexible option is to specify a list of \code{ggplot} layers with the \
 
 See the \link[=get-ALE-method]{get() method for ALE objects} for shared argument
 conventions.
+}
+\examples{
+# See the article https://tripartio.github.io/ale/articles/customize-plots.html
+
+
 }

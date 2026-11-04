@@ -38,17 +38,67 @@
       
       $mpg$d1$wt
              ymin     ymax       x        y PANEL group flipped_aes colour   fill
-      1   0.95469  0.95469 1.49828  0.95469     1    -1       FALSE     NA grey85
-      2   8.77412  8.77412 1.92599  8.77412     1    -1       FALSE     NA grey85
-      3  14.05877 14.05877 2.31407 14.05877     1    -1       FALSE     NA grey85
-      4  18.10875 18.10875 2.77900 18.10875     1    -1       FALSE     NA grey85
-      5  20.93725 20.93725 3.16013 20.93725     1    -1       FALSE     NA grey85
-      6  21.35847 21.35847 3.21968 21.35847     1    -1       FALSE     NA grey85
-      7  22.73209 22.73209 3.44000 22.73209     1    -1       FALSE     NA grey85
-      8  23.29237 23.29237 3.55860 23.29237     1    -1       FALSE     NA grey85
-      9  24.27978 24.27978 3.79414 24.27978     1    -1       FALSE     NA grey85
-      10 25.55949 25.55949 4.07000 25.55949     1    -1       FALSE     NA grey85
-      11 28.18333 28.18333 5.45327 28.18333     1    -1       FALSE     NA grey85
+      1   0.94353  0.94353 1.49828  0.94353     1    -1       FALSE     NA grey85
+      2   1.22631  1.22631 1.51300  1.22631     1    -1       FALSE     NA grey85
+      3   3.17877  3.17877 1.61500  3.17877     1    -1       FALSE     NA grey85
+      4   3.48072  3.48072 1.63089  3.48072     1    -1       FALSE     NA grey85
+      5   7.14767  7.14767 1.83060  7.14767     1    -1       FALSE     NA grey85
+      6   7.22461  7.22461 1.83500  7.22461     1    -1       FALSE     NA grey85
+      7   8.76297  8.76297 1.92599  8.76297     1    -1       FALSE     NA grey85
+      8   8.90956  8.90956 1.93500  8.90956     1    -1       FALSE     NA grey85
+      9  11.87718 11.87718 2.13513 11.87718     1    -1       FALSE     NA grey85
+      10 11.94235 11.94235 2.14000 11.94235     1    -1       FALSE     NA grey85
+      11 12.71631 12.71631 2.20000 12.71631     1    -1       FALSE     NA grey85
+      12 12.83502 12.83502 2.20958 12.83502     1    -1       FALSE     NA grey85
+      13 14.04762 14.04762 2.31407 14.04762     1    -1       FALSE     NA grey85
+      14 14.11209 14.11209 2.32000 14.11209     1    -1       FALSE     NA grey85
+      15 15.55686 15.55686 2.46500 15.55686     1    -1       FALSE     NA grey85
+      16 15.68141 15.68141 2.47868 15.68141     1    -1       FALSE     NA grey85
+      17 16.87707 16.87707 2.62000 16.87707     1    -1       FALSE     NA grey85
+      18 17.04179 17.04179 2.64079 17.04179     1    -1       FALSE     NA grey85
+      19 18.03000 18.03000 2.77000 18.03000     1    -1       FALSE     NA grey85
+      20 18.09759 18.09759 2.77900 18.09759     1    -1       FALSE     NA grey85
+      21 18.10507 18.10507 2.78000 18.10507     1    -1       FALSE     NA grey85
+      22 18.18369 18.18369 2.79048 18.18369     1    -1       FALSE     NA grey85
+      23 18.71596 18.71596 2.86152 18.71596     1    -1       FALSE     NA grey85
+      24 18.81702 18.81702 2.87500 18.81702     1    -1       FALSE     NA grey85
+      25 20.85337 20.85337 3.15000 20.85337     1    -1       FALSE     NA grey85
+      26 20.92609 20.92609 3.16013 20.92609     1    -1       FALSE     NA grey85
+      27 20.94338 20.94338 3.16254 20.94338     1    -1       FALSE     NA grey85
+      28 20.99669 20.99669 3.17000 20.99669     1    -1       FALSE     NA grey85
+      29 21.13886 21.13886 3.19000 21.13886     1    -1       FALSE     NA grey85
+      30 21.31465 21.31465 3.21500 21.31465     1    -1       FALSE     NA grey85
+      31 21.33816 21.33816 3.21837 21.33816     1    -1       FALSE     NA grey85
+      32 21.34731 21.34731 3.21968 21.34731     1    -1       FALSE     NA grey85
+      33 22.55758 22.55758 3.40985 22.55758     1    -1       FALSE     NA grey85
+      34 22.58739 22.58739 3.41522 22.58739     1    -1       FALSE     NA grey85
+      35 22.69451 22.69451 3.43500 22.69451     1    -1       FALSE     NA grey85
+      36 22.71755 22.71755 3.43936 22.71755     1    -1       FALSE     NA grey85
+      37 22.72093 22.72093 3.44000 22.72093     1    -1       FALSE     NA grey85
+      38 22.76724 22.76724 3.44888 22.76724     1    -1       FALSE     NA grey85
+      39 22.82404 22.82404 3.46000 22.82404     1    -1       FALSE     NA grey85
+      40 22.86456 22.86456 3.46808 22.86456     1    -1       FALSE     NA grey85
+      41 23.11083 23.11083 3.52000 23.11083     1    -1       FALSE     NA grey85
+      42 23.24662 23.24662 3.55060 23.24662     1    -1       FALSE     NA grey85
+      43 23.28121 23.28121 3.55860 23.28121     1    -1       FALSE     NA grey85
+      44 23.32997 23.32997 3.57000 23.32997     1    -1       FALSE     NA grey85
+      45 23.44937 23.44937 3.59845 23.44937     1    -1       FALSE     NA grey85
+      46 23.88961 23.88961 3.70587 23.88961     1    -1       FALSE     NA grey85
+      47 23.99038 23.99038 3.73000 23.99038     1    -1       FALSE     NA grey85
+      48 24.20581 24.20581 3.78000 24.20581     1    -1       FALSE     NA grey85
+      49 24.26863 24.26863 3.79414 24.26863     1    -1       FALSE     NA grey85
+      50 24.36843 24.36843 3.81621 24.36843     1    -1       FALSE     NA grey85
+      51 24.47833 24.47833 3.84000 24.47833     1    -1       FALSE     NA grey85
+      52 24.50170 24.50170 3.84500 24.50170     1    -1       FALSE     NA grey85
+      53 24.53291 24.53291 3.85165 24.53291     1    -1       FALSE     NA grey85
+      54 25.44595 25.44595 4.04607 25.44595     1    -1       FALSE     NA grey85
+      55 25.54834 25.54834 4.07000 25.54834     1    -1       FALSE     NA grey85
+      56 27.77320 27.77320 5.23783 27.77320     1    -1       FALSE     NA grey85
+      57 27.79319 27.79319 5.25000 27.79319     1    -1       FALSE     NA grey85
+      58 27.96179 27.96179 5.34475 27.96179     1    -1       FALSE     NA grey85
+      59 27.96225 27.96225 5.34500 27.96225     1    -1       FALSE     NA grey85
+      60 28.11469 28.11469 5.42400 28.11469     1    -1       FALSE     NA grey85
+      61 28.17217 28.17217 5.45327 28.17217     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -61,6 +111,56 @@
       9        0.5        1   0.5
       10       0.5        1   0.5
       11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
+      23       0.5        1   0.5
+      24       0.5        1   0.5
+      25       0.5        1   0.5
+      26       0.5        1   0.5
+      27       0.5        1   0.5
+      28       0.5        1   0.5
+      29       0.5        1   0.5
+      30       0.5        1   0.5
+      31       0.5        1   0.5
+      32       0.5        1   0.5
+      33       0.5        1   0.5
+      34       0.5        1   0.5
+      35       0.5        1   0.5
+      36       0.5        1   0.5
+      37       0.5        1   0.5
+      38       0.5        1   0.5
+      39       0.5        1   0.5
+      40       0.5        1   0.5
+      41       0.5        1   0.5
+      42       0.5        1   0.5
+      43       0.5        1   0.5
+      44       0.5        1   0.5
+      45       0.5        1   0.5
+      46       0.5        1   0.5
+      47       0.5        1   0.5
+      48       0.5        1   0.5
+      49       0.5        1   0.5
+      50       0.5        1   0.5
+      51       0.5        1   0.5
+      52       0.5        1   0.5
+      53       0.5        1   0.5
+      54       0.5        1   0.5
+      55       0.5        1   0.5
+      56       0.5        1   0.5
+      57       0.5        1   0.5
+      58       0.5        1   0.5
+      59       0.5        1   0.5
+      60       0.5        1   0.5
+      61       0.5        1   0.5
       
       
       $mpg$d2
@@ -167,7 +267,7 @@
       
       $mpg$eff[[2]]
             xmin     xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1  0.95469 28.18333 1     1     1        TRUE 0.875 1.125  black       0.5
+      1  0.94353 28.17217 1     1     1        TRUE 0.875 1.125  black       0.5
       2 13.91157 26.92924 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
@@ -180,7 +280,7 @@
       
       $mpg$eff[[4]]
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 27.9% 1     1     1       0       0  black           3     0   0.5
+      1 NA NALED 28.5% 1     1     1       0       0  black           3     0   0.5
       2 NA NALED 38.4% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
@@ -204,7 +304,7 @@
       
       $mpg$eff[[7]]
          x     label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA ALED 5.28 1     1     1       0       0  black           3     0   0.5
+      1 NA ALED 5.50 1     1     1       0       0  black           3     0   0.5
       2 NA ALED 6.28 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1     2    NA        1        1.2
@@ -258,20 +358,20 @@
       2 TRUE      26  7.73  7.73    7.73      7.73  7.73
       
       $ale$single$effect$mpg$ale$d1$wt
-      # A tibble: 11 x 7
+      # A tibble: 61 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1    1.50     1 -18.2  -18.2   -18.2     -18.2  -18.2 
-       2    1.93     6 -10.4  -10.4   -10.4     -10.4  -10.4 
-       3    2.31     6  -5.14  -5.14   -5.14     -5.14  -5.14
-       4    2.78     7  -1.09  -1.09   -1.09     -1.09  -1.09
-       5    3.16     6   1.74   1.74    1.74      1.74   1.74
-       6    3.22     6   2.16   2.16    2.16      2.16   2.16
-       7    3.44     7   3.53   3.53    3.53      3.53   3.53
-       8    3.56     6   4.09   4.09    4.09      4.09   4.09
-       9    3.79     7   5.08   5.08    5.08      5.08   5.08
-      10    4.07     6   6.36   6.36    6.36      6.36   6.36
-      11    5.45     6   8.98   8.98    8.98      8.98   8.98
+       1    1.50     1 -18.3  -18.3   -18.3     -18.3  -18.3 
+       2    1.51     1 -18.0  -18.0   -18.0     -18.0  -18.0 
+       3    1.62     1 -16.0  -16.0   -16.0     -16.0  -16.0 
+       4    1.63     1 -15.7  -15.7   -15.7     -15.7  -15.7 
+       5    1.83     1 -12.1  -12.1   -12.1     -12.1  -12.1 
+       6    1.84     1 -12.0  -12.0   -12.0     -12.0  -12.0 
+       7    1.93     1 -10.4  -10.4   -10.4     -10.4  -10.4 
+       8    1.94     1 -10.3  -10.3   -10.3     -10.3  -10.3 
+       9    2.14     1  -7.32  -7.32   -7.32     -7.32  -7.32
+      10    2.14     1  -7.26  -7.26   -7.26     -7.26  -7.26
+      # i 51 more rows
       
       
       $ale$single$effect$mpg$ale$d2
@@ -310,11 +410,11 @@
        6 am    naler_min   -40.9    -40.9  -40.9  -40.9     -40.9 
        7 am    naler        75.8     75.8   75.8   75.8      75.8 
        8 am    naler_max    34.8     34.8   34.8   34.8      34.8 
-       9 wt    aled          5.28     5.28   5.28   5.28      5.28
-      10 wt    aler_min    -18.2    -18.2  -18.2  -18.2     -18.2 
+       9 wt    aled          5.50     5.50   5.50   5.50      5.50
+      10 wt    aler_min    -18.3    -18.3  -18.3  -18.3     -18.3 
       11 wt    aler         27.2     27.2   27.2   27.2      27.2 
-      12 wt    aler_max      8.98     8.98   8.98   8.98      8.98
-      13 wt    naled        27.9     27.9   27.9   27.9      27.9 
+      12 wt    aler_max      8.97     8.97   8.97   8.97      8.97
+      13 wt    naled        28.5     28.5   28.5   28.5      28.5 
       14 wt    naler_min   -50      -50    -50    -50       -50   
       15 wt    naler        87.9     87.9   87.9   87.9      87.9 
       16 wt    naler_max    37.9     37.9   37.9   37.9      37.9 
@@ -504,7 +604,7 @@
       $ale$single$params$p_values
       NULL
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha
@@ -514,7 +614,12 @@
       [1] "mad"
       
       $ale$single$params$max_num_bins
+      $ale$single$params$max_num_bins$d1
+      [1] 1000
+      
+      $ale$single$params$max_num_bins$d2
       [1] 10
+      
       
       $ale$single$params$fct_order
       [1] "levels"
@@ -731,16 +836,66 @@
       $vs$d1$wt
                x y PANEL group xmin xmax ymin ymax colour      fill linewidth
       1  1.49828 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      2  1.92599 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      3  2.31407 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      4  2.77900 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      5  3.16013 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      6  3.21968 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      7  3.44000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      8  3.55860 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      9  3.79414 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      10 4.07000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
-      11 5.45327 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      2  1.51300 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      3  1.61500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      4  1.63089 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      5  1.83060 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      6  1.83500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      7  1.92599 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      8  1.93500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      9  2.13513 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      10 2.14000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      11 2.20000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      12 2.20958 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      13 2.31407 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      14 2.32000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      15 2.46500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      16 2.47868 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      17 2.62000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      18 2.64079 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      19 2.77000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      20 2.77900 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      21 2.78000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      22 2.79048 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      23 2.86152 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      24 2.87500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      25 3.15000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      26 3.16013 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      27 3.16254 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      28 3.17000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      29 3.19000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      30 3.21500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      31 3.21837 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      32 3.21968 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      33 3.40985 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      34 3.41522 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      35 3.43500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      36 3.43936 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      37 3.44000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      38 3.44888 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      39 3.46000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      40 3.46808 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      41 3.52000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      42 3.55060 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      43 3.55860 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      44 3.57000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      45 3.59845 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      46 3.70587 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      47 3.73000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      48 3.78000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      49 3.79414 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      50 3.81621 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      51 3.84000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      52 3.84500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      53 3.85165 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      54 4.04607 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      55 4.07000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      56 5.23783 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      57 5.25000 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      58 5.34475 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      59 5.34500 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      60 5.42400 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
+      61 5.45327 0     1    -1 -Inf  Inf    0    0     NA lightgrey       0.5
          linetype alpha
       1         1    NA
       2         1    NA
@@ -753,6 +908,56 @@
       9         1    NA
       10        1    NA
       11        1    NA
+      12        1    NA
+      13        1    NA
+      14        1    NA
+      15        1    NA
+      16        1    NA
+      17        1    NA
+      18        1    NA
+      19        1    NA
+      20        1    NA
+      21        1    NA
+      22        1    NA
+      23        1    NA
+      24        1    NA
+      25        1    NA
+      26        1    NA
+      27        1    NA
+      28        1    NA
+      29        1    NA
+      30        1    NA
+      31        1    NA
+      32        1    NA
+      33        1    NA
+      34        1    NA
+      35        1    NA
+      36        1    NA
+      37        1    NA
+      38        1    NA
+      39        1    NA
+      40        1    NA
+      41        1    NA
+      42        1    NA
+      43        1    NA
+      44        1    NA
+      45        1    NA
+      46        1    NA
+      47        1    NA
+      48        1    NA
+      49        1    NA
+      50        1    NA
+      51        1    NA
+      52        1    NA
+      53        1    NA
+      54        1    NA
+      55        1    NA
+      56        1    NA
+      57        1    NA
+      58        1    NA
+      59        1    NA
+      60        1    NA
+      61        1    NA
       
       
       $vs$d2
@@ -873,7 +1078,7 @@
       $vs$eff[[4]]
         x       label y PANEL group nudge_x nudge_y colour family size angle hjust
       1 0 NALED  0.0% 1     1     1       0       0  black           3     0   0.5
-      2 0 NALED 28.9% 2     1     2       0       0  black           3     0   0.5
+      2 0 NALED 30.6% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
       2    -1    NA        1        1.2
@@ -952,20 +1157,20 @@
       3 North America    24     0     0       0         0     0
       
       $ale$single$effect$vs$ale$d1$wt
-      # A tibble: 11 x 7
+      # A tibble: 61 x 7
          wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
        1    1.50     1     0     0       0         0     0
-       2    1.93     6     0     0       0         0     0
-       3    2.31     6     0     0       0         0     0
-       4    2.78     7     0     0       0         0     0
-       5    3.16     6     0     0       0         0     0
-       6    3.22     6     0     0       0         0     0
-       7    3.44     7     0     0       0         0     0
-       8    3.56     6     0     0       0         0     0
-       9    3.79     7     0     0       0         0     0
-      10    4.07     6     0     0       0         0     0
-      11    5.45     6     0     0       0         0     0
+       2    1.51     1     0     0       0         0     0
+       3    1.62     1     0     0       0         0     0
+       4    1.63     1     0     0       0         0     0
+       5    1.83     1     0     0       0         0     0
+       6    1.84     1     0     0       0         0     0
+       7    1.93     1     0     0       0         0     0
+       8    1.94     1     0     0       0         0     0
+       9    2.14     1     0     0       0         0     0
+      10    2.14     1     0     0       0         0     0
+      # i 51 more rows
       
       
       $ale$single$effect$vs$ale$d2
@@ -1008,7 +1213,7 @@
       10 wt        aler_min      0        0      0      0         0   
       11 wt        aler          0        0      0      0         0   
       12 wt        aler_max      0        0      0      0         0   
-      13 wt        naled        23.3     23.3   23.3   23.3      23.3 
+      13 wt        naled        35.6     35.6   35.6   35.6      35.6 
       14 wt        naler_min   -50      -50    -50    -50       -50   
       15 wt        naler        56.2     56.2   56.2   56.2      56.2 
       16 wt        naler_max     6.25     6.25   6.25   6.25      6.25
@@ -1253,6 +1458,9 @@
       $ale$single$params$p_values$params$positive
       [1] TRUE
       
+      $ale$single$params$p_values$params$pred_type
+      [1] "response"
+      
       $ale$single$params$p_values$params$aled_fun
       [1] "mad"
       
@@ -1267,7 +1475,7 @@
       
       
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha
@@ -1277,7 +1485,12 @@
       [1] "mad"
       
       $ale$single$params$max_num_bins
+      $ale$single$params$max_num_bins$d1
+      [1] 1000
+      
+      $ale$single$params$max_num_bins$d2
       [1] 10
+      
       
       $ale$single$params$fct_order
       [1] "levels"
@@ -1316,20 +1529,20 @@
       3 North America    24     0     0       0         0     0
       
       $ale$boot$effect$vs$ale$d1$wt
-      # A tibble: 11 x 7
+      # A tibble: 61 x 7
          wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
        1    1.50     1     0     0       0         0     0
-       2    1.93     6     0     0       0         0     0
-       3    2.31     6     0     0       0         0     0
-       4    2.78     7     0     0       0         0     0
-       5    3.16     6     0     0       0         0     0
-       6    3.22     6     0     0       0         0     0
-       7    3.44     7     0     0       0         0     0
-       8    3.56     6     0     0       0         0     0
-       9    3.79     7     0     0       0         0     0
-      10    4.07     6     0     0       0         0     0
-      11    5.45     6     0     0       0         0     0
+       2    1.51     1     0     0       0         0     0
+       3    1.62     1     0     0       0         0     0
+       4    1.63     1     0     0       0         0     0
+       5    1.83     1     0     0       0         0     0
+       6    1.84     1     0     0       0         0     0
+       7    1.93     1     0     0       0         0     0
+       8    1.94     1     0     0       0         0     0
+       9    2.14     1     0     0       0         0     0
+      10    2.14     1     0     0       0         0     0
+      # i 51 more rows
       
       
       $ale$boot$effect$vs$ale$d2
@@ -1368,13 +1581,13 @@
        6 continent naler_min     0       1        0      0      0         0   
        7 continent naler         0       1        0      0      0         0   
        8 continent naler_max     0       1        0      0      0         0   
-       9 wt        aled          0       0.69     0      0      0         0   
-      10 wt        aler_min      0       0.5      0      0      0         0   
-      11 wt        aler          0       0.51     0      0      0         0   
-      12 wt        aler_max      0       0.53     0      0      0         0   
-      13 wt        naled        28.9     0.06    27.0   28.9   28.9      30.7 
-      14 wt        naler_min   -50       1      -50    -50    -50       -50   
-      15 wt        naler        56.9     0       54.8   56.9   56.9      59.0 
+       9 wt        aled          0       0.41     0      0      0         0   
+      10 wt        aler_min      0       0.41     0      0      0         0   
+      11 wt        aler          0       0.41     0      0      0         0   
+      12 wt        aler_max      0       0.41     0      0      0         0   
+      13 wt        naled        30.6     0.11    25.4   30.6   30.6      35.8 
+      14 wt        naler_min   -49.2     1      -50.0  -49.2  -49.2     -48.5 
+      15 wt        naler        55.5     1       53.2   55.5   55.5      57.7 
       16 wt        naler_max     6.89    0        4.80   6.89   6.89      8.98
       
       $ale$boot$effect$vs$stats$d2
@@ -1616,6 +1829,9 @@
       $params$ale_p$params$positive
       [1] TRUE
       
+      $params$ale_p$params$pred_type
+      [1] "response"
+      
       $params$ale_p$params$aled_fun
       [1] "mad"
       
@@ -1677,35 +1893,36 @@
       $ale$single$effect$setosa$ale
       $ale$single$effect$setosa$ale$d1
       $ale$single$effect$setosa$ale$d1$Sepal.Length
-      # A tibble: 11 x 7
+      # A tibble: 35 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.0001  -0.0001  -0.0001   -0.0001  -0.0001 
-       2               4.8    15 -0.00003 -0.00003 -0.00003  -0.00003 -0.00003
-       3               5      16 -0.00003 -0.00003 -0.00003  -0.00003 -0.00003
-       4               5.3    14  0.00001  0.00001  0.00001   0.00001  0.00001
-       5               5.6    19  0.00001  0.00001  0.00001   0.00001  0.00001
-       6               5.8    15  0.00001  0.00001  0.00001   0.00001  0.00001
-       7               6.1    15  0.00002  0.00002  0.00002   0.00002  0.00002
-       8               6.3    13  0.00002  0.00002  0.00002   0.00002  0.00002
-       9               6.5    12  0.00002  0.00002  0.00002   0.00002  0.00002
-      10               6.9    17  0.00002  0.00002  0.00002   0.00002  0.00002
-      11               7.9    13  0.00002  0.00002  0.00002   0.00002  0.00002
+       1               4.3     1 -0.00019 -0.00019 -0.00019  -0.00019 -0.00019
+       2               4.4     3 -0.00019 -0.00019 -0.00019  -0.00019 -0.00019
+       3               4.5     1 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       4               4.6     4 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       5               4.7     2 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       6               4.8     5  0        0        0         0        0      
+       7               4.9     6  0        0        0         0        0      
+       8               5      10  0        0        0         0        0      
+       9               5.1     9  0.00001  0.00001  0.00001   0.00001  0.00001
+      10               5.2     4  0.00001  0.00001  0.00001   0.00001  0.00001
+      # i 25 more rows
       
       $ale$single$effect$setosa$ale$d1$Petal.Width
-      # A tibble: 10 x 7
+      # A tibble: 22 x 7
          Petal.Width.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
        1              0.1     5 -0.00002 -0.00002 -0.00002  -0.00002 -0.00002
        2              0.2    29 -0.00002 -0.00002 -0.00002  -0.00002 -0.00002
-       3              0.4    14 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
-       4              1.1    12  0.00001  0.00001  0.00001   0.00001  0.00001
-       5              1.3    18  0.00001  0.00001  0.00001   0.00001  0.00001
-       6              1.5    20  0.00001  0.00001  0.00001   0.00001  0.00001
-       7              1.8    18  0.00001  0.00001  0.00001   0.00001  0.00001
-       8              1.9     5  0.00001  0.00001  0.00001   0.00001  0.00001
-       9              2.2    15  0.00001  0.00001  0.00001   0.00001  0.00001
-      10              2.5    14  0.00001  0.00001  0.00001   0.00001  0.00001
+       3              0.3     7 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       4              0.4     7 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       5              0.5     1 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       6              0.6     1 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       7              1       7 -0.00001 -0.00001 -0.00001  -0.00001 -0.00001
+       8              1.1     3  0.00001  0.00001  0.00001   0.00001  0.00001
+       9              1.2     5  0.00001  0.00001  0.00001   0.00001  0.00001
+      10              1.3    13  0.00001  0.00001  0.00001   0.00001  0.00001
+      # i 12 more rows
       
       
       
@@ -1714,19 +1931,19 @@
       # A tibble: 16 x 7
          term         statistic  estimate  conf.low      mean    median conf.high
          <chr>        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 Sepal.Length aled        0.00002   0.00002   0.00002   0.00002   0.00002
-       2 Sepal.Length aler_min   -0.0001   -0.0001   -0.0001   -0.0001   -0.0001 
-       3 Sepal.Length aler        0.00012   0.00012   0.00012   0.00012   0.00012
-       4 Sepal.Length aler_max    0.00002   0.00002   0.00002   0.00002   0.00002
-       5 Sepal.Length naled      26.0      26.0      26.0      26.0      26.0    
+       1 Sepal.Length aled        0.00001   0.00001   0.00001   0.00001   0.00001
+       2 Sepal.Length aler_min   -0.00019  -0.00019  -0.00019  -0.00019  -0.00019
+       3 Sepal.Length aler        0.0002    0.0002    0.0002    0.0002    0.0002 
+       4 Sepal.Length aler_max    0.00001   0.00001   0.00001   0.00001   0.00001
+       5 Sepal.Length naled      22.5      22.5      22.5      22.5      22.5    
        6 Sepal.Length naler_min -50       -50       -50       -50       -50      
        7 Sepal.Length naler      65.3      65.3      65.3      65.3      65.3    
        8 Sepal.Length naler_max  15.3      15.3      15.3      15.3      15.3    
        9 Petal.Width  aled        0.00001   0.00001   0.00001   0.00001   0.00001
       10 Petal.Width  aler_min   -0.00002  -0.00002  -0.00002  -0.00002  -0.00002
-      11 Petal.Width  aler        0.00003   0.00003   0.00003   0.00003   0.00003
+      11 Petal.Width  aler        0.00004   0.00004   0.00004   0.00004   0.00004
       12 Petal.Width  aler_max    0.00001   0.00001   0.00001   0.00001   0.00001
-      13 Petal.Width  naled      25.7      25.7      25.7      25.7      25.7    
+      13 Petal.Width  naled      28.5      28.5      28.5      28.5      28.5    
       14 Petal.Width  naler_min -50       -50       -50       -50       -50      
       15 Petal.Width  naler      65.3      65.3      65.3      65.3      65.3    
       16 Petal.Width  naler_max  15.3      15.3      15.3      15.3      15.3    
@@ -1740,35 +1957,36 @@
       $ale$single$effect$versicolor$ale
       $ale$single$effect$versicolor$ale$d1
       $ale$single$effect$versicolor$ale$d1$Sepal.Length
-      # A tibble: 11 x 7
+      # A tibble: 35 x 7
          Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1               4.3     1 -0.0288 -0.0288 -0.0288   -0.0288 -0.0288
-       2               4.8    15 -0.0289 -0.0289 -0.0289   -0.0289 -0.0289
-       3               5      16 -0.0259 -0.0259 -0.0259   -0.0259 -0.0259
-       4               5.3    14 -0.0259 -0.0259 -0.0259   -0.0259 -0.0259
-       5               5.6    19 -0.0257 -0.0257 -0.0257   -0.0257 -0.0257
-       6               5.8    15 -0.0257 -0.0257 -0.0257   -0.0257 -0.0257
-       7               6.1    15  0.0133  0.0133  0.0133    0.0133  0.0133
-       8               6.3    13  0.0372  0.0372  0.0372    0.0372  0.0372
-       9               6.5    12  0.0378  0.0378  0.0378    0.0378  0.0378
-      10               6.9    17  0.0496  0.0496  0.0496    0.0496  0.0496
-      11               7.9    13  0.0597  0.0597  0.0597    0.0597  0.0597
+       1               4.3     1 -0.0317 -0.0317 -0.0317   -0.0317 -0.0317
+       2               4.4     3 -0.0317 -0.0317 -0.0317   -0.0317 -0.0317
+       3               4.5     1 -0.0319 -0.0319 -0.0319   -0.0319 -0.0319
+       4               4.6     4 -0.0319 -0.0319 -0.0319   -0.0319 -0.0319
+       5               4.7     2 -0.0319 -0.0319 -0.0319   -0.0319 -0.0319
+       6               4.8     5 -0.0319 -0.0319 -0.0319   -0.0319 -0.0319
+       7               4.9     6 -0.0283 -0.0283 -0.0283   -0.0283 -0.0283
+       8               5      10 -0.0283 -0.0283 -0.0283   -0.0283 -0.0283
+       9               5.1     9 -0.0283 -0.0283 -0.0283   -0.0283 -0.0283
+      10               5.2     4 -0.0283 -0.0283 -0.0283   -0.0283 -0.0283
+      # i 25 more rows
       
       $ale$single$effect$versicolor$ale$d1$Petal.Width
-      # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1              0.1     5  0.149   0.149   0.149     0.149   0.149 
-       2              0.2    29  0.149   0.149   0.149     0.149   0.149 
-       3              0.4    14  0.149   0.149   0.149     0.149   0.149 
-       4              1.1    12  0.149   0.149   0.149     0.149   0.149 
-       5              1.3    18  0.149   0.149   0.149     0.149   0.149 
-       6              1.5    20  0.0810  0.0810  0.0810    0.0810  0.0810
-       7              1.8    18 -0.336  -0.336  -0.336    -0.336  -0.336 
-       8              1.9     5 -0.338  -0.338  -0.338    -0.338  -0.338 
-       9              2.2    15 -0.343  -0.343  -0.343    -0.343  -0.343 
-      10              2.5    14 -0.343  -0.343  -0.343    -0.343  -0.343 
+      # A tibble: 22 x 7
+         Petal.Width.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+                    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1              0.1     5 0.198 0.198   0.198     0.198 0.198
+       2              0.2    29 0.198 0.198   0.198     0.198 0.198
+       3              0.3     7 0.198 0.198   0.198     0.198 0.198
+       4              0.4     7 0.198 0.198   0.198     0.198 0.198
+       5              0.5     1 0.198 0.198   0.198     0.198 0.198
+       6              0.6     1 0.198 0.198   0.198     0.198 0.198
+       7              1       7 0.198 0.198   0.198     0.198 0.198
+       8              1.1     3 0.198 0.198   0.198     0.198 0.198
+       9              1.2     5 0.198 0.198   0.198     0.198 0.198
+      10              1.3    13 0.198 0.198   0.198     0.198 0.198
+      # i 12 more rows
       
       
       
@@ -1777,22 +1995,22 @@
       # A tibble: 16 x 7
          term         statistic estimate conf.low     mean   median conf.high
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298
-       2 Sepal.Length aler_min   -0.0289  -0.0289  -0.0289  -0.0289   -0.0289
-       3 Sepal.Length aler        0.0886   0.0886   0.0886   0.0886    0.0886
-       4 Sepal.Length aler_max    0.0597   0.0597   0.0597   0.0597    0.0597
-       5 Sepal.Length naled      36.0     36.0     36.0     36.0      36.0   
+       1 Sepal.Length aled        0.0317   0.0317   0.0317   0.0317    0.0317
+       2 Sepal.Length aler_min   -0.0319  -0.0319  -0.0319  -0.0319   -0.0319
+       3 Sepal.Length aler        0.0816   0.0816   0.0816   0.0816    0.0816
+       4 Sepal.Length aler_max    0.0496   0.0496   0.0496   0.0496    0.0496
+       5 Sepal.Length naled      32.8     32.8     32.8     32.8      32.8   
        6 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       7 Sepal.Length naler      62.7     62.7     62.7     62.7      62.7   
-       8 Sepal.Length naler_max  12.7     12.7     12.7     12.7      12.7   
-       9 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185 
-      10 Petal.Width  aler_min   -0.343   -0.343   -0.343   -0.343    -0.343 
-      11 Petal.Width  aler        0.492    0.492    0.492    0.492     0.492 
-      12 Petal.Width  aler_max    0.149    0.149    0.149    0.149     0.149 
-      13 Petal.Width  naled      26.8     26.8     26.8     26.8      26.8   
+       7 Sepal.Length naler      62       62       62       62        62     
+       8 Sepal.Length naler_max  12       12       12       12        12     
+       9 Petal.Width  aled        0.254    0.254    0.254    0.254     0.254 
+      10 Petal.Width  aler_min   -0.434   -0.434   -0.434   -0.434    -0.434 
+      11 Petal.Width  aler        0.632    0.632    0.632    0.632     0.632 
+      12 Petal.Width  aler_max    0.198    0.198    0.198    0.198     0.198 
+      13 Petal.Width  naled      26.6     26.6     26.6     26.6      26.6   
       14 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      15 Petal.Width  naler      64.7     64.7     64.7     64.7      64.7   
-      16 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7   
+      15 Petal.Width  naler      66       66       66       66        66     
+      16 Petal.Width  naler_max  16       16       16       16        16     
       
       
       $ale$single$effect$versicolor$boot_data
@@ -1803,35 +2021,36 @@
       $ale$single$effect$virginica$ale
       $ale$single$effect$virginica$ale$d1
       $ale$single$effect$virginica$ale$d1$Sepal.Length
-      # A tibble: 11 x 7
-         Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1               4.3     1  0.0289  0.0289  0.0289    0.0289  0.0289
-       2               4.8    15  0.0289  0.0289  0.0289    0.0289  0.0289
-       3               5      16  0.0259  0.0259  0.0259    0.0259  0.0259
-       4               5.3    14  0.0259  0.0259  0.0259    0.0259  0.0259
-       5               5.6    19  0.0257  0.0257  0.0257    0.0257  0.0257
-       6               5.8    15  0.0257  0.0257  0.0257    0.0257  0.0257
-       7               6.1    15 -0.0134 -0.0134 -0.0134   -0.0134 -0.0134
-       8               6.3    13 -0.0372 -0.0372 -0.0372   -0.0372 -0.0372
-       9               6.5    12 -0.0379 -0.0379 -0.0379   -0.0379 -0.0379
-      10               6.9    17 -0.0496 -0.0496 -0.0496   -0.0496 -0.0496
-      11               7.9    13 -0.0597 -0.0597 -0.0597   -0.0597 -0.0597
+      # A tibble: 35 x 7
+         Sepal.Length.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
+                     <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1               4.3     1 0.0319 0.0319  0.0319    0.0319 0.0319
+       2               4.4     3 0.0319 0.0319  0.0319    0.0319 0.0319
+       3               4.5     1 0.0319 0.0319  0.0319    0.0319 0.0319
+       4               4.6     4 0.0319 0.0319  0.0319    0.0319 0.0319
+       5               4.7     2 0.0319 0.0319  0.0319    0.0319 0.0319
+       6               4.8     5 0.0319 0.0319  0.0319    0.0319 0.0319
+       7               4.9     6 0.0283 0.0283  0.0283    0.0283 0.0283
+       8               5      10 0.0283 0.0283  0.0283    0.0283 0.0283
+       9               5.1     9 0.0283 0.0283  0.0283    0.0283 0.0283
+      10               5.2     4 0.0283 0.0283  0.0283    0.0283 0.0283
+      # i 25 more rows
       
       $ale$single$effect$virginica$ale$d1$Petal.Width
-      # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1              0.1     5 -0.149  -0.149  -0.149    -0.149  -0.149 
-       2              0.2    29 -0.149  -0.149  -0.149    -0.149  -0.149 
-       3              0.4    14 -0.149  -0.149  -0.149    -0.149  -0.149 
-       4              1.1    12 -0.149  -0.149  -0.149    -0.149  -0.149 
-       5              1.3    18 -0.149  -0.149  -0.149    -0.149  -0.149 
-       6              1.5    20 -0.0811 -0.0811 -0.0811   -0.0811 -0.0811
-       7              1.8    18  0.336   0.336   0.336     0.336   0.336 
-       8              1.9     5  0.338   0.338   0.338     0.338   0.338 
-       9              2.2    15  0.343   0.343   0.343     0.343   0.343 
-      10              2.5    14  0.343   0.343   0.343     0.343   0.343 
+      # A tibble: 22 x 7
+         Petal.Width.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
+                    <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1              0.1     5 -0.198 -0.198  -0.198    -0.198 -0.198
+       2              0.2    29 -0.198 -0.198  -0.198    -0.198 -0.198
+       3              0.3     7 -0.198 -0.198  -0.198    -0.198 -0.198
+       4              0.4     7 -0.198 -0.198  -0.198    -0.198 -0.198
+       5              0.5     1 -0.198 -0.198  -0.198    -0.198 -0.198
+       6              0.6     1 -0.198 -0.198  -0.198    -0.198 -0.198
+       7              1       7 -0.198 -0.198  -0.198    -0.198 -0.198
+       8              1.1     3 -0.198 -0.198  -0.198    -0.198 -0.198
+       9              1.2     5 -0.198 -0.198  -0.198    -0.198 -0.198
+      10              1.3    13 -0.198 -0.198  -0.198    -0.198 -0.198
+      # i 12 more rows
       
       
       
@@ -1840,22 +2059,22 @@
       # A tibble: 16 x 7
          term         statistic estimate conf.low     mean   median conf.high
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0298   0.0298   0.0298   0.0298    0.0298
-       2 Sepal.Length aler_min   -0.0597  -0.0597  -0.0597  -0.0597   -0.0597
-       3 Sepal.Length aler        0.0886   0.0886   0.0886   0.0886    0.0886
-       4 Sepal.Length aler_max    0.0289   0.0289   0.0289   0.0289    0.0289
-       5 Sepal.Length naled      26.8     26.8     26.8     26.8      26.8   
+       1 Sepal.Length aled        0.0317   0.0317   0.0317   0.0317    0.0317
+       2 Sepal.Length aler_min   -0.0496  -0.0496  -0.0496  -0.0496   -0.0496
+       3 Sepal.Length aler        0.0816   0.0816   0.0816   0.0816    0.0816
+       4 Sepal.Length aler_max    0.0319   0.0319   0.0319   0.0319    0.0319
+       5 Sepal.Length naled      29.7     29.7     29.7     29.7      29.7   
        6 Sepal.Length naler_min -50      -50      -50      -50       -50     
        7 Sepal.Length naler      63.3     63.3     63.3     63.3      63.3   
        8 Sepal.Length naler_max  13.3     13.3     13.3     13.3      13.3   
-       9 Petal.Width  aled        0.185    0.185    0.185    0.185     0.185 
-      10 Petal.Width  aler_min   -0.149   -0.149   -0.149   -0.149    -0.149 
-      11 Petal.Width  aler        0.492    0.492    0.492    0.492     0.492 
-      12 Petal.Width  aler_max    0.343    0.343    0.343    0.343     0.343 
-      13 Petal.Width  naled      38.0     38.0     38.0     38.0      38.0   
+       9 Petal.Width  aled        0.254    0.254    0.254    0.254     0.254 
+      10 Petal.Width  aler_min   -0.198   -0.198   -0.198   -0.198    -0.198 
+      11 Petal.Width  aler        0.632    0.632    0.632    0.632     0.632 
+      12 Petal.Width  aler_max    0.434    0.434    0.434    0.434     0.434 
+      13 Petal.Width  naled      39.2     39.2     39.2     39.2      39.2   
       14 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      15 Petal.Width  naler      66       66       66       66        66     
-      16 Petal.Width  naler_max  16       16       16       16        16     
+      15 Petal.Width  naler      66.7     66.7     66.7     66.7      66.7   
+      16 Petal.Width  naler_max  16.7     16.7     16.7     16.7      16.7   
       
       
       $ale$single$effect$virginica$boot_data
@@ -2252,7 +2471,7 @@
       $ale$single$params$p_values
       NULL
       
-      $ale$single$params$require_same_p
+      $ale$single$params$require_p_model_match
       [1] FALSE
       
       $ale$single$params$aler_alpha
@@ -2262,7 +2481,12 @@
       [1] "mad"
       
       $ale$single$params$max_num_bins
+      $ale$single$params$max_num_bins$d1
+      [1] 1000
+      
+      $ale$single$params$max_num_bins$d2
       [1] 10
+      
       
       $ale$single$params$fct_order
       [1] "levels"
@@ -2293,35 +2517,36 @@
       $ale$boot$effect$setosa$ale
       $ale$boot$effect$setosa$ale$d1
       $ale$boot$effect$setosa$ale$d1$Sepal.Length
-      # A tibble: 11 x 7
+      # A tibble: 35 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.00013 -0.00021 -0.00013  -0.00013 -0.00004
-       2               4.8    15 -0.00001 -0.00002 -0.00001  -0.00001 -0.00001
-       3               5      16 -0.00001 -0.00002 -0.00001  -0.00001 -0.00001
-       4               5.3    14  0.00001  0        0.00001   0.00001  0.00001
-       5               5.6    19  0.00001  0        0.00001   0.00001  0.00001
-       6               5.8    15  0.00001  0        0.00001   0.00001  0.00001
-       7               6.1    15  0.00001  0        0.00001   0.00001  0.00001
-       8               6.3    13  0.00001  0        0.00001   0.00001  0.00001
-       9               6.5    12  0.00001  0        0.00001   0.00001  0.00001
-      10               6.9    17  0.00001  0        0.00001   0.00001  0.00001
-      11               7.9    13  0.00001  0.00001  0.00001   0.00001  0.00002
+       1               4.3     1 -0.00015 -0.00025 -0.00015  -0.00015 -0.00004
+       2               4.4     3 -0.00014 -0.00024 -0.00014  -0.00014 -0.00004
+       3               4.5     1 -0.00002 -0.00003 -0.00002  -0.00002 -0.00001
+       4               4.6     4 -0.00002 -0.00002 -0.00002  -0.00002 -0.00001
+       5               4.7     2 -0.00001 -0.00002 -0.00001  -0.00001 -0.00001
+       6               4.8     5  0        0        0         0        0      
+       7               4.9     6  0        0        0         0        0      
+       8               5      10  0        0        0         0        0      
+       9               5.1     9  0        0        0         0        0.00001
+      10               5.2     4  0        0        0         0        0.00001
+      # i 25 more rows
       
       $ale$boot$effect$setosa$ale$d1$Petal.Width
-      # A tibble: 10 x 7
+      # A tibble: 22 x 7
          Petal.Width.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1              0.1     5 -0.00004 -0.00007 -0.00004  -0.00004 -0.00001
-       2              0.2    29 -0.00003 -0.00006 -0.00003  -0.00003 -0.00001
-       3              0.4    14  0.00001  0        0.00001   0.00001  0.00001
-       4              1.1    12  0.00001  0        0.00001   0.00001  0.00002
-       5              1.3    18  0.00001  0        0.00001   0.00001  0.00002
-       6              1.5    20  0.00001  0        0.00001   0.00001  0.00002
-       7              1.8    18  0.00001  0        0.00001   0.00001  0.00002
-       8              1.9     5  0.00001  0        0.00001   0.00001  0.00002
-       9              2.2    15  0.00001  0        0.00001   0.00001  0.00002
-      10              2.5    14  0.00001  0        0.00001   0.00001  0.00002
+       1              0.1     5 -0.00006 -0.00012 -0.00006  -0.00006 -0.00001
+       2              0.2    29 -0.00005 -0.0001  -0.00005  -0.00005 -0.00001
+       3              0.3     7  0        0        0         0        0.00001
+       4              0.4     7  0        0        0         0        0.00001
+       5              0.5     1  0        0        0         0        0.00001
+       6              0.6     1  0        0        0         0        0.00001
+       7              1       7  0        0        0         0        0.00001
+       8              1.1     3  0.00002  0        0.00002   0.00002  0.00004
+       9              1.2     5  0.00002  0        0.00002   0.00002  0.00004
+      10              1.3    13  0.00002  0        0.00002   0.00002  0.00004
+      # i 12 more rows
       
       
       
@@ -2330,19 +2555,19 @@
       # A tibble: 16 x 7
          term         statistic  estimate  conf.low    median      mean conf.high
          <fct>        <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 Sepal.Length aled        0.00001   0.00001   0.00001   0.00001   0.00002
-       2 Sepal.Length aler_min   -0.00013  -0.00021  -0.00013  -0.00013  -0.00004
-       3 Sepal.Length aler        0.00014   0.00005   0.00014   0.00014   0.00023
-       4 Sepal.Length aler_max    0.00001   0.00001   0.00001   0.00001   0.00002
-       5 Sepal.Length naled      28.5      27.8      28.5      28.5      29.1    
+       1 Sepal.Length aled        0.00001   0         0.00001   0.00001   0.00001
+       2 Sepal.Length aler_min   -0.00015  -0.00025  -0.00015  -0.00015  -0.00004
+       3 Sepal.Length aler        0.00015   0.00005   0.00015   0.00015   0.00026
+       4 Sepal.Length aler_max    0.00001   0         0.00001   0.00001   0.00001
+       5 Sepal.Length naled      25.4      24.1      25.4      25.4      26.7    
        6 Sepal.Length naler_min -50       -50       -50       -50       -50      
-       7 Sepal.Length naler      70.1      69.8      70.1      70.1      70.4    
-       8 Sepal.Length naler_max  20.1      19.8      20.1      20.1      20.4    
-       9 Petal.Width  aled        0.00002   0         0.00002   0.00002   0.00003
-      10 Petal.Width  aler_min   -0.00004  -0.00007  -0.00004  -0.00004  -0.00001
-      11 Petal.Width  aler        0.00005   0.00001   0.00005   0.00005   0.0001 
-      12 Petal.Width  aler_max    0.00001   0         0.00001   0.00001   0.00002
-      13 Petal.Width  naled      28.8      28.8      28.8      28.8      28.9    
+       7 Sepal.Length naler      69.4      69.1      69.4      69.4      69.7    
+       8 Sepal.Length naler_max  19.4      19.1      19.4      19.4      19.7    
+       9 Petal.Width  aled        0.00003   0         0.00003   0.00003   0.00005
+      10 Petal.Width  aler_min   -0.00006  -0.00012  -0.00006  -0.00006  -0.00001
+      11 Petal.Width  aler        0.00008   0.00001   0.00008   0.00008   0.00015
+      12 Petal.Width  aler_max    0.00002   0         0.00002   0.00002   0.00004
+      13 Petal.Width  naled      27.6      27.4      27.6      27.6      27.9    
       14 Petal.Width  naler_min -50       -50       -50       -50       -50      
       15 Petal.Width  naler      68.4      66.6      68.4      68.4      70.2    
       16 Petal.Width  naler_max  18.4      16.6      18.4      18.4      20.2    
@@ -2353,59 +2578,60 @@
       $ale$boot$effect$versicolor$ale
       $ale$boot$effect$versicolor$ale$d1
       $ale$boot$effect$versicolor$ale$d1$Sepal.Length
-      # A tibble: 11 x 7
-         Sepal.Length.ceil    .n      .y    .y_lo .y_mean .y_median    .y_hi
-                     <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.0176 -0.0211  -0.0176   -0.0176 -0.0141 
-       2               4.8    15 -0.0177 -0.0213  -0.0177   -0.0177 -0.0141 
-       3               5      16 -0.0149 -0.0159  -0.0149   -0.0149 -0.0139 
-       4               5.3    14 -0.0149 -0.0160  -0.0149   -0.0149 -0.0139 
-       5               5.6    19 -0.0126 -0.0151  -0.0126   -0.0126 -0.0101 
-       6               5.8    15 -0.0125 -0.0150  -0.0125   -0.0125 -0.0101 
-       7               6.1    15  0.0003 -0.00231  0.0003    0.0003  0.00291
-       8               6.3    13  0.0116  0.0003   0.0116    0.0116  0.0228 
-       9               6.5    12  0.0130  0.00044  0.0130    0.0130  0.0255 
-      10               6.9    17  0.0189  0.0107   0.0189    0.0189  0.0270 
-      11               7.9    13  0.0967  0.0358   0.0967    0.0967  0.158  
+      # A tibble: 35 x 7
+         Sepal.Length.ceil    .n       .y   .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0116  -0.0214 -0.0116   -0.0116  -0.0018 
+       2               4.4     3 -0.0116  -0.0214 -0.0116   -0.0116  -0.0018 
+       3               4.5     1 -0.0117  -0.0216 -0.0117   -0.0117  -0.00183
+       4               4.6     4 -0.0117  -0.0216 -0.0117   -0.0117  -0.00183
+       5               4.7     2 -0.0117  -0.0216 -0.0117   -0.0117  -0.00183
+       6               4.8     5 -0.0117  -0.0216 -0.0117   -0.0117  -0.00184
+       7               4.9     6 -0.00903 -0.0165 -0.00903  -0.00903 -0.00157
+       8               5      10 -0.00903 -0.0165 -0.00903  -0.00903 -0.00157
+       9               5.1     9 -0.00903 -0.0165 -0.00903  -0.00903 -0.00158
+      10               5.2     4 -0.00903 -0.0165 -0.00903  -0.00903 -0.00157
+      # i 25 more rows
       
       $ale$boot$effect$versicolor$ale$d1$Petal.Width
-      # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
-                    <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
-       1              0.1     5  0.0855  0.0678   0.0855    0.0855  0.103 
-       2              0.2    29  0.0855  0.0678   0.0855    0.0855  0.103 
-       3              0.4    14  0.0855  0.0678   0.0855    0.0855  0.103 
-       4              1.1    12  0.0855  0.0677   0.0855    0.0855  0.103 
-       5              1.3    18  0.0852  0.0674   0.0852    0.0852  0.103 
-       6              1.5    20  0.0308 -0.00036  0.0308    0.0308  0.0619
-       7              1.8    18 -0.135  -0.147   -0.135    -0.135  -0.123 
-       8              1.9     5 -0.137  -0.151   -0.137    -0.137  -0.123 
-       9              2.2    15 -0.144  -0.164   -0.144    -0.144  -0.124 
-      10              2.5    14 -0.145  -0.165   -0.145    -0.145  -0.124 
+      # A tibble: 22 x 7
+         Petal.Width.ceil    .n     .y  .y_lo .y_mean .y_median .y_hi
+                    <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1              0.1     5 0.0802 0.0118  0.0802    0.0802 0.148
+       2              0.2    29 0.0802 0.0118  0.0802    0.0802 0.148
+       3              0.3     7 0.0801 0.0117  0.0801    0.0801 0.148
+       4              0.4     7 0.0801 0.0117  0.0801    0.0801 0.148
+       5              0.5     1 0.0801 0.0117  0.0801    0.0801 0.148
+       6              0.6     1 0.0801 0.0117  0.0801    0.0801 0.148
+       7              1       7 0.0801 0.0117  0.0801    0.0801 0.148
+       8              1.1     3 0.0801 0.0117  0.0801    0.0801 0.148
+       9              1.2     5 0.0801 0.0116  0.0801    0.0801 0.148
+      10              1.3    13 0.0799 0.0116  0.0799    0.0799 0.148
+      # i 12 more rows
       
       
       
       $ale$boot$effect$versicolor$stats
       $ale$boot$effect$versicolor$stats$d1
       # A tibble: 16 x 7
-         term         statistic estimate conf.low   median     mean conf.high
-         <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180
-       2 Sepal.Length aler_min   -0.0177  -0.0213  -0.0177  -0.0177   -0.0141
-       3 Sepal.Length aler        0.114    0.0570   0.114    0.114     0.172 
-       4 Sepal.Length aler_max    0.0967   0.0358   0.0967   0.0967    0.158 
-       5 Sepal.Length naled      38.8     35.9     38.8     38.8      41.7   
-       6 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       7 Sepal.Length naler      66.0     64.5     66.0     66.0      67.6   
-       8 Sepal.Length naler_max  16.0     14.5     16.0     16.0      17.6   
-       9 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109 
-      10 Petal.Width  aler_min   -0.145   -0.165   -0.145   -0.145    -0.124 
-      11 Petal.Width  aler        0.230    0.192    0.230    0.230     0.268 
-      12 Petal.Width  aler_max    0.0855   0.0678   0.0855   0.0855    0.103 
-      13 Petal.Width  naled      30.5     30.4     30.5     30.5      30.6   
-      14 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      15 Petal.Width  naler      67.3     66.9     67.3     67.3      67.7   
-      16 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7   
+         term         statistic estimate  conf.low   median     mean conf.high
+         <fct>        <fct>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+       1 Sepal.Length aled        0.0095   0.00151   0.0095   0.0095   0.0175 
+       2 Sepal.Length aler_min   -0.0117  -0.0216   -0.0117  -0.0117  -0.00184
+       3 Sepal.Length aler        0.0269   0.00495   0.0269   0.0269   0.0488 
+       4 Sepal.Length aler_max    0.0152   0.00311   0.0152   0.0152   0.0272 
+       5 Sepal.Length naled      34.5     32.6      34.5     34.5     36.4    
+       6 Sepal.Length naler_min -50      -50       -50      -50      -50      
+       7 Sepal.Length naler      66.0     64.5      66.0     66.0     67.6    
+       8 Sepal.Length naler_max  16.0     14.5      16.0     16.0     17.6    
+       9 Petal.Width  aled        0.0933   0.0139    0.0933   0.0933   0.173  
+      10 Petal.Width  aler_min   -0.136   -0.252    -0.136   -0.136   -0.0205 
+      11 Petal.Width  aler        0.217    0.0324    0.217    0.217    0.401  
+      12 Petal.Width  aler_max    0.0802   0.0118    0.0802   0.0802   0.148  
+      13 Petal.Width  naled      29.4     29.0      29.4     29.4     29.8    
+      14 Petal.Width  naler_min -50      -50       -50      -50      -50      
+      15 Petal.Width  naler      67.3     66.9      67.3     67.3     67.7    
+      16 Petal.Width  naler_max  17.3     16.9      17.3     17.3     17.7    
       
       
       
@@ -2413,59 +2639,60 @@
       $ale$boot$effect$virginica$ale
       $ale$boot$effect$virginica$ale$d1
       $ale$boot$effect$virginica$ale$d1$Sepal.Length
-      # A tibble: 11 x 7
-         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1               4.3     1  0.0177   0.0142   0.0177    0.0177   0.0213 
-       2               4.8    15  0.0177   0.0142   0.0177    0.0177   0.0213 
-       3               5      16  0.0149   0.0139   0.0149    0.0149   0.0160 
-       4               5.3    14  0.0149   0.0138   0.0149    0.0149   0.0160 
-       5               5.6    19  0.0126   0.0101   0.0126    0.0126   0.0151 
-       6               5.8    15  0.0125   0.0101   0.0125    0.0125   0.0150 
-       7               6.1    15 -0.00031 -0.00293 -0.00031  -0.00031  0.0023 
-       8               6.3    13 -0.0116  -0.0228  -0.0116   -0.0116  -0.00031
-       9               6.5    12 -0.0130  -0.0255  -0.0130   -0.0130  -0.00045
-      10               6.9    17 -0.0189  -0.027   -0.0189   -0.0189  -0.0108 
-      11               7.9    13 -0.0968  -0.158   -0.0968   -0.0968  -0.0358 
+      # A tibble: 35 x 7
+         Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median  .y_hi
+                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+       1               4.3     1 0.0117  0.00184 0.0117    0.0117  0.0216
+       2               4.4     3 0.0117  0.00184 0.0117    0.0117  0.0216
+       3               4.5     1 0.0117  0.00184 0.0117    0.0117  0.0216
+       4               4.6     4 0.0117  0.00184 0.0117    0.0117  0.0216
+       5               4.7     2 0.0117  0.00184 0.0117    0.0117  0.0216
+       6               4.8     5 0.0117  0.00184 0.0117    0.0117  0.0216
+       7               4.9     6 0.00903 0.00157 0.00903   0.00903 0.0165
+       8               5      10 0.00903 0.00157 0.00903   0.00903 0.0165
+       9               5.1     9 0.00903 0.00157 0.00903   0.00903 0.0165
+      10               5.2     4 0.00903 0.00157 0.00903   0.00903 0.0165
+      # i 25 more rows
       
       $ale$boot$effect$virginica$ale$d1$Petal.Width
-      # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median    .y_hi
-                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>    <dbl>
-       1              0.1     5 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
-       2              0.2    29 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
-       3              0.4    14 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
-       4              1.1    12 -0.0855 -0.103  -0.0855   -0.0855 -0.0678 
-       5              1.3    18 -0.0852 -0.103  -0.0852   -0.0852 -0.0674 
-       6              1.5    20 -0.0308 -0.0619 -0.0308   -0.0308  0.00036
-       7              1.8    18  0.135   0.123   0.135     0.135   0.147  
-       8              1.9     5  0.137   0.123   0.137     0.137   0.151  
-       9              2.2    15  0.144   0.124   0.144     0.144   0.164  
-      10              2.5    14  0.145   0.124   0.145     0.145   0.165  
+      # A tibble: 22 x 7
+         Petal.Width.ceil    .n      .y  .y_lo .y_mean .y_median   .y_hi
+                    <dbl> <int>   <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
+       1              0.1     5 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+       2              0.2    29 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+       3              0.3     7 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+       4              0.4     7 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+       5              0.5     1 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+       6              0.6     1 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+       7              1       7 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+       8              1.1     3 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+       9              1.2     5 -0.0801 -0.148 -0.0801   -0.0801 -0.0117
+      10              1.3    13 -0.0800 -0.148 -0.0800   -0.0800 -0.0117
+      # i 12 more rows
       
       
       
       $ale$boot$effect$virginica$stats
       $ale$boot$effect$virginica$stats$d1
       # A tibble: 16 x 7
-         term         statistic estimate conf.low   median     mean conf.high
-         <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 Sepal.Length aled        0.0162   0.0145   0.0162   0.0162    0.0180
-       2 Sepal.Length aler_min   -0.0968  -0.158   -0.0968  -0.0968   -0.0358
-       3 Sepal.Length aler        0.114    0.0571   0.114    0.114     0.172 
-       4 Sepal.Length aler_max    0.0177   0.0142   0.0177   0.0177    0.0213
-       5 Sepal.Length naled      23.2     21.6     23.2     23.2      24.9   
-       6 Sepal.Length naler_min -50      -50      -50      -50       -50     
-       7 Sepal.Length naler      60.3     58.7     60.3     60.3      61.8   
-       8 Sepal.Length naler_max  10.3      8.72    10.3     10.3      11.8   
-       9 Petal.Width  aled        0.0946   0.0804   0.0946   0.0946    0.109 
-      10 Petal.Width  aler_min   -0.0855  -0.103   -0.0855  -0.0855   -0.0678
-      11 Petal.Width  aler        0.230    0.192    0.230    0.230     0.268 
-      12 Petal.Width  aler_max    0.145    0.124    0.145    0.145     0.165 
-      13 Petal.Width  naled      33.8     33.0     33.8     33.8      34.7   
-      14 Petal.Width  naler_min -50      -50      -50      -50       -50     
-      15 Petal.Width  naler      60.3     58.7     60.3     60.3      61.8   
-      16 Petal.Width  naler_max  10.3      8.72    10.3     10.3      11.8   
+         term         statistic estimate  conf.low   median     mean conf.high
+         <fct>        <fct>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+       1 Sepal.Length aled        0.0095   0.00152   0.0095   0.0095   0.0175 
+       2 Sepal.Length aler_min   -0.0152  -0.0272   -0.0152  -0.0152  -0.00311
+       3 Sepal.Length aler        0.0269   0.00495   0.0269   0.0269   0.0488 
+       4 Sepal.Length aler_max    0.0117   0.00184   0.0117   0.0117   0.0216 
+       5 Sepal.Length naled      27.7     27.3      27.7     27.7     28.1    
+       6 Sepal.Length naler_min -50      -50       -50      -50      -50      
+       7 Sepal.Length naler      60.3     58.7      60.3     60.3     61.8    
+       8 Sepal.Length naler_max  10.3      8.72     10.3     10.3     11.8    
+       9 Petal.Width  aled        0.0933   0.0138    0.0933   0.0933   0.173  
+      10 Petal.Width  aler_min   -0.0801  -0.148    -0.0801  -0.0801  -0.0117 
+      11 Petal.Width  aler        0.216    0.0322    0.216    0.216    0.401  
+      12 Petal.Width  aler_max    0.136    0.0205    0.136    0.136    0.252  
+      13 Petal.Width  naled      35.5     35.2      35.5     35.5     35.8    
+      14 Petal.Width  naler_min -50      -50       -50      -50      -50      
+      15 Petal.Width  naler      60.9     60.0      60.9     60.9     61.9    
+      16 Petal.Width  naler_max  10.9      9.98     10.9     10.9     11.9    
       
       
       
@@ -2879,52 +3106,52 @@
       }
     Output
       $setosa
-      # A tibble: 11 x 7
+      # A tibble: 35 x 7
          Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
                      <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.000127   -0.000210     -1.27e-4  -1.27e-4 -4.27e-5
-       2               4.8    15 -0.0000129  -0.0000200    -1.29e-5  -1.29e-5 -5.87e-6
-       3               5      16 -0.0000119  -0.0000183    -1.19e-5  -1.19e-5 -5.52e-6
-       4               5.3    14  0.00000708  0.00000425    7.08e-6   7.08e-6  9.91e-6
-       5               5.6    19  0.00000718  0.00000442    7.18e-6   7.18e-6  9.94e-6
-       6               5.8    15  0.00000906  0.00000461    9.06e-6   9.06e-6  1.35e-5
-       7               6.1    15  0.00000921  0.00000462    9.21e-6   9.21e-6  1.38e-5
-       8               6.3    13  0.00000922  0.00000463    9.22e-6   9.22e-6  1.38e-5
-       9               6.5    12  0.00000922  0.00000463    9.22e-6   9.22e-6  1.38e-5
-      10               6.9    17  0.00000964  0.00000467    9.64e-6   9.64e-6  1.46e-5
-      11               7.9    13  0.0000145   0.00000516    1.45e-5   1.45e-5  2.39e-5
+       1               4.3     1 -0.000146   -0.000249     -1.46e-4  -1.46e-4 -4.38e-5
+       2               4.4     3 -0.000141   -0.000239     -1.41e-4  -1.41e-4 -4.32e-5
+       3               4.5     1 -0.0000182  -0.0000269    -1.82e-5  -1.82e-5 -9.48e-6
+       4               4.6     4 -0.0000170  -0.0000248    -1.70e-5  -1.70e-5 -9.11e-6
+       5               4.7     2 -0.0000141  -0.0000200    -1.41e-5  -1.41e-5 -8.24e-6
+       6               4.8     5 -0.00000287 -0.00000408   -2.87e-6  -2.87e-6 -1.65e-6
+       7               4.9     6 -0.00000251 -0.00000363   -2.51e-6  -2.51e-6 -1.39e-6
+       8               5      10 -0.00000201 -0.00000269   -2.01e-6  -2.01e-6 -1.34e-6
+       9               5.1     9  0.00000460  0.00000277    4.60e-6   4.60e-6  6.43e-6
+      10               5.2     4  0.00000461  0.00000277    4.61e-6   4.61e-6  6.44e-6
+      # i 25 more rows
       
       $versicolor
-      # A tibble: 11 x 7
-         Sepal.Length.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
-                     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1               4.3     1 -0.0175   -0.0210   -0.0175   -0.0175   -0.0141 
-       2               4.8    15 -0.0176   -0.0212   -0.0176   -0.0176   -0.0141 
-       3               5      16 -0.0149   -0.0159   -0.0149   -0.0149   -0.0138 
-       4               5.3    14 -0.0149   -0.0159   -0.0149   -0.0149   -0.0138 
-       5               5.6    19 -0.0126   -0.0151   -0.0126   -0.0126   -0.0101 
-       6               5.8    15 -0.0125   -0.0149   -0.0125   -0.0125   -0.0100 
-       7               6.1    15  0.000348 -0.00226   0.000348  0.000348  0.00296
-       8               6.3    13  0.0116    0.000350  0.0116    0.0116    0.0229 
-       9               6.5    12  0.0130    0.000490  0.0130    0.0130    0.0255 
-      10               6.9    17  0.0189    0.0108    0.0189    0.0189    0.0270 
-      11               7.9    13  0.0968    0.0358    0.0968    0.0968    0.158  
+      # A tibble: 35 x 7
+         Sepal.Length.ceil    .n       .y   .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0115  -0.0213 -0.0115   -0.0115  -0.00175
+       2               4.4     3 -0.0115  -0.0213 -0.0115   -0.0115  -0.00175
+       3               4.5     1 -0.0117  -0.0215 -0.0117   -0.0117  -0.00179
+       4               4.6     4 -0.0117  -0.0215 -0.0117   -0.0117  -0.00179
+       5               4.7     2 -0.0117  -0.0215 -0.0117   -0.0117  -0.00179
+       6               4.8     5 -0.0117  -0.0215 -0.0117   -0.0117  -0.00180
+       7               4.9     6 -0.00898 -0.0164 -0.00898  -0.00898 -0.00153
+       8               5      10 -0.00898 -0.0164 -0.00898  -0.00898 -0.00153
+       9               5.1     9 -0.00899 -0.0164 -0.00899  -0.00899 -0.00153
+      10               5.2     4 -0.00898 -0.0164 -0.00898  -0.00898 -0.00153
+      # i 25 more rows
       
       $virginica
-      # A tibble: 11 x 7
-         Sepal.Length.ceil    .n        .y    .y_lo   .y_mean .y_median     .y_hi
-                     <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>     <dbl>
-       1               4.3     1  0.0177    0.0142   0.0177    0.0177    0.0213  
-       2               4.8    15  0.0177    0.0142   0.0177    0.0177    0.0213  
-       3               5      16  0.0149    0.0139   0.0149    0.0149    0.0160  
-       4               5.3    14  0.0149    0.0139   0.0149    0.0149    0.0160  
-       5               5.6    19  0.0126    0.0101   0.0126    0.0126    0.0151  
-       6               5.8    15  0.0125    0.0101   0.0125    0.0125    0.0150  
-       7               6.1    15 -0.000297 -0.00291 -0.000297 -0.000297  0.00232 
-       8               6.3    13 -0.0116   -0.0228  -0.0116   -0.0116   -0.000294
-       9               6.5    12 -0.0130   -0.0255  -0.0130   -0.0130   -0.000434
-      10               6.9    17 -0.0189   -0.0270  -0.0189   -0.0189   -0.0107  
-      11               7.9    13 -0.0967   -0.158   -0.0967   -0.0967   -0.0358  
+      # A tibble: 35 x 7
+         Sepal.Length.ceil    .n      .y   .y_lo .y_mean .y_median  .y_hi
+                     <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+       1               4.3     1 0.0117  0.00186 0.0117    0.0117  0.0216
+       2               4.4     3 0.0117  0.00186 0.0117    0.0117  0.0216
+       3               4.5     1 0.0117  0.00186 0.0117    0.0117  0.0216
+       4               4.6     4 0.0117  0.00186 0.0117    0.0117  0.0216
+       5               4.7     2 0.0117  0.00186 0.0117    0.0117  0.0216
+       6               4.8     5 0.0117  0.00186 0.0117    0.0117  0.0216
+       7               4.9     6 0.00904 0.00159 0.00904   0.00904 0.0165
+       8               5      10 0.00904 0.00159 0.00904   0.00904 0.0165
+       9               5.1     9 0.00904 0.00159 0.00904   0.00904 0.0165
+      10               5.2     4 0.00904 0.00159 0.00904   0.00904 0.0165
+      # i 25 more rows
       
 
 ---
@@ -2935,49 +3162,52 @@
       }
     Output
       $setosa
-      # A tibble: 10 x 7
+      # A tibble: 22 x 7
          Petal.Width.ceil    .n          .y       .y_lo     .y_mean .y_median    .y_hi
                     <dbl> <int>       <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-       1              0.1     5 -0.0000203  -0.0000203  -0.0000203   -2.03e-5 -2.03e-5
-       2              0.2    29 -0.0000197  -0.0000197  -0.0000197   -1.97e-5 -1.97e-5
-       3              0.4    14 -0.00000859 -0.00000859 -0.00000859  -8.59e-6 -8.59e-6
-       4              1.1    12  0.00000875  0.00000875  0.00000875   8.75e-6  8.75e-6
-       5              1.3    18  0.00000981  0.00000981  0.00000981   9.81e-6  9.81e-6
-       6              1.5    20  0.00000989  0.00000989  0.00000989   9.89e-6  9.89e-6
-       7              1.8    18  0.00000990  0.00000990  0.00000990   9.90e-6  9.90e-6
-       8              1.9     5  0.00000990  0.00000990  0.00000990   9.90e-6  9.90e-6
-       9              2.2    15  0.00000990  0.00000990  0.00000990   9.90e-6  9.90e-6
-      10              2.5    14  0.00000990  0.00000990  0.00000990   9.90e-6  9.90e-6
+       1              0.1     5 -0.0000234  -0.0000234  -0.0000234   -2.34e-5 -2.34e-5
+       2              0.2    29 -0.0000227  -0.0000227  -0.0000227   -2.27e-5 -2.27e-5
+       3              0.3     7 -0.00000991 -0.00000991 -0.00000991  -9.91e-6 -9.91e-6
+       4              0.4     7 -0.00000990 -0.00000990 -0.00000990  -9.90e-6 -9.90e-6
+       5              0.5     1 -0.00000981 -0.00000981 -0.00000981  -9.81e-6 -9.81e-6
+       6              0.6     1 -0.00000980 -0.00000980 -0.00000980  -9.80e-6 -9.80e-6
+       7              1       7 -0.00000890 -0.00000890 -0.00000890  -8.90e-6 -8.90e-6
+       8              1.1     3  0.0000108   0.0000108   0.0000108    1.08e-5  1.08e-5
+       9              1.2     5  0.0000109   0.0000109   0.0000109    1.09e-5  1.09e-5
+      10              1.3    13  0.0000117   0.0000117   0.0000117    1.17e-5  1.17e-5
+      # i 12 more rows
       
       $versicolor
-      # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1              0.1     5  0.149   0.149   0.149     0.149   0.149 
-       2              0.2    29  0.149   0.149   0.149     0.149   0.149 
-       3              0.4    14  0.149   0.149   0.149     0.149   0.149 
-       4              1.1    12  0.149   0.149   0.149     0.149   0.149 
-       5              1.3    18  0.149   0.149   0.149     0.149   0.149 
-       6              1.5    20  0.0811  0.0811  0.0811    0.0811  0.0811
-       7              1.8    18 -0.336  -0.336  -0.336    -0.336  -0.336 
-       8              1.9     5 -0.338  -0.338  -0.338    -0.338  -0.338 
-       9              2.2    15 -0.343  -0.343  -0.343    -0.343  -0.343 
-      10              2.5    14 -0.343  -0.343  -0.343    -0.343  -0.343 
+      # A tibble: 22 x 7
+         Petal.Width.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+                    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1              0.1     5 0.198 0.198   0.198     0.198 0.198
+       2              0.2    29 0.198 0.198   0.198     0.198 0.198
+       3              0.3     7 0.198 0.198   0.198     0.198 0.198
+       4              0.4     7 0.198 0.198   0.198     0.198 0.198
+       5              0.5     1 0.198 0.198   0.198     0.198 0.198
+       6              0.6     1 0.198 0.198   0.198     0.198 0.198
+       7              1       7 0.198 0.198   0.198     0.198 0.198
+       8              1.1     3 0.198 0.198   0.198     0.198 0.198
+       9              1.2     5 0.198 0.198   0.198     0.198 0.198
+      10              1.3    13 0.198 0.198   0.198     0.198 0.198
+      # i 12 more rows
       
       $virginica
-      # A tibble: 10 x 7
-         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1              0.1     5 -0.149  -0.149  -0.149    -0.149  -0.149 
-       2              0.2    29 -0.149  -0.149  -0.149    -0.149  -0.149 
-       3              0.4    14 -0.149  -0.149  -0.149    -0.149  -0.149 
-       4              1.1    12 -0.149  -0.149  -0.149    -0.149  -0.149 
-       5              1.3    18 -0.149  -0.149  -0.149    -0.149  -0.149 
-       6              1.5    20 -0.0810 -0.0810 -0.0810   -0.0810 -0.0810
-       7              1.8    18  0.336   0.336   0.336     0.336   0.336 
-       8              1.9     5  0.338   0.338   0.338     0.338   0.338 
-       9              2.2    15  0.343   0.343   0.343     0.343   0.343 
-      10              2.5    14  0.343   0.343   0.343     0.343   0.343 
+      # A tibble: 22 x 7
+         Petal.Width.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
+                    <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1              0.1     5 -0.198 -0.198  -0.198    -0.198 -0.198
+       2              0.2    29 -0.198 -0.198  -0.198    -0.198 -0.198
+       3              0.3     7 -0.198 -0.198  -0.198    -0.198 -0.198
+       4              0.4     7 -0.198 -0.198  -0.198    -0.198 -0.198
+       5              0.5     1 -0.198 -0.198  -0.198    -0.198 -0.198
+       6              0.6     1 -0.198 -0.198  -0.198    -0.198 -0.198
+       7              1       7 -0.198 -0.198  -0.198    -0.198 -0.198
+       8              1.1     3 -0.198 -0.198  -0.198    -0.198 -0.198
+       9              1.2     5 -0.198 -0.198  -0.198    -0.198 -0.198
+      10              1.3    13 -0.198 -0.198  -0.198    -0.198 -0.198
+      # i 12 more rows
       
 
 ---
@@ -2995,17 +3225,41 @@
       $setosa$d1
       $setosa$d1$Sepal.Length
              ymin   ymax   x        y PANEL group flipped_aes colour   fill linewidth
-      1  -0.00021 -4e-05 4.3 -0.00021     1    -1       FALSE     NA grey85       0.5
-      2  -0.00002 -1e-05 4.8 -0.00002     1    -1       FALSE     NA grey85       0.5
-      3  -0.00002 -1e-05 5.0 -0.00002     1    -1       FALSE     NA grey85       0.5
-      4   0.00000  1e-05 5.3  0.00000     1    -1       FALSE     NA grey85       0.5
-      5   0.00000  1e-05 5.6  0.00000     1    -1       FALSE     NA grey85       0.5
-      6   0.00000  1e-05 5.8  0.00000     1    -1       FALSE     NA grey85       0.5
-      7   0.00000  1e-05 6.1  0.00000     1    -1       FALSE     NA grey85       0.5
-      8   0.00000  1e-05 6.3  0.00000     1    -1       FALSE     NA grey85       0.5
-      9   0.00000  1e-05 6.5  0.00000     1    -1       FALSE     NA grey85       0.5
-      10  0.00000  1e-05 6.9  0.00000     1    -1       FALSE     NA grey85       0.5
-      11  0.00001  2e-05 7.9  0.00001     1    -1       FALSE     NA grey85       0.5
+      1  -0.00025 -4e-05 4.3 -0.00025     1    -1       FALSE     NA grey85       0.5
+      2  -0.00024 -4e-05 4.4 -0.00024     1    -1       FALSE     NA grey85       0.5
+      3  -0.00003 -1e-05 4.5 -0.00003     1    -1       FALSE     NA grey85       0.5
+      4  -0.00002 -1e-05 4.6 -0.00002     1    -1       FALSE     NA grey85       0.5
+      5  -0.00002 -1e-05 4.7 -0.00002     1    -1       FALSE     NA grey85       0.5
+      6   0.00000  0e+00 4.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      7   0.00000  0e+00 4.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      8   0.00000  0e+00 5.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      9   0.00000  1e-05 5.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      10  0.00000  1e-05 5.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      11  0.00000  1e-05 5.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      12  0.00000  1e-05 5.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      13  0.00000  1e-05 5.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      14  0.00000  1e-05 5.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      15  0.00000  1e-05 5.7  0.00000     1    -1       FALSE     NA grey85       0.5
+      16  0.00000  1e-05 5.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      17  0.00000  1e-05 5.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      18  0.00000  1e-05 6.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      19  0.00000  1e-05 6.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      20  0.00000  1e-05 6.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      21  0.00000  1e-05 6.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      22  0.00000  1e-05 6.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      23  0.00000  1e-05 6.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      24  0.00000  1e-05 6.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      25  0.00000  1e-05 6.7  0.00000     1    -1       FALSE     NA grey85       0.5
+      26  0.00000  1e-05 6.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      27  0.00000  1e-05 6.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      28  0.00000  1e-05 7.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      29  0.00000  1e-05 7.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      30  0.00000  1e-05 7.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      31  0.00000  1e-05 7.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      32  0.00000  1e-05 7.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      33  0.00000  1e-05 7.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      34  0.00000  1e-05 7.7  0.00000     1    -1       FALSE     NA grey85       0.5
+      35  0.00001  1e-05 7.9  0.00001     1    -1       FALSE     NA grey85       0.5
          linetype alpha
       1         1   0.5
       2         1   0.5
@@ -3018,19 +3272,55 @@
       9         1   0.5
       10        1   0.5
       11        1   0.5
+      12        1   0.5
+      13        1   0.5
+      14        1   0.5
+      15        1   0.5
+      16        1   0.5
+      17        1   0.5
+      18        1   0.5
+      19        1   0.5
+      20        1   0.5
+      21        1   0.5
+      22        1   0.5
+      23        1   0.5
+      24        1   0.5
+      25        1   0.5
+      26        1   0.5
+      27        1   0.5
+      28        1   0.5
+      29        1   0.5
+      30        1   0.5
+      31        1   0.5
+      32        1   0.5
+      33        1   0.5
+      34        1   0.5
+      35        1   0.5
       
       $setosa$d1$Petal.Width
-           ymin   ymax   x      y PANEL group flipped_aes colour   fill linewidth
-      1  -7e-05 -1e-05 0.1 -7e-05     1    -1       FALSE     NA grey85       0.5
-      2  -6e-05 -1e-05 0.2 -6e-05     1    -1       FALSE     NA grey85       0.5
-      3   0e+00  1e-05 0.4  0e+00     1    -1       FALSE     NA grey85       0.5
-      4   0e+00  2e-05 1.1  0e+00     1    -1       FALSE     NA grey85       0.5
-      5   0e+00  2e-05 1.3  0e+00     1    -1       FALSE     NA grey85       0.5
-      6   0e+00  2e-05 1.5  0e+00     1    -1       FALSE     NA grey85       0.5
-      7   0e+00  2e-05 1.8  0e+00     1    -1       FALSE     NA grey85       0.5
-      8   0e+00  2e-05 1.9  0e+00     1    -1       FALSE     NA grey85       0.5
-      9   0e+00  2e-05 2.2  0e+00     1    -1       FALSE     NA grey85       0.5
-      10  0e+00  2e-05 2.5  0e+00     1    -1       FALSE     NA grey85       0.5
+             ymin   ymax   x        y PANEL group flipped_aes colour   fill linewidth
+      1  -0.00012 -1e-05 0.1 -0.00012     1    -1       FALSE     NA grey85       0.5
+      2  -0.00010 -1e-05 0.2 -0.00010     1    -1       FALSE     NA grey85       0.5
+      3   0.00000  1e-05 0.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      4   0.00000  1e-05 0.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      5   0.00000  1e-05 0.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      6   0.00000  1e-05 0.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      7   0.00000  1e-05 1.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      8   0.00000  4e-05 1.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      9   0.00000  4e-05 1.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      10  0.00000  4e-05 1.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      11  0.00000  4e-05 1.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      12  0.00000  4e-05 1.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      13  0.00000  4e-05 1.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      14  0.00000  4e-05 1.7  0.00000     1    -1       FALSE     NA grey85       0.5
+      15  0.00000  4e-05 1.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      16  0.00000  4e-05 1.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      17  0.00000  4e-05 2.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      18  0.00000  4e-05 2.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      19  0.00000  4e-05 2.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      20  0.00000  4e-05 2.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      21  0.00000  4e-05 2.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      22  0.00000  4e-05 2.5  0.00000     1    -1       FALSE     NA grey85       0.5
          linetype alpha
       1         1   0.5
       2         1   0.5
@@ -3042,6 +3332,18 @@
       8         1   0.5
       9         1   0.5
       10        1   0.5
+      11        1   0.5
+      12        1   0.5
+      13        1   0.5
+      14        1   0.5
+      15        1   0.5
+      16        1   0.5
+      17        1   0.5
+      18        1   0.5
+      19        1   0.5
+      20        1   0.5
+      21        1   0.5
+      22        1   0.5
       
       
       $setosa$d2
@@ -3055,8 +3357,8 @@
       
       $setosa$eff[[2]]
             xmin  xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.00013 1e-05 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.00004 1e-05 2     1     2        TRUE 1.875 2.125  black       0.5
+      1 -0.00015 1e-05 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.00006 2e-05 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -3068,8 +3370,8 @@
       
       $setosa$eff[[4]]
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 28.5% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 28.8% 2     1     2       0       0  black           3     0   0.5
+      1 NA NALED 25.4% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 27.6% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
       2    -1    NA        1        1.2
@@ -3100,7 +3402,7 @@
       
       $setosa$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
-      1 1 2     1    -1  black white           3     0     1   0.5    NA        1
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
         lineheight linewidth linetype
       1        1.2         0        1
                                                                      label
@@ -3112,17 +3414,41 @@
       $versicolor$d1
       $versicolor$d1$Sepal.Length
              ymin     ymax   x        y PANEL group flipped_aes colour   fill
-      1  -0.02101 -0.01406 4.3 -0.02101     1    -1       FALSE     NA grey85
-      2  -0.02120 -0.01410 4.8 -0.02120     1    -1       FALSE     NA grey85
-      3  -0.01588 -0.01382 5.0 -0.01588     1    -1       FALSE     NA grey85
-      4  -0.01591 -0.01381 5.3 -0.01591     1    -1       FALSE     NA grey85
-      5  -0.01506 -0.01006 5.6 -0.01506     1    -1       FALSE     NA grey85
-      6  -0.01494 -0.01005 5.8 -0.01494     1    -1       FALSE     NA grey85
-      7  -0.00226  0.00296 6.1 -0.00226     1    -1       FALSE     NA grey85
-      8   0.00035  0.02286 6.3  0.00035     1    -1       FALSE     NA grey85
-      9   0.00049  0.02552 6.5  0.00049     1    -1       FALSE     NA grey85
-      10  0.01080  0.02703 6.9  0.01080     1    -1       FALSE     NA grey85
-      11  0.03581  0.15775 7.9  0.03581     1    -1       FALSE     NA grey85
+      1  -0.02130 -0.00175 4.3 -0.02130     1    -1       FALSE     NA grey85
+      2  -0.02131 -0.00175 4.4 -0.02131     1    -1       FALSE     NA grey85
+      3  -0.02153 -0.00179 4.5 -0.02153     1    -1       FALSE     NA grey85
+      4  -0.02153 -0.00179 4.6 -0.02153     1    -1       FALSE     NA grey85
+      5  -0.02153 -0.00179 4.7 -0.02153     1    -1       FALSE     NA grey85
+      6  -0.02155 -0.00180 4.8 -0.02155     1    -1       FALSE     NA grey85
+      7  -0.01643 -0.00153 4.9 -0.01643     1    -1       FALSE     NA grey85
+      8  -0.01643 -0.00153 5.0 -0.01643     1    -1       FALSE     NA grey85
+      9  -0.01644 -0.00153 5.1 -0.01644     1    -1       FALSE     NA grey85
+      10 -0.01644 -0.00153 5.2 -0.01644     1    -1       FALSE     NA grey85
+      11 -0.01644 -0.00153 5.3 -0.01644     1    -1       FALSE     NA grey85
+      12 -0.01614 -0.00151 5.4 -0.01614     1    -1       FALSE     NA grey85
+      13 -0.01610 -0.00102 5.5 -0.01610     1    -1       FALSE     NA grey85
+      14 -0.01583 -0.00101 5.6 -0.01583     1    -1       FALSE     NA grey85
+      15 -0.01583 -0.00101 5.7 -0.01583     1    -1       FALSE     NA grey85
+      16 -0.01569 -0.00100 5.8 -0.01569     1    -1       FALSE     NA grey85
+      17 -0.00014  0.00051 5.9 -0.00014     1    -1       FALSE     NA grey85
+      18 -0.00003  0.00253 6.0 -0.00003     1    -1       FALSE     NA grey85
+      19  0.00001  0.00253 6.1  0.00001     1    -1       FALSE     NA grey85
+      20  0.00076  0.01024 6.2  0.00076     1    -1       FALSE     NA grey85
+      21  0.00133  0.02104 6.3  0.00133     1    -1       FALSE     NA grey85
+      22  0.00133  0.02107 6.4  0.00133     1    -1       FALSE     NA grey85
+      23  0.00151  0.02440 6.5  0.00151     1    -1       FALSE     NA grey85
+      24  0.00160  0.02609 6.6  0.00160     1    -1       FALSE     NA grey85
+      25  0.00269  0.02622 6.7  0.00269     1    -1       FALSE     NA grey85
+      26  0.00271  0.02670 6.8  0.00271     1    -1       FALSE     NA grey85
+      27  0.00273  0.02695 6.9  0.00273     1    -1       FALSE     NA grey85
+      28  0.00278  0.02699 7.0  0.00278     1    -1       FALSE     NA grey85
+      29  0.00289  0.02700 7.1  0.00289     1    -1       FALSE     NA grey85
+      30  0.00307  0.02724 7.2  0.00307     1    -1       FALSE     NA grey85
+      31  0.00315  0.02724 7.3  0.00315     1    -1       FALSE     NA grey85
+      32  0.00315  0.02724 7.4  0.00315     1    -1       FALSE     NA grey85
+      33  0.00315  0.02724 7.6  0.00315     1    -1       FALSE     NA grey85
+      34  0.00315  0.02724 7.7  0.00315     1    -1       FALSE     NA grey85
+      35  0.02860  0.02860 7.9  0.02860     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -3135,19 +3461,55 @@
       9        0.5        1   0.5
       10       0.5        1   0.5
       11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
+      23       0.5        1   0.5
+      24       0.5        1   0.5
+      25       0.5        1   0.5
+      26       0.5        1   0.5
+      27       0.5        1   0.5
+      28       0.5        1   0.5
+      29       0.5        1   0.5
+      30       0.5        1   0.5
+      31       0.5        1   0.5
+      32       0.5        1   0.5
+      33       0.5        1   0.5
+      34       0.5        1   0.5
+      35       0.5        1   0.5
       
       $versicolor$d1$Petal.Width
              ymin     ymax   x        y PANEL group flipped_aes colour   fill
-      1   0.06788  0.10326 0.1  0.06788     1    -1       FALSE     NA grey85
-      2   0.06786  0.10326 0.2  0.06786     1    -1       FALSE     NA grey85
-      3   0.06779  0.10325 0.4  0.06779     1    -1       FALSE     NA grey85
-      4   0.06778  0.10325 1.1  0.06778     1    -1       FALSE     NA grey85
-      5   0.06742  0.10303 1.3  0.06742     1    -1       FALSE     NA grey85
-      6  -0.00031  0.06196 1.5 -0.00031     1    -1       FALSE     NA grey85
-      7  -0.14665 -0.12321 1.8 -0.14665     1    -1       FALSE     NA grey85
-      8  -0.15077 -0.12342 1.9 -0.15077     1    -1       FALSE     NA grey85
-      9  -0.16432 -0.12415 2.2 -0.16432     1    -1       FALSE     NA grey85
-      10 -0.16486 -0.12419 2.5 -0.16486     1    -1       FALSE     NA grey85
+      1   0.01189  0.14854 0.1  0.01189     1    -1       FALSE     NA grey85
+      2   0.01187  0.14854 0.2  0.01187     1    -1       FALSE     NA grey85
+      3   0.01176  0.14853 0.3  0.01176     1    -1       FALSE     NA grey85
+      4   0.01176  0.14853 0.4  0.01176     1    -1       FALSE     NA grey85
+      5   0.01176  0.14853 0.5  0.01176     1    -1       FALSE     NA grey85
+      6   0.01176  0.14853 0.6  0.01176     1    -1       FALSE     NA grey85
+      7   0.01176  0.14853 1.0  0.01176     1    -1       FALSE     NA grey85
+      8   0.01173  0.14852 1.1  0.01173     1    -1       FALSE     NA grey85
+      9   0.01170  0.14852 1.2  0.01170     1    -1       FALSE     NA grey85
+      10  0.01169  0.14829 1.3  0.01169     1    -1       FALSE     NA grey85
+      11  0.01162  0.14702 1.4  0.01162     1    -1       FALSE     NA grey85
+      12  0.00750  0.06871 1.5  0.00750     1    -1       FALSE     NA grey85
+      13  0.00188  0.05270 1.6  0.00188     1    -1       FALSE     NA grey85
+      14 -0.18224 -0.01063 1.7 -0.18224     1    -1       FALSE     NA grey85
+      15 -0.23569 -0.01957 1.8 -0.23569     1    -1       FALSE     NA grey85
+      16 -0.23981 -0.01979 1.9 -0.23981     1    -1       FALSE     NA grey85
+      17 -0.25153 -0.02043 2.0 -0.25153     1    -1       FALSE     NA grey85
+      18 -0.25154 -0.02043 2.1 -0.25154     1    -1       FALSE     NA grey85
+      19 -0.25155 -0.02043 2.2 -0.25155     1    -1       FALSE     NA grey85
+      20 -0.25213 -0.02049 2.3 -0.25213     1    -1       FALSE     NA grey85
+      21 -0.25216 -0.02049 2.4 -0.25216     1    -1       FALSE     NA grey85
+      22 -0.25216 -0.02049 2.5 -0.25216     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -3159,6 +3521,18 @@
       8        0.5        1   0.5
       9        0.5        1   0.5
       10       0.5        1   0.5
+      11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
       
       
       $versicolor$d2
@@ -3172,8 +3546,8 @@
       
       $versicolor$eff[[2]]
             xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.01765 0.09678 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.14453 0.08557 2     1     2        TRUE 1.875 2.125  black       0.5
+      1 -0.01167 0.01520 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.13632 0.08021 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -3185,8 +3559,8 @@
       
       $versicolor$eff[[4]]
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 38.8% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 30.5% 2     1     2       0       0  black           3     0   0.5
+      1 NA NALED 34.5% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 29.4% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
       2    -1    NA        1        1.2
@@ -3209,15 +3583,15 @@
       
       $versicolor$eff[[7]]
          x      label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
-      2 NA ALED 0.095 2     1     2       0       0  black           3     0   0.5
+      1 NA ALED 0.009 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 0.093 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1     2    NA        1        1.2
       2     2    NA        1        1.2
       
       $versicolor$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
-      1 1 2     1    -1  black white           3     0     1   0.5    NA        1
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
         lineheight linewidth linetype
       1        1.2         0        1
                                                                      label
@@ -3229,17 +3603,41 @@
       $virginica$d1
       $virginica$d1$Sepal.Length
              ymin     ymax   x        y PANEL group flipped_aes colour   fill
-      1   0.01416  0.02128 4.3  0.01416     1    -1       FALSE     NA grey85
-      2   0.01416  0.02128 4.8  0.01416     1    -1       FALSE     NA grey85
-      3   0.01388  0.01596 5.0  0.01388     1    -1       FALSE     NA grey85
-      4   0.01387  0.01596 5.3  0.01387     1    -1       FALSE     NA grey85
-      5   0.01011  0.01511 5.6  0.01011     1    -1       FALSE     NA grey85
-      6   0.01010  0.01499 5.8  0.01010     1    -1       FALSE     NA grey85
-      7  -0.00291  0.00232 6.1 -0.00291     1    -1       FALSE     NA grey85
-      8  -0.02282 -0.00029 6.3 -0.02282     1    -1       FALSE     NA grey85
-      9  -0.02547 -0.00043 6.5 -0.02547     1    -1       FALSE     NA grey85
-      10 -0.02699 -0.01074 6.9 -0.02699     1    -1       FALSE     NA grey85
-      11 -0.15769 -0.03578 7.9 -0.15769     1    -1       FALSE     NA grey85
+      1   0.00186  0.02161 4.3  0.00186     1    -1       FALSE     NA grey85
+      2   0.00186  0.02161 4.4  0.00186     1    -1       FALSE     NA grey85
+      3   0.00186  0.02161 4.5  0.00186     1    -1       FALSE     NA grey85
+      4   0.00186  0.02161 4.6  0.00186     1    -1       FALSE     NA grey85
+      5   0.00186  0.02161 4.7  0.00186     1    -1       FALSE     NA grey85
+      6   0.00186  0.02161 4.8  0.00186     1    -1       FALSE     NA grey85
+      7   0.00159  0.01650 4.9  0.00159     1    -1       FALSE     NA grey85
+      8   0.00159  0.01650 5.0  0.00159     1    -1       FALSE     NA grey85
+      9   0.00159  0.01650 5.1  0.00159     1    -1       FALSE     NA grey85
+      10  0.00159  0.01649 5.2  0.00159     1    -1       FALSE     NA grey85
+      11  0.00159  0.01649 5.3  0.00159     1    -1       FALSE     NA grey85
+      12  0.00157  0.01619 5.4  0.00157     1    -1       FALSE     NA grey85
+      13  0.00108  0.01616 5.5  0.00108     1    -1       FALSE     NA grey85
+      14  0.00107  0.01589 5.6  0.00107     1    -1       FALSE     NA grey85
+      15  0.00107  0.01589 5.7  0.00107     1    -1       FALSE     NA grey85
+      16  0.00106  0.01574 5.8  0.00106     1    -1       FALSE     NA grey85
+      17 -0.00046  0.00020 5.9 -0.00046     1    -1       FALSE     NA grey85
+      18 -0.00248  0.00008 6.0 -0.00248     1    -1       FALSE     NA grey85
+      19 -0.00248  0.00005 6.1 -0.00248     1    -1       FALSE     NA grey85
+      20 -0.01019 -0.00070 6.2 -0.01019     1    -1       FALSE     NA grey85
+      21 -0.02099 -0.00127 6.3 -0.02099     1    -1       FALSE     NA grey85
+      22 -0.02102 -0.00127 6.4 -0.02102     1    -1       FALSE     NA grey85
+      23 -0.02435 -0.00145 6.5 -0.02435     1    -1       FALSE     NA grey85
+      24 -0.02604 -0.00154 6.6 -0.02604     1    -1       FALSE     NA grey85
+      25 -0.02617 -0.00263 6.7 -0.02617     1    -1       FALSE     NA grey85
+      26 -0.02665 -0.00265 6.8 -0.02665     1    -1       FALSE     NA grey85
+      27 -0.02690 -0.00267 6.9 -0.02690     1    -1       FALSE     NA grey85
+      28 -0.02694 -0.00273 7.0 -0.02694     1    -1       FALSE     NA grey85
+      29 -0.02695 -0.00283 7.1 -0.02695     1    -1       FALSE     NA grey85
+      30 -0.02719 -0.00301 7.2 -0.02719     1    -1       FALSE     NA grey85
+      31 -0.02719 -0.00309 7.3 -0.02719     1    -1       FALSE     NA grey85
+      32 -0.02719 -0.00309 7.4 -0.02719     1    -1       FALSE     NA grey85
+      33 -0.02719 -0.00309 7.6 -0.02719     1    -1       FALSE     NA grey85
+      34 -0.02719 -0.00309 7.7 -0.02719     1    -1       FALSE     NA grey85
+      35 -0.02855 -0.02855 7.9 -0.02855     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -3252,19 +3650,55 @@
       9        0.5        1   0.5
       10       0.5        1   0.5
       11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
+      23       0.5        1   0.5
+      24       0.5        1   0.5
+      25       0.5        1   0.5
+      26       0.5        1   0.5
+      27       0.5        1   0.5
+      28       0.5        1   0.5
+      29       0.5        1   0.5
+      30       0.5        1   0.5
+      31       0.5        1   0.5
+      32       0.5        1   0.5
+      33       0.5        1   0.5
+      34       0.5        1   0.5
+      35       0.5        1   0.5
       
       $virginica$d1$Petal.Width
              ymin     ymax   x        y PANEL group flipped_aes colour   fill
-      1  -0.10319 -0.06774 0.1 -0.10319     1    -1       FALSE     NA grey85
-      2  -0.10319 -0.06774 0.2 -0.10319     1    -1       FALSE     NA grey85
-      3  -0.10319 -0.06774 0.4 -0.10319     1    -1       FALSE     NA grey85
-      4  -0.10319 -0.06774 1.1 -0.10319     1    -1       FALSE     NA grey85
-      5  -0.10298 -0.06738 1.3 -0.10298     1    -1       FALSE     NA grey85
-      6  -0.06192  0.00037 1.5 -0.06192     1    -1       FALSE     NA grey85
-      7   0.12324  0.14671 1.8  0.12324     1    -1       FALSE     NA grey85
-      8   0.12346  0.15083 1.9  0.12346     1    -1       FALSE     NA grey85
-      9   0.12419  0.16438 2.2  0.12419     1    -1       FALSE     NA grey85
-      10  0.12423  0.16492 2.5  0.12423     1    -1       FALSE     NA grey85
+      1  -0.14847 -0.01171 0.1 -0.14847     1    -1       FALSE     NA grey85
+      2  -0.14847 -0.01171 0.2 -0.14847     1    -1       FALSE     NA grey85
+      3  -0.14847 -0.01171 0.3 -0.14847     1    -1       FALSE     NA grey85
+      4  -0.14847 -0.01171 0.4 -0.14847     1    -1       FALSE     NA grey85
+      5  -0.14847 -0.01171 0.5 -0.14847     1    -1       FALSE     NA grey85
+      6  -0.14847 -0.01171 0.6 -0.14847     1    -1       FALSE     NA grey85
+      7  -0.14847 -0.01171 1.0 -0.14847     1    -1       FALSE     NA grey85
+      8  -0.14847 -0.01171 1.1 -0.14847     1    -1       FALSE     NA grey85
+      9  -0.14846 -0.01168 1.2 -0.14846     1    -1       FALSE     NA grey85
+      10 -0.14823 -0.01166 1.3 -0.14823     1    -1       FALSE     NA grey85
+      11 -0.14696 -0.01160 1.4 -0.14696     1    -1       FALSE     NA grey85
+      12 -0.06865 -0.00747 1.5 -0.06865     1    -1       FALSE     NA grey85
+      13 -0.05264 -0.00186 1.6 -0.05264     1    -1       FALSE     NA grey85
+      14  0.01066  0.18229 1.7  0.01066     1    -1       FALSE     NA grey85
+      15  0.01959  0.23575 1.8  0.01959     1    -1       FALSE     NA grey85
+      16  0.01981  0.23987 1.9  0.01981     1    -1       FALSE     NA grey85
+      17  0.02045  0.25159 2.0  0.02045     1    -1       FALSE     NA grey85
+      18  0.02045  0.25160 2.1  0.02045     1    -1       FALSE     NA grey85
+      19  0.02045  0.25161 2.2  0.02045     1    -1       FALSE     NA grey85
+      20  0.02051  0.25219 2.3  0.02051     1    -1       FALSE     NA grey85
+      21  0.02052  0.25221 2.4  0.02052     1    -1       FALSE     NA grey85
+      22  0.02052  0.25221 2.5  0.02052     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -3276,6 +3710,18 @@
       8        0.5        1   0.5
       9        0.5        1   0.5
       10       0.5        1   0.5
+      11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
       
       
       $virginica$d2
@@ -3289,8 +3735,8 @@
       
       $virginica$eff[[2]]
             xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.09674 0.01772 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.08547 0.14457 2     1     2        TRUE 1.875 2.125  black       0.5
+      1 -0.01515 0.01174 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.08009 0.13637 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -3302,8 +3748,8 @@
       
       $virginica$eff[[4]]
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 23.2% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 33.8% 2     1     2       0       0  black           3     0   0.5
+      1 NA NALED 27.7% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 35.5% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
       2    -1    NA        1        1.2
@@ -3326,8 +3772,8 @@
       
       $virginica$eff[[7]]
          x      label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
-      2 NA ALED 0.095 2     1     2       0       0  black           3     0   0.5
+      1 NA ALED 0.010 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 0.093 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1     2    NA        1        1.2
       2     2    NA        1        1.2
@@ -3346,144 +3792,360 @@
       $.all_cats$d1
       $.all_cats$d1$Sepal.Length
       $.all_cats$d1$Sepal.Length$overlay
-          colour linetype   x        y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 4.3 -0.00011     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 4.3 -0.01757     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 4.3  0.01772     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 4.8  0.00000     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 4.8 -0.01768     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 4.8  0.01772     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 5.0  0.00000     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 5.0 -0.01488     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 5.0  0.01492     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 5.3  0.00002     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 5.3 -0.01489     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 5.3  0.01491     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 5.6  0.00002     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 5.6 -0.01259     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 5.6  0.01261     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 5.8  0.00002     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 5.8 -0.01252     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 5.8  0.01255     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 6.1  0.00002     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 6.1  0.00032     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 6.1 -0.00030     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 6.3  0.00002     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 6.3  0.01158     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 6.3 -0.01155     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 6.5  0.00002     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 6.5  0.01297     1     1       FALSE       0.5    NA
-      31 #F8766D    solid 6.5 -0.01295     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 6.9  0.00002     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 6.9  0.01888     1     1       FALSE       0.5    NA
-      32 #F8766D    solid 6.9 -0.01886     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 7.9  0.00003     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 7.9  0.09675     1     1       FALSE       0.5    NA
-      33 #F8766D    solid 7.9 -0.09674     1     1       FALSE       0.5    NA
+           colour linetype   x        y PANEL group flipped_aes linewidth alpha
+      1   #F8766D    solid 4.3 -0.00013     1     1       FALSE       0.5    NA
+      36  #F8766D    solid 4.3 -0.01156     1     1       FALSE       0.5    NA
+      71  #F8766D    solid 4.3  0.01174     1     1       FALSE       0.5    NA
+      2   #F8766D    solid 4.4 -0.00013     1     1       FALSE       0.5    NA
+      37  #F8766D    solid 4.4 -0.01156     1     1       FALSE       0.5    NA
+      72  #F8766D    solid 4.4  0.01174     1     1       FALSE       0.5    NA
+      3   #F8766D    solid 4.5  0.00000     1     1       FALSE       0.5    NA
+      38  #F8766D    solid 4.5 -0.01169     1     1       FALSE       0.5    NA
+      73  #F8766D    solid 4.5  0.01174     1     1       FALSE       0.5    NA
+      4   #F8766D    solid 4.6  0.00000     1     1       FALSE       0.5    NA
+      39  #F8766D    solid 4.6 -0.01169     1     1       FALSE       0.5    NA
+      74  #F8766D    solid 4.6  0.01174     1     1       FALSE       0.5    NA
+      5   #F8766D    solid 4.7  0.00000     1     1       FALSE       0.5    NA
+      40  #F8766D    solid 4.7 -0.01169     1     1       FALSE       0.5    NA
+      75  #F8766D    solid 4.7  0.01174     1     1       FALSE       0.5    NA
+      6   #F8766D    solid 4.8  0.00001     1     1       FALSE       0.5    NA
+      41  #F8766D    solid 4.8 -0.01170     1     1       FALSE       0.5    NA
+      76  #F8766D    solid 4.8  0.01174     1     1       FALSE       0.5    NA
+      7   #F8766D    solid 4.9  0.00001     1     1       FALSE       0.5    NA
+      42  #F8766D    solid 4.9 -0.00901     1     1       FALSE       0.5    NA
+      77  #F8766D    solid 4.9  0.00904     1     1       FALSE       0.5    NA
+      8   #F8766D    solid 5.0  0.00001     1     1       FALSE       0.5    NA
+      43  #F8766D    solid 5.0 -0.00901     1     1       FALSE       0.5    NA
+      78  #F8766D    solid 5.0  0.00904     1     1       FALSE       0.5    NA
+      9   #F8766D    solid 5.1  0.00002     1     1       FALSE       0.5    NA
+      44  #F8766D    solid 5.1 -0.00902     1     1       FALSE       0.5    NA
+      79  #F8766D    solid 5.1  0.00904     1     1       FALSE       0.5    NA
+      10  #F8766D    solid 5.2  0.00002     1     1       FALSE       0.5    NA
+      45  #F8766D    solid 5.2 -0.00902     1     1       FALSE       0.5    NA
+      80  #F8766D    solid 5.2  0.00904     1     1       FALSE       0.5    NA
+      11  #F8766D    solid 5.3  0.00002     1     1       FALSE       0.5    NA
+      46  #F8766D    solid 5.3 -0.00902     1     1       FALSE       0.5    NA
+      81  #F8766D    solid 5.3  0.00904     1     1       FALSE       0.5    NA
+      12  #F8766D    solid 5.4  0.00002     1     1       FALSE       0.5    NA
+      47  #F8766D    solid 5.4 -0.00885     1     1       FALSE       0.5    NA
+      82  #F8766D    solid 5.4  0.00888     1     1       FALSE       0.5    NA
+      13  #F8766D    solid 5.5  0.00002     1     1       FALSE       0.5    NA
+      48  #F8766D    solid 5.5 -0.00859     1     1       FALSE       0.5    NA
+      83  #F8766D    solid 5.5  0.00862     1     1       FALSE       0.5    NA
+      14  #F8766D    solid 5.6  0.00002     1     1       FALSE       0.5    NA
+      49  #F8766D    solid 5.6 -0.00845     1     1       FALSE       0.5    NA
+      84  #F8766D    solid 5.6  0.00848     1     1       FALSE       0.5    NA
+      15  #F8766D    solid 5.7  0.00002     1     1       FALSE       0.5    NA
+      50  #F8766D    solid 5.7 -0.00845     1     1       FALSE       0.5    NA
+      85  #F8766D    solid 5.7  0.00848     1     1       FALSE       0.5    NA
+      16  #F8766D    solid 5.8  0.00002     1     1       FALSE       0.5    NA
+      51  #F8766D    solid 5.8 -0.00837     1     1       FALSE       0.5    NA
+      86  #F8766D    solid 5.8  0.00840     1     1       FALSE       0.5    NA
+      17  #F8766D    solid 5.9  0.00002     1     1       FALSE       0.5    NA
+      52  #F8766D    solid 5.9  0.00015     1     1       FALSE       0.5    NA
+      87  #F8766D    solid 5.9 -0.00013     1     1       FALSE       0.5    NA
+      18  #F8766D    solid 6.0  0.00002     1     1       FALSE       0.5    NA
+      53  #F8766D    solid 6.0  0.00122     1     1       FALSE       0.5    NA
+      88  #F8766D    solid 6.0 -0.00120     1     1       FALSE       0.5    NA
+      19  #F8766D    solid 6.1  0.00002     1     1       FALSE       0.5    NA
+      54  #F8766D    solid 6.1  0.00124     1     1       FALSE       0.5    NA
+      89  #F8766D    solid 6.1 -0.00122     1     1       FALSE       0.5    NA
+      20  #F8766D    solid 6.2  0.00002     1     1       FALSE       0.5    NA
+      55  #F8766D    solid 6.2  0.00547     1     1       FALSE       0.5    NA
+      90  #F8766D    solid 6.2 -0.00545     1     1       FALSE       0.5    NA
+      21  #F8766D    solid 6.3  0.00002     1     1       FALSE       0.5    NA
+      56  #F8766D    solid 6.3  0.01116     1     1       FALSE       0.5    NA
+      91  #F8766D    solid 6.3 -0.01113     1     1       FALSE       0.5    NA
+      22  #F8766D    solid 6.4  0.00002     1     1       FALSE       0.5    NA
+      57  #F8766D    solid 6.4  0.01117     1     1       FALSE       0.5    NA
+      92  #F8766D    solid 6.4 -0.01114     1     1       FALSE       0.5    NA
+      23  #F8766D    solid 6.5  0.00002     1     1       FALSE       0.5    NA
+      58  #F8766D    solid 6.5  0.01292     1     1       FALSE       0.5    NA
+      93  #F8766D    solid 6.5 -0.01290     1     1       FALSE       0.5    NA
+      24  #F8766D    solid 6.6  0.00002     1     1       FALSE       0.5    NA
+      59  #F8766D    solid 6.6  0.01381     1     1       FALSE       0.5    NA
+      94  #F8766D    solid 6.6 -0.01379     1     1       FALSE       0.5    NA
+      25  #F8766D    solid 6.7  0.00002     1     1       FALSE       0.5    NA
+      60  #F8766D    solid 6.7  0.01442     1     1       FALSE       0.5    NA
+      95  #F8766D    solid 6.7 -0.01440     1     1       FALSE       0.5    NA
+      26  #F8766D    solid 6.8  0.00002     1     1       FALSE       0.5    NA
+      61  #F8766D    solid 6.8  0.01468     1     1       FALSE       0.5    NA
+      96  #F8766D    solid 6.8 -0.01465     1     1       FALSE       0.5    NA
+      27  #F8766D    solid 6.9  0.00002     1     1       FALSE       0.5    NA
+      62  #F8766D    solid 6.9  0.01481     1     1       FALSE       0.5    NA
+      97  #F8766D    solid 6.9 -0.01478     1     1       FALSE       0.5    NA
+      28  #F8766D    solid 7.0  0.00002     1     1       FALSE       0.5    NA
+      63  #F8766D    solid 7.0  0.01486     1     1       FALSE       0.5    NA
+      98  #F8766D    solid 7.0 -0.01483     1     1       FALSE       0.5    NA
+      29  #F8766D    solid 7.1  0.00002     1     1       FALSE       0.5    NA
+      64  #F8766D    solid 7.1  0.01492     1     1       FALSE       0.5    NA
+      99  #F8766D    solid 7.1 -0.01489     1     1       FALSE       0.5    NA
+      30  #F8766D    solid 7.2  0.00002     1     1       FALSE       0.5    NA
+      65  #F8766D    solid 7.2  0.01512     1     1       FALSE       0.5    NA
+      100 #F8766D    solid 7.2 -0.01510     1     1       FALSE       0.5    NA
+      31  #F8766D    solid 7.3  0.00002     1     1       FALSE       0.5    NA
+      66  #F8766D    solid 7.3  0.01516     1     1       FALSE       0.5    NA
+      101 #F8766D    solid 7.3 -0.01514     1     1       FALSE       0.5    NA
+      32  #F8766D    solid 7.4  0.00002     1     1       FALSE       0.5    NA
+      67  #F8766D    solid 7.4  0.01517     1     1       FALSE       0.5    NA
+      102 #F8766D    solid 7.4 -0.01514     1     1       FALSE       0.5    NA
+      33  #F8766D    solid 7.6  0.00002     1     1       FALSE       0.5    NA
+      68  #F8766D    solid 7.6  0.01517     1     1       FALSE       0.5    NA
+      103 #F8766D    solid 7.6 -0.01514     1     1       FALSE       0.5    NA
+      34  #F8766D    solid 7.7  0.00002     1     1       FALSE       0.5    NA
+      69  #F8766D    solid 7.7  0.01517     1     1       FALSE       0.5    NA
+      104 #F8766D    solid 7.7 -0.01514     1     1       FALSE       0.5    NA
+      35  #F8766D    solid 7.9  0.00003     1     1       FALSE       0.5    NA
+      70  #F8766D    solid 7.9  0.02857     1     1       FALSE       0.5    NA
+      105 #F8766D    solid 7.9 -0.02855     1     1       FALSE       0.5    NA
       
       $.all_cats$d1$Sepal.Length$facet
-           x        y PANEL group flipped_aes colour linewidth linetype alpha
-      1  4.3 -0.00011     1    -1       FALSE  black       0.5        1    NA
-      12 4.3 -0.01757     1    -1       FALSE  black       0.5        1    NA
-      23 4.3  0.01772     1    -1       FALSE  black       0.5        1    NA
-      2  4.8  0.00000     1    -1       FALSE  black       0.5        1    NA
-      13 4.8 -0.01768     1    -1       FALSE  black       0.5        1    NA
-      24 4.8  0.01772     1    -1       FALSE  black       0.5        1    NA
-      3  5.0  0.00000     1    -1       FALSE  black       0.5        1    NA
-      14 5.0 -0.01488     1    -1       FALSE  black       0.5        1    NA
-      25 5.0  0.01492     1    -1       FALSE  black       0.5        1    NA
-      4  5.3  0.00002     1    -1       FALSE  black       0.5        1    NA
-      15 5.3 -0.01489     1    -1       FALSE  black       0.5        1    NA
-      26 5.3  0.01491     1    -1       FALSE  black       0.5        1    NA
-      5  5.6  0.00002     1    -1       FALSE  black       0.5        1    NA
-      16 5.6 -0.01259     1    -1       FALSE  black       0.5        1    NA
-      27 5.6  0.01261     1    -1       FALSE  black       0.5        1    NA
-      6  5.8  0.00002     1    -1       FALSE  black       0.5        1    NA
-      17 5.8 -0.01252     1    -1       FALSE  black       0.5        1    NA
-      28 5.8  0.01255     1    -1       FALSE  black       0.5        1    NA
-      7  6.1  0.00002     1    -1       FALSE  black       0.5        1    NA
-      18 6.1  0.00032     1    -1       FALSE  black       0.5        1    NA
-      29 6.1 -0.00030     1    -1       FALSE  black       0.5        1    NA
-      8  6.3  0.00002     1    -1       FALSE  black       0.5        1    NA
-      19 6.3  0.01158     1    -1       FALSE  black       0.5        1    NA
-      30 6.3 -0.01155     1    -1       FALSE  black       0.5        1    NA
-      9  6.5  0.00002     1    -1       FALSE  black       0.5        1    NA
-      20 6.5  0.01297     1    -1       FALSE  black       0.5        1    NA
-      31 6.5 -0.01295     1    -1       FALSE  black       0.5        1    NA
-      10 6.9  0.00002     1    -1       FALSE  black       0.5        1    NA
-      21 6.9  0.01888     1    -1       FALSE  black       0.5        1    NA
-      32 6.9 -0.01886     1    -1       FALSE  black       0.5        1    NA
-      11 7.9  0.00003     1    -1       FALSE  black       0.5        1    NA
-      22 7.9  0.09675     1    -1       FALSE  black       0.5        1    NA
-      33 7.9 -0.09674     1    -1       FALSE  black       0.5        1    NA
+            x        y PANEL group flipped_aes colour linewidth linetype alpha
+      1   4.3 -0.00013     1    -1       FALSE  black       0.5        1    NA
+      36  4.3 -0.01156     1    -1       FALSE  black       0.5        1    NA
+      71  4.3  0.01174     1    -1       FALSE  black       0.5        1    NA
+      2   4.4 -0.00013     1    -1       FALSE  black       0.5        1    NA
+      37  4.4 -0.01156     1    -1       FALSE  black       0.5        1    NA
+      72  4.4  0.01174     1    -1       FALSE  black       0.5        1    NA
+      3   4.5  0.00000     1    -1       FALSE  black       0.5        1    NA
+      38  4.5 -0.01169     1    -1       FALSE  black       0.5        1    NA
+      73  4.5  0.01174     1    -1       FALSE  black       0.5        1    NA
+      4   4.6  0.00000     1    -1       FALSE  black       0.5        1    NA
+      39  4.6 -0.01169     1    -1       FALSE  black       0.5        1    NA
+      74  4.6  0.01174     1    -1       FALSE  black       0.5        1    NA
+      5   4.7  0.00000     1    -1       FALSE  black       0.5        1    NA
+      40  4.7 -0.01169     1    -1       FALSE  black       0.5        1    NA
+      75  4.7  0.01174     1    -1       FALSE  black       0.5        1    NA
+      6   4.8  0.00001     1    -1       FALSE  black       0.5        1    NA
+      41  4.8 -0.01170     1    -1       FALSE  black       0.5        1    NA
+      76  4.8  0.01174     1    -1       FALSE  black       0.5        1    NA
+      7   4.9  0.00001     1    -1       FALSE  black       0.5        1    NA
+      42  4.9 -0.00901     1    -1       FALSE  black       0.5        1    NA
+      77  4.9  0.00904     1    -1       FALSE  black       0.5        1    NA
+      8   5.0  0.00001     1    -1       FALSE  black       0.5        1    NA
+      43  5.0 -0.00901     1    -1       FALSE  black       0.5        1    NA
+      78  5.0  0.00904     1    -1       FALSE  black       0.5        1    NA
+      9   5.1  0.00002     1    -1       FALSE  black       0.5        1    NA
+      44  5.1 -0.00902     1    -1       FALSE  black       0.5        1    NA
+      79  5.1  0.00904     1    -1       FALSE  black       0.5        1    NA
+      10  5.2  0.00002     1    -1       FALSE  black       0.5        1    NA
+      45  5.2 -0.00902     1    -1       FALSE  black       0.5        1    NA
+      80  5.2  0.00904     1    -1       FALSE  black       0.5        1    NA
+      11  5.3  0.00002     1    -1       FALSE  black       0.5        1    NA
+      46  5.3 -0.00902     1    -1       FALSE  black       0.5        1    NA
+      81  5.3  0.00904     1    -1       FALSE  black       0.5        1    NA
+      12  5.4  0.00002     1    -1       FALSE  black       0.5        1    NA
+      47  5.4 -0.00885     1    -1       FALSE  black       0.5        1    NA
+      82  5.4  0.00888     1    -1       FALSE  black       0.5        1    NA
+      13  5.5  0.00002     1    -1       FALSE  black       0.5        1    NA
+      48  5.5 -0.00859     1    -1       FALSE  black       0.5        1    NA
+      83  5.5  0.00862     1    -1       FALSE  black       0.5        1    NA
+      14  5.6  0.00002     1    -1       FALSE  black       0.5        1    NA
+      49  5.6 -0.00845     1    -1       FALSE  black       0.5        1    NA
+      84  5.6  0.00848     1    -1       FALSE  black       0.5        1    NA
+      15  5.7  0.00002     1    -1       FALSE  black       0.5        1    NA
+      50  5.7 -0.00845     1    -1       FALSE  black       0.5        1    NA
+      85  5.7  0.00848     1    -1       FALSE  black       0.5        1    NA
+      16  5.8  0.00002     1    -1       FALSE  black       0.5        1    NA
+      51  5.8 -0.00837     1    -1       FALSE  black       0.5        1    NA
+      86  5.8  0.00840     1    -1       FALSE  black       0.5        1    NA
+      17  5.9  0.00002     1    -1       FALSE  black       0.5        1    NA
+      52  5.9  0.00015     1    -1       FALSE  black       0.5        1    NA
+      87  5.9 -0.00013     1    -1       FALSE  black       0.5        1    NA
+      18  6.0  0.00002     1    -1       FALSE  black       0.5        1    NA
+      53  6.0  0.00122     1    -1       FALSE  black       0.5        1    NA
+      88  6.0 -0.00120     1    -1       FALSE  black       0.5        1    NA
+      19  6.1  0.00002     1    -1       FALSE  black       0.5        1    NA
+      54  6.1  0.00124     1    -1       FALSE  black       0.5        1    NA
+      89  6.1 -0.00122     1    -1       FALSE  black       0.5        1    NA
+      20  6.2  0.00002     1    -1       FALSE  black       0.5        1    NA
+      55  6.2  0.00547     1    -1       FALSE  black       0.5        1    NA
+      90  6.2 -0.00545     1    -1       FALSE  black       0.5        1    NA
+      21  6.3  0.00002     1    -1       FALSE  black       0.5        1    NA
+      56  6.3  0.01116     1    -1       FALSE  black       0.5        1    NA
+      91  6.3 -0.01113     1    -1       FALSE  black       0.5        1    NA
+      22  6.4  0.00002     1    -1       FALSE  black       0.5        1    NA
+      57  6.4  0.01117     1    -1       FALSE  black       0.5        1    NA
+      92  6.4 -0.01114     1    -1       FALSE  black       0.5        1    NA
+      23  6.5  0.00002     1    -1       FALSE  black       0.5        1    NA
+      58  6.5  0.01292     1    -1       FALSE  black       0.5        1    NA
+      93  6.5 -0.01290     1    -1       FALSE  black       0.5        1    NA
+      24  6.6  0.00002     1    -1       FALSE  black       0.5        1    NA
+      59  6.6  0.01381     1    -1       FALSE  black       0.5        1    NA
+      94  6.6 -0.01379     1    -1       FALSE  black       0.5        1    NA
+      25  6.7  0.00002     1    -1       FALSE  black       0.5        1    NA
+      60  6.7  0.01442     1    -1       FALSE  black       0.5        1    NA
+      95  6.7 -0.01440     1    -1       FALSE  black       0.5        1    NA
+      26  6.8  0.00002     1    -1       FALSE  black       0.5        1    NA
+      61  6.8  0.01468     1    -1       FALSE  black       0.5        1    NA
+      96  6.8 -0.01465     1    -1       FALSE  black       0.5        1    NA
+      27  6.9  0.00002     1    -1       FALSE  black       0.5        1    NA
+      62  6.9  0.01481     1    -1       FALSE  black       0.5        1    NA
+      97  6.9 -0.01478     1    -1       FALSE  black       0.5        1    NA
+      28  7.0  0.00002     1    -1       FALSE  black       0.5        1    NA
+      63  7.0  0.01486     1    -1       FALSE  black       0.5        1    NA
+      98  7.0 -0.01483     1    -1       FALSE  black       0.5        1    NA
+      29  7.1  0.00002     1    -1       FALSE  black       0.5        1    NA
+      64  7.1  0.01492     1    -1       FALSE  black       0.5        1    NA
+      99  7.1 -0.01489     1    -1       FALSE  black       0.5        1    NA
+      30  7.2  0.00002     1    -1       FALSE  black       0.5        1    NA
+      65  7.2  0.01512     1    -1       FALSE  black       0.5        1    NA
+      100 7.2 -0.01510     1    -1       FALSE  black       0.5        1    NA
+      31  7.3  0.00002     1    -1       FALSE  black       0.5        1    NA
+      66  7.3  0.01516     1    -1       FALSE  black       0.5        1    NA
+      101 7.3 -0.01514     1    -1       FALSE  black       0.5        1    NA
+      32  7.4  0.00002     1    -1       FALSE  black       0.5        1    NA
+      67  7.4  0.01517     1    -1       FALSE  black       0.5        1    NA
+      102 7.4 -0.01514     1    -1       FALSE  black       0.5        1    NA
+      33  7.6  0.00002     1    -1       FALSE  black       0.5        1    NA
+      68  7.6  0.01517     1    -1       FALSE  black       0.5        1    NA
+      103 7.6 -0.01514     1    -1       FALSE  black       0.5        1    NA
+      34  7.7  0.00002     1    -1       FALSE  black       0.5        1    NA
+      69  7.7  0.01517     1    -1       FALSE  black       0.5        1    NA
+      104 7.7 -0.01514     1    -1       FALSE  black       0.5        1    NA
+      35  7.9  0.00003     1    -1       FALSE  black       0.5        1    NA
+      70  7.9  0.02857     1    -1       FALSE  black       0.5        1    NA
+      105 7.9 -0.02855     1    -1       FALSE  black       0.5        1    NA
       
       
       $.all_cats$d1$Petal.Width
       $.all_cats$d1$Petal.Width$overlay
           colour linetype   x        y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 0.1 -0.00003     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 0.1  0.08554     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 0.1 -0.08547     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 0.2 -0.00002     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 0.2  0.08553     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 0.2 -0.08547     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 0.4  0.00002     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 0.4  0.08549     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 0.4 -0.08547     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 1.1  0.00003     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 1.1  0.08548     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 1.1 -0.08547     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 1.3  0.00003     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 1.3  0.08520     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 1.3 -0.08518     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 1.5  0.00003     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 1.5  0.03079     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 1.5 -0.03078     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 1.8  0.00003     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 1.8 -0.13496     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 1.8  0.13498     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 1.9  0.00003     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 1.9 -0.13713     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 1.9  0.13715     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 2.2  0.00003     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 2.2 -0.14427     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 2.2  0.14428     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 2.5  0.00003     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 2.5 -0.14456     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 2.5  0.14457     1     1       FALSE       0.5    NA
+      1  #F8766D    solid 0.1 -0.00005     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 0.1  0.08018     1     1       FALSE       0.5    NA
+      45 #F8766D    solid 0.1 -0.08009     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 0.2 -0.00004     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 0.2  0.08017     1     1       FALSE       0.5    NA
+      46 #F8766D    solid 0.2 -0.08009     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 0.3  0.00002     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 0.3  0.08012     1     1       FALSE       0.5    NA
+      47 #F8766D    solid 0.3 -0.08009     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 0.4  0.00002     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 0.4  0.08012     1     1       FALSE       0.5    NA
+      48 #F8766D    solid 0.4 -0.08009     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 0.5  0.00002     1     1       FALSE       0.5    NA
+      27 #F8766D    solid 0.5  0.08012     1     1       FALSE       0.5    NA
+      49 #F8766D    solid 0.5 -0.08009     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 0.6  0.00002     1     1       FALSE       0.5    NA
+      28 #F8766D    solid 0.6  0.08012     1     1       FALSE       0.5    NA
+      50 #F8766D    solid 0.6 -0.08009     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 1.0  0.00002     1     1       FALSE       0.5    NA
+      29 #F8766D    solid 1.0  0.08012     1     1       FALSE       0.5    NA
+      51 #F8766D    solid 1.0 -0.08009     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 1.1  0.00004     1     1       FALSE       0.5    NA
+      30 #F8766D    solid 1.1  0.08010     1     1       FALSE       0.5    NA
+      52 #F8766D    solid 1.1 -0.08009     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 1.2  0.00004     1     1       FALSE       0.5    NA
+      31 #F8766D    solid 1.2  0.08008     1     1       FALSE       0.5    NA
+      53 #F8766D    solid 1.2 -0.08007     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 1.3  0.00004     1     1       FALSE       0.5    NA
+      32 #F8766D    solid 1.3  0.07996     1     1       FALSE       0.5    NA
+      54 #F8766D    solid 1.3 -0.07995     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 1.4  0.00004     1     1       FALSE       0.5    NA
+      33 #F8766D    solid 1.4  0.07929     1     1       FALSE       0.5    NA
+      55 #F8766D    solid 1.4 -0.07928     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 1.5  0.00004     1     1       FALSE       0.5    NA
+      34 #F8766D    solid 1.5  0.03807     1     1       FALSE       0.5    NA
+      56 #F8766D    solid 1.5 -0.03806     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 1.6  0.00004     1     1       FALSE       0.5    NA
+      35 #F8766D    solid 1.6  0.02726     1     1       FALSE       0.5    NA
+      57 #F8766D    solid 1.6 -0.02725     1     1       FALSE       0.5    NA
+      14 #F8766D    solid 1.7  0.00004     1     1       FALSE       0.5    NA
+      36 #F8766D    solid 1.7 -0.09647     1     1       FALSE       0.5    NA
+      58 #F8766D    solid 1.7  0.09648     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 1.8  0.00004     1     1       FALSE       0.5    NA
+      37 #F8766D    solid 1.8 -0.12766     1     1       FALSE       0.5    NA
+      59 #F8766D    solid 1.8  0.12767     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 1.9  0.00004     1     1       FALSE       0.5    NA
+      38 #F8766D    solid 1.9 -0.12983     1     1       FALSE       0.5    NA
+      60 #F8766D    solid 1.9  0.12984     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 2.0  0.00004     1     1       FALSE       0.5    NA
+      39 #F8766D    solid 2.0 -0.13601     1     1       FALSE       0.5    NA
+      61 #F8766D    solid 2.0  0.13602     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 2.1  0.00004     1     1       FALSE       0.5    NA
+      40 #F8766D    solid 2.1 -0.13602     1     1       FALSE       0.5    NA
+      62 #F8766D    solid 2.1  0.13603     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 2.2  0.00004     1     1       FALSE       0.5    NA
+      41 #F8766D    solid 2.2 -0.13602     1     1       FALSE       0.5    NA
+      63 #F8766D    solid 2.2  0.13603     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 2.3  0.00004     1     1       FALSE       0.5    NA
+      42 #F8766D    solid 2.3 -0.13634     1     1       FALSE       0.5    NA
+      64 #F8766D    solid 2.3  0.13635     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 2.4  0.00004     1     1       FALSE       0.5    NA
+      43 #F8766D    solid 2.4 -0.13635     1     1       FALSE       0.5    NA
+      65 #F8766D    solid 2.4  0.13636     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 2.5  0.00004     1     1       FALSE       0.5    NA
+      44 #F8766D    solid 2.5 -0.13636     1     1       FALSE       0.5    NA
+      66 #F8766D    solid 2.5  0.13637     1     1       FALSE       0.5    NA
       
       $.all_cats$d1$Petal.Width$facet
            x        y PANEL group flipped_aes colour linewidth linetype alpha
-      1  0.1 -0.00003     1    -1       FALSE  black       0.5        1    NA
-      11 0.1  0.08554     1    -1       FALSE  black       0.5        1    NA
-      21 0.1 -0.08547     1    -1       FALSE  black       0.5        1    NA
-      2  0.2 -0.00002     1    -1       FALSE  black       0.5        1    NA
-      12 0.2  0.08553     1    -1       FALSE  black       0.5        1    NA
-      22 0.2 -0.08547     1    -1       FALSE  black       0.5        1    NA
-      3  0.4  0.00002     1    -1       FALSE  black       0.5        1    NA
-      13 0.4  0.08549     1    -1       FALSE  black       0.5        1    NA
-      23 0.4 -0.08547     1    -1       FALSE  black       0.5        1    NA
-      4  1.1  0.00003     1    -1       FALSE  black       0.5        1    NA
-      14 1.1  0.08548     1    -1       FALSE  black       0.5        1    NA
-      24 1.1 -0.08547     1    -1       FALSE  black       0.5        1    NA
-      5  1.3  0.00003     1    -1       FALSE  black       0.5        1    NA
-      15 1.3  0.08520     1    -1       FALSE  black       0.5        1    NA
-      25 1.3 -0.08518     1    -1       FALSE  black       0.5        1    NA
-      6  1.5  0.00003     1    -1       FALSE  black       0.5        1    NA
-      16 1.5  0.03079     1    -1       FALSE  black       0.5        1    NA
-      26 1.5 -0.03078     1    -1       FALSE  black       0.5        1    NA
-      7  1.8  0.00003     1    -1       FALSE  black       0.5        1    NA
-      17 1.8 -0.13496     1    -1       FALSE  black       0.5        1    NA
-      27 1.8  0.13498     1    -1       FALSE  black       0.5        1    NA
-      8  1.9  0.00003     1    -1       FALSE  black       0.5        1    NA
-      18 1.9 -0.13713     1    -1       FALSE  black       0.5        1    NA
-      28 1.9  0.13715     1    -1       FALSE  black       0.5        1    NA
-      9  2.2  0.00003     1    -1       FALSE  black       0.5        1    NA
-      19 2.2 -0.14427     1    -1       FALSE  black       0.5        1    NA
-      29 2.2  0.14428     1    -1       FALSE  black       0.5        1    NA
-      10 2.5  0.00003     1    -1       FALSE  black       0.5        1    NA
-      20 2.5 -0.14456     1    -1       FALSE  black       0.5        1    NA
-      30 2.5  0.14457     1    -1       FALSE  black       0.5        1    NA
+      1  0.1 -0.00005     1    -1       FALSE  black       0.5        1    NA
+      23 0.1  0.08018     1    -1       FALSE  black       0.5        1    NA
+      45 0.1 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      2  0.2 -0.00004     1    -1       FALSE  black       0.5        1    NA
+      24 0.2  0.08017     1    -1       FALSE  black       0.5        1    NA
+      46 0.2 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      3  0.3  0.00002     1    -1       FALSE  black       0.5        1    NA
+      25 0.3  0.08012     1    -1       FALSE  black       0.5        1    NA
+      47 0.3 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      4  0.4  0.00002     1    -1       FALSE  black       0.5        1    NA
+      26 0.4  0.08012     1    -1       FALSE  black       0.5        1    NA
+      48 0.4 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      5  0.5  0.00002     1    -1       FALSE  black       0.5        1    NA
+      27 0.5  0.08012     1    -1       FALSE  black       0.5        1    NA
+      49 0.5 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      6  0.6  0.00002     1    -1       FALSE  black       0.5        1    NA
+      28 0.6  0.08012     1    -1       FALSE  black       0.5        1    NA
+      50 0.6 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      7  1.0  0.00002     1    -1       FALSE  black       0.5        1    NA
+      29 1.0  0.08012     1    -1       FALSE  black       0.5        1    NA
+      51 1.0 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      8  1.1  0.00004     1    -1       FALSE  black       0.5        1    NA
+      30 1.1  0.08010     1    -1       FALSE  black       0.5        1    NA
+      52 1.1 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      9  1.2  0.00004     1    -1       FALSE  black       0.5        1    NA
+      31 1.2  0.08008     1    -1       FALSE  black       0.5        1    NA
+      53 1.2 -0.08007     1    -1       FALSE  black       0.5        1    NA
+      10 1.3  0.00004     1    -1       FALSE  black       0.5        1    NA
+      32 1.3  0.07996     1    -1       FALSE  black       0.5        1    NA
+      54 1.3 -0.07995     1    -1       FALSE  black       0.5        1    NA
+      11 1.4  0.00004     1    -1       FALSE  black       0.5        1    NA
+      33 1.4  0.07929     1    -1       FALSE  black       0.5        1    NA
+      55 1.4 -0.07928     1    -1       FALSE  black       0.5        1    NA
+      12 1.5  0.00004     1    -1       FALSE  black       0.5        1    NA
+      34 1.5  0.03807     1    -1       FALSE  black       0.5        1    NA
+      56 1.5 -0.03806     1    -1       FALSE  black       0.5        1    NA
+      13 1.6  0.00004     1    -1       FALSE  black       0.5        1    NA
+      35 1.6  0.02726     1    -1       FALSE  black       0.5        1    NA
+      57 1.6 -0.02725     1    -1       FALSE  black       0.5        1    NA
+      14 1.7  0.00004     1    -1       FALSE  black       0.5        1    NA
+      36 1.7 -0.09647     1    -1       FALSE  black       0.5        1    NA
+      58 1.7  0.09648     1    -1       FALSE  black       0.5        1    NA
+      15 1.8  0.00004     1    -1       FALSE  black       0.5        1    NA
+      37 1.8 -0.12766     1    -1       FALSE  black       0.5        1    NA
+      59 1.8  0.12767     1    -1       FALSE  black       0.5        1    NA
+      16 1.9  0.00004     1    -1       FALSE  black       0.5        1    NA
+      38 1.9 -0.12983     1    -1       FALSE  black       0.5        1    NA
+      60 1.9  0.12984     1    -1       FALSE  black       0.5        1    NA
+      17 2.0  0.00004     1    -1       FALSE  black       0.5        1    NA
+      39 2.0 -0.13601     1    -1       FALSE  black       0.5        1    NA
+      61 2.0  0.13602     1    -1       FALSE  black       0.5        1    NA
+      18 2.1  0.00004     1    -1       FALSE  black       0.5        1    NA
+      40 2.1 -0.13602     1    -1       FALSE  black       0.5        1    NA
+      62 2.1  0.13603     1    -1       FALSE  black       0.5        1    NA
+      19 2.2  0.00004     1    -1       FALSE  black       0.5        1    NA
+      41 2.2 -0.13602     1    -1       FALSE  black       0.5        1    NA
+      63 2.2  0.13603     1    -1       FALSE  black       0.5        1    NA
+      20 2.3  0.00004     1    -1       FALSE  black       0.5        1    NA
+      42 2.3 -0.13634     1    -1       FALSE  black       0.5        1    NA
+      64 2.3  0.13635     1    -1       FALSE  black       0.5        1    NA
+      21 2.4  0.00004     1    -1       FALSE  black       0.5        1    NA
+      43 2.4 -0.13635     1    -1       FALSE  black       0.5        1    NA
+      65 2.4  0.13636     1    -1       FALSE  black       0.5        1    NA
+      22 2.5  0.00004     1    -1       FALSE  black       0.5        1    NA
+      44 2.5 -0.13636     1    -1       FALSE  black       0.5        1    NA
+      66 2.5  0.13637     1    -1       FALSE  black       0.5        1    NA
       
       
       
@@ -3510,17 +4172,41 @@
       $setosa$d1
       $setosa$d1$Sepal.Length
              ymin   ymax   x        y PANEL group flipped_aes colour   fill linewidth
-      1  -0.00021 -4e-05 4.3 -0.00021     1    -1       FALSE     NA grey85       0.5
-      2  -0.00002 -1e-05 4.8 -0.00002     1    -1       FALSE     NA grey85       0.5
-      3  -0.00002 -1e-05 5.0 -0.00002     1    -1       FALSE     NA grey85       0.5
-      4   0.00000  1e-05 5.3  0.00000     1    -1       FALSE     NA grey85       0.5
-      5   0.00000  1e-05 5.6  0.00000     1    -1       FALSE     NA grey85       0.5
-      6   0.00000  1e-05 5.8  0.00000     1    -1       FALSE     NA grey85       0.5
-      7   0.00000  1e-05 6.1  0.00000     1    -1       FALSE     NA grey85       0.5
-      8   0.00000  1e-05 6.3  0.00000     1    -1       FALSE     NA grey85       0.5
-      9   0.00000  1e-05 6.5  0.00000     1    -1       FALSE     NA grey85       0.5
-      10  0.00000  1e-05 6.9  0.00000     1    -1       FALSE     NA grey85       0.5
-      11  0.00001  2e-05 7.9  0.00001     1    -1       FALSE     NA grey85       0.5
+      1  -0.00025 -4e-05 4.3 -0.00025     1    -1       FALSE     NA grey85       0.5
+      2  -0.00024 -4e-05 4.4 -0.00024     1    -1       FALSE     NA grey85       0.5
+      3  -0.00003 -1e-05 4.5 -0.00003     1    -1       FALSE     NA grey85       0.5
+      4  -0.00002 -1e-05 4.6 -0.00002     1    -1       FALSE     NA grey85       0.5
+      5  -0.00002 -1e-05 4.7 -0.00002     1    -1       FALSE     NA grey85       0.5
+      6   0.00000  0e+00 4.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      7   0.00000  0e+00 4.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      8   0.00000  0e+00 5.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      9   0.00000  1e-05 5.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      10  0.00000  1e-05 5.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      11  0.00000  1e-05 5.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      12  0.00000  1e-05 5.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      13  0.00000  1e-05 5.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      14  0.00000  1e-05 5.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      15  0.00000  1e-05 5.7  0.00000     1    -1       FALSE     NA grey85       0.5
+      16  0.00000  1e-05 5.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      17  0.00000  1e-05 5.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      18  0.00000  1e-05 6.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      19  0.00000  1e-05 6.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      20  0.00000  1e-05 6.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      21  0.00000  1e-05 6.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      22  0.00000  1e-05 6.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      23  0.00000  1e-05 6.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      24  0.00000  1e-05 6.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      25  0.00000  1e-05 6.7  0.00000     1    -1       FALSE     NA grey85       0.5
+      26  0.00000  1e-05 6.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      27  0.00000  1e-05 6.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      28  0.00000  1e-05 7.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      29  0.00000  1e-05 7.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      30  0.00000  1e-05 7.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      31  0.00000  1e-05 7.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      32  0.00000  1e-05 7.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      33  0.00000  1e-05 7.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      34  0.00000  1e-05 7.7  0.00000     1    -1       FALSE     NA grey85       0.5
+      35  0.00001  1e-05 7.9  0.00001     1    -1       FALSE     NA grey85       0.5
          linetype alpha
       1         1   0.5
       2         1   0.5
@@ -3533,19 +4219,55 @@
       9         1   0.5
       10        1   0.5
       11        1   0.5
+      12        1   0.5
+      13        1   0.5
+      14        1   0.5
+      15        1   0.5
+      16        1   0.5
+      17        1   0.5
+      18        1   0.5
+      19        1   0.5
+      20        1   0.5
+      21        1   0.5
+      22        1   0.5
+      23        1   0.5
+      24        1   0.5
+      25        1   0.5
+      26        1   0.5
+      27        1   0.5
+      28        1   0.5
+      29        1   0.5
+      30        1   0.5
+      31        1   0.5
+      32        1   0.5
+      33        1   0.5
+      34        1   0.5
+      35        1   0.5
       
       $setosa$d1$Petal.Width
-           ymin   ymax   x      y PANEL group flipped_aes colour   fill linewidth
-      1  -7e-05 -1e-05 0.1 -7e-05     1    -1       FALSE     NA grey85       0.5
-      2  -6e-05 -1e-05 0.2 -6e-05     1    -1       FALSE     NA grey85       0.5
-      3   0e+00  1e-05 0.4  0e+00     1    -1       FALSE     NA grey85       0.5
-      4   0e+00  2e-05 1.1  0e+00     1    -1       FALSE     NA grey85       0.5
-      5   0e+00  2e-05 1.3  0e+00     1    -1       FALSE     NA grey85       0.5
-      6   0e+00  2e-05 1.5  0e+00     1    -1       FALSE     NA grey85       0.5
-      7   0e+00  2e-05 1.8  0e+00     1    -1       FALSE     NA grey85       0.5
-      8   0e+00  2e-05 1.9  0e+00     1    -1       FALSE     NA grey85       0.5
-      9   0e+00  2e-05 2.2  0e+00     1    -1       FALSE     NA grey85       0.5
-      10  0e+00  2e-05 2.5  0e+00     1    -1       FALSE     NA grey85       0.5
+             ymin   ymax   x        y PANEL group flipped_aes colour   fill linewidth
+      1  -0.00012 -1e-05 0.1 -0.00012     1    -1       FALSE     NA grey85       0.5
+      2  -0.00010 -1e-05 0.2 -0.00010     1    -1       FALSE     NA grey85       0.5
+      3   0.00000  1e-05 0.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      4   0.00000  1e-05 0.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      5   0.00000  1e-05 0.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      6   0.00000  1e-05 0.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      7   0.00000  1e-05 1.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      8   0.00000  4e-05 1.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      9   0.00000  4e-05 1.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      10  0.00000  4e-05 1.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      11  0.00000  4e-05 1.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      12  0.00000  4e-05 1.5  0.00000     1    -1       FALSE     NA grey85       0.5
+      13  0.00000  4e-05 1.6  0.00000     1    -1       FALSE     NA grey85       0.5
+      14  0.00000  4e-05 1.7  0.00000     1    -1       FALSE     NA grey85       0.5
+      15  0.00000  4e-05 1.8  0.00000     1    -1       FALSE     NA grey85       0.5
+      16  0.00000  4e-05 1.9  0.00000     1    -1       FALSE     NA grey85       0.5
+      17  0.00000  4e-05 2.0  0.00000     1    -1       FALSE     NA grey85       0.5
+      18  0.00000  4e-05 2.1  0.00000     1    -1       FALSE     NA grey85       0.5
+      19  0.00000  4e-05 2.2  0.00000     1    -1       FALSE     NA grey85       0.5
+      20  0.00000  4e-05 2.3  0.00000     1    -1       FALSE     NA grey85       0.5
+      21  0.00000  4e-05 2.4  0.00000     1    -1       FALSE     NA grey85       0.5
+      22  0.00000  4e-05 2.5  0.00000     1    -1       FALSE     NA grey85       0.5
          linetype alpha
       1         1   0.5
       2         1   0.5
@@ -3557,6 +4279,18 @@
       8         1   0.5
       9         1   0.5
       10        1   0.5
+      11        1   0.5
+      12        1   0.5
+      13        1   0.5
+      14        1   0.5
+      15        1   0.5
+      16        1   0.5
+      17        1   0.5
+      18        1   0.5
+      19        1   0.5
+      20        1   0.5
+      21        1   0.5
+      22        1   0.5
       
       
       $setosa$d2
@@ -3570,8 +4304,8 @@
       
       $setosa$eff[[2]]
             xmin  xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.00013 1e-05 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.00004 1e-05 2     1     2        TRUE 1.875 2.125  black       0.5
+      1 -0.00015 1e-05 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.00006 2e-05 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -3583,8 +4317,8 @@
       
       $setosa$eff[[4]]
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 28.5% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 28.8% 2     1     2       0       0  black           3     0   0.5
+      1 NA NALED 25.4% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 27.6% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
       2    -1    NA        1        1.2
@@ -3615,7 +4349,7 @@
       
       $setosa$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
-      1 1 2     1    -1  black white           3     0     1   0.5    NA        1
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
         lineheight linewidth linetype
       1        1.2         0        1
                                                                      label
@@ -3627,17 +4361,41 @@
       $versicolor$d1
       $versicolor$d1$Sepal.Length
              ymin     ymax   x        y PANEL group flipped_aes colour   fill
-      1  -0.02101 -0.01406 4.3 -0.02101     1    -1       FALSE     NA grey85
-      2  -0.02120 -0.01410 4.8 -0.02120     1    -1       FALSE     NA grey85
-      3  -0.01588 -0.01382 5.0 -0.01588     1    -1       FALSE     NA grey85
-      4  -0.01591 -0.01381 5.3 -0.01591     1    -1       FALSE     NA grey85
-      5  -0.01506 -0.01006 5.6 -0.01506     1    -1       FALSE     NA grey85
-      6  -0.01494 -0.01005 5.8 -0.01494     1    -1       FALSE     NA grey85
-      7  -0.00226  0.00296 6.1 -0.00226     1    -1       FALSE     NA grey85
-      8   0.00035  0.02286 6.3  0.00035     1    -1       FALSE     NA grey85
-      9   0.00049  0.02552 6.5  0.00049     1    -1       FALSE     NA grey85
-      10  0.01080  0.02703 6.9  0.01080     1    -1       FALSE     NA grey85
-      11  0.03581  0.15775 7.9  0.03581     1    -1       FALSE     NA grey85
+      1  -0.02130 -0.00175 4.3 -0.02130     1    -1       FALSE     NA grey85
+      2  -0.02131 -0.00175 4.4 -0.02131     1    -1       FALSE     NA grey85
+      3  -0.02153 -0.00179 4.5 -0.02153     1    -1       FALSE     NA grey85
+      4  -0.02153 -0.00179 4.6 -0.02153     1    -1       FALSE     NA grey85
+      5  -0.02153 -0.00179 4.7 -0.02153     1    -1       FALSE     NA grey85
+      6  -0.02155 -0.00180 4.8 -0.02155     1    -1       FALSE     NA grey85
+      7  -0.01643 -0.00153 4.9 -0.01643     1    -1       FALSE     NA grey85
+      8  -0.01643 -0.00153 5.0 -0.01643     1    -1       FALSE     NA grey85
+      9  -0.01644 -0.00153 5.1 -0.01644     1    -1       FALSE     NA grey85
+      10 -0.01644 -0.00153 5.2 -0.01644     1    -1       FALSE     NA grey85
+      11 -0.01644 -0.00153 5.3 -0.01644     1    -1       FALSE     NA grey85
+      12 -0.01614 -0.00151 5.4 -0.01614     1    -1       FALSE     NA grey85
+      13 -0.01610 -0.00102 5.5 -0.01610     1    -1       FALSE     NA grey85
+      14 -0.01583 -0.00101 5.6 -0.01583     1    -1       FALSE     NA grey85
+      15 -0.01583 -0.00101 5.7 -0.01583     1    -1       FALSE     NA grey85
+      16 -0.01569 -0.00100 5.8 -0.01569     1    -1       FALSE     NA grey85
+      17 -0.00014  0.00051 5.9 -0.00014     1    -1       FALSE     NA grey85
+      18 -0.00003  0.00253 6.0 -0.00003     1    -1       FALSE     NA grey85
+      19  0.00001  0.00253 6.1  0.00001     1    -1       FALSE     NA grey85
+      20  0.00076  0.01024 6.2  0.00076     1    -1       FALSE     NA grey85
+      21  0.00133  0.02104 6.3  0.00133     1    -1       FALSE     NA grey85
+      22  0.00133  0.02107 6.4  0.00133     1    -1       FALSE     NA grey85
+      23  0.00151  0.02440 6.5  0.00151     1    -1       FALSE     NA grey85
+      24  0.00160  0.02609 6.6  0.00160     1    -1       FALSE     NA grey85
+      25  0.00269  0.02622 6.7  0.00269     1    -1       FALSE     NA grey85
+      26  0.00271  0.02670 6.8  0.00271     1    -1       FALSE     NA grey85
+      27  0.00273  0.02695 6.9  0.00273     1    -1       FALSE     NA grey85
+      28  0.00278  0.02699 7.0  0.00278     1    -1       FALSE     NA grey85
+      29  0.00289  0.02700 7.1  0.00289     1    -1       FALSE     NA grey85
+      30  0.00307  0.02724 7.2  0.00307     1    -1       FALSE     NA grey85
+      31  0.00315  0.02724 7.3  0.00315     1    -1       FALSE     NA grey85
+      32  0.00315  0.02724 7.4  0.00315     1    -1       FALSE     NA grey85
+      33  0.00315  0.02724 7.6  0.00315     1    -1       FALSE     NA grey85
+      34  0.00315  0.02724 7.7  0.00315     1    -1       FALSE     NA grey85
+      35  0.02860  0.02860 7.9  0.02860     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -3650,19 +4408,55 @@
       9        0.5        1   0.5
       10       0.5        1   0.5
       11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
+      23       0.5        1   0.5
+      24       0.5        1   0.5
+      25       0.5        1   0.5
+      26       0.5        1   0.5
+      27       0.5        1   0.5
+      28       0.5        1   0.5
+      29       0.5        1   0.5
+      30       0.5        1   0.5
+      31       0.5        1   0.5
+      32       0.5        1   0.5
+      33       0.5        1   0.5
+      34       0.5        1   0.5
+      35       0.5        1   0.5
       
       $versicolor$d1$Petal.Width
              ymin     ymax   x        y PANEL group flipped_aes colour   fill
-      1   0.06788  0.10326 0.1  0.06788     1    -1       FALSE     NA grey85
-      2   0.06786  0.10326 0.2  0.06786     1    -1       FALSE     NA grey85
-      3   0.06779  0.10325 0.4  0.06779     1    -1       FALSE     NA grey85
-      4   0.06778  0.10325 1.1  0.06778     1    -1       FALSE     NA grey85
-      5   0.06742  0.10303 1.3  0.06742     1    -1       FALSE     NA grey85
-      6  -0.00031  0.06196 1.5 -0.00031     1    -1       FALSE     NA grey85
-      7  -0.14665 -0.12321 1.8 -0.14665     1    -1       FALSE     NA grey85
-      8  -0.15077 -0.12342 1.9 -0.15077     1    -1       FALSE     NA grey85
-      9  -0.16432 -0.12415 2.2 -0.16432     1    -1       FALSE     NA grey85
-      10 -0.16486 -0.12419 2.5 -0.16486     1    -1       FALSE     NA grey85
+      1   0.01189  0.14854 0.1  0.01189     1    -1       FALSE     NA grey85
+      2   0.01187  0.14854 0.2  0.01187     1    -1       FALSE     NA grey85
+      3   0.01176  0.14853 0.3  0.01176     1    -1       FALSE     NA grey85
+      4   0.01176  0.14853 0.4  0.01176     1    -1       FALSE     NA grey85
+      5   0.01176  0.14853 0.5  0.01176     1    -1       FALSE     NA grey85
+      6   0.01176  0.14853 0.6  0.01176     1    -1       FALSE     NA grey85
+      7   0.01176  0.14853 1.0  0.01176     1    -1       FALSE     NA grey85
+      8   0.01173  0.14852 1.1  0.01173     1    -1       FALSE     NA grey85
+      9   0.01170  0.14852 1.2  0.01170     1    -1       FALSE     NA grey85
+      10  0.01169  0.14829 1.3  0.01169     1    -1       FALSE     NA grey85
+      11  0.01162  0.14702 1.4  0.01162     1    -1       FALSE     NA grey85
+      12  0.00750  0.06871 1.5  0.00750     1    -1       FALSE     NA grey85
+      13  0.00188  0.05270 1.6  0.00188     1    -1       FALSE     NA grey85
+      14 -0.18224 -0.01063 1.7 -0.18224     1    -1       FALSE     NA grey85
+      15 -0.23569 -0.01957 1.8 -0.23569     1    -1       FALSE     NA grey85
+      16 -0.23981 -0.01979 1.9 -0.23981     1    -1       FALSE     NA grey85
+      17 -0.25153 -0.02043 2.0 -0.25153     1    -1       FALSE     NA grey85
+      18 -0.25154 -0.02043 2.1 -0.25154     1    -1       FALSE     NA grey85
+      19 -0.25155 -0.02043 2.2 -0.25155     1    -1       FALSE     NA grey85
+      20 -0.25213 -0.02049 2.3 -0.25213     1    -1       FALSE     NA grey85
+      21 -0.25216 -0.02049 2.4 -0.25216     1    -1       FALSE     NA grey85
+      22 -0.25216 -0.02049 2.5 -0.25216     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -3674,6 +4468,18 @@
       8        0.5        1   0.5
       9        0.5        1   0.5
       10       0.5        1   0.5
+      11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
       
       
       $versicolor$d2
@@ -3687,8 +4493,8 @@
       
       $versicolor$eff[[2]]
             xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.01765 0.09678 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.14453 0.08557 2     1     2        TRUE 1.875 2.125  black       0.5
+      1 -0.01167 0.01520 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.13632 0.08021 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -3700,8 +4506,8 @@
       
       $versicolor$eff[[4]]
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 38.8% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 30.5% 2     1     2       0       0  black           3     0   0.5
+      1 NA NALED 34.5% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 29.4% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
       2    -1    NA        1        1.2
@@ -3724,15 +4530,15 @@
       
       $versicolor$eff[[7]]
          x      label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
-      2 NA ALED 0.095 2     1     2       0       0  black           3     0   0.5
+      1 NA ALED 0.009 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 0.093 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1     2    NA        1        1.2
       2     2    NA        1        1.2
       
       $versicolor$eff[[8]]
         x y PANEL group colour  fill family size angle hjust vjust alpha fontface
-      1 1 2     1    -1  black white           3     0     1   0.5    NA        1
+      1 1 1     1    -1  black white           3     0     1   0.5    NA        1
         lineheight linewidth linetype
       1        1.2         0        1
                                                                      label
@@ -3744,17 +4550,41 @@
       $virginica$d1
       $virginica$d1$Sepal.Length
              ymin     ymax   x        y PANEL group flipped_aes colour   fill
-      1   0.01416  0.02128 4.3  0.01416     1    -1       FALSE     NA grey85
-      2   0.01416  0.02128 4.8  0.01416     1    -1       FALSE     NA grey85
-      3   0.01388  0.01596 5.0  0.01388     1    -1       FALSE     NA grey85
-      4   0.01387  0.01596 5.3  0.01387     1    -1       FALSE     NA grey85
-      5   0.01011  0.01511 5.6  0.01011     1    -1       FALSE     NA grey85
-      6   0.01010  0.01499 5.8  0.01010     1    -1       FALSE     NA grey85
-      7  -0.00291  0.00232 6.1 -0.00291     1    -1       FALSE     NA grey85
-      8  -0.02282 -0.00029 6.3 -0.02282     1    -1       FALSE     NA grey85
-      9  -0.02547 -0.00043 6.5 -0.02547     1    -1       FALSE     NA grey85
-      10 -0.02699 -0.01074 6.9 -0.02699     1    -1       FALSE     NA grey85
-      11 -0.15769 -0.03578 7.9 -0.15769     1    -1       FALSE     NA grey85
+      1   0.00186  0.02161 4.3  0.00186     1    -1       FALSE     NA grey85
+      2   0.00186  0.02161 4.4  0.00186     1    -1       FALSE     NA grey85
+      3   0.00186  0.02161 4.5  0.00186     1    -1       FALSE     NA grey85
+      4   0.00186  0.02161 4.6  0.00186     1    -1       FALSE     NA grey85
+      5   0.00186  0.02161 4.7  0.00186     1    -1       FALSE     NA grey85
+      6   0.00186  0.02161 4.8  0.00186     1    -1       FALSE     NA grey85
+      7   0.00159  0.01650 4.9  0.00159     1    -1       FALSE     NA grey85
+      8   0.00159  0.01650 5.0  0.00159     1    -1       FALSE     NA grey85
+      9   0.00159  0.01650 5.1  0.00159     1    -1       FALSE     NA grey85
+      10  0.00159  0.01649 5.2  0.00159     1    -1       FALSE     NA grey85
+      11  0.00159  0.01649 5.3  0.00159     1    -1       FALSE     NA grey85
+      12  0.00157  0.01619 5.4  0.00157     1    -1       FALSE     NA grey85
+      13  0.00108  0.01616 5.5  0.00108     1    -1       FALSE     NA grey85
+      14  0.00107  0.01589 5.6  0.00107     1    -1       FALSE     NA grey85
+      15  0.00107  0.01589 5.7  0.00107     1    -1       FALSE     NA grey85
+      16  0.00106  0.01574 5.8  0.00106     1    -1       FALSE     NA grey85
+      17 -0.00046  0.00020 5.9 -0.00046     1    -1       FALSE     NA grey85
+      18 -0.00248  0.00008 6.0 -0.00248     1    -1       FALSE     NA grey85
+      19 -0.00248  0.00005 6.1 -0.00248     1    -1       FALSE     NA grey85
+      20 -0.01019 -0.00070 6.2 -0.01019     1    -1       FALSE     NA grey85
+      21 -0.02099 -0.00127 6.3 -0.02099     1    -1       FALSE     NA grey85
+      22 -0.02102 -0.00127 6.4 -0.02102     1    -1       FALSE     NA grey85
+      23 -0.02435 -0.00145 6.5 -0.02435     1    -1       FALSE     NA grey85
+      24 -0.02604 -0.00154 6.6 -0.02604     1    -1       FALSE     NA grey85
+      25 -0.02617 -0.00263 6.7 -0.02617     1    -1       FALSE     NA grey85
+      26 -0.02665 -0.00265 6.8 -0.02665     1    -1       FALSE     NA grey85
+      27 -0.02690 -0.00267 6.9 -0.02690     1    -1       FALSE     NA grey85
+      28 -0.02694 -0.00273 7.0 -0.02694     1    -1       FALSE     NA grey85
+      29 -0.02695 -0.00283 7.1 -0.02695     1    -1       FALSE     NA grey85
+      30 -0.02719 -0.00301 7.2 -0.02719     1    -1       FALSE     NA grey85
+      31 -0.02719 -0.00309 7.3 -0.02719     1    -1       FALSE     NA grey85
+      32 -0.02719 -0.00309 7.4 -0.02719     1    -1       FALSE     NA grey85
+      33 -0.02719 -0.00309 7.6 -0.02719     1    -1       FALSE     NA grey85
+      34 -0.02719 -0.00309 7.7 -0.02719     1    -1       FALSE     NA grey85
+      35 -0.02855 -0.02855 7.9 -0.02855     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -3767,19 +4597,55 @@
       9        0.5        1   0.5
       10       0.5        1   0.5
       11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
+      23       0.5        1   0.5
+      24       0.5        1   0.5
+      25       0.5        1   0.5
+      26       0.5        1   0.5
+      27       0.5        1   0.5
+      28       0.5        1   0.5
+      29       0.5        1   0.5
+      30       0.5        1   0.5
+      31       0.5        1   0.5
+      32       0.5        1   0.5
+      33       0.5        1   0.5
+      34       0.5        1   0.5
+      35       0.5        1   0.5
       
       $virginica$d1$Petal.Width
              ymin     ymax   x        y PANEL group flipped_aes colour   fill
-      1  -0.10319 -0.06774 0.1 -0.10319     1    -1       FALSE     NA grey85
-      2  -0.10319 -0.06774 0.2 -0.10319     1    -1       FALSE     NA grey85
-      3  -0.10319 -0.06774 0.4 -0.10319     1    -1       FALSE     NA grey85
-      4  -0.10319 -0.06774 1.1 -0.10319     1    -1       FALSE     NA grey85
-      5  -0.10298 -0.06738 1.3 -0.10298     1    -1       FALSE     NA grey85
-      6  -0.06192  0.00037 1.5 -0.06192     1    -1       FALSE     NA grey85
-      7   0.12324  0.14671 1.8  0.12324     1    -1       FALSE     NA grey85
-      8   0.12346  0.15083 1.9  0.12346     1    -1       FALSE     NA grey85
-      9   0.12419  0.16438 2.2  0.12419     1    -1       FALSE     NA grey85
-      10  0.12423  0.16492 2.5  0.12423     1    -1       FALSE     NA grey85
+      1  -0.14847 -0.01171 0.1 -0.14847     1    -1       FALSE     NA grey85
+      2  -0.14847 -0.01171 0.2 -0.14847     1    -1       FALSE     NA grey85
+      3  -0.14847 -0.01171 0.3 -0.14847     1    -1       FALSE     NA grey85
+      4  -0.14847 -0.01171 0.4 -0.14847     1    -1       FALSE     NA grey85
+      5  -0.14847 -0.01171 0.5 -0.14847     1    -1       FALSE     NA grey85
+      6  -0.14847 -0.01171 0.6 -0.14847     1    -1       FALSE     NA grey85
+      7  -0.14847 -0.01171 1.0 -0.14847     1    -1       FALSE     NA grey85
+      8  -0.14847 -0.01171 1.1 -0.14847     1    -1       FALSE     NA grey85
+      9  -0.14846 -0.01168 1.2 -0.14846     1    -1       FALSE     NA grey85
+      10 -0.14823 -0.01166 1.3 -0.14823     1    -1       FALSE     NA grey85
+      11 -0.14696 -0.01160 1.4 -0.14696     1    -1       FALSE     NA grey85
+      12 -0.06865 -0.00747 1.5 -0.06865     1    -1       FALSE     NA grey85
+      13 -0.05264 -0.00186 1.6 -0.05264     1    -1       FALSE     NA grey85
+      14  0.01066  0.18229 1.7  0.01066     1    -1       FALSE     NA grey85
+      15  0.01959  0.23575 1.8  0.01959     1    -1       FALSE     NA grey85
+      16  0.01981  0.23987 1.9  0.01981     1    -1       FALSE     NA grey85
+      17  0.02045  0.25159 2.0  0.02045     1    -1       FALSE     NA grey85
+      18  0.02045  0.25160 2.1  0.02045     1    -1       FALSE     NA grey85
+      19  0.02045  0.25161 2.2  0.02045     1    -1       FALSE     NA grey85
+      20  0.02051  0.25219 2.3  0.02051     1    -1       FALSE     NA grey85
+      21  0.02052  0.25221 2.4  0.02052     1    -1       FALSE     NA grey85
+      22  0.02052  0.25221 2.5  0.02052     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -3791,6 +4657,18 @@
       8        0.5        1   0.5
       9        0.5        1   0.5
       10       0.5        1   0.5
+      11       0.5        1   0.5
+      12       0.5        1   0.5
+      13       0.5        1   0.5
+      14       0.5        1   0.5
+      15       0.5        1   0.5
+      16       0.5        1   0.5
+      17       0.5        1   0.5
+      18       0.5        1   0.5
+      19       0.5        1   0.5
+      20       0.5        1   0.5
+      21       0.5        1   0.5
+      22       0.5        1   0.5
       
       
       $virginica$d2
@@ -3804,8 +4682,8 @@
       
       $virginica$eff[[2]]
             xmin    xmax y PANEL group flipped_aes  ymin  ymax colour linewidth
-      1 -0.09674 0.01772 1     1     1        TRUE 0.875 1.125  black       0.5
-      2 -0.08547 0.14457 2     1     2        TRUE 1.875 2.125  black       0.5
+      1 -0.01515 0.01174 1     1     1        TRUE 0.875 1.125  black       0.5
+      2 -0.08009 0.13637 2     1     2        TRUE 1.875 2.125  black       0.5
         linetype width alpha
       1        1   0.9    NA
       2        1   0.9    NA
@@ -3817,8 +4695,8 @@
       
       $virginica$eff[[4]]
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA NALED 23.2% 1     1     1       0       0  black           3     0   0.5
-      2 NA NALED 33.8% 2     1     2       0       0  black           3     0   0.5
+      1 NA NALED 27.7% 1     1     1       0       0  black           3     0   0.5
+      2 NA NALED 35.5% 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1    -1    NA        1        1.2
       2    -1    NA        1        1.2
@@ -3841,8 +4719,8 @@
       
       $virginica$eff[[7]]
          x      label y PANEL group nudge_x nudge_y colour family size angle hjust
-      1 NA ALED 0.016 1     1     1       0       0  black           3     0   0.5
-      2 NA ALED 0.095 2     1     2       0       0  black           3     0   0.5
+      1 NA ALED 0.010 1     1     1       0       0  black           3     0   0.5
+      2 NA ALED 0.093 2     1     2       0       0  black           3     0   0.5
         vjust alpha fontface lineheight
       1     2    NA        1        1.2
       2     2    NA        1        1.2
@@ -3861,144 +4739,360 @@
       $.all_cats$d1
       $.all_cats$d1$Sepal.Length
       $.all_cats$d1$Sepal.Length$overlay
-          colour linetype   x        y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 4.3 -0.00011     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 4.3 -0.01757     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 4.3  0.01772     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 4.8  0.00000     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 4.8 -0.01768     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 4.8  0.01772     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 5.0  0.00000     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 5.0 -0.01488     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 5.0  0.01492     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 5.3  0.00002     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 5.3 -0.01489     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 5.3  0.01491     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 5.6  0.00002     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 5.6 -0.01259     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 5.6  0.01261     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 5.8  0.00002     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 5.8 -0.01252     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 5.8  0.01255     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 6.1  0.00002     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 6.1  0.00032     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 6.1 -0.00030     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 6.3  0.00002     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 6.3  0.01158     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 6.3 -0.01155     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 6.5  0.00002     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 6.5  0.01297     1     1       FALSE       0.5    NA
-      31 #F8766D    solid 6.5 -0.01295     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 6.9  0.00002     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 6.9  0.01888     1     1       FALSE       0.5    NA
-      32 #F8766D    solid 6.9 -0.01886     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 7.9  0.00003     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 7.9  0.09675     1     1       FALSE       0.5    NA
-      33 #F8766D    solid 7.9 -0.09674     1     1       FALSE       0.5    NA
+           colour linetype   x        y PANEL group flipped_aes linewidth alpha
+      1   #F8766D    solid 4.3 -0.00013     1     1       FALSE       0.5    NA
+      36  #F8766D    solid 4.3 -0.01156     1     1       FALSE       0.5    NA
+      71  #F8766D    solid 4.3  0.01174     1     1       FALSE       0.5    NA
+      2   #F8766D    solid 4.4 -0.00013     1     1       FALSE       0.5    NA
+      37  #F8766D    solid 4.4 -0.01156     1     1       FALSE       0.5    NA
+      72  #F8766D    solid 4.4  0.01174     1     1       FALSE       0.5    NA
+      3   #F8766D    solid 4.5  0.00000     1     1       FALSE       0.5    NA
+      38  #F8766D    solid 4.5 -0.01169     1     1       FALSE       0.5    NA
+      73  #F8766D    solid 4.5  0.01174     1     1       FALSE       0.5    NA
+      4   #F8766D    solid 4.6  0.00000     1     1       FALSE       0.5    NA
+      39  #F8766D    solid 4.6 -0.01169     1     1       FALSE       0.5    NA
+      74  #F8766D    solid 4.6  0.01174     1     1       FALSE       0.5    NA
+      5   #F8766D    solid 4.7  0.00000     1     1       FALSE       0.5    NA
+      40  #F8766D    solid 4.7 -0.01169     1     1       FALSE       0.5    NA
+      75  #F8766D    solid 4.7  0.01174     1     1       FALSE       0.5    NA
+      6   #F8766D    solid 4.8  0.00001     1     1       FALSE       0.5    NA
+      41  #F8766D    solid 4.8 -0.01170     1     1       FALSE       0.5    NA
+      76  #F8766D    solid 4.8  0.01174     1     1       FALSE       0.5    NA
+      7   #F8766D    solid 4.9  0.00001     1     1       FALSE       0.5    NA
+      42  #F8766D    solid 4.9 -0.00901     1     1       FALSE       0.5    NA
+      77  #F8766D    solid 4.9  0.00904     1     1       FALSE       0.5    NA
+      8   #F8766D    solid 5.0  0.00001     1     1       FALSE       0.5    NA
+      43  #F8766D    solid 5.0 -0.00901     1     1       FALSE       0.5    NA
+      78  #F8766D    solid 5.0  0.00904     1     1       FALSE       0.5    NA
+      9   #F8766D    solid 5.1  0.00002     1     1       FALSE       0.5    NA
+      44  #F8766D    solid 5.1 -0.00902     1     1       FALSE       0.5    NA
+      79  #F8766D    solid 5.1  0.00904     1     1       FALSE       0.5    NA
+      10  #F8766D    solid 5.2  0.00002     1     1       FALSE       0.5    NA
+      45  #F8766D    solid 5.2 -0.00902     1     1       FALSE       0.5    NA
+      80  #F8766D    solid 5.2  0.00904     1     1       FALSE       0.5    NA
+      11  #F8766D    solid 5.3  0.00002     1     1       FALSE       0.5    NA
+      46  #F8766D    solid 5.3 -0.00902     1     1       FALSE       0.5    NA
+      81  #F8766D    solid 5.3  0.00904     1     1       FALSE       0.5    NA
+      12  #F8766D    solid 5.4  0.00002     1     1       FALSE       0.5    NA
+      47  #F8766D    solid 5.4 -0.00885     1     1       FALSE       0.5    NA
+      82  #F8766D    solid 5.4  0.00888     1     1       FALSE       0.5    NA
+      13  #F8766D    solid 5.5  0.00002     1     1       FALSE       0.5    NA
+      48  #F8766D    solid 5.5 -0.00859     1     1       FALSE       0.5    NA
+      83  #F8766D    solid 5.5  0.00862     1     1       FALSE       0.5    NA
+      14  #F8766D    solid 5.6  0.00002     1     1       FALSE       0.5    NA
+      49  #F8766D    solid 5.6 -0.00845     1     1       FALSE       0.5    NA
+      84  #F8766D    solid 5.6  0.00848     1     1       FALSE       0.5    NA
+      15  #F8766D    solid 5.7  0.00002     1     1       FALSE       0.5    NA
+      50  #F8766D    solid 5.7 -0.00845     1     1       FALSE       0.5    NA
+      85  #F8766D    solid 5.7  0.00848     1     1       FALSE       0.5    NA
+      16  #F8766D    solid 5.8  0.00002     1     1       FALSE       0.5    NA
+      51  #F8766D    solid 5.8 -0.00837     1     1       FALSE       0.5    NA
+      86  #F8766D    solid 5.8  0.00840     1     1       FALSE       0.5    NA
+      17  #F8766D    solid 5.9  0.00002     1     1       FALSE       0.5    NA
+      52  #F8766D    solid 5.9  0.00015     1     1       FALSE       0.5    NA
+      87  #F8766D    solid 5.9 -0.00013     1     1       FALSE       0.5    NA
+      18  #F8766D    solid 6.0  0.00002     1     1       FALSE       0.5    NA
+      53  #F8766D    solid 6.0  0.00122     1     1       FALSE       0.5    NA
+      88  #F8766D    solid 6.0 -0.00120     1     1       FALSE       0.5    NA
+      19  #F8766D    solid 6.1  0.00002     1     1       FALSE       0.5    NA
+      54  #F8766D    solid 6.1  0.00124     1     1       FALSE       0.5    NA
+      89  #F8766D    solid 6.1 -0.00122     1     1       FALSE       0.5    NA
+      20  #F8766D    solid 6.2  0.00002     1     1       FALSE       0.5    NA
+      55  #F8766D    solid 6.2  0.00547     1     1       FALSE       0.5    NA
+      90  #F8766D    solid 6.2 -0.00545     1     1       FALSE       0.5    NA
+      21  #F8766D    solid 6.3  0.00002     1     1       FALSE       0.5    NA
+      56  #F8766D    solid 6.3  0.01116     1     1       FALSE       0.5    NA
+      91  #F8766D    solid 6.3 -0.01113     1     1       FALSE       0.5    NA
+      22  #F8766D    solid 6.4  0.00002     1     1       FALSE       0.5    NA
+      57  #F8766D    solid 6.4  0.01117     1     1       FALSE       0.5    NA
+      92  #F8766D    solid 6.4 -0.01114     1     1       FALSE       0.5    NA
+      23  #F8766D    solid 6.5  0.00002     1     1       FALSE       0.5    NA
+      58  #F8766D    solid 6.5  0.01292     1     1       FALSE       0.5    NA
+      93  #F8766D    solid 6.5 -0.01290     1     1       FALSE       0.5    NA
+      24  #F8766D    solid 6.6  0.00002     1     1       FALSE       0.5    NA
+      59  #F8766D    solid 6.6  0.01381     1     1       FALSE       0.5    NA
+      94  #F8766D    solid 6.6 -0.01379     1     1       FALSE       0.5    NA
+      25  #F8766D    solid 6.7  0.00002     1     1       FALSE       0.5    NA
+      60  #F8766D    solid 6.7  0.01442     1     1       FALSE       0.5    NA
+      95  #F8766D    solid 6.7 -0.01440     1     1       FALSE       0.5    NA
+      26  #F8766D    solid 6.8  0.00002     1     1       FALSE       0.5    NA
+      61  #F8766D    solid 6.8  0.01468     1     1       FALSE       0.5    NA
+      96  #F8766D    solid 6.8 -0.01465     1     1       FALSE       0.5    NA
+      27  #F8766D    solid 6.9  0.00002     1     1       FALSE       0.5    NA
+      62  #F8766D    solid 6.9  0.01481     1     1       FALSE       0.5    NA
+      97  #F8766D    solid 6.9 -0.01478     1     1       FALSE       0.5    NA
+      28  #F8766D    solid 7.0  0.00002     1     1       FALSE       0.5    NA
+      63  #F8766D    solid 7.0  0.01486     1     1       FALSE       0.5    NA
+      98  #F8766D    solid 7.0 -0.01483     1     1       FALSE       0.5    NA
+      29  #F8766D    solid 7.1  0.00002     1     1       FALSE       0.5    NA
+      64  #F8766D    solid 7.1  0.01492     1     1       FALSE       0.5    NA
+      99  #F8766D    solid 7.1 -0.01489     1     1       FALSE       0.5    NA
+      30  #F8766D    solid 7.2  0.00002     1     1       FALSE       0.5    NA
+      65  #F8766D    solid 7.2  0.01512     1     1       FALSE       0.5    NA
+      100 #F8766D    solid 7.2 -0.01510     1     1       FALSE       0.5    NA
+      31  #F8766D    solid 7.3  0.00002     1     1       FALSE       0.5    NA
+      66  #F8766D    solid 7.3  0.01516     1     1       FALSE       0.5    NA
+      101 #F8766D    solid 7.3 -0.01514     1     1       FALSE       0.5    NA
+      32  #F8766D    solid 7.4  0.00002     1     1       FALSE       0.5    NA
+      67  #F8766D    solid 7.4  0.01517     1     1       FALSE       0.5    NA
+      102 #F8766D    solid 7.4 -0.01514     1     1       FALSE       0.5    NA
+      33  #F8766D    solid 7.6  0.00002     1     1       FALSE       0.5    NA
+      68  #F8766D    solid 7.6  0.01517     1     1       FALSE       0.5    NA
+      103 #F8766D    solid 7.6 -0.01514     1     1       FALSE       0.5    NA
+      34  #F8766D    solid 7.7  0.00002     1     1       FALSE       0.5    NA
+      69  #F8766D    solid 7.7  0.01517     1     1       FALSE       0.5    NA
+      104 #F8766D    solid 7.7 -0.01514     1     1       FALSE       0.5    NA
+      35  #F8766D    solid 7.9  0.00003     1     1       FALSE       0.5    NA
+      70  #F8766D    solid 7.9  0.02857     1     1       FALSE       0.5    NA
+      105 #F8766D    solid 7.9 -0.02855     1     1       FALSE       0.5    NA
       
       $.all_cats$d1$Sepal.Length$facet
-           x        y PANEL group flipped_aes colour linewidth linetype alpha
-      1  4.3 -0.00011     1    -1       FALSE  black       0.5        1    NA
-      12 4.3 -0.01757     1    -1       FALSE  black       0.5        1    NA
-      23 4.3  0.01772     1    -1       FALSE  black       0.5        1    NA
-      2  4.8  0.00000     1    -1       FALSE  black       0.5        1    NA
-      13 4.8 -0.01768     1    -1       FALSE  black       0.5        1    NA
-      24 4.8  0.01772     1    -1       FALSE  black       0.5        1    NA
-      3  5.0  0.00000     1    -1       FALSE  black       0.5        1    NA
-      14 5.0 -0.01488     1    -1       FALSE  black       0.5        1    NA
-      25 5.0  0.01492     1    -1       FALSE  black       0.5        1    NA
-      4  5.3  0.00002     1    -1       FALSE  black       0.5        1    NA
-      15 5.3 -0.01489     1    -1       FALSE  black       0.5        1    NA
-      26 5.3  0.01491     1    -1       FALSE  black       0.5        1    NA
-      5  5.6  0.00002     1    -1       FALSE  black       0.5        1    NA
-      16 5.6 -0.01259     1    -1       FALSE  black       0.5        1    NA
-      27 5.6  0.01261     1    -1       FALSE  black       0.5        1    NA
-      6  5.8  0.00002     1    -1       FALSE  black       0.5        1    NA
-      17 5.8 -0.01252     1    -1       FALSE  black       0.5        1    NA
-      28 5.8  0.01255     1    -1       FALSE  black       0.5        1    NA
-      7  6.1  0.00002     1    -1       FALSE  black       0.5        1    NA
-      18 6.1  0.00032     1    -1       FALSE  black       0.5        1    NA
-      29 6.1 -0.00030     1    -1       FALSE  black       0.5        1    NA
-      8  6.3  0.00002     1    -1       FALSE  black       0.5        1    NA
-      19 6.3  0.01158     1    -1       FALSE  black       0.5        1    NA
-      30 6.3 -0.01155     1    -1       FALSE  black       0.5        1    NA
-      9  6.5  0.00002     1    -1       FALSE  black       0.5        1    NA
-      20 6.5  0.01297     1    -1       FALSE  black       0.5        1    NA
-      31 6.5 -0.01295     1    -1       FALSE  black       0.5        1    NA
-      10 6.9  0.00002     1    -1       FALSE  black       0.5        1    NA
-      21 6.9  0.01888     1    -1       FALSE  black       0.5        1    NA
-      32 6.9 -0.01886     1    -1       FALSE  black       0.5        1    NA
-      11 7.9  0.00003     1    -1       FALSE  black       0.5        1    NA
-      22 7.9  0.09675     1    -1       FALSE  black       0.5        1    NA
-      33 7.9 -0.09674     1    -1       FALSE  black       0.5        1    NA
+            x        y PANEL group flipped_aes colour linewidth linetype alpha
+      1   4.3 -0.00013     1    -1       FALSE  black       0.5        1    NA
+      36  4.3 -0.01156     1    -1       FALSE  black       0.5        1    NA
+      71  4.3  0.01174     1    -1       FALSE  black       0.5        1    NA
+      2   4.4 -0.00013     1    -1       FALSE  black       0.5        1    NA
+      37  4.4 -0.01156     1    -1       FALSE  black       0.5        1    NA
+      72  4.4  0.01174     1    -1       FALSE  black       0.5        1    NA
+      3   4.5  0.00000     1    -1       FALSE  black       0.5        1    NA
+      38  4.5 -0.01169     1    -1       FALSE  black       0.5        1    NA
+      73  4.5  0.01174     1    -1       FALSE  black       0.5        1    NA
+      4   4.6  0.00000     1    -1       FALSE  black       0.5        1    NA
+      39  4.6 -0.01169     1    -1       FALSE  black       0.5        1    NA
+      74  4.6  0.01174     1    -1       FALSE  black       0.5        1    NA
+      5   4.7  0.00000     1    -1       FALSE  black       0.5        1    NA
+      40  4.7 -0.01169     1    -1       FALSE  black       0.5        1    NA
+      75  4.7  0.01174     1    -1       FALSE  black       0.5        1    NA
+      6   4.8  0.00001     1    -1       FALSE  black       0.5        1    NA
+      41  4.8 -0.01170     1    -1       FALSE  black       0.5        1    NA
+      76  4.8  0.01174     1    -1       FALSE  black       0.5        1    NA
+      7   4.9  0.00001     1    -1       FALSE  black       0.5        1    NA
+      42  4.9 -0.00901     1    -1       FALSE  black       0.5        1    NA
+      77  4.9  0.00904     1    -1       FALSE  black       0.5        1    NA
+      8   5.0  0.00001     1    -1       FALSE  black       0.5        1    NA
+      43  5.0 -0.00901     1    -1       FALSE  black       0.5        1    NA
+      78  5.0  0.00904     1    -1       FALSE  black       0.5        1    NA
+      9   5.1  0.00002     1    -1       FALSE  black       0.5        1    NA
+      44  5.1 -0.00902     1    -1       FALSE  black       0.5        1    NA
+      79  5.1  0.00904     1    -1       FALSE  black       0.5        1    NA
+      10  5.2  0.00002     1    -1       FALSE  black       0.5        1    NA
+      45  5.2 -0.00902     1    -1       FALSE  black       0.5        1    NA
+      80  5.2  0.00904     1    -1       FALSE  black       0.5        1    NA
+      11  5.3  0.00002     1    -1       FALSE  black       0.5        1    NA
+      46  5.3 -0.00902     1    -1       FALSE  black       0.5        1    NA
+      81  5.3  0.00904     1    -1       FALSE  black       0.5        1    NA
+      12  5.4  0.00002     1    -1       FALSE  black       0.5        1    NA
+      47  5.4 -0.00885     1    -1       FALSE  black       0.5        1    NA
+      82  5.4  0.00888     1    -1       FALSE  black       0.5        1    NA
+      13  5.5  0.00002     1    -1       FALSE  black       0.5        1    NA
+      48  5.5 -0.00859     1    -1       FALSE  black       0.5        1    NA
+      83  5.5  0.00862     1    -1       FALSE  black       0.5        1    NA
+      14  5.6  0.00002     1    -1       FALSE  black       0.5        1    NA
+      49  5.6 -0.00845     1    -1       FALSE  black       0.5        1    NA
+      84  5.6  0.00848     1    -1       FALSE  black       0.5        1    NA
+      15  5.7  0.00002     1    -1       FALSE  black       0.5        1    NA
+      50  5.7 -0.00845     1    -1       FALSE  black       0.5        1    NA
+      85  5.7  0.00848     1    -1       FALSE  black       0.5        1    NA
+      16  5.8  0.00002     1    -1       FALSE  black       0.5        1    NA
+      51  5.8 -0.00837     1    -1       FALSE  black       0.5        1    NA
+      86  5.8  0.00840     1    -1       FALSE  black       0.5        1    NA
+      17  5.9  0.00002     1    -1       FALSE  black       0.5        1    NA
+      52  5.9  0.00015     1    -1       FALSE  black       0.5        1    NA
+      87  5.9 -0.00013     1    -1       FALSE  black       0.5        1    NA
+      18  6.0  0.00002     1    -1       FALSE  black       0.5        1    NA
+      53  6.0  0.00122     1    -1       FALSE  black       0.5        1    NA
+      88  6.0 -0.00120     1    -1       FALSE  black       0.5        1    NA
+      19  6.1  0.00002     1    -1       FALSE  black       0.5        1    NA
+      54  6.1  0.00124     1    -1       FALSE  black       0.5        1    NA
+      89  6.1 -0.00122     1    -1       FALSE  black       0.5        1    NA
+      20  6.2  0.00002     1    -1       FALSE  black       0.5        1    NA
+      55  6.2  0.00547     1    -1       FALSE  black       0.5        1    NA
+      90  6.2 -0.00545     1    -1       FALSE  black       0.5        1    NA
+      21  6.3  0.00002     1    -1       FALSE  black       0.5        1    NA
+      56  6.3  0.01116     1    -1       FALSE  black       0.5        1    NA
+      91  6.3 -0.01113     1    -1       FALSE  black       0.5        1    NA
+      22  6.4  0.00002     1    -1       FALSE  black       0.5        1    NA
+      57  6.4  0.01117     1    -1       FALSE  black       0.5        1    NA
+      92  6.4 -0.01114     1    -1       FALSE  black       0.5        1    NA
+      23  6.5  0.00002     1    -1       FALSE  black       0.5        1    NA
+      58  6.5  0.01292     1    -1       FALSE  black       0.5        1    NA
+      93  6.5 -0.01290     1    -1       FALSE  black       0.5        1    NA
+      24  6.6  0.00002     1    -1       FALSE  black       0.5        1    NA
+      59  6.6  0.01381     1    -1       FALSE  black       0.5        1    NA
+      94  6.6 -0.01379     1    -1       FALSE  black       0.5        1    NA
+      25  6.7  0.00002     1    -1       FALSE  black       0.5        1    NA
+      60  6.7  0.01442     1    -1       FALSE  black       0.5        1    NA
+      95  6.7 -0.01440     1    -1       FALSE  black       0.5        1    NA
+      26  6.8  0.00002     1    -1       FALSE  black       0.5        1    NA
+      61  6.8  0.01468     1    -1       FALSE  black       0.5        1    NA
+      96  6.8 -0.01465     1    -1       FALSE  black       0.5        1    NA
+      27  6.9  0.00002     1    -1       FALSE  black       0.5        1    NA
+      62  6.9  0.01481     1    -1       FALSE  black       0.5        1    NA
+      97  6.9 -0.01478     1    -1       FALSE  black       0.5        1    NA
+      28  7.0  0.00002     1    -1       FALSE  black       0.5        1    NA
+      63  7.0  0.01486     1    -1       FALSE  black       0.5        1    NA
+      98  7.0 -0.01483     1    -1       FALSE  black       0.5        1    NA
+      29  7.1  0.00002     1    -1       FALSE  black       0.5        1    NA
+      64  7.1  0.01492     1    -1       FALSE  black       0.5        1    NA
+      99  7.1 -0.01489     1    -1       FALSE  black       0.5        1    NA
+      30  7.2  0.00002     1    -1       FALSE  black       0.5        1    NA
+      65  7.2  0.01512     1    -1       FALSE  black       0.5        1    NA
+      100 7.2 -0.01510     1    -1       FALSE  black       0.5        1    NA
+      31  7.3  0.00002     1    -1       FALSE  black       0.5        1    NA
+      66  7.3  0.01516     1    -1       FALSE  black       0.5        1    NA
+      101 7.3 -0.01514     1    -1       FALSE  black       0.5        1    NA
+      32  7.4  0.00002     1    -1       FALSE  black       0.5        1    NA
+      67  7.4  0.01517     1    -1       FALSE  black       0.5        1    NA
+      102 7.4 -0.01514     1    -1       FALSE  black       0.5        1    NA
+      33  7.6  0.00002     1    -1       FALSE  black       0.5        1    NA
+      68  7.6  0.01517     1    -1       FALSE  black       0.5        1    NA
+      103 7.6 -0.01514     1    -1       FALSE  black       0.5        1    NA
+      34  7.7  0.00002     1    -1       FALSE  black       0.5        1    NA
+      69  7.7  0.01517     1    -1       FALSE  black       0.5        1    NA
+      104 7.7 -0.01514     1    -1       FALSE  black       0.5        1    NA
+      35  7.9  0.00003     1    -1       FALSE  black       0.5        1    NA
+      70  7.9  0.02857     1    -1       FALSE  black       0.5        1    NA
+      105 7.9 -0.02855     1    -1       FALSE  black       0.5        1    NA
       
       
       $.all_cats$d1$Petal.Width
       $.all_cats$d1$Petal.Width$overlay
           colour linetype   x        y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 0.1 -0.00003     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 0.1  0.08554     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 0.1 -0.08547     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 0.2 -0.00002     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 0.2  0.08553     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 0.2 -0.08547     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 0.4  0.00002     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 0.4  0.08549     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 0.4 -0.08547     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 1.1  0.00003     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 1.1  0.08548     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 1.1 -0.08547     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 1.3  0.00003     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 1.3  0.08520     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 1.3 -0.08518     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 1.5  0.00003     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 1.5  0.03079     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 1.5 -0.03078     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 1.8  0.00003     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 1.8 -0.13496     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 1.8  0.13498     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 1.9  0.00003     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 1.9 -0.13713     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 1.9  0.13715     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 2.2  0.00003     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 2.2 -0.14427     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 2.2  0.14428     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 2.5  0.00003     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 2.5 -0.14456     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 2.5  0.14457     1     1       FALSE       0.5    NA
+      1  #F8766D    solid 0.1 -0.00005     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 0.1  0.08018     1     1       FALSE       0.5    NA
+      45 #F8766D    solid 0.1 -0.08009     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 0.2 -0.00004     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 0.2  0.08017     1     1       FALSE       0.5    NA
+      46 #F8766D    solid 0.2 -0.08009     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 0.3  0.00002     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 0.3  0.08012     1     1       FALSE       0.5    NA
+      47 #F8766D    solid 0.3 -0.08009     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 0.4  0.00002     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 0.4  0.08012     1     1       FALSE       0.5    NA
+      48 #F8766D    solid 0.4 -0.08009     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 0.5  0.00002     1     1       FALSE       0.5    NA
+      27 #F8766D    solid 0.5  0.08012     1     1       FALSE       0.5    NA
+      49 #F8766D    solid 0.5 -0.08009     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 0.6  0.00002     1     1       FALSE       0.5    NA
+      28 #F8766D    solid 0.6  0.08012     1     1       FALSE       0.5    NA
+      50 #F8766D    solid 0.6 -0.08009     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 1.0  0.00002     1     1       FALSE       0.5    NA
+      29 #F8766D    solid 1.0  0.08012     1     1       FALSE       0.5    NA
+      51 #F8766D    solid 1.0 -0.08009     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 1.1  0.00004     1     1       FALSE       0.5    NA
+      30 #F8766D    solid 1.1  0.08010     1     1       FALSE       0.5    NA
+      52 #F8766D    solid 1.1 -0.08009     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 1.2  0.00004     1     1       FALSE       0.5    NA
+      31 #F8766D    solid 1.2  0.08008     1     1       FALSE       0.5    NA
+      53 #F8766D    solid 1.2 -0.08007     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 1.3  0.00004     1     1       FALSE       0.5    NA
+      32 #F8766D    solid 1.3  0.07996     1     1       FALSE       0.5    NA
+      54 #F8766D    solid 1.3 -0.07995     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 1.4  0.00004     1     1       FALSE       0.5    NA
+      33 #F8766D    solid 1.4  0.07929     1     1       FALSE       0.5    NA
+      55 #F8766D    solid 1.4 -0.07928     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 1.5  0.00004     1     1       FALSE       0.5    NA
+      34 #F8766D    solid 1.5  0.03807     1     1       FALSE       0.5    NA
+      56 #F8766D    solid 1.5 -0.03806     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 1.6  0.00004     1     1       FALSE       0.5    NA
+      35 #F8766D    solid 1.6  0.02726     1     1       FALSE       0.5    NA
+      57 #F8766D    solid 1.6 -0.02725     1     1       FALSE       0.5    NA
+      14 #F8766D    solid 1.7  0.00004     1     1       FALSE       0.5    NA
+      36 #F8766D    solid 1.7 -0.09647     1     1       FALSE       0.5    NA
+      58 #F8766D    solid 1.7  0.09648     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 1.8  0.00004     1     1       FALSE       0.5    NA
+      37 #F8766D    solid 1.8 -0.12766     1     1       FALSE       0.5    NA
+      59 #F8766D    solid 1.8  0.12767     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 1.9  0.00004     1     1       FALSE       0.5    NA
+      38 #F8766D    solid 1.9 -0.12983     1     1       FALSE       0.5    NA
+      60 #F8766D    solid 1.9  0.12984     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 2.0  0.00004     1     1       FALSE       0.5    NA
+      39 #F8766D    solid 2.0 -0.13601     1     1       FALSE       0.5    NA
+      61 #F8766D    solid 2.0  0.13602     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 2.1  0.00004     1     1       FALSE       0.5    NA
+      40 #F8766D    solid 2.1 -0.13602     1     1       FALSE       0.5    NA
+      62 #F8766D    solid 2.1  0.13603     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 2.2  0.00004     1     1       FALSE       0.5    NA
+      41 #F8766D    solid 2.2 -0.13602     1     1       FALSE       0.5    NA
+      63 #F8766D    solid 2.2  0.13603     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 2.3  0.00004     1     1       FALSE       0.5    NA
+      42 #F8766D    solid 2.3 -0.13634     1     1       FALSE       0.5    NA
+      64 #F8766D    solid 2.3  0.13635     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 2.4  0.00004     1     1       FALSE       0.5    NA
+      43 #F8766D    solid 2.4 -0.13635     1     1       FALSE       0.5    NA
+      65 #F8766D    solid 2.4  0.13636     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 2.5  0.00004     1     1       FALSE       0.5    NA
+      44 #F8766D    solid 2.5 -0.13636     1     1       FALSE       0.5    NA
+      66 #F8766D    solid 2.5  0.13637     1     1       FALSE       0.5    NA
       
       $.all_cats$d1$Petal.Width$facet
            x        y PANEL group flipped_aes colour linewidth linetype alpha
-      1  0.1 -0.00003     1    -1       FALSE  black       0.5        1    NA
-      11 0.1  0.08554     1    -1       FALSE  black       0.5        1    NA
-      21 0.1 -0.08547     1    -1       FALSE  black       0.5        1    NA
-      2  0.2 -0.00002     1    -1       FALSE  black       0.5        1    NA
-      12 0.2  0.08553     1    -1       FALSE  black       0.5        1    NA
-      22 0.2 -0.08547     1    -1       FALSE  black       0.5        1    NA
-      3  0.4  0.00002     1    -1       FALSE  black       0.5        1    NA
-      13 0.4  0.08549     1    -1       FALSE  black       0.5        1    NA
-      23 0.4 -0.08547     1    -1       FALSE  black       0.5        1    NA
-      4  1.1  0.00003     1    -1       FALSE  black       0.5        1    NA
-      14 1.1  0.08548     1    -1       FALSE  black       0.5        1    NA
-      24 1.1 -0.08547     1    -1       FALSE  black       0.5        1    NA
-      5  1.3  0.00003     1    -1       FALSE  black       0.5        1    NA
-      15 1.3  0.08520     1    -1       FALSE  black       0.5        1    NA
-      25 1.3 -0.08518     1    -1       FALSE  black       0.5        1    NA
-      6  1.5  0.00003     1    -1       FALSE  black       0.5        1    NA
-      16 1.5  0.03079     1    -1       FALSE  black       0.5        1    NA
-      26 1.5 -0.03078     1    -1       FALSE  black       0.5        1    NA
-      7  1.8  0.00003     1    -1       FALSE  black       0.5        1    NA
-      17 1.8 -0.13496     1    -1       FALSE  black       0.5        1    NA
-      27 1.8  0.13498     1    -1       FALSE  black       0.5        1    NA
-      8  1.9  0.00003     1    -1       FALSE  black       0.5        1    NA
-      18 1.9 -0.13713     1    -1       FALSE  black       0.5        1    NA
-      28 1.9  0.13715     1    -1       FALSE  black       0.5        1    NA
-      9  2.2  0.00003     1    -1       FALSE  black       0.5        1    NA
-      19 2.2 -0.14427     1    -1       FALSE  black       0.5        1    NA
-      29 2.2  0.14428     1    -1       FALSE  black       0.5        1    NA
-      10 2.5  0.00003     1    -1       FALSE  black       0.5        1    NA
-      20 2.5 -0.14456     1    -1       FALSE  black       0.5        1    NA
-      30 2.5  0.14457     1    -1       FALSE  black       0.5        1    NA
+      1  0.1 -0.00005     1    -1       FALSE  black       0.5        1    NA
+      23 0.1  0.08018     1    -1       FALSE  black       0.5        1    NA
+      45 0.1 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      2  0.2 -0.00004     1    -1       FALSE  black       0.5        1    NA
+      24 0.2  0.08017     1    -1       FALSE  black       0.5        1    NA
+      46 0.2 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      3  0.3  0.00002     1    -1       FALSE  black       0.5        1    NA
+      25 0.3  0.08012     1    -1       FALSE  black       0.5        1    NA
+      47 0.3 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      4  0.4  0.00002     1    -1       FALSE  black       0.5        1    NA
+      26 0.4  0.08012     1    -1       FALSE  black       0.5        1    NA
+      48 0.4 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      5  0.5  0.00002     1    -1       FALSE  black       0.5        1    NA
+      27 0.5  0.08012     1    -1       FALSE  black       0.5        1    NA
+      49 0.5 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      6  0.6  0.00002     1    -1       FALSE  black       0.5        1    NA
+      28 0.6  0.08012     1    -1       FALSE  black       0.5        1    NA
+      50 0.6 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      7  1.0  0.00002     1    -1       FALSE  black       0.5        1    NA
+      29 1.0  0.08012     1    -1       FALSE  black       0.5        1    NA
+      51 1.0 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      8  1.1  0.00004     1    -1       FALSE  black       0.5        1    NA
+      30 1.1  0.08010     1    -1       FALSE  black       0.5        1    NA
+      52 1.1 -0.08009     1    -1       FALSE  black       0.5        1    NA
+      9  1.2  0.00004     1    -1       FALSE  black       0.5        1    NA
+      31 1.2  0.08008     1    -1       FALSE  black       0.5        1    NA
+      53 1.2 -0.08007     1    -1       FALSE  black       0.5        1    NA
+      10 1.3  0.00004     1    -1       FALSE  black       0.5        1    NA
+      32 1.3  0.07996     1    -1       FALSE  black       0.5        1    NA
+      54 1.3 -0.07995     1    -1       FALSE  black       0.5        1    NA
+      11 1.4  0.00004     1    -1       FALSE  black       0.5        1    NA
+      33 1.4  0.07929     1    -1       FALSE  black       0.5        1    NA
+      55 1.4 -0.07928     1    -1       FALSE  black       0.5        1    NA
+      12 1.5  0.00004     1    -1       FALSE  black       0.5        1    NA
+      34 1.5  0.03807     1    -1       FALSE  black       0.5        1    NA
+      56 1.5 -0.03806     1    -1       FALSE  black       0.5        1    NA
+      13 1.6  0.00004     1    -1       FALSE  black       0.5        1    NA
+      35 1.6  0.02726     1    -1       FALSE  black       0.5        1    NA
+      57 1.6 -0.02725     1    -1       FALSE  black       0.5        1    NA
+      14 1.7  0.00004     1    -1       FALSE  black       0.5        1    NA
+      36 1.7 -0.09647     1    -1       FALSE  black       0.5        1    NA
+      58 1.7  0.09648     1    -1       FALSE  black       0.5        1    NA
+      15 1.8  0.00004     1    -1       FALSE  black       0.5        1    NA
+      37 1.8 -0.12766     1    -1       FALSE  black       0.5        1    NA
+      59 1.8  0.12767     1    -1       FALSE  black       0.5        1    NA
+      16 1.9  0.00004     1    -1       FALSE  black       0.5        1    NA
+      38 1.9 -0.12983     1    -1       FALSE  black       0.5        1    NA
+      60 1.9  0.12984     1    -1       FALSE  black       0.5        1    NA
+      17 2.0  0.00004     1    -1       FALSE  black       0.5        1    NA
+      39 2.0 -0.13601     1    -1       FALSE  black       0.5        1    NA
+      61 2.0  0.13602     1    -1       FALSE  black       0.5        1    NA
+      18 2.1  0.00004     1    -1       FALSE  black       0.5        1    NA
+      40 2.1 -0.13602     1    -1       FALSE  black       0.5        1    NA
+      62 2.1  0.13603     1    -1       FALSE  black       0.5        1    NA
+      19 2.2  0.00004     1    -1       FALSE  black       0.5        1    NA
+      41 2.2 -0.13602     1    -1       FALSE  black       0.5        1    NA
+      63 2.2  0.13603     1    -1       FALSE  black       0.5        1    NA
+      20 2.3  0.00004     1    -1       FALSE  black       0.5        1    NA
+      42 2.3 -0.13634     1    -1       FALSE  black       0.5        1    NA
+      64 2.3  0.13635     1    -1       FALSE  black       0.5        1    NA
+      21 2.4  0.00004     1    -1       FALSE  black       0.5        1    NA
+      43 2.4 -0.13635     1    -1       FALSE  black       0.5        1    NA
+      65 2.4  0.13636     1    -1       FALSE  black       0.5        1    NA
+      22 2.5  0.00004     1    -1       FALSE  black       0.5        1    NA
+      44 2.5 -0.13636     1    -1       FALSE  black       0.5        1    NA
+      66 2.5  0.13637     1    -1       FALSE  black       0.5        1    NA
       
       
       

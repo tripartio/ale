@@ -2,6 +2,51 @@
 #
 # Most utils.R functionality is tested in other code. This test file only covers options that are skipped in other tests to assure complete coverage.
 
+test_that('recursive simplification prunes empty nodes and promotes sole children', {
+  frame <- test_cars[1, , drop = FALSE]
+  tree <- list(
+    removed = list(d1 = list(empty = frame[FALSE, ]), d2 = numeric()),
+    retained = list(d1 = list(wt = frame), d2 = NULL)
+  )
+  expect_identical(simplify_objs(tree), frame)
+  expect_null(simplify_objs(tree['removed']))
+  expect_identical(simplify_objs(list(d1 = frame['mpg'], d2 = NULL)), frame['mpg'])
+  expect_identical(
+    simplify_objs(list(Asia = list(d1 = list(wt = frame)),
+                       Europe = list(d1 = list(wt = frame)))),
+    list(Asia = frame, Europe = frame)
+  )
+})
+
+test_that('recursive simplification preserves terminal objects and surviving names', {
+  frame <- test_cars[1:2, , drop = FALSE]
+  plot <- ggplot2::ggplot(frame, ggplot2::aes(wt, mpg))
+  classed_list <- structure(list(empty = NULL), class = 'terminal')
+  no_columns <- frame[, FALSE, drop = FALSE]
+  tree <- list(frame = frame, plot = plot, classed = classed_list,
+               no_columns = no_columns, empty = list(NULL, list()))
+  expect_identical(simplify_objs(tree), tree[1:4])
+  expect_identical(simplify_objs(list(list(plot))), plot)
+  expect_identical(simplify_objs(list(vector = c(1, 2))), c(1, 2))
+})
+
+test_that('count_objs counts nonempty terminal objects with optional depth limits', {
+  frame <- test_cars[1:2, , drop = FALSE]
+  plot <- ggplot2::ggplot(frame, ggplot2::aes(wt, mpg))
+  tree <- list(d1 = list(frame, plot), d2 = list(frame[FALSE, ], list(NULL)))
+  expect_equal(count_objs(tree), 2)
+  expect_equal(count_objs(tree, iteration_depth = 0), 1)
+  expect_equal(count_objs(tree, iteration_depth = 1), 2)
+  expect_equal(count_objs(tree, iteration_depth = 2), 3)
+  expect_equal(count_objs(list()), 0)
+  expect_equal(count_objs(frame), 1)
+  expect_equal(count_objs(frame[, FALSE, drop = FALSE]), 1)
+  expect_equal(count_objs(plot), 1)
+  for (depth in list(-1, 0.5, NA_real_, NaN, -Inf, c(1, 2), numeric(), 'all')) {
+    expect_error(count_objs(tree, iteration_depth = depth), 'iteration_depth')
+  }
+})
+
 test_that("modes() works correctly for numeric vectors", {
   x <- c(1, 2, 3, 3, 4, 4, 5)
   result <- modes(x)

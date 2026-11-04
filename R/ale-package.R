@@ -35,7 +35,6 @@
 #' @importFrom rlang is_bool
 #' @importFrom rlang is_string
 #' @importFrom rlang set_names
-#' @importFrom rlang ':='
 #' @importFrom rlang '%||%'
 #' @importFrom stats median
 #' @importFrom stats quantile
@@ -47,5 +46,3 @@
 '_PACKAGE'
 
 # How to document the package: https://roxygen2.r-lib.org/articles/rd-other.html#packages
-
-

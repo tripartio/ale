@@ -37,6 +37,101 @@ validate_data <- function(
 }
 
 
+# Use the same types as calc_ale(), including fixed bins passed by ModelBoot.
+numeric_ale_cols <- function(data, x_cols, .bins = NULL) {
+  purrr::imap(x_cols, function(terms, dimension) {
+    unique(as.character(unlist(lapply(terms, function(term) {
+      columns <- strsplit(term, ':', fixed = TRUE)[[1]]
+      bins <- .bins[[dimension]][[term]]
+      types <- vapply(seq_along(columns), function(i) {
+        if (is.null(bins)) var_type(data[[columns[i]]]) else var_type(bins[[i]])
+      }, character(1))
+      columns[types %in% 'numeric']
+    }), use.names = FALSE)))
+  })
+}
+
+# Validate configuration and coverage without model or prediction setup.
+validate_max_num_bins <- function(
+    max_num_bins, col_names,
+    numeric_cols = list(d1 = character(), d2 = character())
+) {
+  validate(
+    !is.null(max_num_bins),
+    msg = '{.arg max_num_bins} cannot be NULL; use {.code list()} when no numeric limits are needed.'
+  )
+  validate(
+    is.list(max_num_bins) &&
+      (length(max_num_bins) == 0L || rlang::is_named(max_num_bins)) &&
+      !anyDuplicated(names(max_num_bins)),
+    msg = '{.arg max_num_bins} must be a named list with unique names, or {.code list()}.'
+  )
+  validate(
+    !any(c('default', 'except') %in% names(max_num_bins)),
+    msg = 'The {.val default} and {.val except} elements of {.arg max_num_bins} are no longer supported; use {.val d1}, {.val d2}, {.val except_d1}, and {.val except_d2}.'
+  )
+  validate(
+    all(names(max_num_bins) %in% c('d1', 'd2', 'except_d1', 'except_d2')),
+    msg = '{.arg max_num_bins} may contain only {.val d1}, {.val d2}, {.val except_d1}, and {.val except_d2}.'
+  )
+  for (dimension in c('d1', 'd2')) {
+    default <- max_num_bins[[dimension]]
+    if (!is.null(default)) {
+      validate(
+        isTRUE(is_scalar_natural(default)) && is.finite(default),
+        msg = paste0('{.arg max_num_bins$', dimension, '} must be a finite natural number (a strictly positive whole number).')
+      )
+    }
+    except_name <- paste0('except_', dimension)
+    overrides <- max_num_bins[[except_name]]
+    if (!is.null(overrides)) {
+      validate(
+        isTRUE(rlang::is_integerish(overrides) &&
+          all(is.finite(overrides) & overrides > 0)) &&
+          (length(overrides) == 0L || rlang::is_named(overrides)) &&
+          !anyDuplicated(names(overrides)),
+        msg = paste0('{.arg max_num_bins$', except_name, '} must be a named integer vector of strictly positive per-column limits with unique names.')
+      )
+      unknown <- setdiff(names(overrides), col_names)
+      if (length(unknown) > 0L) {
+        cli_abort(paste0('Columns listed in {.arg max_num_bins$', except_name, '} were not found in {.arg data}: {unknown}'))
+      }
+    }
+    if (is.null(default)) {
+      uncovered <- setdiff(numeric_cols[[dimension]], names(overrides))
+      if (length(uncovered) > 0L) {
+        cli_abort(paste0('Numeric variables in {.val ', dimension, '} have no bin limit: {uncovered}. Supply {.arg max_num_bins$', dimension, '} or cover them in {.arg max_num_bins$', except_name, '}.'))
+      }
+    }
+  }
+  invisible(TRUE)
+}
+
+
+# Check p-value distributions against their original inputs, including surrogates.
+validate_p_model_match <- function(p_values, model, y_col, pred_type) {
+  pp <- p_values@params
+  pm <- params_model(model)
+  validate(
+    isTRUE(all.equal(pm$class, pp$model$class)),
+    identical(pm$hash, pp$model$hash),
+    msg = c(
+      x = 'The {.arg p_values} distribution was generated from a different model from the present one.',
+      i = 'If this is deliberate (e.g., with bootstrapping), set {.arg require_p_model_match} to {.val FALSE}.'
+    )
+  )
+  validate(
+    identical(y_col, pp$y_col),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg y_col}: {.val {pp$y_col}} rather than {.val {y_col}}.'
+  )
+  validate(
+    identical(pred_type, pp$pred_type),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg pred_type}: {.val {pp$pred_type}} rather than {.val {pred_type}}.'
+  )
+  invisible(TRUE)
+}
+
+
 # Validate y_col.
 # If y_col is NULL, try to automatically detect it.
 validate_y_col <- function(
@@ -133,10 +228,15 @@ validate_prediction <- function(
 
   if (is.matrix(y_preds)) {
     if (y_preds |> colnames() |> is.null()) {
-      # Create colnames from factor levels or unique values
-      col_names <- data[[y_col]] |>
-        as.factor() |>
-        levels()
+      # A single prediction column represents the outcome itself.
+      # For multiple columns, use factor levels or unique values.
+      col_names <- if (ncol(y_preds) == 1L) {
+        y_col
+      } else {
+        data[[y_col]] |>
+          as.factor() |>
+          levels()
+      }
 
       validate(
         ncol(y_preds) == length(col_names),
@@ -186,11 +286,11 @@ validate_parallel <- function(parallel, model, model_packages) {
   )
 
   parallel <- if (parallel == 'all') {
-    future::availableCores(constraints = "connections-16", logical = TRUE)
+    parallelly::availableCores(constraints = "connections-16", logical = TRUE)
   } else if (parallel == 'all but one') {
-    future::availableCores(constraints = "connections-16", logical = FALSE, omit = 1)
+    parallelly::availableCores(constraints = "connections-16", logical = FALSE, omit = 1)
   } else {
-    max_cores <- future::availableCores(constraints = "connections-16", logical = TRUE)
+    max_cores <- parallelly::availableCores(constraints = "connections-16", logical = TRUE)
     if (parallel > max_cores) {  # nocov start
       cli_alert_info(c(
         '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',
