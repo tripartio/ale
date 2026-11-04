@@ -26,7 +26,7 @@
 #'
 #' * `obj`: ALE object from which to retrieve elements.
 #' * `x_cols`, `exclude_cols`: character, list, or formula. Columns names and interaction terms from `obj` requested in one of the special `x_cols` formats. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`. See details in the documentation for [resolve_x_cols()].
-#' * `what`: character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data", matched exactly. To retrieve ALE statistics, see the `stats` argument.
+#' * `what`: character(1). What kind of output is requested, matched exactly. To retrieve ALE statistics, see the `stats` argument.
 #' * `...`: not used. Inserted to require explicit naming of subsequent arguments.
 #' * `stats`: character. Retrieve ALE statistics. Named statistics are returned in the requested order within each term. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
 #' * `cats`: character. Optional category names to retrieve if the ALE is for a categorical y outcome model.

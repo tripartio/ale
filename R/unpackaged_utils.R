@@ -594,8 +594,8 @@ set_seed <- function(
 #' @param data          A data frame / tibble of numeric features.
 #' @param min_clusters  Smallest k to try (>= 2 – silhouette is undefined for k = 1).
 #' @param max_clusters  Largest  k to try.
-#' @param metric character(1). Either "euclidean" (default) or "manhattan", matched exactly and forwarded to `cluster::pam()`.
-#' @param sort_by character(1). Which measure to sort on, matched exactly: "silhouette" (default), "dissimilarity", "isolation", "diameter", or "separation". Partial names are not accepted.
+#' @param metric character(1). Distance metric, matched exactly and forwarded to `cluster::pam()`.
+#' @param sort_by character(1). Which cluster-quality measure to sort on, matched exactly. Partial names are not accepted.
 #' @param ...           Extra arguments forwarded to cluster::pam().
 #'
 #' @return A tibble with one row per k, containing:

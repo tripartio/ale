@@ -277,9 +277,6 @@ validate_prediction <- function(
 
 # Validate parallel processing inputs: parallel, model_packages.
 validate_parallel <- function(parallel, model, model_packages) {
-  if (is.character(parallel)) {
-    parallel <- rlang::arg_match(parallel, c('all', 'all but one'))
-  }
   validate(
     is_string(parallel, c('all', 'all but one')) || is_scalar_whole(parallel),
     msg = c(
@@ -445,7 +442,7 @@ validate_silent <- function(silent) {
 
 # Match the public ALED choices while retaining the hidden experimental path.
 # Keep "linear" out of defaults, help, and suggested choices in errors.
-.match_aled_fun <- function(
+match_aled_fun <- function(
   aled_fun = c('mad', 'sd'),
   call = rlang::caller_env()
 ) {

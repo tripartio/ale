@@ -22,7 +22,7 @@ ALE(
   aler_alpha = c(0.01, 0.05),
   aled_fun = NULL,
   max_num_bins = list(d1 = 1000L, d2 = 10L),
-  fct_order = c("levels", "y_col", "ksd"),
+  fct_order = "levels",
   boot_it = 0L,
   boot_alpha = 0.05,
   boot_centre = c("mean", "median"),
@@ -108,7 +108,7 @@ See details.}
 
 \item{boot_alpha}{numeric(1) from 0 to 1. When ALE is bootstrapped (\code{boot_it > 0}), \code{boot_alpha} specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example, if \code{boot_alpha = 0.05} (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.}
 
-\item{boot_centre}{character(1). Either "mean" (default) or "median", matched exactly. When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
+\item{boot_centre}{character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.}
 
 \item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with \code{parallel = 0}.}
 

@@ -50,7 +50,7 @@ ALEpDist(
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{aled_fun}{character(1). Either "mad" (default) or "sd", matched exactly. See \code{\link[=ALE]{ALE()}} for the deviation formulas.}
+\item{aled_fun}{character(1). Deviation function, matched exactly. See \code{\link[=ALE]{ALE()}} for the deviation formulas.}
 
 \item{output_residuals}{logical(1). If \code{TRUE}, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default \code{FALSE} does not return the residuals.}
 

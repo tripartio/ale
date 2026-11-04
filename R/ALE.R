@@ -62,7 +62,7 @@
 #' See details.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a [ModelBoot()] class object. See details there. The default `boot_it = 0` turns off bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. When ALE is bootstrapped (`boot_it > 0`), `boot_alpha` specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.
-#' @param boot_centre character(1). Either "mean" (default) or "median", matched exactly. When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
+#' @param boot_centre character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.
 #' @param seed integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with `parallel = 0`.
 #' @param y_type character(1) in c("binary", "numeric", "categorical", "ordinal"), or NULL. Datatype of the y (outcome) variable, matched exactly when supplied. The default `NULL` determines it automatically; only provide if an error message for a complex model requires it.
 #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots in [ALEPlots()].
@@ -230,7 +230,7 @@ ALE <- new_class(
     aler_alpha = c(0.01, 0.05),
     aled_fun = NULL,
     max_num_bins = list(d1 = 1000L, d2 = 10L),
-    fct_order = c('levels', 'y_col', 'ksd'),
+    fct_order = 'levels',
     boot_it = 0L,
     boot_alpha = 0.05,
     boot_centre = c('mean', 'median'),
@@ -344,13 +344,16 @@ ALE <- new_class(
       }
     }
 
-    aled_fun <- .match_aled_fun(aled_fun)
+    validate(
+      aled_fun |> is_string(c('linear', 'mad', 'sd')),
+      # "linear" experimental option for ALEC is not documented for now
+      msg = '{.arg aled_fun} must be "mad", "sd", or NULL.'
+    )
 
     if (output_stats) {
       if (!is.null(p_values)) {
         # The user wants p-values
-        if (is.character(p_values)) {
-          p_values <- rlang::arg_match(p_values, 'auto')
+        if (is_string(p_values, 'auto')) {
           p_values <- if (boot_it > 0) {
             # If the user bootstraps, generate relatively fast surrogate p-values as well
             ALEpDist(
@@ -405,11 +408,6 @@ ALE <- new_class(
       )
     )
 
-    # Match only the character branch; preserve per-column list overrides.
-    if (is.character(fct_order)) {
-      fct_order <- rlang::arg_match(fct_order)
-    }
-
     # Validate fct_order
     valid_fct_order_vals <- c('levels', 'y_col', 'ksd')
     invalid_msg_fct_order <- c(
@@ -441,9 +439,8 @@ ALE <- new_class(
     validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
     boot_centre <- rlang::arg_match(boot_centre)
     if (!is.null(y_type)) {
-      y_type <- rlang::arg_match(
-        y_type, c('binary', 'categorical', 'ordinal', 'numeric')
-      )
+      validate(is_string(y_type) &&
+                 (y_type %in% c('binary', 'categorical', 'ordinal', 'numeric')))
     }
     validate(is_string(pred_type))
 

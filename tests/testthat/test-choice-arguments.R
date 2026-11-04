@@ -114,3 +114,33 @@ test_that('ALED choices retain hidden linear support and exact public matching (
     'aled_fun.*mad.*sd', class = 'rlang_error'
   )
 })
+
+test_that('mixed-type arguments retain their validation messages (#noissue)', {
+  for (it.p_values in list('typo', 1, c('auto', 'typo'))) {
+    expect_error(
+      ALE(
+        test_gam, data = test_cars, x_cols = 'am',
+        p_values = it.p_values, silent = TRUE
+      ),
+      'not a valid.*ALEpDist.*object', class = 'rlang_error'
+    )
+  }
+  expect_error(
+    ALE(
+      test_gam, data = test_cars, x_cols = 'am', fct_order = 'typo',
+      output_stats = FALSE, silent = TRUE
+    ),
+    'Invalid format for.*fct_order', class = 'rlang_error'
+  )
+  expect_error(
+    validate_parallel('typo', test_gam, NULL),
+    'whole number', class = 'rlang_error'
+  )
+  expect_error(
+    ALE(
+      test_gam, data = test_cars, x_cols = 'am', aled_fun = 'typo',
+      output_stats = FALSE, silent = TRUE
+    ),
+    'aled_fun.*or NULL', class = 'rlang_error'
+  )
+})

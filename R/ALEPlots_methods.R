@@ -28,7 +28,7 @@
 #' @section Method arguments:
 #'
 #' * `obj`: ALEPlots object from which to retrieve ALE elements.
-#' * `type`: character(1). One of "ale" (default), "effect", "overlay", or "facet", matched exactly. "ale" retrieves standard ALE plots and "effect" retrieves ALE effects plots. With `cats = ".all"`, "ale" selects "facet"; "overlay" and "facet" select the corresponding combined-category plots, while "effect" is invalid.
+#' * `type`: character(1). Matched exactly. "ale" retrieves standard ALE plots and "effect" retrieves ALE effects plots. With `cats = ".all"`, "ale" selects "facet"; "overlay" and "facet" select the corresponding combined-category plots, while "effect" is invalid.
 #' * `cats`: character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, choose `type = "overlay"` or `type = "facet"`; the default `type = "ale"` selects "facet".
 #'
 #' @returns A list of `ggplot` objects using the category and dimension

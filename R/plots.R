@@ -49,7 +49,7 @@
 #' @param ale_data tibble. Output data from `calc_ale`.
 #' @param x_col character(1). Name of a single column whose ALE data is to be plotted.
 #' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
-#' @param cat_plot character(1) in c("overlay", "facet"), or NULL. The default `NULL` creates a single-category 1D plot. Non-NULL choices are matched exactly and select the corresponding combined-category plot.
+#' @param cat_plot character(1) in c("overlay", "facet"), or NULL. The default `NULL` creates a single-category 1D plot. Non-NULL choices select the corresponding combined-category plot.
 #' @param y_type See documentation for [ALEPlots()]
 #' @param y_summary See documentation for [ALE()]: `ale_obj@params$y_summary`
 #' @param p_exactness See documentation for [ALEpDist()]: `alepdist_obj@params$exactness`
@@ -89,9 +89,6 @@ plot_ale_1D <- function(
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
   ale_centre <- rlang::arg_match(ale_centre)
-  if (!is.null(cat_plot)) {
-    cat_plot <- rlang::arg_match(cat_plot, c('overlay', 'facet'))
-  }
 
   use_aler_band <- !is.null(p_exactness)
 
@@ -404,7 +401,7 @@ plot_ale_1D <- function(
 #' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
 #' @param params ALE object params property. Parameters for the object for which 2D plots will be created.
 #' @param ... not used. Enforces explicit naming of subsequent arguments.
-#' @param cat_plot character(1). Either "single" (default) or "facet", matched exactly. "single" creates a typical 2D plot for a single category; "facet" creates a faceted plot across all categories.
+#' @param cat_plot character(1). Plot layout, matched exactly. "single" creates a typical 2D plot for a single category; "facet" creates a faceted plot across all categories.
 #' @param show_2d_bin_sizes See documentation for [ALEPlots()]
 #' @param ale_centre See documentation for [ALE()]
 #'

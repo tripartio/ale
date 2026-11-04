@@ -13,7 +13,7 @@
 
 #' @param obj `ALE` or `ModelBoot` object. The object containing ALE data to be plotted.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param ale_centre character(1). One of "median" (default), "mean", or "zero", matched exactly. The ALE y values in the plots will be centred relative to this value. "zero" maintains the actual ALE values, which are centred on zero.
+#' @param ale_centre character(1). Centre for ALE y values, matched exactly. "zero" maintains the actual ALE values, which are centred on zero.
 #' @param consolid_cats integer(1) > 1 or list. For 1D plots of categorical variables, only a maximum of `consolid_cats` distinct values (e.g., factor levels) are shown. The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. See details for the calculation. Valid formats are:
 #'   * Single integer > 1: Consolidate categories only if there are more than `consolid_cats` factor levels.
 #'   * List with required levels: a list with exactly two elements: `max` is the same as the single-integer option above: the maximum allowable levels before consolidation begins; `include` is a named list. Each sublist is a character vector of specific levels that must be included for the factor variable that it names. Unknown names or factor levels trigger an error.

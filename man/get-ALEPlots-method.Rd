@@ -28,7 +28,7 @@ output structure not described here.
 
 \itemize{
 \item \code{obj}: ALEPlots object from which to retrieve ALE elements.
-\item \code{type}: character(1). One of "ale" (default), "effect", "overlay", or "facet", matched exactly. "ale" retrieves standard ALE plots and "effect" retrieves ALE effects plots. With \code{cats = ".all"}, "ale" selects "facet"; "overlay" and "facet" select the corresponding combined-category plots, while "effect" is invalid.
+\item \code{type}: character(1). Matched exactly. "ale" retrieves standard ALE plots and "effect" retrieves ALE effects plots. With \code{cats = ".all"}, "ale" selects "facet"; "overlay" and "facet" select the corresponding combined-category plots, while "effect" is invalid.
 \item \code{cats}: character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave \code{cats} at the default \code{NULL}. For categorical plots that combine all categories, specify \code{cats = ".all"}. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, choose \code{type = "overlay"} or \code{type = "facet"}; the default \code{type = "ale"} selects "facet".
 }
 }
