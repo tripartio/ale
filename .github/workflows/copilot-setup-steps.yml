@@ -46,6 +46,3 @@ jobs:
             any::usethis
             any::withr
             local::.
-
-      - name: Install air
-        uses: posit-dev/setup-air@v1

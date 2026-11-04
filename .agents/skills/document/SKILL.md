@@ -1,179 +1,44 @@
 ---
 name: document
-trigger: document functions
-description: Document package functions. Use when asked to document functions.
+description: Use when writing or modifying function documentation, S7 method help, shared parameter descriptions, documented interfaces, or NEWS entries. Covers roxygen generation and pkgdown reference maintenance.
 ---
 
-# Document functions
+# Documentation
 
-Read the root [STYLE.md](../../../STYLE.md) first. Its compact parameter declarations, one-line prose paragraphs, double quotes in user-facing prose, and S7 prose-only method topics override generic examples below. Executable R examples use single quotes by default.
+Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first. The canonical style guide defines compact parameter declarations, prose paragraphs, quotations, procedural comments, and S7 method help. Refer to those rules rather than substituting generic roxygen conventions.
 
-*All* R functions in `R/` should be documented in roxygen2 `#'` style, including internal/unexported functions.
+## Source and generation
 
-- Run `devtools::document()` after changing package roxygen2 docs. Follow STYLE.md for Air activation and formatting scope.
-- Use sentence case for all headings.
-- Keep each roxygen prose paragraph on one physical line and use editor soft wrapping. Preserve line breaks for structured content and executable examples.
-- Files matching `R/import-standalone-*.R` are imported from other packages and have their own conventions. Do not modify their documentation.
-- After documenting functions, run `devtools::document(roclets = c('rd', 'collate', 'namespace'))`.
-- If `_pkgdown.yml` exists and contains a `reference` section:
-  - Whenever you add a new (non-internal) documentation topic, also add the topic to `_pkgdown.yml`.
-  - Use `pkgdown::check_pkgdown()` to check that all topics are included in the reference index.
+Document locally maintained functions in `R/` with roxygen2, including internal functions. Do not modify imported `R/import-standalone-*.R` documentation. Use sentence case headings.
 
-## Shared parameters
+When source documentation or a documented interface changes, regenerate the established roclets from the repository root:
 
-**Parameters used in more than one function** go in `R/aaa-shared_params.R` under `@name .shared-params`. Functions inherit them with `@inheritParams .shared-params`. See `R/aaa-shared_params.R` for current definitions (if it exists).
-
-Shared params blocks: alphabetize parameters, use `@name .shared-params` (with leading dot), include `@keywords internal`, end with `NULL`.
-
-Multiple shared-params groups (e.g. `.shared-params-io`, `.shared-params-parsing`) are appropriate when parameters are only shared within a file and closely related files.
-
-## Parameter documentation format
-
-```r
-#' @param param_name TYPE. Brief description (usually 1-3 sentences). Can include [cross_references()]. Keep the whole paragraph on one physical line.
+```bash
+Rscript --quiet --vanilla -e "devtools::document(roclets = c('rd', 'collate', 'namespace'))"
 ```
 
-Function-specific `@param` definitions always appear *before* any `@inheritParams` lines. If all parameters are defined locally, omit `@inheritParams` entirely.
+Never manually edit generated `man/*.Rd` or `NAMESPACE`. Review the source definitions and generation results; ensure generated topics and exports correspond to that source. Follow the full testing/check workflow in `AGENTS.md` after the change. Agent-instruction prose changes alone do not require roxygen generation.
 
-### Type notation
+When adding a public documentation topic, include it in the existing `_pkgdown.yml` reference index and run `pkgdown::check_pkgdown()`. Preserve established topic grouping.
 
-For `@param`, use these type names as compact declarations ending in a period, without the surrounding parentheses and backticks shown in generic return notation. See STYLE.md for length and range examples.
+## Parameters and returns
 
-These are non-exhaustive examples. Other classes (such as `httr2_response`) are possible
+Reuse `R/aaa-shared_params.R` and its `.shared-params` topic with `@inheritParams` for genuinely shared descriptions. Shared blocks use `@name .shared-params`, `@keywords internal`, and a terminal `NULL`; alphabetize shared parameters. Add a scoped shared group only when the parameters are specific to related functions.
 
-| Notation | Meaning |
-|----------|---------|
-| ``(`character`)`` | Character vector |
-| ``(`character(1)`)`` | Single string |
-| ``(`logical(1)`)`` | Single logical |
-| ``(`integer`)`` | Integer vector |
-| ``(`integer(1)`)`` | Single integer |
-| ``(`double`)`` | Double vector |
-| ``(`vector(0)`)`` | A prototype (zero-length vector) |
-| ``(`vector`)`` | A vector of unspecified type |
-| ``(`list`)`` | List |
-| ``(`data.frame`)`` | Data frame or tibble |
-| ``(`tibble`)`` | Explicit tibble (when we KNOW the return is always a tibble) |
-| ``(`NULL`)`` | NULL only |
-| ``(`function` or `NULL`)`` | A function or NULL |
-| ``(`my_class`)`` | A class-specific type (use the actual class name) |
-| ``(`any`)`` | Any type |
-| ``(`NULL`, invisibly)`` | For returns, note `invisible()` returns with the type |
+Put locally written `@param` definitions before `@inheritParams`; omit inheritance when all parameters are local. Use the compact declarations specified in `STYLE.md`, with appropriate length, range, and nullability. Do not copy parenthesized return notation into parameter declarations.
 
-### Enumerated values
+Use `@returns` and describe the actual return contract, including structure, columns, invisibility, or value-dependent behavior where relevant. Return notation can include forms such as ``(`tibble`)`` or ``(`NULL`, invisibly)``. Use `[function()]`, `[pkg::function()]`, and `[topic]` for cross-references.
 
-When a parameter takes one of a fixed set of values, document them with a bullet list:
+## Topics and methods
 
-```r
-#' @param method character(1). The aggregation method. Can be one of:
-#'   * `"mean"`: Arithmetic mean.
-#'   * `"median"`: Median value.
-#'   * `"sum"`: Total sum.
-```
+Ordinary exported functions need a title, description, parameter and return documentation, `@export`, and useful executable examples. Put optional `@seealso` between `@returns` and `@export`; separate title/description, parameters, and examples with blank roxygen lines. Use interactive example guards where network access or slow computation makes them necessary.
 
-## Returns
+Internal functions use concise documentation with `@keywords internal`, no export, and no obligatory examples. Include explanatory prose when it helps users of the internal code.
 
-Use `@returns` (not `@return`). Include a type or types:
+For S7 methods, follow the prose-only topic and `@noRd` procedure in `STYLE.md`. Keep the stable topic name, method-usage and method-argument sections, prose signature, return description, and examples synchronized with the implementation. Do not use an executable `@usage` workaround or generic S3 documentation patterns for S7 methods.
 
-```r
-#' @returns (`tibble`) A summary tibble.
-#' @returns (`logical(1)`) `TRUE` if `x` is a valid record.
-#' @returns (`tibble` or `list`) Either a tibble or a list, depending on the input.
-#' @returns (`NULL`, invisibly) Called for warning side effect.
-```
+For S3 generics owned by this package, group methods with the generic using `@rdname` and the appropriate export tags. Related exported functions can share a topic. Methods for another package's S3 generic need standalone documentation and the appropriate `@exportS3Method pkg::generic` tag.
 
-**Structured returns with columns:**
+## NEWS
 
-```r
-#' @returns (`tibble`) A [tibble::tibble()] with columns:
-#'   - `name`: Record name.
-#'   - `value`: Numeric value.
-#'   - `status`: Status (`"active"` or `"inactive"`).
-```
-
-## Exported functions
-
-```r
-#' Title in sentence case
-#'
-#' Description paragraph providing context and details.
-#'
-#' @param param_name TYPE. Description.
-#' @inheritParams .shared-params
-#'
-#' @returns (`TYPE`) Description of return value.
-#' @seealso [related_function()]
-#' @export
-#'
-#' @examples
-#' example_code()
-```
-
-- Blank `#'` lines separate: title/description, description/params, and `@export`/`@examples`.
-- `@seealso` (optional) goes between `@returns` and `@export`.
-- `@details` can supplement the description when needed.
-
-## Internal (unexported) functions
-
-Internal helpers (identified by a dot prefix, e.g. `.parse_response()`) use abbreviated documentation. Mark them with `@keywords internal` and omit `@export`:
-
-```r
-#' Title in sentence case
-#'
-#' @param one_off_param TYPE. Description.
-#' @inheritParams .shared-params
-#' @returns (`TYPE`) What it returns.
-#' @keywords internal
-```
-
-Description paragraph is optional (only include when usage isn't obvious), fewer blank `#'` lines, and no `@examples`.
-
-## S3 methods and `@rdname` grouping
-
-Use `@rdname` to group related functions under one help page. This applies to:
-- **S3 methods we own** (generic defined in this package): generic gets full docs, methods get `@rdname` + `@export`.
-- **Related exported functions** (e.g. multiple variants of the same operation): primary function gets full docs, variants get `@rdname` + `@export`.
-
-```r
-#' Format a summary object
-#'
-#' @param x any. The object to format.
-#' @param ... Additional arguments passed to methods.
-#' @returns (`character(1)`) A formatted summary string.
-#' @keywords internal
-.format_summary <- function(x, ...) {
-  UseMethod(".format_summary")
-}
-
-#' @rdname .format_summary
-#' @export
-.format_summary.data_summary <- function(x, ...) {
-  # method implementation
-}
-```
-
-**S3 methods we don't own** (generic from another package) need standalone documentation:
-
-```r
-#' Title describing the method
-#'
-#' @param x TYPE. Description.
-#' @param ... Additional arguments (ignored).
-#' @returns (`TYPE`) Description.
-#' @exportS3Method pkg::generic
-method.class <- function(x, ...) { ... }
-```
-
-## Style notes
-
-**Cross-references:** Use square brackets — `[fetch_records()]` (internal), `[tibble::tibble()]` (external), `[topic_name]` (topics).
-
-**Section comment headers** optionally organize code within a file, lowercase with dashes to column 80:
-
-```r
-# helpers ----------------------------------------------------------------------
-```
-
-Only use such headers in complex files. The need for section comment headers might indicate that the file should be split into multiple files.
-
-**Examples:** Exported functions include `@examples`. Use `@examplesIf interactive()` for network-dependent or slow functions. Use section-style comments (`# Section ---`) to organize longer example blocks. Internal functions do not get examples.
+Add a bullet under the development heading for meaningful user-facing changes as required by `AGENTS.md`. Keep each entry on one physical line, in present tense with positive wording, ending in a period. Put affected function names in backticks with `()` near the start. Include verified issue/contributor references before the final period where applicable. Never invent an issue number or username; use `#noissue` if no tracked issue applies. Omit insignificant internal changes.

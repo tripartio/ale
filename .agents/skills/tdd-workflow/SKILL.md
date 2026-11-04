@@ -1,273 +1,76 @@
 ---
 name: tdd-workflow
-trigger: writing or reviewing tests
-description: Test-driven development workflow. Use when writing any R code (writing new features, fixing bugs, refactoring, or reviewing tests).
+description: Use when designing, running, or reviewing R tests, reproducing bugs, or verifying a package change. Prioritizes correct observable results, economical tests, fixture reuse, snapshot conventions, and full package checks.
 ---
 
-# TDD workflow
+# Testing and package verification
 
-## Core principle
+Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first. The historical skill name does not require test-first development for every edit.
 
-Write a failing test first, then implement the minimal code to make it pass, then refactor. Never write implementation code without a failing test driving it.
+## Choose meaningful tests
 
-## File naming
+Tests should provide strong evidence of correct observable results with the smallest reasonable number of meaningful, maintainable tests. Prioritize valid inputs with known expected outputs, important computational boundaries, and regressions for discovered bugs. Aim for high coverage of important computation; do not impose a numeric coverage target or create tests merely to improve coverage.
 
-Tests for `R/{name}.R` go in `tests/testthat/test-{name}.R`. Place new tests next to similar existing ones.
+Each new test should catch a plausible defect and add information not already established. Prefer public behavior over helper internals. Avoid redundant assertions, repeated tests of the same result, fragile implementation details, and elaborate mocking where small realistic fixtures suffice. Accept uncovered code where additional tests have negligible benefit relative to complexity and maintenance.
 
-## Running tests
+For bug fixes, reproduce the defect with the supplied MRE or a small deterministic example before changing the implementation. A failing regression test is useful when practical; documentation-only or other low-impact changes do not automatically require new tests. Diagnose baseline failures and distinguish them from regressions rather than stopping automatically.
 
-```r
-# Full suite
-devtools::test(reporter = "check")
+## Reuse resources and limit runtime
 
-# Single file
-devtools::test(filter = "name", reporter = "check")
-```
+Inspect `tests/testthat/helper.R` and related test files before adding data, models, or helpers. Reuse `test_cars`, `test_gam`, `test_gam_binary`, `test_nn_categorical`, and suitable ALE objects or other existing fixtures. Tests must be independent of execution order, but may use shared helper resources. Do not repeatedly fit equivalent models or reconstruct equivalent data.
 
-Testing functions load code automatically. You do not need to call `library()` or `devtools::load_all()` separately.
+Keep each new individual test within the five-second limit in `AGENTS.md`, preferably much faster. Count attributable new fixture/setup work rather than moving expensive computation out of the test body to hide its cost. Simplify data and reuse suitable fixtures first; explain and obtain explicit permission before introducing a necessary slower test.
 
-## Coverage
+Use the existing validation infrastructure in `R/validation.R`, `R/unpackaged_utils.R`, and the condition helpers. Keep ordinary computational tests focused on valid inputs and expected results. Add focused validation tests where validation behavior changes; do not repeat invalid-input cases across unrelated computational tests.
 
-Goal: **100%** for every edited file. After editing `R/file_name.R`, verify:
+Place tests beside related existing tests, normally in `tests/testthat/test-{name}.R` for the affected source area. New `test_that()` descriptions end with verified issue references, or `(#noissue)` when none applies. Never invent or copy illustrative issue numbers. Use deterministic inputs, explicit expected results, and appropriate numeric tolerances. Preserve comments that explain computational reasoning as required by `STYLE.md`.
 
-```r
-covr_res <- devtools:::test_coverage_active_file("R/file_name.R")
-which(purrr::map_int(covr_res, "value") == 0)
-```
+## Snapshots and conditions
 
-Files excluded from the coverage requirement:
-- `R/*-package.R`
-- `R/aaa-shared_params.R`
-- Files matching `R/import-standalone-*.R`
+Read the existing test and helper implementation before changing snapshots:
 
-## Test types
+- Use `expect_snap_variant()` for the platform-variant output snapshots. It selects `Sys.info()['sysname']` locally; existing variants live under `_snaps/Linux/` and `_snaps/Windows/`.
+- That helper still evaluates expressions on CI (`CI=true`) but deliberately skips output comparison. Do not mistake CI success for local snapshot comparison or change CI flags to bypass a failing comparison.
+- Reuse `s7_snapshot()`, `normalize_snapshot_data_frame()`, `normalize_snapshot_univariate_ml()`, `normalize_snapshot_value()`, `ggplot_snapshot_data()`, and `ale_plots_to_data()` where appropriate. They preserve the existing substantive comparisons while excluding known unstable metadata or numerical noise.
+- Use snapshots only when they add useful evidence. Inspect each proposed change against intended behavior and review the correct platform variant before accepting. Do not automatically accept new snapshots or overwrite another platform's variant.
 
-### Unit tests
-
-Test individual functions in isolation:
+For an intentional change, use testthat's review/accept workflow for the affected file and variant. For example, for the `ALE-numerical` file on Linux, after inspecting the proposed output:
 
 ```r
-test_that("fetch_records() returns a tibble (#2)", {
-  result <- fetch_records(sample_input)
-  expect_s3_class(result, "tbl_df")
-})
+testthat::snapshot_review('Linux/ALE-numerical.md')
+# Only after reviewing the change:
+testthat::snapshot_accept('Linux/ALE-numerical.md')
 ```
 
-### Integration tests
+Preserve the existing condition assertion conventions when focused condition tests are needed:
 
-Test end-to-end pipelines through multiple functions:
+- Package errors, warnings, and messages from `.pkg_abort()`, `.pkg_warn()`, and `.pkg_inform()` use `stbl::expect_pkg_error_snapshot()`, `stbl::expect_pkg_warning_snapshot()`, and `stbl::expect_pkg_message_snapshot()` to check classes and user-facing text together.
+- Errors originating in `stbl` use `stbl::expect_pkg_error_classes()` because that package controls the message. Pass dash-separated class components separately; preserve underscores within a component.
+- Other packages' conditions can use `expect_error()`, `expect_warning()`, or `expect_message()` with useful class/message checks. Avoid unnecessary snapshots of third-party messages.
 
-```r
-test_that("build_report() produces expected output (#15)", {
-  input <- data.frame(value = c(1.123, 2.456, NA))
-  result <- build_report(input, tempfile())
-  expect_equal(nrow(result), 2L)
-})
+## Run tests and the full check
+
+From the repository root, run relevant tests with the normal helper infrastructure:
+
+```bash
+Rscript --quiet --vanilla -e "devtools::test(filter = 'name', reporter = 'check')"
 ```
 
-### Snapshot tests
+Omit `filter` to run the full suite. `devtools::test()` loads the code and test helpers; a separate `library()` or `load_all()` is unnecessary. Do not use a raw single-file invocation that accidentally omits required helpers.
 
-For complex outputs that are hard to specify with equality assertions:
+Then run the established package build and full CRAN-style check, using the actual archive name printed by the build:
 
-```r
-test_that("build_summary print method is stable (#123)", {
-  expect_snapshot(print(build_summary(sample_data)))
-})
+```bash
+R CMD build .
+R CMD check --as-cran ale_VERSION.tar.gz
 ```
 
-When snapshots change intentionally, check the content of the file corresponding to the edited test file, then accept:
+Keep build/check artifacts outside the source checkout when practical by building from an artifact directory with the checkout path as the build argument. Preserve inherited environment variables and CRAN-check overrides. Do not disable tests, examples, vignettes, or dependency checks merely to obtain a passing result. Any deliberately reduced diagnostic run must be reported as such, separately from the required full check.
 
-```r
-testthat::snapshot_accept("test_name")
-```
+Follow `AGENTS.md` for error/warning diagnosis, remediation attempts, reruns, NOTES, and reporting. Identify missing tools or dependencies from actual command failures; report blockers rather than claiming verification succeeded. Do not run Air or lintr as part of these checks.
 
-Snapshots are stored in `tests/testthat/_snaps/`. The filename corresponds to the R file being tested, ending with `.md`.
+## Useful testthat patterns
 
-## Test design principles
+Use Edition 3 expectations: `expect_equal()` with a meaningful tolerance for numeric results; `expect_identical()` for exact contracts; and `expect_named()`, `expect_setequal()`, or `expect_s3_class()` when those capture the intended result. Replace deprecated `context()`, `expect_equivalent()`, `expect_is()`, and `with_mock()` when editing their surrounding tests. Use `withr::local_*()` for temporary state and `local_mocked_bindings()` only where mocking is necessary.
 
-- **Self-sufficient:** each test contains its own setup, execution, and assertion. Tests must be runnable in isolation.
-- **Duplication over factoring:** repeat setup code rather than extracting it. Clarity beats DRY in tests.
-- **One concept per test:** a failing test should tell you exactly what broke.
-- **Minimal with few comments:** keep tests lean. Avoid over-commenting.
-- **Issue reference in description:** the `desc` of every new `test_that()` call should end with one or more parenthetical issue references for the issue(s) *verified by those tests* — typically the issue currently being solved. **Never guess or invent issue numbers.** Determine the number from the user's prompt, the branch name (`git branch --show-current`), or `gh issue list`. Before writing a number, verify you can trace it to one of these sources. If no tracked issue applies, use `#noissue`. The numbers in the examples below are illustrative placeholders — do not copy them:
-  ```r
-  test_that("fetch_records() returns correct columns (#1)", { ... })
-  test_that("build_summary() returns correct columns (#2, #3)", { ... })
-  test_that(".check_record() errors on empty input (#noissue)", { ... })
-  ```
-
-## testthat Edition 3 — deprecated patterns
-
-```r
-# Deprecated → Modern
-context("Data validation")        # Remove — filename serves this purpose
-expect_equivalent(x, y)          # expect_equal(x, y, ignore_attr = TRUE)
-with_mock(...)                    # local_mocked_bindings(...)
-expect_is(x, "data.frame")       # expect_s3_class(x, "data.frame")
-```
-
-## Essential expectations
-
-### Equality & identity
-
-```r
-expect_equal(x, y)                        # with numeric tolerance
-expect_equal(x, y, tolerance = 0.001)
-expect_equal(x, y, ignore_attr = TRUE)
-expect_identical(x, y)                    # exact match
-```
-
-### Conditions
-
-**Errors thrown by this package** (via `.pkg_abort()`) should always be tested
-with `stbl::expect_pkg_error_snapshot()`, which captures both the error class
-hierarchy and the user-facing message in one snapshot:
-
-```r
-test_that("process_data() errors on empty input (#42)", {
-  stbl::expect_pkg_error_snapshot(
-    process_data(data.frame()),
-    "ale",
-    "empty_input"
-  )
-})
-```
-
-**Warnings thrown by this package** (via `.pkg_warn()`) should be tested with
-`stbl::expect_pkg_warning_snapshot()`:
-
-```r
-test_that("process_data() warns on dropped rows (#42)", {
-  stbl::expect_pkg_warning_snapshot(
-    process_data(data.frame(value = c(1, NA))),
-    "ale",
-    "dropped_rows"
-  )
-})
-```
-
-**Messages thrown by this package** (via `.pkg_inform()`) should be tested with
-`stbl::expect_pkg_message_snapshot()`:
-
-```r
-test_that("process_data() informs on defaults used (#42)", {
-  stbl::expect_pkg_message_snapshot(
-    process_data(data.frame(value = 1)),
-    "ale",
-    "used_defaults"
-  )
-})
-```
-
-**Errors thrown by `stbl`** (via `stbl::to_*()` / `stbl::stabilize_*()`)
-should be tested with `stbl::expect_pkg_error_classes()`. Since the message
-text is controlled by `stbl`, only the class hierarchy needs to be asserted:
-
-```r
-test_that("process_data() errors on non-integer page_size (#43)", {
-  stbl::expect_pkg_error_classes(
-    process_data(sample_data, page_size = "abc"),
-    "stbl",
-    "incompatible_type"
-  )
-})
-```
-
-For **composite** stbl error classes (where the class name contains dashes,
-e.g. `stbl-error-coerce-character`), pass each dash-separated component as a
-separate argument. Underscores within a component are kept as-is:
-
-```r
-test_that("process_data() errors on non-coercible input (#43)", {
-  stbl::expect_pkg_error_classes(
-    process_data(sample_data, value = list(bad = "input")),
-    "stbl",
-    "coerce",
-    "character"
-  )
-})
-```
-
-**Errors from other packages** can be tested with `expect_error()`, optionally
-wrapped in `expect_snapshot()` to lock down the message text:
-
-```r
-expect_error(code, "pattern")
-expect_error(code, class = "some-error-class")
-
-# Lock down both class and message text:
-test_that("fetch_records errors on invalid input (#456)", {
-  expect_snapshot(
-    (expect_error(
-      fetch_records("not valid input"),
-      class = "pkg-error"
-    ))
-  )
-})
-```
-
-```r
-expect_warning(code)
-expect_no_warning(code)
-expect_message(code)
-expect_no_message(code)
-```
-
-### Collections
-
-```r
-expect_setequal(x, y)           # same elements, any order
-expect_in(element, set)
-expect_named(x, c("a", "b"))
-```
-
-### Type & structure
-
-```r
-expect_type(x, "double")
-expect_s3_class(x, "tbl_df")
-expect_length(x, 10)
-expect_null(x)
-```
-
-### Logical
-
-These expectations are a last resort when more-specific checks aren't available.
-
-```r
-expect_true(x)
-expect_false(x)
-```
-
-## `withr` patterns for temporary state
-
-```r
-withr::local_options(list(ale.verbose = TRUE))
-withr::local_envvar(MY_VAR = "value")
-withr::local_tempfile(lines = c("a", "b"))
-```
-
-## Fixtures
-
-Store static test data in `tests/testthat/fixtures/` and access via:
-
-```r
-test_path("fixtures", "sample.rds")
-```
-
-## Mocking
-
-Mock functions that might have unstable output, hit external servers, etc.
-
-```r
-local_mocked_bindings(
-  .other_fn = function(...) "mocked_result"
-)
-result <- my_function_that_calls_other_fn()
-```
-
-## Common mistakes
-
-- **Do not modify tests to make them pass.** Fix the implementation.
-- **Do not write tests that depend on other tests' state.** Each test must be independently runnable.
-- **Ask for help if test is bad.** If you think a test might be invalid, do not loop through trying to make impossible tests pass. Ask for help if possible.
+If static data are necessary and no existing fixture fits, use a small fixture under `tests/testthat/fixtures/` accessed with `test_path()`. Correct an obsolete test only after establishing and explaining why its expected behavior is wrong; do not weaken assertions to conceal a defect.
