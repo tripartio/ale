@@ -54,8 +54,10 @@ For any feature, fix, or refactor:
 ## General
 
 - R console: use `--quiet --vanilla`.
-- Always run `air format .` after generating R code.
-- Comments explain *why*, not *what*.
+- Before creating or editing code or documentation, read [STYLE.md](STYLE.md). It is the canonical repository style policy and overrides generic style examples in skills, tidyverse defaults, and older code. Apply it to new and substantively edited work without unrelated rewrites.
+- Follow the style rules manually now. Air and lintr configuration is prepared for later activation; do not require installation, run repository-wide formatting, or add style checks to CI unless the user requests it. When tools are enabled, limit formatting to the requested scope.
+- Preserve useful detailed procedural comments, including closing-delimiter comments, as specified in STYLE.md.
+- For an interaction between API selection arguments that you are designing or substantively changing, describe the departure from tidy design and obtain the maintainer's confirmation for that interaction. Preserve existing behavior pending confirmation. See STYLE.md for scope and examples.
 
 ## Skills
 
@@ -72,7 +74,7 @@ For any feature, fix, or refactor:
 ## Git workflow
 
 - Unless I explicitly specify another branch, use the `wip` branch for all work in this repository.
-- Before making changes, fetch the latest remote state and ensure the task is based on the latest `origin/wip`.
+- Before making changes, fetch the latest remote state and ensure the task is based on the latest version of the explicitly requested target branch, or `origin/wip` when none is specified.
 - Do not silently fall back to `main`.
 - All work done by an agent should be created as a subbranch of a branch with the agent's name. E.g., all Codex work should be subbranches of the "codex"" branch.
 

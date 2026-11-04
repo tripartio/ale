@@ -5,6 +5,11 @@
 ^\.vscode$
 ^_pkgdown\.yml$
 ^AGENTS\.md$
+^STYLE\.md$
+^air\.toml$
+^\.lintr$
+^\.editorconfig$
+^tools/style$
 ^ale\.Rproj$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
