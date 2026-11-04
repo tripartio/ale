@@ -1,0 +1,8 @@
+# Prepared for later use. No hook or workflow invokes Air.
+[format]
+indent-width = 2
+indent-style = "space"
+line-width = 80
+line-ending = "lf"
+persistent-line-breaks = true
+exclude = ["/R/refALEPlot.R", "/revdep/", "/doc/", "/Meta/", "/download/"]

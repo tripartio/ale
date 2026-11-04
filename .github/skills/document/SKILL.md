@@ -6,11 +6,13 @@ description: Document package functions. Use when asked to document functions.
 
 # Document functions
 
+Read the root [STYLE.md](../../../STYLE.md) first. Its compact parameter declarations, one-line prose paragraphs, double quotes in user-facing prose, and S7 prose-only method topics override generic examples below. Executable R examples use single quotes by default.
+
 *All* R functions in `R/` should be documented in roxygen2 `#'` style, including internal/unexported functions.
 
-- Run `air format .` then `devtools::document()` after changing any roxygen2 docs.
+- Run `devtools::document()` after changing package roxygen2 docs. Follow STYLE.md for Air activation and formatting scope.
 - Use sentence case for all headings.
-- Wrap roxygen comments at 80 characters.
+- Keep each roxygen prose paragraph on one physical line and use editor soft wrapping. Preserve line breaks for structured content and executable examples.
 - Files matching `R/import-standalone-*.R` are imported from other packages and have their own conventions. Do not modify their documentation.
 - After documenting functions, run `devtools::document(roclets = c('rd', 'collate', 'namespace'))`.
 - If `_pkgdown.yml` exists and contains a `reference` section:
@@ -28,14 +30,14 @@ Multiple shared-params groups (e.g. `.shared-params-io`, `.shared-params-parsing
 ## Parameter documentation format
 
 ```r
-#' @param param_name (`TYPE`) Brief description (usually 1-3 sentences. Can
-#'   include [cross_references()]. Additional details on continuation lines if
-#'   needed.
+#' @param param_name TYPE. Brief description (usually 1-3 sentences). Can include [cross_references()]. Keep the whole paragraph on one physical line.
 ```
 
 Function-specific `@param` definitions always appear *before* any `@inheritParams` lines. If all parameters are defined locally, omit `@inheritParams` entirely.
 
 ### Type notation
+
+For `@param`, use these type names as compact declarations ending in a period, without the surrounding parentheses and backticks shown in generic return notation. See STYLE.md for length and range examples.
 
 These are non-exhaustive examples. Other classes (such as `httr2_response`) are possible
 
@@ -63,7 +65,7 @@ These are non-exhaustive examples. Other classes (such as `httr2_response`) are 
 When a parameter takes one of a fixed set of values, document them with a bullet list:
 
 ```r
-#' @param method (`character(1)`) The aggregation method. Can be one of:
+#' @param method character(1). The aggregation method. Can be one of:
 #'   * `"mean"`: Arithmetic mean.
 #'   * `"median"`: Median value.
 #'   * `"sum"`: Total sum.
@@ -96,7 +98,7 @@ Use `@returns` (not `@return`). Include a type or types:
 #'
 #' Description paragraph providing context and details.
 #'
-#' @param param_name (`TYPE`) Description.
+#' @param param_name TYPE. Description.
 #' @inheritParams .shared-params
 #'
 #' @returns (`TYPE`) Description of return value.
@@ -118,7 +120,7 @@ Internal helpers (identified by a dot prefix, e.g. `.parse_response()`) use abbr
 ```r
 #' Title in sentence case
 #'
-#' @param one_off_param (`TYPE`) Description.
+#' @param one_off_param TYPE. Description.
 #' @inheritParams .shared-params
 #' @returns (`TYPE`) What it returns.
 #' @keywords internal
@@ -135,7 +137,7 @@ Use `@rdname` to group related functions under one help page. This applies to:
 ```r
 #' Format a summary object
 #'
-#' @param x (`any`) The object to format.
+#' @param x any. The object to format.
 #' @param ... Additional arguments passed to methods.
 #' @returns (`character(1)`) A formatted summary string.
 #' @keywords internal
@@ -155,7 +157,7 @@ Use `@rdname` to group related functions under one help page. This applies to:
 ```r
 #' Title describing the method
 #'
-#' @param x (`TYPE`) Description.
+#' @param x TYPE. Description.
 #' @param ... Additional arguments (ignored).
 #' @returns (`TYPE`) Description.
 #' @exportS3Method pkg::generic

@@ -6,6 +6,8 @@ description: Guide for writing R code. Use when writing new functions, designing
 
 # R code
 
+Read the root [STYLE.md](../../../STYLE.md) first. Its repository-specific API, naming, quoting, function-syntax, return, comment, and pipeline rules override generic rules and examples below. Preserve class capitalization and semantic iteration prefixes. Follow its tool-activation policy.
+
 This skill covers how to design and write R functions â€” including naming conventions, signatures, API conventions, input validation, condition handling, and common pitfalls. For documenting functions, use the `document` skill. For tests, use the `tdd-workflow` skill.
 
 ## Naming conventions
@@ -47,7 +49,7 @@ One exported function per file: `R/{function_name}.R` (e.g. `fetch_records()` â†
 
 ## Coding style
 
-- Always run `air format .` after generating code.
+- Apply STYLE.md manually until the maintainer enables Air. Once enabled, format only files within the requested scope.
 - Use the base pipe operator (`|>`) not the magrittr pipe (`%>%`).
 - Use `\() ...` for single-line anonymous functions. For all other cases, use `function() {...}`.
 
