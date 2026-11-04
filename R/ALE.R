@@ -51,7 +51,7 @@
 #'   When `n` intervals are requested, there are at most `n+1` bins, limited by
 #'   the number of unique values, with the lowest bin dedicated to the minimum.
 #'   Higher limits can be slower for interactions.
-#' @param fct_order character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
+#' @param fct_order character(1) or list. Character choices are matched exactly. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 #' * `"levels"` (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
 #' * `"y_col"`: Sort based on the increasing mean values of the predictions of `y_col` for each factor level.
 #' * `"ksd"`: Not recommended except for compatibility with the original ALEPlot reference implementation.
@@ -62,9 +62,9 @@
 #' See details.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a [ModelBoot()] class object. See details there. The default `boot_it = 0` turns off bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. When ALE is bootstrapped (`boot_it > 0`), `boot_alpha` specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.
-#' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
+#' @param boot_centre character(1). Either "mean" (default) or "median", matched exactly. When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
 #' @param seed integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with `parallel = 0`.
-#' @param y_type character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex model requires it.
+#' @param y_type character(1) in c("binary", "numeric", "categorical", "ordinal"), or NULL. Datatype of the y (outcome) variable, matched exactly when supplied. The default `NULL` determines it automatically; only provide if an error message for a complex model requires it.
 #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots in [ALEPlots()].
 #' @param silent logical(1), default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to customize progress bars.
 #' @param .bins Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (`NULL`), [ALE()] automatically calculates the bins. `.bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with [ModelBoot()]).
@@ -230,10 +230,10 @@ ALE <- new_class(
     aler_alpha = c(0.01, 0.05),
     aled_fun = NULL,
     max_num_bins = list(d1 = 1000L, d2 = 10L),
-    fct_order = 'levels',
+    fct_order = c('levels', 'y_col', 'ksd'),
     boot_it = 0L,
     boot_alpha = 0.05,
-    boot_centre = 'mean',
+    boot_centre = c('mean', 'median'),
     seed = 0,
     y_type = NULL,
     sample_size = 500L,
@@ -344,16 +344,13 @@ ALE <- new_class(
       }
     }
 
-    validate(
-      aled_fun |> is_string(c('linear', 'mad', 'sd')),
-      # "linear" experimental option for ALEC is not documented for now
-      msg = '{.arg aled_fun} must be "mad", "sd", or NULL.'
-    )
+    aled_fun <- .match_aled_fun(aled_fun)
 
     if (output_stats) {
       if (!is.null(p_values)) {
         # The user wants p-values
-        if (is_string(p_values, 'auto')) {
+        if (is.character(p_values)) {
+          p_values <- rlang::arg_match(p_values, 'auto')
           p_values <- if (boot_it > 0) {
             # If the user bootstraps, generate relatively fast surrogate p-values as well
             ALEpDist(
@@ -408,6 +405,11 @@ ALE <- new_class(
       )
     )
 
+    # Match only the character branch; preserve per-column list overrides.
+    if (is.character(fct_order)) {
+      fct_order <- rlang::arg_match(fct_order)
+    }
+
     # Validate fct_order
     valid_fct_order_vals <- c('levels', 'y_col', 'ksd')
     invalid_msg_fct_order <- c(
@@ -437,13 +439,11 @@ ALE <- new_class(
 
     validate(is_scalar_number(seed))
     validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
-    validate(
-      is_string(boot_centre) && (boot_centre %in% c('mean', 'median')),
-      msg = cli_alert_danger('{.arg boot_centre} must be one of "mean" or "median".')
-    )
+    boot_centre <- rlang::arg_match(boot_centre)
     if (!is.null(y_type)) {
-      validate(is_string(y_type) &&
-                 (y_type %in% c('binary', 'categorical', 'ordinal', 'numeric')))
+      y_type <- rlang::arg_match(
+        y_type, c('binary', 'categorical', 'ordinal', 'numeric')
+      )
     }
     validate(is_string(pred_type))
 

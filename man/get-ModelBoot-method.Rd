@@ -17,7 +17,7 @@ output structure not described here.
 \section{Method usage}{
 
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{get(obj, x_cols = NULL, what = "ale", ..., exclude_cols = NULL, type = "auto", stats = NULL, cats = NULL, ale_centre = "median", simplify = TRUE)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{get(obj, x_cols = NULL, what = c("ale", "boot_data"), ..., exclude_cols = NULL, type = c("auto", "boot", "single"), stats = NULL, cats = NULL, ale_centre = c("median", "mean", "zero"), simplify = TRUE)
 }\if{html}{\out{</div>}}
 }
 
@@ -25,7 +25,7 @@ output structure not described here.
 
 \itemize{
 \item \code{obj}: ModelBoot object from which to retrieve ALE elements.
-\item \code{type}: character(1). The type of ModelBoot ALE elements to retrieve: \code{'single'} for the ALE calculated on the full data set or \code{'boot'} for the bootstrapped ALE data (based on full-model bootstrapping). The default \code{'auto'} will retrieve \code{'boot'} if it is available and \code{'single'} otherwise.
+\item \code{type}: character(1). The type of ModelBoot ALE elements to retrieve: \code{'single'} for the ALE calculated on the full data set or \code{'boot'} for the bootstrapped ALE data (based on full-model bootstrapping). The default "auto" retrieves "boot" if it is available and "single" otherwise. Choices are matched exactly.
 }
 }
 

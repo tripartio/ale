@@ -7,7 +7,7 @@
 ALEPlots(
   obj,
   ...,
-  ale_centre = "median",
+  ale_centre = c("median", "mean", "zero"),
   consolid_cats = 10L,
   y_1d_refs = c("25\%", "75\%"),
   rug_sample_size = obj@params$sample_size,
@@ -24,7 +24,7 @@ ALEPlots(
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{ale_centre}{character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be centred relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are centred on zero.}
+\item{ale_centre}{character(1). One of "median" (default), "mean", or "zero", matched exactly. The ALE y values in the plots will be centred relative to this value. "zero" maintains the actual ALE values, which are centred on zero.}
 
 \item{consolid_cats}{integer(1) > 1 or list. For 1D plots of categorical variables, only a maximum of \code{consolid_cats} distinct values (e.g., factor levels) are shown. The top \code{consolid_cats - 1} values in ALE strength are shown and all other values are consolidated into an "other" category. See details for the calculation. Valid formats are:
 \itemize{

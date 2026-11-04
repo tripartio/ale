@@ -18,7 +18,7 @@ ModelBoot(
   pred_type = "response",
   boot_it = 100,
   boot_alpha = 0.05,
-  boot_centre = "mean",
+  boot_centre = c("mean", "median"),
   seed = 0,
   output_model_stats = TRUE,
   output_model_coefs = TRUE,
@@ -52,7 +52,7 @@ ModelBoot(
 
 \item{boot_alpha}{numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example, if \code{boot_alpha = 0.05} (default), the intervals will be from the 2.5 and 97.5 percentiles.}
 
-\item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
+\item{boot_centre}{character(1). Either "mean" (default) or "median", matched exactly. When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
 
 \item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for \code{\link[=ALE]{ALE()}} for further details.}
 

@@ -22,7 +22,7 @@
 #' @param bin_n numeric. Vector of counts of rows in each ALE bin. Must be the same length as `y`.
 #' @param y_vals numeric. Entire vector of y values. Needed for normalization. If not provided, ale_y_norm_fun must be provided.
 #' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `calc_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
-#' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
+#' @param x_type character(1). Datatype of the x variable on which the ALE y is based. One of "numeric" (default), "binary", "categorical", or "ordinal", matched exactly; these are the results of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
 #' @param aled_fun See documentation for [ALE()]
 #'
 #' @returns Named numeric vector:
@@ -40,11 +40,14 @@ calc_stats <- function(
     bin_n,
     y_vals = NULL,
     ale_y_norm_fun = NULL,
-    x_type = 'numeric',
-    aled_fun = 'mad'
+    x_type = c('numeric', 'binary', 'categorical', 'ordinal'),
+    aled_fun = c('mad', 'sd')
 ) {
 
   # Validate data -------------
+
+  x_type <- rlang::arg_match(x_type)
+  aled_fun <- .match_aled_fun(aled_fun)
 
   validate(
     !(is.null(y_vals) && is.null(ale_y_norm_fun)),
@@ -180,8 +183,10 @@ calc_stats_2D <- function(
     x_types,
     y_vals = NULL,
     ale_y_norm_fun = NULL,
-    aled_fun = 'mad'
+    aled_fun = c('mad', 'sd')
 ) {
+  aled_fun <- .match_aled_fun(aled_fun)
+
   # ale_data=boot_summary
 
   if ('numeric' %notin% x_types) {
@@ -254,7 +259,7 @@ calc_stats_2D <- function(
     y_vals = y_vals,
     ale_y_norm_fun = ale_y_norm_fun,
     # Now ALE stats can be calculated as ordinal ALE since all the necessary preprocessing has been done.
-    x_type = 'ordered',
+    x_type = 'ordinal',
     aled_fun = aled_fun
   ))
 }  # calc_stats_2D()
