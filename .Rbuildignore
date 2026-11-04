@@ -1,5 +1,6 @@
 ^\.covrignore$
 ^\.github$
+^\.agents$
 ^\.Rhistory$
 ^\.Rproj\.user$
 ^\.vscode$

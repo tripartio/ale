@@ -16,9 +16,9 @@ ale/
 ├── R/                          # R source code
 │   ├── ale-package.R # Auto-generated package docs
 │   └── *.R                     # Function definitions
+├── .agents/skills/             # Shared agent skill definitions
 ├── .github/
 │   ├── ISSUE_TEMPLATE/         # GitHub issue templates
-│   ├── skills/                 # Agent skill definitions
 │   └── workflows/              # CI/CD configurations
 ├── tests/testthat/             # Test suite
 ├── man/                        # Generated documentation
@@ -63,13 +63,13 @@ For any feature, fix, or refactor:
 
 | Triggers | Path |
 |----------|------|
-| create GitHub issues | @.github/skills/create-issue/SKILL.md |
-| document functions | @.github/skills/document/SKILL.md |
-| from github | @.github/skills/github/SKILL.md |
-| implement issue / work on #NNN | @.github/skills/implement-issue/SKILL.md |
-| writing R functions / API design / error handling | @.github/skills/r-code/SKILL.md |
-| search / rewrite code | @.github/skills/search-code/SKILL.md |
-| writing or reviewing tests | @.github/skills/tdd-workflow/SKILL.md |
+| create GitHub issues | @.agents/skills/create-issue/SKILL.md |
+| document functions | @.agents/skills/document/SKILL.md |
+| from github | @.agents/skills/github/SKILL.md |
+| implement issue / work on #NNN | @.agents/skills/implement-issue/SKILL.md |
+| writing R functions / API design / error handling | @.agents/skills/r-code/SKILL.md |
+| search / rewrite code | @.agents/skills/search-code/SKILL.md |
+| writing or reviewing tests | @.agents/skills/tdd-workflow/SKILL.md |
 
 ## Git workflow
 
