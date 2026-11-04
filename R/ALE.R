@@ -29,15 +29,28 @@
 #' @param require_p_model_match logical(1). If `TRUE` (default), `p_values` must be generated with exactly the same `model` object, `y_col`, and `pred_type`, even in the case of surrogate p-values. Surrogate distributions are checked against their original model and prediction settings. Setting `FALSE` disables all these compatibility checks. Only disable this option if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.
 #' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
 #' @param aled_fun character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. `"mad"` is the mean absolute deviation; `"sd"` is the standard deviation. The default `NULL` will normally use `"mad"` except if an `ALEpDist` object is provided for `p_values`; in that case, the `aled_fun` is taken from the `ALEpDist` object.
-#' @param max_num_bins integer(1) > 1 or list. For numeric `x_cols`, this sets an upper bound on
-#'   the number of ALE bins, where actual bins are the lesser of the number of unique values and `max_num_bins+1`. Valid formats are:
-#'   * Single integer > 1: used for all numeric `x_cols`.
-#'   * List with overrides: a list with exactly two elements: `default` is a single integer > 1 used as the default value; `except` is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
-#'   Non-numeric `x_cols` (binary/ordinal/categorical) always use all observed levels.
-#'   An example of the list format would be
-#'   `max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))`
+#' @param max_num_bins list. Sets maximum numbers of numeric ALE intervals.
+#'   The default is `list(d1 = 1000L, d2 = 10L)`:
+#'   * `d1`: default maximum for 1D main effect variables.
+#'   * `d2`: default maximum per numeric variable for 2D interactions.
+#'   * `except_d1`, `except_d2`: optional named integer vectors of per-column
+#'     limits overriding the default only in the corresponding dimension.
 #'
-#'   The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions. When `n` bins are requested, there will actually be `n+1` bins, with the lowest bin dedicated to the minimum value of the dataset.
+#'   Defaults are optional: every requested numeric variable must have either
+#'   its dimension's default or an exception in that dimension. Coverage is
+#'   checked after resolving `x_cols` and `exclude_cols`. Omitted elements of an
+#'   explicit list are not filled from the default argument. `NULL` elements
+#'   are treated as absent; supplied values must be finite, strictly positive
+#'   whole numbers.
+#'   Unknown exception column names trigger an error.
+#'   For example, `list(d1 = 1000, d2 = 10, except_d1 = c(wt = 25), except_d2 = c(wt = 5))`.
+#'
+#'   Use `list()` when no numeric variables are requested. `max_num_bins = NULL`,
+#'   scalar inputs, and the former `default` and `except` elements are not supported.
+#'   Non-numeric `x_cols` (binary/ordinal/categorical) always use all observed levels.
+#'   When `n` intervals are requested, there are at most `n+1` bins, limited by
+#'   the number of unique values, with the lowest bin dedicated to the minimum.
+#'   Higher limits can be slower for interactions.
 #' @param fct_order character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 #' * `"levels"` (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
 #' * `"y_col"`: Sort based on the increasing mean values of the predictions of `y_col` for each factor level.
@@ -216,7 +229,7 @@ ALE <- new_class(
     require_p_model_match = TRUE,
     aler_alpha = c(0.01, 0.05),
     aled_fun = NULL,
-    max_num_bins = 10L,
+    max_num_bins = list(d1 = 1000L, d2 = 10L),
     fct_order = 'levels',
     boot_it = 0L,
     boot_alpha = 0.05,
@@ -285,6 +298,19 @@ ALE <- new_class(
       exclude_cols = exclude_cols,
       silent = silent
     )
+
+    # Only a very rough validation check for the internal .bins argument
+    if (!is.null(.bins)) {
+      validate(
+        is.list(.bins) &&
+          names(.bins)[1] == 'd1' && names(.bins)[2] == 'd2',
+        msg = '{.arg .bins} is not in a valid format.'
+      )
+    }
+
+    # Check only requested numeric variables, before automatic p-value generation.
+    numeric_bin_cols <- numeric_ale_cols(data, x_cols, .bins)
+    validate_max_num_bins(max_num_bins, col_names, numeric_bin_cols)
 
     # Warn before expensive work, and only for predictors actually requested.
     requested_predictors <- x_cols |>
@@ -382,35 +408,6 @@ ALE <- new_class(
       )
     )
 
-    # Validate max_num_bins
-    invalid_msg_max_num_bins <- c(
-      x = 'Invalid format for {.arg max_num_bins} .',
-      i = 'See documentation for the {.arg max_num_bins} argument for valid formats.'
-    )
-    validate(
-      # Typical valid format: integer > 1
-      is_scalar_natural(max_num_bins) ||
-        # List will be validated separately
-        is.list(max_num_bins),
-      msg = invalid_msg_max_num_bins
-    )
-    if (is.list(max_num_bins)) {
-      validate(
-        all(names(max_num_bins) %in% c('default', 'except')),
-        is_scalar_natural(max_num_bins$default),
-        (max_num_bins$except |> rlang::is_integerish()) && all(max_num_bins$except > 0),
-        msg = invalid_msg_max_num_bins
-      )
-
-      invalid_max_num_bins_col_names <- max_num_bins$except |>
-        names() |>
-        setdiff(col_names)
-      if (length(invalid_max_num_bins_col_names) > 0) {
-        # Fail early even for typos
-        cli_abort('The following columns listed as exceptions to the default {.arg max_num_bins} of {max_num_bins$default} were not found in the {.arg data}: {invalid_max_num_bins_col_names}')
-      }
-    }
-
     # Validate fct_order
     valid_fct_order_vals <- c('levels', 'y_col', 'ksd')
     invalid_msg_fct_order <- c(
@@ -449,15 +446,6 @@ ALE <- new_class(
                  (y_type %in% c('binary', 'categorical', 'ordinal', 'numeric')))
     }
     validate(is_string(pred_type))
-
-    # Only a very rough validation check for the internal .bins argument
-    if (!is.null(.bins)) {
-      validate(
-        is.list(.bins) &&
-          names(.bins)[1] == 'd1' && names(.bins)[2] == 'd2',
-        msg = '{.arg .bins} is not in a valid format.'
-      )
-    }
 
     validate_silent(silent)
 
@@ -628,8 +616,8 @@ ALE <- new_class(
       names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
-      'ale_y_norm_funs', 'col_names', 'cols_used', 'constant_vars', 'requested_predictors', 'exclude_cols',
-      'invalid_col_names', 'invalid_fct_order_col_names', 'invalid_max_num_bins_col_names', 'invalid_msg_fct_order', 'invalid_msg_max_num_bins',
+      'numeric_bin_cols', 'ale_y_norm_funs', 'col_names', 'cols_used', 'constant_vars', 'requested_predictors', 'exclude_cols',
+      'invalid_col_names', 'invalid_fct_order_col_names', 'invalid_msg_fct_order',
       'pm', 'requested_fct_order', 'silent', 'temp_objs', 'unordered_fcts', 'valid_d', 'valid_fct_order_vals', 'valid_output_types', 'valid_x_cols', 'val_pll', 'val_pred', 'x_cols', 'y_vals', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
@@ -706,19 +694,17 @@ ALE <- new_class(
             NULL
           }
 
-          # Determine specific max_num_bins for each column.
-          # Result is a named integer vector.
+          # Resolve each numeric column using only its dimension's settings.
+          it.dimension <- paste0('d', it.len_x_cols_split)
+          it.except <- max_num_bins[[paste0('except_', it.dimension)]]
           it.max_num_bins <- it.x_cols_split |>
             map_dbl(\(it.x_col) {
-              if (is_scalar_natural(max_num_bins)) {
-                max_num_bins
+              if (!(it.x_col %in% numeric_bin_cols[[it.dimension]])) {
+                NA_real_  # Non-numeric variables do not use a numeric bin limit.
+              } else if (it.x_col %in% names(it.except)) {
+                it.except[[it.x_col]]
               } else {
-                # max_num_bins is in list format
-                if (!is.na(max_num_bins$except[it.x_col])) {
-                  max_num_bins$except[it.x_col]
-                } else {
-                  max_num_bins$default
-                }
+                max_num_bins[[it.dimension]]
               }
             }) |>
             set_names(it.x_cols_split)

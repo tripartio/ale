@@ -21,7 +21,7 @@ ALE(
   require_p_model_match = TRUE,
   aler_alpha = c(0.01, 0.05),
   aled_fun = NULL,
-  max_num_bins = 10L,
+  max_num_bins = list(d1 = 1000L, d2 = 10L),
   fct_order = "levels",
   boot_it = 0L,
   boot_alpha = 0.05,
@@ -67,17 +67,30 @@ ALE(
 
 \item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
 
-\item{max_num_bins}{integer(1) > 1 or list. For numeric \code{x_cols}, this sets an upper bound on
-the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins+1}. Valid formats are:
+\item{max_num_bins}{list. Sets maximum numbers of numeric ALE intervals.
+The default is \code{list(d1 = 1000L, d2 = 10L)}:
 \itemize{
-\item Single integer > 1: used for all numeric \code{x_cols}.
-\item List with overrides: a list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
-Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.
-An example of the list format would be
-\code{max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))}
+\item \code{d1}: default maximum for 1D main effect variables.
+\item \code{d2}: default maximum per numeric variable for 2D interactions.
+\item \code{except_d1}, \code{except_d2}: optional named integer vectors of per-column
+limits overriding the default only in the corresponding dimension.
 }
 
-The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions. When \code{n} bins are requested, there will actually be \code{n+1} bins, with the lowest bin dedicated to the minimum value of the dataset.}
+Defaults are optional: every requested numeric variable must have either
+its dimension's default or an exception in that dimension. Coverage is
+checked after resolving \code{x_cols} and \code{exclude_cols}. Omitted elements of an
+explicit list are not filled from the default argument. \code{NULL} elements
+are treated as absent; supplied values must be finite, strictly positive
+whole numbers.
+Unknown exception column names trigger an error.
+For example, \code{list(d1 = 1000, d2 = 10, except_d1 = c(wt = 25), except_d2 = c(wt = 5))}.
+
+Use \code{list()} when no numeric variables are requested. \code{max_num_bins = NULL},
+scalar inputs, and the former \code{default} and \code{except} elements are not supported.
+Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.
+When \code{n} intervals are requested, there are at most \code{n+1} bins, limited by
+the number of unique values, with the lowest bin dedicated to the minimum.
+Higher limits can be slower for interactions.}
 
 \item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{

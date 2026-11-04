@@ -565,11 +565,14 @@ ALEpDist <- new_class(
               pred_type = pred_type,
               p_values = NULL,  # avoid infinite recursion
               aled_fun = aled_fun,
-              max_num_bins = if (surrogate) {
-                10  # "quicker calculation" but tictoc says it's the same timing
-              } else {
-                100  # fine capture of extreme random ALE intervals
-              },
+              max_num_bins = list(
+                d1 = if (surrogate) {
+                  10L  # "quicker calculation" but tictoc says it's the same timing
+                } else {
+                  100L  # fine capture of extreme random ALE intervals
+                },
+                d2 = 10L
+              ),
               silent = TRUE
             )
           },

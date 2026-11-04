@@ -1,25 +1,22 @@
 ---
-format: gfm
+title: "ale: Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)"
+
+format:
+  gfm:
+    toc: true
+
+execute:
+  warning: false
+  message: false
 ---
+
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-```{r}
-#| label: knitr-init
-#| include: false
-
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-
-# ale <a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/package=ale)
+[![CRAN status](https://img.shields.io/cran/v/ale)](https://CRAN.R-project.org/package=ale)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml)
 <!-- [![Codecov test coverage](https://codecov.io/gh/tripartio/ale/graph/badge.svg)](https://app.codecov.io/gh/tripartio/ale) -->
@@ -38,17 +35,22 @@ The `{ale}` package defines four main `{S7}` classes:
 
 ## Documentation
 
-You can obtain direct help for any of the package's user-facing functions with the R `help()` function, e.g., `help(ale)`. However, the most detailed documentation is found in the **[website for the most recent development version](https://tripartio.github.io/ale/)**. There you can find several articles. We particularly recommend:
+You can access the documentation for any of the package's user-facing functions with the R `help()` function, e.g., `help(ALE)`. However, the most detailed documentation is found in the **[website for the most recent development version](https://tripartio.github.io/ale/)**. There you can find several articles. We particularly recommend:
 
--   [Introduction to the `{ale}` package](https://tripartio.github.io/ale/articles/ale-intro.html)
+-   [Introduction to the ale package](https://tripartio.github.io/ale/articles/ale-intro.html)
 -   [ALE-based statistics for statistical inference and effect sizes](https://tripartio.github.io/ale/articles/ale-statistics.html)
+
+Other articles with examples and more are available from [the articles page](https://tripartio.github.io/ale/articles/).
 
 
 ## Installation
 
 You can obtain the official releases from [CRAN](https://CRAN.R-project.org/package=ale):
 
-```{r install on CRAN, eval = FALSE}
+```{r}
+#| label: install-cran
+#| eval: false
+
 install.packages('ale')
 ```
 
@@ -56,7 +58,10 @@ The CRAN releases are extensively tested and should have relatively few bugs. Ho
 
 To get the most recent features, you can install the development version of the package from [GitHub](https://github.com/tripartio/ale) with:
 
-```{r install dev version, eval = FALSE}
+```{r}
+#| label: install-dev
+#| eval: false
+
 # install.packages('pak')
 pak::pak('tripartio/ale')
 ```
@@ -68,7 +73,8 @@ The development version in the main branch of GitHub is always thoroughly checke
 We will give two demonstrations of how to use the package: first, a simple demonstration of ALE plots, and second, a more sophisticated demonstration suitable for statistical inference with p-values. For both demonstrations, we begin by fitting a random forest. We assume that this is a final deployment model that needs to be fitted to the entire dataset. 
 
 
-```{r diamonds-data}
+```{r}
+#| label: diamonds-data
 
 library(dplyr)
 
@@ -89,7 +95,8 @@ diamonds <- ggplot2::diamonds |>
 
 ```
 
-```{r rf}
+```{r}
+#| label: train-rf
 
 # Create a random forest with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
@@ -109,8 +116,13 @@ rf_diamonds <- ranger::ranger(
 
 For the simple demonstration, we directly create ALE data with the `ALE()` function and then plot the `ggplot` plot objects.
 
-```{r load-ale}
+```{r}
+#| label: load-ale
+
 library(ale)
+# Enable parallelization of the ALE package (set to the number of threads you want)
+options(ale.parallel = 2)
+
 
 # For speed, these examples use retrieve_rds() to load pre-created objects 
 # from an online repository.
@@ -119,7 +131,11 @@ serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 ```
 
 
-```{r simple-ale, eval=FALSE, echo=TRUE, fig.width=7, fig.height=11}
+```{r}
+#| label: simple-ale
+#| echo: TRUE
+#| eval: FALSE
+
 # Create ALE data
 # # To run the slow code yourself, uncomment and execute this code block directly.
 # ale_rf_diamonds <- ALE(rf_diamonds, data = diamonds)
@@ -131,7 +147,11 @@ ale_rf_diamonds <- serialized_objects_site |>
 
 ```
 
-```{r simple-ale-rds, eval=TRUE, echo=FALSE, fig.width=7, fig.height=11}
+```{r}
+#| label: simple-ale-rds
+#| echo: false
+#| eval: true
+
 # Create ALE data
 ale_rf_diamonds <- retrieve_rds(
   # For speed, load a pre-created object by default.
@@ -144,12 +164,18 @@ ale_rf_diamonds <- retrieve_rds(
 # saveRDS(ale_rf_diamonds, file.choose())
 ```
 
-```{r summary-ale-rf}
+```{r}
+#| label: summary-ale-rf
+
 # Print a statistical summary of the ALE object
 summary(ale_rf_diamonds)
 ```
 
-```{r plot-ale-rf, fig.width=7, fig.height=11}
+```{r}
+#| label: plot-ale-rf
+#| fig-width: 7
+#| fig-height: 11
+
 # Plot the ALE data
 plot(ale_rf_diamonds) |> 
   print(ncol = 2)
@@ -163,7 +189,11 @@ The statistical functionality of the `{ale}` package is rather slow because it t
 
 First, we need to create a p-value distribution object so that the ALE statistics can be properly distinguished from random effects.
 
-```{r p_values, eval=FALSE, echo=TRUE}
+```{r}
+#| label: p-values
+#| eval: false
+#| echo: true
+
 # Create p_value distribution object
 
 # # Rather slow because it retrains the model 100 times.
@@ -181,7 +211,11 @@ p_dist_rf_diamonds_readme <- serialized_objects_site |>
 
 ```
 
-```{r p_values-rds, eval=TRUE, echo=FALSE}
+```{r}
+#| label: p-values-rds
+#| eval: true
+#| echo: false
+
 # Create p_value distribution object
 p_dist_rf_diamonds_readme <- retrieve_rds(
   # For speed, load a pre-created object by default.
@@ -202,7 +236,11 @@ p_dist_rf_diamonds_readme <- retrieve_rds(
 
 Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with p-values:
 
-```{r ale-p, eval=FALSE, echo=TRUE}
+```{r}
+#| label: ale-p
+#| eval: false
+#| echo: true
+
 # Create ALE data with p-values
 
 # # To run the slow code yourself, uncomment and execute this code block directly.
@@ -222,7 +260,11 @@ ale_rf_diamonds_stats_readme <- serialized_objects_site |>
   readRDS()
 ```
 
-```{r ale-p-rds, eval=TRUE, echo=FALSE}
+```{r}
+#| label: ale-p-rds
+#| eval: true
+#| echo: false
+
 # Create ALE data with p-values
 
 ale_rf_diamonds_stats_readme <- retrieve_rds(
@@ -245,7 +287,11 @@ ale_rf_diamonds_stats_readme <- retrieve_rds(
 ```
 
 
-```{r ale-1D-plot, fig.width=7, fig.height=11}
+```{r}
+#| label: ale-1D-plot
+#| fig-width: 7
+#| fig-height: 11
+
 # Create an ALEPlots object for fine-tuned plotting
 ale_plots <- plot(ale_rf_diamonds_stats_readme)
 
@@ -259,14 +305,18 @@ ale_plots |>
 ```
 
 
-```{r 2D-plot, fig.width=7, fig.height=5}
+```{r}
+#| label: 2D-plot
+#| fig-width: 7
+#| fig-height: 5
+
 # Plot a selected 2D plot
 ale_plots |> 
   # get() retrieves a specific desired plot
   get('carat:clarity') 
 ```
 
-For a detailed explanation of how to interpret these plots, see the vignette on [ALE-based statistics for statistical inference and effect sizes](https://tripartio.github.io/ale/articles/ale-statistics.html).
+For a detailed explanation of how to interpret these plots, see the article on [ALE-based statistics for statistical inference and effect sizes](https://tripartio.github.io/ale/articles/ale-statistics.html).
 
 ## Getting help
 
