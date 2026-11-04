@@ -143,7 +143,10 @@ rotate_2d <- function(x, clockwise = FALSE) {
 # arr
 # rotate_3d(arr, axis = 'depth', clockwise = FALSE)
 
-rotate_3d <- function(x, axis = 'row', clockwise = FALSE) {
+rotate_3d <- function(
+  x, axis = c('row', 'column', 'depth'), clockwise = FALSE
+) {
+  axis <- rlang::arg_match(axis)
   # Rotate along the specified axis
   if (axis == 'row') {
     # Rotate along the rows (rotate slices of x[i,,])
@@ -177,7 +180,8 @@ rotate_3d <- function(x, axis = 'row', clockwise = FALSE) {
 
 
 # nocov start
-x_rotate_3d <- function(x, axis = "x", clockwise = FALSE) {
+x_rotate_3d <- function(x, axis = c('x', 'y', 'z'), clockwise = FALSE) {
+  axis <- rlang::arg_match(axis)
   # Rotate along the specified axis
   if (axis == "x") {
     # Rotate along the X-axis (rotate slices of x[i,,])

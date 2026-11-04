@@ -39,6 +39,8 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 
 ## Changed functionality
 
+* `ALE()`, `ModelBoot()`, `ALEPlots()`, their `get()` methods, and `customize()` expose complete defaults for fixed string choices and match them exactly with `rlang::arg_match()`. Nullable and mixed-type arguments retain their existing validation and forms, and coordinated selector behavior is preserved. `x_medoids()` also matches its choices exactly; abbreviated `sort_by` values such as "sil" must now be written in full as "silhouette" (#noissue).
+
 * `max_num_bins` defaults to `list(d1 = 1000L, d2 = 10L)` and supports independent per-column `except_d1` and `except_d2` limits. Explicit lists need defaults or exceptions only for the numeric variables requested in each dimension. Use `list()` for non-numeric effects; `NULL`, scalar inputs, and the former `default` and `except` elements are rejected.
 
 * The `require_same_p` argument of `ALE()` has been renamed to `require_p_model_match` without a compatibility alias. Setting it to `FALSE` disables all p-value compatibility checks.

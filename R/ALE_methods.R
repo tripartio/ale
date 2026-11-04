@@ -19,14 +19,14 @@
 #' @section Method usage:
 #'
 #' ```r
-#' get(obj, x_cols = NULL, what = "ale", ..., exclude_cols = NULL, stats = NULL, cats = NULL, ale_centre = "median", simplify = TRUE, silent = FALSE)
+#' get(obj, x_cols = NULL, what = c("ale", "boot_data"), ..., exclude_cols = NULL, stats = NULL, cats = NULL, ale_centre = c("median", "mean", "zero"), simplify = TRUE, silent = FALSE)
 #' ```
 #'
 #' @section Method arguments:
 #'
 #' * `obj`: ALE object from which to retrieve elements.
 #' * `x_cols`, `exclude_cols`: character, list, or formula. Columns names and interaction terms from `obj` requested in one of the special `x_cols` formats. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`. See details in the documentation for [resolve_x_cols()].
-#' * `what`: character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the `stats` argument.
+#' * `what`: character(1). What kind of output is requested, matched exactly. To retrieve ALE statistics, see the `stats` argument.
 #' * `...`: not used. Inserted to require explicit naming of subsequent arguments.
 #' * `stats`: character. Retrieve ALE statistics. Named statistics are returned in the requested order within each term. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
 #' * `cats`: character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
@@ -89,12 +89,12 @@ NULL
 method(get, ALE) <- function(
     obj,
     x_cols = NULL,
-    what = 'ale',
+    what = c('ale', 'boot_data'),
     ...,
     exclude_cols = NULL,
     stats = NULL,
     cats = NULL,
-    ale_centre = 'median',
+    ale_centre = c('median', 'mean', 'zero'),
     simplify = TRUE,
     silent = FALSE
 ) {
@@ -119,11 +119,7 @@ method(get, ALE) <- function(
     silent = silent
   )
 
-  valid_what <- c('ale', 'boot_data')
-  validate(
-    is_string(what, valid_what),
-    msg = 'The {.arg what} argument must be one (and only one) of the following values: {valid_what}.'
-  )
+  what <- rlang::arg_match(what)
 
   stats_names <- c('aled', 'aler_min', 'aler', 'aler_max', 'naled', 'naler_min', 'naler', 'naler_max')
   valid_stats <- c(
@@ -149,10 +145,7 @@ method(get, ALE) <- function(
     msg = 'The values in the {.arg cats} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
   )
 
-  validate(
-    is_string(ale_centre, c('median', 'mean', 'zero')),
-    msg = '{.arg ale_centre} must be one of "median", "mean", or "zero".'
-  )
+  ale_centre <- rlang::arg_match(ale_centre)
 
   validate(
     is_bool(simplify),

@@ -8,7 +8,7 @@ x_medoids(
   data,
   min_clusters = 2,
   max_clusters = 10,
-  metric = "euclidean",
+  metric = c("euclidean", "manhattan"),
   sort_by = c("silhouette", "dissimilarity", "isolation", "diameter", "separation"),
   ...
 )
@@ -20,13 +20,9 @@ x_medoids(
 
 \item{max_clusters}{Largest  k to try.}
 
-\item{metric}{"euclidean", "manhattan", … as accepted by pam().}
+\item{metric}{character(1). Distance metric, matched exactly and forwarded to \code{cluster::pam()}.}
 
-\item{sort_by}{Which measure to sort on.
-Choices: "silhouette" (default),
-"dissimilarity",
-"isolation", "diameter",
-"separation".}
+\item{sort_by}{character(1). Which cluster-quality measure to sort on, matched exactly. Partial names are not accepted.}
 
 \item{...}{Extra arguments forwarded to cluster::pam().}
 }

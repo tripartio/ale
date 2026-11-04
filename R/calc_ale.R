@@ -30,6 +30,7 @@
 #' @param .bins See documentation for [ALE()]
 #' @param ale_y_norm_funs list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to [ALE()]. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.
 #' @param p_dist See documentation for `p_values` in [ALE()]
+#' @param aled_fun character(1). Deviation function, matched exactly. See [ALE()] for the deviation formulas.
 #' @param constant_term Named list of constant predictors in this term and their observed values, identified by [ALE()]. An empty list means the term is calculated normally.
 #'
 calc_ale <- function(
@@ -50,9 +51,11 @@ calc_ale <- function(
     .bins = NULL,
     ale_y_norm_funs = NULL,
     p_dist = NULL,
-    aled_fun = 'mad',
+    aled_fun = c('mad', 'sd'),
     constant_term = list()
 ) {
+
+  aled_fun <- match_aled_fun(aled_fun)
 
   # Set up base variables --------------
 

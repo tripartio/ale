@@ -22,7 +22,7 @@
 #' @param positive any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `positive` specifies the 'positive' value of `y_col` (the target outcome), that is, the value of interest that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `positive = 2`.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for full-model bootstrapping. For bootstrapping of ALE values, see details to verify if [ALE()] with bootstrapping is not more appropriate than [ModelBoot()]. If `boot_it = 0`, then the model is run as normal once on the full `data` with no bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5 percentiles.
-#' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
+#' @param boot_centre character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.
 #' @param seed integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for [ALE()] for further details.
 #' @param output_model_stats logical(1). If `TRUE` (default), return overall model statistics using [broom::glance()] (if available for `model`) and bootstrap-validated statistics if `boot_it > 0`.
 #' @param output_model_coefs logical(1). If `TRUE` (default), return model coefficients using [broom::tidy()] (if available for `model`).
@@ -186,7 +186,7 @@ ModelBoot <- new_class(
     pred_type = "response",
     boot_it = 100,
     boot_alpha = 0.05,
-    boot_centre = 'mean',
+    boot_centre = c('mean', 'median'),
     seed = 0,
     output_model_stats = TRUE,
     output_model_coefs = TRUE,
@@ -200,6 +200,7 @@ ModelBoot <- new_class(
   ) {
     ## Validate arguments -------------
     rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+    boot_centre <- rlang::arg_match(boot_centre)
 
     data <- validate_data(
       data,

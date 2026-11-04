@@ -438,3 +438,16 @@ validate_silent <- function(silent) {
   #   }
   # }  # nocov end
 }
+
+
+# Match the public ALED choices while retaining the hidden experimental path.
+# Keep "linear" out of defaults, help, and suggested choices in errors.
+match_aled_fun <- function(
+  aled_fun = c('mad', 'sd'),
+  call = rlang::caller_env()
+) {
+  if (rlang::is_string(aled_fun, 'linear')) {
+    return('linear')
+  }
+  rlang::arg_match(aled_fun, error_call = call)
+}

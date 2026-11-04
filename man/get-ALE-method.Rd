@@ -60,7 +60,7 @@ p-values and raise an error if none are available, even with \code{silent = TRUE
 \section{Method usage}{
 
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{get(obj, x_cols = NULL, what = "ale", ..., exclude_cols = NULL, stats = NULL, cats = NULL, ale_centre = "median", simplify = TRUE, silent = FALSE)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{get(obj, x_cols = NULL, what = c("ale", "boot_data"), ..., exclude_cols = NULL, stats = NULL, cats = NULL, ale_centre = c("median", "mean", "zero"), simplify = TRUE, silent = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -69,7 +69,7 @@ p-values and raise an error if none are available, even with \code{silent = TRUE
 \itemize{
 \item \code{obj}: ALE object from which to retrieve elements.
 \item \code{x_cols}, \code{exclude_cols}: character, list, or formula. Columns names and interaction terms from \code{obj} requested in one of the special \code{x_cols} formats. The default value of \code{NULL} for \code{x_cols} retrieves all available data of the output requested in \code{what}. See details in the documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}.
-\item \code{what}: character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the \code{stats} argument.
+\item \code{what}: character(1). What kind of output is requested, matched exactly. To retrieve ALE statistics, see the \code{stats} argument.
 \item \code{...}: not used. Inserted to require explicit naming of subsequent arguments.
 \item \code{stats}: character. Retrieve ALE statistics. Named statistics are returned in the requested order within each term. If \code{stats} is specified, then \code{what} must be left at the default ("ale"). Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value. See the return value details below for valid values for \code{stats}.
 \item \code{cats}: character. Optional category names to retrieve if the ALE is for a categorical y outcome model.

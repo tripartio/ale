@@ -25,7 +25,7 @@ ALE(
   fct_order = "levels",
   boot_it = 0L,
   boot_alpha = 0.05,
-  boot_centre = "mean",
+  boot_centre = c("mean", "median"),
   seed = 0,
   y_type = NULL,
   sample_size = 500L,
@@ -92,7 +92,7 @@ When \code{n} intervals are requested, there are at most \code{n+1} bins, limite
 the number of unique values, with the lowest bin dedicated to the minimum.
 Higher limits can be slower for interactions.}
 
-\item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
+\item{fct_order}{character(1) or list. Character choices are matched exactly. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{
 \item \code{"levels"} (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
 \item \code{"y_col"}: Sort based on the increasing mean values of the predictions of \code{y_col} for each factor level.
@@ -108,11 +108,11 @@ See details.}
 
 \item{boot_alpha}{numeric(1) from 0 to 1. When ALE is bootstrapped (\code{boot_it > 0}), \code{boot_alpha} specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example, if \code{boot_alpha = 0.05} (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.}
 
-\item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
+\item{boot_centre}{character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.}
 
 \item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with \code{parallel = 0}.}
 
-\item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex model requires it.}
+\item{y_type}{character(1) in c("binary", "numeric", "categorical", "ordinal"), or NULL. Datatype of the y (outcome) variable, matched exactly when supplied. The default \code{NULL} determines it automatically; only provide if an error message for a complex model requires it.}
 
 \item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots in \code{\link[=ALEPlots]{ALEPlots()}}.}
 

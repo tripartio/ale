@@ -25,7 +25,7 @@
 #' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
 #' @param positive See documentation for [ModelBoot()]
 #' @param pred_fun,pred_type See documentation for [ALE()]
-#' @param aled_fun See documentation for [ALE()]
+#' @param aled_fun character(1). Deviation function, matched exactly. See [ALE()] for the deviation formulas.
 #' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default `FALSE` does not return the residuals.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
@@ -219,7 +219,7 @@ ALEpDist <- new_class(
     positive = TRUE,
     pred_fun = NULL,
     pred_type = "response",
-    aled_fun = 'mad',
+    aled_fun = c('mad', 'sd'),
     output_residuals = FALSE,
     seed = 0,
     silent = FALSE,
@@ -228,6 +228,8 @@ ALEpDist <- new_class(
   {
 
     ## Validate arguments --------------
+
+    aled_fun <- match_aled_fun(aled_fun)
 
     ### Validations that do not modify the arguments ------------
 

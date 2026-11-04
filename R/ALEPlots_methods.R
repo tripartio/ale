@@ -22,14 +22,14 @@
 #' @section Method usage:
 #'
 #' ```r
-#' get(obj, x_cols = NULL, ..., exclude_cols = NULL, type = "ale", cats = NULL, simplify = TRUE, silent = FALSE)
+#' get(obj, x_cols = NULL, ..., exclude_cols = NULL, type = c("ale", "effect", "overlay", "facet"), cats = NULL, simplify = TRUE, silent = FALSE)
 #' ```
 #'
 #' @section Method arguments:
 #'
 #' * `obj`: ALEPlots object from which to retrieve ALE elements.
-#' * `type`: character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'effect'` for ALE effects plots. See `cats` argument for options for categorical plots.
-#' * `cats`: character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, `type` must be set to "overlay" or "facet" for the specific desired type of categorical plot.
+#' * `type`: character(1). Matched exactly. "ale" retrieves standard ALE plots and "effect" retrieves ALE effects plots. With `cats = ".all"`, "ale" selects "facet"; "overlay" and "facet" select the corresponding combined-category plots, while "effect" is invalid.
+#' * `cats`: character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, choose `type = "overlay"` or `type = "facet"`; the default `type = "ale"` selects "facet".
 #'
 #' @returns A list of `ggplot` objects using the category and dimension
 #' conventions described for the [ALE method][get-ALE-method]. This differs
@@ -44,7 +44,7 @@ method(get, ALEPlots) <- function(
     x_cols = NULL,
     ...,
     exclude_cols = NULL,
-    type = 'ale',
+    type = c('ale', 'effect', 'overlay', 'facet'),
     cats = NULL,
     simplify = TRUE,
     silent = FALSE
@@ -72,6 +72,7 @@ method(get, ALEPlots) <- function(
 
   x_cols <- obj@params$requested_x_cols
 
+  type <- rlang::arg_match(type)
   vap <- validate_ALEPlots_method_args(obj, type, cats)
   type <- vap$type
   y_cats <- vap$y_cats
@@ -449,7 +450,7 @@ customize <- function(
     x_cols = NULL,
     ...,
     exclude_cols = NULL,
-    type = 'ale',
+    type = c('ale', 'effect', 'overlay', 'facet'),
     cats = NULL,
     layers = NULL,
     zoom_x = NULL,
@@ -518,6 +519,7 @@ customize <- function(
     exclude_cols = exclude_cols
   )
 
+  type <- rlang::arg_match(type)
   vap <- validate_ALEPlots_method_args(plots_obj, type, cats)
   type <- vap$type
   y_cats <- vap$y_cats
