@@ -1,5 +1,49 @@
 # utils.R miscellaneous internal utility functions
 
+# Classify terminal objects before inspecting their list-like contents.
+# A data frame with rows is meaningful even if it has no columns.
+obj_node_kind <- function(x) {
+  if (inherits(x, 'ggplot')) return('leaf')
+  if (is.data.frame(x)) return(if (nrow(x) == 0) 'empty' else 'leaf')
+  if (length(x) == 0) return('empty')
+  if (rlang::is_bare_list(x)) return('list')
+  'leaf'
+}
+
+
+# Count nonempty objects, descending only into simple lists. At depth zero,
+# a nonempty list counts as one object; Inf visits every list level.
+count_objs <- function(list, iteration_depth = Inf) {
+  validate(
+    isTRUE(is_scalar_whole(iteration_depth)) || identical(iteration_depth, Inf),
+    msg = '{.arg iteration_depth} must be a nonnegative whole number or {.val Inf}.'
+  )
+
+  count <- function(x, depth) {
+    kind <- obj_node_kind(x)
+    if (kind == 'empty') return(0L)
+    if (kind == 'leaf' || depth == 0) return(1L)
+    sum(vapply(x, \(child) count(child, depth - 1), numeric(1)))
+  }
+
+  count(list, iteration_depth)
+}
+
+
+# Prune empty nodes from the bottom up, then promote each sole surviving child.
+# Terminal objects (including ggplots and data frames) retain their attributes.
+simplify_objs <- function(x) {
+  kind <- obj_node_kind(x)
+  if (kind == 'empty') return(NULL)
+  if (kind == 'leaf') return(x)
+
+  children <- lapply(x, simplify_objs)
+  children <- children[!vapply(children, is.null, logical(1))]
+  if (length(children) == 0) return(NULL)
+  if (length(children) == 1) return(children[[1]])
+  children
+}
+
 
 
 # Select a future strategy that can load a pkgload development package.

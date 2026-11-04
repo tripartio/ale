@@ -19,10 +19,10 @@ ALE(
   pred_fun = NULL,
   pred_type = "response",
   p_values = "auto",
-  require_same_p = TRUE,
+  require_p_model_match = TRUE,
   aler_alpha = c(0.01, 0.05),
   aled_fun = NULL,
-  max_num_bins = 10L,
+  max_num_bins = list(d1 = 1000L, d2 = 10L),
   fct_order = "levels",
   boot_it = 0L,
   boot_alpha = 0.05,
@@ -64,23 +64,36 @@ ALE(
 \item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an \code{\link[=ALEpDist]{ALEpDist()}} object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 }}
 
-\item{require_same_p}{logical(1). If \code{TRUE} (default), \code{p_values} must be generated with exactly the same \code{model} object, even in the case of surrogate p-values. Only disable this option with \code{FALSE} if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.}
+\item{require_p_model_match}{logical(1). If \code{TRUE} (default), \code{p_values} must be generated with exactly the same \code{model} object, \code{y_col}, and \code{pred_type}, even in the case of surrogate p-values. Surrogate distributions are checked against their original model and prediction settings. Setting \code{FALSE} disables all these compatibility checks. Only disable this option if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.}
 
 \item{aler_alpha}{numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{aler_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{aler_alpha[1]}. For example, in the ALE plots, for the default \code{aler_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
 \item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
 
-\item{max_num_bins}{integer(1) > 1 or list. For numeric \code{x_cols}, this sets an upper bound on
-the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins+1}. Valid formats are:
+\item{max_num_bins}{list. Sets maximum numbers of numeric ALE intervals.
+The default is \code{list(d1 = 1000L, d2 = 10L)}:
 \itemize{
-\item Single integer > 1: used for all numeric \code{x_cols}.
-\item List with overrides: a list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
-Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.
-An example of the list format would be
-\code{max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))}
+\item \code{d1}: default maximum for 1D main effect variables.
+\item \code{d2}: default maximum per numeric variable for 2D interactions.
+\item \code{except_d1}, \code{except_d2}: optional named integer vectors of per-column
+limits overriding the default only in the corresponding dimension.
 }
 
-The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions. When \code{n} bins are requested, there will actually be \code{n+1} bins, with the lowest bin dedicated to the minimum value of the dataset.}
+Defaults are optional: every requested numeric variable must have either
+its dimension's default or an exception in that dimension. Coverage is
+checked after resolving \code{x_cols} and \code{exclude_cols}. Omitted elements of an
+explicit list are not filled from the default argument. \code{NULL} elements
+are treated as absent; supplied values must be finite, strictly positive
+whole numbers.
+Unknown exception column names trigger an error.
+For example, \code{list(d1 = 1000, d2 = 10, except_d1 = c(wt = 25), except_d2 = c(wt = 5))}.
+
+Use \code{list()} when no numeric variables are requested. \code{max_num_bins = NULL},
+scalar inputs, and the former \code{default} and \code{except} elements are not supported.
+Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.
+When \code{n} intervals are requested, there are at most \code{n+1} bins, limited by
+the number of unique values, with the lowest bin dedicated to the minimum.
+Higher limits can be slower for interactions.}
 
 \item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{
@@ -181,8 +194,8 @@ The \code{{ale}} package should be able to automatically recognize and load most
 
 For time-to-event (survival) models, set the following arguments:
 \itemize{
-\item \code{y_col} must be the set to the name of the binary event column.
-\item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated, e.g., \code{exclude_cols = 'time'}. This is not essential but if it is not excluded, it will always result in an exactly zero ALE because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
+\item \code{y_col} must be set to the name of the binary event column.
+\item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated, e.g., \code{exclude_cols = 'time'}. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 \item \code{pred_type} must be specified according to the desired \code{type} argument for the \code{predict()} method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
 \item \code{pred_fun} might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom \code{pred_fun} as specified above might be needed.
 }
@@ -206,143 +219,59 @@ The original \code{ALEPlot} reference implementation sorts factor levels based o
 
 \examples{
 
-# Load diamonds dataset with some cleanup
 library(dplyr)
-diamonds <- ggplot2::diamonds |>
-  filter(!(x == 0 | y == 0 | z == 0)) |>
-  # https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/
-  distinct(
-    price, carat, cut, color, clarity,
-    .keep_all = TRUE
+# Load co2 dataset with some cleanup
+co2 <- CO2 |>
+  as_tibble() |>
+  rename(origin = Type) |>
+  mutate(
+    plant_id = Plant |> factor(ordered = FALSE),
+    chilled = Treatment == 'chilled'
   ) |>
-  rename(
-    x_length = x,
-    y_width = y,
-    z_depth = z,
-    depth_pct = depth
-  )
+  select(plant_id, origin, chilled, conc, uptake)
 
+co2
 
-# Create a GAM model with flexible curves to predict diamond price
-# Smooth all numeric variables and include all other variables
-gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
-    cut + color + clarity,
-  data = diamonds
+# Create a GAM model with flexible curves to predict CO2 uptake.
+gam_co2 <- mgcv::gam(
+  formula = uptake ~ s(conc, k = 3, bs = "cr") + plant_id + chilled +
+    ti(conc, plant_id, bs = c('ps', 're'), k = 4),
+  data = co2
 )
-summary(gam_diamonds)
+summary(gam_co2)
 
 
-\donttest{
+# Set default number of cores to use for parallel processing.
+# Without setting this option, the default is 0 (no parallel processing).
+options(ale.parallel = 2)
 
-# Simple ALE without bootstrapping: by default, all are 1D ALE
 
-# For speed, these examples use retrieve_rds() to load pre-created objects
+# For speed, this example uses retrieve_rds() to load pre-created objects
 # from an online repository.
-# To run the code yourself, execute the code blocks directly.
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+# To run the code yourself, execute the code block directly.
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 
-# Create ALE data
-ale_gam_diamonds <- retrieve_rds(
+# Create default ALE data (1D main effects only by default)
+ale_gam_co2 <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
+  c(serialized_objects_site, 'ale_gam_co2.0.5.3.rds'),
   {
     # To run the code yourself, execute this code block directly.
     # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
-    ALE(gam_diamonds)
+    ALE(gam_co2)
   }
 )
+
+
+# Summary of ALE statistics
+summary(ale_gam_co2)
 
 # Simple printing of all plots
-plot(ale_gam_diamonds)
+plot(ale_gam_co2)
 
-# Bootstrapped ALE
-# This can be slow, since bootstrapping runs the algorithm boot_it times.
-# In addition, bootstrapping automatically generates surrogate p-values by default.
-
-# Create ALE with 100 bootstrap samples
-ale_gam_diamonds_boot <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_boot.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      # request all 1D ALEs and only the carat:clarity 2D effect
-      list(d1 = TRUE, d2 = 'carat:clarity'),
-      boot_it = 100
-    )
-  }
-)
-# saveRDS(ale_gam_diamonds_boot, file.choose())
-
-# More advanced plot manipulation
-ale_plots <- plot(ale_gam_diamonds_boot) # Create an ALEPlots object
-
-# Print the plots: First page prints 1D ALE; second page prints 2D ALE
-ale_plots  # or print(ale_plots) to be explicit
-
-# Extract specific plots (as lists of ggplot objects)
-get(ale_plots, 'carat')  # extract a specific 1D plot
-get(ale_plots, 'carat:clarity')  # extract a specific 2D plot
-get(ale_plots, type = 'effect')  # ALE effects plot
-# See help(get.ALEPlots) for more options, such as for categorical plots
-
-
-
-# If the predict function you want does not work automatically, you may
-# define a custom predict function. It must return a single numeric vector.
-custom_predict <- function(object, newdata, type = pred_type) {
-  predict(object, newdata, type = type, se.fit = TRUE)$fit
-}
-
-ale_gam_diamonds_custom <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_gam_diamonds_custom.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    ALE(
-      gam_diamonds,
-      pred_fun = custom_predict,
-      pred_type = 'link'
-    )
-  }
-)
-# saveRDS(ale_gam_diamonds_custom, file.choose())
-
-# Plot the ALE data
-plot(ale_gam_diamonds_custom)
-
-
-# How to retrieve specific types of ALE data from an ALE object.
-ale_diamonds_with_boot_data <- retrieve_rds(
-  # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'ale_diamonds_with_boot_data.0.5.2.rds'),
-  {
-    # To run the code yourself, execute this code block directly.
-    # For models like mgcv::gam that store their data,
-    # there is no need to specify the data argument.
-    ALE(
-      gam_diamonds,
-      # For detailed options for x_cols, see examples at resolve_x_cols()
-      x_cols = ~ carat + cut + clarity + carat:clarity + color:depth_pct,
-      output_boot_data = TRUE,
-      boot_it = 10  # just for demonstration
-    )
-  }
-)
-# saveRDS(ale_diamonds_with_boot_data, file.choose())
-
-# See ?`get-ALE-method` for the kinds of data that may be retrieved.
-get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
-get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
-get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
-get(ale_diamonds_with_boot_data, stats = c('aled', 'naler'))
-get(ale_diamonds_with_boot_data, stats = 'all')
-get(ale_diamonds_with_boot_data, stats = 'conf_regions')
-get(ale_diamonds_with_boot_data, stats = 'conf_sig')
-}
+# For a more thorough introduction to creating and working with ALE objects,
+# see vignette("ale-intro").
 
 
 }

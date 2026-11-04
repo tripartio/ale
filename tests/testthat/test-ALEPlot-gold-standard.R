@@ -101,7 +101,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
     boot_it = 0,
     # specific options requested by ALEPlot example
     pred_type = "raw", pred_fun = nnet_pred_fun_ale,
-    max_num_bins = 10,
+    max_num_bins = list(d1 = 10L, d2 = 10L),
     silent = TRUE
   )
 
@@ -155,7 +155,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
     boot_it = 0,
     # specific options requested by ALEPlot example
     pred_fun = gbm_pred_fun_ale, pred_type = 'link',
-    max_num_bins = 10,
+    max_num_bins = list(d1 = 10L, d2 = 10L),
     # Use Kolmogorov-Smirnov distances for compatibility
     fct_order = 'ksd',
     silent = TRUE
@@ -233,7 +233,7 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
     x_cols = list(d2 = TRUE),
     output_stats = FALSE,
     pred_fun = nnet_pred_fun_ale,
-    pred_type = "raw", max_num_bins = 10,  # specific options requested
+    pred_type = "raw", max_num_bins = list(d1 = 10L, d2 = 10L),  # specific options requested
     silent = TRUE
   )
 
@@ -323,7 +323,7 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
     ),
     output_stats = FALSE,
     pred_fun = gbm_pred_fun_ale,
-    pred_type = 'link', max_num_bins = 10,  # specific options requested
+    pred_type = 'link', max_num_bins = list(d1 = 10L, d2 = 10L),  # specific options requested
     silent = TRUE
   )
 

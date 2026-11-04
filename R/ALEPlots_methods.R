@@ -54,6 +54,11 @@ method(get, ALEPlots) <- function(
   # Never skip this validation step!
   rlang::check_dots_empty()
 
+  validate(
+    is_bool(simplify),
+    msg = '{.arg simplify} must be {.val TRUE} or {.val FALSE}.'
+  )
+
   # Subset x_cols.
   # This procedure also validates the arguments used here.
   obj <- subset(
@@ -122,24 +127,8 @@ method(get, ALEPlots) <- function(
 
   ## Simplify the results ----------------
 
-  if (
-    simplify &&
-    # Only simplify if req_plots is a simple list
-    (class(req_plots) |> is_string('list'))
-  ) {
-    # If one dimension is empty, eliminate it and leave only the other
-    req_plots <- compact(req_plots)
-    if (all(names(req_plots) %in% c('d1', 'd2'))) {
-      if (is.null(req_plots[['d1']])) {
-        req_plots <- compact(req_plots[['d2']])
-      } else if (is.null(req_plots[['d2']])) {
-        req_plots <- compact(req_plots[['d1']])
-      }
-    }
-
-    if (length(req_plots) == 1) {
-      req_plots <- req_plots[[1]]
-    }
+  if (simplify) {
+    req_plots <- simplify_objs(req_plots)
   }
 
   return(req_plots)
@@ -479,14 +468,19 @@ validate_ALEPlots_method_args <- function(
 #' conventions.
 #'
 #' @param plots_obj ALEPlots object to customize.
-#' @param x_cols,exclude_cols See the [get() method for ALE objects][get-ALE-method].
+#' @param x_cols character, list, or formula. Select 1D plots, 2D plots, or both, using the formats described in [resolve_x_cols()]. If `NULL`, all available plots are selected when the object contains only one dimension. When both 1D and 2D plots exist, `x_cols` must be specified explicitly; it may select either dimension or both.
+#' @param exclude_cols See the [get() method for ALE objects][get-ALE-method].
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param type See the [get() method for ALEPlots objects][get-ALEPlots-method].
 #' @param cats See the [get() method for ALEPlots objects][get-ALEPlots-method].
-#' @param layers List of `ggplot` layers. These are appended to each plot indicated by the combination of `x_cols`, `type`, and `cats` by applying the `ggplot2` `+` operator to them.
-#' @param zoom_x,zoom_y numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default `NULL` does not zoom.
+#' @param layers List of `ggplot` layers. These are appended to each plot indicated by the combination of `x_cols`, `type`, and `cats` by applying the `ggplot2` `+` operator to them. The additions must be appropriate for every selected plot. Shared themes can be applied across 1D and 2D plots, whereas the appropriateness of scales, coordinates, and geometries may depend on each plot's axes, mappings, or data.
+#' @param zoom_x,zoom_y numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default `NULL` preserves the existing limits for that axis, including limits set by earlier calls to `customize()` or by `layers`.
 #'
 #' @returns An `ALEPlots` object where elements specified by x_cols and exclude_cols are modified accordingly. Non-specified elements are not modified.
+#'
+#' @examples
+#' # See the article https://tripartio.github.io/ale/articles/customize-plots.html
+#'
 #'
 customize <- function(
     plots_obj,
@@ -503,7 +497,15 @@ customize <- function(
   add_layers <- function(plot, lyrs) {
     tryCatch(
       {
-        plot + lyrs
+        plot <- plot + lyrs
+        if (!is.null(zoom_x) || !is.null(zoom_y)) {
+          # Resolve limits per plot, after applying any supplied layers.
+          plot <- plot + coord_cartesian(
+            xlim = zoom_x %||% plot$coordinates$limits$x,
+            ylim = zoom_y %||% plot$coordinates$limits$y
+          )
+        }
+        plot
       },
       error = \(e) {
         cli_abort(c(
@@ -536,7 +538,8 @@ customize <- function(
       x_cols <- plots_obj@params$requested_x_cols$d2
     } else if (len_d1 >= 1 && len_d2 >= 1) {
       cli_abort(c(
-        'When both 1D and 2D plots exist, you must specify only one kind in {.arg x_cols} since they are very different kinds of plots.'
+        'When both 1D and 2D plots exist, you must specify {.arg x_cols} explicitly.',
+        'i' = 'Select 1D plots, 2D plots, or both.'
       ))
     } else if (len_d1 == 0 && len_d2 == 0) {
       cli_abort(c(
@@ -579,15 +582,6 @@ customize <- function(
   # The procedure is sometimes problematic if the input isn't wrapped in a list, so, automatically wrap a single layer that is not a bare list.
   if (!rlang::is_bare_list(layers)) {
     layers <- list(layers)
-  }
-
-
-  # Add zoom layers
-  if (!is.null(zoom_x) || !is.null(zoom_y)) {
-    custom_layers <- c(
-      custom_layers,
-      coord_cartesian(xlim = zoom_x, ylim = zoom_y)
-    )
   }
 
 
