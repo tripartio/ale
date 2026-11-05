@@ -363,7 +363,7 @@ preprint* arXiv:2310.09877.
 
 Okoli, Chitu (2024). “Model-Agnostic Interpretability: Effect Size
 Measures from Accumulated Local Effects (ALE)”. INFORMS Workshop on Data
-Science 2024. Seattle
+Science 2024. Seattle, USA.
 
 ### ALE-based inference (confidence regions)
 
@@ -371,9 +371,9 @@ Okoli, Chitu (2023). “Statistical inference using machine learning and
 classical techniques based on accumulated local effects (ALE).” *arXiv
 preprint* arXiv:2310.09877.
 
-Okoli, Chitu (2024). “Model-Agnostic Interpretability: Effect Size
-Measures from Accumulated Local Effects (ALE)”. INFORMS Workshop on Data
-Science 2024. Seattle
+Okoli, Chitu (2024). “Reliable Inference from Human-Centred Datasets
+with Accumulated Local Effects”. INFORMS Annual Meeting 2024,Seattle,
+USA.
 
 ### Use of the `ale` package (the software itself)
 
