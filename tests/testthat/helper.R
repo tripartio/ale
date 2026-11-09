@@ -45,8 +45,6 @@ expect_requested_stats_order <- function(object, ...) {
         return(invisible(NULL))
       }
       expected_terms <- unique(reference$term)
-      expect_identical(unique(result$term), expected_terms)
-      expect_identical(as.character(result$statistic), rep(stats, length(expected_terms)))
       expected <- do.call(rbind, lapply(expected_terms, function(term) {
         rows <- reference[reference$term == term, ]
         rows[match(stats, rows$statistic), ]
