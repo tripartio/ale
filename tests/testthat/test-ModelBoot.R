@@ -19,10 +19,14 @@ test_that(
     # All workers must receive the full-data grid, even when iteration zero
     # runs in a different process. Compare numerical results across execution.
     serial_mb <- ModelBoot(
-      test_gam, data = test_cars,
+      test_gam,
+      data = test_cars,
       ale_options = list(x_cols = c('wt', 'gear:carb')),
-      boot_it = 2, ale_p = NULL, parallel = 0,
-      output_boot_data = TRUE, silent = TRUE
+      boot_it = 2,
+      ale_p = NULL,
+      parallel = 0,
+      output_boot_data = TRUE,
+      silent = TRUE
     )
     expect_equal(pll_mb@boot_data$row_idxs, serial_mb@boot_data$row_idxs)
     expect_equal(pll_mb@model_stats, serial_mb@model_stats)

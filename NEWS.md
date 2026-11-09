@@ -23,6 +23,11 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 * The `{ranger}` package is automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages: `pred_fun` remains the general way to customize predict functions for packages that don't work out of the box.
 * ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER max – NALER min) directly, not just the _max and _min versions, which are retained.
 
+## Performance improvements
+
+- `ALE()`, `ALEpDist()`, and `ModelBoot()` run locally when `parallel = 0` or a batch has at most one job, avoiding repeated future preparation inside model and random-variable iterations (#noissue). They thus execute faster than before.
+
+
 ## Bug fixes
 
 We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
@@ -39,7 +44,6 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 
 ## Changed functionality
 
-* `ALE()`, `ALEpDist()`, and `ModelBoot()` run locally when `parallel = 0` or a batch has at most one job, avoiding repeated future preparation inside model and random-variable iterations (#noissue).
 * `ALE()`, `ALEpDist()`, and `ModelBoot()` use reproducible iteration streams with matching R random inputs in serial and parallel execution, and restore the caller's RNG kinds and full seed state. The new stream policy changes historical random results (#noissue).
 * `ModelBoot()` completes the full-data calculation before bootstrapping and passes its canonical ALE bins explicitly to every iteration, giving serial and parallel bootstrap calculations the same grids (#noissue).
 

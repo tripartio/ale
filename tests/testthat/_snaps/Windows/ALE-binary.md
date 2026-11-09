@@ -10911,45 +10911,45 @@
       # A tibble: 25 x 8
            mpg vs    continent     am    model               gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>               <ord> <int> <dbl>
-       1  30.4 TRUE  Europe        TRUE  Lotus Europa        five      2  1.51
-       2  10.4 FALSE North America FALSE Lincoln Continental three     4  5.42
-       3  27.2 TRUE  Europe        TRUE  Fiat X1-9           four      1  1.93
-       4  15.5 FALSE North America FALSE Dodge Challenger    three     2  3.52
-       5  18.9 FALSE North America FALSE Hornet Sportabout   three     3  3.47
-       6  16.3 FALSE Europe        FALSE Merc 450SE          three     2  4.05
-       7  10.4 FALSE North America FALSE Cadillac Fleetwood  three     3  5.24
-       8  22.8 TRUE  Europe        FALSE Merc 230            four      2  3.15
-       9  18.7 FALSE North America FALSE Hornet Sportabout   three     2  3.44
-      10  18.0 TRUE  North America FALSE Valiant             three     1  3.44
+       1  14.7 FALSE North America FALSE Chrysler Imperial   three     4  5.34
+       2  21.4 TRUE  Europe        TRUE  Volvo 142E          four      3  2.78
+       3  17.3 FALSE Europe        FALSE Merc 450SL          three     3  3.73
+       4  32.5 TRUE  Europe        TRUE  Fiat 128            four      1  2.21
+       5  19.7 FALSE Europe        TRUE  Ferrari Dino        five      6  2.77
+       6  14.3 FALSE North America FALSE Duster 360          three     4  3.57
+       7  22.8 TRUE  Europe        FALSE Merc 230            four      2  3.15
+       8  22.7 TRUE  Asia          TRUE  Datsun 710          four      1  2.31
+       9  24.6 TRUE  Europe        FALSE Merc 240D           four      2  3.22
+      10  10.5 FALSE North America FALSE Lincoln Continental three     3  5.45
       # i 15 more rows
       
       $params$data$y_vals_sample
                    vs
-       [1,]  28.56609
-       [2,] -28.56607
-       [3,]  28.56609
-       [4,] -28.56607
+       [1,] -28.56607
+       [2,]  28.56609
+       [3,] -28.56607
+       [4,]  28.56607
        [5,] -28.56607
        [6,] -28.56607
-       [7,] -28.56607
-       [8,]  28.56609
-       [9,] -28.56607
-      [10,]  28.56607
-      [11,] -28.56607
-      [12,]  28.56609
-      [13,] -28.56607
+       [7,]  28.56609
+       [8,]  28.56607
+       [9,]  28.56609
+      [10,] -28.56607
+      [11,]  28.56607
+      [12,]  28.56607
+      [13,]  28.56609
       [14,] -28.56607
       [15,] -28.56607
-      [16,]  28.56609
-      [17,]  28.56607
+      [16,] -28.56607
+      [17,] -28.56607
       [18,] -28.56607
       [19,] -28.56607
       [20,] -28.56607
-      [21,]  28.56607
-      [22,] -28.56607
-      [23,]  28.56607
+      [21,]  28.56609
+      [22,]  28.56609
+      [23,]  28.56609
       [24,]  28.56609
-      [25,]  28.56609
+      [25,] -28.56607
       
       $params$data$nrow
       [1] 64
