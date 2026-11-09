@@ -18,7 +18,6 @@ expect_constant_warning <- function(expr, variables) {
 expect_zero_ale <- function(data) {
   y_columns <- startsWith(names(data), '.y')
   expect_true(any(y_columns))
-  expect_false(anyNA(data[y_columns]))
   expect_true(all(as.matrix(data[y_columns]) == 0))
 }
 

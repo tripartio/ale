@@ -44,3 +44,24 @@ test_that("calc_stats basic usage", {
     expect_snap_variant()
 })
 
+test_that('ALED choices retain hidden linear support and exact public matching (#noissue)', {
+  cars_ale <- ALE(
+    test_gam, data = test_cars, x_cols = 'am', aled_fun = 'linear',
+    p_values = NULL, silent = TRUE
+  )
+  expect_identical(cars_ale@params$aled_fun, 'linear')
+  expect_equal(
+    calc_stats(
+      c(-1, 0, 2), rep(1, 3), ale_y_norm_fun = identity,
+      x_type = 'categorical', aled_fun = 'linear'
+    )[['aled']],
+    4 / 3
+  )
+  expect_equal(
+    calc_stats(
+      c(-1, 0, 2), rep(1, 3), ale_y_norm_fun = identity,
+      x_type = 'categorical'
+    )[['aled']],
+    1
+  )
+})

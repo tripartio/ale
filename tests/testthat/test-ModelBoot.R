@@ -195,3 +195,12 @@ test_that(
   }
 )
 
+test_that('ModelBoot resolves choices before forwarding to ALE (#noissue)', {
+  mb <- ModelBoot(
+    test_gam, data = test_cars, boot_it = 0, ale_p = NULL,
+    ale_options = list(x_cols = 'wt', output_stats = FALSE), silent = TRUE
+  )
+  expect_identical(mb@params$boot_centre, 'mean')
+  expect_equal(get(mb), get(mb, type = 'single'))
+  expect_equal(get(mb, ale_centre = 'zero'), get(mb@ale$single, ale_centre = 'zero'))
+})

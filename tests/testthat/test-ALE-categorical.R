@@ -142,3 +142,17 @@ test_that(
       expect_snap_variant()
   }
 )
+
+test_that('ALE factor-order lists retain per-column overrides (#noissue)', {
+  ordering <- list(default = 'y_col', except = c(model = 'levels'))
+  by_list <- ALE(
+    test_gam, data = test_cars, x_cols = 'model', fct_order = ordering,
+    output_stats = FALSE, silent = TRUE
+  )
+  by_string <- ALE(
+    test_gam, data = test_cars, x_cols = 'model', fct_order = 'levels',
+    output_stats = FALSE, silent = TRUE
+  )
+  expect_identical(by_list@params$fct_order, ordering)
+  expect_equal(get(by_list), get(by_string))
+})

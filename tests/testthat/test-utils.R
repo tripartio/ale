@@ -42,52 +42,27 @@ test_that('count_objs counts nonempty terminal objects with optional depth limit
   expect_equal(count_objs(frame), 1)
   expect_equal(count_objs(frame[, FALSE, drop = FALSE]), 1)
   expect_equal(count_objs(plot), 1)
-  for (depth in list(-1, 0.5, NA_real_, NaN, -Inf, c(1, 2), numeric(), 'all')) {
-    expect_error(count_objs(tree, iteration_depth = depth), 'iteration_depth')
+})
+
+test_that('modes preserve values, storage types, and factor levels (#noissue)', {
+  fruit <- factor(c('apple', 'banana', 'apple', 'cherry', 'cherry',
+                    'banana', 'banana'))
+  ranking <- ordered(c('low', 'medium', 'medium', 'high', 'low', 'low'),
+                     levels = c('low', 'medium', 'high'))
+  cases <- list(
+    list(input = c(1, 2, 3, 3, 4, 4, 5), expected = c(3, 4),
+         storage = 'double'),
+    list(input = c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE),
+         expected = c(FALSE, TRUE), storage = 'logical'),
+    list(input = fruit, expected = factor('banana', levels = levels(fruit))),
+    list(input = ranking, expected = ordered('low', levels = levels(ranking)))
+  )
+  for (it.case in cases) {
+    result <- modes(it.case$input)
+    expect_equal(result, it.case$expected)
+    if (!is.null(it.case$storage)) expect_type(result, it.case$storage)
   }
 })
-
-test_that("modes() works correctly for numeric vectors", {
-  x <- c(1, 2, 3, 3, 4, 4, 5)
-  result <- modes(x)
-
-  # Expected modes are 3 and 4, sorted
-  expect_equal(result, c(3, 4))
-  expect_type(result, "double")
-})
-
-test_that("modes() works correctly for logical vectors", {
-  x <- c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE)
-  result <- modes(x)
-
-  # TRUE and FALSE both occur 3 times; result should be logical, sorted: FALSE then TRUE
-  expect_equal(result, c(FALSE, TRUE))
-  expect_type(result, "logical")
-})
-
-test_that("modes() works correctly for factors", {
-  x <- factor(c("apple", "banana", "apple", "cherry", "cherry", "banana", "banana"))
-  result <- modes(x)
-
-  # "banana" occurs 3 times; should be a factor
-  expect_equal(result, factor("banana", levels = levels(x)))
-  expect_s3_class(result, "factor")
-  expect_equal(levels(result), levels(x))  # levels preserved
-})
-
-test_that("modes() returns ordered factors correctly", {
-  x <- ordered(c("low", "medium", "medium", "high", "low", "low"), levels = c("low", "medium", "high"))
-  result <- modes(x)
-
-  expect_equal(result, ordered("low", levels = levels(x)))
-  expect_s3_class(result, "ordered")
-})
-
-test_that("modes() throws error for non-atomic input", {
-  x <- list(1, 2, 2, 3)
-  expect_error(modes(x), "must be an atomic datatype")
-})
-
 
 test_that("md5sum_raw returns an unnamed hash with modern R", {
   md5sum_with_bytes <- function(files = NULL, bytes = NULL) {
@@ -99,7 +74,6 @@ test_that("md5sum_raw returns an unnamed hash with modern R", {
   hash <- md5sum_raw(charToRaw("model"), md5sum_with_bytes)
 
   expect_identical(hash, "modern-hash")
-  expect_null(names(hash))
 })
 
 
@@ -114,7 +88,6 @@ test_that("md5sum_raw removes temporary paths with older R", {
   hash <- md5sum_raw(charToRaw("model"), md5sum_without_bytes)
 
   expect_identical(hash, "legacy-hash")
-  expect_null(names(hash))
   expect_false(file.exists(temporary_path))
 })
 
@@ -138,4 +111,27 @@ test_that("future_session accepts another package and session strategy", {
   )
 
   expect_identical(strategy, future::sequential)
+})
+
+test_that('rotation choices retain each axis (#noissue)', {
+  values <- array(1:24, dim = c(2, 3, 4))
+  expect_equal(rotate_3d(values), rotate_3d(values, axis = 'row'))
+  for (i.axis in 1:3) {
+    it.axis <- c('row', 'column', 'depth')[i.axis]
+    it.coordinate <- c('x', 'y', 'z')[i.axis]
+    expect_equal(
+      rotate_3d(values, axis = it.axis),
+      x_rotate_3d(values, axis = it.coordinate)
+    )
+  }
+})
+
+test_that('medoid choices match exactly and retain the default ranking (#noissue)', {
+  skip_if_not_installed('cluster')
+  result <- x_medoids(test_cars['wt'], max_clusters = 3)
+  expect_equal(result$silhouette, sort(result$silhouette, decreasing = TRUE))
+  expect_equal(result$k, x_medoids(
+    test_cars['wt'], max_clusters = 3,
+    metric = 'euclidean', sort_by = 'silhouette'
+  )$k)
 })

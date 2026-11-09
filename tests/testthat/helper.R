@@ -38,24 +38,23 @@ expect_snap_variant <- function(x, ...) {
 
 # Check statistic order using existing test objects ------------
 expect_requested_stats_order <- function(object, ...) {
-  check_tables <- function(result, reference, stats) {
-    if (is.data.frame(result)) {
+  expected_tables <- function(result, reference, stats) {
+    if (is.data.frame(reference)) {
       if (nrow(reference) == 0L) {
         expect_identical(result, reference)
-        return(invisible(NULL))
+        return(reference)
       }
       expected_terms <- unique(reference$term)
-      expect_identical(unique(result$term), expected_terms)
-      expect_identical(as.character(result$statistic), rep(stats, length(expected_terms)))
-      expected <- do.call(rbind, lapply(expected_terms, function(term) {
+      do.call(rbind, lapply(expected_terms, function(term) {
         rows <- reference[reference$term == term, ]
         rows[match(stats, rows$statistic), ]
       }))
-      expect_equal(result, expected)
-    } else if (is.list(result)) {
-      for (name in names(result)) {
-        check_tables(result[[name]], reference[[name]], stats)
-      }
+    } else if (is.list(reference)) {
+      lapply(names(reference), function(nm.table) {
+        expected_tables(result[[nm.table]], reference[[nm.table]], stats)
+      }) |> setNames(names(reference))
+    } else {
+      reference
     }
   }
 
@@ -63,7 +62,8 @@ expect_requested_stats_order <- function(object, ...) {
     reference <- get(object, stats = 'all', simplify = simplify, ...)
     for (stats in list(c('aler_max', 'aler_min'), c('naler', 'aled', 'aler_max'), 'aler_min')) {
       result <- get(object, stats = stats, simplify = simplify, ...)
-      check_tables(result, reference, stats)
+      # Compare the whole returned tree once, retaining every table and case.
+      expect_equal(result, expected_tables(result, reference, stats))
     }
   }
 }
