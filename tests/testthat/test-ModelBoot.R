@@ -12,8 +12,33 @@ test_that(
       boot_it = 2,
       ale_p = NULL,
       parallel = 2,  # max allowed on CRAN
+      output_boot_data = TRUE,
       silent = TRUE
     )
+
+    # All workers must receive the full-data grid, even when iteration zero
+    # runs in a different process. Compare numerical results across execution.
+    serial_mb <- ModelBoot(
+      test_gam,
+      data = test_cars,
+      ale_options = list(x_cols = c('wt', 'gear:carb')),
+      boot_it = 2,
+      ale_p = NULL,
+      parallel = 0,
+      output_boot_data = TRUE,
+      silent = TRUE
+    )
+    expect_equal(pll_mb@boot_data$row_idxs, serial_mb@boot_data$row_idxs)
+    expect_equal(pll_mb@model_stats, serial_mb@model_stats)
+    full_grid <- pll_mb@boot_data$ale[[1]]@effect$mpg$ale$d1$wt[[1]]
+    for (i.iteration in 1:length(pll_mb@boot_data$ale)) {
+      parallel_ale <- pll_mb@boot_data$ale[[i.iteration]]
+      expect_identical(parallel_ale@effect$mpg$ale$d1$wt[[1]], full_grid)
+      expect_equal(
+        parallel_ale@effect,
+        serial_mb@boot_data$ale[[i.iteration]]@effect
+      )
+    }
 
     # Test the ModelBoot print method
     print(pll_mb) |>

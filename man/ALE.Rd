@@ -44,7 +44,7 @@ ALE(
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default \code{parallel = 0} disables parallel processing. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.}
+\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel workers for execution of the constructor. The default \code{parallel = 0} always runs locally, including when the caller has an active future plan. A batch with at most one job also runs locally. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.}
 
 \item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
 
@@ -110,7 +110,7 @@ See details.}
 
 \item{boot_centre}{character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.}
 
-\item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with \code{parallel = 0}.}
+\item{seed}{integer(1). Random seed. Each iteration uses a reproducible L'Ecuyer-CMRG random-number stream, with the same random inputs in local and future execution regardless of worker count or chunking. Data-only ALE bootstrap samples are shared across terms. The caller's RNG kinds and complete seed state are restored on return, including on error. Results from model implementations can still depend on numerical libraries or their own random-number generators. This stream policy changes random results relative to earlier package versions. Without bootstrapping and with deterministic predictions, ALE is deterministic.}
 
 \item{y_type}{character(1) in c("binary", "numeric", "categorical", "ordinal"), or NULL. Datatype of the y (outcome) variable, matched exactly when supplied. The default \code{NULL} determines it automatically; only provide if an error message for a complex model requires it.}
 

@@ -231,6 +231,11 @@ ALEpDist <- new_class(
 
     aled_fun <- match_aled_fun(aled_fun)
 
+    rng_state <- .rng_state()
+    on.exit(.restore_rng(rng_state), add = TRUE)
+    validate(is_scalar_number(seed))
+    .set_seed(seed)
+
     ### Validations that do not modify the arguments ------------
 
     if (!.skip_validation) {  # nocov start
@@ -258,8 +263,6 @@ ALEpDist <- new_class(
       validate(is_string(pred_type))
 
       validate(is_bool(output_residuals))
-
-      validate(is_scalar_number(seed))
 
       validate_silent(silent)
 
@@ -354,6 +357,7 @@ ALEpDist <- new_class(
 
     # Establish the environment from which this function was called. This is needed to resolve the model call later.
     call_env <- rlang::caller_env()
+    model_call_globals <- .call_globals(random_model_call_string_vars, call_env)
 
     # Obtain data about y_col needed for subsequent operations
     y_type <- var_type(data[[y_col]])
@@ -396,9 +400,7 @@ ALEpDist <- new_class(
     })
 
 
-    original_seed <- if (exists('.Random.seed')) .Random.seed else seed
-    on.exit(set.seed(original_seed))
-    set.seed(seed)
+    .set_seed(seed)
 
     # Establish the number of rand_it based on original or surrogate model
     if (surrogate) {
@@ -466,13 +468,6 @@ ALEpDist <- new_class(
     # Create ALEs for random variables based on residual_distribution
     n_rows <- nrow(data)
 
-    # Enable parallel processing and restore former parallel plan on exit
-    if (parallel > 0) {
-      future::plan(future_session(), workers = parallel) |>
-        # https://github.com/tripartio/ale/issues/17
-        with(local = TRUE)
-    }
-
     # Create progress bar iterator
     if (!silent) {  # nocov start
       progress_iterator <- progressr::progressor(
@@ -481,122 +476,118 @@ ALEpDist <- new_class(
       )
     }  # nocov end
 
-    # rand_ales <- map(  # use for debugging
-    rand_ales <- furrr::future_map(
-      .options = furrr::furrr_options(
-        # Enable parallel-processing random seed generation
-        seed = TRUE,
-        # transmit any globals and packages in random_model_call_string to the parallel workers
-        globals = random_model_call_string_vars,
-        packages = model_packages
-      ),
-      .x = 1:rand_it,
-      .f = \(it) {
+    calculate_random_ale <- function(it) {
 
-        it.rand_ale <- NULL
-        # Generate training and test subsets with the random variable.
-        # Package scope because they modify the datasets defined outside of the map function.
-        set.seed(seed + it)
+      it.rand_ale <- NULL
+      # The executor assigns this iteration its own reproducible RNG stream.
 
-        it.rand_data <- data
-        tryCatch(
-          {
-            it.rand_data$random_variable <- univariateML::rml(
-              n = n_rows,
-              obj = residual_distribution
-            )
-          },
-          error = \(e) {  # nocov start
-            cli_warn(paste0(
-              'Error generating random distribution; skipped iteration ', it, ':\n',
-              e
-            ))
+      it.rand_data <- data
+      tryCatch(
+        {
+          it.rand_data$random_variable <- univariateML::rml(
+            n = n_rows,
+            obj = residual_distribution
+          )
+        },
+        error = function(e) {  # nocov start
+          cli_warn(paste0(
+            'Error generating random distribution; skipped iteration ', it, ':\n',
+            e
+          ))
 
-            # End current future_map loop without any return value
-            return(NULL)
-          }  # nocov end
-        )
+          # End current future_map loop without any return value
+          return(NULL)
+        }  # nocov end
+      )
 
-        # Train model with the random variable: convert model call string to an expression
-        tryCatch(
-          {
-            # If random_model_call_string was provided, prefer it to automatic detection
-            if (!is.null(random_model_call_string)) {
-              it.rand_model <- random_model_call_string |>
-                parse(text = _) |>
-                eval()
-            }
-            else {  # use the automatically detected model call
-              # Update the model call to add random_variable and to train on rand_data
-              model_call$data <- it.rand_data
+      # Train model with the random variable: convert model call string to an expression
+      tryCatch(
+        {
+          # If random_model_call_string was provided, prefer it to automatic detection
+          if (!is.null(random_model_call_string)) {
+            model_env <- list2env(model_call_globals, parent = call_env)
+            model_env$it.rand_data <- it.rand_data
+            it.rand_model <- random_model_call_string |>
+              parse(text = _) |>
+              eval(envir = model_env)
+          }
+          else {  # use the automatically detected model call
+            # Update the model call to add random_variable and to train on rand_data
+            model_call$data <- it.rand_data
 
-              model_call$formula <-
-                paste0(
-                  y_col, " ~ ",
-                  paste(model_predictors, collapse = " + "),
-                  ' + random_variable'
-                ) |>
-                stats::as.formula(env = call_env)
+            model_call$formula <-
+              paste0(
+                y_col, " ~ ",
+                paste(model_predictors, collapse = " + "),
+                ' + random_variable'
+              ) |>
+              stats::as.formula(env = call_env)
 
-              it.rand_model <- eval(model_call)
-            }
-          },
-          error = \(e) {  # nocov start
-            cli_warn(paste0(
-              'Error creating random model; skipped iteration ', it, ':\n',
-              e
-            ))
+            it.rand_model <- eval(model_call)
+          }
+        },
+        error = function(e) {  # nocov start
+          cli_warn(paste0(
+            'Error creating random model; skipped iteration ', it, ':\n',
+            e
+          ))
 
-            # End current future_map loop without any return value
-            return(NULL)
-          }  # nocov end
-        )
+          # End current future_map loop without any return value
+          return(NULL)
+        }  # nocov end
+      )
 
-        tryCatch(
-          {
-            # eval() required to avoid scoping bugs for arguments with environments
-            it.rand_ale <- ALE(
-              model = eval(it.rand_model),
-              x_cols = 'random_variable',
-              data = eval(it.rand_data),
-              y_col = y_col,
-              parallel = 0,  # avoid recursive parallelization
-              model_packages = model_packages,
-              output_stats = FALSE,
-              pred_fun = eval(pred_fun),
-              pred_type = pred_type,
-              p_values = NULL,  # avoid infinite recursion
-              aled_fun = aled_fun,
-              max_num_bins = list(
-                d1 = if (surrogate) {
-                  10L  # "quicker calculation" but tictoc says it's the same timing
-                } else {
-                  100L  # fine capture of extreme random ALE intervals
-                },
-                d2 = 10L
-              ),
-              silent = TRUE
-            )
-          },
-          error = \(e) {  # nocov start
-            cli_warn(paste0(
-              'Error calculating ALE; skipped iteration ', it, ':\n',
-              e
-            ))
+      tryCatch(
+        {
+          # eval() required to avoid scoping bugs for arguments with environments
+          it.rand_ale <- ALE(
+            model = eval(it.rand_model),
+            x_cols = 'random_variable',
+            data = eval(it.rand_data),
+            y_col = y_col,
+            parallel = 0,  # avoid recursive parallelization
+            model_packages = model_packages,
+            output_stats = FALSE,
+            pred_fun = eval(pred_fun),
+            pred_type = pred_type,
+            p_values = NULL,  # avoid infinite recursion
+            aled_fun = aled_fun,
+            max_num_bins = list(
+              d1 = if (surrogate) {
+                10L  # "quicker calculation" but tictoc says it's the same timing
+              } else {
+                100L  # fine capture of extreme random ALE intervals
+              },
+              d2 = 10L
+            ),
+            silent = TRUE
+          )
+        },
+        error = function(e) {  # nocov start
+          cli_warn(paste0(
+            'Error calculating ALE; skipped iteration ', it, ':\n',
+            e
+          ))
 
-            # End current future_map loop without any return value
-            return(NULL)
-          }  # nocov end
-        )
+          # End current future_map loop without any return value
+          return(NULL)
+        }  # nocov end
+      )
 
-        # Increment the progress bar iterator.
-        # Do not skip iterations (e.g., it %% 10 == 0): inaccurate with parallelization
-        if (!silent) {
-          progress_iterator()  # nocov
-        }
+      # Increment the progress bar iterator.
+      # Do not skip iterations (e.g., it %% 10 == 0): inaccurate with parallelization
+      if (!silent) {
+        progress_iterator()  # nocov
+      }
 
-        it.rand_ale
-      })  # rand_ales <- furrr::future_map(
+      return(it.rand_ale)
+    }
+
+    rand_ales <- .map_jobs(
+      1:rand_it, calculate_random_ale,
+      parallel = parallel, seed = seed, packages = model_packages,
+      globals = random_model_call_string_vars, env_globals = call_env
+    )
 
     # Discard any NULL cases for iterations that might have failed for whatever reason.
     # (see tryCatch block in the future_map function)
@@ -668,7 +659,7 @@ ALEpDist <- new_class(
     ]
     temp_objs <- c(
       'data', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
-      'silent', 'surrogate', 'val_pll', 'val_pred', 'y_preds'
+      'rng_state', 'silent', 'surrogate', 'val_pll', 'val_pred', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
@@ -695,12 +686,14 @@ ALEpDist <- new_class(
         set_names(y_cats)
     }
 
-    new_object(
-      S7_object(),
-      rand_stats            = rand_stats,
-      residual_distribution = residual_distribution,
-      residuals             = if (output_residuals) residuals else NULL,
-      params                = params
+    return(
+      new_object(
+        S7_object(),
+        rand_stats            = rand_stats,
+        residual_distribution = residual_distribution,
+        residuals             = if (output_residuals) residuals else NULL,
+        params                = params
+      )
     )
   }  # ALEpDist constructor
 )  # ALEpDist
