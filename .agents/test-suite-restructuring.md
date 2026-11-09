@@ -20,7 +20,7 @@ Baseline: 18 test files, 89 test blocks, 448 static expectation sites, and 1,240
 
 Batch 1 removes repeated canonical `d1`/`d2` output checks, repeated `d2` output, the second malformed-list error check, and repeated `d1 = TRUE` / `d2 = TRUE` expansions. One copy of every behavior remains in `tests/testthat/test-x_cols.R`.
 
-Verification: the focused `x_cols` run passed 64 expectations. The CRAN-style package check passed with 1,191 expectations passing, 16 CRAN skips, and no failures or warnings. Its three NOTES concern URL checks, `README_files`, and a `.git` worktree pointer included in the temporary source archive.
+Verification: the focused `x_cols` run passed 64 expectations. A clean source export built successfully. The CRAN-style package check passed with 1,191 expectations passing, 16 CRAN skips, and no failures or warnings. Its three NOTES concern URL checks, `README_files`, and a `.git` worktree pointer included in the temporary source archive used for that check.
 
 ## Candidate batches to quantify before approval
 
