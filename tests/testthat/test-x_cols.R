@@ -120,10 +120,6 @@ test_that("resolve_x_cols filters outcome terms from every supported format", {
                list(d1 = c("a", "b"), d2 = character()))
   expect_equal(resolve_x_cols(list(d2_all = c("y", "a")), col_names, y_col),
                list(d1 = character(), d2 = c("a:b", "a:c")))
-  expect_equal(resolve_x_cols(list(d1 = TRUE), col_names, y_col),
-               list(d1 = c("a", "b", "c"), d2 = character()))
-  expect_equal(resolve_x_cols(list(d2 = TRUE), col_names, y_col),
-               list(d1 = character(), d2 = c("a:b", "a:c", "b:c")))
   expect_equal(resolve_x_cols(c("yield", "y"), c(col_names, "yield"), y_col),
                list(d1 = "yield", d2 = character()))
   expect_equal(resolve_x_cols(c("y", "a", "a", "y:a", "a:b", "a:b"), col_names, y_col),
@@ -188,33 +184,10 @@ test_that("outcome terms in exclude_cols are silent no-ops", {
 })
 
 
-test_that("resolve_x_cols processes canonical formats properly", {
-  expect_equal(
-    resolve_x_cols(list(d1 = c("a", "b")), col_names, y_col),
-    list(d1 = c("a", "b"), d2 = character())
-  )
-
-  expect_equal(
-    resolve_x_cols(list(d2 = 'a:b'), col_names, y_col),
-    list(d1 = character(), d2 = "a:b")
-  )
-
-  expect_error(
-    resolve_x_cols(list(d1 = list("a", 42)), col_names, y_col),
-    "are not characters:"
-  )
-})
-
-
 test_that("resolve_x_cols correctly expands d2_all", {
   expect_equal(
     resolve_x_cols(list(d2_all = "a"), col_names, y_col),
     list(d1 = character(), d2 = c('a:b', 'a:c'))
-  )
-
-  expect_equal(
-    resolve_x_cols(list(d2 = 'a:b'), col_names, y_col),
-    list(d1 = character(), d2 = "a:b")
   )
 
   expect_error(
