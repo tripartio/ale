@@ -169,6 +169,14 @@ test_that(
       silent = TRUE
     )
 
+    serial_ale <- ALE(
+      test_gam, x_cols = ~ model + carb + am:wt,
+      parallel = 0, data = test_cars,
+      p_values = pll_ale@params$p_values,
+      boot_it = 2, silent = TRUE
+    )
+    expect_equal(pll_ale@effect, serial_ale@effect)
+
     # Test the print ALE() method
     print(pll_ale) |>
       expect_snap_variant()

@@ -54,7 +54,7 @@ ModelBoot(
 
 \item{boot_centre}{character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.}
 
-\item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for \code{\link[=ALE]{ALE()}} for further details.}
+\item{seed}{integer(1). Random seed. Supplies reproducible bootstrap samples and iteration streams in local and future execution. See documentation for \code{\link[=ALE]{ALE()}} for RNG restoration and numerical reproducibility details.}
 
 \item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics using \code{\link[broom:glance]{broom::glance()}} (if available for \code{model}) and bootstrap-validated statistics if \code{boot_it > 0}.}
 
@@ -150,6 +150,7 @@ No modelling results, with or without ALE, should be considered reliable without
 
 \code{\link[=ModelBoot]{ModelBoot()}} carries out full-model bootstrapping to validate models. Specifically, it:
 \itemize{
+\item Fits the full-data model and calculates its ALE first, establishing canonical bins that every bootstrap iteration receives explicitly;
 \item Creates multiple bootstrap samples (default 100; the user can specify any number);
 \item Creates a model on each bootstrap sample;
 \item Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
