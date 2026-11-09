@@ -92,11 +92,11 @@
 #' No modelling results, with or without ALE, should be considered reliable without appropriate validation. For ALE, both the trained model itself and the ALE that explains the trained model must be validated. ALE must be validated by bootstrapping. The trained model might be validated either by cross-validation or by bootstrapping. For ALE that explains trained models that have been developed by cross-validation, it is sufficient to bootstrap just the training data. That is what the `ALE` object does with its `boot_it` argument. However, unvalidated models must be validated by bootstrapping them along with the calculation of ALE; this is what the `ModelBoot` object does with its `boot_it` argument.
 #'
 #' [ModelBoot()] carries out full-model bootstrapping to validate models. Specifically, it:
-#' * Fits the full-data model and calculates its ALE first, establishing canonical bins that every bootstrap iteration receives explicitly;
 #' * Creates multiple bootstrap samples (default 100; the user can specify any number);
 #' * Creates a model on each bootstrap sample;
 #' * Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
-#' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
+#' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples;
+#' * Calculates ALE if requseted (the default); if bootstrapped, it first establishes canonical bins that every bootstrap iteration receives explicitly.
 #'
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.<
 #' @references Efron, Bradley, and Robert Tibshirani. "Bootstrap methods for standard errors, confidence intervals, and other measures of statistical accuracy." Statistical science (1986): 54-75. <doi:10.1214/ss/1177013815>
