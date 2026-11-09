@@ -1,19 +1,19 @@
 ---
 name: tdd-workflow
-description: Use when designing, running, or reviewing R tests, reproducing bugs, or verifying a package change. Prioritizes correct observable results, economical tests, fixture reuse, snapshot conventions, and full package checks.
+description: Use when reproducing bugs, implementing or executing R tests, reviewing snapshots and conditions, or verifying package changes through tests, builds, and checks. Follow regression-tests for test selection and design.
 ---
 
 # Testing and package verification
 
-Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first. The historical skill name does not require test-first development for every edit.
+Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first.
 
-## Choose meaningful tests
+When creating, modifying, reviewing, or removing tests, also follow [regression-tests](../regression-tests/SKILL.md).
 
-Tests should provide strong evidence of correct observable results with the smallest reasonable number of meaningful, maintainable tests. Prioritize valid inputs with known expected outputs, important computational boundaries, and regressions for discovered bugs. Aim for high coverage of important computation; do not impose a numeric coverage target or create tests merely to improve coverage.
+This skill governs testing procedures and package verification; `regression-tests` governs testing philosophy and test selection. Test-first development is not mandatory.
 
-Each new test should catch a plausible defect and add information not already established. Prefer public behavior over helper internals. Avoid redundant assertions, repeated tests of the same result, fragile implementation details, and elaborate mocking where small realistic fixtures suffice. Accept uncovered code where additional tests have negligible benefit relative to complexity and maintenance.
+# Reproduce MREs before creating fixes
 
-For bug fixes, reproduce the defect with the supplied MRE or a small deterministic example before changing the implementation. A failing regression test is useful when practical; documentation-only or other low-impact changes do not automatically require new tests. Diagnose baseline failures and distinguish them from regressions rather than stopping automatically.
+For bug fixes, reproduce the defect with the supplied MRE or a small deterministic example before changing the implementation. For bug fixes, verify correct public behaviour using valid inputs, following regression-tests. Documentation-only or other low-impact changes do not automatically require new tests. Diagnose baseline failures and distinguish them from regressions rather than stopping automatically.
 
 ## Reuse resources and limit runtime
 
@@ -21,9 +21,11 @@ Inspect `tests/testthat/helper.R` and related test files before adding data, mod
 
 Keep each new individual test within the five-second limit in `AGENTS.md`, preferably much faster. Count attributable new fixture/setup work rather than moving expensive computation out of the test body to hide its cost. Simplify data and reuse suitable fixtures first; explain and obtain explicit permission before introducing a necessary slower test.
 
-Use the existing validation infrastructure in `R/validation.R`, `R/unpackaged_utils.R`, and the condition helpers. Keep ordinary computational tests focused on valid inputs and expected results. Add focused validation tests where validation behavior changes; do not repeat invalid-input cases across unrelated computational tests.
+Follow `regression-tests` for test organization, including dedicated input-validation tests. Place other tests beside related existing tests.
 
-Place tests beside related existing tests, normally in `tests/testthat/test-{name}.R` for the affected source area. New `test_that()` descriptions end with verified issue references, or `(#noissue)` when none applies. Never invent or copy illustrative issue numbers. Use deterministic inputs, explicit expected results, and appropriate numeric tolerances. Preserve comments that explain computational reasoning as required by `STYLE.md`.
+New `test_that()` descriptions end with verified issue references, or `(#noissue)` when none applies. Never invent or copy illustrative issue numbers.
+
+Use deterministic inputs and appropriate numeric tolerances. Preserve comments explaining computational reasoning as required by `STYLE.md`.
 
 ## Snapshots and conditions
 
@@ -32,7 +34,7 @@ Read the existing test and helper implementation before changing snapshots:
 - Use `expect_snap_variant()` for the platform-variant output snapshots. It selects `Sys.info()['sysname']` locally; existing variants live under `_snaps/Linux/` and `_snaps/Windows/`.
 - That helper still evaluates expressions on CI (`CI=true`) but deliberately skips output comparison. Do not mistake CI success for local snapshot comparison or change CI flags to bypass a failing comparison.
 - Reuse `s7_snapshot()`, `normalize_snapshot_data_frame()`, `normalize_snapshot_univariate_ml()`, `normalize_snapshot_value()`, `ggplot_snapshot_data()`, and `ale_plots_to_data()` where appropriate. They preserve the existing substantive comparisons while excluding known unstable metadata or numerical noise.
-- Use snapshots only when they add useful evidence. Inspect each proposed change against intended behavior and review the correct platform variant before accepting. Do not automatically accept new snapshots or overwrite another platform's variant.
+- Follow `regression-tests` when deciding whether a snapshot is warranted. Inspect each proposed change against intended behavior and review the correct platform variant before accepting. Do not automatically accept new snapshots or overwrite another platform's variant.
 
 For an intentional change, use testthat's review/accept workflow for the affected file and variant. For example, for the `ALE-numerical` file on Linux, after inspecting the proposed output:
 
