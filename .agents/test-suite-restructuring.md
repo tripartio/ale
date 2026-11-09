@@ -17,13 +17,13 @@ Baseline: 18 test files, 89 test blocks, 448 static expectation sites in `test-*
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | Baseline | — | — | — | — | — | 1,240 | Recorded |
 | 1 | Column selection (`x_cols`) | 1 | 6 | 0 | 6 | 1,234 | Approved and verified |
-| 2 | Shared statistic-order assertion | 0 | 0 | 2 | 264 | 970 | Approved and focused verification complete |
+| 2 | Shared statistic-order assertion | 0 | 0 | 2 | 264 | 970 | Approved and fully verified |
 
 Batch 1 removes repeated canonical `d1`/`d2` output checks, repeated `d2` output, the second malformed-list error check, and repeated `d1 = TRUE` / `d2 = TRUE` expansions. One copy of every behavior remains in `tests/testthat/test-x_cols.R`.
 
 Verification: the focused `x_cols` run passed 64 expectations. A clean source export built successfully. The CRAN-style package check passed with 1,191 expectations passing, 16 CRAN skips, and no failures or warnings. Its three NOTES concern URL checks, `README_files`, and a `.git` worktree pointer included in the temporary source archive used for that check.
 
-Batch 2 removes two `expect_identical()` checks from `expect_requested_stats_order()` in `helper.R`. For every nonempty result table, the retained `expect_equal(result, expected)` already checks the term order, requested statistic order, and all values. Empty-table identity checks remain. The helper is exercised by `ModelBoot`, numeric ALE, and categorical ALE tests. Across those three files, baseline results had 670 expectations; the focused rerun had 401 passes and the same five baseline snapshot failures, for 406 total. The measured reduction is 264 expectations. The full-suite total of 970 is the baseline 1,240 less the two approved batches; the full local suite was not rerun.
+Batch 2 removes two `expect_identical()` checks from `expect_requested_stats_order()` in `helper.R`. For every nonempty result table, the retained `expect_equal(result, expected)` already checks the term order, requested statistic order, and all values. Empty-table identity checks remain. The helper is exercised by `ModelBoot`, numeric ALE, and categorical ALE tests. Across those three files, baseline results had 670 expectations; the focused rerun had 401 passes and the same five baseline snapshot failures, for 406 total. The measured reduction is 264 expectations. The full-suite total of 970 is the baseline 1,240 less the two approved batches; the full local suite was not rerun. A clean source build succeeded, and the full CRAN-style check passed with 927 passes, 16 CRAN skips, zero failures, and zero warnings. Its two NOTES are the existing URL checks and `README_files`.
 
 ## Candidate batches to quantify before approval
 
