@@ -150,11 +150,11 @@ No modelling results, with or without ALE, should be considered reliable without
 
 \code{\link[=ModelBoot]{ModelBoot()}} carries out full-model bootstrapping to validate models. Specifically, it:
 \itemize{
-\item Fits the full-data model and calculates its ALE first, establishing canonical bins that every bootstrap iteration receives explicitly;
 \item Creates multiple bootstrap samples (default 100; the user can specify any number);
 \item Creates a model on each bootstrap sample;
 \item Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
-\item Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
+\item Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples;
+\item Calculates ALE if requested (the default); if bootstrapped, it first establishes canonical bins that every bootstrap iteration receives explicitly.
 }
 }
 

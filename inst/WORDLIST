@@ -17,7 +17,9 @@ arXiv
 Biometrics
 cardinality
 Chatterjee
+chunking
 CMD
+CMRG
 Codecov
 customizable
 customizations
@@ -32,6 +34,7 @@ doi
 downloadable
 ECDF
 ECDFs
+Ecuyer
 Efron
 erodibility
 errored
@@ -79,9 +82,12 @@ NALED
 naler
 NALER
 Noam
+noissue
 noncrucial
 nonsignificant
+Nullable
 NWSE
+OpenAI
 overfit
 parallelization
 PDP
@@ -95,8 +101,10 @@ presaved
 pretrained
 probs
 programmatically
+PRs
 Puerto
 RDS
+README
 refALEPlot
 refactor
 refactoring
@@ -105,9 +113,13 @@ reimplementation
 reimplements
 reinversion
 representativeness
+reproducibility
 rescales
+respecifying
+revdepcheck
 rmse
 roadmap
+RMarkdown
 Rprofile
 S3
 S7
@@ -117,6 +129,7 @@ scepticism
 sd
 SHAP
 sig
+sil
 staccuracy
 SWNE
 terciles
@@ -132,6 +145,7 @@ unordered
 unvalidated
 vanishingly
 Velleman
+Versioning
 workflow
 www
 x1
@@ -139,6 +153,7 @@ x2
 x3
 yyyy
 YYYY
+YYYYMMDD
 Zhu
 
 

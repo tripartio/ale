@@ -37,8 +37,8 @@ importFrom(purrr,
   walk
 )
 importFrom(rlang,
-  '%||%',
-  ':=',
+  "%||%",
+  ":=",
   .data,
   is_bool,
   is_string,

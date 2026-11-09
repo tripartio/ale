@@ -110,7 +110,7 @@ See details.}
 
 \item{boot_centre}{character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.}
 
-\item{seed}{integer(1). Random seed. Each iteration uses a reproducible L'Ecuyer-CMRG random-number stream, with the same random inputs in local and future execution regardless of worker count or chunking. Data-only ALE bootstrap samples are shared across terms. The caller's RNG kinds and complete seed state are restored on return, including on error. Results from model implementations can still depend on numerical libraries or their own random-number generators. This stream policy changes random results relative to earlier package versions. Without bootstrapping and with deterministic predictions, ALE is deterministic.}
+\item{seed}{integer(1). Random seed. Each iteration uses a reproducible L'Ecuyer-CMRG random-number stream, with the same random inputs in local and future execution regardless of worker count or chunking. Data-only ALE bootstrap samples are shared across terms. The caller's random number generator (RNG) kinds and complete seed state are restored on return, including on error. Results from model implementations can still depend on numerical libraries or their own RNGs. Without bootstrapping and with deterministic predictions, ALE is deterministic.}
 
 \item{y_type}{character(1) in c("binary", "numeric", "categorical", "ordinal"), or NULL. Datatype of the y (outcome) variable, matched exactly when supplied. The default \code{NULL} determines it automatically; only provide if an error message for a complex model requires it.}
 

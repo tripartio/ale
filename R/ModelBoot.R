@@ -96,7 +96,7 @@
 #' * Creates a model on each bootstrap sample;
 #' * Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 #' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples;
-#' * Calculates ALE if requseted (the default); if bootstrapped, it first establishes canonical bins that every bootstrap iteration receives explicitly.
+#' * Calculates ALE if requested (the default); if bootstrapped, it first establishes canonical bins that every bootstrap iteration receives explicitly.
 #'
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.<
 #' @references Efron, Bradley, and Robert Tibshirani. "Bootstrap methods for standard errors, confidence intervals, and other measures of statistical accuracy." Statistical science (1986): 54-75. <doi:10.1214/ss/1177013815>
