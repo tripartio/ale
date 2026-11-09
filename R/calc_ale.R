@@ -72,9 +72,10 @@ calc_ale <- function(
   allow_bootstrap_na <- boot_it > 0 || !is.null(.bins)
 
   # Create bootstrap tbl
-  original_seed <- if (exists('.Random.seed')) .Random.seed else seed
-  on.exit(set.seed(original_seed))
-  set.seed(seed)
+  rng_state <- .rng_state()
+  on.exit(.restore_rng(rng_state), add = TRUE)
+  # Use matching resamples across terms, independently of their execution order.
+  .set_seed(seed)
 
   boot_ale <- tibble(
     # it: bootstrap iteration number. Row 0 is the full dataset without bootstrapping
