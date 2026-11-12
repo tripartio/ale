@@ -110,13 +110,18 @@ validate_max_num_bins <- function(
 
 # Check p-value distributions against their original inputs, including surrogates.
 validate_p_model_match <- function(p_values, model, y_col, pred_type) {
-  .validate_p_model_params(p_values, params_model(model), y_col, pred_type)
+  validate_p_model_params(p_values, params_model(model), y_col, pred_type)
 }
 
 #' Check a distribution against stored model identity and prediction settings
+#' @param p_values `ALEpDist` object. Distribution whose original model and prediction settings are checked.
+#' @param pm list. Stored model identity returned by `params_model()`, containing the model class and serialized-model hash.
+#' @param y_col character(1). Outcome column name used for the ALE calculation.
+#' @param pred_type character(1). Prediction type used for the ALE calculation.
+#' @returns TRUE invisibly when the distribution matches all supplied identity settings; otherwise signals an error.
 #' @keywords internal
 #' @noRd
-.validate_p_model_params <- function(p_values, pm, y_col, pred_type) {
+validate_p_model_params <- function(p_values, pm, y_col, pred_type) {
   pp <- p_values@params
   validate(
     isTRUE(all.equal(pm$class, pp$model$class)),
@@ -138,16 +143,17 @@ validate_p_model_match <- function(p_values, model, y_col, pred_type) {
 }
 
 #' Match recognized deviation methods at public input boundaries
+#' @param aled_fun character(1). Deviation calculation supplied at a public input boundary, after resolving any inherited default.
+#' @param call environment. Calling environment used to identify the user's call in errors.
+#' @returns The recognized scalar deviation-calculation name; otherwise signals an error.
 #' @keywords internal
 #' @noRd
-.validate_aled_fun <- function(aled_fun, call = rlang::caller_env()) {
+validate_aled_fun <- function(aled_fun, call = rlang::caller_env()) {
   tryCatch(
-    rlang::arg_match(
-      aled_fun, values = c('mad', 'sd', 'linear'), error_call = call
-    ),
+    match_aled_fun(aled_fun, call = call),
     error = function(it.error) {
       cli_abort(
-        '{.arg aled_fun} must be "mad", "sd", "linear", or NULL where supported.',
+        '{.arg aled_fun} must be "mad", "sd", or NULL.',
         call = call
       )
     }
@@ -155,10 +161,16 @@ validate_p_model_match <- function(p_values, model, y_col, pred_type) {
 }
 
 #' Validate distribution inputs for post hoc ALE calculations
+#' @param ale_obj `ALE` object. Existing ALE object whose stored settings and outcome categories determine distribution compatibility.
+#' @param p_values `ALEpDist` object or NULL. Distribution to attach, or NULL when no p-values are requested by `append_stats()`.
+#' @param aled_fun character(1). Resolved deviation calculation used by the ALE statistics.
+#' @param require_p_model_match logical(1). Whether to require matching model identity, outcome name, and prediction type in addition to statistical and category compatibility.
+#' @param call environment. Calling environment used to identify the user's call in errors.
+#' @returns TRUE invisibly when the supplied public inputs are compatible; otherwise signals an error.
 #' @keywords internal
 #' @noRd
-.validate_append_p <- function(
-  obj, p_values, aled_fun, require_p_model_match,
+validate_append_p <- function(
+  ale_obj, p_values, aled_fun, require_p_model_match,
   call = rlang::caller_env()
 ) {
   validate(is_bool(require_p_model_match), call = call)
@@ -174,21 +186,21 @@ validate_p_model_match <- function(p_values, model, y_col, pred_type) {
     call = call
   )
   validate(
-    identical(isTRUE(obj@params$probs_inverted),
+    identical(isTRUE(ale_obj@params$probs_inverted),
       isTRUE(p_values@params$probs_inverted)),
     msg = 'The ALE object and {.arg p_values} must have the same probability inversion state.',
     call = call
   )
   validate(
-    all(names(obj@effect) %in% names(p_values@rand_stats)),
-    msg = 'The {.arg p_values} distribution must contain every outcome category in {.arg obj}.',
+    all(ale_obj@params$y_cats %in% names(p_values@rand_stats)),
+    msg = 'The {.arg p_values} distribution must contain every outcome category in {.arg ale_obj}.',
     call = call
   )
   stats_names <- c(
     'aled', 'aler_min', 'aler', 'aler_max',
     'naled', 'naler_min', 'naler', 'naler_max'
   )
-  for (nm.cat in names(obj@effect)) {
+  for (nm.cat in ale_obj@params$y_cats) {
     validate(
       all(stats_names %in% names(p_values@rand_stats[[nm.cat]])),
       msg = 'The {.arg p_values} distribution is missing statistics for {.val {nm.cat}}.',
@@ -196,17 +208,20 @@ validate_p_model_match <- function(p_values, model, y_col, pred_type) {
     )
   }
   if (require_p_model_match) {
-    .validate_p_model_params(
-      p_values, obj@params$model, obj@params$y_col, obj@params$pred_type
+    validate_p_model_params(
+      p_values, ale_obj@params$model, ale_obj@params$y_col, ale_obj@params$pred_type
     )
   }
   return(invisible(TRUE))
 }
 
 #' Validate ALER thresholds supplied to public functions
+#' @param aler_alpha numeric(2) from 0 to 0.5. Requested outer and inner ALER significance thresholds in nondecreasing order.
+#' @param call environment. Calling environment used to identify the user's call in errors.
+#' @returns TRUE when the thresholds are valid; otherwise signals an error.
 #' @keywords internal
 #' @noRd
-.validate_aler_alpha <- function(aler_alpha, call = rlang::caller_env()) {
+validate_aler_alpha <- function(aler_alpha, call = rlang::caller_env()) {
   validate(
     is.numeric(aler_alpha) && length(aler_alpha) == 2L &&
       all(is.finite(aler_alpha)) &&
@@ -217,6 +232,64 @@ validate_p_model_match <- function(p_values, model, y_col, pred_type) {
   )
 }
 
+
+#' Resolve and validate the complete public normalization reference
+#' @param ale_obj `ALE` object. Existing ALE object providing the original row count, outcome-category names, and any saved outcome reference.
+#' @param y_vals numeric vector or numeric matrix, or NULL. Complete normalization reference used in the original ALE calculation. NULL requests the saved reference, which is accepted only when it contains every original row. A vector is accepted for one outcome category; matrix columns must be named for the outcome categories.
+#' @param call environment. Calling environment used to identify the user's call in errors.
+#' @returns A finite numeric matrix containing all original reference rows and columns arranged in `ale_obj@params$y_cats` order, with 1st and 99th percentiles within the saved plotting limits up to numerical tolerance; otherwise signals an error. This checks scale consistency without bounding every tail value. The caller uses this matrix temporarily without saving it in the returned ALE object.
+#' @keywords internal
+#' @noRd
+validate_y_vals <- function(ale_obj, y_vals, call = rlang::caller_env()) {
+  if (is.null(y_vals)) {
+    y_vals <- ale_obj@params$data$y_vals_sample
+    validate(
+      nrow(y_vals) == ale_obj@params$data$nrow,
+      msg = 'The full outcome reference was not saved. Supply complete {.arg y_vals} to calculate normalized statistics; the stored sample is insufficient.',
+      call = call
+    )
+  }
+  validate(
+    is.numeric(y_vals) &&
+      (length(dim(y_vals)) <= 1L || is.matrix(y_vals)) &&
+      all(is.finite(y_vals)),
+    msg = '{.arg y_vals} must be a finite numeric vector or matrix.',
+    call = call
+  )
+  if (!is.matrix(y_vals)) {
+    validate(
+      length(ale_obj@params$y_cats) == 1L,
+      msg = 'Supply a named matrix of {.arg y_vals} for multiple outcome categories.',
+      call = call
+    )
+    y_vals <- matrix(as.numeric(y_vals), ncol = 1L,
+      dimnames = list(NULL, ale_obj@params$y_cats))
+  }
+  validate(
+    nrow(y_vals) == ale_obj@params$data$nrow &&
+      ncol(y_vals) == length(ale_obj@params$y_cats) &&
+      setequal(colnames(y_vals), ale_obj@params$y_cats),
+    msg = '{.arg y_vals} must have every original row and one column named for each outcome category.',
+    call = call
+  )
+  y_vals <- y_vals[, ale_obj@params$y_cats, drop = FALSE]
+  # The saved min/max are probability limits or 1%/99% plotting limits.
+  # Compare like percentiles so valid observations in the tails are retained.
+  for (nm.cat in ale_obj@params$y_cats) {
+    it.limits <- ale_obj@params$y_summary[c('min', 'max'), nm.cat]
+    it.percentiles <- stats::quantile(
+      y_vals[, nm.cat], probs = c(0.01, 0.99), names = FALSE
+    )
+    it.tolerance <- sqrt(.Machine$double.eps) * pmax(1, abs(it.limits))
+    validate(
+      it.percentiles[1] >= it.limits[1] - it.tolerance[1] &&
+        it.percentiles[2] <= it.limits[2] + it.tolerance[2],
+      msg = 'The 1st and 99th percentiles of {.arg y_vals} for {.val {nm.cat}} must lie within the saved outcome-summary limits. Supply the original normalization reference on the original prediction scale.',
+      call = call
+    )
+  }
+  return(y_vals)
+}
 
 # Validate y_col.
 # If y_col is NULL, try to automatically detect it.

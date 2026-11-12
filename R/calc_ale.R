@@ -939,7 +939,7 @@ calc_ale <- function(
   if (!is.null(ale_y_norm_funs)) {
     boot_stats_summary <- split(boot_ale_tbl, boot_ale_tbl$.cat) |>
       imap(function(it.data, nm.cat) {
-        .stats_from_curves(
+        stats_from_boot_its(
           ale_data = it.data, x_cols = x_cols, x_types = x_types,
           ale_y_norm_fun = ale_y_norm_funs[[nm.cat]], aled_fun = aled_fun,
           boot_alpha = boot_alpha, boot_centre = boot_centre,
@@ -950,7 +950,7 @@ calc_ale <- function(
     if (!is.null(p_dist)) {
       boot_stats_summary <- boot_stats_summary |>
         imap(function(it.stats, nm.cat) {
-          .p_values_stats(it.stats, p_dist@rand_stats[[nm.cat]]) |>
+          p_values_stats(it.stats, p_dist@rand_stats[[nm.cat]]) |>
             # Preserve the established constructor output layout.
             select('statistic', 'estimate', 'p.value', everything())
         })

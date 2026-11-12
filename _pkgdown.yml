@@ -48,6 +48,7 @@ reference:
 
 - contents:
   - ALEpDist
+  - append_p
 
 - title: Full-model bootstrapping
   desc: Bootstrap a full model with a ModelBoot S7 object, with ALE and other calculations.

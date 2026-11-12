@@ -248,7 +248,7 @@ ALEpDist <- new_class(
 
       validate(is_bool(surrogate))
 
-      aled_fun <- .validate_aled_fun(aled_fun)
+      aled_fun <- validate_aled_fun(aled_fun)
 
       # If y_col is NULL, try to automatically detect it.
       # y_col must be set before y_preds is created so that y_preds columns can be properly named.
