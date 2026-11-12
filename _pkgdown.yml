@@ -29,6 +29,7 @@ reference:
   - get-ALE-method
   - plot-ALE-method
   - invert_probs
+  - append_stats
 
 - title: Advanced visualization
   desc: Generate ALEPlots S7 objects, manipulate them, and plot ALE.

@@ -28,7 +28,7 @@
 #' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 #' @param require_p_model_match logical(1). If `TRUE` (default), `p_values` must be generated with exactly the same `model` object, `y_col`, and `pred_type`, even in the case of surrogate p-values. Surrogate distributions are checked against their original model and prediction settings. Setting `FALSE` disables all these compatibility checks. Only disable this option if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.
 #' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
-#' @param aled_fun character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. `"mad"` is the mean absolute deviation; `"sd"` is the standard deviation. The default `NULL` will normally use `"mad"` except if an `ALEpDist` object is provided for `p_values`; in that case, the `aled_fun` is taken from the `ALEpDist` object.
+#' @param aled_fun character(1) in c("mad", "sd", "linear"), or NULL. Deviation function used to calculate ALE deviation. "mad" is the mean absolute deviation; "sd" is the standard deviation; "linear" is an experimental signed coefficient method. The default NULL normally uses "mad", except when an `ALEpDist` object is provided for `p_values`, in which case the method is taken from that object.
 #' @param max_num_bins list. Sets maximum numbers of numeric ALE intervals.
 #'   The default is `list(d1 = 1000L, d2 = 10L)`:
 #'   * `d1`: default maximum for 1D main effect variables.
@@ -349,11 +349,7 @@ ALE <- new_class(
       }
     }
 
-    validate(
-      aled_fun |> is_string(c('linear', 'mad', 'sd')),
-      # "linear" experimental option for ALEC is not documented for now
-      msg = '{.arg aled_fun} must be "mad", "sd", or NULL.'
-    )
+    aled_fun <- .validate_aled_fun(aled_fun)
 
     if (output_stats) {
       if (!is.null(p_values)) {

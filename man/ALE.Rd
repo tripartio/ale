@@ -65,7 +65,7 @@ ALE(
 
 \item{aler_alpha}{numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{aler_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{aler_alpha[1]}. For example, in the ALE plots, for the default \code{aler_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
-\item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
+\item{aled_fun}{character(1) in c("mad", "sd", "linear"), or NULL. Deviation function used to calculate ALE deviation. "mad" is the mean absolute deviation; "sd" is the standard deviation; "linear" is an experimental signed coefficient method. The default NULL normally uses "mad", except when an \code{ALEpDist} object is provided for \code{p_values}, in which case the method is taken from that object.}
 
 \item{max_num_bins}{list. Sets maximum numbers of numeric ALE intervals.
 The default is \code{list(d1 = 1000L, d2 = 10L)}:

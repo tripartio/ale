@@ -692,35 +692,7 @@ invert_probs <- function(
         })
 
       it.stats <- it.cat_effect$stats |>
-        map(\(it.stats_d) {
-          it.stats_d |>
-            split(it.stats_d$term) |>
-            map(\(it.term_stats) {
-              # Invert ALER min and max
-              it.replaced_aler <- bind_rows(
-                it.term_stats[it.term_stats$statistic == 'aler_min', ] |>
-                  mutate(statistic = 'aler_max'),
-                it.term_stats[it.term_stats$statistic == 'aler_max', ] |>
-                  mutate(statistic = 'aler_min'),
-                it.term_stats[it.term_stats$statistic == 'naler_min', ] |>
-                  mutate(statistic = 'naler_max'),
-                it.term_stats[it.term_stats$statistic == 'naler_max', ] |>
-                  mutate(statistic = 'naler_min'),
-              ) |>
-                # Flip signs of relevant columns
-                mutate(across(
-                  any_of(c(
-                    'estimate', 'conf.low', 'mean', 'median', 'conf.high'
-                  )),
-                  \(it.val) -it.val
-                ))
-
-              # Return modified stats
-              it.term_stats |>
-                rows_update(it.replaced_aler, by = 'statistic')
-            }) |>
-            bind_rows()
-        })
+        map(.invert_stats)
 
       it.boot_data <- it.cat_effect$boot_data |>
         map(\(it.boot_d) {
@@ -759,4 +731,234 @@ invert_probs <- function(
   ## Return ---------------
 
   return(ale_obj)
+}
+
+#' Add or recalculate statistics and p-values on an ALE object
+#'
+#' `append_stats()` calculates statistics for every stored term and outcome category without recalculating ALE. `append_p()` adds or replaces p-values for statistics already present. Both return an updated object; assign the result to retain it.
+#'
+#' @param obj `ALE` object. The existing ALE data to augment.
+#' @param ... Not used. Subsequent arguments must be named.
+#' @param p_values `ALEpDist` object or NULL. For `append_stats()`, omission inherits the distribution or NULL stored in `obj`; explicit NULL returns statistics without p-values and removes obsolete ALER bands. For `append_p()`, a distribution is required and NULL is not accepted. Create distributions separately with [ALEpDist()]; neither function accepts "auto" or generates a distribution.
+#' @param y_vals numeric vector or numeric matrix, or NULL. Complete normalization reference used by the original [ALE()] call: observed outcomes for numeric or ordinal outcomes, or predicted values for binary or categorical outcomes. A matrix must have one named column per outcome category; a vector is accepted for a single category. These are the original reference values even if [invert_probs()] was subsequently applied. Omission uses saved reference values only when they contain all original rows; otherwise supply `y_vals`. Supplied values are used temporarily and are not saved in the returned object.
+#' @param aled_fun character(1). Recognized deviation method: "mad", "sd", or experimental "linear". Defaults to the method stored in `obj`; a supplied distribution must use the same method.
+#' @param boot_alpha numeric(1) from 0 to 1. Bootstrap significance threshold, giving interval coverage of `1 - boot_alpha`, inherited from `obj` unless overridden. Changing it also refreshes the ALE curve confidence limits from saved bootstrap data.
+#' @param boot_centre character(1). Either "mean" or "median", inherited from `obj` unless overridden. Changing it also refreshes the primary ALE curve estimates from saved bootstrap data.
+#' @param aler_alpha numeric(2) from 0 to 0.5. Increasing ALER significance thresholds, inherited from `obj` unless overridden. Used to refresh distribution-dependent ALER bands.
+#' @param require_p_model_match logical(1). Inherited from `obj`. If TRUE, check the supplied distribution against the stored model identity, outcome name, and prediction type. FALSE bypasses those identity checks; deviation method, category coverage, and inversion compatibility are still required.
+#' @inheritParams ALE
+#'
+#' @details
+#' Bootstrap statistics are calculated on each bootstrap curve before summarization. If `obj` was bootstrapped, `append_stats()` requires that it was created with `output_boot_data = TRUE`. Otherwise, recreate the ALE object with that option: statistics cannot be reconstructed from averaged curves or pointwise confidence limits. The [ALE()] default of not saving bootstrap data is unchanged. `append_p()` needs only existing statistics, so it does not require saved bootstrap curves or `y_vals`.
+#'
+#' Existing statistics or p-values are replaced without an interactive prompt. An informational message reports replacement unless `silent = TRUE`. Estimates and bootstrap confidence intervals are preserved by `append_p()`; ALER bands and attached distribution metadata are refreshed. New p-value columns are appended without rearranging existing columns.
+#'
+#' @returns An updated `ALE` object. Neither function modifies the caller's object in place. [ModelBoot()] objects are not supported.
+#' @seealso [ALE()], [ALEpDist()], [get-ALE-method]
+#' @export
+#'
+#' @examples
+#' fit <- stats::lm(mpg ~ wt + am, data = mtcars)
+#' effects <- ALE(fit, data = mtcars, output_stats = FALSE, p_values = NULL)
+#' effects <- append_stats(effects)
+#' get(effects, stats = 'estimate')
+#'
+#' # Retain bootstrap curves when statistics might be needed later.
+#' effects <- ALE(
+#'   fit, data = mtcars, boot_it = 2, output_boot_data = TRUE,
+#'   output_stats = FALSE, p_values = NULL, silent = TRUE
+#' )
+#' effects <- append_stats(effects, aled_fun = 'sd')
+#'
+#' # Distribution generation is separate and can be slow.
+#' if (interactive()) {
+#'   pd <- ALEpDist(fit, data = mtcars, aled_fun = 'sd')
+#'   effects <- append_p(effects, pd)
+#' }
+append_stats <- function(
+  obj, ...,
+  p_values = obj@params$p_values,
+  y_vals = NULL,
+  aled_fun = obj@params$aled_fun,
+  boot_alpha = obj@params$boot_alpha,
+  boot_centre = obj@params$boot_centre,
+  aler_alpha = obj@params$aler_alpha,
+  require_p_model_match = obj@params$require_p_model_match,
+  silent = FALSE
+) {
+  rlang::check_dots_empty()
+  validate(S7_inherits(obj, ALE), msg = '{.arg obj} must be an {.cls ALE} object.')
+  validate_silent(silent)
+  aled_fun <- .validate_aled_fun(aled_fun)
+  boot_centre <- rlang::arg_match(boot_centre, c('mean', 'median'))
+  validate(
+    is.numeric(boot_alpha) && length(boot_alpha) == 1L &&
+      is.finite(boot_alpha) && boot_alpha >= 0 && boot_alpha <= 1,
+    msg = '{.arg boot_alpha} must be a number between 0 and 1.'
+  )
+  .validate_aler_alpha(aler_alpha)
+  .validate_append_p(obj, p_values, aled_fun, require_p_model_match)
+  if (obj@params$boot_it > 0L && !isTRUE(obj@params$output_boot_data)) {
+    cli_abort(c(
+      'This ALE object was bootstrapped, but its individual bootstrap data was not saved.',
+      'i' = 'Statistics cannot be calculated afterward without recalculating ALE.',
+      'i' = 'Recreate the object with {.code output_boot_data = TRUE}.'
+    ))
+  }
+  y_vals <- .normalization_values(obj, y_vals)
+  norm_funs <- lapply(
+    obj@params$y_cats, function(nm.cat) {
+      create_ale_y_norm_function(y_vals[, nm.cat])
+    }
+  ) |>
+    set_names(obj@params$y_cats)
+
+  if (isTRUE(obj@params$output_stats) && !silent) {
+    cli_inform('Replacing existing ALE statistics and their p-values.')
+  }
+  inverted <- isTRUE(obj@params$probs_inverted)
+  refresh_curves <- obj@params$boot_it > 0L &&
+    (!identical(boot_alpha, obj@params$boot_alpha) ||
+      !identical(boot_centre, obj@params$boot_centre))
+  for (nm.cat in names(obj@effect)) {
+    it.effect <- obj@effect[[nm.cat]]
+    it.effect$stats <- imap(it.effect$ale, function(it.dimension, nm.d) {
+      if (length(it.dimension) == 0L) return(NULL)
+      it.stats <- imap(it.dimension, function(it.summary, nm.term) {
+        it.x <- attr(it.summary, 'x')
+        it.cols <- names(it.x)
+        it.types <- vapply(it.x, \(it.col) it.col$type, character(1))
+        it.constant <- any(vapply(it.x, \(it.col) it.col$n_bins == 1L,
+          logical(1)))
+        it.curves <- if (obj@params$boot_it > 0L) {
+          it.effect$boot_data[[nm.d]][[nm.term]]
+        } else {
+          it.data <- it.summary
+          names(it.data)[1:length(it.cols)] <- it.cols
+          it.data
+        }
+        # invert_probs() stores complemented curve values. Reconstruct the
+        # original orientation before normalization, then invert the statistics.
+        if (inverted) it.curves$.y <- 1 - it.curves$.y
+        .stats_from_curves(
+          it.curves, it.cols, it.types, norm_funs[[nm.cat]], aled_fun,
+          boot_alpha, boot_centre, constant = it.constant
+        )
+      }) |>
+        bind_rows()
+      if (inverted) it.stats <- .invert_stats(it.stats)
+      if (!is.null(p_values)) {
+        it.stats <- .p_values_stats(it.stats, p_values@rand_stats[[nm.cat]])
+      }
+      it.stats
+    })
+    if (refresh_curves) {
+      it.effect$ale <- imap(it.effect$ale, function(it.dimension, nm.d) {
+        imap(it.dimension, function(it.summary, nm.term) {
+          it.curves <- it.effect$boot_data[[nm.d]][[nm.term]]
+          if (inverted) it.curves$.y <- 1 - it.curves$.y
+          it.summary <- .resummarize_curve(
+            it.summary, it.curves, names(attr(it.summary, 'x')),
+            boot_alpha, boot_centre
+          )
+          if (inverted) {
+            it.summary <- mutate(it.summary, across(
+              starts_with('.y'), \(it.value) 1 - it.value
+            ))
+          }
+          it.summary
+        })
+      })
+    }
+    obj@effect[[nm.cat]] <- it.effect
+  } # End outcome-category iteration.
+
+  obj@params$output_stats <- TRUE
+  obj@params$aled_fun <- aled_fun
+  obj@params$boot_alpha <- boot_alpha
+  obj@params$boot_centre <- boot_centre
+  obj@params$aler_alpha <- aler_alpha
+  obj@params$require_p_model_match <- require_p_model_match
+  obj@params['p_values'] <- list(p_values)
+  obj@params$y_summary <- .update_aler_bands(
+    obj@params$y_summary, p_values, aler_alpha, obj@params$y_cats
+  )
+  return(obj)
+}
+
+#' @rdname append_stats
+#' @export
+append_p <- function(
+  obj, p_values, ...,
+  aler_alpha = obj@params$aler_alpha,
+  require_p_model_match = obj@params$require_p_model_match,
+  silent = FALSE
+) {
+  rlang::check_dots_empty()
+  validate(S7_inherits(obj, ALE), msg = '{.arg obj} must be an {.cls ALE} object.')
+  validate_silent(silent)
+  validate(
+    isTRUE(obj@params$output_stats),
+    msg = '{.arg obj} must already contain statistics; use {.fun append_stats} first.'
+  )
+  validate(
+    !missing(p_values) && !is.null(p_values),
+    msg = 'Supply a non-NULL {.cls ALEpDist} object as {.arg p_values}.'
+  )
+  .validate_aler_alpha(aler_alpha)
+  .validate_append_p(obj, p_values, obj@params$aled_fun, require_p_model_match)
+  if (!is.null(obj@params$p_values) && !silent) {
+    cli_inform('Replacing existing ALE p-values.')
+  }
+  obj@effect <- imap(obj@effect, function(it.effect, nm.cat) {
+    it.effect$stats <- map(it.effect$stats, function(it.stats) {
+      if (is.null(it.stats)) return(NULL)
+      .p_values_stats(it.stats, p_values@rand_stats[[nm.cat]])
+    })
+    it.effect
+  })
+  obj@params$p_values <- p_values
+  obj@params$aler_alpha <- aler_alpha
+  obj@params$require_p_model_match <- require_p_model_match
+  obj@params$y_summary <- .update_aler_bands(
+    obj@params$y_summary, p_values, aler_alpha, obj@params$y_cats
+  )
+  obj
+}
+
+#' Resolve and validate the complete public normalization reference
+#' @keywords internal
+#' @noRd
+.normalization_values <- function(obj, y_vals, call = rlang::caller_env()) {
+  if (is.null(y_vals)) {
+    y_vals <- obj@params$data$y_vals_sample
+    validate(
+      nrow(y_vals) == obj@params$data$nrow,
+      msg = 'The full outcome reference was not saved. Supply complete {.arg y_vals} to calculate normalized statistics; the stored sample is insufficient.',
+      call = call
+    )
+  }
+  validate(
+    is.numeric(y_vals) && (is.null(dim(y_vals)) || is.matrix(y_vals)) &&
+      all(is.finite(y_vals)),
+    msg = '{.arg y_vals} must be a finite numeric vector or matrix.',
+    call = call
+  )
+  if (is.null(dim(y_vals))) {
+    validate(
+      length(obj@params$y_cats) == 1L,
+      msg = 'Supply a named matrix of {.arg y_vals} for multiple outcome categories.',
+      call = call
+    )
+    y_vals <- matrix(y_vals, ncol = 1L,
+      dimnames = list(NULL, obj@params$y_cats))
+  }
+  validate(
+    nrow(y_vals) == obj@params$data$nrow &&
+      ncol(y_vals) == length(obj@params$y_cats) &&
+      setequal(colnames(y_vals), obj@params$y_cats),
+    msg = '{.arg y_vals} must have every original row and one column named for each outcome category.',
+    call = call
+  )
+  y_vals[, obj@params$y_cats, drop = FALSE]
 }

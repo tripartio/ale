@@ -264,6 +264,176 @@ calc_stats_2D <- function(
   ))
 }  # calc_stats_2D()
 
+#' Calculate and summarize statistics over the supplied ALE iterations
+#' @keywords internal
+#' @noRd
+.stats_from_curves <- function(
+  ale_data, x_cols, x_types, ale_y_norm_fun, aled_fun,
+  boot_alpha, boot_centre, constant = FALSE
+) {
+  # A non-bootstrapped curve is one iteration, with coincident confidence bounds.
+  if (!'.it' %in% names(ale_data)) ale_data$.it <- 0L
+  if (any(ale_data$.it > 0L)) {
+    # Saved bootstrap data may also include iteration zero, the full-data curve.
+    ale_data <- ale_data[ale_data$.it != 0L, ]
+  }
+  detailed <- split(ale_data, ale_data$.it) |>
+    map(function(btit.data) {
+      if (constant || length(x_cols) == 1L) {
+        calc_stats(
+          y = btit.data$.y, bin_n = btit.data$.n,
+          ale_y_norm_fun = ale_y_norm_fun,
+          x_type = if (constant) 'ordinal' else x_types[[1]],
+          aled_fun = aled_fun
+        )
+      } else {
+        calc_stats_2D(
+          ale_data = btit.data, x_cols = x_cols, x_types = x_types,
+          ale_y_norm_fun = ale_y_norm_fun, aled_fun = aled_fun
+        )
+      }
+    }) |>
+    bind_rows() |>
+    as.matrix()
+
+  # Summarize the statistics of each curve, rather than the summary curve.
+  summary <- tibble(
+    term = paste0(x_cols, collapse = ':'),
+    statistic = colnames(detailed),
+    estimate = if (boot_centre == 'mean') {
+      apply(detailed, 2, mean, na.rm = TRUE)
+    } else {
+      apply(detailed, 2, stats::median, na.rm = TRUE)
+    },
+    conf.low = apply(
+      detailed, 2, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+    ),
+    mean = apply(detailed, 2, mean, na.rm = TRUE),
+    median = apply(detailed, 2, stats::median, na.rm = TRUE),
+    conf.high = apply(
+      detailed, 2, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+    )
+  )
+  return(summary)
+}
+
+#' Add or replace p-values without rearranging existing columns
+#' @keywords internal
+#' @noRd
+.p_values_stats <- function(stats, p_dist_cat) {
+  stats$p.value <- map2_dbl(
+    stats$statistic, stats$estimate,
+    function(nm.stat, it.estimate) {
+      value_to_p(p_dist_cat, nm.stat, it.estimate)
+    }
+  )
+  stats
+}
+
+#' Refresh ALER bands using saved medians and a supplied distribution
+#' @keywords internal
+#' @noRd
+.update_aler_bands <- function(y_summary, p_dist, aler_alpha, y_cats) {
+  band_names <- c('aler_lo_lo', 'aler_lo', 'aler_hi', 'aler_hi_hi')
+  base <- y_summary[!rownames(y_summary) %in% band_names, , drop = FALSE]
+  if (is.null(p_dist)) return(base)
+
+  # Preserve the original outcome summaries, including for sampled objects.
+  # Both limits must hold jointly: convert the requested alpha to each tail's
+  # probability so that the two-limit confidence is 1 - aler_alpha.
+  joint_p <- 1 - sqrt(1 - aler_alpha)
+  bands <- matrix(
+    NA_real_, nrow = 4L, ncol = ncol(base),
+    dimnames = list(band_names, colnames(base))
+  )
+  for (nm.cat in y_cats) {
+    it.rand <- p_dist@rand_stats[[nm.cat]]
+    bands[, nm.cat] <- base['50%', nm.cat] + c(
+      p_to_random_value(it.rand, 'aler_min', joint_p),
+      p_to_random_value(it.rand, 'aler_max', rev(joint_p))
+    )
+  }
+  if (length(y_cats) > 1L) {
+    # The extra first column summarizes all outcome categories together.
+    bands[, 1] <- c(
+      apply(bands[1:2, y_cats, drop = FALSE], 1, min),
+      apply(bands[3:4, y_cats, drop = FALSE], 1, max)
+    )
+  }
+  median_row <- match('50%', rownames(base))
+  rbind(
+    base[1:(median_row - 1L), , drop = FALSE],
+    bands[1:2, , drop = FALSE],
+    base[median_row:(median_row + 1L), , drop = FALSE],
+    bands[3:4, , drop = FALSE],
+    base[(median_row + 2L):nrow(base), , drop = FALSE]
+  )
+}
+
+#' Refresh curve summaries when post hoc bootstrap settings change
+#' @keywords internal
+#' @noRd
+.resummarize_curve <- function(summary, curves, x_cols, boot_alpha, boot_centre) {
+  # Work in the original prediction orientation; callers restore inversion.
+  curves <- curves |>
+    summarize(
+      .by = all_of(x_cols),
+      .q = list(stats::quantile(
+        .data$.y, c(boot_alpha / 2, 0.5, 1 - boot_alpha / 2), na.rm = TRUE
+      )),
+      .y_mean = mean(.data$.y, na.rm = TRUE)
+    )
+  names(curves)[match(x_cols, names(curves))] <-
+    names(summary)[1:length(x_cols)]
+  # Match by coordinates, preserving summary row order and original attributes.
+  coordinates <- names(summary)[1:length(x_cols)]
+  for (nm.col in coordinates) {
+    if (is.ordered(summary[[nm.col]])) {
+      curves[[nm.col]] <- ordered(
+        curves[[nm.col]], levels = levels(summary[[nm.col]])
+      )
+    } else {
+      # Final Date bin boundaries are numeric; raw curves retain Date values.
+      curves[[nm.col]] <- as.numeric(curves[[nm.col]])
+    }
+  }
+  positions <- summary[coordinates] |>
+    left_join(mutate(curves, .row = row_number()), by = coordinates) |>
+    (`[[`)('.row')
+  curves <- curves[positions, ]
+  summary$.y_lo <- map_dbl(curves$.q, 1)
+  summary$.y_mean <- curves$.y_mean
+  summary$.y_median <- map_dbl(curves$.q, 2)
+  summary$.y_hi <- map_dbl(curves$.q, 3)
+  summary$.y <- summary[[paste0('.y_', boot_centre)]]
+  summary
+}
+
+#' Invert the range statistics using the same convention as invert_probs()
+#' @keywords internal
+#' @noRd
+.invert_stats <- function(stats) {
+  replacements <- stats |>
+    filter(.data$statistic %in% c(
+      'aler_min', 'aler_max', 'naler_min', 'naler_max'
+    )) |>
+    mutate(
+      statistic = recode_values(
+        .data$statistic,
+        'aler_min' ~ 'aler_max', 'aler_max' ~ 'aler_min',
+        'naler_min' ~ 'naler_max', 'naler_max' ~ 'naler_min'
+      ),
+      across(
+        any_of(c('estimate', 'conf.low', 'mean', 'median', 'conf.high')),
+        \(it.value) -it.value
+      )
+    )
+  inverted <- rows_update(stats, replacements, by = c('term', 'statistic'))
+  # Preserve invert_probs()'s established grouping and term order.
+  split(inverted, inverted$term) |>
+    bind_rows()
+}
+
 
 # Create a function that normalizes ALE y values
 create_ale_y_norm_function <- function(y_vals) {
@@ -320,16 +490,12 @@ create_ale_y_norm_function <- function(y_vals) {
 
 # Provide a vector of descriptive statistics
 var_summary <- function(
-    var_name,
-    var_vals,
-    ...,
-    p_dist = NULL,
-    aler_alpha = c(0.01, 0.05)
+  var_name,
+  var_vals,
+  ...,
+  p_dist = NULL,
+  aler_alpha = c(0.01, 0.05)
 ) {
-  if (!is.null(p_dist)) {
-    rand_stats <- p_dist@rand_stats
-  }
-
   # Convert vector to matrix
   if (!is.matrix(var_vals)) {
     var_vals <- as.matrix(var_vals, ncol = 1)  # nocov
@@ -337,7 +503,7 @@ var_summary <- function(
 
   s <-
     var_vals |>
-    apply(MARGIN = 2, \(it.col) {
+    apply(MARGIN = 2, function(it.col) {
       stats::quantile(
         it.col,
         probs = c(
@@ -348,53 +514,17 @@ var_summary <- function(
       )
     })
 
-  # Calculate the p-values necessary to obtain the desired joint probabilities.
-  # For example, if the aler_alpha is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The p_value for this joint probability is smaller than the untransformed p_value
-  joint_p <- 1 - sqrt(1 - aler_alpha)
+  s <- map(1:ncol(s), function(i.col) {
 
-  s <- map(1:ncol(s), \(it.col_idx) {
-
-    it.col <- s[, it.col_idx]
+    it.col <- s[, i.col]
 
     it.col <- c(
       # Retain first half of values
       it.col[1:match('40%', names(it.col))],
 
-      # Create lower confidence bounds just below the midpoint
-      aler_lo_lo = if (!is.null(p_dist)) {
-        (it.col[['50%']] +
-           p_to_random_value(rand_stats[[it.col_idx]], 'aler_min', joint_p[1])) |>
-          unname()
-      } else {
-        NULL
-      },
-      aler_lo = if (!is.null(p_dist)) {
-        (it.col[['50%']] +
-           p_to_random_value(rand_stats[[it.col_idx]], 'aler_min', joint_p[2])) |>
-          unname()
-      } else {
-        NULL
-      },
-
       it.col[match('50%', names(it.col))],
 
       mean = mean(var_vals, na.rm = TRUE),
-
-      # Create upper confidence bounds just above the midpoint
-      aler_hi = if (!is.null(p_dist)) {
-        (it.col[['50%']] +
-           p_to_random_value(rand_stats[[it.col_idx]], 'aler_max', joint_p[2])) |>
-          unname()
-      } else {
-        NULL
-      },
-      aler_hi_hi = if (!is.null(p_dist)) {
-        (it.col[['50%']] +
-           p_to_random_value(rand_stats[[it.col_idx]], 'aler_max', joint_p[1])) |>
-          unname()
-      } else {
-        NULL
-      },
 
       # Retain latter half of values
       it.col[match('60%', names(it.col)):length(it.col)]
@@ -406,8 +536,7 @@ var_summary <- function(
     if (min(var_vals) >= 0 && max(var_vals) <= 1) {  # var is a probability
       it.col <- c(min = 0, it.col)
       it.col <- c(it.col, max = 1)
-    }
-    else {
+    } else {
       it.col <- c(min = it.col[['1%']], it.col)
       it.col <- c(it.col, max = it.col[['99%']])
     }   # as of now, no treatment and no error for non-numeric y
@@ -426,13 +555,6 @@ var_summary <- function(
     var_s['50%']      <- median(s['50%', ])
     var_s['max']      <- max(s['max', ])
 
-    if (!is.null(p_dist)) {
-      var_s['aler_lo_lo'] <- min(s['aler_lo_lo', ])
-      var_s['aler_lo']   <- min(s['aler_lo', ])
-      var_s['aler_hi']   <- max(s['aler_hi', ])
-      var_s['aler_hi_hi'] <- max(s['aler_hi_hi', ])
-    }
-
     s <- cbind(
       var_s,
       s
@@ -442,7 +564,7 @@ var_summary <- function(
   # The first column should always be named for the var_name, whether it is the only column or not
   colnames(s)[1] <- var_name
 
-  return(s)
+  return(.update_aler_bands(s, p_dist, aler_alpha, colnames(var_vals)))
 }  # var_summary()
 
 

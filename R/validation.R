@@ -110,8 +110,14 @@ validate_max_num_bins <- function(
 
 # Check p-value distributions against their original inputs, including surrogates.
 validate_p_model_match <- function(p_values, model, y_col, pred_type) {
+  .validate_p_model_params(p_values, params_model(model), y_col, pred_type)
+}
+
+#' Check a distribution against stored model identity and prediction settings
+#' @keywords internal
+#' @noRd
+.validate_p_model_params <- function(p_values, pm, y_col, pred_type) {
   pp <- p_values@params
-  pm <- params_model(model)
   validate(
     isTRUE(all.equal(pm$class, pp$model$class)),
     identical(pm$hash, pp$model$hash),
@@ -129,6 +135,86 @@ validate_p_model_match <- function(p_values, model, y_col, pred_type) {
     msg = 'The {.arg p_values} distribution was generated with a different {.arg pred_type}: {.val {pp$pred_type}} rather than {.val {pred_type}}.'
   )
   invisible(TRUE)
+}
+
+#' Match recognized deviation methods at public input boundaries
+#' @keywords internal
+#' @noRd
+.validate_aled_fun <- function(aled_fun, call = rlang::caller_env()) {
+  tryCatch(
+    rlang::arg_match(
+      aled_fun, values = c('mad', 'sd', 'linear'), error_call = call
+    ),
+    error = function(it.error) {
+      cli_abort(
+        '{.arg aled_fun} must be "mad", "sd", "linear", or NULL where supported.',
+        call = call
+      )
+    }
+  )
+}
+
+#' Validate distribution inputs for post hoc ALE calculations
+#' @keywords internal
+#' @noRd
+.validate_append_p <- function(
+  obj, p_values, aled_fun, require_p_model_match,
+  call = rlang::caller_env()
+) {
+  validate(is_bool(require_p_model_match), call = call)
+  if (is.null(p_values)) return(invisible(TRUE))
+  validate(
+    S7_inherits(p_values, ALEpDist),
+    msg = '{.arg p_values} must be an {.cls ALEpDist} object or NULL; create distributions separately with {.fun ALEpDist}.',
+    call = call
+  )
+  validate(
+    identical(aled_fun, p_values@params$aled_fun),
+    msg = 'The {.arg p_values} distribution uses a different {.arg aled_fun}. Supply a compatible distribution or recalculate statistics with {.fun append_stats}.',
+    call = call
+  )
+  validate(
+    identical(isTRUE(obj@params$probs_inverted),
+      isTRUE(p_values@params$probs_inverted)),
+    msg = 'The ALE object and {.arg p_values} must have the same probability inversion state.',
+    call = call
+  )
+  validate(
+    all(names(obj@effect) %in% names(p_values@rand_stats)),
+    msg = 'The {.arg p_values} distribution must contain every outcome category in {.arg obj}.',
+    call = call
+  )
+  stats_names <- c(
+    'aled', 'aler_min', 'aler', 'aler_max',
+    'naled', 'naler_min', 'naler', 'naler_max'
+  )
+  for (nm.cat in names(obj@effect)) {
+    validate(
+      all(stats_names %in% names(p_values@rand_stats[[nm.cat]])),
+      msg = 'The {.arg p_values} distribution is missing statistics for {.val {nm.cat}}.',
+      call = call
+    )
+  }
+  if (require_p_model_match) {
+    .validate_p_model_params(
+      p_values, obj@params$model, obj@params$y_col, obj@params$pred_type
+    )
+  }
+  return(invisible(TRUE))
+}
+
+#' Validate ALER thresholds supplied to public functions
+#' @keywords internal
+#' @noRd
+.validate_aler_alpha <- function(aler_alpha, call = rlang::caller_env()) {
+  validate(
+    is.numeric(aler_alpha) && length(aler_alpha) == 2L &&
+      all(is.finite(aler_alpha)) &&
+      all(aler_alpha >= 0 & aler_alpha <= 0.5) &&
+      aler_alpha[1] <= aler_alpha[2],
+    msg = '{.arg aler_alpha} must be two increasing numbers between 0 and 0.5.',
+    call = call
+  )
 }
 
 
