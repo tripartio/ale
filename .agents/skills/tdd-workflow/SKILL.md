@@ -17,11 +17,11 @@ For bug fixes, reproduce the defect with the supplied MRE or a small determinist
 
 ## Reuse resources and limit runtime
 
-Inspect `tests/testthat/helper.R` and related test files before adding data, models, or helpers. Reuse `test_cars`, `test_gam`, `test_gam_binary`, `test_nn_categorical`, and suitable ALE objects or other existing fixtures. Tests must be independent of execution order, but may use shared helper resources. Do not repeatedly fit equivalent models or reconstruct equivalent data.
+Before coding, inspect `tests/testthat/helper.R` and related test files and inventory the expensive objects proposed tests would create. Identify existing fixtures that can replace that setup, starting with `test_cars`, `test_gam`, `test_gam_binary`, `test_nn_categorical`, and objects already constructed in relevant test blocks. Follow the fixture-reuse policy in `regression-tests`.
+
+Summarize the planned fixture reuse, any necessary setting changes, the expected constructor-call count compared with the baseline, and the distinct public outputs each assertion will verify before implementing the change. Verify that reused or adjusted fixtures actually exercise the intended cases. Tests must be independent of execution order, but may use shared helper resources.
 
 Keep each new individual test within the five-second limit in `AGENTS.md`, preferably much faster. Count attributable new fixture/setup work rather than moving expensive computation out of the test body to hide its cost. Simplify data and reuse suitable fixtures first; explain and obtain explicit permission before introducing a necessary slower test.
-
-Follow `regression-tests` for test organization, including dedicated input-validation tests. Place other tests beside related existing tests.
 
 New `test_that()` descriptions end with verified issue references, or `(#noissue)` when none applies. Never invent or copy illustrative issue numbers.
 
@@ -44,7 +44,7 @@ testthat::snapshot_review('Linux/ALE-numerical.md')
 testthat::snapshot_accept('Linux/ALE-numerical.md')
 ```
 
-Preserve the existing condition assertion conventions when focused condition tests are needed:
+For necessary maintenance of existing condition tests, preserve these assertion conventions:
 
 - Package errors, warnings, and messages from `.pkg_abort()`, `.pkg_warn()`, and `.pkg_inform()` use `stbl::expect_pkg_error_snapshot()`, `stbl::expect_pkg_warning_snapshot()`, and `stbl::expect_pkg_message_snapshot()` to check classes and user-facing text together.
 - Errors originating in `stbl` use `stbl::expect_pkg_error_classes()` because that package controls the message. Pass dash-separated class components separately; preserve underscores within a component.
@@ -69,7 +69,7 @@ R CMD check --as-cran ale_VERSION.tar.gz
 
 Keep build/check artifacts outside the source checkout when practical by building from an artifact directory with the checkout path as the build argument. Preserve inherited environment variables and CRAN-check overrides. Do not disable tests, examples, vignettes, or dependency checks merely to obtain a passing result. Any deliberately reduced diagnostic run must be reported as such, separately from the required full check.
 
-Follow `AGENTS.md` for error/warning diagnosis, remediation attempts, reruns, NOTES, and reporting. Identify missing tools or dependencies from actual command failures; report blockers rather than claiming verification succeeded. Do not run Air or lintr as part of these checks.
+Follow `AGENTS.md` for error/warning diagnosis, remediation attempts, reruns, NOTES, and reporting. Report which fixtures were reused, constructor-call counts compared with the baseline, the intended cases exercised without redundant setup, test results, and remaining limitations. Identify missing tools or dependencies from actual command failures; report blockers rather than claiming verification succeeded. Do not run Air or lintr as part of these checks.
 
 ## Useful testthat patterns
 

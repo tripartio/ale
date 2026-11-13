@@ -23,6 +23,8 @@ When adding a public documentation topic, include it in the existing `_pkgdown.y
 
 ## Parameters and returns
 
+Document every parameter and the return value of each new or substantively modified function, including internal helpers. Use `@param` or `@inheritParams` for parameters and `@returns` for the result; follow the separate S7 method convention below where applicable.
+
 Reuse `R/aaa-shared_params.R` and its `.shared-params` topic with `@inheritParams` for genuinely shared descriptions. Shared blocks use `@name .shared-params`, `@keywords internal`, and a terminal `NULL`; alphabetize shared parameters. Add a scoped shared group only when the parameters are specific to related functions.
 
 Put locally written `@param` definitions before `@inheritParams`; omit inheritance when all parameters are local. Use the compact declarations specified in `STYLE.md`, with appropriate length, range, and nullability. Do not copy parenthesized return notation into parameter declarations.
@@ -41,4 +43,4 @@ For S3 generics owned by this package, group methods with the generic using `@rd
 
 ## NEWS
 
-Add a bullet under the development heading for meaningful user-facing changes as required by `AGENTS.md`. Keep each entry on one physical line, in present tense with positive wording, ending in a period. Put affected function names in backticks with `()` near the start. Include verified issue/contributor references before the final period where applicable. Never invent an issue number or username; use `#noissue` if no tracked issue applies. Omit insignificant internal changes.
+Add a bullet under the development heading for meaningful user-facing changes as required by `AGENTS.md`. Keep each entry on one physical line, in present tense with positive wording, ending in a period. Put affected function names in backticks with `()` near the start. Include verified issue/contributor references before the final period where applicable. When no issue applies, use the draft PR number once available instead of `#noissue`; use `#noissue` only when neither reference exists. Never invent an issue number, PR number, or username. Omit insignificant internal changes.

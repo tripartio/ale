@@ -38,7 +38,7 @@ The shared definitions live in `.agents/skills/`, a native discovery location fo
 
 ## Development and verification
 
-1. Inspect the affected code and existing tests first, including `tests/testthat/helper.R`. Reuse suitable datasets, models, and ALE objects. For a bug, run the supplied MRE or construct a small deterministic reproduction using existing resources where possible.
+1. Inspect the affected code and existing tests first, including `tests/testthat/helper.R`. Before coding, plan fixture reuse and distinct output assertions using `tdd-workflow`. For a bug, run the supplied MRE or construct a small deterministic reproduction using existing resources where possible.
 2. Make focused changes following `STYLE.md`. When creating, modifying, or removing tests, follow `regression-tests` for testing policy and `tdd-workflow` for implementation and verification procedures. Test-first development is useful when it helps, but is not mandatory for every edit. Do not update all dependencies as a routine task step.
 3. Regenerate roxygen documentation when documentation or documented interfaces change, following the `document` skill. Never edit generated `man/*.Rd` or `NAMESPACE` by hand. Review source documentation rather than treating `.Rd` output as ordinary source review material, while verifying generation succeeds and corresponds to the source.
 4. Add a `NEWS.md` entry for meaningful user-facing functionality, fixes, behavior, or API changes; omit insignificant internal changes.

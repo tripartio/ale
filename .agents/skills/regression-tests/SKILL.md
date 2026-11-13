@@ -1,65 +1,38 @@
-
 ---
 name: regression-tests
-description: Use when deciding which ALE package regression tests to create, modify, retain, consolidate, or remove, including output-correctness tests, input-validation tests, and coverage reviews.
+description: Use when deciding which ALE package regression tests to create, modify, retain, consolidate, or remove, including output-correctness tests and coverage reviews.
 ---
 
 # Regression testing philosophy
 
+Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first. Follow [tdd-workflow](../tdd-workflow/SKILL.md) for fixture planning, test implementation, snapshots, execution, and package verification.
+
 ## Core principles
 
-1. Validate public inputs early using the existing validation infrastructure.
-2. Test observable public outputs, not internal implementation steps.
-3. Avoid direct internal-function tests except when necessary to protect critical numerical algorithms or invariants.
+1. Test final outputs of exported, user-facing functions with valid inputs and meaningful boundaries.
+2. Do not add tests for internal helpers or failure messages. Exercise internal calculations through public outputs.
+3. Minimize expectations while retaining thorough coverage. Keep each assertion only when it checks a distinct, useful behaviour.
 4. Maximize confidence per test, not the number of tests or percentage coverage.
 
 ## When to create tests
 
-- Strongly prefer validating legal inputs so that errors don't creep in rather than creating tests that check if a problem has surfaced.
-- Use the existing validation infrastrcuture
-- Add tests for new or changed public behaviour and confirmed bugs.
-- For bug fixes, prefer a regression test that fails before the fix.
-- Do not automatically add tests for internal refactoring.
-- Avoid redundant tests; strengthen existing tests where possible.
+- Add or strengthen tests for new or changed public behaviour and confirmed bugs. Verify correct public outputs; a test specifically designed to fail before the fix is not required.
+- Do not add regression tests for unrelated functionality merely because code was refactored. Run its relevant pre-existing tests to confirm that behaviour is preserved.
 - Every new test should protect a distinct, plausible failure.
-
-## When to create tests
-
-- Focus input validation and regression testing on exported, user-facing functions. Avoid validating or testing internal functions directly, except where necessary to protect critical numerical algorithms or invariants.
-- Prioritize preventing errors through early public-input validation rather than creating tests that merely detect downstream failures.
-- Use the existing validation infrastructure and conventions in `R/validation.R`. Reject invalid inputs before expensive computation whenever practicable.
-- For bug fixes, investigate whether missing input validation contributed to the problem. Strengthen validation where appropriate; if valid inputs cause incorrect results, correct the computation instead.
-- Add or strengthen tests that verify correct public outputs for valid inputs, including after bug fixes. Do not require regression tests specifically designed to fail before the fix.
-- Do not automatically add tests for internal refactoring.
-- Avoid redundant tests; strengthen or consolidate existing tests where possible.
-- Every new test should protect a distinct, plausible failure.
-
 
 ## Output-correctness tests
 
-- Test exported functions with valid inputs and meaningful boundaries.
 - Prefer independently known numerical answers, then mathematical properties, then snapshots.
 - Use snapshots for useful regression protection, not as sole evidence of numerical correctness.
 - Verify substantive numerical results, not merely successful execution or output structure.
-
-## Input-validation tests
-
-- Test invalid public inputs separately, using `test-validate-<function>.R` where appropriate.
-- Cover distinct validation rules and important boundaries without exhaustive repetition.
-- Verify the intended error or warning, not merely that a condition occurred.
-- Do not independently test internal-function input validation.
-- Keep other public failure-handling tests separate from ordinary output tests.
-
-## Internal functions and coverage
-
-- Exercise internal functionality primarily through public-interface tests.
-- Retain direct internal tests only when they offer substantially better protection for critical algorithms or invariants.
-- Prioritize coverage of important computational branches.
-- Do not require 100% coverage or add tests merely to increase coverage.
+- Prefer one comparison of the complete relevant public output over repeated field-by-field assertions. Do not separately assert fields or properties already checked by that comparison.
 
 ## Efficiency and maintenance
 
-- Reuse existing fixtures and models.
+- Reuse existing datasets, fitted models, `ALE`, `ModelBoot`, and `ALEpDist` objects whenever possible; they can be expensive to create.
+- Prefer extending an existing relevant test block, even when the file becomes longer, over creating separate tests that need new expensive objects.
+- When needed, adjust an existing fixture's settings to cover the intended behaviour. Keep constructor calls as close to the existing baseline as possible.
 - Follow the five-second test limit in `AGENTS.md`.
-- Before deleting tests, establish that their important behaviour remains protected.
-- Follow `tdd-workflow` for test implementation, snapshots, execution, and package verification.
+- Preserve existing tests unless changing them is necessary for the requested work. Before removing or consolidating assertions, establish that their distinct behaviour remains protected.
+- When maintaining existing input-validation or public failure-handling tests, keep them in their dedicated files and separate from ordinary output tests.
+- Prioritize important computational branches through public outputs. Do not require 100% coverage or add tests merely to increase coverage.
