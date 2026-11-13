@@ -937,97 +937,21 @@ calc_ale <- function(
   boot_stats_summary <- NULL
   # Only get stats if ale_y_norm_funs is provided
   if (!is.null(ale_y_norm_funs)) {
-    boot_stats_detailed <- boot_ale_tbl
-    if (boot_it > 0) {
-      # Delete the first row (full data, not a bootstrap iteration)
-      boot_stats_detailed <- boot_stats_detailed[boot_stats_detailed$.it != 0, ]
-    }
-
-    boot_stats_detailed <- boot_stats_detailed |>
-      split(boot_stats_detailed$.cat) |>
-      imap(\(it.cat_ale_data, it.cat_name) {
-        it.cat_ale_data |>
-          split(it.cat_ale_data$.it) |>
-          map(\(btit.cat_ale_data) {
-            if (length(constant_term) > 0L) {
-              # There are no numeric intervals to average for a constant term.
-              calc_stats(
-                y = btit.cat_ale_data$.y,
-                bin_n = btit.cat_ale_data$.n,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                x_type = 'ordinal',
-                aled_fun = aled_fun
-              )
-            }
-            else if (ixn_d == 1) {
-              calc_stats(
-                y = btit.cat_ale_data$.y,
-                bin_n = btit.cat_ale_data$.n,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                y_vals = NULL,
-                x_type = xd[[1]]$x_type,
-                aled_fun = aled_fun
-              )
-            }
-            else if (ixn_d == 2) {
-              calc_stats_2D(
-                ale_data = btit.cat_ale_data,
-                x_cols = x_cols,
-                x_types = x_types,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                y_vals = NULL,
-                aled_fun = aled_fun
-              )
-            }
-            else {
-              cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
-            }
-
-          }) |>
-          bind_rows()
+    boot_stats_summary <- split(boot_ale_tbl, boot_ale_tbl$.cat) |>
+      imap(function(it.data, nm.cat) {
+        stats_from_boot_its(
+          ale_data = it.data, x_cols = x_cols, x_types = x_types,
+          ale_y_norm_fun = ale_y_norm_funs[[nm.cat]], aled_fun = aled_fun,
+          boot_alpha = boot_alpha, boot_centre = boot_centre,
+          constant = length(constant_term) > 0L
+        )
       })
 
-    # Summarize stats across all bootstrap iterations
-    boot_stats_summary <- boot_stats_detailed |>
-      map(\(it.cat_boot_stats) {
-        it.cbs <- as.matrix(it.cat_boot_stats)
-
-        tibble(
-          statistic = colnames(it.cbs),
-          conf.low = apply(
-            it.cbs, 2, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
-          ),
-          mean = apply(it.cbs, 2, mean, na.rm = TRUE),
-          median = apply(it.cbs, 2, stats::median, na.rm = TRUE),
-          conf.high = apply(
-            it.cbs, 2, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
-          ),
-          estimate = if (boot_centre == 'mean') {
-            mean
-          } else if (boot_centre == 'median') {
-            median
-          },
-        )  |>
-          mutate(
-            term = paste0(x_cols, collapse = ':'),
-          ) |>
-          select('term', 'statistic', 'estimate', everything())
-      })
-
-    # If p_dist is provided, calculate p-values
     if (!is.null(p_dist)) {
       boot_stats_summary <- boot_stats_summary |>
-        imap(\(it.cat_stats, it.cat_name) {
-          it.cat_stats |>
-            mutate(
-              p.value = map2_dbl(
-                .data$estimate, .data$statistic,
-                \(it.stat, it.stat_name) {
-                  # Call the p_value function corresponding to the named statistic
-                  p_dist@rand_stats[[it.cat_name]] |>
-                    value_to_p(it.stat_name, it.stat)
-                })
-            ) |>
+        imap(function(it.stats, nm.cat) {
+          p_values_stats(it.stats, p_dist@rand_stats[[nm.cat]]) |>
+            # Preserve the established constructor output layout.
             select('statistic', 'estimate', 'p.value', everything())
         })
     }

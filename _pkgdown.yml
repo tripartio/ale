@@ -29,6 +29,7 @@ reference:
   - get-ALE-method
   - plot-ALE-method
   - invert_probs
+  - append_stats
 
 - title: Advanced visualization
   desc: Generate ALEPlots S7 objects, manipulate them, and plot ALE.
@@ -47,6 +48,7 @@ reference:
 
 - contents:
   - ALEpDist
+  - append_p
 
 - title: Full-model bootstrapping
   desc: Bootstrap a full model with a ModelBoot S7 object, with ALE and other calculations.

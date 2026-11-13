@@ -349,11 +349,7 @@ ALE <- new_class(
       }
     }
 
-    validate(
-      aled_fun |> is_string(c('linear', 'mad', 'sd')),
-      # "linear" experimental option for ALEC is not documented for now
-      msg = '{.arg aled_fun} must be "mad", "sd", or NULL.'
-    )
+    aled_fun <- validate_aled_fun(aled_fun)
 
     if (output_stats) {
       if (!is.null(p_values)) {

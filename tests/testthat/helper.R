@@ -36,6 +36,21 @@ expect_snap_variant <- function(x, ...) {
 }
 
 
+# Compare ALE outputs without imposing an order on statistic columns. All
+# values, attributes, other output components, and saved parameters are retained.
+#' @param ale_obj `ALE` object. Public result whose outputs will be compared.
+ALE_output <- function(ale_obj) {
+  output <- S7::props(ale_obj)
+  output$effect <- purrr::map(output$effect, function(it.effect) {
+    it.effect$stats <- purrr::map(it.effect$stats, function(it.stats) {
+      if (!is.data.frame(it.stats)) return(it.stats)
+      it.stats[sort(names(it.stats))]
+    })
+    it.effect
+  })
+  output
+}
+
 # Check statistic order using existing test objects ------------
 expect_requested_stats_order <- function(object, ...) {
   expected_tables <- function(result, reference, stats) {

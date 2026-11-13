@@ -12,6 +12,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 ## New features
 
+* `append_stats()` adds or recalculates statistics on existing `ALE` objects, using saved bootstrap data and a complete outcome reference when needed; `append_p()` adds or replaces p-values on `ALE` objects or `ModelBoot` objects with retained bootstrap data, using an explicitly supplied `ALEpDist` distribution and refreshing ALER bands (#53).
 * `summary()` methods have been implemented for `ALE` and `ModelBoot` objects. They print a summary of ALE statistics to the console. When there are no ALE statistics available, they print a message saying so.
 * With the `show_2d_bin_sizes` logical argument `ALEPlots()`, the 2D ALE plots display of hollow bin-size squares and a % data legend is now optional. (#44)
 * With the `aled_fun` argument of the `ALE()` and `ALEpDist()` constructors, we may optionally choose to calculate ALE deviation based on standard deviations instead of the default mean absolute deviation.

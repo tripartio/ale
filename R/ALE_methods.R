@@ -692,35 +692,7 @@ invert_probs <- function(
         })
 
       it.stats <- it.cat_effect$stats |>
-        map(\(it.stats_d) {
-          it.stats_d |>
-            split(it.stats_d$term) |>
-            map(\(it.term_stats) {
-              # Invert ALER min and max
-              it.replaced_aler <- bind_rows(
-                it.term_stats[it.term_stats$statistic == 'aler_min', ] |>
-                  mutate(statistic = 'aler_max'),
-                it.term_stats[it.term_stats$statistic == 'aler_max', ] |>
-                  mutate(statistic = 'aler_min'),
-                it.term_stats[it.term_stats$statistic == 'naler_min', ] |>
-                  mutate(statistic = 'naler_max'),
-                it.term_stats[it.term_stats$statistic == 'naler_max', ] |>
-                  mutate(statistic = 'naler_min'),
-              ) |>
-                # Flip signs of relevant columns
-                mutate(across(
-                  any_of(c(
-                    'estimate', 'conf.low', 'mean', 'median', 'conf.high'
-                  )),
-                  \(it.val) -it.val
-                ))
-
-              # Return modified stats
-              it.term_stats |>
-                rows_update(it.replaced_aler, by = 'statistic')
-            }) |>
-            bind_rows()
-        })
+        map(invert_stats)
 
       it.boot_data <- it.cat_effect$boot_data |>
         map(\(it.boot_d) {

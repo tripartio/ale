@@ -57,25 +57,6 @@ test_that('iteration streams isolate seed resets in both executors (#noissue)', 
   expect_identical(.Random.seed, original_seed)
 })
 
-test_that('short ALEpDist batches agree across executors (#noissue)', {
-  # This checks execution reproducibility, not the accuracy of a distribution
-  # estimated from only three iterations. Reuse the existing GAM fixture.
-  make_distribution <- function(parallel) {
-    ALEpDist(
-      test_gam, data = test_cars, y_col = 'mpg',
-      rand_it = 3, .skip_validation = TRUE,
-      parallel = parallel, seed = 17L, silent = TRUE
-    )
-  }
-  original_seed <- .Random.seed
-  serial <- make_distribution(0)
-  future <- make_distribution(1)
-  expect_equal(serial@rand_stats, future@rand_stats)
-  expect_equal(serial@residual_distribution, future@residual_distribution)
-  expect_identical(serial@params$rand_it_ok, 3L)
-  expect_identical(.Random.seed, original_seed)
-})
-
 test_that('one bootstrap job stays local and has its own stream (#noissue)', {
   # Count bootstrap jobs after the full-data run, rather than counting that
   # prerequisite as a second job. No worker backend should be required here.

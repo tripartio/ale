@@ -42,8 +42,14 @@ test_that('2D bin sizes can be hidden in individual and faceted category plots',
     pred_type = 'probs',
     boot_it = 0,
     p_values = NULL,
+    sample_size = 25,
     silent = TRUE
   )
+
+  # Reuse the constructor's normalized statistics as the reference when only a
+  # sample was saved. Supplied category predictions must not be retained (#53).
+  reference <- predict(test_nn_categorical, test_cars, type = 'probs')
+  expect_equal(append_stats(cat_ale, y_vals = reference, silent = TRUE), cat_ale)
 
   shown <- ALEPlots(cat_ale)
   hidden <- ALEPlots(cat_ale, show_2d_bin_sizes = FALSE)

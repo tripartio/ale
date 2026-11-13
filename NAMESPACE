@@ -4,6 +4,8 @@ export(ALE)
 export(ALEPlots)
 export(ALEpDist)
 export(ModelBoot)
+export(append_p)
+export(append_stats)
 export(customize)
 export(get)
 export(invert_probs)
@@ -37,8 +39,8 @@ importFrom(purrr,
   walk
 )
 importFrom(rlang,
-  "%||%",
-  ":=",
+  '%||%',
+  ':=',
   .data,
   is_bool,
   is_string,

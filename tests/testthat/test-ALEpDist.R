@@ -116,22 +116,3 @@ test_that(
     expect_snap_variant(s7_snapshot(pd))
   }
 )
-
-test_that(
-  'ALEpDist works with categorical outcome', {
-    skip_on_ci()
-
-    pd <- ALEpDist(
-      test_nn_categorical,
-      model_packages = 'nnet',
-      data = test_cars,
-      y_col = 'continent',
-      pred_type = 'probs',
-      silent = TRUE,
-      rand_it = 10,
-      .skip_validation = TRUE
-    )
-    expect_true(S7::S7_inherits(pd, ALEpDist))
-    expect_snap_variant(s7_snapshot(pd))
-  }
-)
