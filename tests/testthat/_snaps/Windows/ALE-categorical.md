@@ -66560,3 +66560,109 @@
       [4] "21  2D terms: mpg:vs, mpg:am, mpg:model, mpg:gear, mpg:carb, mpg:wt, vs:am, vs:model, vs:gear, vs:carb, vs:wt, am:model, am:gear, am:carb, am:wt, model:gear, model:carb, model:wt, ..., gear:wt, and carb:wt"
       [5] "The results were bootstrapped with 2 iterations."                                                                                                                                                             
 
+---
+
+    Code
+      {
+        x
+      }
+    Output
+      $rand_stats
+      $rand_stats$Asia
+      # A tibble: 10 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      
+      $rand_stats$Europe
+      # A tibble: 10 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      
+      $rand_stats$`North America`
+      # A tibble: 10 x 8
+          aled aler_min  aler aler_max naled naler_min naler naler_max
+         <dbl>    <dbl> <dbl>    <dbl> <dbl>     <dbl> <dbl>     <dbl>
+       1     0        0     0        0     0         0     0         0
+       2     0        0     0        0     0         0     0         0
+       3     0        0     0        0     0         0     0         0
+       4     0        0     0        0     0         0     0         0
+       5     0        0     0        0     0         0     0         0
+       6     0        0     0        0     0         0     0         0
+       7     0        0     0        0     0         0     0         0
+       8     0        0     0        0     0         0     0         0
+       9     0        0     0        0     0         0     0         0
+      10     0        0     0        0     0         0     0         0
+      
+      
+      $residual_distribution
+      Maximum likelihood estimates for the Laplace model 
+         mu  sigma  
+          0      0  
+      
+      $residuals
+      NULL
+      
+      $params
+      $params$model
+      $params$model$class
+      [1] "multinom" "nnet"    
+      
+      
+      $params$y_col
+      [1] "continent"
+      
+      $params$rand_it
+      [1] 10
+      
+      $params$parallel
+      [1] 0
+      
+      $params$model_packages
+      [1] "nnet"
+      
+      $params$random_model_call_string
+      NULL
+      
+      $params$random_model_call_string_vars
+      character(0)
+      
+      $params$positive
+      [1] TRUE
+      
+      $params$pred_type
+      [1] "probs"
+      
+      $params$aled_fun
+      [1] "mad"
+      
+      $params$seed
+      [1] 0
+      
+      $params$rand_it_ok
+      [1] 10
+      
+      $params$exactness
+      [1] "invalid"
+      
+      
+

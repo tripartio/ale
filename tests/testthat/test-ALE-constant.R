@@ -28,9 +28,11 @@ test_that('constant 1D effects, statistics, and bootstrap values are zero', {
   for (boot_it in c(0, 2)) {
     result <- expect_constant_warning(ALE(
       test_gam, data = constant_cars, x_cols = ~ wt,
-      boot_it = boot_it, output_boot_data = TRUE, p_values = NULL,
-      silent = TRUE
+      boot_it = boot_it, output_boot_data = TRUE, output_stats = FALSE,
+      p_values = NULL, silent = TRUE
     ), 'wt')
+    # Reuse the known zero outputs to verify appended statistics (#53).
+    result <- append_stats(result)
     effect <- result@effect$mpg
     summary <- effect$ale$d1$wt
     expect_zero_ale(summary)
@@ -90,8 +92,9 @@ test_that('both interaction components can be constant for categorical outcomes'
   result <- expect_constant_warning(ALE(
     test_nn_categorical, data = constant_cars, x_cols = ~ carb:wt,
     pred_type = 'probs', boot_it = 2, output_boot_data = TRUE,
-    p_values = NULL, silent = TRUE
+    output_stats = FALSE, p_values = NULL, silent = TRUE
   ), c('carb', 'wt'))
+  result <- append_stats(result)
   for (effect in result@effect) {
     summary <- effect$ale$d2[['carb:wt']]
     expect_equal(nrow(summary), 1L)

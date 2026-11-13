@@ -909,7 +909,10 @@ append_stats <- function(
   for (nm.cat in ale_obj@params$y_cats) {
     it.effect <- ale_obj@effect[[nm.cat]]
     it.effect$stats <- imap(it.effect$ale, function(it.dimension, nm.d) {
-      if (length(it.dimension) == 0L) return(NULL)
+      # Unrequested dimensions can contain a NULL placeholder in stored ALE data.
+      if (length(ale_obj@params$requested_x_cols[[nm.d]]) == 0L) {
+        return(it.dimension)
+      }
       it.stats <- imap(it.dimension, function(it.summary, nm.term) {
         it.x <- attr(it.summary, 'x')
         it.cols <- names(it.x)
@@ -1030,7 +1033,7 @@ update_ALE_p <- function(
   for (nm.cat in ale_obj@params$y_cats) {
     ale_obj@effect[[nm.cat]]$stats <-
       map(ale_obj@effect[[nm.cat]]$stats, function(it.stats) {
-        if (is.null(it.stats)) return(NULL)
+        if (!is.data.frame(it.stats)) return(it.stats)
         p_values_stats(it.stats, p_values@rand_stats[[nm.cat]])
       })
   } # End outcome-category iteration.

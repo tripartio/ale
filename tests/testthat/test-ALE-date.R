@@ -11,13 +11,17 @@ test_that('Date bin counts match numeric bin counts with and without bootstrappi
     numeric_ale <- ALE(
       test_gam, data = test_cars, x_cols = ~ carb + carb:wt,
       boot_it = boot_it, p_values = NULL, output_boot_data = TRUE,
-      silent = TRUE
+      boot_alpha = 0.2, boot_centre = 'median', silent = TRUE
     )
     expect_no_warning(date_ale <- ALE(
       test_gam, data = date_cars, x_cols = ~ carb + carb:wt,
       pred_fun = date_predict, boot_it = boot_it, p_values = NULL,
-      output_boot_data = TRUE, silent = TRUE
+      output_boot_data = TRUE, output_stats = FALSE,
+      boot_alpha = 0.2, boot_centre = 'median', silent = TRUE
     ))
+    # Existing numeric comparisons also verify late statistics and inherited
+    # bootstrap settings for Date main effects and interactions (#53).
+    date_ale <- append_stats(date_ale)
 
     for (dimension in c('d1', 'd2')) {
       numeric_effect <- numeric_ale@effect$mpg

@@ -349,7 +349,6 @@ ALE <- new_class(
       }
     }
 
-    # "linear" experimental option for ALEC is not documented for now
     aled_fun <- validate_aled_fun(aled_fun)
 
     if (output_stats) {

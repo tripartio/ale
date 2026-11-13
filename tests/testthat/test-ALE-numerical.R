@@ -78,11 +78,16 @@ test_that(
 
     serial_ale <- ALE(
       test_gam, x_cols = ~ model + carb + am:wt,
-      parallel = 0, data = test_cars,
-      p_values = pll_ale@params$p_values,
+      parallel = 0, model_packages = 'mgcv', data = test_cars,
+      p_values = NULL,
       boot_it = 2, silent = TRUE
     )
-    expect_equal(pll_ale@effect, serial_ale@effect)
+    # Reuse the parallel constructor as an independent reference for late
+    # p-values, including ALER bands, intervals, and unsaved bootstrap data (#53).
+    serial_ale <- append_p(serial_ale, pll_ale@params$p_values)
+    expected <- ALE_output(pll_ale)
+    expected$params$parallel <- 0
+    expect_equal(ALE_output(serial_ale), expected)
 
     # Test the print ALE() method
     print(pll_ale) |>
