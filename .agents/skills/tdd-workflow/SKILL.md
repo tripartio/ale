@@ -46,8 +46,6 @@ testthat::snapshot_accept('Linux/ALE-numerical.md')
 
 For necessary maintenance of existing condition tests, preserve these assertion conventions:
 
-- Package errors, warnings, and messages from `.pkg_abort()`, `.pkg_warn()`, and `.pkg_inform()` use `stbl::expect_pkg_error_snapshot()`, `stbl::expect_pkg_warning_snapshot()`, and `stbl::expect_pkg_message_snapshot()` to check classes and user-facing text together.
-- Errors originating in `stbl` use `stbl::expect_pkg_error_classes()` because that package controls the message. Pass dash-separated class components separately; preserve underscores within a component.
 - Other packages' conditions can use `expect_error()`, `expect_warning()`, or `expect_message()` with useful class/message checks. Avoid unnecessary snapshots of third-party messages.
 
 ## Run tests and the full check

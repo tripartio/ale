@@ -62,7 +62,7 @@ ale_terminal_return_linter <- function(min_lines = 50L) {
       if (
         it.span >= min_lines &&
           !it.tail_call %in%
-            c('return', 'stop', 'cli_abort', 'abort', '.pkg_abort')
+            c('return', 'stop', 'cli_abort', 'abort')
       ) {
         lintr::xml_nodes_to_lints(
           it.tail,

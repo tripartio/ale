@@ -16,7 +16,10 @@ Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first. Fo
 
 ## When to create tests
 
-- Add or strengthen tests for new or changed public behaviour and confirmed bugs. Verify correct public outputs; a test specifically designed to fail before the fix is not required.
+- Prioritize preventing errors through early validation of inputs for public exported functions. Use the existing validation infrastructure and conventions in `R/validation.R`. Reject invalid inputs before expensive computation whenever practicable.
+- For bug fixes, investigate whether missing input validation contributed to the problem. Strengthen validation where appropriate; if valid inputs cause incorrect results, correct the computation instead.
+- Add or strengthen tests for new or changed public behaviour and confirmed bugs. Verify correct final public outputs using valid inputs and meaningful boundaries.
+- For bug fixes, prefer a public-output regression test that fails before the fix and passes afterward when practical. This preference does not require test-first development or a test specifically designed to fail before the fix.
 - Do not add regression tests for unrelated functionality merely because code was refactored. Run its relevant pre-existing tests to confirm that behaviour is preserved.
 - Every new test should protect a distinct, plausible failure.
 
