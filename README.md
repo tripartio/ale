@@ -19,7 +19,7 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" alt="ale package logo" align="right" height="138" /></a>
+<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" alt="ale package logo" align="right" width="138" /></a>
 
 <!-- badges: start -->
 
