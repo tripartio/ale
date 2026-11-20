@@ -8,7 +8,7 @@ vignette](https://tripartio.github.io/ale/articles/ale-intro.md "Introduction to
 that explains general functionality of the package; this vignette goes
 beyond those details to discuss issues unique to small datasets.
 
-### 0.1 What is a “small” dataset?
+## 1 What is a “small” dataset?
 
 An obvious question is, “How small is ‘small’?” This is a very complex
 question and it is way beyond the scope of this vignette to try to
@@ -44,7 +44,7 @@ library(ale)
 #>     get
 ```
 
-### 0.2 attitude dataset
+## 2 attitude dataset
 
 For this analysis, we use the `attitude` dataset, built-in with R: “From
 a survey of the clerical employees of a large financial organization,
@@ -55,7 +55,7 @@ in each department. Since we’re talking about “small” datasets, we
 figure that we might as well demonstrate principles with extremely small
 examples.
 
-#### 0.2.1 Format
+### 2.1 Format
 
 A data frame with 30 observations on 7 variables. The first column are
 the short names from the reference, the second one the variable names in
@@ -71,7 +71,7 @@ the data frame:
 | X\[5\] | critical   | numeric | Too critical                      |
 | X\[6\] | advance    | numeric | Advancement                       |
 
-#### 0.2.2 Source
+### 2.2 Source
 
 Chatterjee, S. and Price, B. (1977) *Regression Analysis by Example*.
 New York: Wiley. (Section 3.7, p.68ff of 2nd ed.(1991).)
@@ -115,7 +115,7 @@ This is a small-scale demonstration mainly to demonstrate that
 even small datasets, not just the large datasets typically used for
 machine learning.
 
-### 0.3 ALE for ordinary least squares regression (multiple linear regression)
+## 3 ALE for ordinary least squares regression (multiple linear regression)
 
 Ordinary least squares (OLS) regression is the most generic multivariate
 statistical technique. Thus, we use it as a baseline illustration to
@@ -206,7 +206,7 @@ have relatively little effect on ratings. We will see shortly that
 proper bootstrapping of the model can shed some light on the
 discrepancies.
 
-### 0.4 Full model bootstrapping
+## 4 Full model bootstrapping
 
 We have referred frequently to the importance of bootstrapping. None of
 our model results, with or without ALE, should be considered reliable
@@ -351,7 +351,7 @@ Although this is a basic demonstration, it readily shows how crucial
 proper bootstrapping is to make meaningful inferences from data
 analysis.
 
-### 0.5 ALE for generalized additive models (GAM)
+## 5 ALE for generalized additive models (GAM)
 
 A major limitation of OLS regression is that it models all relationships
 between the x variables and y as straight lines. But it is unlikely that
@@ -514,7 +514,7 @@ No doubt, the inconclusive results are because the dataset is so small
 (only 30 rows). A dataset even double that size might show significant
 effects at least for complaints, if not for other variables.
 
-## 1 `model_call_string` argument for models not automatically detected
+## 6 `model_call_string` argument for models not automatically detected
 
 The
 [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)

@@ -68,9 +68,9 @@
 
 
     <p>This vignette demonstrates using the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package on small datasets, as is often the case with statistical inference. You should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that explains general functionality of the package; this vignette goes beyond those details to discuss issues unique to small datasets.</p>
-<section class="section level3" data-number="0.1"><h3 data-number="0.1" id="what-is-a-small-dataset">
-<span class="header-section-number">0.1</span> What is a “small” dataset?<a class="anchor" aria-label="anchor" href="#what-is-a-small-dataset"></a>
-</h3>
+<section class="level2" data-number="1"><h2 data-number="1" id="what-is-a-small-dataset">
+<span class="header-section-number">1</span> What is a “small” dataset?<a class="anchor" aria-label="anchor" href="#what-is-a-small-dataset"></a>
+</h2>
 <p>An obvious question is, “How small is ‘small’?” This is a very complex question and it is way beyond the scope of this vignette to try to answer it rigorously. But we can simply say that the key issue at stake is that applying the training-test split that is common in machine learning is a crucial technique for increasing the generalizability of data analysis. So, the question becomes focused to, “How small is too small for a training-test split for machine learning analysis?” The rule of thumb I am familiar with is that machine learning requires at least 200 rows of data for each predictor variable. So, for example, if you have five input variables, you would need at least 1000 rows of data. But note that this does not refer to the size of the entire dataset but to the minimum size of the training subset. So, if you carry out an 80-20 split on the full dataset (that is, 80% training set), then you would need at least 1000 rows for the training set and another 250 rows for the test set, for a minimum of 1250 rows. (And if you carry out hyperparameter tuning with cross validation on that training set, then you need even more data.) If you see where this is headed, you might quickly realize <strong>that most datasets of less than 2000 rows are probably “small”</strong>. You can see that even many datasets that are more than 2000 rows are nonetheless “small”, and so probably need the techniques mentioned in this vignette.</p>
 <p>We begin by loading the necessary libraries.</p>
 <div class="cell" data-messages="false">
@@ -82,13 +82,13 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     get</span></span></code></pre></div>
 </div>
-</section><section class="section level3" data-number="0.2"><h3 data-number="0.2" id="attitude-dataset">
-<span class="header-section-number">0.2</span> attitude dataset<a class="anchor" aria-label="anchor" href="#attitude-dataset"></a>
-</h3>
+</section><section class="level2" data-number="2"><h2 data-number="2" id="attitude-dataset">
+<span class="header-section-number">2</span> attitude dataset<a class="anchor" aria-label="anchor" href="#attitude-dataset"></a>
+</h2>
 <p>For this analysis, we use the <code>attitude</code> dataset, built-in with R: “From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments.” The numbers give the percent proportion of favourable responses to seven questions in each department. Since we’re talking about “small” datasets, we figure that we might as well demonstrate principles with extremely small examples.</p>
-<section class="level3" data-number="0.2.1"><h4 data-number="0.2.1" id="format">
-<span class="header-section-number">0.2.1</span> Format<a class="anchor" aria-label="anchor" href="#format"></a>
-</h4>
+<section class="level3" data-number="2.1"><h3 data-number="2.1" id="format">
+<span class="header-section-number">2.1</span> Format<a class="anchor" aria-label="anchor" href="#format"></a>
+</h3>
 <p>A data frame with 30 observations on 7 variables. The first column are the short names from the reference, the second one the variable names in the data frame:</p>
 <table class="table caption-top">
 <thead><tr class="header">
@@ -141,9 +141,9 @@
 <td>Advancement</td>
 </tr>
 </tbody>
-</table></section><section class="level3" data-number="0.2.2"><h4 data-number="0.2.2" id="source">
-<span class="header-section-number">0.2.2</span> Source<a class="anchor" aria-label="anchor" href="#source"></a>
-</h4>
+</table></section><section class="level3" data-number="2.2"><h3 data-number="2.2" id="source">
+<span class="header-section-number">2.2</span> Source<a class="anchor" aria-label="anchor" href="#source"></a>
+</h3>
 <p>Chatterjee, S. and Price, B. (1977) <em>Regression Analysis by Example</em>. New York: Wiley. (Section 3.7, p.68ff of 2nd ed.(1991).)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
@@ -176,9 +176,9 @@
 <span><span class="co">#&gt;  Max.   :92.00   Max.   :72.00</span></span></code></pre></div>
 </div>
 <p>We first run ALE analysis on this dataset as if it were a valid regular dataset, even though it is too small for a proper training-test split. This is a small-scale demonstration mainly to demonstrate that <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is valid for analyzing even small datasets, not just the large datasets typically used for machine learning.</p>
-</section></section><section class="section level3" data-number="0.3"><h3 data-number="0.3" id="ale-for-ordinary-least-squares-regression-multiple-linear-regression">
-<span class="header-section-number">0.3</span> ALE for ordinary least squares regression (multiple linear regression)<a class="anchor" aria-label="anchor" href="#ale-for-ordinary-least-squares-regression-multiple-linear-regression"></a>
-</h3>
+</section></section><section class="level2" data-number="3"><h2 data-number="3" id="ale-for-ordinary-least-squares-regression-multiple-linear-regression">
+<span class="header-section-number">3</span> ALE for ordinary least squares regression (multiple linear regression)<a class="anchor" aria-label="anchor" href="#ale-for-ordinary-least-squares-regression-multiple-linear-regression"></a>
+</h2>
 <p>Ordinary least squares (OLS) regression is the most generic multivariate statistical technique. Thus, we use it as a baseline illustration to help motivate the value of ALE for interpreting the analysis of small data samples.</p>
 <p>We train an OLS model to predict average rating:</p>
 <div class="cell">
@@ -249,9 +249,9 @@
 </div>
 </div>
 <p>This visualization confirms what we see in the model coefficients above: complaints have a strong positive effect on ratings and learning has a more moderate effect. However, the ALE indicates a stronger effect of advance than the regression coefficients suggest. The other variables have relatively little effect on ratings. We will see shortly that proper bootstrapping of the model can shed some light on the discrepancies.</p>
-</section><section class="section level3" data-number="0.4"><h3 data-number="0.4" id="full-model-bootstrapping">
-<span class="header-section-number">0.4</span> Full model bootstrapping<a class="anchor" aria-label="anchor" href="#full-model-bootstrapping"></a>
-</h3>
+</section><section class="level2" data-number="4"><h2 data-number="4" id="full-model-bootstrapping">
+<span class="header-section-number">4</span> Full model bootstrapping<a class="anchor" aria-label="anchor" href="#full-model-bootstrapping"></a>
+</h2>
 <p>We have referred frequently to the importance of bootstrapping. None of our model results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets whose models have been properly trained and evaluated on separate subsets before ALE analysis, an <code>ALE</code> object can bootstrap the ALE results of the model trained on the full dataset. However, when a dataset is too small to be subdivided into training and test sets, then the entire model should be bootstrapped, not just the ALE data from a single trained model. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are.</p>
 <p>The <code>ModelBoot</code> object automatically carries out full-model bootstrapping suitable for relatively smaller datasets. Specifically, it:</p>
 <ul>
@@ -341,9 +341,9 @@
 <li>The 95% bootstrapped confidence intervals of every other variable fully overlap almost the entirety of the median. Thus, despite the general trends of some of the data (in particular <code>learning</code>’s positive trend and <code>advance</code>’s negative trend), the data does not seem to support claims that any other factor had a convincingly meaningful effect on ratings.</li>
 </ul>
 <p>Although this is a basic demonstration, it readily shows how crucial proper bootstrapping is to make meaningful inferences from data analysis.</p>
-</section><section class="section level3" data-number="0.5"><h3 data-number="0.5" id="ale-for-generalized-additive-models-gam">
-<span class="header-section-number">0.5</span> ALE for generalized additive models (GAM)<a class="anchor" aria-label="anchor" href="#ale-for-generalized-additive-models-gam"></a>
-</h3>
+</section><section class="level2" data-number="5"><h2 data-number="5" id="ale-for-generalized-additive-models-gam">
+<span class="header-section-number">5</span> ALE for generalized additive models (GAM)<a class="anchor" aria-label="anchor" href="#ale-for-generalized-additive-models-gam"></a>
+</h2>
 <p>A major limitation of OLS regression is that it models all relationships between the x variables and y as straight lines. But it is unlikely that all relationships are truly linear. OLS cannot accurately capture non-linear relationships.</p>
 <p>Because the samples here are relatively small, we will use generalized additive models (GAM) for the modelling. To grossly oversimplify things, GAM is an extension of statistical regression analysis that lets the model fit flexible patterns in the data instead of being restricted to the best-fitting straight line. It is an <a href="https://noamross.github.io/gams-in-r-course/chapter1/" title="Tutorial on GAM; introduction explains why GAM should be used" class="external-link">ideal approach for samples that are too small for machine learning</a> because it provides flexible curves unlike ordinary least squares regression yet will not overfit excessively as would most machine learning techniques when working with such small samples.</p>
 <p>With GAM, the variables that we want to become flexible need to be wrapped in the <code>s</code> (smooth) function, e.g., <code>s(complaints)</code>. For this example, we will smooth all our numerical input variables:</p>
@@ -463,8 +463,8 @@
 <li>There is insufficient evidence that any of the other variables have any effect at all.</li>
 </ul>
 <p>No doubt, the inconclusive results are because the dataset is so small (only 30 rows). A dataset even double that size might show significant effects at least for complaints, if not for other variables.</p>
-</section><section class="section level2" data-number="1"><h2 data-number="1" id="model_call_string-argument-for-models-not-automatically-detected">
-<span class="header-section-number">1</span> <code>model_call_string</code> argument for models not automatically detected<a class="anchor" aria-label="anchor" href="#model_call_string-argument-for-models-not-automatically-detected"></a>
+</section><section class="level2" data-number="6"><h2 data-number="6" id="model_call_string-argument-for-models-not-automatically-detected">
+<span class="header-section-number">6</span> <code>model_call_string</code> argument for models not automatically detected<a class="anchor" aria-label="anchor" href="#model_call_string-argument-for-models-not-automatically-detected"></a>
 </h2>
 <p>The <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> constructor accesses the model object and internally modifies it to retrain the model on bootstrapped datasets. It should be able to automatically manipulate most R model objects that are used for statistical analysis. However, if an object does not follow base R conventions for model objects, <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> might not be able to manipulate it. If so, the function will fail early with an appropriate error message. In that case, the user must specify the <code>model_call_string</code> argument with a character string of the full call for the model with <code>boot_data</code> as the data argument for the call. (<code>boot_data</code> is a placeholder for the bootstrap datasets that the <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> constructor will internally work with.)</p>
 <p>To show how this works, let’s pretend that the <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">mgcv::gam</a></code> object needs such special treatment. To construct, the <code>model_call_string</code>, we must first execute the model and make sure that it works. We did that earlier but we repeat it here for this demonstration</p>
