@@ -10,6 +10,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 # ale (development version)
 
+# ale 0.6.0
+
 ## New features
 
 * `append_stats()` adds or recalculates statistics on existing `ALE` objects, using saved bootstrap data and a complete outcome reference when needed; `append_p()` adds or replaces p-values on `ALE` objects or `ModelBoot` objects with retained bootstrap data, using an explicitly supplied `ALEpDist` distribution and refreshing ALER bands (#53).
