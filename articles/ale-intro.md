@@ -209,8 +209,8 @@ rf_diamonds
     Target node size:                 4
     Variable importance mode:         none
     Splitrule:                        variance
-    OOB prediction error (MSE):       380801.1
-    R squared (OOB):                  0.9784102 
+    OOB prediction error (MSE):       375639.6
+    R squared (OOB):                  0.9787028 
 
 ## 3 Creating an `ALE` object
 
