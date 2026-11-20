@@ -2,6 +2,8 @@
 
 ## ale (development version)
 
+## ale 0.6.0
+
 ### New features
 
 - [`append_stats()`](https://tripartio.github.io/ale/reference/append_stats.md)

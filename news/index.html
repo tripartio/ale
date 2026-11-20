@@ -34,8 +34,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ale-development-version">ale (development version)<a class="anchor" aria-label="anchor" href="#ale-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.0" id="ale-060">ale 0.6.0<a class="anchor" aria-label="anchor" href="#ale-060"></a></h2>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-6-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-6-0"></a></h3>
 <ul><li>
 <code><a href="../reference/append_stats.html">append_stats()</a></code> adds or recalculates statistics on existing <code>ALE</code> objects, using saved bootstrap data and a complete outcome reference when needed; <code><a href="../reference/append_stats.html">append_p()</a></code> adds or replaces p-values on <code>ALE</code> objects or <code>ModelBoot</code> objects with retained bootstrap data, using an explicitly supplied <code>ALEpDist</code> distribution and refreshing ALER bands (<a href="https://github.com/tripartio/ale/issues/53" class="external-link">#53</a>).</li>
 <li>
@@ -51,12 +54,12 @@
 <li>ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER max – NALER min) directly, not just the _max and _min versions, which are retained.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="performance-improvements-development-version">Performance improvements<a class="anchor" aria-label="anchor" href="#performance-improvements-development-version"></a></h3>
+<h3 id="performance-improvements-0-6-0">Performance improvements<a class="anchor" aria-label="anchor" href="#performance-improvements-0-6-0"></a></h3>
 <ul><li>
 <code><a href="../reference/ALE.html">ALE()</a></code>, <code><a href="../reference/ALEpDist.html">ALEpDist()</a></code>, and <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> run locally when <code>parallel = 0</code> or a batch has at most one job, avoiding repeated future preparation inside model and random-variable iterations (#noissue). They thus execute faster than before.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-6-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-6-0"></a></h3>
 <p>We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.</p>
 <ul><li>
 <code><a href="../reference/ALE.html">ALE()</a></code> now warns early about requested predictors with only one observed value and returns zero main and interaction effects for them, including bootstrap iterations. (<a href="https://github.com/tripartio/ale/issues/43" class="external-link">#43</a>)</li>
@@ -73,7 +76,7 @@
 <li>Handle missing 1D ALE bins during model bootstrapping (<a href="https://github.com/tripartio/ale/issues/19" class="external-link">#19</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="changed-functionality-development-version">Changed functionality<a class="anchor" aria-label="anchor" href="#changed-functionality-development-version"></a></h3>
+<h3 id="changed-functionality-0-6-0">Changed functionality<a class="anchor" aria-label="anchor" href="#changed-functionality-0-6-0"></a></h3>
 <ul><li><p><code><a href="../reference/ALE.html">ALE()</a></code>, <code><a href="../reference/ALEpDist.html">ALEpDist()</a></code>, and <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> use reproducible iteration streams with matching R random inputs in serial and parallel execution, and restore the caller’s RNG kinds and full seed state. The new stream policy changes historical random results (#noissue).</p></li>
 <li><p><code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> completes the full-data calculation before bootstrapping and passes its canonical ALE bins explicitly to every iteration, giving serial and parallel bootstrap calculations the same grids (#noissue).</p></li>
 <li><p><code><a href="../reference/ALE.html">ALE()</a></code>, <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code>, <code><a href="../reference/ALEPlots.html">ALEPlots()</a></code>, their <code><a href="../reference/get.html">get()</a></code> methods, and <code><a href="../reference/customize.html">customize()</a></code> expose complete defaults for fixed string choices and match them exactly with <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code>. Nullable and mixed-type arguments retain their existing validation and forms, and coordinated selector behaviour is preserved. <code><a href="../reference/x_medoids.html">x_medoids()</a></code> also matches its choices exactly; abbreviated <code>sort_by</code> values such as “sil” must now be written in full as “silhouette” (#noissue).</p></li>
@@ -84,7 +87,7 @@
 <li><p>The <code>pred_fun</code> argument in <code><a href="../reference/ALE.html">ALE()</a></code> and other constructors now defaults to <code>NULL</code>. However, the functionality is unchanged: the default still creates the same generic custom prediction function as before.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="documentation-development-version">Documentation<a class="anchor" aria-label="anchor" href="#documentation-development-version"></a></h3>
+<h3 id="documentation-0-6-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-6-0"></a></h3>
 <ul><li>Added an article that demonstrates how to use the <code><a href="../reference/customize.html">customize()</a></code> function for <code>ALEPlots</code>: <a href="https://tripartio.github.io/ale/articles/customize-plots.html">“Customizing ALE plots”</a>.</li>
 <li>Added two articles with examples of applying ALE: <a href="https://tripartio.github.io/ale/articles/ale-acdc-corn.html">“Analyzing a Large Corn Yield Dataset with ALE-Based Inference”</a> and <a href="https://tripartio.github.io/ale/articles/ale-gomez-rice.html">“Analyzing a Small Rice Yield Dataset with ALE-Based Inference”</a>.</li>
 <li>To minimize the size of the CRAN package, all vignettes except for <code><a href="../articles/ale-intro.html">vignette('ale-intro')</a></code> have been removed from the CRAN package and are now available only on the development website at <a href="https://tripartio.github.io/ale/articles/">https://tripartio.github.io/ale/articles/</a>.</li>
@@ -93,7 +96,7 @@
 <li>Updated package logo.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="under-the-hood-development-version">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood-development-version"></a></h3>
+<h3 id="under-the-hood-0-6-0">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood-0-6-0"></a></h3>
 <p>We now use OpenAI Codex to help development and maintenance. Codex changes are not specifically highlighted in this change log, but <a href="https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed" class="external-link">numerous PRs</a> are heavily assisted by Codex.</p>
 </div>
 </div>
