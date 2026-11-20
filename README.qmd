@@ -8,12 +8,16 @@ format:
 execute:
   warning: false
   message: false
+  
+knitr:
+  opts_chunk:
+    fig.path: "man/figures/README-"
 ---
 
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" alt="ale package logo" align="right" height="138" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://img.shields.io/cran/v/ale)](https://CRAN.R-project.org/package=ale)
@@ -175,6 +179,7 @@ summary(ale_rf_diamonds)
 #| label: plot-ale-rf
 #| fig-width: 7
 #| fig-height: 11
+#| fig-alt: 'One-dimensional accumulated local effects plots showing the effects of each of the nine predictors on the random forest''s predictions of price.'
 
 # Plot the ALE data
 plot(ale_rf_diamonds) |> 
@@ -291,6 +296,7 @@ ale_rf_diamonds_stats_readme <- retrieve_rds(
 #| label: ale-1D-plot
 #| fig-width: 7
 #| fig-height: 11
+#| fig-alt: 'One-dimensional accumulated local effects plots showing the effects of each of the nine predictors on the random forest''s predictions of price. This version shows the ALER band for p-values.'
 
 # Create an ALEPlots object for fine-tuned plotting
 ale_plots <- plot(ale_rf_diamonds_stats_readme)
@@ -309,6 +315,7 @@ ale_plots |>
 #| label: 2D-plot
 #| fig-width: 7
 #| fig-height: 5
+#| fig-alt: 'Two-dimensional accumulated local effects plot showing the effect of the carat-clarity interaction on the random forest''s predictions of price.'
 
 # Plot a selected 2D plot
 ale_plots |> 

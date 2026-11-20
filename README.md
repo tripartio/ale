@@ -19,7 +19,7 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" alt="ale package logo" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -249,7 +249,8 @@ plot(ale_rf_diamonds) |>
   print(ncol = 2)
 ```
 
-![](README_files/figure-commonmark/plot-ale-rf-1.png)
+<img src="man/figures/README-plot-ale-rf-1.png"
+data-fig-alt="One-dimensional accumulated local effects plots showing the effects of each of the nine predictors on the random forest&#39;s predictions of price." />
 
 For an explanation of these basic features, see the [introductory
 vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
@@ -319,7 +320,8 @@ ale_plots |>
   print(ncol = 2)
 ```
 
-![](README_files/figure-commonmark/ale-1D-plot-1.png)
+<img src="man/figures/README-ale-1D-plot-1.png"
+data-fig-alt="One-dimensional accumulated local effects plots showing the effects of each of the nine predictors on the random forest&#39;s predictions of price. This version shows the ALER band for p-values." />
 
 ``` r
 # Plot a selected 2D plot
@@ -328,7 +330,8 @@ ale_plots |>
   get('carat:clarity') 
 ```
 
-![](README_files/figure-commonmark/2D-plot-1.png)
+<img src="man/figures/README-2D-plot-1.png"
+data-fig-alt="Two-dimensional accumulated local effects plot showing the effect of the carat-clarity interaction on the random forest&#39;s predictions of price." />
 
 For a detailed explanation of how to interpret these plots, see the
 article on [ALE-based statistics for statistical inference and effect

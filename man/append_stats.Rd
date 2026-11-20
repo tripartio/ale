@@ -56,16 +56,17 @@ For a \code{ModelBoot} object, \code{append_stats()} reports that statistics rec
 Existing statistics or p-values are replaced without an interactive prompt. An informational message reports replacement unless \code{silent = TRUE}. Estimates and bootstrap confidence intervals are preserved by \code{append_p()}; ALER bands and attached distribution metadata are refreshed. New p-value columns are appended without rearranging existing columns.
 }
 \examples{
-fit <- stats::lm(mpg ~ wt + am, data = mtcars)
-# ALE object created without statistics (output_stats = FALSE).
-effects <- ALE(
-  fit, x_cols = c('wt', 'am'), data = mtcars,
-  output_stats = FALSE, p_values = NULL
-)
-effects <- append_stats(effects)
-get(effects, stats = 'estimate')
+\donttest{
 
-if (interactive()) {
+  fit <- stats::lm(mpg ~ wt + am, data = mtcars)
+  # ALE object created without statistics (output_stats = FALSE).
+  effects <- ALE(
+    fit, x_cols = c('wt', 'am'), data = mtcars,
+    output_stats = FALSE, p_values = NULL
+  )
+  effects <- append_stats(effects)
+  get(effects, stats = 'estimate')
+
   # Retain bootstrap data when statistics might be needed later.
   effects <- ALE(
     fit, data = mtcars, boot_it = 2, output_boot_data = TRUE,
@@ -76,6 +77,7 @@ if (interactive()) {
   # Distribution generation is separate and can be slow.
   pd <- ALEpDist(fit, data = mtcars, aled_fun = 'var', rand_it = 100)
   effects <- append_p(effects, pd)
+
 }
 }
 \seealso{

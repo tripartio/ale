@@ -4,4 +4,4 @@
 
 ### Comments
 
-Resolved sporadic failed builds due to random server issues. Updated version implements a robust fallback if online serialized objects are randomly unavailable.
+Resolved errors in CRAN Package Check Results: due to changes in imported package future.

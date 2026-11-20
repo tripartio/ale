@@ -7,6 +7,7 @@ articles:
 - title: Getting started
   contents:
   - ale-intro
+  - articles/customize-plots
   - articles/ale-statistics
 
 - title: Examples
@@ -79,3 +80,9 @@ reference:
 - contents:
   - var_cars
   - census
+
+search:
+  exclude:
+    - AGENTS.html
+    - STYLE.html
+    - copilot-instructions.html

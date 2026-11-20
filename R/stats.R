@@ -849,16 +849,17 @@ summarize_conf_regions_1D_in_words <- function(
 #' @export
 #'
 #' @examples
-#' fit <- stats::lm(mpg ~ wt + am, data = mtcars)
-#' # ALE object created without statistics (output_stats = FALSE).
-#' effects <- ALE(
-#'   fit, x_cols = c('wt', 'am'), data = mtcars,
-#'   output_stats = FALSE, p_values = NULL
-#' )
-#' effects <- append_stats(effects)
-#' get(effects, stats = 'estimate')
+#' \donttest{
 #'
-#' if (interactive()) {
+#'   fit <- stats::lm(mpg ~ wt + am, data = mtcars)
+#'   # ALE object created without statistics (output_stats = FALSE).
+#'   effects <- ALE(
+#'     fit, x_cols = c('wt', 'am'), data = mtcars,
+#'     output_stats = FALSE, p_values = NULL
+#'   )
+#'   effects <- append_stats(effects)
+#'   get(effects, stats = 'estimate')
+#'
 #'   # Retain bootstrap data when statistics might be needed later.
 #'   effects <- ALE(
 #'     fit, data = mtcars, boot_it = 2, output_boot_data = TRUE,
@@ -869,6 +870,7 @@ summarize_conf_regions_1D_in_words <- function(
 #'   # Distribution generation is separate and can be slow.
 #'   pd <- ALEpDist(fit, data = mtcars, aled_fun = 'var', rand_it = 100)
 #'   effects <- append_p(effects, pd)
+#'
 #' }
 append_stats <- function(
   ale_obj, p_values = ale_obj@params$p_values, ...,
