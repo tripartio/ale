@@ -51,7 +51,7 @@ calc_ale <- function(
     .bins = NULL,
     ale_y_norm_funs = NULL,
     p_dist = NULL,
-    aled_fun = c('mad', 'sd'),
+    aled_fun = c('mad', 'sd', 'var'),
     constant_term = list()
 ) {
 

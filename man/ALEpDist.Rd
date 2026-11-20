@@ -18,7 +18,7 @@ ALEpDist(
   positive = TRUE,
   pred_fun = NULL,
   pred_type = "response",
-  aled_fun = c("mad", "sd"),
+  aled_fun = c("mad", "sd", "var"),
   output_residuals = FALSE,
   seed = 0,
   silent = FALSE,

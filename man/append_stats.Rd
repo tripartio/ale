@@ -34,7 +34,7 @@ append_p(
 
 \item{y_vals}{numeric vector or numeric matrix, or NULL. Complete normalization reference used by the original \code{\link[=ALE]{ALE()}} call: observed outcomes for numeric or ordinal outcomes, or predicted values for binary or categorical outcomes. A matrix must have one named column per outcome category; a vector is accepted for a single category. These are the original reference values even if \code{\link[=invert_probs]{invert_probs()}} was subsequently applied. Omission uses saved reference values only when they contain all original rows; otherwise supply \code{y_vals}. The 1st and 99th percentiles must lie within the saved outcome-summary limits, allowing numerical tolerance. This is a scale-consistency check; it neither verifies the entire distribution nor constrains every tail observation to the plotting limits. Supplied values are used temporarily and are not saved in the returned object.}
 
-\item{aled_fun}{character(1). Deviation method: "mad" or "sd". Defaults to the method stored in \code{ale_obj}; a supplied distribution must use the same method.}
+\item{aled_fun}{character(1). Deviation method: "mad", "sd", or "var". Defaults to the method stored in \code{ale_obj}; a supplied distribution must use the same method.}
 
 \item{aler_alpha}{numeric(2) from 0 to 0.5. Increasing ALER significance thresholds, inherited from \code{ale_obj} unless overridden. Used to refresh distribution-dependent ALER bands.}
 
@@ -71,10 +71,10 @@ if (interactive()) {
     fit, data = mtcars, boot_it = 2, output_boot_data = TRUE,
     output_stats = FALSE, p_values = NULL, silent = TRUE
   )
-  effects <- append_stats(effects, aled_fun = 'sd')
+  effects <- append_stats(effects, aled_fun = 'var')
 
   # Distribution generation is separate and can be slow.
-  pd <- ALEpDist(fit, data = mtcars, aled_fun = 'sd', rand_it = 100)
+  pd <- ALEpDist(fit, data = mtcars, aled_fun = 'var', rand_it = 100)
   effects <- append_p(effects, pd)
 }
 }

@@ -197,14 +197,14 @@ test_that('ALE factor-order lists retain per-column overrides (#noissue)', {
   )
   by_string <- ALE(
     test_gam, data = test_cars, x_cols = 'model', fct_order = 'levels',
-    aled_fun = 'sd', silent = TRUE
+    aled_fun = 'var', silent = TRUE
   )
   expect_identical(by_list@params$fct_order, ordering)
   expect_equal(get(by_list), get(by_string))
 
   # The existing pair also checks adding missing statistics and overriding the
   # deviation method against constructor-time results, without another fit (#53).
-  appended <- append_stats(by_list, aled_fun = 'sd')
+  appended <- append_stats(by_list, aled_fun = 'var')
   expect_equal(
     list(effect = appended@effect, aled_fun = appended@params$aled_fun),
     list(effect = by_string@effect, aled_fun = by_string@params$aled_fun)

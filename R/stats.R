@@ -41,7 +41,7 @@ calc_stats <- function(
     y_vals = NULL,
     ale_y_norm_fun = NULL,
     x_type = c('numeric', 'binary', 'categorical', 'ordinal'),
-    aled_fun = c('mad', 'sd')
+    aled_fun = c('mad', 'sd', 'var')
 ) {
 
   # Validate data -------------
@@ -77,6 +77,10 @@ calc_stats <- function(
         sum() |>
         (`/`)(sum(n)) |>
         sqrt()
+    } else if (aled_fun == 'var') {
+      (y^2 * n) |>
+        sum() |>
+        (`/`)(sum(n))
     } else if (aled_fun == 'linear') {
       # Although experimentally implemented here as a third ALE deviation function, this "linear" option will probably end up as an entirely new kind of ALE statistic, probably "ALE coefficient (ALEC)", which allows direct comparison of the relative strengths of effects from one variable to another in terms of linear weights.
       # A future normalized version (scaled on 100% of linear weights) will require composite ALE.
@@ -183,7 +187,7 @@ calc_stats_2D <- function(
     x_types,
     y_vals = NULL,
     ale_y_norm_fun = NULL,
-    aled_fun = c('mad', 'sd')
+    aled_fun = c('mad', 'sd', "var")
 ) {
   aled_fun <- match_aled_fun(aled_fun)
 
@@ -828,7 +832,7 @@ summarize_conf_regions_1D_in_words <- function(
 #' @param ... Not used. Subsequent arguments must be named.
 #' @param p_values `ALEpDist` object or NULL. For `append_stats()`, omission inherits the distribution or NULL stored in `ale_obj`; explicit NULL returns statistics without p-values and removes obsolete ALER bands. For `append_p()`, a distribution is required and NULL is not accepted. Create distributions separately with [ALEpDist()]; neither function accepts "auto" or generates a distribution.
 #' @param y_vals numeric vector or numeric matrix, or NULL. Complete normalization reference used by the original [ALE()] call: observed outcomes for numeric or ordinal outcomes, or predicted values for binary or categorical outcomes. A matrix must have one named column per outcome category; a vector is accepted for a single category. These are the original reference values even if [invert_probs()] was subsequently applied. Omission uses saved reference values only when they contain all original rows; otherwise supply `y_vals`. The 1st and 99th percentiles must lie within the saved outcome-summary limits, allowing numerical tolerance. This is a scale-consistency check; it neither verifies the entire distribution nor constrains every tail observation to the plotting limits. Supplied values are used temporarily and are not saved in the returned object.
-#' @param aled_fun character(1). Deviation method: "mad" or "sd". Defaults to the method stored in `ale_obj`; a supplied distribution must use the same method.
+#' @param aled_fun character(1). Deviation method: "mad", "sd", or "var". Defaults to the method stored in `ale_obj`; a supplied distribution must use the same method.
 #' @param aler_alpha numeric(2) from 0 to 0.5. Increasing ALER significance thresholds, inherited from `ale_obj` unless overridden. Used to refresh distribution-dependent ALER bands.
 #' @param require_p_model_match logical(1). Inherited from `ale_obj`. If TRUE, check the supplied distribution against the stored original model identity, outcome name, and prediction type. FALSE bypasses those identity checks; deviation method, category coverage, and inversion compatibility are still required. For a `ModelBoot` object, inherit the outer setting when present, otherwise the full-data ALE setting; identity checks apply to the original model, and deliberately differ for its refitted bootstrap models.
 #' @param silent logical(1). If TRUE, suppress informational replacement messages. Warnings and errors remain visible.
@@ -860,10 +864,10 @@ summarize_conf_regions_1D_in_words <- function(
 #'     fit, data = mtcars, boot_it = 2, output_boot_data = TRUE,
 #'     output_stats = FALSE, p_values = NULL, silent = TRUE
 #'   )
-#'   effects <- append_stats(effects, aled_fun = 'sd')
+#'   effects <- append_stats(effects, aled_fun = 'var')
 #'
 #'   # Distribution generation is separate and can be slow.
-#'   pd <- ALEpDist(fit, data = mtcars, aled_fun = 'sd', rand_it = 100)
+#'   pd <- ALEpDist(fit, data = mtcars, aled_fun = 'var', rand_it = 100)
 #'   effects <- append_p(effects, pd)
 #' }
 append_stats <- function(

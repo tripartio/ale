@@ -153,7 +153,7 @@ validate_aled_fun <- function(aled_fun, call = rlang::caller_env()) {
     match_aled_fun(aled_fun, call = call),
     error = function(it.error) {
       cli_abort(
-        '{.arg aled_fun} must be "mad", "sd", or NULL.',
+        '{.arg aled_fun} must be "mad", "sd", "var", or NULL.',
         call = call
       )
     }
@@ -602,7 +602,7 @@ validate_silent <- function(silent) {
 # Match the public ALED choices while retaining the hidden experimental path.
 # Keep "linear" out of defaults, help, and suggested choices in errors.
 match_aled_fun <- function(
-  aled_fun = c('mad', 'sd'),
+  aled_fun = c('mad', 'sd', "var"),
   call = rlang::caller_env()
 ) {
   if (rlang::is_string(aled_fun, 'linear')) {
