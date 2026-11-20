@@ -336,15 +336,15 @@ vignette on [ALE-based statistics for statistical
 inference](https://tripartio.github.io/ale/articles/ale-statistics.md).
 However, we can generally infer that:
 
-- Complaints that were handled at below around 55% led to below-average
-  overall ratings; complaints that were handled above around 72% are
-  associated with above-average overall ratings.
+- `complaints` that were handled at below around 55% led to
+  below-average overall ratings; `complaints` that were handled above
+  around 72% are associated with above-average overall ratings.
 - The 95% bootstrapped confidence intervals of every other variable
   fully overlap almost the entirety of the median. Thus, despite the
-  general trends of some of the data (in particular learning’s positive
-  trend and advance’s negative trend), the data does not seem to support
-  claims that any other factor had a convincingly meaningful effect on
-  ratings.
+  general trends of some of the data (in particular `learning`’s
+  positive trend and `advance`’s negative trend), the data does not seem
+  to support claims that any other factor had a convincingly meaningful
+  effect on ratings.
 
 Although this is a basic demonstration, it readily shows how crucial
 proper bootstrapping is to make meaningful inferences from data

@@ -27,7 +27,7 @@ customize(
   x_cols = NULL,
   ...,
   exclude_cols = NULL,
-  type = "ale",
+  type = c("ale", "effect", "overlay", "facet"),
   cats = NULL,
   layers = NULL,
   zoom_x = NULL,
@@ -41,14 +41,23 @@ customize(
 
   ALEPlots object to customize.
 
-- x_cols, exclude_cols:
+- x_cols:
 
-  See the [get() method for ALE
-  objects](https://tripartio.github.io/ale/reference/get-ALE-method.md).
+  character, list, or formula. Select 1D plots, 2D plots, or both, using
+  the formats described in
+  [`resolve_x_cols()`](https://tripartio.github.io/ale/reference/resolve_x_cols.md).
+  If `NULL`, all available plots are selected when the object contains
+  only one dimension. When both 1D and 2D plots exist, `x_cols` must be
+  specified explicitly; it may select either dimension or both.
 
 - ...:
 
   not used. Inserted to require explicit naming of subsequent arguments.
+
+- exclude_cols:
+
+  See the [get() method for ALE
+  objects](https://tripartio.github.io/ale/reference/get-ALE-method.md).
 
 - type:
 
@@ -64,7 +73,10 @@ customize(
 
   List of `ggplot` layers. These are appended to each plot indicated by
   the combination of `x_cols`, `type`, and `cats` by applying the
-  `ggplot2` `+` operator to them.
+  `ggplot2` `+` operator to them. The additions must be appropriate for
+  every selected plot. Shared themes can be applied across 1D and 2D
+  plots, whereas the appropriateness of scales, coordinates, and
+  geometries may depend on each plot's axes, mappings, or data.
 
 - zoom_x, zoom_y:
 
@@ -78,3 +90,10 @@ customize(
 
 An `ALEPlots` object where elements specified by x_cols and exclude_cols
 are modified accordingly. Non-specified elements are not modified.
+
+## Examples
+
+``` r
+# See the article https://tripartio.github.io/ale/articles/customize-plots.html
+
+```

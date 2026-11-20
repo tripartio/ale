@@ -54,12 +54,12 @@ from Accumulated Local Effects (ALE).” Conference,
 
 Okoli C (2026). *ale: Interpretable Machine Learning and Statistical
 Inference with Accumulated Local Effects (ALE)*. R package version
-0.5.3.20261008, <https://CRAN.R-project.org/package=ale>.
+0.6.0, <https://CRAN.R-project.org/package=ale>.
 
     @Manual{,
       title = {ale: Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)},
       author = {Chitu Okoli},
       year = {2026},
-      note = {R package version 0.5.3.20261008},
+      note = {R package version 0.6.0},
       url = {https://CRAN.R-project.org/package=ale},
     }

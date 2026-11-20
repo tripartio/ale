@@ -24,11 +24,11 @@ ALE(
   require_p_model_match = TRUE,
   aler_alpha = c(0.01, 0.05),
   aled_fun = NULL,
-  max_num_bins = 10L,
+  max_num_bins = list(d1 = 1000L, d2 = 10L),
   fct_order = "levels",
   boot_it = 0L,
   boot_alpha = 0.05,
-  boot_centre = "mean",
+  boot_centre = c("mean", "median"),
   seed = 0,
   y_type = NULL,
   sample_size = 500L,
@@ -73,9 +73,10 @@ ALE(
 - parallel:
 
   non-negative integer(1) or character(1) in c("all", "all but one").
-  Number of parallel threads (workers or tasks) for parallel execution
-  of the constructor. The default `parallel = 0` disables parallel
-  processing. "all but one" uses all available physical CPU cores minus
+  Number of parallel workers for execution of the constructor. The
+  default `parallel = 0` always runs locally, including when the caller
+  has an active future plan. A batch with at most one job also runs
+  locally. "all but one" uses all available physical CPU cores minus
   one, reserved for the system, whereas "all" uses all physical and
   logical cores reported by the system. See details.
 
@@ -150,41 +151,49 @@ ALE(
 
 - aled_fun:
 
-  character(1) in c("mad", "sd"), or NULL. Deviation function used to
-  calculated ALE deviation. `"mad"` is the mean absolute deviation;
-  `"sd"` is the standard deviation. The default `NULL` will normally use
-  `"mad"` except if an `ALEpDist` object is provided for `p_values`; in
-  that case, the `aled_fun` is taken from the `ALEpDist` object.
+  character(1) in c("mad", "sd", "var"), or NULL. Deviation function
+  used to calculated ALE deviation. `"mad"` is the mean absolute
+  deviation; `"sd"` is the standard deviation. The default `NULL` will
+  normally use `"mad"` except if an `ALEpDist` object is provided for
+  `p_values`; in that case, the `aled_fun` is taken from the `ALEpDist`
+  object.
 
 - max_num_bins:
 
-  integer(1) \> 1 or list. For numeric `x_cols`, this sets an upper
-  bound on the number of ALE bins, where actual bins are the lesser of
-  the number of unique values and `max_num_bins+1`. Valid formats are:
+  list. Sets maximum numbers of numeric ALE intervals. The default is
+  `list(d1 = 1000L, d2 = 10L)`:
 
-  - Single integer \> 1: used for all numeric `x_cols`.
+  - `d1`: default maximum for 1D main effect variables.
 
-  - List with overrides: a list with exactly two elements: `default` is
-    a single integer \> 1 used as the default value; `except` is a named
-    integer vector with values \> 1 of per-column upper bounds. Unknown
-    names are ignored with a warning. Non-numeric `x_cols`
-    (binary/ordinal/categorical) always use all observed levels. An
-    example of the list format would be
-    `max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))`
+  - `d2`: default maximum per numeric variable for 2D interactions.
 
-  The default value of 10 is recommended for speed; it should adequately
-  express most relationships. Increase it (e.g., to 100) for complex
-  relationships. However, higher values are slower, especially for ALE
-  interactions. When `n` bins are requested, there will actually be
-  `n+1` bins, with the lowest bin dedicated to the minimum value of the
-  dataset.
+  - `except_d1`, `except_d2`: optional named integer vectors of
+    per-column limits overriding the default only in the corresponding
+    dimension.
+
+  Defaults are optional: every requested numeric variable must have
+  either its dimension's default or an exception in that dimension.
+  Coverage is checked after resolving `x_cols` and `exclude_cols`.
+  Omitted elements of an explicit list are not filled from the default
+  argument. `NULL` elements are treated as absent; supplied values must
+  be finite, strictly positive whole numbers. Unknown exception column
+  names trigger an error. For example,
+  `list(d1 = 1000, d2 = 10, except_d1 = c(wt = 25), except_d2 = c(wt = 5))`.
+
+  Use [`list()`](https://rdrr.io/r/base/list.html) when no numeric
+  variables are requested. `max_num_bins = NULL`, scalar inputs, and the
+  former `default` and `except` elements are not supported. Non-numeric
+  `x_cols` (binary/ordinal/categorical) always use all observed levels.
+  When `n` intervals are requested, there are at most `n+1` bins,
+  limited by the number of unique values, with the lowest bin dedicated
+  to the minimum. Higher limits can be slower for interactions.
 
 - fct_order:
 
-  character(1) or list. Specifies how unordered factors and characters
-  will be ordered for ALE calculation. (Ordered factors ignore this
-  setting; they always use their intrinsic order.) The following options
-  are possible:
+  character(1) or list. Character choices are matched exactly. Specifies
+  how unordered factors and characters will be ordered for ALE
+  calculation. (Ordered factors ignore this setting; they always use
+  their intrinsic order.) The following options are possible:
 
   - `"levels"` (default): For ordered factors, use the order of the
     factor levels. Recommended for meaningful interpretation because
@@ -228,28 +237,28 @@ ALE(
 
 - boot_centre:
 
-  character(1) in c('mean', 'median'). When bootstrapping, the main
-  estimate for the ALE y value is considered to be `boot_centre`.
-  Regardless of the value specified here, both the mean and median will
-  be available.
+  character(1). Bootstrap centre for the main ALE y estimate, matched
+  exactly. Both the mean and median estimates remain available
+  regardless of this choice.
 
 - seed:
 
-  integer(1). Random seed. Supply this between runs to assure that
-  identical random ALE data is generated each time when bootstrapping.
-  Without bootstrapping, ALE is a deterministic algorithm that should
-  result in identical results each time regardless of the seed
-  specified. However, with parallel processing enabled, only the exact
-  computing setup will give reproducible results. For reproducible
-  results across different computers, leave parallelization disabled
-  with `parallel = 0`.
+  integer(1). Random seed. Each iteration uses a reproducible
+  L'Ecuyer-CMRG random-number stream, with the same random inputs in
+  local and future execution regardless of worker count or chunking.
+  Data-only ALE bootstrap samples are shared across terms. The caller's
+  random number generator (RNG) kinds and complete seed state are
+  restored on return, including on error. Results from model
+  implementations can still depend on numerical libraries or their own
+  RNGs. Without bootstrapping and with deterministic predictions, ALE is
+  deterministic.
 
 - y_type:
 
-  character(1) in c('binary', 'numeric', 'categorical', 'ordinal').
-  Datatype of the y (outcome) variable. Normally determined
-  automatically; only provide if an error message for a complex model
-  requires it.
+  character(1) in c("binary", "numeric", "categorical", "ordinal"), or
+  NULL. Datatype of the y (outcome) variable, matched exactly when
+  supplied. The default `NULL` determines it automatically; only provide
+  if an error message for a complex model requires it.
 
 - sample_size:
 
@@ -544,7 +553,7 @@ summary(gam_co2)
 #> Approximate significance of smooth terms:
 #>                     edf Ref.df     F  p-value    
 #> s(conc)            1.00      1 32.60 1.47e-06 ***
-#> ti(conc,plant_id) 32.45     35 10.85  < 2e-16 ***
+#> ti(conc,plant_id) 32.45     35 10.45  < 2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 

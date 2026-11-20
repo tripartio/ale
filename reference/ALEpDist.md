@@ -24,7 +24,7 @@ ALEpDist(
   positive = TRUE,
   pred_fun = NULL,
   pred_type = "response",
-  aled_fun = "mad",
+  aled_fun = c("mad", "sd", "var"),
   output_residuals = FALSE,
   seed = 0,
   silent = FALSE,
@@ -109,8 +109,9 @@ ALEpDist(
 
 - aled_fun:
 
-  See documentation for
-  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
+  character(1). Deviation function, matched exactly. See
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) for the
+  deviation formulas.
 
 - output_residuals:
 
@@ -154,7 +155,7 @@ An object of class `ALEpDist` with properties `rand_stats`,
 
   A `univariateML` object with the closest estimated distribution for
   the `residuals` as determined by
-  [`univariateML::model_select()`](https://jonasmoss.github.io/univariateML/reference/model_select.html).
+  [`univariateML::model_select()`](https://rdrr.io/pkg/univariateML/man/model_select.html).
   This is the distribution used to generate all the random variables.
 
 - residuals:
@@ -202,11 +203,11 @@ The specific steps are as follows:
   predicted values).
 
 - The closest distribution of the residuals is detected with
-  [`univariateML::model_select()`](https://jonasmoss.github.io/univariateML/reference/model_select.html).
+  [`univariateML::model_select()`](https://rdrr.io/pkg/univariateML/man/model_select.html).
 
 - 1000 new models are trained by generating a random variable each time
   with
-  [`univariateML::rml()`](https://jonasmoss.github.io/univariateML/reference/MaximumLikelihoodDistribution.html)
+  [`univariateML::rml()`](https://rdrr.io/pkg/univariateML/man/MaximumLikelihoodDistribution.html)
   and then training a new model with that random variable added.
 
 - The ALEs and ALE statistics are calculated for each random variable.
@@ -369,7 +370,7 @@ summary(gam_diamonds)
 # For speed, these examples use retrieve_rds() to load pre-created objects
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 
 # Generating p_value distribution objects is slow because it retrains the model 100 times,
 # so this example loads a pre-created ALEpDist object.
@@ -388,7 +389,7 @@ p_dist_gam_diamonds <- retrieve_rds(
 # Examine the structure of the returned object
 print(p_dist_gam_diamonds)
 #> <ale::ALEpDist>
-#>  @ rand_stats           :List of 1
+#>  @ rand_stats           : List of 1
 #>  .. $ price: tibble [100 × 6] (S3: tbl_df/tbl/data.frame)
 #>  ..  ..$ aled     : num [1:100] 4.07 6.15 7.69 8.13 2.26 ...
 #>  ..  ..$ aler_min : num [1:100] -55.2 -227.8 -398.2 -637.2 -82.7 ...
@@ -407,7 +408,7 @@ print(p_dist_gam_diamonds)
 #>  .. - attr(*, "default")= num [1:4] 0 1 3 2
 #>  .. - attr(*, "continuous")= logi TRUE
 #>  @ residuals            : NULL
-#>  @ params               :List of 11
+#>  @ params               : List of 11
 #>  .. $ model                        :List of 4
 #>  ..  ..$ class  : chr [1:3] "gam" "glm" "lm"
 #>  ..  ..$ call   : chr "mgcv::gam(formula = price ~ s(carat) + s(depth_pct) + s(table) + \n    s(x_length) + s(y_width) + s(z_depth) + "| __truncated__
@@ -477,7 +478,7 @@ pd_diamonds_special <- retrieve_rds(
 # Examine the structure of the returned object
 print(pd_diamonds_special)
 #> <ale::ALEpDist>
-#>  @ rand_stats           :List of 1
+#>  @ rand_stats           : List of 1
 #>  .. $ price: tibble [100 × 6] (S3: tbl_df/tbl/data.frame)
 #>  ..  ..$ aled     : num [1:100] 4.07 6.15 7.69 8.13 2.26 ...
 #>  ..  ..$ aler_min : num [1:100] -55.2 -227.8 -398.2 -637.2 -82.7 ...
@@ -496,7 +497,7 @@ print(pd_diamonds_special)
 #>  .. - attr(*, "default")= num [1:4] 0 1 3 2
 #>  .. - attr(*, "continuous")= logi TRUE
 #>  @ residuals            : NULL
-#>  @ params               :List of 12
+#>  @ params               : List of 12
 #>  .. $ model                        :List of 2
 #>  ..  ..$ class: chr [1:3] "gam" "glm" "lm"
 #>  ..  ..$ hash : chr "0cfec7c5bf23001cfadbf1c11de304e5"

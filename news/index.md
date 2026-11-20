@@ -4,16 +4,29 @@
 
 ### New features
 
+- [`append_stats()`](https://tripartio.github.io/ale/reference/append_stats.md)
+  adds or recalculates statistics on existing `ALE` objects, using saved
+  bootstrap data and a complete outcome reference when needed;
+  [`append_p()`](https://tripartio.github.io/ale/reference/append_stats.md)
+  adds or replaces p-values on `ALE` objects or `ModelBoot` objects with
+  retained bootstrap data, using an explicitly supplied `ALEpDist`
+  distribution and refreshing ALER bands
+  ([\#53](https://github.com/tripartio/ale/issues/53)).
 - [`summary()`](https://rdrr.io/r/base/summary.html) methods have been
   implemented for `ALE` and `ModelBoot` objects. They print a summary of
   ALE statistics to the console. When there are no ALE statistics
   available, they print a message saying so.
+- With the `show_2d_bin_sizes` logical argument
+  [`ALEPlots()`](https://tripartio.github.io/ale/reference/ALEPlots.md),
+  the 2D ALE plots display of hollow bin-size squares and a % data
+  legend is now optional.
+  ([\#44](https://github.com/tripartio/ale/issues/44))
 - With the `aled_fun` argument of the
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and
   [`ALEpDist()`](https://tripartio.github.io/ale/reference/ALEpDist.md)
   constructors, we may optionally choose to calculate ALE deviation
-  based on standard deviations instead of the default mean absolute
-  deviation.
+  based on standard deviations or variances instead of the default mean
+  absolute deviation.
 - The widths of 1D ALE plots for non-numerical variables are now
   proportional to the frequency of the data. We find these proportional
   widths more intuitive than the text annotations that previously
@@ -37,8 +50,8 @@
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
   constructor now accepts a special list format that allows the
   specification of per-column maximum ALE bin sizes for numeric input
-  columns, with a default for columns not named. For details, see
-  documentation for
+  columns, with dimension-specific defaults for columns not named. For
+  details, see documentation for
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md).
 - Parallelization can be controlled with a global option `ale.parallel`.
   For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
@@ -53,6 +66,16 @@
   max – NALER min) directly, not just the \_max and \_min versions,
   which are retained.
 
+### Performance improvements
+
+- [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md),
+  [`ALEpDist()`](https://tripartio.github.io/ale/reference/ALEpDist.md),
+  and
+  [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
+  run locally when `parallel = 0` or a batch has at most one job,
+  avoiding repeated future preparation inside model and random-variable
+  iterations (#noissue). They thus execute faster than before.
+
 ### Bug fixes
 
 We have dealt with innumerable bugs during our development journey but,
@@ -63,26 +86,31 @@ reported bugs are indicated here.
   early about requested predictors with only one observed value and
   returns zero main and interaction effects for them, including
   bootstrap iterations.
+  ([\#43](https://github.com/tripartio/ale/issues/43))
 - Unnamed single-column prediction matrices, including binary
   predictions from
   [`nnet::nnet()`](https://rdrr.io/pkg/nnet/man/nnet.html), are now
   accepted and named after the outcome column.
+  ([\#41](https://github.com/tripartio/ale/issues/41))
 - [`get()`](https://tripartio.github.io/ale/reference/get.md) for `ALE`
   and `ModelBoot` objects now returns named statistics in the requested
   order within each term.
+  ([\#40](https://github.com/tripartio/ale/issues/40))
 - [`get()`](https://tripartio.github.io/ale/reference/get.md) now raises
   a clear error when confidence regions are requested without p-values.
   [`summary()`](https://rdrr.io/r/base/summary.html) for `ALE` and
   `ModelBoot` objects silently omits confidence-region sections when
   p-values are absent.
+  ([\#38](https://github.com/tripartio/ale/issues/38))
 - Chained
   [`customize()`](https://tripartio.github.io/ale/reference/customize.md)
   calls with `zoom_x` or `zoom_y` now preserve the existing limits of
-  the other axis.
+  the other axis. ([\#37](https://github.com/tripartio/ale/issues/37))
 - [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) now checks
   the outcome column and prediction type when accepting an `ALEpDist`
   distribution, in addition to the model identity. `ALEpDist` retains
   the original prediction settings, including for surrogates.
+  ([\#36](https://github.com/tripartio/ale/issues/36))
 - Update parallelization settings to handle massive parallelization
   ([\#16](https://github.com/tripartio/ale/issues/16)) and refactor code
   ([\#17](https://github.com/tripartio/ale/issues/17)).
@@ -100,16 +128,56 @@ reported bugs are indicated here.
 
 ### Changed functionality
 
+- [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md),
+  [`ALEpDist()`](https://tripartio.github.io/ale/reference/ALEpDist.md),
+  and
+  [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
+  use reproducible iteration streams with matching R random inputs in
+  serial and parallel execution, and restore the caller’s RNG kinds and
+  full seed state. The new stream policy changes historical random
+  results (#noissue).
+
+- [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md)
+  completes the full-data calculation before bootstrapping and passes
+  its canonical ALE bins explicitly to every iteration, giving serial
+  and parallel bootstrap calculations the same grids (#noissue).
+
+- [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md),
+  [`ModelBoot()`](https://tripartio.github.io/ale/reference/ModelBoot.md),
+  [`ALEPlots()`](https://tripartio.github.io/ale/reference/ALEPlots.md),
+  their [`get()`](https://tripartio.github.io/ale/reference/get.md)
+  methods, and
+  [`customize()`](https://tripartio.github.io/ale/reference/customize.md)
+  expose complete defaults for fixed string choices and match them
+  exactly with
+  [`rlang::arg_match()`](https://rlang.r-lib.org/reference/arg_match.html).
+  Nullable and mixed-type arguments retain their existing validation and
+  forms, and coordinated selector behaviour is preserved.
+  [`x_medoids()`](https://tripartio.github.io/ale/reference/x_medoids.md)
+  also matches its choices exactly; abbreviated `sort_by` values such as
+  “sil” must now be written in full as “silhouette” (#noissue).
+
+- `max_num_bins` defaults to `list(d1 = 1000L, d2 = 10L)` and supports
+  independent per-column `except_d1` and `except_d2` limits. Explicit
+  lists need defaults or exceptions only for the numeric variables
+  requested in each dimension. Use
+  [`list()`](https://rdrr.io/r/base/list.html) for non-numeric effects;
+  `NULL`, scalar inputs, and the former `default` and `except` elements
+  are rejected.
+
 - The `require_same_p` argument of
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) has been
   renamed to `require_p_model_match` without a compatibility alias.
   Setting it to `FALSE` disables all p-value compatibility checks.
+
 - `max_num_bins` now creates `n+1` bins instead of exactly the specified
   `n` bins. The bottom bin is reserved for the minimum value in the
   data. This is a reversion to the original behaviour of the reference
   {ALEPlot} package.
+
 - Parallelization has been disabled by default (`parallel` = 0)
   ([\#16](https://github.com/tripartio/ale/issues/16)).
+
 - The `pred_fun` argument in
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) and other
   constructors now defaults to `NULL`. However, the functionality is
@@ -118,10 +186,20 @@ reported bugs are indicated here.
 
 ### Documentation
 
-- Added two Quarto vignettes: “Analyzing a Large Corn Yield Dataset with
-  ALE-Based Inference” and “Analyzing a Small Rice Yield Dataset with
-  ALE-Based Inference”. They are available from the vignettes link on
-  the main CRAN page at <https://CRAN.R-project.org/package=ale>.
+- Added an article that demonstrates how to use the
+  [`customize()`](https://tripartio.github.io/ale/reference/customize.md)
+  function for `ALEPlots`: [“Customizing ALE
+  plots”](https://tripartio.github.io/ale/articles/customize-plots.html).
+- Added two articles with examples of applying ALE: [“Analyzing a Large
+  Corn Yield Dataset with ALE-Based
+  Inference”](https://tripartio.github.io/ale/articles/ale-acdc-corn.html)
+  and [“Analyzing a Small Rice Yield Dataset with ALE-Based
+  Inference”](https://tripartio.github.io/ale/articles/ale-gomez-rice.html).
+- To minimize the size of the CRAN package, all vignettes except for
+  [`vignette('ale-intro')`](https://tripartio.github.io/ale/articles/ale-intro.md)
+  have been removed from the CRAN package and are now available only on
+  the development website at
+  <https://tripartio.github.io/ale/articles/>.
 - Replaced GAM examples in README to random forests. Converted the
   README file from RMarkdown to Quarto.
 - Converted all RMarkdown vignettes and articles to Quarto.
@@ -134,6 +212,19 @@ changes are not specifically highlighted in this change log, but
 [numerous
 PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed)
 are heavily assisted by Codex.
+
+## ale 0.5.3
+
+CRAN release: 2025-09-12
+
+### New features
+
+- [`retrieve_rds()`](https://tripartio.github.io/ale/reference/retrieve_rds.md)
+  is a documentation utility function to either retrieve a serialized
+  RDS file from a URL or else run a code block if the URL retrieval
+  fails. It is used in vignettes, examples and other documentation to
+  create or retrieve large objects that are too slow to be created on
+  the spot.
 
 ## ale 0.5.2
 

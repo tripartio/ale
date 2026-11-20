@@ -18,7 +18,7 @@ objects for how to manipulate `ALEPlots` objects.
 ALEPlots(
   obj,
   ...,
-  ale_centre = "median",
+  ale_centre = c("median", "mean", "zero"),
   consolid_cats = 10L,
   y_1d_refs = c("25%", "75%"),
   rug_sample_size = obj@params$sample_size,
@@ -44,9 +44,8 @@ ALEPlots(
 
 - ale_centre:
 
-  character(1) in c('median', 'mean', 'zero'). The ALE y values in the
-  plots will be centred relative to this value. 'median' is the default.
-  'zero' will maintain the actual ALE values, which are centred on zero.
+  character(1). Centre for ALE y values, matched exactly. "zero"
+  maintains the actual ALE values, which are centred on zero.
 
 - consolid_cats:
 

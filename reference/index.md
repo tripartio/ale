@@ -25,6 +25,10 @@ accumulated local effects.
 - [`invert_probs()`](https://tripartio.github.io/ale/reference/invert_probs.md)
   : Invert ALE Probabilities
 
+- [`append_stats()`](https://tripartio.github.io/ale/reference/append_stats.md)
+  [`append_p()`](https://tripartio.github.io/ale/reference/append_stats.md)
+  : Add or recalculate statistics and p-values on an ALE object
+
 ## Advanced visualization
 
 Generate ALEPlots S7 objects, manipulate them, and plot ALE.
@@ -52,6 +56,9 @@ statistics.
 - [`ALEpDist()`](https://tripartio.github.io/ale/reference/ALEpDist.md)
   : Random variable distributions of ALE statistics for generating
   p-values
+- [`append_stats()`](https://tripartio.github.io/ale/reference/append_stats.md)
+  [`append_p()`](https://tripartio.github.io/ale/reference/append_stats.md)
+  : Add or recalculate statistics and p-values on an ALE object
 
 ## Full-model bootstrapping
 

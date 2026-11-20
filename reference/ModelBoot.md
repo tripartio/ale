@@ -33,7 +33,7 @@ ModelBoot(
   pred_type = "response",
   boot_it = 100,
   boot_alpha = 0.05,
-  boot_centre = "mean",
+  boot_centre = c("mean", "median"),
   seed = 0,
   output_model_stats = TRUE,
   output_model_coefs = TRUE,
@@ -125,18 +125,16 @@ ModelBoot(
 
 - boot_centre:
 
-  character(1) in c('mean', 'median'). When bootstrapping, the main
-  estimate for the ALE y value is considered to be `boot_centre`.
-  Regardless of the value specified here, both the mean and median will
-  be available.
+  character(1). Bootstrap centre for the main ALE y estimate, matched
+  exactly. Both the mean and median estimates remain available
+  regardless of this choice.
 
 - seed:
 
-  integer. Random seed. Supply this between runs to assure identical
-  bootstrap samples are generated each time on the same data. See
-  documentation for
-  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) for
-  further details.
+  integer(1). Random seed. Supplies reproducible bootstrap samples and
+  iteration streams in local and future execution. See documentation for
+  [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md) for RNG
+  restoration and numerical reproducibility details.
 
 - output_model_stats:
 
@@ -300,7 +298,11 @@ Specifically, it:
   values for each model on each bootstrap sample;
 
 - Calculates the mean, median, and lower and upper confidence intervals
-  for each of those values across all bootstrap samples.
+  for each of those values across all bootstrap samples;
+
+- Calculates ALE if requested (the default); if bootstrapped, it first
+  establishes canonical bins that every bootstrap iteration receives
+  explicitly.
 
 ## References
 
@@ -392,7 +394,7 @@ summary(gam_attitude)
 # For speed, these examples use retrieve_rds() to load pre-created objects
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 
 # Create ALE data
 mb_gam_attitude <- retrieve_rds(

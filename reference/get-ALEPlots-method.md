@@ -23,15 +23,16 @@ which returns an `ALEPlots` object.
 
 ## Method usage
 
-    get(obj, x_cols = NULL, ..., exclude_cols = NULL, type = "ale", cats = NULL, simplify = TRUE, silent = FALSE)
+    get(obj, x_cols = NULL, ..., exclude_cols = NULL, type = c("ale", "effect", "overlay", "facet"), cats = NULL, simplify = TRUE, silent = FALSE)
 
 ## Method arguments
 
 - `obj`: ALEPlots object from which to retrieve ALE elements.
 
-- `type`: character(1). What type of ALEPlots to retrieve: `'ale'` for
-  standard ALE plots or `'effect'` for ALE effects plots. See `cats`
-  argument for options for categorical plots.
+- `type`: character(1). Matched exactly. "ale" retrieves standard ALE
+  plots and "effect" retrieves ALE effects plots. With `cats = ".all"`,
+  "ale" selects "facet"; "overlay" and "facet" select the corresponding
+  combined-category plots, while "effect" is invalid.
 
 - `cats`: character. The categories (one or more) of a categorical
   outcome variable to retrieve. To retrieve all categories as individual
@@ -39,5 +40,5 @@ which returns an `ALEPlots` object.
   plots that combine all categories, specify `cats = ".all"`. (Don't
   forget the "." in ".all", which avoids naming conflicts with
   legitimate categories that might be named "all".) For such
-  all-category plots, `type` must be set to "overlay" or "facet" for the
-  specific desired type of categorical plot.
+  all-category plots, choose `type = "overlay"` or `type = "facet"`; the
+  default `type = "ale"` selects "facet".

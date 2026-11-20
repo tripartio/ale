@@ -136,7 +136,7 @@ specific type of data returned depends on the values of the `what` and
 
 ## Method usage
 
-    get(obj, x_cols = NULL, what = "ale", ..., exclude_cols = NULL, stats = NULL, cats = NULL, ale_centre = "median", simplify = TRUE, silent = FALSE)
+    get(obj, x_cols = NULL, what = c("ale", "boot_data"), ..., exclude_cols = NULL, stats = NULL, cats = NULL, ale_centre = c("median", "mean", "zero"), simplify = TRUE, silent = FALSE)
 
 ## Method arguments
 
@@ -149,9 +149,8 @@ specific type of data returned depends on the values of the `what` and
   the documentation for
   [`resolve_x_cols()`](https://tripartio.github.io/ale/reference/resolve_x_cols.md).
 
-- `what`: character(1). What kind of output is requested. Must be either
-  "ale" (default) or "boot_data". To retrieve ALE statistics, see the
-  `stats` argument.
+- `what`: character(1). What kind of output is requested, matched
+  exactly. To retrieve ALE statistics, see the `stats` argument.
 
 - `...`: not used. Inserted to require explicit naming of subsequent
   arguments.

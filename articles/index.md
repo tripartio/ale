@@ -4,6 +4,8 @@
 
 - [Introduction to the ale
   package](https://tripartio.github.io/ale/articles/ale-intro.md):
+- [Customizing ALE
+  plots](https://tripartio.github.io/ale/articles/customize-plots.md):
 - [ALE-based statistics for statistical inference and effect
   sizes](https://tripartio.github.io/ale/articles/ale-statistics.md):
 

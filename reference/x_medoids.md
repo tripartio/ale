@@ -10,7 +10,7 @@ x_medoids(
   data,
   min_clusters = 2,
   max_clusters = 10,
-  metric = "euclidean",
+  metric = c("euclidean", "manhattan"),
   sort_by = c("silhouette", "dissimilarity", "isolation", "diameter", "separation"),
   ...
 )
@@ -32,12 +32,13 @@ x_medoids(
 
 - metric:
 
-  "euclidean", "manhattan", … as accepted by pam().
+  character(1). Distance metric, matched exactly and forwarded to
+  [`cluster::pam()`](https://rdrr.io/pkg/cluster/man/pam.html).
 
 - sort_by:
 
-  Which measure to sort on. Choices: "silhouette" (default),
-  "dissimilarity", "isolation", "diameter", "separation".
+  character(1). Which cluster-quality measure to sort on, matched
+  exactly. Partial names are not accepted.
 
 - ...:
 
