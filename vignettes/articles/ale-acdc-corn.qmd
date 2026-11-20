@@ -34,7 +34,8 @@ We begin by loading the packages used throughout the analysis. If any are not in
 
 Note that the **{ale}** package is on CRAN, but for a few features used here we install the current development version from GitHub (the code shows how, via {pak}).
 
-```{r load-packages}
+```{r}
+#| label:  load-libraries
 #| echo: true
 #| eval: true
 #| results: false
@@ -54,10 +55,6 @@ library(rsample)  # cross-validation
 # * cli: command line interface printing
 
 # Accumulated Local Effects: ale package
-# Install the development version of ale for this workshop, which is more recent than the current CRAN version.
-# If needed, first install the pak package manager to easily install a GitHub package:
-# install.packages('pak')
-# pak::pak('tripartio/ale')
 library(ale)  # load the ale package only after installing the development version
 
 ```

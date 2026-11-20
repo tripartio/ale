@@ -25,11 +25,14 @@ Accumulated Local Effects (ALE) were initially developed as a model-agnostic app
 
 For more details, see Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.
 
-This vignette demonstrates the basic functionality of the `{ale}` package on standard large datasets used for machine learning. A separate vignette is devoted to its use on [small datasets](ale-small-datasets.html "ale package for small datasets"), as is often the case with statistical inference. (How small is small? That's a tough question, but as that vignette explains, most datasets of less than 2000 rows are probably "small" and even many datasets that are more than 2000 rows are nonetheless "small".) Other vignettes introduce [ALE-based statistics for statistical inference](ale-statistics.html) and show how the `{ale}` package handles [various datatypes of input variables](ale-x-datatypes.html).
+This vignette demonstrates the basic functionality of the `{ale}` package on standard large datasets used for machine learning. A separate vignette is devoted to its use on [small datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.html "ale package for small datasets"), as is often the case with statistical inference. (How small is small? That's a tough question, but as that vignette explains, most datasets of less than 2000 rows are probably "small" and even many datasets that are more than 2000 rows are nonetheless "small".) Other vignettes introduce [ALE-based statistics for statistical inference](https://tripartio.github.io/ale/articles/ale-statistics.html) and show how the `{ale}` package handles [various datatypes of input variables](https://tripartio.github.io/ale/articles/ale-x-datatypes.html).
 
 We begin by loading the necessary libraries.
 
-```{r load libraries}
+```{r}
+#| label:  load-libraries
+#| messages: false
+
 library(ale)
 library(dplyr)
 ```
@@ -80,7 +83,7 @@ str(diamonds)
 summary(diamonds$price)
 ```
 
-Interpretable machine learning (IML) techniques like ALE should be applied on the same dataset that was used to train the model. An explanation is an explanation of a trained model and a trained model is intrinsically linked to the dataset on which it is trained. (When a dataset is too small to feasibly split into training and test sets, then the ale package has tools to appropriately handle such [small datasets](ale-small-datasets.html "ale package for small datasets").
+Interpretable machine learning (IML) techniques like ALE should be applied on the same dataset that was used to train the model. An explanation is an explanation of a trained model and a trained model is intrinsically linked to the dataset on which it is trained. (When a dataset is too small to feasibly split into training and test sets, then the ale package has tools to appropriately handle such [small datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.html "ale package for small datasets").
 
 ## Modelling with a random forest
 
@@ -154,7 +157,7 @@ ale_rf_diamonds <- retrieve_rds(
 summary(ale_rf_diamonds)
 ```
 
-The `summary()` method reports the model and data represented by the object, followed by its ALE statistics and statistically significant confidence regions when available. It returns the `ALE` object invisibly, so it is intended for inspection rather than data extraction. The default constructor calculates ALE statistics, although p-values and their confidence regions are not calculated unless p-values are supplied or generated during bootstrapping. See the [ALE statistics vignette](ale-statistics.html "ALE-based statistics") for their interpretation.
+The `summary()` method reports the model and data represented by the object, followed by its ALE statistics and statistically significant confidence regions when available. It returns the `ALE` object invisibly, so it is intended for inspection rather than data extraction. The default constructor calculates ALE statistics, although p-values and their confidence regions are not calculated unless p-values are supplied or generated during bootstrapping. See the [ALE statistics vignette](https://tripartio.github.io/ale/articles/ale-statistics.html "ALE-based statistics") for their interpretation.
 
 Most core functions in the `{ale}` package support parallel processing. You can enable parallelization globally with `options(ale.parallel = x)`, where "x" is the number of CPU cores you want to use. It can also be enabled for specific function runs with the `parallel` argument. Parallelization is disabled by default with `parallel = 0`. See the documentation for `ALE()` for details.
 
@@ -205,7 +208,7 @@ These formats can be combined with other selection options. See `help(resolve_x_
 
 ## Bootstrapped ALE
 
-One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was trained. As mentioned above, this assumes that IML analysis is carried out on a model whose hyperparameters were determined by cross-validation. When samples are too small for cross-validation, we provide a different approach by bootstrapping the entire model with a `ModelBoot` object, explained in the vignette for [small datasets](ale-small-datasets.html "ale package for small datasets").
+One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was trained. As mentioned above, this assumes that IML analysis is carried out on a model whose hyperparameters were determined by cross-validation. When samples are too small for cross-validation, we provide a different approach by bootstrapping the entire model with a `ModelBoot` object, explained in the vignette for [small datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.html "ale package for small datasets").
 
 Although ALE is faster than most other IML techniques for global explanation such as partial dependence plots (PDP) and SHAP, it still requires some time to run. Bootstrapping multiplies much of that time by the number of bootstrap iterations. 
 
@@ -260,7 +263,7 @@ plot(ale_rf_diamonds_boot) |>
 
 Compare the bootstrapped confidence intervals with the single (non-bootstrapped) ALE curves above. The intervals show how much the estimated effects vary when the training data are resampled while keeping the fitted forest fixed. Use the bootstrapped results to assess the reliability of the patterns rather than relying on a single curve.
 
-By default, requesting bootstrapping while retaining ALE statistics also asks `ALE()` to generate fast surrogate p-values. These are useful for exploratory analysis but should not be used for definitive or published conclusions. See `help(ALEpDist)` and the [ALE statistics vignette](ale-statistics.html) for more rigorous options.
+By default, requesting bootstrapping while retaining ALE statistics also asks `ALE()` to generate fast surrogate p-values. These are useful for exploratory analysis but should not be used for definitive or published conclusions. See `help(ALEpDist)` and the [ALE statistics vignette](https://tripartio.github.io/ale/articles/ale-statistics.html) for more rigorous options.
 
 ## ALE interactions
 
@@ -416,8 +419,8 @@ get(ale_diamonds_with_boot_data, stats = "conf_regions")
 get(ale_diamonds_with_boot_data, stats = "conf_sig")
 ```
 
-These calls return data rather than plots: `"estimate"` provides a compact overview, named statistics return their estimates and inferential details, and the confidence-region options identify portions of an ALE curve or surface that exceed the relevant threshold. See `help("get-ALE-method")` for the precise return structures and the [ALE statistics vignette](ale-statistics.html) before drawing inferential conclusions.
+These calls return data rather than plots: `"estimate"` provides a compact overview, named statistics return their estimates and inferential details, and the confidence-region options identify portions of an ALE curve or surface that exceed the relevant threshold. See `help("get-ALE-method")` for the precise return structures and the [ALE statistics vignette](https://tripartio.github.io/ale/articles/ale-statistics.html) before drawing inferential conclusions.
 
 ## Where to go next
 
-This introduction has covered the main `ALE()` workflow: default effects, selected 1D and 2D terms, bootstrapping, custom prediction functions, plotting, and data extraction. The other vignettes cover [ALE-based statistical inference](ale-statistics.html), [different predictor datatypes](ale-x-datatypes.html), and [small datasets and full-model bootstrapping](ale-small-datasets.html). For exhaustive argument and selection details, see `help(ALE)`, `help(resolve_x_cols)`, and `help("get-ALE-method")`.
+This introduction has covered the main `ALE()` workflow: default effects, selected 1D and 2D terms, bootstrapping, custom prediction functions, plotting, and data extraction. The other vignettes cover [ALE-based statistical inference](https://tripartio.github.io/ale/articles/ale-statistics.html), [different predictor datatypes](https://tripartio.github.io/ale/articles/ale-x-datatypes.html), and [small datasets and full-model bootstrapping](https://tripartio.github.io/ale/articles/ale-small-datasets.html). For exhaustive argument and selection details, see `help(ALE)`, `help(resolve_x_cols)`, and `help("get-ALE-method")`.
