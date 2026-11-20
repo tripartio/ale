@@ -318,7 +318,7 @@ So, what should we conclude? First, it is tempting to retain the OLS results bec
 
 No doubt, the inconclusive results are because the dataset is so small (only 30 rows). A dataset even double that size might show significant effects at least for complaints, if not for other variables.
 
-# `model_call_string` argument for models not automatically detected
+## `model_call_string` argument for models not automatically detected
 
 The `ModelBoot()` constructor accesses the model object and internally modifies it to retrain the model on bootstrapped datasets. It should be able to automatically manipulate most R model objects that are used for statistical analysis. However, if an object does not follow base R conventions for model objects, `ModelBoot()` might not be able to manipulate it. If so, the function will fail early with an appropriate error message. In that case, the user must specify the `model_call_string` argument with a character string of the full call for the model with `boot_data` as the data argument for the call. (`boot_data` is a placeholder for the bootstrap datasets that the `ModelBoot()` constructor will internally work with.)
 
