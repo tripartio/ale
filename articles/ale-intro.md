@@ -25,16 +25,16 @@ This vignette demonstrates the basic functionality of the
 [ale](https://github.com/tripartio/ale) package on standard large
 datasets used for machine learning. A separate vignette is devoted to
 its use on [small
-datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.md "ale package for small datasets"),
+datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.html "ale package for small datasets"),
 as is often the case with statistical inference. (How small is small?
 That’s a tough question, but as that vignette explains, most datasets of
 less than 2000 rows are probably “small” and even many datasets that are
 more than 2000 rows are nonetheless “small”.) Other vignettes introduce
 [ALE-based statistics for statistical
-inference](https://tripartio.github.io/ale/articles/ale-statistics.md)
+inference](https://tripartio.github.io/ale/articles/ale-statistics.html)
 and show how the [ale](https://github.com/tripartio/ale) package handles
 [various datatypes of input
-variables](https://tripartio.github.io/ale/articles/ale-x-datatypes.md).
+variables](https://tripartio.github.io/ale/articles/ale-x-datatypes.html).
 
 We begin by loading the necessary libraries.
 
@@ -165,7 +165,7 @@ explanation is an explanation of a trained model and a trained model is
 intrinsically linked to the dataset on which it is trained. (When a
 dataset is too small to feasibly split into training and test sets, then
 the ale package has tools to appropriately handle such [small
-datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.md "ale package for small datasets").
+datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.html "ale package for small datasets").
 
 ## 2 Modelling with a random forest
 
@@ -209,8 +209,8 @@ rf_diamonds
     Target node size:                 4
     Variable importance mode:         none
     Splitrule:                        variance
-    OOB prediction error (MSE):       378816.4
-    R squared (OOB):                  0.9785227 
+    OOB prediction error (MSE):       376418.2
+    R squared (OOB):                  0.9786587 
 
 ## 3 Creating an `ALE` object
 
@@ -327,7 +327,7 @@ inspection rather than data extraction. The default constructor
 calculates ALE statistics, although p-values and their confidence
 regions are not calculated unless p-values are supplied or generated
 during bootstrapping. See the [ALE statistics
-vignette](https://tripartio.github.io/ale/articles/ale-statistics.md "ALE-based statistics")
+vignette](https://tripartio.github.io/ale/articles/ale-statistics.html "ALE-based statistics")
 for their interpretation.
 
 Most core functions in the [ale](https://github.com/tripartio/ale)
@@ -425,7 +425,7 @@ hyperparameters were determined by cross-validation. When samples are
 too small for cross-validation, we provide a different approach by
 bootstrapping the entire model with a `ModelBoot` object, explained in
 the vignette for [small
-datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.md "ale package for small datasets").
+datasets](https://tripartio.github.io/ale/articles/ale-small-datasets.html "ale package for small datasets").
 
 Although ALE is faster than most other IML techniques for global
 explanation such as partial dependence plots (PDP) and SHAP, it still
@@ -476,7 +476,7 @@ analysis but should not be used for definitive or published conclusions.
 See
 [`help(ALEpDist)`](https://tripartio.github.io/ale/reference/ALEpDist.md)
 and the [ALE statistics
-vignette](https://tripartio.github.io/ale/articles/ale-statistics.md)
+vignette](https://tripartio.github.io/ale/articles/ale-statistics.html)
 for more rigorous options.
 
 ## 6 ALE interactions
@@ -912,7 +912,7 @@ inferential details, and the confidence-region options identify portions
 of an ALE curve or surface that exceed the relevant threshold. See
 [`help("get-ALE-method")`](https://tripartio.github.io/ale/reference/get-ALE-method.md)
 for the precise return structures and the [ALE statistics
-vignette](https://tripartio.github.io/ale/articles/ale-statistics.md)
+vignette](https://tripartio.github.io/ale/articles/ale-statistics.html)
 before drawing inferential conclusions.
 
 ## 9 Where to go next
@@ -922,11 +922,11 @@ This introduction has covered the main
 default effects, selected 1D and 2D terms, bootstrapping, custom
 prediction functions, plotting, and data extraction. The other vignettes
 cover [ALE-based statistical
-inference](https://tripartio.github.io/ale/articles/ale-statistics.md),
+inference](https://tripartio.github.io/ale/articles/ale-statistics.html),
 [different predictor
-datatypes](https://tripartio.github.io/ale/articles/ale-x-datatypes.md),
+datatypes](https://tripartio.github.io/ale/articles/ale-x-datatypes.html),
 and [small datasets and full-model
-bootstrapping](https://tripartio.github.io/ale/articles/ale-small-datasets.md).
+bootstrapping](https://tripartio.github.io/ale/articles/ale-small-datasets.html).
 For exhaustive argument and selection details, see
 [`help(ALE)`](https://tripartio.github.io/ale/reference/ALE.md),
 [`help(resolve_x_cols)`](https://tripartio.github.io/ale/reference/resolve_x_cols.md),

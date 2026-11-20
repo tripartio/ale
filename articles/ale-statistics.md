@@ -259,7 +259,8 @@ We now demonstrate how to create the `ALEpDist` object for our case.
 
 ``` r
 
-# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+# For faster processing, you can enable parallel processing: 
+# set the number of CPU cores available. See help(ALE) for details.
 options(ale.parallel = 2)
 ```
 

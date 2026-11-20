@@ -73,7 +73,7 @@
 </h3>
 <p>An obvious question is, “How small is ‘small’?” This is a very complex question and it is way beyond the scope of this vignette to try to answer it rigorously. But we can simply say that the key issue at stake is that applying the training-test split that is common in machine learning is a crucial technique for increasing the generalizability of data analysis. So, the question becomes focused to, “How small is too small for a training-test split for machine learning analysis?” The rule of thumb I am familiar with is that machine learning requires at least 200 rows of data for each predictor variable. So, for example, if you have five input variables, you would need at least 1000 rows of data. But note that this does not refer to the size of the entire dataset but to the minimum size of the training subset. So, if you carry out an 80-20 split on the full dataset (that is, 80% training set), then you would need at least 1000 rows for the training set and another 250 rows for the test set, for a minimum of 1250 rows. (And if you carry out hyperparameter tuning with cross validation on that training set, then you need even more data.) If you see where this is headed, you might quickly realize <strong>that most datasets of less than 2000 rows are probably “small”</strong>. You can see that even many datasets that are more than 2000 rows are nonetheless “small”, and so probably need the techniques mentioned in this vignette.</p>
 <p>We begin by loading the necessary libraries.</p>
-<div class="cell">
+<div class="cell" data-messages="false">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -213,7 +213,8 @@
 <p>At the very least, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is useful for visualizing the effects of model variables. Note that for now, we run <code><a href="../reference/ALE.html">ALE()</a></code> with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.</span></span>
+<code class="sourceCode R"><span><span class="co"># For faster processing, you can enable parallel processing: </span></span>
+<span><span class="co"># set the number of CPU cores available. See help(ALE) for details.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>ale.parallel <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">

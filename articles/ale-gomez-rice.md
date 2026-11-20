@@ -41,14 +41,13 @@ library(kableExtra)  # table formatting
 # Other packages that must be installed
 # Uncomment the following lines as needed.
 
-# # If needed, first install the pak advanced package manager (needed to easily install a package directly from GitHub):
+# # If needed, first install the pak advanced package manager 
+# # (needed to easily install a package directly from GitHub):
 # install.packages('pak')
 # 
 # pak::pak('agridat')  # agricultural datasets
 # 
 # # Accumulated Local Effects: ale package
-# # Install the development version of ale for this workshop, which is more recent than the current CRAN version.
-# pak::pak('tripartio/ale')
 library(ale)  # load the ale package only after installing the development version
 ```
 
@@ -57,7 +56,8 @@ library(ale)  # load the ale package only after installing the development versi
 # For speed, these examples use retrieve_rds() to load precreated objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
-serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download/rice_objects"
+serialized_objects_site <- 
+  "https://github.com/tripartio/ale/raw/wip/download/rice_objects"
 ```
 
 ## 3 Data preparation and description

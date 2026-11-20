@@ -69,7 +69,7 @@
 
     <p>This vignette demonstrates how <a href="https://github.com/tripartio/ale" class="external-link">ale</a> works for various input datatypes. You should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that explains general functionality of the package; this vignette is a demonstration of specific functionality.</p>
 <p>We begin by loading the necessary libraries.</p>
-<div class="cell">
+<div class="cell" data-messages="false">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -275,7 +275,8 @@ GCV = 6.4263  Scale est. = 1.6474    n = 32</code></pre>
 <p>Now we generate ALE data from the <code>gam_cars</code> GAM model and plot it.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.</span></span>
+<code class="sourceCode R"><span><span class="co"># For faster processing, you can enable parallel processing: </span></span>
+<span><span class="co"># set the number of CPU cores available. See help(ALE) for details.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>ale.parallel <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">

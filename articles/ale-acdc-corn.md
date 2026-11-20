@@ -42,10 +42,6 @@ library(rsample)  # cross-validation
 # * cli: command line interface printing
 
 # Accumulated Local Effects: ale package
-# Install the development version of ale for this workshop, which is more recent than the current CRAN version.
-# If needed, first install the pak package manager to easily install a GitHub package:
-# install.packages('pak')
-# pak::pak('tripartio/ale')
 library(ale)  # load the ale package only after installing the development version
 ```
 
@@ -382,7 +378,7 @@ lm_corn <- lm(corn ~ ., data = corn_data)
 toc()  # 0.14 sec (with county 3539.29 sec elapsed (59 minutes = 1 hour))
 ```
 
-    0.23 sec elapsed
+    0.223 sec elapsed
 
 ``` r
 
@@ -514,7 +510,7 @@ rf_corn <- ranger(
 toc()  # 7.92  sec elapsed
 ```
 
-    16.425 sec elapsed
+    15.449 sec elapsed
 
 ``` r
 

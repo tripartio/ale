@@ -163,7 +163,8 @@ doing is using ALE to accurately visualize what the model estimates.
 
 ``` r
 
-# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+# For faster processing, you can enable parallel processing: 
+# set the number of CPU cores available. See help(ALE) for details.
 options(ale.parallel = 2)
 ```
 

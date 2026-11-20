@@ -33,13 +33,15 @@
   proportional to the frequency of the data. We find these proportional
   widths more intuitive than the text annotations that previously
   indicated the percentages, which have now been removed. The minimum
-  width can be controlled with the `min_col_widths` argument of
-  `plot.ALE()`.
+  width can be controlled with the `min_col_widths` argument of the
+  [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method for
+  `ALE`.
 - For 1D plots of categorical variables, only a maximum of 10 distinct
   values (e.g., factor levels) are now shown (the default 10 is
-  adjustable with the `consolid_cats` argument of `plot.ALE()`). The top
-  `consolid_cats - 1` values in ALE strength are shown and all other
-  values are consolidated into an “other” category.
+  adjustable with the `consolid_cats` argument of the
+  [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method for
+  `ALE`). The top `consolid_cats - 1` values in ALE strength are shown
+  and all other values are consolidated into an “other” category.
 - With the default value `"levels"` of the `fct_order` argument to the
   [`ALE()`](https://tripartio.github.io/ale/reference/ALE.md)
   constructor, unordered factors are now sorted in the order of the

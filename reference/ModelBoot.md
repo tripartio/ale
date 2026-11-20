@@ -628,7 +628,7 @@ get(mb_gam_attitude, type = 'single')  # full (unbootstrapped) model
 #> 8           55     2  62.3  62.3    62.3      62.3  62.3
 #> 9           72     3  58.3  58.3    58.3      58.3  58.3
 #> 
-# See get.ALE() for other options
+# See help('get-ALE-method') for other options
 
 # }
 ```
