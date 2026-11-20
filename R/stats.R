@@ -1070,7 +1070,7 @@ update_ModelBoot_p <- function(
     ale_obj@ale$single, p_values, aler_alpha, FALSE
   )
   if (!is.null(ale_obj@ale$boot)) {
-    # Use the same ALE adapter pattern as get.ModelBoot() for aggregate data.
+    # Use the same ALE adapter pattern as get() for ModelBoot for aggregate data.
     it.aggregate <- ale_obj@ale$single
     it.aggregate@effect <- ale_obj@ale$boot$effect
     it.aggregate <- update_ALE_p(it.aggregate, p_values, aler_alpha, FALSE)

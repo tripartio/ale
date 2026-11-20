@@ -439,7 +439,7 @@ method(print, ALE) <- function(
 }
 
 
-# Code shared between summary.ALE and summary.ModelBoot
+# Code shared between summary methods of ALE and ModelBoot
 summary_ALE_stats <- function(
     object,
     p_dist,

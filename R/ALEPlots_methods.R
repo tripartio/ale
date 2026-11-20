@@ -195,7 +195,7 @@ method(plot, ALEPlots) <- function(
     })
 
   invisible(plots_obj)
-}  # plot.ALEPlots()
+}
 
 
 #' @name print-ALEPlots-method
@@ -370,7 +370,7 @@ method(summary, ALEPlots) <- function(
   )
 
   return(summ)
-}  # summary.ALEPlots()
+}
 
 
 

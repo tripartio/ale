@@ -40,17 +40,17 @@ test_that(
 
 
 
-    ## Test get.ALE methods --------------------
+    ## Test get method for ALE --------------------
 
-    # get.ALE with a simple 1D ALE object (no bootstrap, numeric y) uses default arguments
+    # get() with a simple 1D ALE object (no bootstrap, numeric y) uses default arguments
     get(cat_cars_ale) |> expect_snap_variant()
 
-    # get.ALE with a bootstrapped ALE object returns boot_data and stats
+    # get() with a bootstrapped ALE object returns boot_data and stats
     get(cat_cars_ale, what = "boot_data") |> expect_snap_variant()
     get(cat_cars_ale, stats = "estimate") |> expect_snap_variant()
     expect_requested_stats_order(cat_cars_ale)
 
-    # get.ALE works for a categorical ALE object
+    # get() works for a categorical ALE object
     get(cat_cars_ale, cats = c('Asia', 'Europe')) |> expect_snap_variant()
 
     # Simplify the dimension and term lists independently within every category.
@@ -65,15 +65,15 @@ test_that(
       raw_wt$Asia
     )
 
-    # get.ALE can exclude specific columns (edge case with 2D) and still return a snapshot
+    # get() can exclude specific columns (edge case with 2D) and still return a snapshot
     get(cat_cars_ale, exclude_cols = list(d2_all = 'am')) |> expect_snap_variant()
 
-    # get.ALE can retrieve conf_regions or conf_sig if p-values exist (edge case)
+    # get() can retrieve conf_regions or conf_sig if p-values exist (edge case)
     get(cat_cars_ale, stats = "conf_regions") |> expect_snap_variant()
     get(cat_cars_ale, stats = "conf_sig") |> expect_snap_variant()
 
 
-    ## Test plot.ALE methods --------------------
+    ## Test plot method  for ALE --------------------
     # Because it is complex to save entire ggplot objects, only save the core data from the plots
     cat_cars_ale_plots <- plot(
       cat_cars_ale,
@@ -148,7 +148,7 @@ test_that(
 
 
 
-    ## Test print.ALE methods --------------------
+    ## Test print method for ALE --------------------
 
     print(cat_cars_ale) |>
       capture.output() |>

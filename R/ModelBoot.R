@@ -159,7 +159,7 @@
 #' # Retrieve ALE data
 #' get(mb_gam_attitude, type = 'boot')    # bootstrapped
 #' get(mb_gam_attitude, type = 'single')  # full (unbootstrapped) model
-#' # See get.ALE() for other options
+#' # See help('get-ALE-method') for other options
 #'
 #' }
 #'

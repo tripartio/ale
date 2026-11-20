@@ -45,13 +45,13 @@ method(get, ModelBoot) <- function(
     simplify = TRUE
 ) {
 
-  ## Validate arguments unique to get.ModelBoot (relative to get.ALE -------------
+  ## Validate arguments unique to ModelBoot (relative to ALE) -------------
 
   type <- rlang::arg_match(type)
   what <- rlang::arg_match(what)
   ale_centre <- rlang::arg_match(ale_centre)
 
-  ## Pass to get.ALE for retrieval --------------
+  ## Pass to get method for ALE for retrieval --------------
 
   if (type == 'auto') {
     type <- if (is.null(obj@ale$boot)) 'single' else 'boot'
