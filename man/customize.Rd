@@ -9,7 +9,7 @@ customize(
   x_cols = NULL,
   ...,
   exclude_cols = NULL,
-  type = "ale",
+  type = c("ale", "effect", "overlay", "facet"),
   cats = NULL,
   layers = NULL,
   zoom_x = NULL,

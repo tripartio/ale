@@ -25,7 +25,11 @@ This vignette demonstrates how `{ale}` works for various input datatypes. You sh
 
 We begin by loading the necessary libraries.
 
-```{r load libraries}
+
+```{r}
+#| label:  load-libraries
+#| messages: false
+
 library(ale)
 library(dplyr)
 ```
@@ -76,7 +80,8 @@ summary(gam_cars)
 Now we generate ALE data from the `gam_cars` GAM model and plot it.
 
 ```{r parallel}
-# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+# For faster processing, you can enable parallel processing: 
+# set the number of CPU cores available. See help(ALE) for details.
 options(ale.parallel = 2)
 
 ```

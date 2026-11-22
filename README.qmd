@@ -8,12 +8,16 @@ format:
 execute:
   warning: false
   message: false
+  
+knitr:
+  opts_chunk:
+    fig.path: "man/figures/README-"
 ---
 
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" alt="ale package logo" align="right" width="138" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://img.shields.io/cran/v/ale)](https://CRAN.R-project.org/package=ale)
@@ -173,6 +177,7 @@ summary(ale_rf_diamonds)
 
 ```{r}
 #| label: plot-ale-rf
+#| fig-cap: '1D ALE plots for the nine predictors of price.'
 #| fig-width: 7
 #| fig-height: 11
 
@@ -289,6 +294,7 @@ ale_rf_diamonds_stats_readme <- retrieve_rds(
 
 ```{r}
 #| label: ale-1D-plot
+#| fig-cap: '1D ALE plots for the nine predictors of price, with the ALER band for p-values.'
 #| fig-width: 7
 #| fig-height: 11
 
@@ -307,6 +313,7 @@ ale_plots |>
 
 ```{r}
 #| label: 2D-plot
+#| fig-cap: '2D ALE plot for the the carat-clarity interaction on price.'
 #| fig-width: 7
 #| fig-height: 5
 
@@ -334,13 +341,13 @@ Apley, Daniel W., and Jingyu Zhu (2020). "Visualizing the effects of predictor v
 
 Okoli, Chitu (2023). "Statistical inference using machine learning and classical techniques based on accumulated local effects (ALE)." *arXiv preprint* arXiv:2310.09877.
 
-Okoli, Chitu (2024). "Model-Agnostic Interpretability: Effect Size Measures from Accumulated Local Effects (ALE)". INFORMS Workshop on Data Science 2024. Seattle
+Okoli, Chitu (2024). "Model-Agnostic Interpretability: Effect Size Measures from Accumulated Local Effects (ALE)". INFORMS Workshop on Data Science 2024. Seattle, USA.
 
 ### ALE-based inference (confidence regions)
 
 Okoli, Chitu (2023). "Statistical inference using machine learning and classical techniques based on accumulated local effects (ALE)." *arXiv preprint* arXiv:2310.09877.
 
-Okoli, Chitu (2024). "Model-Agnostic Interpretability: Effect Size Measures from Accumulated Local Effects (ALE)". INFORMS Workshop on Data Science 2024. Seattle
+Okoli, Chitu (2024). "Reliable Inference from Human-Centred Datasets with Accumulated Local Effects". INFORMS Annual Meeting 2024,Seattle, USA.
 
 ### Use of the `ale` package (the software itself)
 

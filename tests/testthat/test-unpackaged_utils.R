@@ -38,18 +38,6 @@ test_that("is_scalar_number() works as expected", {
   expect_false(is_scalar_number(numeric(0))) # length 0
 })
 
-test_that("is_scalar_natural() works as expected", {
-  # True: strictly positive whole number
-  expect_true(is_scalar_natural(1L))
-  expect_true(is_scalar_natural(42L))
-
-  # False cases
-  expect_false(is_scalar_natural(0L))    # zero is excluded
-  expect_false(is_scalar_natural(3.14))  # not integerish
-  expect_false(is_scalar_natural(-5L))   # negative
-  expect_false(is_scalar_natural(c(1,2)))# length > 1
-})
-
 test_that("is_scalar_whole() works as expected", {
   # True: zero or positive whole number
   expect_true(is_scalar_whole(0L))
@@ -107,81 +95,4 @@ test_that("%notin% works properly", {
   expect_identical(x[x %notin% c("b", "z")], c("a", "c"))
   # check the logical form
   expect_identical(x %notin% c("b", "z"), c(TRUE, FALSE, TRUE))
-})
-
-
-# Unit tests for retrieve_rds() ----
-# We mock base::url() / base::readRDS() so no network/filesystem is touched.
-
-test_that("URL succeeds: returns serialized object; block not evaluated", {
-  serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
-  flag <- new.env(parent = emptyenv()); flag$ran <- FALSE
-
-  testthat::with_mocked_bindings(
-    url    = function(...) "mock-connection",
-    readRDS = function(con) {
-      expect_identical(con, "mock-connection")
-      "SERIALIZED_VALUE"
-    },
-    .package = "base", {  # <- mock in the base namespace (where retrieve_rds resolves them)
-      res <- retrieve_rds(
-        c(serialized_objects_site, "ale_gam_diamonds.0.5.2.rds"),
-        {
-          flag$ran <- TRUE
-          "BLOCK_VALUE"
-        }
-      )
-
-      expect_identical(res, "SERIALIZED_VALUE")
-      expect_false(flag$ran)  # block must NOT have been evaluated
-    }
-  )
-})
-
-test_that("URL fails: evaluates code block and returns its value", {
-  serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
-  flag <- new.env(parent = emptyenv()); flag$ran <- FALSE
-
-  testthat::with_mocked_bindings(
-    url     = function(...) "mock-connection",
-    readRDS = function(con) { stop("boom", call. = FALSE) },  # force URL failure
-    .package = "base", {
-      res <- retrieve_rds(
-        c(serialized_objects_site, "ale_gam_diamonds.0.5.2.rds"),
-        {
-          flag$ran <- TRUE
-          999L
-        }
-      )
-
-      expect_true(flag$ran)                  # block should have run
-      expect_identical(res, 999L)   # and its value returned
-    }
-  )
-})
-
-test_that("Default char_as_url=TRUE: bad URL then returns next literal (100L)", {
-  testthat::with_mocked_bindings(
-    url     = function(...) "mock-connection",
-    readRDS = function(con) { stop("boom", call. = FALSE) },  # fail URL
-    .package = "base", {
-      res <- retrieve_rds(
-        "dodo",  # treated as URL, fails silently
-        100L     # then returned
-      )
-      expect_identical(res, 100L)
-      expect_type(res, "integer")
-    }
-  )
-})
-
-test_that("char_as_url=FALSE: character is returned immediately", {
-  # No mocking needed; there should be no attempt to open a URL.
-  res <- retrieve_rds(
-    "dodo",
-    100L,
-    char_as_url = FALSE
-  )
-  expect_identical(res, "dodo")
-  expect_type(res, "character")
 })

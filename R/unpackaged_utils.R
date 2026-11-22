@@ -594,12 +594,8 @@ set_seed <- function(
 #' @param data          A data frame / tibble of numeric features.
 #' @param min_clusters  Smallest k to try (>= 2 – silhouette is undefined for k = 1).
 #' @param max_clusters  Largest  k to try.
-#' @param metric        "euclidean", "manhattan", … as accepted by pam().
-#' @param sort_by       Which measure to sort on.
-#'                      Choices: "silhouette" (default),
-#'                               "dissimilarity",
-#'                               "isolation", "diameter",
-#'                               "separation".
+#' @param metric character(1). Distance metric, matched exactly and forwarded to `cluster::pam()`.
+#' @param sort_by character(1). Which cluster-quality measure to sort on, matched exactly. Partial names are not accepted.
 #' @param ...           Extra arguments forwarded to cluster::pam().
 #'
 #' @return A tibble with one row per k, containing:
@@ -612,7 +608,7 @@ x_medoids <- function(
     data,
     min_clusters = 2,
     max_clusters = 10,
-    metric = "euclidean",
+    metric = c('euclidean', 'manhattan'),
     sort_by = c(
       "silhouette",
       "dissimilarity",
@@ -624,7 +620,8 @@ x_medoids <- function(
 ) {
   # Validate arguments
   max_clusters <- min(max_clusters, nrow(data) - 1)
-  sort_by <- match.arg(sort_by)
+  metric <- rlang::arg_match(metric)
+  sort_by <- rlang::arg_match(sort_by)
   stopifnot(min_clusters >= 2L,
             max_clusters >= min_clusters)
 

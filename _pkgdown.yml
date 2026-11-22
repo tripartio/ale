@@ -7,6 +7,7 @@ articles:
 - title: Getting started
   contents:
   - ale-intro
+  - articles/customize-plots
   - articles/ale-statistics
 
 - title: Examples
@@ -29,6 +30,7 @@ reference:
   - get-ALE-method
   - plot-ALE-method
   - invert_probs
+  - append_stats
 
 - title: Advanced visualization
   desc: Generate ALEPlots S7 objects, manipulate them, and plot ALE.
@@ -47,6 +49,7 @@ reference:
 
 - contents:
   - ALEpDist
+  - append_p
 
 - title: Full-model bootstrapping
   desc: Bootstrap a full model with a ModelBoot S7 object, with ALE and other calculations.
@@ -77,3 +80,9 @@ reference:
 - contents:
   - var_cars
   - census
+
+search:
+  exclude:
+    - AGENTS.html
+    - STYLE.html
+    - copilot-instructions.html

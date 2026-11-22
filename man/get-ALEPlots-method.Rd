@@ -20,7 +20,7 @@ output structure not described here.
 \section{Method usage}{
 
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{get(obj, x_cols = NULL, ..., exclude_cols = NULL, type = "ale", cats = NULL, simplify = TRUE, silent = FALSE)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{get(obj, x_cols = NULL, ..., exclude_cols = NULL, type = c("ale", "effect", "overlay", "facet"), cats = NULL, simplify = TRUE, silent = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -28,8 +28,8 @@ output structure not described here.
 
 \itemize{
 \item \code{obj}: ALEPlots object from which to retrieve ALE elements.
-\item \code{type}: character(1). What type of ALEPlots to retrieve: \code{'ale'} for standard ALE plots or \code{'effect'} for ALE effects plots. See \code{cats} argument for options for categorical plots.
-\item \code{cats}: character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave \code{cats} at the default \code{NULL}. For categorical plots that combine all categories, specify \code{cats = ".all"}. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, \code{type} must be set to "overlay" or "facet" for the specific desired type of categorical plot.
+\item \code{type}: character(1). Matched exactly. "ale" retrieves standard ALE plots and "effect" retrieves ALE effects plots. With \code{cats = ".all"}, "ale" selects "facet"; "overlay" and "facet" select the corresponding combined-category plots, while "effect" is invalid.
+\item \code{cats}: character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave \code{cats} at the default \code{NULL}. For categorical plots that combine all categories, specify \code{cats = ".all"}. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, choose \code{type = "overlay"} or \code{type = "facet"}; the default \code{type = "ale"} selects "facet".
 }
 }
 

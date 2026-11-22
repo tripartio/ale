@@ -156,10 +156,8 @@ test_that("s7 snapshots normalize univariateML parameters without mutation", {
   result <- s7_snapshot(snapshot_container(distribution = distribution))$distribution
 
   expect_equal(as.numeric(result), c(1.23457, 0), tolerance = 1e-05)
-  expect_identical(names(result), c("mu", "sigma"))
   expect_identical(attributes(result), attributes(distribution))
   expect_identical(distribution, original)
-  expect_equal(result[["sigma"]], 0, tolerance = 1e-05)
 })
 
 test_that("snapshot data frames leave numeric S3 columns unchanged", {

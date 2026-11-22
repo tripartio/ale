@@ -10,19 +10,29 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 # ale (development version)
 
+* We have added a **Shiny app that can be used to browse the `ale` data object**. It is accessed with the new `browse_ale()` function. It is implemented as a [Shiny module](https://mastering-shiny.org/scaling-modules.html) with `aleBrowserUI()` as the UI function and `aleBrowserServer()` as the corresponding server function. So, it can be embedded in other Shiny apps or in dynamic [Quarto](https://quarto.org/docs/interactive/shiny/) or [R Markdown](https://bookdown.org/yihui/rmarkdown/shiny-embedded.html) documents.
+
+
+# ale 0.6.0
+
 ## New features
 
-* We have added a **Shiny app that can be used to browse the `ale` data object**. It is accessed with the new `browse_ale()` function. It is implemented as a [Shiny module](https://mastering-shiny.org/scaling-modules.html) with `aleBrowserUI()` as the UI function and `aleBrowserServer()` as the corresponding server function. So, it can be embedded in other Shiny apps or in dynamic [Quarto](https://quarto.org/docs/interactive/shiny/) or [R Markdown](https://bookdown.org/yihui/rmarkdown/shiny-embedded.html) documents.
+* `append_stats()` adds or recalculates statistics on existing `ALE` objects, using saved bootstrap data and a complete outcome reference when needed; `append_p()` adds or replaces p-values on `ALE` objects or `ModelBoot` objects with retained bootstrap data, using an explicitly supplied `ALEpDist` distribution and refreshing ALER bands (#53).
 * `summary()` methods have been implemented for `ALE` and `ModelBoot` objects. They print a summary of ALE statistics to the console. When there are no ALE statistics available, they print a message saying so.
 * With the `show_2d_bin_sizes` logical argument `ALEPlots()`, the 2D ALE plots display of hollow bin-size squares and a % data legend is now optional. (#44)
-* With the `aled_fun` argument of the `ALE()` and `ALEpDist()` constructors, we may optionally choose to calculate ALE deviation based on standard deviations instead of the default mean absolute deviation.
-* The widths of 1D ALE plots for non-numerical variables are now proportional to the frequency of the data. We find these proportional widths more intuitive than the text annotations that previously indicated the percentages, which have now been removed. The minimum width can be controlled with the `min_col_widths` argument of `plot.ALE()`. 
-* For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the `consolid_cats` argument of `plot.ALE()`). The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. 
+* With the `aled_fun` argument of the `ALE()` and `ALEpDist()` constructors, we may optionally choose to calculate ALE deviation based on standard deviations or variances instead of the default mean absolute deviation.
+* The widths of 1D ALE plots for non-numerical variables are now proportional to the frequency of the data. We find these proportional widths more intuitive than the text annotations that previously indicated the percentages, which have now been removed. The minimum width can be controlled with the `min_col_widths` argument of the `plot()` method for `ALE`. 
+* For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the `consolid_cats` argument of the `plot()` method for `ALE`). The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. 
 * With the default value `"levels"` of the `fct_order` argument to the `ALE()` constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative `"y_col"` sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The `"ksd"` option allows compatibility with the original `ALEPlot` reference implementation.
 * The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with dimension-specific defaults for columns not named. For details, see documentation for `ALE()`.
 * Parallelization can be controlled with a global option `ale.parallel`. For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
 * The `{ranger}` package is automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages: `pred_fun` remains the general way to customize predict functions for packages that don't work out of the box.
 * ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER max – NALER min) directly, not just the _max and _min versions, which are retained.
+
+## Performance improvements
+
+- `ALE()`, `ALEpDist()`, and `ModelBoot()` run locally when `parallel = 0` or a batch has at most one job, avoiding repeated future preparation inside model and random-variable iterations (#noissue). They thus execute faster than before.
+
 
 ## Bug fixes
 
@@ -39,6 +49,11 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 * Handle missing 1D ALE bins during model bootstrapping (#19).
 
 ## Changed functionality
+
+* `ALE()`, `ALEpDist()`, and `ModelBoot()` use reproducible iteration streams with matching R random inputs in serial and parallel execution, and restore the caller's RNG kinds and full seed state. The new stream policy changes historical random results (#noissue).
+* `ModelBoot()` completes the full-data calculation before bootstrapping and passes its canonical ALE bins explicitly to every iteration, giving serial and parallel bootstrap calculations the same grids (#noissue).
+
+* `ALE()`, `ModelBoot()`, `ALEPlots()`, their `get()` methods, and `customize()` expose complete defaults for fixed string choices and match them exactly with `rlang::arg_match()`. Nullable and mixed-type arguments retain their existing validation and forms, and coordinated selector behaviour is preserved. `x_medoids()` also matches its choices exactly; abbreviated `sort_by` values such as "sil" must now be written in full as "silhouette" (#noissue).
 
 * `max_num_bins` defaults to `list(d1 = 1000L, d2 = 10L)` and supports independent per-column `except_d1` and `except_d2` limits. Explicit lists need defaults or exceptions only for the numeric variables requested in each dimension. Use `list()` for non-numeric effects; `NULL`, scalar inputs, and the former `default` and `except` elements are rejected.
 

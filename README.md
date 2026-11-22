@@ -19,7 +19,7 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+<a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" alt="ale package logo" align="right" width="138" /></a>
 
 <!-- badges: start -->
 
@@ -249,7 +249,8 @@ plot(ale_rf_diamonds) |>
   print(ncol = 2)
 ```
 
-![](README_files/figure-commonmark/plot-ale-rf-1.png)
+![1D ALE plots for the nine predictors of
+price.](man/figures/README-plot-ale-rf-1.png)
 
 For an explanation of these basic features, see the [introductory
 vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
@@ -319,7 +320,8 @@ ale_plots |>
   print(ncol = 2)
 ```
 
-![](README_files/figure-commonmark/ale-1D-plot-1.png)
+![1D ALE plots for the nine predictors of price, with the ALER band for
+p-values.](man/figures/README-ale-1D-plot-1.png)
 
 ``` r
 # Plot a selected 2D plot
@@ -328,7 +330,8 @@ ale_plots |>
   get('carat:clarity') 
 ```
 
-![](README_files/figure-commonmark/2D-plot-1.png)
+![2D ALE plot for the the carat-clarity interaction on
+price.](man/figures/README-2D-plot-1.png)
 
 For a detailed explanation of how to interpret these plots, see the
 article on [ALE-based statistics for statistical inference and effect
@@ -363,7 +366,7 @@ preprint* arXiv:2310.09877.
 
 Okoli, Chitu (2024). “Model-Agnostic Interpretability: Effect Size
 Measures from Accumulated Local Effects (ALE)”. INFORMS Workshop on Data
-Science 2024. Seattle
+Science 2024. Seattle, USA.
 
 ### ALE-based inference (confidence regions)
 
@@ -371,9 +374,9 @@ Okoli, Chitu (2023). “Statistical inference using machine learning and
 classical techniques based on accumulated local effects (ALE).” *arXiv
 preprint* arXiv:2310.09877.
 
-Okoli, Chitu (2024). “Model-Agnostic Interpretability: Effect Size
-Measures from Accumulated Local Effects (ALE)”. INFORMS Workshop on Data
-Science 2024. Seattle
+Okoli, Chitu (2024). “Reliable Inference from Human-Centred Datasets
+with Accumulated Local Effects”. INFORMS Annual Meeting 2024,Seattle,
+USA.
 
 ### Use of the `ale` package (the software itself)
 
