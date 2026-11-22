@@ -7,7 +7,7 @@
 
 
 # Validate data
-# If data is NULL and model is a standard R model type, data can be automatically detected.
+# If data is NULL, try to automatically detect it.
 validate_data <- function(
     data,
     model,
@@ -29,7 +29,7 @@ validate_data <- function(
     data <- insight::get_data(model)
 
     if (is.null(data)) {
-      cli_abort('This model seems to be non-standard, so {.arg data} must be provided.')
+      cli_abort('The model data could not be found in the {.arg model} object, so {.arg data} must be provided.')
     }
   }  # nocov end
 
@@ -37,8 +37,262 @@ validate_data <- function(
 }
 
 
+# Use the same types as calc_ale(), including fixed bins passed by ModelBoot.
+numeric_ale_cols <- function(data, x_cols, .bins = NULL) {
+  purrr::imap(x_cols, function(terms, dimension) {
+    unique(as.character(unlist(lapply(terms, function(term) {
+      columns <- strsplit(term, ':', fixed = TRUE)[[1]]
+      bins <- .bins[[dimension]][[term]]
+      types <- vapply(seq_along(columns), function(i) {
+        if (is.null(bins)) var_type(data[[columns[i]]]) else var_type(bins[[i]])
+      }, character(1))
+      columns[types %in% 'numeric']
+    }), use.names = FALSE)))
+  })
+}
+
+# Validate configuration and coverage without model or prediction setup.
+validate_max_num_bins <- function(
+    max_num_bins, col_names,
+    numeric_cols = list(d1 = character(), d2 = character())
+) {
+  validate(
+    !is.null(max_num_bins),
+    msg = '{.arg max_num_bins} cannot be NULL; use {.code list()} when no numeric limits are needed.'
+  )
+  validate(
+    is.list(max_num_bins) &&
+      (length(max_num_bins) == 0L || rlang::is_named(max_num_bins)) &&
+      !anyDuplicated(names(max_num_bins)),
+    msg = '{.arg max_num_bins} must be a named list with unique names, or {.code list()}.'
+  )
+  validate(
+    !any(c('default', 'except') %in% names(max_num_bins)),
+    msg = 'The {.val default} and {.val except} elements of {.arg max_num_bins} are no longer supported; use {.val d1}, {.val d2}, {.val except_d1}, and {.val except_d2}.'
+  )
+  validate(
+    all(names(max_num_bins) %in% c('d1', 'd2', 'except_d1', 'except_d2')),
+    msg = '{.arg max_num_bins} may contain only {.val d1}, {.val d2}, {.val except_d1}, and {.val except_d2}.'
+  )
+  for (dimension in c('d1', 'd2')) {
+    default <- max_num_bins[[dimension]]
+    if (!is.null(default)) {
+      validate(
+        isTRUE(is_scalar_natural(default)) && is.finite(default),
+        msg = paste0('{.arg max_num_bins$', dimension, '} must be a finite natural number (a strictly positive whole number).')
+      )
+    }
+    except_name <- paste0('except_', dimension)
+    overrides <- max_num_bins[[except_name]]
+    if (!is.null(overrides)) {
+      validate(
+        isTRUE(rlang::is_integerish(overrides) &&
+          all(is.finite(overrides) & overrides > 0)) &&
+          (length(overrides) == 0L || rlang::is_named(overrides)) &&
+          !anyDuplicated(names(overrides)),
+        msg = paste0('{.arg max_num_bins$', except_name, '} must be a named integer vector of strictly positive per-column limits with unique names.')
+      )
+      unknown <- setdiff(names(overrides), col_names)
+      if (length(unknown) > 0L) {
+        cli_abort(paste0('Columns listed in {.arg max_num_bins$', except_name, '} were not found in {.arg data}: {unknown}'))
+      }
+    }
+    if (is.null(default)) {
+      uncovered <- setdiff(numeric_cols[[dimension]], names(overrides))
+      if (length(uncovered) > 0L) {
+        cli_abort(paste0('Numeric variables in {.val ', dimension, '} have no bin limit: {uncovered}. Supply {.arg max_num_bins$', dimension, '} or cover them in {.arg max_num_bins$', except_name, '}.'))
+      }
+    }
+  }
+  invisible(TRUE)
+}
+
+
+# Check p-value distributions against their original inputs, including surrogates.
+validate_p_model_match <- function(p_values, model, y_col, pred_type) {
+  validate_p_model_params(p_values, params_model(model), y_col, pred_type)
+}
+
+#' Check a distribution against stored model identity and prediction settings
+#' @param p_values `ALEpDist` object. Distribution whose original model and prediction settings are checked.
+#' @param pm list. Stored model identity returned by `params_model()`, containing the model class and serialized-model hash.
+#' @param y_col character(1). Outcome column name used for the ALE calculation.
+#' @param pred_type character(1). Prediction type used for the ALE calculation.
+#' @returns TRUE invisibly when the distribution matches all supplied identity settings; otherwise signals an error.
+#' @keywords internal
+#' @noRd
+validate_p_model_params <- function(p_values, pm, y_col, pred_type) {
+  pp <- p_values@params
+  validate(
+    isTRUE(all.equal(pm$class, pp$model$class)),
+    identical(pm$hash, pp$model$hash),
+    msg = c(
+      x = 'The {.arg p_values} distribution was generated from a different model from the present one.',
+      i = 'If this is deliberate (e.g., with bootstrapping), set {.arg require_p_model_match} to {.val FALSE}.'
+    )
+  )
+  validate(
+    identical(y_col, pp$y_col),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg y_col}: {.val {pp$y_col}} rather than {.val {y_col}}.'
+  )
+  validate(
+    identical(pred_type, pp$pred_type),
+    msg = 'The {.arg p_values} distribution was generated with a different {.arg pred_type}: {.val {pp$pred_type}} rather than {.val {pred_type}}.'
+  )
+  invisible(TRUE)
+}
+
+#' Match recognized deviation methods at public input boundaries
+#' @param aled_fun character(1). Deviation calculation supplied at a public input boundary, after resolving any inherited default.
+#' @param call environment. Calling environment used to identify the user's call in errors.
+#' @returns The recognized scalar deviation-calculation name; otherwise signals an error.
+#' @keywords internal
+#' @noRd
+validate_aled_fun <- function(aled_fun, call = rlang::caller_env()) {
+  tryCatch(
+    match_aled_fun(aled_fun, call = call),
+    error = function(it.error) {
+      cli_abort(
+        '{.arg aled_fun} must be "mad", "sd", "var", or NULL.',
+        call = call
+      )
+    }
+  )
+}
+
+#' Validate distribution inputs for post hoc ALE calculations
+#' @param ale_obj `ALE` object. Existing ALE object whose stored settings and outcome categories determine distribution compatibility.
+#' @param p_values `ALEpDist` object or NULL. Distribution to attach, or NULL when no p-values are requested by `append_stats()`.
+#' @param aled_fun character(1). Resolved deviation calculation used by the ALE statistics.
+#' @param require_p_model_match logical(1). Whether to require matching model identity, outcome name, and prediction type in addition to statistical and category compatibility.
+#' @param call environment. Calling environment used to identify the user's call in errors.
+#' @returns TRUE invisibly when the supplied public inputs are compatible; otherwise signals an error.
+#' @keywords internal
+#' @noRd
+validate_append_p <- function(
+  ale_obj, p_values, aled_fun, require_p_model_match,
+  call = rlang::caller_env()
+) {
+  validate(is_bool(require_p_model_match), call = call)
+  if (is.null(p_values)) return(invisible(TRUE))
+  validate(
+    S7_inherits(p_values, ALEpDist),
+    msg = '{.arg p_values} must be an {.cls ALEpDist} object or NULL; create distributions separately with {.fun ALEpDist}.',
+    call = call
+  )
+  validate(
+    identical(aled_fun, p_values@params$aled_fun),
+    msg = 'The {.arg p_values} distribution uses a different {.arg aled_fun}. Supply a compatible distribution or recalculate statistics with {.fun append_stats}.',
+    call = call
+  )
+  validate(
+    identical(isTRUE(ale_obj@params$probs_inverted),
+      isTRUE(p_values@params$probs_inverted)),
+    msg = 'The ALE object and {.arg p_values} must have the same probability inversion state.',
+    call = call
+  )
+  validate(
+    all(ale_obj@params$y_cats %in% names(p_values@rand_stats)),
+    msg = 'The {.arg p_values} distribution must contain every outcome category in {.arg ale_obj}.',
+    call = call
+  )
+  stats_names <- c(
+    'aled', 'aler_min', 'aler', 'aler_max',
+    'naled', 'naler_min', 'naler', 'naler_max'
+  )
+  for (nm.cat in ale_obj@params$y_cats) {
+    validate(
+      all(stats_names %in% names(p_values@rand_stats[[nm.cat]])),
+      msg = 'The {.arg p_values} distribution is missing statistics for {.val {nm.cat}}.',
+      call = call
+    )
+  }
+  if (require_p_model_match) {
+    validate_p_model_params(
+      p_values, ale_obj@params$model, ale_obj@params$y_col, ale_obj@params$pred_type
+    )
+  }
+  return(invisible(TRUE))
+}
+
+#' Validate ALER thresholds supplied to public functions
+#' @param aler_alpha numeric(2) from 0 to 0.5. Requested outer and inner ALER significance thresholds in nondecreasing order.
+#' @param call environment. Calling environment used to identify the user's call in errors.
+#' @returns TRUE when the thresholds are valid; otherwise signals an error.
+#' @keywords internal
+#' @noRd
+validate_aler_alpha <- function(aler_alpha, call = rlang::caller_env()) {
+  validate(
+    is.numeric(aler_alpha) && length(aler_alpha) == 2L &&
+      all(is.finite(aler_alpha)) &&
+      all(aler_alpha >= 0 & aler_alpha <= 0.5) &&
+      aler_alpha[1] <= aler_alpha[2],
+    msg = '{.arg aler_alpha} must be two increasing numbers between 0 and 0.5.',
+    call = call
+  )
+}
+
+
+#' Resolve and validate the complete public normalization reference
+#' @param ale_obj `ALE` object. Existing ALE object providing the original row count, outcome-category names, and any saved outcome reference.
+#' @param y_vals numeric vector or numeric matrix, or NULL. Complete normalization reference used in the original ALE calculation. NULL requests the saved reference, which is accepted only when it contains every original row. A vector is accepted for one outcome category; matrix columns must be named for the outcome categories.
+#' @param call environment. Calling environment used to identify the user's call in errors.
+#' @returns A finite numeric matrix containing all original reference rows and columns arranged in `ale_obj@params$y_cats` order, with 1st and 99th percentiles within the saved plotting limits up to numerical tolerance; otherwise signals an error. This checks scale consistency without bounding every tail value. The caller uses this matrix temporarily without saving it in the returned ALE object.
+#' @keywords internal
+#' @noRd
+validate_y_vals <- function(ale_obj, y_vals, call = rlang::caller_env()) {
+  if (is.null(y_vals)) {
+    y_vals <- ale_obj@params$data$y_vals_sample
+    validate(
+      nrow(y_vals) == ale_obj@params$data$nrow,
+      msg = 'The full outcome reference was not saved. Supply complete {.arg y_vals} to calculate normalized statistics; the stored sample is insufficient.',
+      call = call
+    )
+  }
+  validate(
+    is.numeric(y_vals) &&
+      (length(dim(y_vals)) <= 1L || is.matrix(y_vals)) &&
+      all(is.finite(y_vals)),
+    msg = '{.arg y_vals} must be a finite numeric vector or matrix.',
+    call = call
+  )
+  if (!is.matrix(y_vals)) {
+    validate(
+      length(ale_obj@params$y_cats) == 1L,
+      msg = 'Supply a named matrix of {.arg y_vals} for multiple outcome categories.',
+      call = call
+    )
+    y_vals <- matrix(as.numeric(y_vals), ncol = 1L,
+      dimnames = list(NULL, ale_obj@params$y_cats))
+  }
+  validate(
+    nrow(y_vals) == ale_obj@params$data$nrow &&
+      ncol(y_vals) == length(ale_obj@params$y_cats) &&
+      setequal(colnames(y_vals), ale_obj@params$y_cats),
+    msg = '{.arg y_vals} must have every original row and one column named for each outcome category.',
+    call = call
+  )
+  y_vals <- y_vals[, ale_obj@params$y_cats, drop = FALSE]
+  # The saved min/max are probability limits or 1%/99% plotting limits.
+  # Compare like percentiles so valid observations in the tails are retained.
+  for (nm.cat in ale_obj@params$y_cats) {
+    it.limits <- ale_obj@params$y_summary[c('min', 'max'), nm.cat]
+    it.percentiles <- stats::quantile(
+      y_vals[, nm.cat], probs = c(0.01, 0.99), names = FALSE
+    )
+    it.tolerance <- sqrt(.Machine$double.eps) * pmax(1, abs(it.limits))
+    validate(
+      it.percentiles[1] >= it.limits[1] - it.tolerance[1] &&
+        it.percentiles[2] <= it.limits[2] + it.tolerance[2],
+      msg = 'The 1st and 99th percentiles of {.arg y_vals} for {.val {nm.cat}} must lie within the saved outcome-summary limits. Supply the original normalization reference on the original prediction scale.',
+      call = call
+    )
+  }
+  return(y_vals)
+}
+
 # Validate y_col.
-# If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+# If y_col is NULL, try to automatically detect it.
 validate_y_col <- function(
     y_col,
     data,
@@ -48,30 +302,60 @@ validate_y_col <- function(
     validate(is_string(y_col))
     validate(
       y_col %in% names(data),
-      msg = cli_alert_danger('{.arg y_col} is not found in {.arg data}.')
+      msg = cli_alert_danger('{.arg y_col} ("{y_col}") is not found in {.arg data}.')
     )
   }
-  # If NULL, identify y column from the Y term of a standard R model call
-  else {
-    y_col <- insight::find_response(model)
+  else {  # y_col is NULL
+    # Try to identify y column from the Y term of the R model call
+    y_col <- if (any(class(model) %in% 'ranger')) {
+      model$dependent.variable.name
+    } else {
+      # Generic attempt to find y_col
+      insight::find_response(model)
+    }
 
     if (is.null(y_col)) {  # nocov start
-      cli_abort('This model seems to be non-standard, so {.arg y_col} must be provided.')
+      cli_abort('The name of the target outcome variable could not be automatically determined, so {.arg y_col} must be provided.')
     }  # nocov end
   }
 
   y_col
 }
 
-# Validate model predictions.
+# Validate model predictions and a custom predict function.
 # This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows in the dataset.
-validate_y_preds <- function(
+validate_prediction <- function(
     pred_fun,
     model,
     data,
     y_col,
     pred_type
 ) {
+  # Establish the custom prediction function
+  pred_fun <- if (is.null(pred_fun)) {
+    if (any(class(model) %in% 'ranger')) {
+      function(object, newdata, type = pred_type) {
+        stats::predict(
+          object = object,
+          data = newdata,
+          type = type
+        )$predictions
+      }
+    } else {
+      # Generic prediction function
+      function(object, newdata, type = pred_type) {
+        stats::predict(
+          object = object,
+          newdata = newdata,
+          type = type
+        )
+      }
+    }
+  } else {
+    # Use the provided non-NULL pred_fun
+    pred_fun
+  }
+
   # Validate the prediction function with the model and the dataset
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
@@ -81,7 +365,7 @@ validate_y_preds <- function(
       }
       else {
         cli_abort(
-          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ALE} for how to create a custom predict function for non-standard models. Here is the full error message:
+          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ALE} for how to create a custom predict function for models with unique predict function formats. Here is the full error message:
 
         {e}'
         )
@@ -93,15 +377,37 @@ validate_y_preds <- function(
   # Validate the resulting predictions and make sure the result is a matrix
   validate(
     is.atomic(y_preds),
-    msg = 'The model predictions must be atomic (that is, not a list object type).'
+    msg = 'The model predictions must be atomic (that is, not recursive [list-like]).'
   )
   validate(
-    var_type(y_preds) == 'numeric',
-    msg = 'The model predictions must be numeric (but not binary).'
+    var_type(y_preds) == 'numeric' ||
+      (var_type(y_preds) == 'binary' && is.numeric(y_preds)),
+    msg = 'The model predictions must be numeric.'
   )
-  # validate(is.numeric(y_preds) && is.atomic(y_preds))
+
   if (is.matrix(y_preds)) {
-    validate(nrow(y_preds) == nrow(data))
+    if (y_preds |> colnames() |> is.null()) {
+      # A single prediction column represents the outcome itself.
+      # For multiple columns, use factor levels or unique values.
+      col_names <- if (ncol(y_preds) == 1L) {
+        y_col
+      } else {
+        data[[y_col]] |>
+          as.factor() |>
+          levels()
+      }
+
+      validate(
+        ncol(y_preds) == length(col_names),
+        msg = c(
+          x = 'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}.',
+          i = 'The {.arg pred_fun} produces a matrix output but column names cannot be created for that matrix.',
+          i = 'Modify the matrix output to have properly named columns.'
+        )
+      )
+
+      colnames(y_preds) <- col_names
+    }
   }
   else {  # validate and create a single-column matrix
     validate(length(y_preds) == nrow(data))
@@ -110,9 +416,19 @@ validate_y_preds <- function(
       as.numeric() |>
       matrix(dimnames = list(NULL, y_col))
   }
-  # validate(is.numeric(y_preds) && length(y_preds) == nrow(data))
 
-  y_preds
+  validate(
+    nrow(y_preds) == nrow(data),
+    msg = c(
+      x = 'The predict function {.arg pred_fun} must produce one value or one row of predictions for each row of data.',
+      i = 'There are {nrow(data)} rows in {.arg data} but {.arg pred_fun} produces {nrow(y_preds)} predictions or rows.'
+    )
+  )
+
+  list(
+    pred_fun = pred_fun,
+    y_preds = y_preds
+  )
 }
 
 
@@ -129,16 +445,16 @@ validate_parallel <- function(parallel, model, model_packages) {
   )
 
   parallel <- if (parallel == 'all') {
-    future::availableCores(logical = TRUE)
+    parallelly::availableCores(constraints = "connections-16", logical = TRUE)
   } else if (parallel == 'all but one') {
-    future::availableCores(logical = FALSE, omit = 1)
+    parallelly::availableCores(constraints = "connections-16", logical = FALSE, omit = 1)
   } else {
-    max_cores <- future::availableCores(logical = TRUE)
+    max_cores <- parallelly::availableCores(constraints = "connections-16", logical = TRUE)
     if (parallel > max_cores) {  # nocov start
       cli_alert_info(c(
         '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',
         'i' = '{.arg parallel} set to {max_cores}.',
-        'i' = 'To use all available parallel threads without this notification, leave the default parallel = "all".'
+        'i' = 'To use all available parallel threads without this notification, set parallel = "all".'
       ))
 
       max_cores
@@ -204,19 +520,93 @@ validate_parallel <- function(parallel, model, model_packages) {
 }
 
 
+# Returns TRUE if it appears safe to call progressr::handlers(global = TRUE).
+#
+# This is a heuristic workaround for the error
+# "should not be called with handlers on the stack".
+#
+# Since R does not expose the active condition-handler stack, inspect the call
+# stack for functions known to establish condition handlers.
+can_set_global_progressr_handlers <- function() {
+
+  # Global progress handlers are only useful in interactive sessions.
+  if (!interactive()) {
+    return(FALSE)
+  }
+
+  # Avoid enabling handlers when executing inside an RStudio notebook.
+  if (isTRUE(getOption("rstudio.notebook.executing"))) {
+    return(FALSE)
+  }
+
+  # progressr::handlers(global = TRUE) can fail with
+  # "should not be called with handlers on the stack".
+  #
+  # R does not expose the active condition-handler stack, so inspect the
+  # call stack for functions that commonly establish condition handlers.
+  # This is a heuristic, not a guarantee.
+  calls <- sys.calls() |>
+    map_chr(\(x) paste(deparse(x), collapse = " "))
+
+  suspicious_calls <- c(
+
+    # Base condition-handling mechanisms.
+    "\\btryCatch\\b",
+    "\\bwithCallingHandlers\\b",
+
+    # Restarts often accompany condition-handling infrastructure.
+    "\\bwithRestarts\\b",
+
+    # progressr installs condition handlers via with_progress().
+    "\\bwith_progress\\b"
+  )
+
+  # Return FALSE if any suspicious function appears in the current call stack.
+  !any(
+    map_lgl(
+      suspicious_calls,
+      \(pattern) any(str_detect(calls, pattern))
+    )
+  )
+}
+
 # Validate silent output flag.
 # Mainly enables or disables progress bars.
 validate_silent <- function(silent) {
   validate(is_bool(silent))
 
-  if (!silent) {  # nocov start
+  # Enable progress bars by default if possible and silent not requested
+  if (!silent && can_set_global_progressr_handlers()) {
     if (!progressr::handlers(global = NA)) {
-      # If no progressr bar settings are configured, then set cli as the default.
-      if (interactive() && !getOption("rstudio.notebook.executing")) {
-        # interactive execution outside of Rmd knitr context: enable progress bars
-        progressr::handlers(global = TRUE)
-        progressr::handlers('cli')
-      }
+      progressr::handlers(global = TRUE)
+      progressr::handlers("cli")
     }
-  }  # nocov end
+  }
+  # if (!silent) {  # nocov start
+  #   if (!progressr::handlers(global = NA)) {
+  #     # If no progressr bar settings are configured, then set cli as the default.
+  #     # rstudio_notebook: TRUE when execution context is an RStudio notebook.
+  #     # For non-RStudio environments, returns NULL, so set as FALSE.
+  #     rstudio_notebook <- getOption("rstudio.notebook.executing") %||% FALSE
+  #     if (interactive() && !rstudio_notebook) {
+  #       # if (interactive() && !getOption("rstudio.notebook.executing")) {
+  #       # interactive execution outside of Rmd knitr context: enable progress bars
+  #       progressr::handlers(global = TRUE)
+  #       progressr::handlers('cli')
+  #     }
+  #   }
+  # }  # nocov end
+}
+
+
+# Match the public ALED choices while retaining the hidden experimental path.
+# Keep "linear" out of defaults, help, and suggested choices in errors.
+match_aled_fun <- function(
+  aled_fun = c('mad', 'sd', "var"),
+  call = rlang::caller_env()
+) {
+  if (rlang::is_string(aled_fun, 'linear')) {
+    return('linear')
+  }
+  rlang::arg_match(aled_fun, error_call = call)
 }

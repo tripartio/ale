@@ -1,3 +1,102 @@
+# {ale} package
+
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/package=ale)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+# ale (development version)
+
+# ale 0.6.0
+
+## New features
+
+* `append_stats()` adds or recalculates statistics on existing `ALE` objects, using saved bootstrap data and a complete outcome reference when needed; `append_p()` adds or replaces p-values on `ALE` objects or `ModelBoot` objects with retained bootstrap data, using an explicitly supplied `ALEpDist` distribution and refreshing ALER bands (#53).
+* `summary()` methods have been implemented for `ALE` and `ModelBoot` objects. They print a summary of ALE statistics to the console. When there are no ALE statistics available, they print a message saying so.
+* With the `show_2d_bin_sizes` logical argument `ALEPlots()`, the 2D ALE plots display of hollow bin-size squares and a % data legend is now optional. (#44)
+* With the `aled_fun` argument of the `ALE()` and `ALEpDist()` constructors, we may optionally choose to calculate ALE deviation based on standard deviations or variances instead of the default mean absolute deviation.
+* The widths of 1D ALE plots for non-numerical variables are now proportional to the frequency of the data. We find these proportional widths more intuitive than the text annotations that previously indicated the percentages, which have now been removed. The minimum width can be controlled with the `min_col_widths` argument of the `plot()` method for `ALE`. 
+* For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the `consolid_cats` argument of the `plot()` method for `ALE`). The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. 
+* With the default value `"levels"` of the `fct_order` argument to the `ALE()` constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative `"y_col"` sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The `"ksd"` option allows compatibility with the original `ALEPlot` reference implementation.
+* The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with dimension-specific defaults for columns not named. For details, see documentation for `ALE()`.
+* Parallelization can be controlled with a global option `ale.parallel`. For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
+* The `{ranger}` package is automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages: `pred_fun` remains the general way to customize predict functions for packages that don't work out of the box.
+* ALE statistics now output ALER (ALER max – ALER min) and NALER (NALER max – NALER min) directly, not just the _max and _min versions, which are retained.
+
+## Performance improvements
+
+- `ALE()`, `ALEpDist()`, and `ModelBoot()` run locally when `parallel = 0` or a batch has at most one job, avoiding repeated future preparation inside model and random-variable iterations (#noissue). They thus execute faster than before.
+
+
+## Bug fixes
+
+We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
+
+* `ALE()` now warns early about requested predictors with only one observed value and returns zero main and interaction effects for them, including bootstrap iterations. (#43)
+* Unnamed single-column prediction matrices, including binary predictions from `nnet::nnet()`, are now accepted and named after the outcome column. (#41)
+* `get()` for `ALE` and `ModelBoot` objects now returns named statistics in the requested order within each term. (#40)
+* `get()` now raises a clear error when confidence regions are requested without p-values. `summary()` for `ALE` and `ModelBoot` objects silently omits confidence-region sections when p-values are absent. (#38)
+* Chained `customize()` calls with `zoom_x` or `zoom_y` now preserve the existing limits of the other axis. (#37)
+* `ALE()` now checks the outcome column and prediction type when accepting an `ALEpDist` distribution, in addition to the model identity. `ALEpDist` retains the original prediction settings, including for surrogates. (#36)
+* Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
+* Use `parallelly::availableCores()` directly in preparation for its re-export being removed from `{future}`. The `{future}` and `{parallelly}` packages are now suggested dependencies because both are required dependencies of the imported `{furrr}` package (#18).
+* Handle missing 1D ALE bins during model bootstrapping (#19).
+
+## Changed functionality
+
+* `ALE()`, `ALEpDist()`, and `ModelBoot()` use reproducible iteration streams with matching R random inputs in serial and parallel execution, and restore the caller's RNG kinds and full seed state. The new stream policy changes historical random results (#noissue).
+* `ModelBoot()` completes the full-data calculation before bootstrapping and passes its canonical ALE bins explicitly to every iteration, giving serial and parallel bootstrap calculations the same grids (#noissue).
+
+* `ALE()`, `ModelBoot()`, `ALEPlots()`, their `get()` methods, and `customize()` expose complete defaults for fixed string choices and match them exactly with `rlang::arg_match()`. Nullable and mixed-type arguments retain their existing validation and forms, and coordinated selector behaviour is preserved. `x_medoids()` also matches its choices exactly; abbreviated `sort_by` values such as "sil" must now be written in full as "silhouette" (#noissue).
+
+* `max_num_bins` defaults to `list(d1 = 1000L, d2 = 10L)` and supports independent per-column `except_d1` and `except_d2` limits. Explicit lists need defaults or exceptions only for the numeric variables requested in each dimension. Use `list()` for non-numeric effects; `NULL`, scalar inputs, and the former `default` and `except` elements are rejected.
+
+* The `require_same_p` argument of `ALE()` has been renamed to `require_p_model_match` without a compatibility alias. Setting it to `FALSE` disables all p-value compatibility checks.
+* `max_num_bins` now creates `n+1` bins instead of exactly the specified `n` bins. The bottom bin is reserved for the minimum value in the data. This is a reversion to the original behaviour of the reference {ALEPlot} package.
+* Parallelization has been disabled by default (`parallel` = 0) (#16).
+* The `pred_fun` argument in `ALE()` and other constructors now defaults to `NULL`. However, the functionality is unchanged: the default still creates the same generic custom prediction function as before.
+
+## Documentation
+
+* Added an article that demonstrates how to use the `customize()` function for `ALEPlots`: [“Customizing ALE plots”](https://tripartio.github.io/ale/articles/customize-plots.html).
+* Added two articles with examples of applying ALE: [“Analyzing a Large Corn Yield Dataset with ALE-Based Inference”](https://tripartio.github.io/ale/articles/ale-acdc-corn.html) and [“Analyzing a Small Rice Yield Dataset with ALE-Based Inference”](https://tripartio.github.io/ale/articles/ale-gomez-rice.html).
+* To minimize the size of the CRAN package, all vignettes except for `vignette('ale-intro')` have been removed from the CRAN package and are now available only on the development website at [https://tripartio.github.io/ale/articles/](https://tripartio.github.io/ale/articles/).
+* Replaced GAM examples in README to random forests. Converted the README file from RMarkdown to Quarto.
+* Converted all RMarkdown vignettes and articles to Quarto.
+* Updated package logo.
+
+## Under the hood
+
+We now use OpenAI Codex to help development and maintenance. Codex changes are not specifically highlighted in this change log, but [numerous PRs](https://github.com/tripartio/ale/pulls?q=is%3Apr+state%3Aclosed) are heavily assisted by Codex.
+
+
+# ale 0.5.3
+
+## New features
+
+* `retrieve_rds()` is a documentation utility function to either retrieve a serialized RDS file from a URL or else run a code block if the URL retrieval fails. It is used in vignettes, examples and other documentation to create or retrieve large objects that are too slow to be created on the spot.
+
+# ale 0.5.2
+
+## New features
+
+* Customize `ALEPlots` by appending `ggplot` layers with the `customize()` function.
+* Function `invert_probs()` inverts probabilities (subtracts from 1) for `ALE` and `ALEpDist` objects.
+
+## Bug fixes
+
+* The ALEPlot package has been delisted from CRAN, so remove all references to it.
+* Accordingly, the former vignette or article comparing the {ale} and {ALEPlot} packages has been removed.
+* Allow numeric binary predictions. Formerly, binary predictions errored, even if they were numeric.
+* Larger datasets now properly sample. For datasets > 500 lines, the code had a mismatch in the size of the original dataset and the sampled dataset.
+
+## Documentation
+
+* Serialize all slow-generating objects in vignettes, examples, and other documentation so that they can be more quickly run by users. They are now all downloaded directly from GitHub. This significantly speeds up package checking and building (though this speedup is invisible to users).
+
 # ale 0.5.0
 
 We have deeply rethought the vision of this package and have completely rewritten the entire package to support existing, new, and future planned functionality. The changes are so radical that there is no continuity with the previous version 0.3.1. Thus, we've skipped a version number and now are at version 0.5.0.
@@ -14,18 +113,12 @@ Honestly, we can't keep track of all the changes; experienced users are advised 
     * `ALEPlots`: store ALE plots generated from either `ALE` or `ModelBoot` with convenient `print()` and `plot()` methods.
     * `ALEpDist`: p-value distribution information (replaces the former `create_p_dist()` function).
 * With the extensive rewrite, we no longer depend on `{ALEPlot}` package code and so now claim full authorship of the code. One of the most significant implications of this is that we have decided to change the package license from the GPL 2 to MIT, which permits maximum dissemination of our algorithms.
-* `ale_ixn()` has been eliminated and now both 1D and 2D ALE are calculated with the `ALE()` constructor for .
-* The `ALE` object constructor no longer produces plots directly. ALE plots are now created as `ale_plot` objects using the newly added `plot()` methods that create all possible plots from the ALE data from `ALE` or `ale_boot` objects. Thus, serializing `ALE` objects now avoids the previous problems of environment bloat of the included `ggplot` objects.
+* `ale_ixn()` has been eliminated and now both 1D and 2D ALE are calculated with the `ALE()` constructor.
+* The `ALE` object constructor no longer produces plots directly. ALE plots are now created as `ALEPlots` objects using the newly added `plot()` methods that create all possible plots from the ALE data from `ALE` or `ModelBoot` objects. Thus, serializing `ALE` objects now avoids the previous problems of environment bloat of the included `ggplot` objects.
 * Renamed the `rug_sample_size` argument of the `ALE` constructor to `sample_size`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
 
 
-## Bug fixes
-
-We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
-
-* Gracefully fails instead of crashing when the input data has missing values.
-
-## Other user-visible changes
+## New features
 
 * The `x_cols` argument in `ALE()` now supports a complex syntax for specifying which specific columns for 1D ALE or pairs of columns for 2D interactions are desired. It also supports specification using standard R formula syntax.
 * New `get()` methods now provide convenient access to `ALE`, `ModelBoot`, and `ALEPlots` objects.
@@ -46,6 +139,12 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 * Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.
 * Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.
 * Although the standard {ALE} class supports 2D ALE interactions with ALE bootstrapping, {ModelBoot} does not yet support full-model bootstrapping for 2D ALE interactions.
+
+## Bug fixes
+
+We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
+
+* Gracefully fails instead of crashing when the input data has missing values.
 
 ## Under the hood
 
@@ -178,3 +277,22 @@ This release provides more details in the following vignettes (they are all avai
 -   Introduction to the `ale` package
 -   Analyzing small datasets (fewer than 2000 rows) with ALE
 -   `ale()` function handling of various datatypes for x
+
+## Versioning system
+
+The version numbering system for the {ale} package is an adaptation of the standard three-number system. So, in a version number of M.m.b (e.g., 0.5.3), the numbers mean:
+
+* **M** in M.m.b: the major package version (e.g., major version is 0 for 0.5.3). Changes in major version indicate major changes that are fundamentally incompatible with the previous major version.
+* **m** in M.m.b: the minor package version (e.g., minor version is 0.5 for 0.5.3). Minor versions add functionality without breaking backwards compatibility with previous releases of the same major version.
+* **b** in M.m.b: a bug-fix version (e.g., bug-fix version is 3 for 0.5.3). Bug-fix versions fix bugs in the minor version without adding new functionality.
+
+### Major version 0: beta or experimental status
+
+That said, major version 0 has special meaning: it indicates that the package is in beta, that is, still in experimental status, meaning that a stable interface has not yet been settled. New features might be written that break the functionality of previous 0.x versions. That said, every minor version is tested with {revdepcheck}. A notification or pull request will be sent to the maintainers of any packages whose functionality might be broken due to a change in {ale} functionality.
+
+Normally, if new functionality is added along with bug fixes, then the bug fixes will be released with the next minor version. However, with the major version 0, small changes in functionality will sometimes be released in a bug-fix version. 
+
+### Development version numbering
+
+The numbering system described above is used for packages released to CRAN. For development versions in between CRAN releases, the {ale} package adds a fourth component D, that is, an M.m.b.D format. The D is in YYYYMMDD date format, indicating the release date of the latest development version after the latest CRAN release. So, version 0.5.3.20260217 is a development version released on February 17, 2026, after the 0.5.3 CRAN version. However, as the specific date keeps on changing, the latest development version is simply indicated in the change log below as "ale (development version)".
+

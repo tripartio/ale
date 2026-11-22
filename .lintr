@@ -1,0 +1,32 @@
+linters: local({
+    root <- normalizePath(getwd(), winslash = '/')
+    while (!file.exists(file.path(root, 'tools', 'style', 'linters.R'))) {
+      parent <- dirname(root)
+      if (identical(root, parent)) stop('Run lintr from the ale repository or a subdirectory.')
+      root <- parent
+    }
+    rules <- new.env(parent = baseenv())
+    sys.source(file.path(root, 'tools', 'style', 'linters.R'), envir = rules)
+    lintr::linters_with_defaults(
+      quotes_linter = lintr::quotes_linter(delimiter = "'"),
+      object_name_linter = lintr::object_name_linter(
+        styles = c('snake_case', 'symbols'),
+        regexes = c(
+          '^(i|nm|it|btit)\\.[a-z][a-z0-9_]*$',
+          '^\\.?([a-z][a-z0-9]*_)*(ALE|ALEPlot|ALEPlots|ALEpDist|ModelBoot)(_[a-z][a-z0-9]*)*$',
+          '^(i|nm|it|btit)\\.([a-z][a-z0-9]*_)*(ALE|ALEPlot|ALEPlots|ALEpDist|ModelBoot)(_[a-z][a-z0-9]*)*$'
+        )
+      ),
+      line_length_linter = NULL,
+      object_length_linter = NULL,
+      indentation_linter = NULL,
+      commented_code_linter = NULL,
+      return_linter = NULL,
+      seq_linter = NULL,
+      ale_function_syntax_linter = rules$ale_function_syntax_linter(),
+      ale_terminal_return_linter = rules$ale_terminal_return_linter(min_lines = 50L),
+      ale_param_type_linter = rules$ale_param_type_linter(),
+      ale_roxygen_prose_linter = rules$ale_roxygen_prose_linter()
+    )
+  })
+exclusions: list('R/refALEPlot.R', 'revdep', 'doc', 'Meta', 'download')

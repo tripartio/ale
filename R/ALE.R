@@ -15,24 +15,56 @@
 #' @param model model object. Required. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
 #' @param x_cols,exclude_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`. See details in the documentation for [resolve_x_cols()].
 #' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically if it is included in the `model` object.
-#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically from the `model` object. For non-standard models, `y_col` should be provided. For time-to-event (survival) models, see details.
+#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically from the `model` object. If not found automatically, `y_col` should be provided. For time-to-event (survival) models, see details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set `parallel = 0` to disable parallel processing. See details.
-#' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
+#' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel workers for execution of the constructor. The default `parallel = 0` always runs locally, including when the caller has an active future plan. A batch with at most one job also runs locally. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.
+#' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
 #' @param output_stats logical(1). If `TRUE` (default), return ALE statistics.
 #' @param output_boot_data logical(1). If `TRUE`, return the raw ALE data for each bootstrap iteration. Default is `FALSE`.
-#' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
+#' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. The default `NULL` for `pred_fun` will often work; if you get an error message, see details.
 #' @param p_values instructions for calculating p-values. Possible values are:
 #' * `NULL`: p-values are not calculated.
 #' * An `ALEpDist` object: the object will be used to calculate p-values.
-#' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
+#' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
+#' @param require_p_model_match logical(1). If `TRUE` (default), `p_values` must be generated with exactly the same `model` object, `y_col`, and `pred_type`, even in the case of surrogate p-values. Surrogate distributions are checked against their original model and prediction settings. Setting `FALSE` disables all these compatibility checks. Only disable this option if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.
 #' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
-#' @param max_num_bins positive integer(1). Maximum number of ALE bins for numeric `x_cols` variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and `max_num_bins`. Non-numeric variables such as (binary or categorical) always use all their actual values for ALE bins.
+#' @param aled_fun character(1) in c("mad", "sd", "var"), or NULL. Deviation function used to calculated ALE deviation. `"mad"` is the mean absolute deviation; `"sd"` is the standard deviation. The default `NULL` will normally use `"mad"` except if an `ALEpDist` object is provided for `p_values`; in that case, the `aled_fun` is taken from the `ALEpDist` object.
+#' @param max_num_bins list. Sets maximum numbers of numeric ALE intervals.
+#'   The default is `list(d1 = 1000L, d2 = 10L)`:
+#'   * `d1`: default maximum for 1D main effect variables.
+#'   * `d2`: default maximum per numeric variable for 2D interactions.
+#'   * `except_d1`, `except_d2`: optional named integer vectors of per-column
+#'     limits overriding the default only in the corresponding dimension.
+#'
+#'   Defaults are optional: every requested numeric variable must have either
+#'   its dimension's default or an exception in that dimension. Coverage is
+#'   checked after resolving `x_cols` and `exclude_cols`. Omitted elements of an
+#'   explicit list are not filled from the default argument. `NULL` elements
+#'   are treated as absent; supplied values must be finite, strictly positive
+#'   whole numbers.
+#'   Unknown exception column names trigger an error.
+#'   For example, `list(d1 = 1000, d2 = 10, except_d1 = c(wt = 25), except_d2 = c(wt = 5))`.
+#'
+#'   Use `list()` when no numeric variables are requested. `max_num_bins = NULL`,
+#'   scalar inputs, and the former `default` and `except` elements are not supported.
+#'   Non-numeric `x_cols` (binary/ordinal/categorical) always use all observed levels.
+#'   When `n` intervals are requested, there are at most `n+1` bins, limited by
+#'   the number of unique values, with the lowest bin dedicated to the minimum.
+#'   Higher limits can be slower for interactions.
+#' @param fct_order character(1) or list. Character choices are matched exactly. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
+#' * `"levels"` (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
+#' * `"y_col"`: Sort based on the increasing mean values of the predictions of `y_col` for each factor level.
+#' * `"ksd"`: Not recommended except for compatibility with the original ALEPlot reference implementation.
+#' * List with overrides: a list with exactly two elements: `default` is a character string with one of the above as the default value; `except` is a named character vector with per-column orderings. Unknown names trigger an error.
+#'   An example of the list format would be
+#'   `fct_order = list(default = "levels", except = c(continent = "y_col"))`
+#'
+#' See details.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a [ModelBoot()] class object. See details there. The default `boot_it = 0` turns off bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. When ALE is bootstrapped (`boot_it > 0`), `boot_alpha` specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.
-#' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
-#' @param seed integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with `parallel = 0`.
-#' @param y_type character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.
+#' @param boot_centre character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.
+#' @param seed integer(1). Random seed. Each iteration uses a reproducible L'Ecuyer-CMRG random-number stream, with the same random inputs in local and future execution regardless of worker count or chunking. Data-only ALE bootstrap samples are shared across terms. The caller's random number generator (RNG) kinds and complete seed state are restored on return, including on error. Results from model implementations can still depend on numerical libraries or their own RNGs. Without bootstrapping and with deterministic predictions, ALE is deterministic.
+#' @param y_type character(1) in c("binary", "numeric", "categorical", "ordinal"), or NULL. Datatype of the y (outcome) variable, matched exactly when supplied. The default `NULL` determines it automatically; only provide if an error message for a complex model requires it.
 #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots in [ALEPlots()].
 #' @param silent logical(1), default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to customize progress bars.
 #' @param .bins Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (`NULL`), [ALE()] automatically calculates the bins. `.bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with [ModelBoot()]).
@@ -40,6 +72,11 @@
 #'
 #'
 #' @returns An object of class `ALE` with properties `effect` and `params`.
+#'
+#' @section Methods:
+#' `ALE` objects support [get()][get-ALE-method], [plot()][plot-ALE-method],
+#' [print()][print-ALE-method], and [summary()][summary-ALE-method]. Each method
+#' topic documents its complete signature and class-specific arguments.
 #'
 #' @section Properties:
 #' \describe{
@@ -55,6 +92,7 @@
 #'     * `aler_lo_lo`, `aler_lo`, `aler_hi`, `aler_hi_hi`: When p-values are present, `aler_lo` and `aler_hi` are the inner lower and upper confidence intervals of `y_col` values with respect to the median (`50%`); `aler_lo_lo` and `aler_hi_hi` are the outer confidence intervals. See the documentation for the `aler_alpha` argument to understand how these are determined. Without p-values, these elements are absent.
 #'     * `model`: selected elements that describe the `model` that the `ALE` object interprets.
 #'     * `data`: selected elements that describe the `data` used to produce the `ALE` object. To avoid the large size of duplicating `data` entirely, only a sample of the size of the `sample_size` argument is retained.
+#'     * `probs_inverted`: `TRUE` if the original probability values of the ALE object have been inverted using [invert_probs()]. `FALSE`, `NULL`, or absent otherwise.
 #'   }
 #' }
 #'
@@ -79,21 +117,31 @@
 #'
 #'
 #' @section Parallel processing:
-#' Parallel processing using the `{furrr}` framework is enabled by default. The number of parallel threads (workers or cores) is specified with the `parallel` argument. By default (`parallel = "all"`), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set `parallel = "all but one")`, which will only use faster physical cores and reserve one physical core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set `parallel = 0`.
+#' Parallel processing is possible using the `{furrr}` framework. The number of parallel threads (workers or cores) is specified with the `parallel` argument. By default (`parallel = 0`), it is disabled. `parallel = "all but one"` will use all the available physical CPU cores except for one, reserved so that your computer does not slow down as you continue working on other tasks while the procedure runs. The `parallel = "all"` option will use all physical and logical CPU cores reported by the system, but the result might sometimes be slower if inappropriate allocation of these parallel processors chokes the system.
 #'
-#'  The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the `model` to the `model_packages` argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
+#'  The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled, some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the `model` to the `model_packages` argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
 #'
 #'
 #' @section Time-to-event (survival) models:
 #' For time-to-event (survival) models, set the following arguments:
-#' * `y_col` must be the set to the name of the binary event column.
+#' * `y_col` must be set to the name of the binary event column.
 #' * Include the time column in the `exclude_cols` argument so that its ALE will not be calculated, e.g., `exclude_cols = 'time'`. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 #' * `pred_type` must be specified according to the desired `type` argument for the `predict()` method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
-#' * `pred_fun` might work fine without modification as long as the settings above are configured. However, for non-standard time-to-event models, a custom `pred_fun` as specified above might be needed.
+#' * `pred_fun` might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom `pred_fun` as specified above might be needed.
 #'
 #'
 #' @section Progress bars:
-#' Progress bars are implemented with the `{progressr}` package. For details on customizing the progress bars, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
+#' Progress bars are implemented with the `{progressr}` package. For details on customizing the progress bars, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-01-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
+#'
+#'
+#' @section Sorting of unordered factors:
+#' The ALE algorithm requires an order for the values of all variables. All basic datatypes have a natural order except for unordered factors and characters. `fct_order` specifies how unordered factors will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) Note that factor ordering has no effect on the discriminativeness of the ALE algorithm; it only affects which level is listed first, second, and so on in comparison with each other, which is relevant for interpretation. The first level according to `fct_order` is always calculated as having zero effect; ALE for all other levels are relative to the first level. We recommend that users explicitly set the levels of each factor in an order that is meaningful for interpretation and then leave `fct_order` at its default value (`"levels"`).
+#'
+#' Character columns treat their unique values as factor levels. With `fct_order = "levels"`, the order of values is alphabetical to make it easier to find results in plots.
+#'
+#' An alternative ordering is to set `fct_order = "y_col"`, which sorts levels based on the increasing mean values of the predictions of `y_col` for each factor level. Thus, the ALE results show how the isolated effects of each level of a factor might differ from the average effects when all other variables come into play.
+#'
+#' The original `ALEPlot` reference implementation sorts factor levels based on their similarity to each other, using an algorithm based on Kolmogorov-Smirnov distances and multidimensional scaling. However, that implementation calculates distances using all the data that happen to be in the dataset, even if some of that data is not used in the model at all. This results in arbitrary different sort orders unless all columns not used in the model are excluded from the dataset. We do not recommend this approach, but we include it with the `"ksd"` option for compatibility with the original `ALEPlot` reference implementation.
 #'
 #'
 #'
@@ -102,88 +150,60 @@
 #'
 #'
 #' @examples
-#' # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
-#' set.seed(0)
-#' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 #'
-#' # Create a GAM model with flexible curves to predict diamond price
-#' # Smooth all numeric variables and include all other variables
-#' gam_diamonds <- mgcv::gam(
-#'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-#'     cut + color + clarity +
-#'     ti(carat, by = clarity),  # a 2D interaction
-#'   data = diamonds_sample
+#' library(dplyr)
+#' # Load co2 dataset with some cleanup
+#' co2 <- CO2 |>
+#'   as_tibble() |>
+#'   rename(origin = Type) |>
+#'   mutate(
+#'     plant_id = Plant |> factor(ordered = FALSE),
+#'     chilled = Treatment == 'chilled'
+#'   ) |>
+#'   select(plant_id, origin, chilled, conc, uptake)
+#'
+#' co2
+#'
+#' # Create a GAM model with flexible curves to predict CO2 uptake.
+#' gam_co2 <- mgcv::gam(
+#'   formula = uptake ~ s(conc, k = 3, bs = "cr") + plant_id + chilled +
+#'     ti(conc, plant_id, bs = c('ps', 're'), k = 4),
+#'   data = co2
 #' )
-#' summary(gam_diamonds)
+#' summary(gam_co2)
 #'
 #'
-#' \donttest{
+#' # Set default number of cores to use for parallel processing.
+#' # Without setting this option, the default is 0 (no parallel processing).
+#' options(ale.parallel = 2)
 #'
-#' # Simple ALE without bootstrapping: by default, all 1D ALE effects
-#' ale_gam_diamonds <- ALE(gam_diamonds)
+#'
+#' # For speed, this example uses retrieve_rds() to load pre-created objects
+#' # from an online repository.
+#' # To run the code yourself, execute the code block directly.
+#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
+#'
+#' # Create default ALE data (1D main effects only by default)
+#' ale_gam_co2 <- retrieve_rds(
+#'   # For speed, load a pre-created object by default.
+#'   c(serialized_objects_site, 'ale_gam_co2.0.5.3.rds'),
+#'   {
+#'     # To run the code yourself, execute this code block directly.
+#'     # For models like mgcv::gam that store their data,
+#'     # there is no need to specify the data argument.
+#'     ALE(gam_co2)
+#'   }
+#' )
+#'
+#'
+#' # Summary of ALE statistics
+#' summary(ale_gam_co2)
 #'
 #' # Simple printing of all plots
-#' plot(ale_gam_diamonds)
+#' plot(ale_gam_co2)
 #'
-#' # Bootstrapped ALE
-#' # This can be slow, since bootstrapping runs the algorithm boot_it times
-#'
-#' # Create ALE with 100 bootstrap samples
-#' ale_gam_diamonds_boot <- ALE(
-#'   gam_diamonds,
-#'   # request all 1D ALE effects and only the carat:clarity 2D effect
-#'   list(d1 = TRUE, d2 = 'carat:clarity'),
-#'   boot_it = 100
-#' )
-#'
-#' #' More advanced plot manipulation
-#' ale_plots <- plot(ale_gam_diamonds_boot) # Create an ALEPlots object
-#'
-#' # Print the plots: First page prints 1D ALE; second page prints 2D ALE
-#' ale_plots  # or print(ale_plots) to be explicit
-#'
-#' # Extract specific plots (as lists of ggplot objects)
-#' get(ale_plots, 'carat')  # extract a specific 1D plot
-#' get(ale_plots, 'carat:clarity')  # extract a specific 2D plot
-#' get(ale_plots, type = 'effect')  # ALE effects plot
-#' # See help(get.ALEPlots) for more options, such as for categorical plots
-#'
-#'
-#'
-#' # If the predict function you want is non-standard, you may define a
-#' # custom predict function. It must return a single numeric vector.
-#' custom_predict <- function(object, newdata, type = pred_type) {
-#'   predict(object, newdata, type = type, se.fit = TRUE)$fit
-#' }
-#'
-#' ale_gam_diamonds_custom <- ALE(
-#'   gam_diamonds,
-#'   pred_fun = custom_predict, pred_type = 'link'
-#' )
-#'
-#' # Plot the ALE data
-#' plot(ale_gam_diamonds_custom)
-#'
-#'
-#' # How to retrieve specific types of ALE data from an ALE object.
-#' ale_diamonds_with_boot_data <- ALE(
-#'   gam_diamonds,
-#'   # For detailed options for x_cols, see examples at resolve_x_cols()
-#'   x_cols = ~ carat + cut + clarity + carat:clarity + color:depth,
-#'   output_boot_data = TRUE,
-#'   boot_it = 10  # just for demonstration
-#' )
-#'
-#' # See ?get.ALE for details on the various kinds of data that may be retrieved.
-#' get(ale_diamonds_with_boot_data, ~ carat + color:depth)  # default ALE data
-#' get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
-#' get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
-#' get(ale_diamonds_with_boot_data, stats = c('aled', 'naled'))
-#' get(ale_diamonds_with_boot_data, stats = 'all')
-#' get(ale_diamonds_with_boot_data, stats = 'conf_regions')
-#' get(ale_diamonds_with_boot_data, stats = 'conf_sig')
-
-#' }
+#' # For a more thorough introduction to creating and working with ALE objects,
+#' # see vignette("ale-intro").
 #'
 #'
 ALE <- new_class(
@@ -199,23 +219,24 @@ ALE <- new_class(
     y_col = NULL,
     ...,
     exclude_cols = NULL,
-    parallel = 'all',
+    parallel = 0,
     model_packages = NULL,
     output_stats = TRUE,
     output_boot_data = FALSE,
-    pred_fun = function(object, newdata, type = pred_type) {
-      stats::predict(object = object, newdata = newdata, type = type)
-    },
+    pred_fun = NULL,
     pred_type = 'response',
     p_values = 'auto',
+    require_p_model_match = TRUE,
     aler_alpha = c(0.01, 0.05),
-    max_num_bins = 10,
-    boot_it = 0,
+    aled_fun = NULL,
+    max_num_bins = list(d1 = 1000L, d2 = 10L),
+    fct_order = 'levels',
+    boot_it = 0L,
     boot_alpha = 0.05,
-    boot_centre = 'mean',
+    boot_centre = c('mean', 'median'),
     seed = 0,
     y_type = NULL,
-    sample_size = 500,
+    sample_size = 500L,
     silent = FALSE,
     .bins = NULL
   )
@@ -226,11 +247,24 @@ ALE <- new_class(
     # Never skip this validation step!
     rlang::check_dots_empty()
 
+    rng_state <- .rng_state()
+    on.exit(.restore_rng(rng_state), add = TRUE)
+    validate(is_scalar_number(seed))
+    .set_seed(seed)
+
+    # Catch and handle a common error with the data argument
+    validate(
+      !inherits(x_cols, 'data.frame'),
+      msg = c(
+        x = '{.arg x_cols} (the second argument) cannot be a {.cls data.frame}.',
+        i = 'If you skip the {.arg x_cols} argument, you must explicitly name the {.arg data} argument (e.g., {.val ALE(model, data = dataset_name)}).'
+      )
+    )
     data <- validate_data(data, model)
 
     # Validate y_col.
-    # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
-    # Note: validate_y_col() must come before validate_y_preds().
+    # If y_col is NULL, try to automatically detect it.
+    # Note: validate_y_col() must come before validate_prediction().
     y_col <- validate_y_col(
       y_col = y_col,
       data = data,
@@ -238,21 +272,27 @@ ALE <- new_class(
     )
 
     validate(is_string(pred_type))
+    validate(is_bool(require_p_model_match))
 
     # Validate the model:
-    # A valid model is one that, when passed to a predict function with a valid  dataset, produces a numeric vector with length equal to the number of rows in the dataset.
+    # A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector with length equal to the number of rows in the dataset.
     # Note: y_preds will be used later in this function.
-    y_preds <- validate_y_preds(
+    val_pred <- validate_prediction(
       pred_fun = pred_fun,
       model = model,
       data = data,
       y_col = y_col,
       pred_type = pred_type
     )
+    pred_fun <- val_pred$pred_fun
+    y_preds <- val_pred$y_preds
 
-    vp <- validate_parallel(parallel, model, model_packages)
-    parallel <- vp$parallel
-    model_packages <- vp$model_packages
+    if (missing(parallel)) {
+      parallel <- getOption("ale.parallel", parallel)
+    }
+    val_pll <- validate_parallel(parallel, model, model_packages)
+    parallel <- val_pll$parallel
+    model_packages <- val_pll$model_packages
 
     # Validate and resolve x_cols and exclude_cols
     col_names <- names(data)
@@ -264,11 +304,52 @@ ALE <- new_class(
       silent = silent
     )
 
+    # Only a very rough validation check for the internal .bins argument
+    if (!is.null(.bins)) {
+      validate(
+        is.list(.bins) &&
+          names(.bins)[1] == 'd1' && names(.bins)[2] == 'd2',
+        msg = '{.arg .bins} is not in a valid format.'
+      )
+    }
+
+    # Check only requested numeric variables, before automatic p-value generation.
+    numeric_bin_cols <- numeric_ale_cols(data, x_cols, .bins)
+    validate_max_num_bins(max_num_bins, col_names, numeric_bin_cols)
+
+    # Warn before expensive work, and only for predictors actually requested.
+    requested_predictors <- x_cols |>
+      unlist() |>
+      str_split(':') |>
+      unlist() |>
+      unique()
+    constant_vars <- data[requested_predictors] |>
+      map(\(it.col) unique(it.col[!is.na(it.col)])) |>
+      purrr::keep(\(it.values) length(it.values) == 1L)
+    if (length(constant_vars) > 0L) {
+      cli_warn(c(
+        '!' = 'Variables with only one unique observed value: {.var {names(constant_vars)}}.',
+        'i' = 'ALE effects for these variables and interactions containing them are therefore set to zero.',
+        'i' = 'ALE should normally be calculated using the original training data, or a representative sample of it.'
+      ), class = 'ale_constant_predictor')
+    }
+
     validate(is_scalar_whole(boot_it))
 
     validate(is_bool(output_stats))
 
     validate(is_bool(output_boot_data))
+
+    # Set NULL aled_fun to either value from p_values or default 'mad'
+    if (is.null(aled_fun)) {
+      aled_fun <- if (p_values |> S7_inherits(ALEpDist)) {
+        p_values@params$aled_fun
+      } else {
+        'mad'
+      }
+    }
+
+    aled_fun <- validate_aled_fun(aled_fun)
 
     if (output_stats) {
       if (!is.null(p_values)) {
@@ -285,6 +366,7 @@ ALE <- new_class(
               model_packages = model_packages,
               pred_fun = pred_fun,
               pred_type = pred_type,
+              aled_fun = aled_fun,
               seed = seed,
               silent = silent,
               .skip_validation = TRUE
@@ -295,28 +377,19 @@ ALE <- new_class(
           }
         }
         else {  # nocov start
+          # p_values must be an `ALEpDist` object
           validate(
-            # p_values must be an `ALEpDist` object
             p_values |> S7_inherits(ALEpDist),
             msg = c(
               'x' = 'The value passed to {.arg p_values} is not a valid {.cls ALEpDist} object.',
               'i' = 'See {.fun ale::ALE} for instructions for obtaining p-values.'
             )
           )
-
-          # Ensure that p_values was generated using the exact same model as the present model
-          pm <- params_model(model)
-          validate(
-            all.equal(pm$class, p_values@params$model$class) |> isTRUE(),
-            all.equal(pm$call, p_values@params$model$call) |> isTRUE(),
-            all.equal(pm$print, p_values@params$model$print) |> isTRUE(),
-            msg = c(
-              'x' = 'It seems that {.arg p_values} was generated from a different model from the present one. An {.cls ALEpDist} object is only valid for one model trained on the same dataset:',
-              'i' = 'The {.arg p_values} object was generated on the following {.cls {p_values@params$model$class}} model: {p_values@params$model$print}.',
-              'i' = 'The current {.arg model} is the following {.cls {pm$class}} object: {pm$print}.'
-            )
-          )
         }  # nocov end
+
+        if (require_p_model_match && !is.null(p_values)) {
+          validate_p_model_match(p_values, model, y_col, pred_type)
+        }
       }  # if (!is.null(p_values))
     }
     else {
@@ -336,27 +409,40 @@ ALE <- new_class(
       )
     )
 
-    validate(is_scalar_natural(max_num_bins) && (max_num_bins > 1))
-    validate(is_scalar_number(seed))
-    validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
-    validate(
-      is_string(boot_centre) && (boot_centre %in% c('mean', 'median')),
-      msg = cli_alert_danger('{.arg boot_centre} must be one of "mean" or "median".')
+    # Validate fct_order
+    valid_fct_order_vals <- c('levels', 'y_col', 'ksd')
+    invalid_msg_fct_order <- c(
+      x = 'Invalid format for {.arg fct_order} .',
+      i = 'See documentation for the {.arg fct_order} argument for valid formats.'
     )
+    validate(
+      (fct_order |> is_string(valid_fct_order_vals)) || is.list(fct_order),
+      msg = invalid_msg_fct_order
+    )
+    if (is.list(fct_order)) {
+      validate(
+        all(names(fct_order) %in% c('default', 'except')),
+        fct_order$default |> is_string(valid_fct_order_vals),
+        all(fct_order$except %in% valid_fct_order_vals),
+        msg = invalid_msg_fct_order
+      )
+
+      invalid_fct_order_col_names <- fct_order$except |>
+        names() |>
+        setdiff(col_names)
+      if (length(invalid_fct_order_col_names) > 0) {
+        # Fail early even for typos
+        cli_abort('The following columns listed as exceptions to the default {.arg fct_order} of {fct_order$default} were not found in the {.arg data}: {invalid_fct_order_col_names}')
+      }
+    }
+
+    validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
+    boot_centre <- rlang::arg_match(boot_centre)
     if (!is.null(y_type)) {
       validate(is_string(y_type) &&
                  (y_type %in% c('binary', 'categorical', 'ordinal', 'numeric')))
     }
     validate(is_string(pred_type))
-
-    # Only a very rough validation check for the internal .bins argument
-    if (!is.null(.bins)) {
-      validate(
-        is.list(.bins) &&
-          names(.bins)[1] == 'd1' && names(.bins)[2] == 'd2',
-        msg = '{.arg .bins} is not in a valid format.'
-      )
-    }
 
     validate_silent(silent)
 
@@ -427,6 +513,96 @@ ALE <- new_class(
       max()
 
 
+    # Determine fct_order when relevant
+    cols_used <- x_cols |>
+      unlist() |>
+      str_split(':') |>
+      unlist() |>
+      unique()
+
+    unordered_fcts <- data |>
+      select(any_of(cols_used)) |>
+      select(
+        where(\(it.col) (is.factor(it.col) || is.character(it.col)) && !is.ordered(it.col))
+      )
+
+    # First verify requested fct_order type for each unordered factor
+    requested_fct_order <- if (is_string(fct_order)) {
+      # Vector whose values are fct_order, named by unordered_fcts
+      rep(fct_order, length(unordered_fcts)) |>
+        set_names(names(unordered_fcts))
+    } else {
+      # fct_order is in special list format
+      unordered_fcts |>
+        purrr::imap_chr(\(it.fct, it.fct_name) {
+          if (!is.na(fct_order$except[it.fct_name])) {
+            fct_order$except[it.fct_name]
+          } else {
+            fct_order$default |>
+              set_names(it.fct_name)
+          }
+        })
+    }
+
+    # Now establish precise order for each unordered factor
+    requested_fct_order <- requested_fct_order |>
+      imap(\(it.fct_order_type, it.fct_name) {
+        if (it.fct_name %in% names(constant_vars)) {
+          # A single category needs no ordering, including with fct_order = 'ksd'.
+          rep(list(as.character(constant_vars[[it.fct_name]])), length(y_cats)) |>
+            set_names(y_cats)
+        } else if (it.fct_order_type == 'levels') {
+          it.lvls <- if (is.factor(data[[it.fct_name]])) {
+            levels(data[[it.fct_name]])
+          } else {
+            # Normally, a character vector
+            data[[it.fct_name]] |>
+              unique() |>
+              sort()
+          }
+
+          it.lvls |>
+            list() |>
+            rep(length(y_cats)) |>
+            set_names(y_cats)
+        } else if (it.fct_order_type == 'y_col') {
+          # Order based on y_col values per category
+          it.mean_preds <- y_vals |>
+            as_tibble() |>
+            mutate(.fct = data[[it.fct_name]]) |>
+            summarize(
+              .by = '.fct',
+              across(everything(), \(it.y_cat) mean(it.y_cat, na.rm = TRUE))
+            )
+
+          y_cats |>
+            map(\(it.cat) {
+              it.mean_preds |>
+                arrange(pick(it.cat)) |>
+                pull('.fct') |>
+                as.character()
+            }) |>
+            set_names(y_cats)
+        } else if (it.fct_order_type == 'ksd') {
+          # Order based on Kolmogorov-Smirnov distances
+
+          it.levels <- data[[it.fct_name]] |> levels()
+
+          it.iks <- idxs_kolmogorov_smirnov(
+            X = data |> select(-all_of(y_col)),
+            x_col = it.fct_name,
+            n_bins = length(it.levels),
+            x_int_counts = data[[it.fct_name]] |> table()
+          )
+
+          it.levels[it.iks] |>
+            list() |>
+            rep(length(y_cats)) |>
+            set_names(y_cats)
+        }
+      })
+
+
     ## Capture params ------------------
     # Capture all parameters used to construct the ALE values.
     # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function, as well as many variables calculated by the function.
@@ -436,7 +612,11 @@ ALE <- new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> str_detect('^it\\.')
     ]
-    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'pm', 'silent', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
+    temp_objs <- c(
+      'numeric_bin_cols', 'ale_y_norm_funs', 'col_names', 'cols_used', 'constant_vars', 'requested_predictors', 'exclude_cols',
+      'invalid_col_names', 'invalid_fct_order_col_names', 'invalid_msg_fct_order',
+      'pm', 'requested_fct_order', 'rng_state', 'silent', 'temp_objs', 'unordered_fcts', 'valid_d', 'valid_fct_order_vals', 'valid_output_types', 'valid_x_cols', 'val_pll', 'val_pred', 'x_cols', 'y_vals', 'y_preds'
+    )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
     # Simplify some very large elements, especially closures that contain environments
@@ -447,19 +627,11 @@ ALE <- new_class(
       seed = seed
     )
     params$model <- params_model(model)
-    params$pred_fun <- params_function(pred_fun)
+    params$pred_fun <- deparse(pred_fun)
 
 
 
     ## Prepare loops ---------------------
-
-    # Enable parallel processing and restore former parallel plan on exit.
-    # https://cran.r-project.org/web/packages/future/vignettes/future-7-for-package-developers.html
-    # However, don't presume that all users will use future, so just use on.exit strategy.
-    if (parallel > 0) {
-      original_parallel_plan <- future::plan(future::multisession, workers = parallel)
-      on.exit(future::plan(original_parallel_plan), add = TRUE)
-    }
 
     # Create progress bar iterator only if not in an outer loop with bins
     if (!silent && is.null(.bins)) {  # nocov start
@@ -471,79 +643,107 @@ ALE <- new_class(
       )
     }  # nocov end
 
-    # Loop to generate ALE data ---------------
-    ales <-
-      # Enumerate each ALE object to be created in one list
-      c(
-        # Process 2D ALE first because it is slower than 1D ALE.
-        # This helps the progress bar be more conservative, rather overly opimistic as it would be if 1D ALE were processed first.
-        x_cols$d2,
-        x_cols$d1
-      ) |>
-      # map(  # uncomment for debugging; furrr hides detailed error messages
-      furrr::future_map(
-        .options = furrr::furrr_options(
-          # Enable parallel-processing random seed generation
-          seed = seed,
-          packages = model_packages
-        ),
-        .f = \(it.x_cols) {
-          # Increment progress bar iterator only if not in an outer loop with bins.
-          # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization.
-          if (!silent && is.null(.bins)) {
-            progress_iterator()  # nocov
-          }
+    # Calculate one term using the current model, data, and resolved settings.
+    # Keeping this worker local lets serial and future execution share the
+    # complete calculation and result format.
+    calculate_term <- function(it.x_cols) {
+      # Increment progress bar iterator only if not in an outer loop with bins.
+      # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization.
+      if (!silent && is.null(.bins)) {
+        progress_iterator()  # nocov
+      }
 
-          it.x_cols_split <- it.x_cols |>
-            strsplit(":", fixed = TRUE) |>
-            unlist()
-          it.len_x_cols_split <- length(it.x_cols_split)
+      it.x_cols_split <- it.x_cols |>
+        strsplit(":", fixed = TRUE) |>
+        unlist()
+      it.len_x_cols_split <- length(it.x_cols_split)
 
-          # If available, pass on predetermined ALE bins for the current variables
-          it.bins <- if (!is.null(.bins)) {
-            if (it.len_x_cols_split == 1) {
-              .bins[['d1']][[it.x_cols]]
-            } else if (it.len_x_cols_split == 2) {
-              .bins[['d2']][[it.x_cols]]
-            }
+      # If available, pass on predetermined ALE bins for the current variables
+      it.bins <- if (!is.null(.bins)) {
+        if (it.len_x_cols_split == 1) {
+          .bins[['d1']][[it.x_cols]]
+        } else if (it.len_x_cols_split == 2) {
+          .bins[['d2']][[it.x_cols]]
+        }
+      } else {
+        NULL
+      }
+
+      # Resolve each numeric column using only its dimension's settings.
+      it.dimension <- paste0('d', it.len_x_cols_split)
+      it.except <- max_num_bins[[paste0('except_', it.dimension)]]
+      it.max_num_bins <- it.x_cols_split |>
+        map_dbl(function(it.x_col) {
+          if (!(it.x_col %in% numeric_bin_cols[[it.dimension]])) {
+            NA_real_  # Non-numeric variables do not use a numeric bin limit.
+          } else if (it.x_col %in% names(it.except)) {
+            it.except[[it.x_col]]
           } else {
-            NULL
+            max_num_bins[[it.dimension]]
           }
+        }) |>
+        set_names(it.x_cols_split)
 
-          ale_results <-
-            calc_ale(
-              data, model, it.x_cols_split, y_col, y_cats,
-              pred_fun, pred_type, max_num_bins,
-              boot_it, seed, boot_alpha, boot_centre,
-              boot_ale_y = output_boot_data,
-              .bins = it.bins,
-              ale_y_norm_funs = ale_y_norm_funs,
-              p_dist = p_values
-            ) |>
-            list_transpose(simplify = FALSE)
+      # Specify specific fct_order for each column.
+      # Result is a list in the same structure as requested_fct_order.
+      # Values are NULL for non-ordered factors.
+      it.fct_order <- it.x_cols_split |>
+        map(\(it.col) requested_fct_order[[it.col]]) |>
+        set_names(it.x_cols_split)
 
-          ale_results |>
-            imap(\(it.cat_ar, it.cat_name) {
-              it.rtn <- list(
-                cat = it.cat_name,
-                x_cols = list(it.x_cols),
-                # dimension of ALE (1D or 2D)
-                ale_d = it.len_x_cols_split,
-                ale = list(it.cat_ar$summary)
-              )
+      ale_results <-
+        calc_ale(
+          data = data, model = model,
+          x_cols = it.x_cols_split,
+          y_col = y_col, y_cats = y_cats,
+          pred_fun = pred_fun, pred_type = pred_type,
+          max_num_bins = it.max_num_bins,
+          fct_order = it.fct_order,
+          boot_it = boot_it, seed = seed,
+          boot_alpha = boot_alpha, boot_centre = boot_centre,
+          boot_ale_y = output_boot_data,
+          .bins = it.bins,
+          ale_y_norm_funs = ale_y_norm_funs,
+          p_dist = p_values,
+          aled_fun = aled_fun,
+          constant_term = constant_vars[intersect(it.x_cols_split, names(constant_vars))]
+        ) |>
+        list_transpose(simplify = FALSE)
 
-              if (!is.null(it.cat_ar$boot_ale_y)) {
-                it.rtn$boot_data <- list(it.cat_ar$boot_ale_y)
-              }
-              if (!is.null(it.cat_ar$stats)) {
-                it.rtn$stats <- list(it.cat_ar$stats)
-              }
+      return(
+        ale_results |>
+          imap(function(it.cat_ar, it.cat_name) {
+            it.rtn <- list(
+              cat = it.cat_name,
+              x_cols = list(it.x_cols),
+              # dimension of ALE (1D or 2D)
+              ale_d = it.len_x_cols_split,
+              ale = list(it.cat_ar$summary)
+            )
 
-              it.rtn
+            if (!is.null(it.cat_ar$boot_ale_y)) {
+              it.rtn$boot_data <- list(it.cat_ar$boot_ale_y)
+            }
+            if (!is.null(it.cat_ar$stats)) {
+              it.rtn$stats <- list(it.cat_ar$stats)
+            }
 
-            }) |>
-            bind_rows()
-        }) |>   # furrr::future_map(
+            it.rtn
+
+          }) |>
+          bind_rows()
+      )
+    }
+
+    # A local or single-term call never prepares a future. In nested model
+    # bootstraps this keeps all term calculations in the current worker.
+    # Process the slower interactions first to keep progress estimates
+    # conservative, as in the original term ordering.
+    requested_terms <- c(x_cols$d2, x_cols$d1)
+    ales <- .map_jobs(
+      requested_terms, calculate_term,
+      parallel = parallel, seed = seed, packages = model_packages
+    ) |>
       # Remove one extraneous list level
       purrr::list_flatten() |>
       # Remove category names (already encoded in tibbles)
@@ -655,10 +855,12 @@ ALE <- new_class(
 
     # Create and return S7 ale object ----------------------
 
-    new_object(
-      S7_object(),
-      effect = ale_struc$effect,
-      params = params
+    return(
+      new_object(
+        S7_object(),
+        effect = ale_struc$effect,
+        params = params
+      )
     )
   }  # ALE constructor
 )  # ALE

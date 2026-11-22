@@ -1,7 +1,258 @@
 # utils.R miscellaneous internal utility functions
 
+# Classify terminal objects before inspecting their list-like contents.
+# A data frame with rows is meaningful even if it has no columns.
+obj_node_kind <- function(x) {
+  if (inherits(x, 'ggplot')) return('leaf')
+  if (is.data.frame(x)) return(if (nrow(x) == 0) 'empty' else 'leaf')
+  if (length(x) == 0) return('empty')
+  if (rlang::is_bare_list(x)) return('list')
+  'leaf'
+}
 
 
+# Count nonempty objects, descending only into simple lists. At depth zero,
+# a nonempty list counts as one object; Inf visits every list level.
+count_objs <- function(list, iteration_depth = Inf) {
+  validate(
+    isTRUE(is_scalar_whole(iteration_depth)) || identical(iteration_depth, Inf),
+    msg = '{.arg iteration_depth} must be a nonnegative whole number or {.val Inf}.'
+  )
+
+  count <- function(x, depth) {
+    kind <- obj_node_kind(x)
+    if (kind == 'empty') return(0L)
+    if (kind == 'leaf' || depth == 0) return(1L)
+    sum(vapply(x, \(child) count(child, depth - 1), numeric(1)))
+  }
+
+  count(list, iteration_depth)
+}
+
+
+# Prune empty nodes from the bottom up, then promote each sole surviving child.
+# Terminal objects (including ggplots and data frames) retain their attributes.
+simplify_objs <- function(x) {
+  kind <- obj_node_kind(x)
+  if (kind == 'empty') return(NULL)
+  if (kind == 'leaf') return(x)
+
+  children <- lapply(x, simplify_objs)
+  children <- children[!vapply(children, is.null, logical(1))]
+  if (length(children) == 0) return(NULL)
+  if (length(children) == 1) return(children[[1]])
+  children
+}
+
+
+
+# Select a future strategy that can load a pkgload development package.
+#
+# future normally records functions from a package namespace as package
+# dependencies rather than serializing them. A package loaded from its source
+# tree by pkgload is not available to a clean multisession worker through
+# library(), so ask each worker to load that same source tree at startup.
+# Installed packages retain future's standard multisession behaviour.
+#
+# @param pkg Name of the package whose development source should be loaded.
+# @param session_fn The future strategy to use.
+# @return A future strategy function.
+# @noRd
+future_session <- function(
+    pkg = 'ale',
+    session_fn = future::multisession
+) {
+  if (
+    "pkgload" %in% loadedNamespaces() &&
+      pkgload::is_dev_package(pkg)
+  ) {
+    package_path <- find.package(pkg)
+    worker_startup <- bquote(
+      quote(
+        pkgload::load_all(
+          .(package_path),
+          helpers = FALSE,
+          quiet = TRUE
+        )
+      )
+    )
+
+    return(future::tweak(
+      session_fn,
+      rscript_startup = worker_startup
+    ))
+  }
+
+  session_fn
+}
+
+
+
+#' Capture and restore the caller's random-number generator
+#'
+#' Preserve the complete seed vector, its absence, and all RNG kinds. Passing a
+#' saved seed vector to set.seed() would instead start a different sequence.
+#'
+#' @returns A list with RNG kinds and a seed field that is NULL when absent.
+#' @noRd
+.rng_state <- function() {
+  seed <- if (exists('.Random.seed', envir = .GlobalEnv, inherits = FALSE)) {
+    base::get('.Random.seed', envir = .GlobalEnv, inherits = FALSE)
+  } else {
+    NULL
+  }
+  list(kind = RNGkind(), seed = seed)
+}
+
+#' @param state list. State returned by .rng_state().
+#' @returns NULL, invisibly.
+#' @noRd
+.restore_rng <- function(state) {
+  if (!identical(RNGkind(), state$kind)) {
+    do.call(RNGkind, as.list(state$kind))
+  }
+  if (is.null(state$seed)) {
+    if (exists('.Random.seed', envir = .GlobalEnv, inherits = FALSE)) {
+      rm('.Random.seed', envir = .GlobalEnv)
+    }
+  } else {
+    assign('.Random.seed', state$seed, envir = .GlobalEnv)
+  }
+  invisible(NULL)
+}
+
+#' Start a reproducible simulation independently of the caller's RNG kinds
+#'
+#' @param seed numeric(1). Seed for the simulation.
+#' @returns NULL, invisibly.
+#' @noRd
+.set_seed <- function(seed) {
+  RNGkind("L'Ecuyer-CMRG", 'Inversion', 'Rejection')
+  set.seed(seed)
+  invisible(NULL)
+}
+
+#' Prepare a stable random-number stream for each iteration
+#'
+#' Streams depend on the supplied seed and iteration order, not worker count or
+#' chunking. Their generation leaves the caller's RNG state unchanged.
+#'
+#' @param seed numeric(1). Seed for the batch.
+#' @param n_jobs non-negative integer(1). Number of streams to prepare.
+#' @returns A list of complete RNG seed vectors, in iteration order.
+#' @noRd
+.rng_streams <- function(seed, n_jobs) {
+  rng_state <- .rng_state()
+  on.exit(.restore_rng(rng_state), add = TRUE)
+  .set_seed(seed)
+  streams <- vector('list', n_jobs)
+  if (n_jobs > 0L) {
+    # Reserve the initial stream for constructor setup, such as drawing
+    # bootstrap rows, and give the jobs subsequent, disjoint streams.
+    stream <- parallel::nextRNGStream(
+      base::get('.Random.seed', envir = .GlobalEnv)
+    )
+    for (i.job in 1:n_jobs) {
+      streams[[i.job]] <- stream
+      stream <- parallel::nextRNGStream(stream)
+    }
+  }
+  streams
+}
+
+#' Evaluate a local calculation in its assigned stream
+#'
+#' @param stream integer. Complete RNG seed vector for this calculation.
+#' @param code expression. Calculation to evaluate.
+#' @returns The value of code.
+#' @noRd
+.with_rng_stream <- function(stream, code) {
+  rng_state <- .rng_state()
+  on.exit(.restore_rng(rng_state), add = TRUE)
+  assign('.Random.seed', stream, envir = .GlobalEnv)
+  force(code)
+}
+
+#' Resolve explicit model-call globals in the original caller
+#'
+#' @param globals character. Names referenced by a model-call string.
+#' @param envir environment. Original caller environment.
+#' @returns A named list of the existing bindings, including NULL values.
+#' @noRd
+.call_globals <- function(globals, envir) {
+  found <- vapply(globals, exists, logical(1), envir = envir, inherits = TRUE)
+  mget(globals[found], envir = envir, inherits = TRUE)
+}
+
+#' Map jobs locally or prepare one future batch
+#'
+#' Local execution never prepares futures or changes the caller's future plan.
+#' Both paths use the same per-job streams. Explicit globals cover dependencies
+#' used inside model-call strings, which static function discovery cannot see.
+#'
+#' @param .x vector or list. Jobs to execute.
+#' @param .f function. Calculation for one job.
+#' @param parallel non-negative integer(1). Resolved worker setting.
+#' @param seed numeric(1) or list. Batch seed or already prepared RNG streams.
+#' @param packages character or NULL. Required worker packages.
+#' @param globals character. Additional global names used in model-call strings.
+#' @param env_globals environment. Environment containing explicit globals.
+#' @returns A list of job results in input order, retaining input names.
+#' @noRd
+.map_jobs <- function(
+  .x, .f, parallel, seed, packages = NULL, globals = character(),
+  env_globals = parent.frame()
+) {
+  rng_state <- .rng_state()
+  on.exit(.restore_rng(rng_state), add = TRUE)
+  n_jobs <- length(.x)
+  streams <- if (is.list(seed)) seed else .rng_streams(seed, n_jobs)
+  if (parallel == 0L || n_jobs <= 1L) {
+    return(purrr::map2(.x, streams, function(it.job, it.stream) {
+      .with_rng_stream(it.stream, .f(it.job))
+    }))
+  }
+
+  # Gather dependencies once for this batch, including custom predictor
+  # closures. Supplying the resulting list avoids another recursive scan in
+  # furrr, including its per-chunk scan of arguments that are already data.
+  dependencies <- future::getGlobalsAndPackages(.f, envir = environment(.f))
+  worker_globals <- as.list(dependencies$globals)
+  if (length(globals) > 0L) {
+    explicit_globals <- .call_globals(globals, env_globals)
+    worker_globals[names(explicit_globals)] <- explicit_globals
+  }
+
+  future::plan(future_session(), workers = parallel) |>
+    with(local = TRUE)
+  furrr::future_map(
+    .x, .f,
+    .options = furrr::furrr_options(
+      seed = streams,
+      globals = worker_globals,
+      packages = unique(c(packages, dependencies$packages))
+    ),
+    .env_globals = env_globals
+  )
+}
+
+#' Map paired iteration inputs with the shared execution policy
+#'
+#' @param .x,.y vector or list. Paired inputs of the same length.
+#' @inheritParams .map_jobs
+#' @returns A list of job results in input order, retaining names from .x.
+#' @noRd
+.map2_jobs <- function(
+  .x, .y, .f, parallel, seed, packages = NULL, globals = character(),
+  env_globals = parent.frame()
+) {
+  indices <- if (length(.x) > 0L) 1:length(.x) else integer()
+  names(indices) <- names(.x)
+  calculate_pair <- function(i.job) .f(.x[[i.job]], .y[[i.job]])
+  .map_jobs(
+    indices, calculate_pair, parallel, seed, packages, globals, env_globals
+  )
+}
 
 # Mathematical operations ------------
 
@@ -83,7 +334,9 @@ params_data <- function(
 
   # If data is large, reduce it to a sample of sample_size; else return the full dataset
   if (n_rows > sample_size) {
-    set.seed(seed)
+    rng_state <- .rng_state()
+    on.exit(.restore_rng(rng_state), add = TRUE)
+    .set_seed(seed)
     sample_rows <- sample(1:n_rows, sample_size)
 
     data <- data[sample_rows, ]
@@ -98,40 +351,35 @@ params_data <- function(
 }
 
 
-# Reduce a model to text descriptions of its key elements
-params_model <- function(model) {
-  # Some calls to summary(model) crash, so wrap in tryCatch
-  model_summary <- tryCatch(
-    {
-      summary(model) |>
-        print() |>
-        utils::capture.output() |>
-        paste0(collapse = '\n')
-    },
-    error = \(e) {
-      e  # nocov
-    }
-  )
+# Calculate an MD5 hash from a raw vector across supported R versions
+md5sum_raw <- function(raw, md5sum = tools::md5sum) {
+  # R versions before 4.5.1 don't support the tools::md5sum(bytes) argument,
+  # so create a temporary-file fallback for older versions.
+  hash <- if ("bytes" %in% names(formals(md5sum))) {
+    md5sum(bytes = raw)
+  } else {
+    tf <- tempfile(fileext = ".bin")
+    on.exit(unlink(tf), add = TRUE)
+    writeBin(raw, tf)
+    md5sum(tf)
+  }
 
-  list(
-    class = class(model),
-    call = insight::model_name(model, include_call = TRUE) |>
-      paste0(collapse = '\n'),
-    print = print(model) |>
-      utils::capture.output() |>
-      paste0(collapse = '\n'),
-    summary = model_summary
-  )
+  # md5sum() names file-based results with the input path. Do not let that
+  # transient path become part of package objects or their snapshots.
+  unname(hash)
 }
 
 
-# Reduce a function to text descriptions of its key elements
-params_function <- function(func) {
-  pf <- print(func) |>
-    utils::capture.output()
-  # Remove the last line with the environment (it is a random value and fails on snapshot testing)
-  pf[-length(pf)] |>
-    paste0(collapse = '\n')
+# Reduce a model to text descriptions of its key elements
+params_model <- function(model) {
+  hash <- model |>
+    serialize(NULL) |>
+    md5sum_raw()
+
+  list(
+    class = class(model),
+    hash  = hash
+  )
 }
 
 
@@ -197,5 +445,3 @@ extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
 
   result
 }
-
-

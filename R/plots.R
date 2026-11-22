@@ -49,7 +49,7 @@
 #' @param ale_data tibble. Output data from `calc_ale`.
 #' @param x_col character(1). Name of a single column whose ALE data is to be plotted.
 #' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
-#' @param cat_plot character(1) in c('overlay', 'facet'). If not `NULL` (default), type of categorical plot to create.
+#' @param cat_plot character(1) in c("overlay", "facet"), or NULL. The default `NULL` creates a single-category 1D plot. Non-NULL choices select the corresponding combined-category plot.
 #' @param y_type See documentation for [ALEPlots()]
 #' @param y_summary See documentation for [ALE()]: `ale_obj@params$y_summary`
 #' @param p_exactness See documentation for [ALEpDist()]: `alepdist_obj@params$exactness`
@@ -59,6 +59,7 @@
 #' @param y_1d_refs See documentation for [ALEPlots()]
 #' @param x_y dataframe with at least two columns: `x_col` and `y_col`; any other columns are not used. If provided, used to generate rug plots.
 #' @param rug_sample_size,min_rug_per_interval See documentation for [ALEPlots()]
+#' @param min_col_width See documentation for [ALEPlots()]
 #' @param seed See documentation for [ALE()]
 #'
 #' @returns a `ggplot` with a 1D ALE plot
@@ -73,11 +74,12 @@ plot_ale_1D <- function(
     p_exactness,
     aler_alpha,
     ...,
-    ale_centre = 'median',
+    ale_centre = c('median', 'mean', 'zero'),
     y_1d_refs = c('25%', '75%'),
     x_y = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
+    min_col_width = 0.05,
     seed = 0
     ) {
 
@@ -85,6 +87,8 @@ plot_ale_1D <- function(
 
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+
+  ale_centre <- rlang::arg_match(ale_centre)
 
   use_aler_band <- !is.null(p_exactness)
 
@@ -137,10 +141,18 @@ plot_ale_1D <- function(
     # In particular, ignore extreme .y_lo or .y_hi values, or else they could distort the scale.
     # With this setting most plots will be on the same y_min to y_max scale; only a few with extreme .y values would zoom out to show these.
     coord_cartesian(
-      ylim = c(
-        min(y_summary[['min']], ale_data$.y),
-        max(y_summary[['max']], ale_data$.y)
-      )
+      ylim = if (x_is_numeric) {
+        c(
+          min(y_summary[['min']], ale_data$.y),
+          max(y_summary[['max']], ale_data$.y, 0)
+        )
+      } else {
+        # Always include 0 in categorical column charts
+        c(
+          min(0, y_summary[['min']], ale_data$.y),
+          max(y_summary[['max']], ale_data$.y)
+        )
+      }
     ) +
     theme(axis.text.y.right = element_text(size = 8)) +
     labs(
@@ -157,7 +169,7 @@ plot_ale_1D <- function(
         xmax = Inf,
         ymin = y_summary[['aler_lo']],
         ymax = y_summary[['aler_hi']],
-        fill = 'lightgray'
+        fill = 'lightgrey'
       )
 
     # Add a secondary axis to label the percentiles.
@@ -190,7 +202,13 @@ plot_ale_1D <- function(
 
     sec_breaks <- c(
       y_summary[[y_1d_refs[1]]],
-      if (ale_centre == 'median') y_summary[['50%']] else y_summary[['mean']],
+      if (ale_centre == 'median') {
+        y_summary[['50%']]
+      } else if (ale_centre == 'mean') {
+        y_summary[['mean']]
+      } else if (ale_centre == 'zero') {
+        0
+      },
       y_summary[[y_1d_refs[2]]]
     )
   }
@@ -249,22 +267,43 @@ plot_ale_1D <- function(
   }
   else {
     # x is not numeric: use column charts
+
+    # Scale all widths relative to the largest category
+    col_width <- pmax(
+      ale_data$.n / max(ale_data$.n),
+      # pmax() ensures that no column is shown less than min_col_width
+      rep(min_col_width, nrow(ale_data))
+    )
+
     if (!all_cats) {
       plot <- plot +
-        geom_col(fill = 'gray')
-    }
+        geom_col(
+          aes(fill = .data$.x),
+          width = col_width,
+          position = position_dodge2(),
+          show.legend = FALSE
+        ) +
+        # Default colour is grey
+        scale_fill_manual(values = rep('grey', nrow(ale_data)))
+      }
     else {
       # All categories: no bootstrap bands
       plot <- if (cat_plot == 'overlay') {
         plot +
           geom_col(
             aes(fill = '.cat'),
-            position = 'dodge'  # side-by-side columns
+            # position = 'dodge'  # side-by-side columns
+            width = col_width,
+            position = position_dodge2(),
           )
       }
       else {  # facet
         plot +
-          geom_col(fill = 'gray') +
+          geom_col(
+            fill = 'grey',
+            width = col_width,
+            position = position_dodge2(),
+          ) +
           facet_wrap(vars('.cat'), nrow = 1)
       }
     }
@@ -274,17 +313,6 @@ plot_ale_1D <- function(
         aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
         width = if (is_string(cat_plot, 'overlay')) 1 else 0.1,
         position = position_dodge2(preserve = 'single')
-      ) +
-      # Add labels for percentage of dataset. This serves the equivalent function of rugs for numeric data.
-      # Varying column width is an idea, but it usually does not work well visually.
-      geom_text(
-        aes(
-          label = paste0(round((.data$.n / total_n) * 100), '%'),
-          y = y_summary[['min']]
-        ),
-        size = 3,
-        alpha = 0.5,
-        vjust = -0.2
       )
 
     # Rotate categorical labels if they are too long
@@ -339,7 +367,7 @@ plot_ale_1D <- function(
         data = rug_data,
         # Omit y-axis (left, l) rug plot for non-numeric y
         sides = if (y_type == 'numeric') 'bl' else 'b',
-        alpha = 0.5,
+        alpha = 0.25,
         position = position_jitter(
           # randomly jitter by 1% of the domain and range
           width = 0.01 * diff(range(ale_data[[1]])),
@@ -373,15 +401,17 @@ plot_ale_1D <- function(
 #' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
 #' @param params ALE object params property. Parameters for the object for which 2D plots will be created.
 #' @param ... not used. Enforces explicit naming of subsequent arguments.
-#' @param cat_plot character(1) in c('single', 'facet'). `'single'` (default) creates a typical 2D plot for a single category; `'facet'` creates a faceted plot across all categories.
+#' @param cat_plot character(1). Plot layout, matched exactly. "single" creates a typical 2D plot for a single category; "facet" creates a faceted plot across all categories.
+#' @param show_2d_bin_sizes See documentation for [ALEPlots()]
 #' @param ale_centre See documentation for [ALE()]
 #'
 plot_ale_2D <- function(
     ale_data, x1_col, x2_col, y_col,
     params,
     ...,
-    cat_plot = 'single',
-    ale_centre = 'median'
+    cat_plot = c('single', 'facet'),
+    ale_centre = c('median', 'mean', 'zero'),
+    show_2d_bin_sizes = TRUE
 ) {
   ## Internal functions -----------------
 
@@ -404,6 +434,9 @@ plot_ale_2D <- function(
 
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+
+  cat_plot <- rlang::arg_match(cat_plot)
+  ale_centre <- rlang::arg_match(ale_centre)
 
   # Establish base variables
   total_n <- ale_data |>
@@ -513,22 +546,26 @@ plot_ale_2D <- function(
         'effect of {x1_col} on the horizontal axis and {x2_col} on the vertical axis'
       )
     ) +
-    geom_point(
-      aes(size = .data$.n * 100 / total_n),
-      # shapes: https://ggplot2.tidyverse.org/articles/ggplot2-specs.html
-      shape = 0,  # hollow square
-      alpha = 0.1
-    ) +
-    scale_size_area(
-      name = "% data",  # Size legend title
-      # append % to the labels
-      labels = \(breaks) {
-        breaks |> round_dp() |> paste0('%')
-      }
-    ) +
     theme(legend.title = element_text(size = 10)) +
     theme(legend.text = element_text(size = 8)) +
     theme(legend.key.size = unit(4, "mm"))
+
+  if (show_2d_bin_sizes) {
+    plot <- plot +
+      geom_point(
+        aes(size = .data$.n * 100 / total_n),
+        # shapes: https://ggplot2.tidyverse.org/articles/ggplot2-specs.html
+        shape = 0,  # hollow square
+        alpha = 0.1
+      ) +
+      scale_size_area(
+        name = "% data",  # Size legend title
+        # append % to the labels
+        labels = \(breaks) {
+          breaks |> round_dp() |> paste0('%')
+        }
+      )
+  }
 
   min_y <- min(y_summary['min'], min(ale_data$estimate))
   max_y <- max(y_summary['max'], max(ale_data$estimate))
@@ -640,16 +677,16 @@ plot_ale_2D <- function(
 }
 
 
-#' Downsampl rows for a rug plot
+#' Downsample rows for a rug plot
 #'
 #' Downsample x and y rows for a rug plot to match a target sample size while respecting specified intervals in the random sample.
 #'
-#' Rug plots are slow with large datasets because each data point must be plotted. [rug_sample()] tries to resolve this issue by sampling `rug_sample_size` rows of data at the most (only if the data has more than that number of lines lines). However, to be representative, the sampling must have at least min_rug_per_interval in each bin.
+#' Rug plots are slow with large datasets because each data point must be plotted. \code{[rug_sample()]} tries to resolve this issue by sampling `rug_sample_size` rows of data at the most (only if the data has more than that number of lines lines). However, to be representative, the sampling must have at least min_rug_per_interval in each bin.
 #'
 #' @noRd
 #'
 #' @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
-#' @param max_num_bins ??
+#' @param max_num_bins See documentation for [ALE()]
 #' @param y_intervals ??
 #' @param rug_sample_size See documentation for [ALE()]
 #' @param min_rug_per_interval See documentation for [ALE()]
@@ -791,14 +828,15 @@ plot_effects <- function(
       xmax = y_summary['aler_hi'],
       ymin = -Inf,
       ymax = Inf,
-      fill = 'lightgray'
+      fill = 'lightgrey'
     ) +
     # ALER/NALER bands as error bars
-    geom_errorbarh(
+    geom_errorbar(
       aes(
         xmin = y_summary['50%'] + .data$aler_min,
         xmax = y_summary['50%'] + .data$aler_max
       ),
+      orientation = 'y',
       na.rm = TRUE,
       height = 0.25
     ) +
@@ -840,7 +878,7 @@ plot_effects <- function(
       label = 'Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max',
       size = 3,
       hjust = 1,
-      label.size = 0
+      linewidth = 0
     )
 
   return(plot)

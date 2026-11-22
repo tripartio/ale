@@ -38,18 +38,6 @@ test_that("is_scalar_number() works as expected", {
   expect_false(is_scalar_number(numeric(0))) # length 0
 })
 
-test_that("is_scalar_natural() works as expected", {
-  # True: strictly positive whole number
-  expect_true(is_scalar_natural(1L))
-  expect_true(is_scalar_natural(42L))
-
-  # False cases
-  expect_false(is_scalar_natural(0L))    # zero is excluded
-  expect_false(is_scalar_natural(3.14))  # not integerish
-  expect_false(is_scalar_natural(-5L))   # negative
-  expect_false(is_scalar_natural(c(1,2)))# length > 1
-})
-
 test_that("is_scalar_whole() works as expected", {
   # True: zero or positive whole number
   expect_true(is_scalar_whole(0L))

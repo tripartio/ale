@@ -1,8 +1,16 @@
 .Rhistory
 .Rproj.user
+.vscode
 ale.Rproj
 docs
 inst/doc
 R/refALEPlot.R
 scholar
+tests/testthat/_snaps
+tests/testthat/_snaps/Linux
 tests/testthat/Rplots.pdf
+tests/testthattest-ALEPlot-gold-standard.R
+tmp
+vignettes/*_files
+/doc/
+/Meta/

@@ -13,7 +13,7 @@
 #'
 #'
 #' @param model Required. See documentation for [ALE()]
-#' @param data dataframe. Dataset to be bootstrapped. This must be the same data on which the `model` was trained. If not provided, `ModelBoot()` will try to detect it automatically. For non-standard models, `data` should be provided.
+#' @param data dataframe. Dataset to be bootstrapped. This must be the same data on which the `model` was trained. If not provided, `ModelBoot()` will try to detect it automatically. For `model` objects that do not contain their data within them, `data` should be provided.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param model_call_string character(1). If `NULL` (default), the `ModelBoot` tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes `boot_data` as the data argument for the call. See examples.
 #' @param model_call_string_vars character. Names of variables included in `model_call_string` that are not columns in `data`. If any such variables exist, they must be specified here or else parallel processing may produce an error. If parallelization is disabled with `parallel = 0`, then this is not a concern. See documentation for the `model_packages` argument in [ALE()].
@@ -22,8 +22,8 @@
 #' @param positive any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `positive` specifies the 'positive' value of `y_col` (the target outcome), that is, the value of interest that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `positive = 2`.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for full-model bootstrapping. For bootstrapping of ALE values, see details to verify if [ALE()] with bootstrapping is not more appropriate than [ModelBoot()]. If `boot_it = 0`, then the model is run as normal once on the full `data` with no bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5 percentiles.
-#' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
-#' @param seed integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for [ALE()] for further details.
+#' @param boot_centre character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.
+#' @param seed integer(1). Random seed. Supplies reproducible bootstrap samples and iteration streams in local and future execution. See documentation for [ALE()] for RNG restoration and numerical reproducibility details.
 #' @param output_model_stats logical(1). If `TRUE` (default), return overall model statistics using [broom::glance()] (if available for `model`) and bootstrap-validated statistics if `boot_it > 0`.
 #' @param output_model_coefs logical(1). If `TRUE` (default), return model coefficients using [broom::tidy()] (if available for `model`).
 #' @param output_ale logical(1). If `TRUE` (default), return ALE data and statistics.
@@ -33,7 +33,14 @@
 #' @param silent See documentation for [ALE()]
 #'
 #'
-#' @returns An object of class `ALE` with properties `model_stats`, `model_coefs`, `ale`, `model_stats`, `boot_data`, and `params`.
+#' @returns A `ModelBoot` object with properties `model_stats`, `model_coefs`,
+#'   `ale`, `boot_data`, and `params`.
+#'
+#' @section Methods:
+#' `ModelBoot` objects support [get()][get-ModelBoot-method],
+#' [plot()][plot-ModelBoot-method], [print()][print-ModelBoot-method], and
+#' [summary()][summary-ModelBoot-method]. Each method topic documents its
+#' complete signature and class-specific arguments.
 #'
 #' @section Properties:
 #' \describe{
@@ -88,7 +95,8 @@
 #' * Creates multiple bootstrap samples (default 100; the user can specify any number);
 #' * Creates a model on each bootstrap sample;
 #' * Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
-#' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
+#' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples;
+#' * Calculates ALE if requested (the default); if bootstrapped, it first establishes canonical bins that every bootstrap iteration receives explicitly.
 #'
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.<
 #' @references Efron, Bradley, and Robert Tibshirani. "Bootstrap methods for standard errors, confidence intervals, and other measures of statistical accuracy." Statistical science (1986): 54-75. <doi:10.1214/ss/1177013815>
@@ -108,38 +116,50 @@
 #'
 #' \donttest{
 #' # Full model bootstrapping
-#' # Only 4 bootstrap iterations for a rapid example; default is 100
-#' # Increase value of boot_it for more realistic results
-#' mb_gam <- ModelBoot(
-#'   gam_attitude,
-#'   boot_it = 4
+#'
+#'
+#' # For speed, these examples use retrieve_rds() to load pre-created objects
+#' # from an online repository.
+#' # To run the code yourself, execute the code blocks directly.
+#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
+#'
+#' # Create ALE data
+#' mb_gam_attitude <- retrieve_rds(
+#'   # For speed, load a pre-created object by default.
+#'   c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
+#'   {
+#'     # To run the code yourself, execute this code block directly.
+#'     # For models like lm that store their data,
+#'     # there is no need to specify the data argument.
+#'     # 100 bootstrap iterations by default.
+#'     ModelBoot(gam_attitude)
+#'   }
 #' )
 #'
-#' # If the model is not standard, supply model_call_string with 'data = boot_data'
-#' # in the string instead of the actual dataset name (in addition to the actual dataset
-#' # as the 'data' argument directly to the `ModelBoot` constructor).
-#' mb_gam <- ModelBoot(
-#'   gam_attitude,
-#'   data = attitude,  # the actual dataset
-#'   model_call_string = 'mgcv::gam(
-#'     rating ~ complaints + privileges + s(learning) +
-#'       raises + s(critical) + advance,
-#'     data = boot_data  # required for model_call_string
-#'   )',
-#'   boot_it = 4
-#' )
+#' # # If default settings cause errors, supply model_call_string with 'data = boot_data'
+#' # # in the string instead of the actual dataset name (in addition to the actual dataset
+#' # # as the 'data' argument directly to the `ModelBoot` constructor).
+#' # mb_gam_attitude <- ModelBoot(
+#' #   gam_attitude,
+#' #   data = attitude,  # the actual dataset
+#' #   model_call_string = 'mgcv::gam(
+#' #     rating ~ complaints + privileges + s(learning) +
+#' #       raises + s(critical) + advance,
+#' #     data = boot_data  # required for model_call_string
+#' #   )'
+#' # )
 #'
 #' # Model statistics and coefficients
-#' mb_gam@model_stats
-#' mb_gam@model_coefs
+#' mb_gam_attitude@model_stats
+#' mb_gam_attitude@model_coefs
 #'
 #' # Plot ALE
-#' plot(mb_gam)
+#' plot(mb_gam_attitude)
 #'
 #' # Retrieve ALE data
-#' get(mb_gam, type = 'boot')    # bootstrapped
-#' get(mb_gam, type = 'single')  # full (unbootstrapped) model
-#' # See get.ALE() for other options
+#' get(mb_gam_attitude, type = 'boot')    # bootstrapped
+#' get(mb_gam_attitude, type = 'single')  # full (unbootstrapped) model
+#' # See help('get-ALE-method') for other options
 #'
 #' }
 #'
@@ -159,17 +179,15 @@ ModelBoot <- new_class(
     ...,
     model_call_string = NULL,
     model_call_string_vars = character(),
-    parallel = 'all',
+    parallel = 0,
     model_packages = NULL,
     y_col = NULL,
     positive = TRUE,
-    pred_fun = function(object, newdata, type = pred_type) {
-      stats::predict(object = object, newdata = newdata, type = type)
-    },
+    pred_fun = NULL,
     pred_type = "response",
     boot_it = 100,
     boot_alpha = 0.05,
-    boot_centre = 'mean',
+    boot_centre = c('mean', 'median'),
     seed = 0,
     output_model_stats = TRUE,
     output_model_coefs = TRUE,
@@ -183,6 +201,12 @@ ModelBoot <- new_class(
   ) {
     ## Validate arguments -------------
     rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+    boot_centre <- rlang::arg_match(boot_centre)
+
+    rng_state <- .rng_state()
+    on.exit(.restore_rng(rng_state), add = TRUE)
+    validate(is_scalar_number(seed))
+    .set_seed(seed)
 
     data <- validate_data(
       data,
@@ -208,9 +232,13 @@ ModelBoot <- new_class(
         !is.null(model_call),
         msg = c(
           'x' = 'The model call could not be automatically detected.',
-          'i' = '{.arg model_call_string} must be provided. See {.fun ModelBoot()} for details.'
+          'i' = '{.arg model_call_string} must be provided. See {.fun ModelBoot} for details.'
         )
       )
+
+      # Keep track of if there is a data argument in model_call.
+      # If not, errors might result later.
+      data_in_model_call <- 'data' %in% names(model_call)
     }
     else {  # validate model_call_string
       validate(is_string(model_call_string))
@@ -218,7 +246,7 @@ ModelBoot <- new_class(
         str_detect(model_call_string, 'boot_data'),
         msg = c(
           'x' = 'The {.arg data} argument for {.arg model_call_string} must be "boot_data".',
-          'i' = 'See {.fun ModelBoot()} for details.'
+          'i' = 'See {.fun ModelBoot} for details.'
         )
       )
 
@@ -227,9 +255,12 @@ ModelBoot <- new_class(
         str_replace_all('([^.])(boot_data)', '\\1btit.data')
     }
 
-    vp <- validate_parallel(parallel, model, model_packages)
-    parallel <- vp$parallel
-    model_packages <- vp$model_packages
+    if (missing(parallel)) {
+      parallel <- getOption("ale.parallel", parallel)
+    }
+    val_pll <- validate_parallel(parallel, model, model_packages)
+    parallel <- val_pll$parallel
+    model_packages <- val_pll$model_packages
 
 
     # Determine if the information for calculating performance measures can be obtained.
@@ -242,7 +273,7 @@ ModelBoot <- new_class(
         {
           validate(is_string(pred_type))
 
-          # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+          # If y_col is NULL, try to automatically detect y_col.
           y_col <- validate_y_col(
             y_col = y_col,
             data = data,
@@ -250,13 +281,15 @@ ModelBoot <- new_class(
           )
 
           # Obtain the predictions of y. This operation simultaneously validates pred_fun, model, and pred_type.
-          y_preds <- validate_y_preds(
+          val_pred <- validate_prediction(
             pred_fun = pred_fun,
             model = model,
             data = data,
             y_col = y_col,
             pred_type = pred_type
           )
+          pred_fun <- val_pred$pred_fun
+          y_preds <- val_pred$y_preds
 
           y_cats <- colnames(y_preds)
           y_type <- var_type(data[[y_col]])
@@ -288,7 +321,6 @@ ModelBoot <- new_class(
 
 
     validate(is_scalar_whole(boot_it))
-    validate(is_scalar_number(seed))
     validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
     validate(boot_centre == 'mean' || boot_centre == 'median')
 
@@ -305,6 +337,10 @@ ModelBoot <- new_class(
     }
 
     validate(is.list(ale_options))
+    # Reject explicit NULL before modifyList() can remove this argument.
+    if ('max_num_bins' %in% names(ale_options)) {
+      validate_max_num_bins(ale_options$max_num_bins, names(data))
+    }
     validate(
       is.null(ale_options$p_values),
       msg = c(
@@ -355,6 +391,8 @@ ModelBoot <- new_class(
 
     ## Verify glance and tidy methods ------------
 
+    class_model <- class(model)
+
     # Define call_glance since it is possible to output_model_stats without broom::glance results
     call_glance <- FALSE
     if (output_model_stats) {
@@ -362,14 +400,17 @@ ModelBoot <- new_class(
         str_remove("^glance\\.") |>  # Remove leading "glance."
         str_remove("\\*$")           # Remove trailing "*" if present
 
-      call_glance <- any(class(model) %in% glance_methods)
+      call_glance <- any(class_model %in% glance_methods)
 
       if (!call_glance) {  # nocov start
-        cli_warn(c(
-          '!' = 'No {.fun boot::glance} methods found for the class {.cls {class(model)}}.',
-          'i' = 'Some general model statistics will not be provided',
-          'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
-        ))
+        if (!any(class_model %in% 'ranger')) {
+          cli_warn(c(
+            '!' = 'No {.fun broom::glance} methods found for the class {.cls {class(model)}}.',
+            'i' = 'Some general model statistics will not be provided',
+            'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
+          ))
+          # No warning for ranger, which is known to lack broom support
+        }
       }  # nocov end
     }
 
@@ -379,14 +420,17 @@ ModelBoot <- new_class(
         str_remove("^tidy\\.") |>  # Remove leading "tidy."
         str_remove("\\*$")           # Remove trailing "*" if present
 
-      output_model_coefs <- any(class(model) %in% tidy_methods)
+      output_model_coefs <- any(class_model %in% tidy_methods)
 
       if (!output_model_coefs) {  # nocov start
-        cli_warn(c(
-          '!' = 'No {.fun boot::tidy} methods found for the class {.cls {class(model)}}.',
-          'i' = 'Model coefficient summaries will not be provided.',
-          'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
-        ))
+        if (!any(class_model %in% 'ranger')) {
+          cli_warn(c(
+            '!' = 'No {.fun broom::tidy} methods found for the class {.cls {class(model)}}.',
+            'i' = 'Model coefficient summaries will not be provided.',
+            'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
+          ))
+          # No warning for ranger, which is known to lack broom support
+        }
       }  # nocov end
     }
 
@@ -408,13 +452,12 @@ ModelBoot <- new_class(
 
     # Establish the environment from which this function was called. This is needed to resolve the model call later.
     call_env <- rlang::caller_env()
+    model_call_globals <- .call_globals(model_call_string_vars, call_env)
 
 
 
     # Create bootstrap tbl
-    original_seed <- if (exists('.Random.seed')) .Random.seed else seed
-    on.exit(set.seed(original_seed))
-    set.seed(seed)
+    .set_seed(seed)
     boot_data <- tibble(
       # it: bootstrap iteration number.
       # Row 0 is the full dataset without bootstrapping
@@ -431,20 +474,6 @@ ModelBoot <- new_class(
       })
     )
 
-    # Initialize common bin for all iterations
-    ale_bins <- NULL
-
-    # Enable parallel processing and restore former parallel plan on exit
-    if (parallel > 0) {
-      original_parallel_plan <- future::plan(future::multisession, workers = parallel)
-      on.exit(future::plan(original_parallel_plan))
-    }
-
-    model_call_string_vars <- c(
-      'boot_data',
-      model_call_string_vars
-    )
-
     # Create progress bar iterator
     if (!silent) {  # nocov start
       progress_iterator <- progressr::progressor(
@@ -454,327 +483,335 @@ ModelBoot <- new_class(
       )
     }  # nocov end
 
-    # Major bootstrap loop ---------
+    # The same worker calculates the full-data and bootstrap results. Canonical
+    # bins are an explicit input, never state assigned by another worker.
+    calculate_iteration <- function(btit, btit.idxs, ale_bins) {
+      # Increment progress bar iterator
+      # Do not skip iterations (e.g., btit %% 10 == 0): inaccurate with parallelization
+      if (!silent) {
+        progress_iterator()  # nocov
+      }
 
-    model_and_ale <-
-      # map2(  # uncomment for debugging; furrr hides detailed error messages
-      furrr::future_map2(
-        .options = furrr::furrr_options(
-          # Enable parallel-processing random seed generation
-          seed = seed,
-          packages = model_packages
-      ),
-        .x = boot_data$it,
-        .y = boot_data$row_idxs,
-        .f = \(btit, btit.idxs) {
-          # Increment progress bar iterator
-          # Do not skip iterations (e.g., btit %% 10 == 0): inaccurate with parallelization
-          if (!silent) {
-            progress_iterator()  # nocov
+      ## Bootstrap the model -----------
+
+      btit.model <- NULL
+      tryCatch(
+        {
+          # btit.data: this particular bootstrap sample
+          btit.data <- data[btit.idxs, ]
+
+          # If model_call_string was provided, prefer it to automatic detection
+          if (!is.null(model_call_string)) {
+            # Resolve caller-local objects explicitly, while retaining this
+            # iteration's data binding for the documented model-call string.
+            model_env <- list2env(model_call_globals, parent = call_env)
+            model_env$btit.data <- btit.data
+            btit.model <-  # model generated on this particular bootstrap sample
+              model_call_string |>
+                parse(text = _) |>  # convert model call string to an expression
+                eval(envir = model_env)
           }
+          else {  # use the automatically detected model call
+            # Update the model to call to train on btit.data
+            model_call$data <- btit.data
 
-          ## Bootstrap the model -----------
+            btit.model <- eval(
+              model_call,
+              envir = call_env  # without this, some objects in model_call might not be resolved
+            )
+          }
+        },
+        error = function(e) {  # nocov start
+          if (btit == 0) {
+            # If the full model call fails, then abort altogether. Nothing else will probably work.
 
-          btit.model <- NULL
+            # Identify one known reason for model failure
+            if (is.null(model_call_string) && !data_in_model_call) {
+              cli_warn(c(
+                '!' = 'No "data" argument found in the `model` call.',
+                i = 'If there is a weird error, try explicitly specifying the "data" argument.'
+              ))
+            }
+
+            cli_abort(paste0(
+              'The {.arg ',
+              if (!is.null(model_call_string)) 'model_call_string' else 'model',
+              '} did not work. Ensure that it can create a valid model. Here is the full error message:\n',
+              e
+            ))
+          }
+          else {
+            btit.model <- NULL
+          }
+        }  # nocov end
+      )
+
+      # If the model failed (and it's not the original full model call btit==0), then skip this iteration and go on looping
+      if (is.null(btit.model)) {  # nocov start
+        return(list(
+          model = NULL,
+          ale = NULL,
+          tidy = NULL,
+          stats = NULL,
+          perf = NULL
+        ))
+      }  # nocov end
+
+      ## Bootstrap statistics and performance -----------
+
+      # Initialize objects to hold model statistics
+      boot_stats <- NULL
+      boot_perf <- NULL
+
+      if (output_model_stats) {
+        # Call broom::glance; if an iteration fails for any reason, set it as NULL
+        boot_stats <- if (call_glance){
           tryCatch(
             {
-              # btit.data: this particular bootstrap sample
-              btit.data <- data[btit.idxs, ]
-
-              # If model_call_string was provided, prefer it to automatic detection
-              if (!is.null(model_call_string)) {
-                btit.model <-  # model generated on this particular bootstrap sample
-                  model_call_string |>
-                  parse(text = _) |>  # convert model call string to an expression
-                  eval()
-              }
-              else {  # use the automatically detected model call
-                # Update the model to call to train on btit.data
-                model_call$data <- btit.data
-
-                btit.model <- eval(
-                  model_call,
-                  envir = call_env  # without this, some objects in model_call might not be resolved
+              do.call(
+                broom::glance,
+                c(
+                  list(btit.model),  # model object
+                  glance_options  # any parameters
                 )
-              }
+              )
             },
-            error = \(e) {  # nocov start
-              if (btit == 0) {
-                # If the full model call fails, then abort altogether. Nothing else will probably work.
-                cli_abort(paste0(
-                  'The {.arg ',
-                  if (!is.null(model_call_string)) 'model_call_string' else 'model',
-                  '} did not work. Ensure that it can create a valid model. Here is the full error message:\n',
-                  e
-                ))
-              }
-              else {
-                btit.model <- NULL
-              }
+            error = function(e) {  # nocov start
+              cli_warn(e)
+
+              NULL
             }  # nocov end
           )
+        } else {
+          NULL  # nocov
+        }
 
-          # If the model failed (and it's not the original full model call btit==0), then skip this iteration and go on looping
-          if (is.null(btit.model)) {  # nocov start
-            return(list(
-              model = NULL,
-              ale = NULL,
-              tidy = NULL,
-              stats = NULL,
-              perf = NULL
-            ))
-          }  # nocov end
+        # Calculate bootstrap-validated model metrics if the necessary information is available.
+        # According to the .632 theory, since the bootstrapped model is trained on average on only 63.2% of distinct original rows, the on average 36.8% of rows left are used to test the bootstrap model predictions.
+        if (
+          calc_boot_valid &&
+          btit > 0  # skip the full model because it is not bootstrapped
+        ) {
 
+          # Obtain the out-of-bootstrap (oob) row indexes
+          oob_idxs <- setdiff(1:n_rows, btit.idxs)
 
-          ## Bootstrap statistics and performance -----------
-
-          # Initialize objects to hold model statistics
-          boot_stats <- NULL
-          boot_perf <- NULL
-
-          if (output_model_stats) {
-            # Call broom::glance; if an iteration fails for any reason, set it as NULL
-            boot_stats <- if (call_glance){
-              tryCatch(
-                {
-                  do.call(
-                    broom::glance,
-                    list(btit.model, unlist(glance_options))
-                  )
-                },
-                error = \(e) {
-                  NULL  # nocov
-                }
-              )
-            } else {
-              NULL  # nocov
+          # Calculate the actual values that were excluded from the current bootstrap iteration
+          actual_oob <- if (y_type == 'binary') {
+            # Convert actual to TRUE/FALSE, which equals 1/0
+            (data[oob_idxs, y_col] == positive) |>
+              as.logical()
+          }
+          else if (y_type == 'categorical') {
+            # Convert each category column to TRUE/FALSE, which equals 1/0
+            y_cat_actual <- matrix(
+              rep(NA, length(oob_idxs) * ncol(y_preds)),
+              nrow = length(oob_idxs),
+              dimnames = list(NULL, y_cats)
+            )
+            for (it.cat in y_cats) {
+              y_cat_actual[, it.cat] <- data[oob_idxs, y_col] == it.cat
             }
 
-
-            # Calculate bootstrap-validated model metrics if the necessary information is available.
-            # According to the .632 theory, since the bootstrapped model is trained on average on only 63.2% of distinct original rows, the on average 36.8% of rows left are used to test the bootstrap model predictions.
-            if (
-              calc_boot_valid &&
-              btit > 0  # skip the full model because it is not bootstrapped
-            ) {
-
-              # Obtain the out-of-bootstrap (oob) row indexes
-              oob_idxs <- setdiff(1:n_rows, btit.idxs)
-
-              # Calculate the actual values that were excluded from the current bootstrap iteration
-              actual_oob <- if (y_type == 'binary') {
-                # Convert actual to TRUE/FALSE, which equals 1/0
-                (data[oob_idxs, y_col] == positive) |>
-                  as.logical()
-              }
-              else if (y_type == 'categorical') {
-                # Convert each category column to TRUE/FALSE, which equals 1/0
-                y_cat_actual <- matrix(
-                  rep(NA, length(oob_idxs) * ncol(y_preds)),
-                  nrow = length(oob_idxs),
-                  dimnames = list(NULL, y_cats)
-                )
-                for (it.cat in y_cats) {
-                  y_cat_actual[, it.cat] <- data[oob_idxs, y_col] == it.cat
-                }
-
-                y_cat_actual
-              }
-              else {
-                # For numeric or ordinal data, actuals are the raw y_col values
-                data[oob_idxs, y_col, drop = FALSE] |>
-                  pull()
-              }
-
-              # Create OOB dataset
-              data_oob <- data[oob_idxs, ] |>
-                # Set any factors with levels not in the original dataset to NA otherwise models cannot predict on unseen factor levels.
-                # This is a problem that plagues bootstrapping, which trains on only around 63.8% of the full dataset on each iteration.
-                imap(\(it.col, it.col_name) {
-
-                  # This code will process character vectors as well as factors
-                  if (is.factor(it.col) || is.character(it.col)) {
-                    it.col <- if_else(
-                      # use unique() instead of levels(): levels() is valid only for factors
-                      it.col %in% (data[btit.idxs, it.col_name] |>
-                                     unlist() |>
-                                     unique()),
-                      it.col,
-                      NA
-                    )
-                  }
-
-                  it.col
-                }) |>
-                bind_cols()
-
-              # Calculate predictions for the out-of-bootstrap test set
-              pred_oob <- pred_fun(
-                object = btit.model,
-                newdata = data_oob,
-                type = pred_type
-              )
-
-              if (y_type == 'binary') {
-                # Calculate AUC for probability predictions
-                boot_perf <- tibble(
-                  auc = aucroc(
-                    actual_oob,
-                    pred_oob |> as.vector(),
-                    na.rm = TRUE
-                  ) |>
-                    (`$`)('auc')
-                )
-              }
-              else if (y_type == 'categorical') {
-                # Calculate AUC for probability predictions for each category
-                boot_perf <- tibble(
-                  auc = y_cats |>
-                    map_dbl(\(it.cat) {
-                      aucroc(actual_oob[, it.cat], pred_oob[, it.cat], na.rm = TRUE)$auc
-                    }) |>
-                    set_names(y_cats) |>
-                    list()
-                )
-              }
-              else {
-                # Calculate MAE and RMSE for all other datatypes
-                boot_perf <- tibble(
-                  mae     = mae(actual_oob, pred_oob, na.rm = TRUE),
-                  sa_mae  = sa_mae_mad(actual_oob, pred_oob, na.rm = TRUE),
-                  rmse    = rmse(actual_oob, pred_oob, na.rm = TRUE),
-                  sa_rmse = sa_rmse_sd(actual_oob, pred_oob, na.rm = TRUE)
-                )
-              }
-            }  # calc_boot_valid && btit > 0
-          }  # if (output_model_stats)
-
-
-          ## Bootstrap individual term coefficients ---------------
-
-          boot_tidy <-
-            if (output_model_coefs) {
-              # Unless the user manually specified conf.int, set it to FALSE
-              # because this function creates its own bootstrapped confidence intervals.
-              if (is.null(tidy_options$conf.int)) {
-                tidy_options$conf.int <- FALSE
-              }
-
-              # Call broom::tidy; if an iteration fails for any reason, set it as NULL
-              tryCatch(
-                {
-                  do.call(
-                    broom::tidy,
-                    c(
-                      list(btit.model),  # model object
-                      tidy_options
-                    )
-                  )  # any parameters
-                },
-                error = \(e) {
-                  NULL  # nocov
-                }
-              )
-
-            } else {
-              NULL  # nocov
-            }
-
-
-          ## Bootstrap ALE --------------
-
-          if (output_ale) {
-            boot_ale <- if (is.na(sum(btit.model$coefficients, na.rm = FALSE))) {
-              # One or more coefficients are not defined.
-              # This might be due to collinearity in a bootstrapped sample, which yields the warning: "Coefficients: (_ not defined because of singularities)".
-              NA
-            }
-            else {  # Valid model and ALE requested
-
-              # Calculate ALE. Use do.call so that ale_options can be passed.
-              # If an iteration fails for any reason, set it as NULL.
-              tryCatch(
-                {
-                  do.call(
-                    ALE,
-                    utils::modifyList(
-                      list(
-                        model = btit.model,
-                        data = btit.data,
-                        parallel = 0,  # do not parallelize at this inner level
-                        boot_it = 0,  # do not bootstrap at this inner level
-                        p_values = NULL,
-                        .bins = if (btit == 0) NULL else ale_bins,
-                        silent = TRUE  # silence inner bootstrap loop
-                      ),
-                      # pass all other desired options, e.g., specific x_col
-                      ale_options
-                    ),
-                    # assure appropriate scoping with do.call()
-                    envir = parent.frame(1)
-                  )
-                },
-                error = \(e) {  # nocov start
-                  if (btit == 0) {
-                    # Terminate early if the full model cannot produce ALE
-                    cli_alert_danger('Could not calculate ALE:\n')
-                    print(e)
-                    stop()
-                  } else {
-                    cli_warn(
-                      'ALE calculation failed for iteration {btit}...',
-                      class = 'ale_fail'
-                    )
-                    # print(e)  # uncomment to debug; TODO: log all errors in params
-
-                    NULL
-                  }
-                }  # nocov end
-              )
-            }  # else {  # Valid model and ALE requested
-
-            # From full dataset (btit == 0), calculate common bins for all subsequent iterations
-            if (btit == 0) {
-              # Super-assignment needed to set bins and ns for all iterations, not just the current one
-
-              ale_bins <<- list(
-                d1 = boot_ale@effect[[1]]$ale$d1 |>
-                  map(\(it.x) list(
-                    bins = it.x[[1]],
-                    ns   = it.x[['.n']]
-                  )),
-                d2 = boot_ale@effect[[1]]$ale$d2 |>
-                  map(\(it.x1_x2) list(
-                    x1_bins = it.x1_x2[[1]] |>
-                      unique() |>
-                      sort(),
-                    x2_bins = it.x1_x2[[2]] |>
-                      unique() |>
-                      sort(),
-                    ns      = it.x1_x2[['.n']]
-                  ))
-              )
-            }
-
-          }  # if (output_ale)
-
-          else {  # output_ale is FALSE
-            boot_ale <- NULL  # nocov
+            y_cat_actual
+          }
+          else {
+            # For numeric or ordinal data, actuals are the raw y_col values
+            data[oob_idxs, y_col, drop = FALSE] |>
+              pull()
           }
 
+          # Create OOB dataset
+          data_oob <- data[oob_idxs, ] |>
+            # Set any factors with levels not in the original dataset to NA otherwise models cannot predict on unseen factor levels.
+            # This is a problem that plagues bootstrapping, which trains on only around 63.8% of the full dataset on each iteration.
+            imap(\(it.col, it.col_name) {
 
-          ## Exit the model_and_ale map2 loop function ----------------
-          return(list(
-            model = btit.model,
-            ale = boot_ale,
-            tidy = boot_tidy,
-            stats = boot_stats,
-            perf = boot_perf
-          ))
+              # This code will process character vectors as well as factors
+              if (is.factor(it.col) || is.character(it.col)) {
+                it.col <- if_else(
+                  # use unique() instead of levels(): levels() is valid only for factors
+                  it.col %in% (data[btit.idxs, it.col_name] |>
+                                 unlist() |>
+                                 unique()),
+                  it.col,
+                  NA
+                )
+              }
 
+              it.col
+            }) |>
+            bind_cols()
+
+          # Calculate predictions for the out-of-bootstrap test set
+          pred_oob <- pred_fun(
+            object = btit.model,
+            newdata = data_oob,
+            type = pred_type
+          )
+
+          if (y_type == 'binary') {
+            # Calculate AUC for probability predictions
+            boot_perf <- tibble(
+              auc = aucroc(
+                actual_oob,
+                pred_oob |> as.vector(),
+                na.rm = TRUE
+              ) |>
+                (`$`)('auc')
+            )
+          }
+          else if (y_type == 'categorical') {
+            # Calculate AUC for probability predictions for each category
+            boot_perf <- tibble(
+              auc = y_cats |>
+                map_dbl(\(it.cat) {
+                  aucroc(actual_oob[, it.cat], pred_oob[, it.cat], na.rm = TRUE)$auc
+                }) |>
+                set_names(y_cats) |>
+                list()
+            )
+          }
+          else {
+            # Calculate MAE and RMSE for all other datatypes
+            boot_perf <- tibble(
+              mae     = mae(actual_oob, pred_oob, na.rm = TRUE),
+              sa_mae  = sa_mae_mad(actual_oob, pred_oob, na.rm = TRUE),
+              rmse    = rmse(actual_oob, pred_oob, na.rm = TRUE),
+              sa_rmse = sa_rmse_sd(actual_oob, pred_oob, na.rm = TRUE)
+            )
+          }
+        }  # calc_boot_valid && btit > 0
+      }  # if (output_model_stats)
+
+      ## Bootstrap individual term coefficients ---------------
+
+      boot_tidy <-
+        if (output_model_coefs) {
+          # Unless the user manually specified conf.int, set it to FALSE
+          # because this function creates its own bootstrapped confidence intervals.
+          if (is.null(tidy_options$conf.int)) {
+            tidy_options$conf.int <- FALSE
+          }
+
+          # Call broom::tidy; if an iteration fails for any reason, set it as NULL
+          tryCatch(
+            {
+              do.call(
+                broom::tidy,
+                c(
+                  list(btit.model),  # model object
+                  tidy_options  # any parameters
+                )
+              )
+            },
+            error = function(e) {
+              NULL  # nocov
+            }
+          )
+
+        } else {
+          NULL  # nocov
         }
-      ) |>
+
+      ## Bootstrap ALE --------------
+
+      if (output_ale) {
+        # Calculate ALE. Use do.call so that ale_options can be passed.
+        # If an iteration fails for any reason in the tryCatch, set it as NULL.
+        boot_ale <- tryCatch(
+          {
+            do.call(
+              ALE,
+              utils::modifyList(
+                list(
+                  model = btit.model,
+                  data = btit.data,
+                  parallel = 0,  # do not parallelize at this inner level
+                  boot_it = 0,  # do not bootstrap at this inner level
+                  p_values = if (btit == 0) NULL else ale_p,
+                  require_p_model_match = FALSE,  # must be disabled for bootstrapping
+                  .bins = if (btit == 0) NULL else ale_bins,
+                  silent = TRUE  # silence inner bootstrap loop
+                ),
+                # pass all other desired options, e.g., specific x_col
+                ale_options
+              ),
+              # assure appropriate scoping with do.call()
+              envir = parent.frame(1)
+            )
+          },
+          error = function(e) {  # nocov start
+            if (btit == 0) {
+              # Terminate early if the full model cannot produce ALE
+              cli_alert_danger('Could not calculate ALE:\n')
+              print(e)
+              stop()
+            } else {
+              cli_warn(
+                'ALE calculation failed for iteration {btit}...',
+                class = 'ale_fail'
+              )
+              # print(e)  # uncomment to debug; TODO: log all errors in params
+
+              NULL
+            }
+          }  # nocov end
+        )  # tryCatch
+
+      }  # if (output_ale)
+
+      else {  # output_ale is FALSE
+        boot_ale <- NULL  # nocov
+      }
+
+      ## Exit the model_and_ale map2 loop function ----------------
+      return(list(
+        model = btit.model,
+        ale = boot_ale,
+        tidy = boot_tidy,
+        stats = boot_stats,
+        perf = boot_perf
+      ))
+    }
+
+    # Complete iteration zero before any bootstrap jobs start. Every worker
+    # therefore receives exactly the same full-data bin definitions.
+    iteration_seeds <- .rng_streams(seed, nrow(boot_data))
+    full_result <- .with_rng_stream(
+      iteration_seeds[[1]],
+      calculate_iteration(0L, boot_data$row_idxs[[1]], ale_bins = NULL)
+    )
+    ale_bins <- NULL
+    if (output_ale) {
+      ale_bins <- list(
+        d1 = full_result$ale@effect[[1]]$ale$d1 |>
+          map(function(it.x) {
+            list(bins = it.x[[1]], ns = it.x[['.n']])
+          }),
+        d2 = full_result$ale@effect[[1]]$ale$d2 |>
+          map(function(it.x1_x2) {
+            list(
+              x1_bins = it.x1_x2[[1]] |> unique() |> sort(),
+              x2_bins = it.x1_x2[[2]] |> unique() |> sort(),
+              ns = it.x1_x2[['.n']]
+            )
+          })
+      )
+    }
+
+    calculate_bootstrap <- function(btit, btit.idxs) {
+      calculate_iteration(btit, btit.idxs, ale_bins)
+    }
+    bootstrap_results <- .map2_jobs(
+      boot_data$it[-1], boot_data$row_idxs[-1], calculate_bootstrap,
+      parallel = parallel, seed = iteration_seeds[-1],
+      packages = model_packages, globals = model_call_string_vars,
+      env_globals = call_env
+    )
+    model_and_ale <- c(list(full_result), bootstrap_results) |>
       list_transpose(simplify = FALSE)
+
 
 
     ## Assemble bootstrapped results ------------
@@ -999,18 +1036,19 @@ ModelBoot <- new_class(
     ale_summary <- if (output_ale) {
       full_ale <- boot_data$ale[[1]]
 
-      # Remove first element (not bootstrapped) if bootstrapping is requested
-      boot_data_ale <-
-        if (boot_it == 0) {  # only one full iteration; it is valid
-          # Normally y_cats is calculated for bootstrapping;
-          # so make sure it is available for ALE summarization.
-          y_cats <- full_ale@params$y_cats
+      # Retrieve all bootstrapped elements, if any
+      boot_data_ale <- boot_data$ale[-1] |>
+        compact()  # remove NULL elements from failed iterations
 
-          boot_data$ale
-        } else {  # for regular bootstraps, delete the first full model ALE
-          boot_data$ale[-1] |>
-            compact()  # remove NULL elements from failed iterations
-        }
+      if (length(boot_data_ale) == 0) {
+        # No successful bootstrap iteration
+
+        # Normally y_cats is calculated for bootstrapping;
+        # so make sure it is available for ALE summarization.
+        y_cats <- full_ale@params$y_cats
+
+        boot_data_ale <- boot_data$ale[1]
+      }
 
       # Use only one loop across the categories
       map(y_cats, \(it.cat) {
@@ -1121,13 +1159,25 @@ ModelBoot <- new_class(
               mean = mean(.data$estimate, na.rm = TRUE),
               conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
               estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
-            ) |>
-            select('term', 'statistic', 'estimate', everything()) |>
-            mutate(across(
-              c('term', 'statistic'), factor
-            ))
+            )
+
+          if (!is.null(ale_p)) {
+            # Add p-values if p distribution is available
+            iass$p.value <- as.numeric(NA)
+            for (i.r in 1:nrow(iass)) {
+              iass$p.value[i.r] <- value_to_p(
+                p_dist_cat = ale_p@rand_stats[[it.cat]],
+                stat = iass$statistic[i.r],
+                x = iass$estimate[i.r]
+              )
+            }
+          }
 
           iass <- iass |>
+            select(any_of(c('term', 'statistic', 'estimate', 'p.value')), everything()) |>
+            mutate(across(
+              c('term', 'statistic'), factor
+            )) |>
             split(iass$d) |>
             map(\(it.d_stats) {
               it.d_stats |>
@@ -1161,20 +1211,27 @@ ModelBoot <- new_class(
       names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
-      'calc_boot_valid', 'call_glance', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols', 'silent', 'tidy_methods', 'vp', 'y_preds'
+      'calc_boot_valid', 'call_glance', 'data_in_model_call', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols', 'rng_state', 'silent', 'tidy_methods', 'val_pll', 'val_pred', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
-
     # Simplify some very large elements, especially closures that contain environments
-    params$data <- params_data(
-      data = data,
-      y_vals = if (output_ale) full_ale@params$data$y_vals_sample else NA,
-      sample_size = if (output_ale) full_ale@params$sample_size else 500,
-      seed = seed
-    )
+    params$data <- if (output_ale) {
+      full_ale@params$data
+    } else {
+      params_data(
+        data = data,
+        y_vals = data[y_col],
+        # y_vals = if (exists('y_vals')) {
+        #   y_vals
+        # } else {
+        #   data[y_col]
+        # },
+        seed = seed
+      )
+    }
     params$model <- params_model(model)
-    params$pred_fun <- params_function(pred_fun)
+    params$pred_fun <- deparse(pred_fun)
 
     # Create the single and bootstrapped ALE objects.
     # Supplement the single ALE object with some details obtained by bootstrapping because bootstrapping was disabled when creating the single ALE object.
@@ -1206,18 +1263,19 @@ ModelBoot <- new_class(
     }
 
     ## Return S7 ModelBoot object --------------------
-    new_object(
-      S7_object(),
-      model_stats = stats_summary,
-      model_coefs = tidy_summary,
-      ale = ale_results,
-      boot_data = if (output_boot_data) {
-        boot_data
-      } else {
-        NULL
-      },
-      params = params
+    return(
+      new_object(
+        S7_object(),
+        model_stats = stats_summary,
+        model_coefs = tidy_summary,
+        ale = ale_results,
+        boot_data = if (output_boot_data) {
+          boot_data
+        } else {
+          NULL
+        },
+        params = params
+      )
     )
   }  # ModelBoot constructor
 )  # ModelBoot
-

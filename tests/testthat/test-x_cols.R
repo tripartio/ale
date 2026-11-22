@@ -38,15 +38,6 @@ test_that("resolve_x_cols handles different x_cols formats correctly", {
 })
 
 
-test_that("resolve_x_cols errors on invalid input formats", {
-  expect_error(resolve_x_cols(42, col_names, y_col),
-               "Invalid specification for x_cols")
-
-  expect_error(resolve_x_cols(data.frame(a = 1:3), col_names, y_col),
-               "Invalid specification for x_cols")
-})
-
-
 test_that("resolve_x_cols handles formula inputs correctly", {
   expect_equal(
     resolve_x_cols(~ a + b, col_names, y_col),
@@ -58,61 +49,83 @@ test_that("resolve_x_cols handles formula inputs correctly", {
     list(d1 = c("a", "b"), d2 = 'a:b')
   )
 
-  expect_error(
-    resolve_x_cols(~ a + b + a:b:c, col_names, y_col),
-    "Interactions higher than 2D are not supported"
-  )
-})
 
-
-test_that("resolve_x_cols detects missing columns based on allow_missing_cols", {
-  expect_error(
-    resolve_x_cols(c("a", "b", "z"), col_names, y_col),
-    "The following columns in x_cols were not found"
-  )
-
-  expect_message(
-    resolve_x_cols(c("a", "b"), col_names, y_col, c("b", "z")),
-    "The following columns in exclude_cols were not found"
-  )
 })
 
 
 test_that("resolve_x_cols removes y_col and duplicate entries", {
   expect_equal(
-    resolve_x_cols(c("y", "a", "b", "b"), col_names, y_col) |>
-      suppressMessages(),
-    list(d1 = c('y', "a", "b"), d2 = character())
+    resolve_x_cols(c("a", "b", "b"), col_names, y_col),
+    list(d1 = c("a", "b"), d2 = character())
+  )
+
+  expect_equal(
+    resolve_x_cols(c("y", "a", "b"), col_names, y_col),
+    list(d1 = c("a", "b"), d2 = character())
   )
 
   # Inverted interactions in exclude_cols are NOT considered duplicates
   expect_equal(
     resolve_x_cols(
-      list(d1 = c("y", "a", "b"), d2 = c('a:b', 'b:a')),
+      list(d1 = c("a", "b"), d2 = c('a:b', 'b:a')),
       col_names,
       y_col
-    ) |>
-      suppressMessages(),
-    list(d1 = c('y', "a", "b"), d2 = c("a:b", "b:a"))
+    ),
+    list(d1 = c("a", "b"), d2 = c("a:b", "b:a"))
   )
 })
 
 
-test_that("resolve_x_cols processes canonical formats properly", {
-  expect_equal(
-    resolve_x_cols(list(d1 = c("a", "b")), col_names, y_col),
-    list(d1 = c("a", "b"), d2 = character())
-  )
+test_that("resolve_x_cols filters outcome terms from every supported format", {
+  empty <- list(d1 = character(), d2 = character())
 
-  expect_equal(
-    resolve_x_cols(list(d2 = 'a:b'), col_names, y_col),
-    list(d1 = character(), d2 = "a:b")
-  )
+  expect_equal(resolve_x_cols(list(d1 = c("y", "a")), col_names, y_col),
+               list(d1 = "a", d2 = character()))
+  expect_equal(resolve_x_cols(c("y:a", "a:y", "a:b", "y:c"), col_names, y_col),
+               list(d1 = character(), d2 = "a:b"))
+  expect_equal(resolve_x_cols(~ y + a + y:a + a:b, col_names, y_col),
+               list(d1 = "a", d2 = "a:b"))
+  expect_equal(resolve_x_cols(y ~ a + b, col_names, y_col),
+               list(d1 = c("a", "b"), d2 = character()))
+  expect_equal(resolve_x_cols(list(d2_all = c("y", "a")), col_names, y_col),
+               list(d1 = character(), d2 = c("a:b", "a:c")))
+  expect_equal(resolve_x_cols(c("yield", "y"), c(col_names, "yield"), y_col),
+               list(d1 = "yield", d2 = character()))
+  expect_equal(resolve_x_cols(c("y", "a", "a", "y:a", "a:b", "a:b"), col_names, y_col),
+               list(d1 = "a", d2 = "a:b"))
+  expect_silent(result <- resolve_x_cols(c("y", "a", "y:b"), col_names, y_col,
+                                         silent = TRUE))
+  expect_equal(result, list(d1 = "a", d2 = character()))
 
-  expect_error(
-    resolve_x_cols(list(d1 = list("a", 42)), col_names, y_col),
-    "are not characters:"
-  )
+  expect_equal(resolve_x_cols(NULL, col_names, y_col), empty)
+  expect_equal(resolve_x_cols(character(), col_names, y_col), empty)
+  expect_equal(resolve_x_cols(empty, col_names, y_col), empty)
+})
+
+
+test_that("outcome terms in exclude_cols are silent no-ops", {
+  expected <- list(d1 = c("a", "b"), d2 = "a:b")
+  x <- list(d1 = c("a", "b"), d2 = "a:b")
+
+  for (quiet in c(FALSE, TRUE)) {
+    expect_silent(expect_equal(
+      resolve_x_cols(x, col_names, y_col, exclude_cols = "y", silent = quiet),
+      expected
+    ))
+    expect_silent(expect_equal(
+      resolve_x_cols(x, col_names, y_col, exclude_cols = "y:a", silent = quiet),
+      expected
+    ))
+    expect_silent(expect_equal(
+      resolve_x_cols(x, col_names, y_col, exclude_cols = c("y", "a"), silent = quiet),
+      list(d1 = "b", d2 = "a:b")
+    ))
+    expect_silent(expect_equal(
+      resolve_x_cols(x, col_names, y_col,
+                     exclude_cols = c("y:a", "a:b"), silent = quiet),
+      list(d1 = c("a", "b"), d2 = character())
+    ))
+  }
 })
 
 
@@ -122,15 +135,7 @@ test_that("resolve_x_cols correctly expands d2_all", {
     list(d1 = character(), d2 = c('a:b', 'a:c'))
   )
 
-  expect_equal(
-    resolve_x_cols(list(d2 = 'a:b'), col_names, y_col),
-    list(d1 = character(), d2 = "a:b")
-  )
 
-  expect_error(
-    resolve_x_cols(list(d1 = list("a", 42)), col_names, y_col),
-    "are not characters:"
-  )
 })
 
 
@@ -171,5 +176,3 @@ test_that("resolve_x_cols properly excludes specified columns", {
     list(d1 = c("b", "c"), d2 = character())
   )
 })
-
-

@@ -14,5 +14,5 @@ test_that("intrapolate_2D correctly intrapolates missing values", {
   x[sample(1:35, 15)] <- NA
 
   intrapolate_2D(x, consolidate = FALSE) |>
-    expect_snapshot()
+    expect_snap_variant()
 })
