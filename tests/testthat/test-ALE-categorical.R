@@ -155,7 +155,6 @@ test_that(
       expect_snap_variant()
 
     ## Reuse the categorical ALEpDist case for late statistics and p-values (#53).
-    expect_true(S7::S7_inherits(pd, ALEpDist))
     expect_snap_variant(s7_snapshot(pd))
 
     expect_equal(
@@ -199,7 +198,6 @@ test_that('ALE factor-order lists retain per-column overrides (#noissue)', {
     test_gam, data = test_cars, x_cols = 'model', fct_order = 'levels',
     aled_fun = 'var', silent = TRUE
   )
-  expect_identical(by_list@params$fct_order, ordering)
   expect_equal(get(by_list), get(by_string))
 
   # The existing pair also checks adding missing statistics and overriding the

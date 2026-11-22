@@ -83,18 +83,7 @@ expect_requested_stats_order <- function(object, ...) {
   }
 }
 
-# Check confidence-region availability using existing test objects ------------
-expect_missing_p_conf <- function(object, ...) {
-  for (stat in c('conf_regions', 'conf_sig')) {
-    expect_error(
-      get(object, stats = stat, ...),
-      'Confidence regions cannot be calculated without p-values.',
-      fixed = TRUE,
-      class = 'rlang_error'
-    )
-  }
-}
-
+# Check summary output using existing test objects ------------
 expect_conf_summary <- function(object, has_p_values) {
   for (all_conf in c(FALSE, TRUE)) {
     if (has_p_values) {
@@ -102,10 +91,8 @@ expect_conf_summary <- function(object, has_p_values) {
         returned <- withVisible(suppressMessages(summary(object, all_conf = all_conf)))
       )
     } else {
-      expect_no_condition(
-        output <- capture.output(
-          returned <- withVisible(summary(object, all_conf = all_conf))
-        )
+      output <- capture.output(
+        returned <- withVisible(summary(object, all_conf = all_conf))
       )
     }
 

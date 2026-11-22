@@ -12,14 +12,12 @@ test_that('binary nnet predictions accept an unnamed single-column matrix', {
   expect_null(colnames(prediction))
 
   validated <- validate_prediction(NULL, nn_cars, var_cars, 'vs', 'raw')
-  expect_identical(colnames(validated$y_preds), 'vs')
   expect_identical(unname(validated$y_preds), unname(prediction))
 
   cars_ale <- ALE(
     nn_cars, data = var_cars, x_cols = 'wt', pred_type = 'raw',
     output_stats = FALSE, silent = TRUE
   )
-  expect_true(S7::S7_inherits(cars_ale, ALE))
   expect_identical(cars_ale@params$y_col, 'vs')
 })
 

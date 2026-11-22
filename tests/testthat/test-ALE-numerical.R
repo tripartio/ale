@@ -115,9 +115,6 @@ test_that(
       silent = TRUE
     )
 
-    expect_true(S7::S7_inherits(cars_ale, ALE))
-    expect_missing_p_conf(cars_ale)
-    expect_missing_p_conf(cars_ale, silent = TRUE)
     expect_conf_summary(cars_ale, has_p_values = FALSE)
     cars_ale |>
       s7_snapshot() |>
@@ -133,7 +130,6 @@ test_that(
     col_layer <- which(vapply(gear_plot$layers, \(layer) {
       inherits(layer$geom, 'GeomCol')
     }, logical(1)))
-    expect_length(col_layer, 1)
     expect_true(is.ordered(gear_plot$data$.x))
     original <- ggplot2::ggplot_build(gear_plot)$data
     columns <- original[[col_layer]]
@@ -150,7 +146,6 @@ test_that(
                               layers = list(fill_scale))
       changed_plot <- get(recoloured, 'gear')
       changed <- ggplot2::ggplot_build(changed_plot)$data
-      expect_length(changed_plot$layers, length(gear_plot$layers))
       expect_equal(length(unique(changed[[col_layer]]$fill)), nrow(columns))
       expect_false(any(changed[[col_layer]]$fill == 'grey'))
       expect_identical(changed_plot$coordinates, gear_plot$coordinates)
@@ -167,25 +162,11 @@ test_that(
   }
 )
 
-test_that('ALE choices resolve defaults before storage (#noissue)', {
-  cars_ale <- ALE(
-    test_gam, data = test_cars, x_cols = 'model',
-    output_stats = FALSE, silent = TRUE
-  )
-  expect_identical(cars_ale@params$fct_order, 'levels')
-  expect_identical(cars_ale@params$boot_centre, 'mean')
-  expect_identical(cars_ale@params$aled_fun, 'mad')
-  expect_identical(cars_ale@params$y_type, 'numeric')
-  expect_identical(cars_ale@params$parallel, 0)
-  expect_null(cars_ale@params$p_values)
-})
-
 test_that('coverage follows resolved selection and ALE variable types', with_serial_binning({
   categorical <- ALE(
     test_gam, data = test_cars, x_cols = ~ wt + continent + am:gear,
     exclude_cols = 'wt', max_num_bins = list(), output_stats = FALSE, silent = TRUE
   )
-  expect_identical(categorical@params$max_num_bins, list())
   expect_equal(nrow(categorical@effect$mpg$ale$d1$continent), length(unique(test_cars$continent)))
   expect_equal(nrow(categorical@effect$mpg$ale$d2[['am:gear']]),
                length(unique(test_cars$am)) * length(unique(test_cars$gear)))

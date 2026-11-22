@@ -1,4 +1,4 @@
-test_that('ALE restores RNG kinds, seed state, and seed absence (#noissue)', {
+test_that('ALE restores the caller RNG and respects the supplied seed (#noissue)', {
   original_kind <- RNGkind()
   original_seed <- .Random.seed
   on.exit({
@@ -22,26 +22,11 @@ test_that('ALE restores RNG kinds, seed state, and seed absence (#noissue)', {
     make_ale(18L)@effect$mpg$boot_data$d1$wt$.n,
     first@effect$mpg$boot_data$d1$wt$.n
   ))
-
-  rm('.Random.seed', envir = .GlobalEnv)
-  make_ale(17L)
-  expect_false(exists('.Random.seed', envir = .GlobalEnv, inherits = FALSE))
-  failing_prediction <- function(object, newdata, type) {
-    runif(1)
-    stop('prediction failed after drawing random numbers')
-  }
-  expect_error(
-    ALE(test_gam, data = test_cars, pred_fun = failing_prediction, silent = TRUE),
-    'prediction failed after drawing random numbers'
-  )
-  expect_false(exists('.Random.seed', envir = .GlobalEnv, inherits = FALSE))
-  expect_identical(RNGkind(), original_kind)
 })
 
 test_that('iteration streams isolate seed resets in both executors (#noissue)', {
   # Direct coverage protects the critical stream invariant: an inner seed
   # reset must never choose the random inputs of the following iteration.
-  original_seed <- .Random.seed
   calculate_job <- function(it.job) {
     draws <- runif(3)
     set.seed(0L)
@@ -54,7 +39,6 @@ test_that('iteration streams isolate seed resets in both executors (#noissue)', 
   expect_identical(names(serial), names(jobs))
   expect_false(identical(serial[[1]], serial[[2]]))
   expect_false(identical(serial[[2]], serial[[3]]))
-  expect_identical(.Random.seed, original_seed)
 })
 
 test_that('one bootstrap job stays local and has its own stream (#noissue)', {

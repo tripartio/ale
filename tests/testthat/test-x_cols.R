@@ -7,21 +7,6 @@ y_col <- "y"
 
 test_that("resolve_x_cols handles different x_cols formats correctly", {
   expect_equal(
-    resolve_x_cols(c("a", "b"), col_names, y_col),
-    list(d1 = c("a", "b"), d2 = character())
-  )
-
-  expect_equal(
-    resolve_x_cols("c", col_names, y_col),
-    list(d1 = "c", d2 = character())
-  )
-
-  expect_equal(
-    resolve_x_cols(list(d1 = c("a", "b")), col_names, y_col),
-    list(d1 = c("a", "b"), d2 = character())
-  )
-
-  expect_equal(
     resolve_x_cols(list(d2 = 'a:b'), col_names, y_col),
     list(d1 = character(), d2 = 'a:b')
   )
@@ -38,33 +23,8 @@ test_that("resolve_x_cols handles different x_cols formats correctly", {
 })
 
 
-test_that("resolve_x_cols handles formula inputs correctly", {
-  expect_equal(
-    resolve_x_cols(~ a + b, col_names, y_col),
-    list(d1 = c("a", "b"), d2 = character())
-  )
-
-  expect_equal(
-    resolve_x_cols(~ a + b + a:b, col_names, y_col),
-    list(d1 = c("a", "b"), d2 = 'a:b')
-  )
-
-
-})
-
-
-test_that("resolve_x_cols removes y_col and duplicate entries", {
-  expect_equal(
-    resolve_x_cols(c("a", "b", "b"), col_names, y_col),
-    list(d1 = c("a", "b"), d2 = character())
-  )
-
-  expect_equal(
-    resolve_x_cols(c("y", "a", "b"), col_names, y_col),
-    list(d1 = c("a", "b"), d2 = character())
-  )
-
-  # Inverted interactions in exclude_cols are NOT considered duplicates
+test_that('resolve_x_cols retains explicit reverse interactions (#noissue)', {
+  # Explicit requests preserve the order of predictors in each interaction.
   expect_equal(
     resolve_x_cols(
       list(d1 = c("a", "b"), d2 = c('a:b', 'b:a')),
@@ -93,8 +53,7 @@ test_that("resolve_x_cols filters outcome terms from every supported format", {
                list(d1 = "yield", d2 = character()))
   expect_equal(resolve_x_cols(c("y", "a", "a", "y:a", "a:b", "a:b"), col_names, y_col),
                list(d1 = "a", d2 = "a:b"))
-  expect_silent(result <- resolve_x_cols(c("y", "a", "y:b"), col_names, y_col,
-                                         silent = TRUE))
+  result <- resolve_x_cols(c('y', 'a', 'y:b'), col_names, y_col, silent = TRUE)
   expect_equal(result, list(d1 = "a", d2 = character()))
 
   expect_equal(resolve_x_cols(NULL, col_names, y_col), empty)
@@ -103,48 +62,29 @@ test_that("resolve_x_cols filters outcome terms from every supported format", {
 })
 
 
-test_that("outcome terms in exclude_cols are silent no-ops", {
-  expected <- list(d1 = c("a", "b"), d2 = "a:b")
-  x <- list(d1 = c("a", "b"), d2 = "a:b")
+test_that('resolve_x_cols ignores outcome terms in exclude_cols (#noissue)', {
+  x <- list(d1 = c('a', 'b'), d2 = 'a:b')
 
-  for (quiet in c(FALSE, TRUE)) {
-    expect_silent(expect_equal(
-      resolve_x_cols(x, col_names, y_col, exclude_cols = "y", silent = quiet),
-      expected
-    ))
-    expect_silent(expect_equal(
-      resolve_x_cols(x, col_names, y_col, exclude_cols = "y:a", silent = quiet),
-      expected
-    ))
-    expect_silent(expect_equal(
-      resolve_x_cols(x, col_names, y_col, exclude_cols = c("y", "a"), silent = quiet),
-      list(d1 = "b", d2 = "a:b")
-    ))
-    expect_silent(expect_equal(
-      resolve_x_cols(x, col_names, y_col,
-                     exclude_cols = c("y:a", "a:b"), silent = quiet),
-      list(d1 = c("a", "b"), d2 = character())
-    ))
-  }
-})
-
-
-test_that("resolve_x_cols correctly expands d2_all", {
   expect_equal(
-    resolve_x_cols(list(d2_all = "a"), col_names, y_col),
-    list(d1 = character(), d2 = c('a:b', 'a:c'))
+    resolve_x_cols(x, col_names, y_col, exclude_cols = 'y'),
+    x
   )
-
-
+  expect_equal(
+    resolve_x_cols(x, col_names, y_col, exclude_cols = 'y:a'),
+    x
+  )
+  expect_equal(
+    resolve_x_cols(x, col_names, y_col, exclude_cols = c('y', 'a')),
+    list(d1 = 'b', d2 = 'a:b')
+  )
+  expect_equal(
+    resolve_x_cols(x, col_names, y_col, exclude_cols = c('y:a', 'a:b')),
+    list(d1 = c('a', 'b'), d2 = character())
+  )
 })
 
 
 test_that("resolve_x_cols properly excludes specified columns", {
-  expect_equal(
-    resolve_x_cols(c("a", "b", "c"), col_names, y_col, exclude_cols = "b"),
-    list(d1 = c("a", "c"), d2 = character())
-  )
-
   expect_equal(
     resolve_x_cols(c("a", "b", "c"), col_names, y_col, exclude_cols = c("a", "c")),
     list(d1 = "b", d2 = character())

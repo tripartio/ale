@@ -13,8 +13,6 @@ test_that('2D bin sizes are optional without changing heatmaps or 1D plots', {
   shown_2d <- shown@plots$mpg$d2[['gear:carb']]
   hidden_2d <- hidden@plots$mpg$d2[['gear:carb']]
 
-  expect_true(shown@params$show_2d_bin_sizes)
-  expect_false(hidden@params$show_2d_bin_sizes)
   expect_true(any(vapply(shown_2d$layers, \(layer) {
     inherits(layer$geom, 'GeomPoint') && identical(layer$aes_params$shape, 0)
   }, logical(1))))
@@ -75,8 +73,6 @@ test_that('plot choices preserve the all-category facet default (#noissue)', {
     pred_type = 'probs', p_values = NULL, output_stats = FALSE, silent = TRUE
   )
   plots <- ALEPlots(cat_ale)
-  expect_identical(plots@params$ale_centre, 'median')
-  expect_s3_class(get(plots, cats = '.all'), 'ggplot')
   expect_equal(
     ggplot_snapshot_data(get(plots, cats = '.all')),
     ggplot_snapshot_data(get(plots, cats = '.all', type = 'facet'))

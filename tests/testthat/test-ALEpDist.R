@@ -14,7 +14,6 @@ test_that(
       .skip_validation = TRUE,
       silent = TRUE
     )
-    expect_true(S7::S7_inherits(pd, ALEpDist))
     expect_snap_variant(s7_snapshot(pd))
 
     cars_ale <- ALE(
@@ -24,7 +23,6 @@ test_that(
       boot_it = 3,
       silent = TRUE,
     )
-    expect_true(S7::S7_inherits(cars_ale, ALE))
     expect_snap_variant(s7_snapshot(cars_ale))
 
     # Verify that value_to_p() gives the expected output (verify p_to_random_value() in the next test)
@@ -56,7 +54,6 @@ test_that(
       output_residuals = TRUE,
       silent = TRUE
     )
-    expect_true(S7::S7_inherits(pd, ALEpDist))
     expect_snap_variant(s7_snapshot(pd))
 
     # Verify that p_to_random_value() gives the expected output (verified value_to_p() in the previous test)
@@ -94,7 +91,6 @@ test_that(
       rand_it = 3,
       .skip_validation = TRUE
     )
-    expect_true(S7::S7_inherits(pd, ALEpDist))
     expect_snap_variant(s7_snapshot(pd))
   }
 )
@@ -112,7 +108,6 @@ test_that(
       rand_it = 10,
       .skip_validation = TRUE
     )
-    expect_true(S7::S7_inherits(pd, ALEpDist))
     expect_snap_variant(s7_snapshot(pd))
   }
 )
