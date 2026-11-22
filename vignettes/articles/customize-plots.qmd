@@ -34,6 +34,8 @@ For our illustration, we train a random forest On the diamonds dataset. We begin
 
 ```{r}
 #| label: setup
+#| messages: false
+
 library(ale)
 # Enable parallelization of the ALE package (set to the number of threads you want)
 options(ale.parallel = 2)

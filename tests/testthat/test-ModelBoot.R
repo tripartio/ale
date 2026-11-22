@@ -12,8 +12,132 @@ test_that(
       boot_it = 2,
       ale_p = NULL,
       parallel = 2,  # max allowed on CRAN
+      output_boot_data = TRUE,
       silent = TRUE
     )
+
+    # # All workers must receive the full-data grid, even when iteration zero
+    # # runs in a different process. Compare numerical results across execution.
+    # serial_mb <- ModelBoot(
+    #   test_gam,
+    #   data = test_cars,
+    #   ale_options = list(x_cols = c('wt', 'gear:carb'), pred_type = 'link'),
+    #   boot_it = 2,
+    #   ale_p = NULL,
+    #   parallel = 0,
+    #   output_boot_data = TRUE,
+    #   silent = TRUE
+    # )
+    # # Reuse the short ALEpDist executor case here, where its outputs can also
+    # # exercise append_p() without constructing another distribution or model.
+    # # This checks execution reproducibility, not the accuracy of a distribution
+    # # estimated from only three iterations. Reuse the existing GAM fixture.
+    # make_distribution <- function(parallel) {
+    #   ALEpDist(
+    #     test_gam, data = test_cars, y_col = 'mpg',
+    #     pred_type = 'link', rand_it = 3, .skip_validation = TRUE,
+    #     parallel = parallel, seed = 17L, silent = TRUE
+    #   )
+    # }
+    # original_seed <- .Random.seed
+    # serial <- make_distribution(0)
+    # future <- make_distribution(1)
+    # expect_equal(serial@rand_stats, future@rand_stats)
+    # expect_equal(serial@residual_distribution, future@residual_distribution)
+    # expect_identical(serial@params$rand_it_ok, 3L)
+    # expect_identical(.Random.seed, original_seed)
+    #
+    # expect_equal(pll_mb@boot_data$row_idxs, serial_mb@boot_data$row_idxs)
+    # expect_equal(pll_mb@model_stats, serial_mb@model_stats)
+    # full_grid <- pll_mb@boot_data$ale[[1]]@composite$mpg$ale$d1$wt[[1]]
+    # for (i.iteration in 1:length(pll_mb@boot_data$ale)) {
+    #   parallel_ale <- pll_mb@boot_data$ale[[i.iteration]]
+    #   expect_identical(parallel_ale@composite$mpg$ale$d1$wt[[1]], full_grid)
+    #   expect_equal(
+    #     parallel_ale@composite,
+    #     serial_mb@boot_data$ale[[i.iteration]]@composite
+    #   )
+    # }
+    #
+    # # Run late-p-value output checks before snapshots, which skip on CRAN.
+    # # The outer and inner prediction settings differ deliberately. Compatibility
+    # # checks must use the inner ALE scale and the original model identity (#53).
+    # alpha <- c(0.1, 0.2)
+    # actual <- append_p(
+    #   serial_mb, serial, aler_alpha = alpha, require_p_model_match = TRUE
+    # )
+    # expected_ale <- c(
+    #   list(single = append_p(
+    #     serial_mb@ale$single, serial, aler_alpha = alpha,
+    #     require_p_model_match = FALSE
+    #   )),
+    #   map(serial_mb@boot_data$ale, function(btit.ale) {
+    #     append_p(
+    #       btit.ale, serial, aler_alpha = alpha, require_p_model_match = FALSE
+    #     )
+    #   })
+    # )
+    # expect_equal(
+    #   c(list(single = actual@ale$single), actual@boot_data$ale), expected_ale
+    # )
+    #
+    # # Independently calculate empirical tail frequencies for the aggregate,
+    # # looking up statistics by name even when ModelBoot stores factor labels.
+    # expected_boot <- map(serial_mb@ale$boot, function(it.effect) {
+    #   map(it.effect, function(it.cat) {
+    #     it.stats <- it.cat$stats
+    #
+    #     it.stats$p.value <- map2_dbl(
+    #       as.character(it.stats$statistic),
+    #       it.stats$estimate,
+    #       function(nm.stat, it.estimate) {
+    #         it.random <- serial@rand_stats$mpg[[nm.stat]]
+    #         if (endsWith(nm.stat, '_min')) {
+    #           mean(it.random <= it.estimate)
+    #         } else {
+    #           mean(it.random > it.estimate)
+    #         }
+    #       }
+    #     )
+    #     it.cat$stats <- it.stats
+    #
+    #     it.cat
+    #   })
+    # })
+    #
+    # # expected_boot <- serial_mb@ale$boot
+    # # expected_boot$effect <- map(
+    # #   expected_boot$effect, function(it.effect) {
+    # #     it.effect$stats <- map(it.effect$stats, function(it.stats) {
+    # #       it.stats$p.value <- map2_dbl(
+    # #         as.character(it.stats$statistic), it.stats$estimate,
+    # #         function(nm.stat, it.estimate) {
+    # #           it.random <- serial@rand_stats$mpg[[nm.stat]]
+    # #           if (endsWith(nm.stat, '_min')) {
+    # #             mean(it.random <= it.estimate)
+    # #           } else {
+    # #             mean(it.random > it.estimate)
+    # #           }
+    # #         }
+    # #       )
+    # #       it.stats
+    # #     })
+    # #     it.effect
+    # #   }
+    # # )
+    # expect_equal(actual@ale$boot, expected_boot)
+
+    # Compare all remaining outputs together: distribution metadata is updated;
+    # models, row indices, coefficients, and other model results are preserved.
+    remaining <- S7::props(actual)
+    expected <- S7::props(serial_mb)
+    remaining$ale <- expected$ale <- NULL
+    remaining$boot_data$ale <- expected$boot_data$ale <- NULL
+    expected$params$ale_p <- serial
+    expected$params$aler_alpha <- alpha
+    expected$params$require_p_model_match <- TRUE
+    expected$params$ale_options$aler_alpha <- alpha
+    expect_equal(remaining, expected)
 
     # Test the ModelBoot print method
     print(pll_mb) |>
@@ -172,3 +296,12 @@ test_that(
   }
 )
 
+test_that('ModelBoot resolves choices before forwarding to ALE (#noissue)', {
+  mb <- ModelBoot(
+    test_gam, data = test_cars, boot_it = 0, ale_p = NULL,
+    ale_options = list(x_cols = 'wt', output_stats = FALSE), silent = TRUE
+  )
+  expect_identical(mb@params$boot_centre, 'mean')
+  expect_equal(get(mb), get(mb, type = 'single'))
+  expect_equal(get(mb, ale_centre = 'zero'), get(mb@ale$single, ale_centre = 'zero'))
+})

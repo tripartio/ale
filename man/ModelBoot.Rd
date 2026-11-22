@@ -18,7 +18,7 @@ ModelBoot(
   pred_type = "response",
   boot_it = 100,
   boot_alpha = 0.05,
-  boot_centre = "mean",
+  boot_centre = c("mean", "median"),
   seed = 0,
   output_model_stats = TRUE,
   output_model_coefs = TRUE,
@@ -52,9 +52,9 @@ ModelBoot(
 
 \item{boot_alpha}{numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example, if \code{boot_alpha = 0.05} (default), the intervals will be from the 2.5 and 97.5 percentiles.}
 
-\item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
+\item{boot_centre}{character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.}
 
-\item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for \code{\link[=ALE]{ALE()}} for further details.}
+\item{seed}{integer(1). Random seed. Supplies reproducible bootstrap samples and iteration streams in local and future execution. See documentation for \code{\link[=ALE]{ALE()}} for RNG restoration and numerical reproducibility details.}
 
 \item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics using \code{\link[broom:glance]{broom::glance()}} (if available for \code{model}) and bootstrap-validated statistics if \code{boot_it > 0}.}
 
@@ -153,7 +153,8 @@ No modelling results, with or without ALE, should be considered reliable without
 \item Creates multiple bootstrap samples (default 100; the user can specify any number);
 \item Creates a model on each bootstrap sample;
 \item Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
-\item Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
+\item Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples;
+\item Calculates ALE if requested (the default); if bootstrapped, it first establishes canonical bins that every bootstrap iteration receives explicitly.
 }
 }
 
@@ -214,7 +215,7 @@ plot(mb_gam_attitude)
 # Retrieve ALE data
 get(mb_gam_attitude, type = 'boot')    # bootstrapped
 get(mb_gam_attitude, type = 'single')  # full (unbootstrapped) model
-# See get.ALE() for other options
+# See help('get-ALE-method') for other options
 
 }
 

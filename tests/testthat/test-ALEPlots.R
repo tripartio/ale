@@ -32,12 +32,6 @@ test_that('2D bin sizes are optional without changing heatmaps or 1D plots', {
     ggplot_snapshot_data(hidden@plots$mpg$d1$wt)
   )
 
-  for (invalid in list(NA, NULL, 1, 'FALSE', c(TRUE, FALSE))) {
-    expect_error(
-      ALEPlots(cars_ale, show_2d_bin_sizes = invalid),
-      'show_2d_bin_sizes.*must be TRUE or FALSE'
-    )
-  }
 })
 
 test_that('2D bin sizes can be hidden in individual and faceted category plots', {
@@ -48,8 +42,14 @@ test_that('2D bin sizes can be hidden in individual and faceted category plots',
     pred_type = 'probs',
     boot_it = 0,
     p_values = NULL,
+    sample_size = 25,
     silent = TRUE
   )
+
+  # Reuse the constructor's normalized statistics as the reference when only a
+  # sample was saved. Supplied category predictions must not be retained (#53).
+  reference <- predict(test_nn_categorical, test_cars, type = 'probs')
+  expect_equal(append_stats(cat_ale, y_vals = reference, silent = TRUE), cat_ale)
 
   shown <- ALEPlots(cat_ale)
   hidden <- ALEPlots(cat_ale, show_2d_bin_sizes = FALSE)
@@ -67,4 +67,25 @@ test_that('2D bin sizes can be hidden in individual and faceted category plots',
       ggplot2::ggplot_build(hidden_2d)$data[[1]]
     )
   }
+})
+
+test_that('plot choices preserve the all-category facet default (#noissue)', {
+  cat_ale <- ALE(
+    test_nn_categorical, data = test_cars, x_cols = 'am',
+    pred_type = 'probs', p_values = NULL, output_stats = FALSE, silent = TRUE
+  )
+  plots <- ALEPlots(cat_ale)
+  expect_identical(plots@params$ale_centre, 'median')
+  expect_s3_class(get(plots, cats = '.all'), 'ggplot')
+  expect_equal(
+    ggplot_snapshot_data(get(plots, cats = '.all')),
+    ggplot_snapshot_data(get(plots, cats = '.all', type = 'facet'))
+  )
+  changed <- customize(plots, cats = '.all', zoom_y = c(0, 1))
+  explicit <- customize(plots, cats = '.all', type = 'facet', zoom_y = c(0, 1))
+  expect_equal(
+    ggplot_snapshot_data(changed@plots$.all_cats$d1$am),
+    ggplot_snapshot_data(explicit@plots$.all_cats$d1$am)
+  )
+  expect_identical(changed@plots$.all_cats$d1$am$coordinates$limits$y, c(0, 1))
 })

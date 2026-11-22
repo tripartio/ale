@@ -26,7 +26,7 @@ ALE(
   fct_order = "levels",
   boot_it = 0L,
   boot_alpha = 0.05,
-  boot_centre = "mean",
+  boot_centre = c("mean", "median"),
   seed = 0,
   y_type = NULL,
   sample_size = 500L,
@@ -47,7 +47,7 @@ ALE(
 
 \item{comp}{logical(1) or string in c("auto", "composite", "distinct"). For \code{TRUE} or \code{"composite"}, composite ALE is requested for all terms. For \code{FALSE} or \code{"distinct"}, distinct ALE is requested for all terms. The default \code{"auto"} returns composite ALE for 1D variables and distinct ALE for interactions, which is the default behaviour of the reference {ALEPlot} package. For now, only \code{"auto"} is implemented.}
 
-\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default \code{parallel = 0} disables parallel processing. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.}
+\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel workers for execution of the constructor. The default \code{parallel = 0} always runs locally, including when the caller has an active future plan. A batch with at most one job also runs locally. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.}
 
 \item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
 
@@ -68,7 +68,7 @@ ALE(
 
 \item{aler_alpha}{numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{aler_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{aler_alpha[1]}. For example, in the ALE plots, for the default \code{aler_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
-\item{aled_fun}{character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
+\item{aled_fun}{character(1) in c("mad", "sd", "var"), or NULL. Deviation function used to calculated ALE deviation. \code{"mad"} is the mean absolute deviation; \code{"sd"} is the standard deviation. The default \code{NULL} will normally use \code{"mad"} except if an \code{ALEpDist} object is provided for \code{p_values}; in that case, the \code{aled_fun} is taken from the \code{ALEpDist} object.}
 
 \item{max_num_bins}{list. Sets maximum numbers of numeric ALE intervals.
 The default is \code{list(d1 = 1000L, d2 = 10L)}:
@@ -95,7 +95,7 @@ When \code{n} intervals are requested, there are at most \code{n+1} bins, limite
 the number of unique values, with the lowest bin dedicated to the minimum.
 Higher limits can be slower for interactions.}
 
-\item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
+\item{fct_order}{character(1) or list. Character choices are matched exactly. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
 \itemize{
 \item \code{"levels"} (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
 \item \code{"y_col"}: Sort based on the increasing mean values of the predictions of \code{y_col} for each factor level.
@@ -111,11 +111,11 @@ See details.}
 
 \item{boot_alpha}{numeric(1) from 0 to 1. When ALE is bootstrapped (\code{boot_it > 0}), \code{boot_alpha} specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example, if \code{boot_alpha = 0.05} (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.}
 
-\item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
+\item{boot_centre}{character(1). Bootstrap centre for the main ALE y estimate, matched exactly. Both the mean and median estimates remain available regardless of this choice.}
 
-\item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with \code{parallel = 0}.}
+\item{seed}{integer(1). Random seed. Each iteration uses a reproducible L'Ecuyer-CMRG random-number stream, with the same random inputs in local and future execution regardless of worker count or chunking. Data-only ALE bootstrap samples are shared across terms. The caller's random number generator (RNG) kinds and complete seed state are restored on return, including on error. Results from model implementations can still depend on numerical libraries or their own RNGs. Without bootstrapping and with deterministic predictions, ALE is deterministic.}
 
-\item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex model requires it.}
+\item{y_type}{character(1) in c("binary", "numeric", "categorical", "ordinal"), or NULL. Datatype of the y (outcome) variable, matched exactly when supplied. The default \code{NULL} determines it automatically; only provide if an error message for a complex model requires it.}
 
 \item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots in \code{\link[=ALEPlots]{ALEPlots()}}.}
 

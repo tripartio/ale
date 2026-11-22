@@ -24,7 +24,11 @@ Accumulated local effects (ALE) was developed by Daniel Apley and Jingyu Zhu <do
 
 We begin by loading the necessary libraries.
 
-```{r load libraries}
+
+```{r}
+#| label:  load-libraries
+#| messages: false
+
 library(mgcv)   # for datasets and the gam function
 library(dplyr)  # for data manipulation
 library(ale)
@@ -147,7 +151,8 @@ To avoid having to repeat this procedure several times (as would be the case whe
 We now demonstrate how to create the `ALEpDist` object for our case.
 
 ```{r parallel}
-# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+# For faster processing, you can enable parallel processing: 
+# set the number of CPU cores available. See help(ALE) for details.
 options(ale.parallel = 2)
 
 ```

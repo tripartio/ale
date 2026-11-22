@@ -10,20 +10,20 @@
       $composite$vs$ale
       $composite$vs$ale$d1
       $composite$vs$ale$d1$mpg
-      # A tibble: 11 x 7
+      # A tibble: 57 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
        1     10.4     1     0     0       0         0     0
-       2     14.3     6     0     0       0         0     0
-       3     15.1     6     0     0       0         0     0
-       4     15.8     7     0     0       0         0     0
-       5     17.8     6     0     0       0         0     0
-       6     19.2     7     0     0       0         0     0
-       7     21       6     0     0       0         0     0
-       8     21.5     6     0     0       0         0     0
-       9     24.6     7     0     0       0         0     0
-      10     30.4     7     0     0       0         0     0
-      11     33.9     5     0     0       0         0     0
+       2     10.4     2     0     0       0         0     0
+       3     10.5     1     0     0       0         0     0
+       4     13.3     1     0     0       0         0     0
+       5     13.3     1     0     0       0         0     0
+       6     14.3     1     0     0       0         0     0
+       7     14.4     1     0     0       0         0     0
+       8     14.7     1     0     0       0         0     0
+       9     14.7     1     0     0       0         0     0
+      10     15.0     1     0     0       0         0     0
+      # i 47 more rows
       
       $composite$vs$ale$d1$continent
       # A tibble: 3 x 7
@@ -65,30 +65,33 @@
       3 five        10 -0.126 -0.142  -0.126    -0.126 -0.110 
       
       $composite$vs$ale$d1$carb
-      # A tibble: 5 x 7
+      # A tibble: 8 x 7
         carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1         1    14     0     0       0         0     0
       2         2    19     0     0       0         0     0
       3         3     9     0     0       0         0     0
       4         4    16     0     0       0         0     0
-      5         8     6     0     0       0         0     0
+      5         5     2     0     0       0         0     0
+      6         6     2     0     0       0         0     0
+      7         7     1     0     0       0         0     0
+      8         8     1   NaN    NA     NaN        NA    NA
       
       $composite$vs$ale$d1$wt
-      # A tibble: 11 x 7
+      # A tibble: 61 x 7
          wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
        1    1.50     1     0     0       0         0     0
-       2    1.93     6     0     0       0         0     0
-       3    2.31     6     0     0       0         0     0
-       4    2.78     7     0     0       0         0     0
-       5    3.16     6     0     0       0         0     0
-       6    3.22     6     0     0       0         0     0
-       7    3.44     7     0     0       0         0     0
-       8    3.56     6     0     0       0         0     0
-       9    3.79     7     0     0       0         0     0
-      10    4.07     6     0     0       0         0     0
-      11    5.45     6     0     0       0         0     0
+       2    1.51     1     0     0       0         0     0
+       3    1.62     1     0     0       0         0     0
+       4    1.63     1     0     0       0         0     0
+       5    1.83     1     0     0       0         0     0
+       6    1.84     1     0     0       0         0     0
+       7    1.93     1     0     0       0         0     0
+       8    1.94     1     0     0       0         0     0
+       9    2.14     1     0     0       0         0     0
+      10    2.14     1     0     0       0         0     0
+      # i 51 more rows
       
       
       $composite$vs$ale$d2
@@ -985,7 +988,7 @@
       $params$p_values
       NULL
       
-      $params$require_same_p
+      $params$require_p_model_match
       [1] TRUE
       
       $params$aler_alpha
@@ -995,7 +998,12 @@
       [1] "mad"
       
       $params$max_num_bins
+      $params$max_num_bins$d1
+      [1] 1000
+      
+      $params$max_num_bins$d2
       [1] 10
+      
       
       $params$fct_order
       [1] "levels"
@@ -1034,16 +1042,62 @@
       $vs$d1$mpg
          ymin ymax        x y PANEL group flipped_aes colour   fill linewidth
       1     0    0 10.37589 0     1    -1       FALSE     NA grey85       0.5
-      2     0    0 14.30000 0     1    -1       FALSE     NA grey85       0.5
-      3     0    0 15.11249 0     1    -1       FALSE     NA grey85       0.5
-      4     0    0 15.80000 0     1    -1       FALSE     NA grey85       0.5
-      5     0    0 17.80000 0     1    -1       FALSE     NA grey85       0.5
-      6     0    0 19.20000 0     1    -1       FALSE     NA grey85       0.5
-      7     0    0 21.00000 0     1    -1       FALSE     NA grey85       0.5
-      8     0    0 21.50000 0     1    -1       FALSE     NA grey85       0.5
-      9     0    0 24.61700 0     1    -1       FALSE     NA grey85       0.5
-      10    0    0 30.40000 0     1    -1       FALSE     NA grey85       0.5
-      11    0    0 33.90000 0     1    -1       FALSE     NA grey85       0.5
+      2     0    0 10.40000 0     1    -1       FALSE     NA grey85       0.5
+      3     0    0 10.45613 0     1    -1       FALSE     NA grey85       0.5
+      4     0    0 13.30000 0     1    -1       FALSE     NA grey85       0.5
+      5     0    0 13.34035 0     1    -1       FALSE     NA grey85       0.5
+      6     0    0 14.30000 0     1    -1       FALSE     NA grey85       0.5
+      7     0    0 14.41394 0     1    -1       FALSE     NA grey85       0.5
+      8     0    0 14.69932 0     1    -1       FALSE     NA grey85       0.5
+      9     0    0 14.70000 0     1    -1       FALSE     NA grey85       0.5
+      10    0    0 14.95210 0     1    -1       FALSE     NA grey85       0.5
+      11    0    0 15.00000 0     1    -1       FALSE     NA grey85       0.5
+      12    0    0 15.11249 0     1    -1       FALSE     NA grey85       0.5
+      13    0    0 15.20000 0     1    -1       FALSE     NA grey85       0.5
+      14    0    0 15.25685 0     1    -1       FALSE     NA grey85       0.5
+      15    0    0 15.50000 0     1    -1       FALSE     NA grey85       0.5
+      16    0    0 15.63476 0     1    -1       FALSE     NA grey85       0.5
+      17    0    0 15.76283 0     1    -1       FALSE     NA grey85       0.5
+      18    0    0 15.80000 0     1    -1       FALSE     NA grey85       0.5
+      19    0    0 16.30356 0     1    -1       FALSE     NA grey85       0.5
+      20    0    0 16.40000 0     1    -1       FALSE     NA grey85       0.5
+      21    0    0 17.18809 0     1    -1       FALSE     NA grey85       0.5
+      22    0    0 17.30000 0     1    -1       FALSE     NA grey85       0.5
+      23    0    0 17.64400 0     1    -1       FALSE     NA grey85       0.5
+      24    0    0 17.80000 0     1    -1       FALSE     NA grey85       0.5
+      25    0    0 17.99201 0     1    -1       FALSE     NA grey85       0.5
+      26    0    0 18.10000 0     1    -1       FALSE     NA grey85       0.5
+      27    0    0 18.70000 0     1    -1       FALSE     NA grey85       0.5
+      28    0    0 18.85267 0     1    -1       FALSE     NA grey85       0.5
+      29    0    0 19.05621 0     1    -1       FALSE     NA grey85       0.5
+      30    0    0 19.20000 0     1    -1       FALSE     NA grey85       0.5
+      31    0    0 19.24958 0     1    -1       FALSE     NA grey85       0.5
+      32    0    0 19.70000 0     1    -1       FALSE     NA grey85       0.5
+      33    0    0 19.84566 0     1    -1       FALSE     NA grey85       0.5
+      34    0    0 20.90151 0     1    -1       FALSE     NA grey85       0.5
+      35    0    0 21.00000 0     1    -1       FALSE     NA grey85       0.5
+      36    0    0 21.16661 0     1    -1       FALSE     NA grey85       0.5
+      37    0    0 21.39233 0     1    -1       FALSE     NA grey85       0.5
+      38    0    0 21.40000 0     1    -1       FALSE     NA grey85       0.5
+      39    0    0 21.43118 0     1    -1       FALSE     NA grey85       0.5
+      40    0    0 21.50000 0     1    -1       FALSE     NA grey85       0.5
+      41    0    0 21.61930 0     1    -1       FALSE     NA grey85       0.5
+      42    0    0 22.74169 0     1    -1       FALSE     NA grey85       0.5
+      43    0    0 22.80000 0     1    -1       FALSE     NA grey85       0.5
+      44    0    0 22.87332 0     1    -1       FALSE     NA grey85       0.5
+      45    0    0 24.40000 0     1    -1       FALSE     NA grey85       0.5
+      46    0    0 24.61700 0     1    -1       FALSE     NA grey85       0.5
+      47    0    0 25.94078 0     1    -1       FALSE     NA grey85       0.5
+      48    0    0 26.00000 0     1    -1       FALSE     NA grey85       0.5
+      49    0    0 27.17290 0     1    -1       FALSE     NA grey85       0.5
+      50    0    0 27.30000 0     1    -1       FALSE     NA grey85       0.5
+      51    0    0 30.10414 0     1    -1       FALSE     NA grey85       0.5
+      52    0    0 30.40000 0     1    -1       FALSE     NA grey85       0.5
+      53    0    0 30.69908 0     1    -1       FALSE     NA grey85       0.5
+      54    0    0 32.40000 0     1    -1       FALSE     NA grey85       0.5
+      55    0    0 32.54102 0     1    -1       FALSE     NA grey85       0.5
+      56    0    0 33.81866 0     1    -1       FALSE     NA grey85       0.5
+      57    0    0 33.90000 0     1    -1       FALSE     NA grey85       0.5
          linetype alpha
       1         1   0.5
       2         1   0.5
@@ -1056,80 +1110,179 @@
       9         1   0.5
       10        1   0.5
       11        1   0.5
+      12        1   0.5
+      13        1   0.5
+      14        1   0.5
+      15        1   0.5
+      16        1   0.5
+      17        1   0.5
+      18        1   0.5
+      19        1   0.5
+      20        1   0.5
+      21        1   0.5
+      22        1   0.5
+      23        1   0.5
+      24        1   0.5
+      25        1   0.5
+      26        1   0.5
+      27        1   0.5
+      28        1   0.5
+      29        1   0.5
+      30        1   0.5
+      31        1   0.5
+      32        1   0.5
+      33        1   0.5
+      34        1   0.5
+      35        1   0.5
+      36        1   0.5
+      37        1   0.5
+      38        1   0.5
+      39        1   0.5
+      40        1   0.5
+      41        1   0.5
+      42        1   0.5
+      43        1   0.5
+      44        1   0.5
+      45        1   0.5
+      46        1   0.5
+      47        1   0.5
+      48        1   0.5
+      49        1   0.5
+      50        1   0.5
+      51        1   0.5
+      52        1   0.5
+      53        1   0.5
+      54        1   0.5
+      55        1   0.5
+      56        1   0.5
+      57        1   0.5
       
       $vs$d1$continent
-        x y PANEL group flipped_aes ymin ymax      xmin     xmax order xid newx
-      1 1 0     1     1       FALSE    0    0 0.7857143 1.214286     1   1    1
-      2 2 0     1     2       FALSE    0    0 1.5000000 2.500000     1   2    2
-      3 3 0     1     3       FALSE    0    0 2.5714286 3.428571     1   3    3
-        new_width colour fill linewidth linetype alpha   width
-      1   0.42857     NA grey       0.5        1    NA 0.42857
-      2   1.00000     NA grey       0.5        1    NA 1.00000
-      3   0.85714     NA grey       0.5        1    NA 0.85714
+        fill x y PANEL group flipped_aes ymin ymax      xmin     xmax order xid newx
+      1 grey 1 0     1     1       FALSE    0    0 0.7857143 1.214286     1   1    1
+      2 grey 2 0     1     2       FALSE    0    0 1.5000000 2.500000     1   2    2
+      3 grey 3 0     1     3       FALSE    0    0 2.5714286 3.428571     1   3    3
+        new_width colour linewidth linetype alpha   width
+      1   0.42857     NA       0.5        1    NA 0.42857
+      2   1.00000     NA       0.5        1    NA 1.00000
+      3   0.85714     NA       0.5        1    NA 0.85714
       
       $vs$d1$am
-        x y PANEL group flipped_aes ymin ymax     xmin     xmax order xid newx
-      1 1 0     1     1       FALSE    0    0 0.500000 1.500000     1   1    1
-      2 2 0     1     2       FALSE    0    0 1.657895 2.342105     1   2    2
-        new_width colour fill linewidth linetype alpha   width
-      1   1.00000     NA grey       0.5        1    NA 1.00000
-      2   0.68421     NA grey       0.5        1    NA 0.68421
+        fill x y PANEL group flipped_aes ymin ymax     xmin     xmax order xid newx
+      1 grey 1 0     1     1       FALSE    0    0 0.500000 1.500000     1   1    1
+      2 grey 2 0     1     2       FALSE    0    0 1.657895 2.342105     1   2    2
+        new_width colour linewidth linetype alpha   width
+      1   1.00000     NA       0.5        1    NA 1.00000
+      2   0.68421     NA       0.5        1    NA 0.68421
       
       $vs$d1$model
-          x      y PANEL group flipped_aes ymin   ymax  xmin   xmax order xid newx
-      1   1 1.2500     1     1       FALSE    0 1.2500 0.975  1.025     1   1    1
-      2   2 1.2500     1     2       FALSE    0 1.2500 1.975  2.025     1   2    2
-      3   3 1.2500     1     3       FALSE    0 1.2500 2.975  3.025     1   3    3
-      4   4 1.2500     1     4       FALSE    0 1.2500 3.975  4.025     1   4    4
-      5   5 1.2500     1     5       FALSE    0 1.2500 4.975  5.025     1   5    5
-      6   6 1.2500     1     6       FALSE    0 1.2500 5.975  6.025     1   6    6
-      7   7 1.5000     1     7       FALSE    0 1.5000 6.975  7.025     1   7    7
-      8   8 1.7500     1     8       FALSE    0 1.7500 7.975  8.025     1   8    8
-      9   9 1.2500     1     9       FALSE    0 1.2500 8.975  9.025     1   9    9
-      10 10 0.6087     1    10       FALSE    0 0.6087 9.500 10.500     1  10   10
-         new_width colour fill linewidth linetype alpha width
-      1       0.05     NA grey       0.5        1    NA  0.05
-      2       0.05     NA grey       0.5        1    NA  0.05
-      3       0.05     NA grey       0.5        1    NA  0.05
-      4       0.05     NA grey       0.5        1    NA  0.05
-      5       0.05     NA grey       0.5        1    NA  0.05
-      6       0.05     NA grey       0.5        1    NA  0.05
-      7       0.05     NA grey       0.5        1    NA  0.05
-      8       0.05     NA grey       0.5        1    NA  0.05
-      9       0.05     NA grey       0.5        1    NA  0.05
-      10      1.00     NA grey       0.5        1    NA  1.00
+         fill  x      y PANEL group flipped_aes ymin   ymax  xmin   xmax order xid
+      1  grey  1 1.2500     1     1       FALSE    0 1.2500 0.975  1.025     1   1
+      2  grey  2 1.2500     1     2       FALSE    0 1.2500 1.975  2.025     1   2
+      3  grey  3 1.2500     1     3       FALSE    0 1.2500 2.975  3.025     1   3
+      4  grey  4 1.2500     1     4       FALSE    0 1.2500 3.975  4.025     1   4
+      5  grey  5 1.2500     1     5       FALSE    0 1.2500 4.975  5.025     1   5
+      6  grey  6 1.2500     1     6       FALSE    0 1.2500 5.975  6.025     1   6
+      7  grey  7 1.5000     1     7       FALSE    0 1.5000 6.975  7.025     1   7
+      8  grey  8 1.7500     1     8       FALSE    0 1.7500 7.975  8.025     1   8
+      9  grey  9 1.2500     1     9       FALSE    0 1.2500 8.975  9.025     1   9
+      10 grey 10 0.6087     1    10       FALSE    0 0.6087 9.500 10.500     1  10
+         newx new_width colour linewidth linetype alpha width
+      1     1      0.05     NA       0.5        1    NA  0.05
+      2     2      0.05     NA       0.5        1    NA  0.05
+      3     3      0.05     NA       0.5        1    NA  0.05
+      4     4      0.05     NA       0.5        1    NA  0.05
+      5     5      0.05     NA       0.5        1    NA  0.05
+      6     6      0.05     NA       0.5        1    NA  0.05
+      7     7      0.05     NA       0.5        1    NA  0.05
+      8     8      0.05     NA       0.5        1    NA  0.05
+      9     9      0.05     NA       0.5        1    NA  0.05
+      10   10      1.00     NA       0.5        1    NA  1.00
       
       $vs$d1$gear
-        x        y PANEL group flipped_aes     ymin    ymax     xmin     xmax order
-      1 1 -0.10104     1     1       FALSE -0.10104 0.00000 0.500000 1.500000     1
-      2 2  0.27396     1     2       FALSE  0.00000 0.27396 1.600000 2.400000     1
-      3 3 -0.12604     1     3       FALSE -0.12604 0.00000 2.833333 3.166667     1
-        xid newx new_width colour fill linewidth linetype alpha   width
-      1   1    1   1.00000     NA grey       0.5        1    NA 1.00000
-      2   2    2   0.80000     NA grey       0.5        1    NA 0.80000
-      3   3    3   0.33333     NA grey       0.5        1    NA 0.33333
+        fill x        y PANEL group flipped_aes     ymin    ymax     xmin     xmax
+      1 grey 1 -0.10104     1     1       FALSE -0.10104 0.00000 0.500000 1.500000
+      2 grey 2  0.27396     1     2       FALSE  0.00000 0.27396 1.600000 2.400000
+      3 grey 3 -0.12604     1     3       FALSE -0.12604 0.00000 2.833333 3.166667
+        order xid newx new_width colour linewidth linetype alpha   width
+      1     1   1    1   1.00000     NA       0.5        1    NA 1.00000
+      2     1   2    2   0.80000     NA       0.5        1    NA 0.80000
+      3     1   3    3   0.33333     NA       0.5        1    NA 0.33333
       
       $vs$d1$carb
-        ymin ymax x y PANEL group flipped_aes colour   fill linewidth linetype alpha
-      1    0    0 1 0     1    -1       FALSE     NA grey85       0.5        1   0.5
-      2    0    0 2 0     1    -1       FALSE     NA grey85       0.5        1   0.5
-      3    0    0 3 0     1    -1       FALSE     NA grey85       0.5        1   0.5
-      4    0    0 4 0     1    -1       FALSE     NA grey85       0.5        1   0.5
-      5    0    0 8 0     1    -1       FALSE     NA grey85       0.5        1   0.5
+        ymin ymax x  y PANEL group flipped_aes colour   fill linewidth linetype alpha
+      1    0    0 1  0     1    -1       FALSE     NA grey85       0.5        1   0.5
+      2    0    0 2  0     1    -1       FALSE     NA grey85       0.5        1   0.5
+      3    0    0 3  0     1    -1       FALSE     NA grey85       0.5        1   0.5
+      4    0    0 4  0     1    -1       FALSE     NA grey85       0.5        1   0.5
+      5    0    0 5  0     1    -1       FALSE     NA grey85       0.5        1   0.5
+      6    0    0 6  0     1    -1       FALSE     NA grey85       0.5        1   0.5
+      7    0    0 7  0     1    -1       FALSE     NA grey85       0.5        1   0.5
+      8   NA   NA 8 NA     1    -1       FALSE     NA grey85       0.5        1   0.5
       
       $vs$d1$wt
          ymin ymax       x y PANEL group flipped_aes colour   fill linewidth linetype
       1     0    0 1.49828 0     1    -1       FALSE     NA grey85       0.5        1
-      2     0    0 1.92599 0     1    -1       FALSE     NA grey85       0.5        1
-      3     0    0 2.31407 0     1    -1       FALSE     NA grey85       0.5        1
-      4     0    0 2.77900 0     1    -1       FALSE     NA grey85       0.5        1
-      5     0    0 3.16013 0     1    -1       FALSE     NA grey85       0.5        1
-      6     0    0 3.21968 0     1    -1       FALSE     NA grey85       0.5        1
-      7     0    0 3.44000 0     1    -1       FALSE     NA grey85       0.5        1
-      8     0    0 3.55860 0     1    -1       FALSE     NA grey85       0.5        1
-      9     0    0 3.79414 0     1    -1       FALSE     NA grey85       0.5        1
-      10    0    0 4.07000 0     1    -1       FALSE     NA grey85       0.5        1
-      11    0    0 5.45327 0     1    -1       FALSE     NA grey85       0.5        1
+      2     0    0 1.51300 0     1    -1       FALSE     NA grey85       0.5        1
+      3     0    0 1.61500 0     1    -1       FALSE     NA grey85       0.5        1
+      4     0    0 1.63089 0     1    -1       FALSE     NA grey85       0.5        1
+      5     0    0 1.83060 0     1    -1       FALSE     NA grey85       0.5        1
+      6     0    0 1.83500 0     1    -1       FALSE     NA grey85       0.5        1
+      7     0    0 1.92599 0     1    -1       FALSE     NA grey85       0.5        1
+      8     0    0 1.93500 0     1    -1       FALSE     NA grey85       0.5        1
+      9     0    0 2.13513 0     1    -1       FALSE     NA grey85       0.5        1
+      10    0    0 2.14000 0     1    -1       FALSE     NA grey85       0.5        1
+      11    0    0 2.20000 0     1    -1       FALSE     NA grey85       0.5        1
+      12    0    0 2.20958 0     1    -1       FALSE     NA grey85       0.5        1
+      13    0    0 2.31407 0     1    -1       FALSE     NA grey85       0.5        1
+      14    0    0 2.32000 0     1    -1       FALSE     NA grey85       0.5        1
+      15    0    0 2.46500 0     1    -1       FALSE     NA grey85       0.5        1
+      16    0    0 2.47868 0     1    -1       FALSE     NA grey85       0.5        1
+      17    0    0 2.62000 0     1    -1       FALSE     NA grey85       0.5        1
+      18    0    0 2.64079 0     1    -1       FALSE     NA grey85       0.5        1
+      19    0    0 2.77000 0     1    -1       FALSE     NA grey85       0.5        1
+      20    0    0 2.77900 0     1    -1       FALSE     NA grey85       0.5        1
+      21    0    0 2.78000 0     1    -1       FALSE     NA grey85       0.5        1
+      22    0    0 2.79048 0     1    -1       FALSE     NA grey85       0.5        1
+      23    0    0 2.86152 0     1    -1       FALSE     NA grey85       0.5        1
+      24    0    0 2.87500 0     1    -1       FALSE     NA grey85       0.5        1
+      25    0    0 3.15000 0     1    -1       FALSE     NA grey85       0.5        1
+      26    0    0 3.16013 0     1    -1       FALSE     NA grey85       0.5        1
+      27    0    0 3.16254 0     1    -1       FALSE     NA grey85       0.5        1
+      28    0    0 3.17000 0     1    -1       FALSE     NA grey85       0.5        1
+      29    0    0 3.19000 0     1    -1       FALSE     NA grey85       0.5        1
+      30    0    0 3.21500 0     1    -1       FALSE     NA grey85       0.5        1
+      31    0    0 3.21837 0     1    -1       FALSE     NA grey85       0.5        1
+      32    0    0 3.21968 0     1    -1       FALSE     NA grey85       0.5        1
+      33    0    0 3.40985 0     1    -1       FALSE     NA grey85       0.5        1
+      34    0    0 3.41522 0     1    -1       FALSE     NA grey85       0.5        1
+      35    0    0 3.43500 0     1    -1       FALSE     NA grey85       0.5        1
+      36    0    0 3.43936 0     1    -1       FALSE     NA grey85       0.5        1
+      37    0    0 3.44000 0     1    -1       FALSE     NA grey85       0.5        1
+      38    0    0 3.44888 0     1    -1       FALSE     NA grey85       0.5        1
+      39    0    0 3.46000 0     1    -1       FALSE     NA grey85       0.5        1
+      40    0    0 3.46808 0     1    -1       FALSE     NA grey85       0.5        1
+      41    0    0 3.52000 0     1    -1       FALSE     NA grey85       0.5        1
+      42    0    0 3.55060 0     1    -1       FALSE     NA grey85       0.5        1
+      43    0    0 3.55860 0     1    -1       FALSE     NA grey85       0.5        1
+      44    0    0 3.57000 0     1    -1       FALSE     NA grey85       0.5        1
+      45    0    0 3.59845 0     1    -1       FALSE     NA grey85       0.5        1
+      46    0    0 3.70587 0     1    -1       FALSE     NA grey85       0.5        1
+      47    0    0 3.73000 0     1    -1       FALSE     NA grey85       0.5        1
+      48    0    0 3.78000 0     1    -1       FALSE     NA grey85       0.5        1
+      49    0    0 3.79414 0     1    -1       FALSE     NA grey85       0.5        1
+      50    0    0 3.81621 0     1    -1       FALSE     NA grey85       0.5        1
+      51    0    0 3.84000 0     1    -1       FALSE     NA grey85       0.5        1
+      52    0    0 3.84500 0     1    -1       FALSE     NA grey85       0.5        1
+      53    0    0 3.85165 0     1    -1       FALSE     NA grey85       0.5        1
+      54    0    0 4.04607 0     1    -1       FALSE     NA grey85       0.5        1
+      55    0    0 4.07000 0     1    -1       FALSE     NA grey85       0.5        1
+      56    0    0 5.23783 0     1    -1       FALSE     NA grey85       0.5        1
+      57    0    0 5.25000 0     1    -1       FALSE     NA grey85       0.5        1
+      58    0    0 5.34475 0     1    -1       FALSE     NA grey85       0.5        1
+      59    0    0 5.34500 0     1    -1       FALSE     NA grey85       0.5        1
+      60    0    0 5.42400 0     1    -1       FALSE     NA grey85       0.5        1
+      61    0    0 5.45327 0     1    -1       FALSE     NA grey85       0.5        1
          alpha
       1    0.5
       2    0.5
@@ -1142,6 +1295,56 @@
       9    0.5
       10   0.5
       11   0.5
+      12   0.5
+      13   0.5
+      14   0.5
+      15   0.5
+      16   0.5
+      17   0.5
+      18   0.5
+      19   0.5
+      20   0.5
+      21   0.5
+      22   0.5
+      23   0.5
+      24   0.5
+      25   0.5
+      26   0.5
+      27   0.5
+      28   0.5
+      29   0.5
+      30   0.5
+      31   0.5
+      32   0.5
+      33   0.5
+      34   0.5
+      35   0.5
+      36   0.5
+      37   0.5
+      38   0.5
+      39   0.5
+      40   0.5
+      41   0.5
+      42   0.5
+      43   0.5
+      44   0.5
+      45   0.5
+      46   0.5
+      47   0.5
+      48   0.5
+      49   0.5
+      50   0.5
+      51   0.5
+      52   0.5
+      53   0.5
+      54   0.5
+      55   0.5
+      56   0.5
+      57   0.5
+      58   0.5
+      59   0.5
+      60   0.5
+      61   0.5
       
       
       $vs$d2
@@ -10801,8 +11004,8 @@
          x       label y PANEL group nudge_x nudge_y colour family size angle hjust
       1 NA NALED  0.0% 1     1     1       0       0  black           3     0   0.5
       2 NA NALED  0.0% 2     1     2       0       0  black           3     0   0.5
-      3 NA NALED 13.5% 3     1     3       0       0  black           3     0   0.5
-      4 NA NALED 36.7% 4     1     4       0       0  black           3     0   0.5
+      3 NA NALED 13.3% 3     1     3       0       0  black           3     0   0.5
+      4 NA NALED 41.1% 4     1     4       0       0  black           3     0   0.5
       5 NA NALED 41.1% 5     1     5       0       0  black           3     0   0.5
       6 NA NALED 33.6% 6     1     6       0       0  black           3     0   0.5
       7 NA NALED 32.2% 7     1     7       0       0  black           3     0   0.5
@@ -11119,45 +11322,45 @@
       # A tibble: 25 x 8
            mpg vs    continent     am    model               gear   carb    wt
          <dbl> <lgl> <fct>         <lgl> <chr>               <ord> <int> <dbl>
-       1  30.4 TRUE  Europe        TRUE  Lotus Europa        five      2  1.51
-       2  10.4 FALSE North America FALSE Lincoln Continental three     4  5.42
-       3  27.2 TRUE  Europe        TRUE  Fiat X1-9           four      1  1.93
-       4  15.5 FALSE North America FALSE Dodge Challenger    three     2  3.52
-       5  18.9 FALSE North America FALSE Hornet Sportabout   three     3  3.47
-       6  16.3 FALSE Europe        FALSE Merc 450SE          three     2  4.05
-       7  10.4 FALSE North America FALSE Cadillac Fleetwood  three     3  5.24
-       8  22.8 TRUE  Europe        FALSE Merc 230            four      2  3.15
-       9  18.7 FALSE North America FALSE Hornet Sportabout   three     2  3.44
-      10  18.0 TRUE  North America FALSE Valiant             three     1  3.44
+       1  14.7 FALSE North America FALSE Chrysler Imperial   three     4  5.34
+       2  21.4 TRUE  Europe        TRUE  Volvo 142E          four      3  2.78
+       3  17.3 FALSE Europe        FALSE Merc 450SL          three     3  3.73
+       4  32.5 TRUE  Europe        TRUE  Fiat 128            four      1  2.21
+       5  19.7 FALSE Europe        TRUE  Ferrari Dino        five      6  2.77
+       6  14.3 FALSE North America FALSE Duster 360          three     4  3.57
+       7  22.8 TRUE  Europe        FALSE Merc 230            four      2  3.15
+       8  22.7 TRUE  Asia          TRUE  Datsun 710          four      1  2.31
+       9  24.6 TRUE  Europe        FALSE Merc 240D           four      2  3.22
+      10  10.5 FALSE North America FALSE Lincoln Continental three     3  5.45
       # i 15 more rows
       
       $params$data$y_vals_sample
                    vs
-       [1,]  28.56609
-       [2,] -28.56607
-       [3,]  28.56609
-       [4,] -28.56607
+       [1,] -28.56607
+       [2,]  28.56609
+       [3,] -28.56607
+       [4,]  28.56607
        [5,] -28.56607
        [6,] -28.56607
-       [7,] -28.56607
-       [8,]  28.56609
-       [9,] -28.56607
-      [10,]  28.56607
-      [11,] -28.56607
-      [12,]  28.56609
-      [13,] -28.56607
+       [7,]  28.56609
+       [8,]  28.56607
+       [9,]  28.56609
+      [10,] -28.56607
+      [11,]  28.56607
+      [12,]  28.56607
+      [13,]  28.56609
       [14,] -28.56607
       [15,] -28.56607
-      [16,]  28.56609
-      [17,]  28.56607
+      [16,] -28.56607
+      [17,] -28.56607
       [18,] -28.56607
       [19,] -28.56607
       [20,] -28.56607
-      [21,]  28.56607
-      [22,] -28.56607
-      [23,]  28.56607
+      [21,]  28.56609
+      [22,]  28.56609
+      [23,]  28.56609
       [24,]  28.56609
-      [25,]  28.56609
+      [25,] -28.56607
       
       $params$data$nrow
       [1] 64
@@ -11193,7 +11396,7 @@
       $params$p_values
       NULL
       
-      $params$require_same_p
+      $params$require_p_model_match
       [1] TRUE
       
       $params$aler_alpha
@@ -11203,7 +11406,12 @@
       [1] "mad"
       
       $params$max_num_bins
+      $params$max_num_bins$d1
       [1] 12
+      
+      $params$max_num_bins$d2
+      [1] 12
+      
       
       $params$fct_order
       [1] "levels"
@@ -11238,12 +11446,12 @@
       $vs
       $vs$d1
       $vs$d1$am
-        x         y PANEL group flipped_aes      ymin ymax     xmin     xmax order
-      1 1 -28.56607     1     1       FALSE -28.56607    0 0.500000 1.500000     1
-      2 2 -28.56607     1     2       FALSE -28.56607    0 1.657895 2.342105     1
-        xid newx new_width colour fill linewidth linetype alpha   width
-      1   1    1   1.00000     NA grey       0.5        1    NA 1.00000
-      2   2    2   0.68421     NA grey       0.5        1    NA 0.68421
+        fill x         y PANEL group flipped_aes      ymin ymax     xmin     xmax
+      1 grey 1 -28.56607     1     1       FALSE -28.56607    0 0.500000 1.500000
+      2 grey 2 -28.56607     1     2       FALSE -28.56607    0 1.657895 2.342105
+        order xid newx new_width colour linewidth linetype alpha   width
+      1     1   1    1   1.00000     NA       0.5        1    NA 1.00000
+      2     1   2    2   0.68421     NA       0.5        1    NA 0.68421
       
       $vs$d1$wt
               ymin      ymax       x         y PANEL group flipped_aes colour   fill

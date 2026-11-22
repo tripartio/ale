@@ -30,6 +30,7 @@
 #' @param .bins See documentation for [ALE()]
 #' @param ale_y_norm_funs list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to [ALE()]. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.
 #' @param p_dist See documentation for `p_values` in [ALE()]
+#' @param aled_fun character(1). Deviation function, matched exactly. See [ALE()] for the deviation formulas.
 #' @param constant_term Named list of constant predictors in this term and their observed values, identified by [ALE()]. An empty list means the term is calculated normally.
 #'
 calc_ale <- function(
@@ -50,9 +51,11 @@ calc_ale <- function(
     .bins = NULL,
     ale_y_norm_funs = NULL,
     p_dist = NULL,
-    aled_fun = 'mad',
+    aled_fun = c('mad', 'sd', 'var'),
     constant_term = list()
 ) {
+
+  aled_fun <- match_aled_fun(aled_fun)
 
   # Set up base variables --------------
 
@@ -69,9 +72,10 @@ calc_ale <- function(
   allow_bootstrap_na <- boot_it > 0 || !is.null(.bins)
 
   # Create bootstrap tbl
-  original_seed <- if (exists('.Random.seed')) .Random.seed else seed
-  on.exit(set.seed(original_seed))
-  set.seed(seed)
+  rng_state <- .rng_state()
+  on.exit(.restore_rng(rng_state), add = TRUE)
+  # Use matching resamples across terms, independently of their execution order.
+  .set_seed(seed)
 
   boot_ale <- tibble(
     # it: bootstrap iteration number. Row 0 is the full dataset without bootstrapping
@@ -963,114 +967,152 @@ calc_ale <- function(
   boot_stats_summary <- NULL
   # Only get stats if ale_y_norm_funs is provided
   if (!is.null(ale_y_norm_funs)) {
-    boot_stats_detailed <- boot_ale_tbl
-    if (boot_it > 0) {
-      # Delete .it == 0 (full data, not a bootstrap iteration).
-      # By now, this is probably done, but repeat just in case...
-      boot_stats_detailed <- boot_stats_detailed[boot_stats_detailed$.it != 0, ]
-    }
 
-    boot_stats_detailed <- boot_stats_detailed |>
-      split(boot_stats_detailed$.comp) |>
-      map(\(it.comp) {
-        it.comp |>
-        split(it.comp$.cat) |>
-        imap(\(it.cat_ale_data, it.cat_name) {
-          it.cat_ale_data |>
-            split(it.cat_ale_data$.it) |>
-            map(\(btit.cat_ale_data) {
-              if (length(constant_term) > 0L) {
-                # There are no numeric intervals to average for a constant term.
-                calc_stats(
-                  y = btit.cat_ale_data$.y,
-                  bin_n = btit.cat_ale_data$.n,
-                  ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                  x_type = 'ordinal',
-                  aled_fun = aled_fun
-                )
-              }
-              else if (ixn_d == 1) {
-                calc_stats(
-                  y = btit.cat_ale_data$.y,
-                  bin_n = btit.cat_ale_data$.n,
-                  ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                  y_vals = NULL,
-                  x_type = xd[[1]]$x_type,
-                  aled_fun = aled_fun
-                )
-              }
-              else if (ixn_d == 2) {
-                calc_stats_2D(
-                  ale_data = btit.cat_ale_data,
-                  x_cols = x_cols,
-                  x_types = x_types,
-                  ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                  y_vals = NULL,
-                  aled_fun = aled_fun
-                )
-              }
-              else {
-                cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
-              }
-            }) |>
-            bind_rows()
-        })
-      })
+    ## Code before 0.6.0 merge; revise if problems surface
+    # boot_stats_detailed <- boot_ale_tbl
+    # if (boot_it > 0) {
+    #   # Delete .it == 0 (full data, not a bootstrap iteration).
+    #   # By now, this is probably done, but repeat just in case...
+    #   boot_stats_detailed <- boot_stats_detailed[boot_stats_detailed$.it != 0, ]
+    # }
+    #
+    # boot_stats_detailed <- boot_stats_detailed |>
+    #   split(boot_stats_detailed$.comp) |>
+    #   map(\(it.comp) {
+    #     it.comp |>
+    #     split(it.comp$.cat) |>
+    #     imap(\(it.cat_ale_data, it.cat_name) {
+    #       it.cat_ale_data |>
+    #         split(it.cat_ale_data$.it) |>
+    #         map(\(btit.cat_ale_data) {
+    #           if (length(constant_term) > 0L) {
+    #             # There are no numeric intervals to average for a constant term.
+    #             calc_stats(
+    #               y = btit.cat_ale_data$.y,
+    #               bin_n = btit.cat_ale_data$.n,
+    #               ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
+    #               x_type = 'ordinal',
+    #               aled_fun = aled_fun
+    #             )
+    #           }
+    #           else if (ixn_d == 1) {
+    #             calc_stats(
+    #               y = btit.cat_ale_data$.y,
+    #               bin_n = btit.cat_ale_data$.n,
+    #               ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
+    #               y_vals = NULL,
+    #               x_type = xd[[1]]$x_type,
+    #               aled_fun = aled_fun
+    #             )
+    #           }
+    #           else if (ixn_d == 2) {
+    #             calc_stats_2D(
+    #               ale_data = btit.cat_ale_data,
+    #               x_cols = x_cols,
+    #               x_types = x_types,
+    #               ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
+    #               y_vals = NULL,
+    #               aled_fun = aled_fun
+    #             )
+    #           }
+    #           else {
+    #             cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
+    #           }
+    #         }) |>
+    #         bind_rows()
+    #     })
+    #   })
+    #
+    # # Summarize stats across all bootstrap iterations
+    # boot_stats_summary <- boot_stats_detailed |>
+    #   map(\(it.comp) {
+    #     it.comp |>
+    #       map(\(it.cat_boot_stats) {
+    #         it.cbs <- as.matrix(it.cat_boot_stats)
+    #
+    #         tibble(
+    #           statistic = colnames(it.cbs),
+    #           conf.low = apply(
+    #             it.cbs, 2, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+    #           ),
+    #           mean = apply(it.cbs, 2, mean, na.rm = TRUE),
+    #           median = apply(it.cbs, 2, stats::median, na.rm = TRUE),
+    #           conf.high = apply(
+    #             it.cbs, 2, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+    #           ),
+    #           estimate = if (boot_centre == 'mean') {
+    #             mean
+    #           } else if (boot_centre == 'median') {
+    #             median
+    #           },
+    #         )  |>
+    #           mutate(
+    #             term = paste0(x_cols, collapse = ':'),
+    #           ) |>
+    #           select('term', 'statistic', 'estimate', everything())
+    #       })
+    #   }) |>
+    #   # Recombine by category, with composition as a column
+    #   list_transpose(simplify = FALSE) |>
+    #   map(\(it.cat_stats) {
+    #     it.cat_stats |>
+    #       imap(\(it.comp_stats, it.comp) {
+    #         it.comp_stats |>
+    #           mutate(.comp = as.logical(it.comp))
+    #       }) |>
+    #       bind_rows()
+    #   })
 
-    # Summarize stats across all bootstrap iterations
-    boot_stats_summary <- boot_stats_detailed |>
-      map(\(it.comp) {
-        it.comp |>
-          map(\(it.cat_boot_stats) {
-            it.cbs <- as.matrix(it.cat_boot_stats)
-
-            tibble(
-              statistic = colnames(it.cbs),
-              conf.low = apply(
-                it.cbs, 2, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
-              ),
-              mean = apply(it.cbs, 2, mean, na.rm = TRUE),
-              median = apply(it.cbs, 2, stats::median, na.rm = TRUE),
-              conf.high = apply(
-                it.cbs, 2, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
-              ),
-              estimate = if (boot_centre == 'mean') {
-                mean
-              } else if (boot_centre == 'median') {
-                median
-              },
-            )  |>
-              mutate(
-                term = paste0(x_cols, collapse = ':'),
-              ) |>
-              select('term', 'statistic', 'estimate', everything())
-          })
-      }) |>
-      # Recombine by category, with composition as a column
-      list_transpose(simplify = FALSE) |>
-      map(\(it.cat_stats) {
-        it.cat_stats |>
-          imap(\(it.comp_stats, it.comp) {
-            it.comp_stats |>
-              mutate(.comp = as.logical(it.comp))
+    boot_stats_summary <- split(boot_ale_tbl, boot_ale_tbl$.cat) |>
+      imap(function(it.cat_data, nm.cat) {
+        split(it.cat_data, it.cat_data$.comp) |>
+          imap(function(it.comp_data, nm.comp) {
+            stats_from_boot_its(
+              ale_data = it.comp_data,
+              x_cols = x_cols,
+              x_types = x_types,
+              ale_y_norm_fun = ale_y_norm_funs[[nm.cat]],
+              aled_fun = aled_fun,
+              boot_alpha = boot_alpha,
+              boot_centre = boot_centre,
+              constant = length(constant_term) > 0L
+            ) |>
+              mutate(.comp = as.logical(nm.comp))
           }) |>
           bind_rows()
       })
 
+    # boot_stats_summary <- split(boot_ale_tbl, boot_ale_tbl$.comp) |>
+    #   imap(function(it.comp_data, nm.comp) {
+    #     split(it.comp_data, it.comp_data$.cat) |>
+    #       imap(function(it.data, nm.cat) {
+    #         stats_from_boot_its(
+    #           ale_data = it.data, x_cols = x_cols, x_types = x_types,
+    #           ale_y_norm_fun = ale_y_norm_funs[[nm.cat]], aled_fun = aled_fun,
+    #           boot_alpha = boot_alpha, boot_centre = boot_centre,
+    #           constant = length(constant_term) > 0L
+    #         ) |>
+    #           mutate(.comp = as.logical(nm.comp))
+    #       })
+    #   }) |>
+    #   list_transpose()
+
+    # boot_stats_summary <- split(boot_ale_tbl, boot_ale_tbl$.cat) |>
+    #   imap(function(it.data, nm.cat) {
+    #     stats_from_boot_its(
+    #       ale_data = it.data, x_cols = x_cols, x_types = x_types,
+    #       ale_y_norm_fun = ale_y_norm_funs[[nm.cat]], aled_fun = aled_fun,
+    #       boot_alpha = boot_alpha, boot_centre = boot_centre,
+    #       constant = length(constant_term) > 0L
+    #     )
+    #   })
+
     # If p_dist is provided, calculate p-values
     if (!is.null(p_dist)) {
       boot_stats_summary <- boot_stats_summary |>
-        imap(\(it.cat_stats, it.cat_name) {
-          it.cat_stats |>
-            mutate(
-              p.value = map2_dbl(
-                .data$estimate, .data$statistic,
-                \(it.stat, it.stat_name) {
-                  # Call the p_value function corresponding to the named statistic
-                  p_dist@rand_stats[[it.cat_name]] |>
-                    value_to_p(it.stat_name, it.stat)
-                })
-            ) |>
+        imap(function(it.stats, nm.cat) {
+          p_values_stats(it.stats, p_dist@rand_stats[[nm.cat]]) |>
+            # Preserve the established constructor output layout.
             select('statistic', 'estimate', 'p.value', everything())
         })
     }

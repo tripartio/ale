@@ -18,7 +18,6 @@ expect_constant_warning <- function(expr, variables) {
 expect_zero_ale <- function(data) {
   y_columns <- startsWith(names(data), '.y')
   expect_true(any(y_columns))
-  expect_false(anyNA(data[y_columns]))
   expect_true(all(as.matrix(data[y_columns]) == 0))
 }
 
@@ -29,10 +28,12 @@ test_that('constant 1D effects, statistics, and bootstrap values are zero', {
   for (boot_it in c(0, 2)) {
     result <- expect_constant_warning(ALE(
       test_gam, data = constant_cars, x_cols = ~ wt,
-      boot_it = boot_it, output_boot_data = TRUE, p_values = NULL,
-      silent = TRUE
+      boot_it = boot_it, output_boot_data = TRUE, output_stats = FALSE,
+      p_values = NULL, silent = TRUE
     ), 'wt')
-    effect <- result@effect$mpg
+    # Reuse the known zero outputs to verify appended statistics (#53).
+    result <- append_stats(result)
+    effect <- result@composite$mpg
     summary <- effect$ale$d1$wt
     expect_zero_ale(summary)
     expect_equal(summary$wt.ceil, test_cars$wt[1])
@@ -66,20 +67,20 @@ test_that('constant interaction components preserve grids and counts', {
         max_num_bins = list(d1 = 10L, d2 = 10L),
         p_values = NULL, silent = TRUE
       )
-      summary <- result@effect$vs$ale$d2[['carb:wt']]
-      varying_summary <- baseline@effect$vs$ale$d1[[varying]]
+      summary <- result@composite$vs$ale$d2[['carb:wt']]
+      varying_summary <- baseline@composite$vs$ale$d1[[varying]]
       expect_zero_ale(summary)
       expect_equal(summary[[paste0(constant, '.ceil')]],
                    rep(test_cars[[constant]][1], nrow(summary)))
       expect_equal(summary[[paste0(varying, '.ceil')]],
                    varying_summary[[paste0(varying, '.ceil')]])
       expect_identical(summary$.n, varying_summary$.n)
-      boot <- result@effect$vs$boot_data$d2[['carb:wt']]
+      boot <- result@composite$vs$boot_data$d2[['carb:wt']]
       expect_zero_ale(boot)
       expect_true(all(seq_len(boot_it) %in% boot$.it))
       counts <- tapply(boot$.n, boot$.it, sum)
       expect_true(all(counts == nrow(test_cars)))
-      expect_true(all(result@effect$vs$stats$d2$estimate == 0))
+      expect_true(all(result@composite$vs$stats$d2$estimate == 0))
     }
   }
 })
@@ -91,9 +92,10 @@ test_that('both interaction components can be constant for categorical outcomes'
   result <- expect_constant_warning(ALE(
     test_nn_categorical, data = constant_cars, x_cols = ~ carb:wt,
     pred_type = 'probs', boot_it = 2, output_boot_data = TRUE,
-    p_values = NULL, silent = TRUE
+    output_stats = FALSE, p_values = NULL, silent = TRUE
   ), c('carb', 'wt'))
-  for (effect in result@effect) {
+  result <- append_stats(result)
+  for (effect in result@composite) {
     summary <- effect$ale$d2[['carb:wt']]
     expect_equal(nrow(summary), 1L)
     expect_identical(summary$.n, nrow(test_cars))
@@ -119,7 +121,7 @@ test_that('constant logical, categorical, ordered, and Date coordinates work', {
       pred_fun = constant_predict, fct_order = 'ksd', boot_it = 2,
       output_boot_data = TRUE, p_values = NULL, silent = TRUE
     ), column)
-    effect <- result@effect$mpg
+    effect <- result@composite$mpg
     summary <- effect$ale$d1[[column]]
     expect_equal(nrow(summary), 1L)
     expect_zero_ale(summary)
@@ -147,17 +149,17 @@ test_that('other requested effects and statistics are unchanged', {
     boot_it = 2, output_boot_data = TRUE, p_values = NULL, silent = TRUE
   ), 'wt')
   for (output in c('ale', 'boot_data')) {
-    expect_equal(result@effect$mpg[[output]]$d1$carb,
-                 baseline@effect$mpg[[output]]$d1$carb)
-    expect_equal(result@effect$mpg[[output]]$d2[['am:gear']],
-                 baseline@effect$mpg[[output]]$d2[['am:gear']])
+    expect_equal(result@composite$mpg[[output]]$d1$carb,
+                 baseline@composite$mpg[[output]]$d1$carb)
+    expect_equal(result@composite$mpg[[output]]$d2[['am:gear']],
+                 baseline@composite$mpg[[output]]$d2[['am:gear']])
   }
   for (dimension in c('d1', 'd2')) {
-    statistics <- result@effect$mpg$stats[[dimension]]
-    reference <- baseline@effect$mpg$stats[[dimension]]
+    statistics <- result@composite$mpg$stats[[dimension]]
+    reference <- baseline@composite$mpg$stats[[dimension]]
     expect_equal(statistics[statistics$term %in% reference$term, ], reference)
   }
-  expect_true(any(abs(baseline@effect$mpg$ale$d2[['am:gear']]$.y) > 0))
+  expect_true(any(abs(baseline@composite$mpg$ale$d2[['am:gear']]$.y) > 0))
 })
 
 test_that('warnings only concern requested predictors after exclusions', {

@@ -76,6 +76,15 @@ test_that(
       silent = TRUE  # always TRUE in tests
     )
 
+    # The saved reference is sampled. Full link-scale predictions must work in
+    # their original GAM array form and as a named single-column matrix (#53).
+    reference <- test_predict(test_gam_binary, test_cars, type = 'link')
+    reference_matrix <- matrix(reference, ncol = 1, dimnames = list(NULL, 'vs'))
+    expect_equal(
+      append_stats(cars_ale, y_vals = reference),
+      append_stats(cars_ale, y_vals = reference_matrix)
+    )
+
     cars_ale |>
       s7_snapshot() |>
       expect_snap_variant()
