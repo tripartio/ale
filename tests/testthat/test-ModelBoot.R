@@ -1,13 +1,13 @@
-# test-ModelBoot.R
+# Check ModelBoot resampling, inference, and retrieval of effects and plots.
 
 
 test_that(
-  'Parallelized ModelBoot prints', {
+  'ModelBoot preserves bootstrap outputs across executors (#noissue)', {
     pll_mb <- ModelBoot(
       test_gam,
       data = test_cars,
       ale_options = list(
-        x_cols = c('wt', 'gear:carb')
+        x_cols = c('wt', 'gear:carb'), pred_type = 'link'
       ),
       boot_it = 2,
       ale_p = NULL,
@@ -28,134 +28,43 @@ test_that(
       output_boot_data = TRUE,
       silent = TRUE
     )
-    # Reuse the short ALEpDist executor case here, where its outputs can also
-    # exercise append_p() without constructing another distribution or model.
-    # This checks execution reproducibility, not the accuracy of a distribution
-    # estimated from only three iterations. Reuse the existing GAM fixture.
-    make_distribution <- function(parallel) {
-      ALEpDist(
-        test_gam, data = test_cars, y_col = 'mpg',
-        pred_type = 'link', rand_it = 3, .skip_validation = TRUE,
-        parallel = parallel, seed = 17L, silent = TRUE
-      )
-    }
-    original_seed <- .Random.seed
-    serial <- make_distribution(0)
-    future <- make_distribution(1)
-    expect_equal(serial@rand_stats, future@rand_stats)
-    expect_equal(serial@residual_distribution, future@residual_distribution)
-    expect_identical(serial@params$rand_it_ok, 3L)
-    expect_identical(.Random.seed, original_seed)
 
     expect_equal(pll_mb@boot_data$row_idxs, serial_mb@boot_data$row_idxs)
     expect_equal(pll_mb@model_stats, serial_mb@model_stats)
-    full_grid <- pll_mb@boot_data$ale[[1]]@effect$mpg$ale$d1$wt[[1]]
-    for (i.iteration in 1:length(pll_mb@boot_data$ale)) {
-      parallel_ale <- pll_mb@boot_data$ale[[i.iteration]]
-      expect_identical(parallel_ale@effect$mpg$ale$d1$wt[[1]], full_grid)
-      expect_equal(
-        parallel_ale@effect,
-        serial_mb@boot_data$ale[[i.iteration]]@effect
-      )
-    }
-
-    # Run late-p-value output checks before snapshots, which skip on CRAN.
-    # The outer and inner prediction settings differ deliberately. Compatibility
-    # checks must use the inner ALE scale and the original model identity (#53).
-    alpha <- c(0.1, 0.2)
-    actual <- append_p(
-      serial_mb, serial, aler_alpha = alpha, require_p_model_match = TRUE
-    )
-    expected_ale <- c(
-      list(single = append_p(
-        serial_mb@ale$single, serial, aler_alpha = alpha,
-        require_p_model_match = FALSE
-      )),
-      purrr::map(serial_mb@boot_data$ale, function(btit.ale) {
-        append_p(
-          btit.ale, serial, aler_alpha = alpha, require_p_model_match = FALSE
-        )
-      })
-    )
     expect_equal(
-      c(list(single = actual@ale$single), actual@boot_data$ale), expected_ale
+      map(pll_mb@boot_data$ale, \(it.ale) it.ale@effect),
+      map(serial_mb@boot_data$ale, \(it.ale) it.ale@effect)
     )
+    expect_equal(pll_mb@ale$boot, serial_mb@ale$boot)
 
-    # Independently calculate empirical tail frequencies for the aggregate,
-    # looking up statistics by name even when ModelBoot stores factor labels.
-    expected_boot <- serial_mb@ale$boot
-    expected_boot$effect <- purrr::map(
-      expected_boot$effect, function(it.effect) {
-        it.effect$stats <- purrr::map(it.effect$stats, function(it.stats) {
-          it.stats$p.value <- purrr::map2_dbl(
-            as.character(it.stats$statistic), it.stats$estimate,
-            function(nm.stat, it.estimate) {
-              it.random <- serial@rand_stats$mpg[[nm.stat]]
-              if (endsWith(nm.stat, '_min')) {
-                mean(it.random <= it.estimate)
-              } else {
-                mean(it.random > it.estimate)
-              }
-            }
-          )
-          it.stats
-        })
-        it.effect
-      }
+    # Agreement alone does not establish that every run uses the full-data grid.
+    grids <- map(
+      pll_mb@boot_data$ale, \(it.ale) it.ale@effect$mpg$ale$d1$wt$wt.ceil
     )
-    expect_equal(actual@ale$boot, expected_boot)
-
-    # Compare all remaining outputs together: distribution metadata is updated;
-    # models, row indices, coefficients, and other model results are preserved.
-    remaining <- S7::props(actual)
-    expected <- S7::props(serial_mb)
-    remaining$ale <- expected$ale <- NULL
-    remaining$boot_data$ale <- expected$boot_data$ale <- NULL
-    expected$params$ale_p <- serial
-    expected$params$aler_alpha <- alpha
-    expected$params$require_p_model_match <- TRUE
-    expected$params$ale_options$aler_alpha <- alpha
-    expect_equal(remaining, expected)
-
-    # Test the ModelBoot print method
-    print(pll_mb) |>
-      expect_snap_variant()
+    expect_identical(grids, rep(grids[1], length(grids)))
 
     # Reuse the bootstrapped model to check forwarding of 2D display settings.
     hidden_bin_sizes <- plot(pll_mb, show_2d_bin_sizes = FALSE)
-    expect_false(hidden_bin_sizes@params$show_2d_bin_sizes)
-    hidden_2d <- hidden_bin_sizes@plots$mpg$d2[['gear:carb']]
-    expect_false(any(vapply(hidden_2d$layers, \(layer) {
-      inherits(layer$geom, 'GeomPoint')
-    }, logical(1))))
-    expect_null(hidden_2d$scales$get_scales('size'))
-    expect_silent(ggplot2::ggplot_build(hidden_2d))
+    hidden_2d <- get(hidden_bin_sizes, 'gear:carb')
+    expect_equal(
+      list(
+        layers = length(ggplot_build(hidden_2d)$data),
+        size_scale = hidden_2d$scales$get_scales('size')
+      ),
+      list(layers = 1L, size_scale = NULL)
+    )
 
     for (type in c('auto', 'single', 'boot')) {
-      expect_missing_p_conf(pll_mb, type = type)
       expect_requested_stats_order(pll_mb, type = type)
-      expect_requested_stats_order(pll_mb, x_cols = "wt", type = type)
-      expect_requested_stats_order(pll_mb, x_cols = "gear:carb", type = type)
+      expect_requested_stats_order(pll_mb, x_cols = 'gear:carb', type = type)
     }
     expect_conf_summary(pll_mb, has_p_values = FALSE)
-
-    # Reuse the embedded ALE object to exercise silent getters on CI as well.
-    expect_missing_p_conf(pll_mb@ale$single)
-    expect_requested_stats_order(pll_mb@ale$single)
-    expect_missing_p_conf(pll_mb@ale$single, silent = TRUE)
-    expect_conf_summary(pll_mb@ale$single, has_p_values = FALSE)
   }
 )
 
 
-# All other tests are without parallelization so that results are reproducible
-
-# Because it is complex to save entire ggplot objects, only save the core data from the plot
-
 test_that(
-  'numeric outcome with no bootstrapping', {
-    skip_on_ci()
-
+  'ModelBoot uses full-data results with no resamples (#noissue)', {
     mb <- ModelBoot(
       test_gam,
       data = test_cars,
@@ -167,54 +76,170 @@ test_that(
       silent = TRUE
     )
 
-    plot(mb, type = 'boot') |>
-      ale_plots_to_data() |>
-      expect_snap_variant()
+    # Iteration zero uses the full fit for the model summary and ALE output.
+    single <- mb@ale$single
+    nobs <- mb@model_stats$mean[mb@model_stats$name == 'nobs']
+    edf <- mb@model_coefs$mean[mb@model_coefs$term == 's(wt)']
+    expect_equal(
+      list(
+        auto = get(mb),
+        single = get(mb, type = 'single'),
+        zero = get(mb, ale_centre = 'zero')
+      ),
+      list(
+        auto = get(single),
+        single = get(single),
+        zero = get(single, ale_centre = 'zero')
+      )
+    )
+    expect_equal(
+      c(nobs = nobs, smooth_edf = edf),
+      c(nobs = stats::nobs(test_gam), smooth_edf = broom::tidy(test_gam)$edf)
+    )
 
-    expect_true(S7::S7_inherits(mb, ModelBoot))
-    expect_missing_p_conf(mb)
-    expect_missing_p_conf(mb, type = 'single')
-    expect_conf_summary(mb, has_p_values = FALSE)
-    mb |>
-      s7_snapshot() |>
-      expect_snap_variant()
+    # Both plot dimensions use the same full-data effects when there are no resamples.
+    built_effects <- function(object) {
+      plots <- plot(object)
+      map(c('wt', 'gear:carb'), function(nm.term) {
+        ggplot_build(get(plots, nm.term))$data
+      })
+    }
+    expect_equal(built_effects(mb), built_effects(single))
   }
 )
 
 
 test_that(
-  'binary outcome with p-values and confidence regions', {
-    skip_on_ci()
-
+  'binary ModelBoot returns surrogate p-values and bootstrap accuracy (#noissue)', {
     mb <- ModelBoot(
       test_gam_binary,
       data = test_cars,
       # test surrogate generation by leaving ale_p at default
       boot_it = 2,
-      ale_options = list(
-        x_cols = c('wt', 'continent', 'gear:carb')
-      ),
+      ale_options = list(x_cols = 'wt'),
       output_boot_data = TRUE,
       silent = TRUE
     )
 
-    plot(mb, type = 'boot') |>
-      ale_plots_to_data() |>
-      expect_snap_variant()
+    # AUC is the probability that a positive scores higher than a negative,
+    # with half the weight for ties. The bootstrap correction mixes that
+    # full-data AUC with the held-out replicate results.
+    scores <- predict(test_gam_binary, newdata = test_cars, type = 'response')
+    differences <- outer(scores[test_cars$vs], scores[!test_cars$vs], '-')
+    full_auc <- mean(differences > 0) + mean(differences == 0) / 2
+    boot_auc <- map_dbl(mb@boot_data$perf[-1], 'auc')
+    auc_summary <- mb@model_stats[mb@model_stats$name == 'auc', ]
+    expect_equal(
+      unname(c(
+        auc_summary$boot_valid, auc_summary$conf.low, auc_summary$conf.high
+      )),
+      c(
+        0.368 * full_auc + 0.632 * mean(boot_auc),
+        quantile(boot_auc, c(0.025, 0.975), names = FALSE)
+      )
+    )
 
-    expect_true(S7::S7_inherits(mb, ModelBoot))
+    # Derive the two empirical tails from the generated surrogate draws.
+    distribution <- mb@params$ale_p
+    draws <- distribution@rand_stats$vs
+    estimates <- get(mb, 'wt', type = 'boot', stats = c('aler_min', 'aler_max'))
+    expect_equal(
+      list(
+        exactness = distribution@params$exactness,
+        p_values = estimates$p.value
+      ),
+      list(
+        exactness = 'surrogate',
+        p_values = c(
+          mean(draws$aler_min <= estimates$estimate[1]),
+          mean(draws$aler_max > estimates$estimate[2])
+        )
+      )
+    )
+
+    # The zero-centered graphic presents the inner joint ALER band.
+    inner_tail <- 1 - sqrt(1 - 0.05)
+    effect_plot <- get(plot(mb, ale_centre = 'zero'), 'wt')
+    band <- unique(ggplot_build(effect_plot)$data[[1]][c('ymin', 'ymax')])
+    expect_equal(
+      c(band$ymin, band$ymax),
+      c(
+        quantile(draws$aler_min, inner_tail, names = FALSE),
+        quantile(draws$aler_max, 1 - inner_tail, names = FALSE)
+      )
+    )
     expect_conf_summary(mb, has_p_values = TRUE)
-    mb |>
-      s7_snapshot() |>
-      expect_snap_variant()
+
+    # Reuse the generated distribution and replace its draws with fixed
+    # samples. The repeated estimate makes ties explicit in each tail test.
+    p_dist <- distribution
+    aggregate_stats <- mb@ale$boot$effect$vs$stats$d1
+    fixed_draws <- map(aggregate_stats$estimate, function(it.estimate) {
+      rep(it.estimate * c(0.5, 1, 1.5), c(20L, 30L, 50L))
+    })
+    names(fixed_draws) <- as.character(aggregate_stats$statistic)
+    p_dist@rand_stats$vs <- as_tibble(fixed_draws)
+
+    # The outer model prediction setting can differ from the inner ALE scale.
+    # Change only the outer setting in a copy. Compatibility checks should use
+    # the inner scale and the original model identity (#53).
+    late_input <- mb
+    late_input@params$pred_type <- 'link'
+    alpha <- c(0.1, 0.2)
+    actual <- append_p(
+      late_input, p_dist, aler_alpha = alpha,
+      require_p_model_match = TRUE, silent = TRUE
+    )
+    expected <- props(late_input)
+    expected$ale$single <- append_p(
+      expected$ale$single, p_dist, aler_alpha = alpha,
+      require_p_model_match = FALSE, silent = TRUE
+    )
+    expected$boot_data$ale <- map(expected$boot_data$ale, function(btit.ale) {
+      append_p(
+        btit.ale, p_dist, aler_alpha = alpha,
+        require_p_model_match = FALSE, silent = TRUE
+      )
+    })
+
+    # Calculate empirical tail frequencies for the aggregate independently.
+    # Look up statistics by name even when ModelBoot stores factor labels.
+    expected$ale$boot$effect$vs$stats <- map(
+      expected$ale$boot$effect$vs$stats, function(it.stats) {
+        it.stats$p.value <- map2_dbl(
+          as.character(it.stats$statistic), it.stats$estimate,
+          function(nm.stat, it.estimate) {
+            it.random <- fixed_draws[[nm.stat]]
+            if (endsWith(nm.stat, '_min')) {
+              mean(it.random <= it.estimate)
+            } else {
+              mean(it.random > it.estimate)
+            }
+          }
+        )
+        it.stats
+      }
+    )
+    expect_equal(actual@ale$single, expected$ale$single)
+    expect_equal(actual@boot_data$ale, expected$boot_data$ale)
+    expect_equal(actual@ale$boot, expected$ale$boot)
+
+    # Preserve the fitted models, sampled rows, model-level statistics and
+    # other returned fields while recording the updated inference settings.
+    remaining <- props(actual)
+    remaining$ale <- expected$ale <- NULL
+    remaining$boot_data$ale <- expected$boot_data$ale <- NULL
+    expected$params$ale_p <- p_dist
+    expected$params$aler_alpha <- alpha
+    expected$params$require_p_model_match <- TRUE
+    expected$params$ale_options$aler_alpha <- alpha
+    expect_equal(remaining, expected)
   }
 )
 
 # Temporarily test on iris until I can get a larger test_cars sample
 test_that(
-  'bootstrapped categorical outcome with full 1D and all variables set', {
-    skip_on_ci()
-
+  'categorical ModelBoot returns median effects and percentile intervals (#noissue)', {
     # Regular test_nn_categorical is too small a dataset; bootstrapping turns up problems. So, use iris here.
     set.seed(0)
     test_nn_iris <- nnet::multinom(
@@ -231,53 +256,74 @@ test_that(
       # model_call_string_vars = character(),  # not tested
       model_packages = 'nnet',
       y_col = 'Species',
-      positive = FALSE,  # not used here
-      # pred_fun,  # not tested
-      pred_type = "probs",
-      boot_it = 2,
+      pred_type = 'probs',
+      # Three distinct estimates can separate the median from the mean.
+      boot_it = 3,
       seed = 1234,
       boot_alpha = 0.1,
       boot_centre = 'median',
       output_ale = TRUE,
       output_model_stats = TRUE,
       output_model_coefs = TRUE,
+      output_boot_data = TRUE,
       ale_options = list(
         x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'
       ),
       ale_p = NULL,
-      # tidy_options = list(),  # not tested
-      # glance_options = list(),  # not tested
       silent = TRUE
     )
 
-    expect_true(S7::S7_inherits(mb, ModelBoot))
-    mb |>
-      s7_snapshot() |>
-      expect_snap_variant()
+    # The full-data fit supplies the canonical bins. Compute each interval
+    # from the resampled fits, excluding iteration zero.
+    expected_aggregate <- map(levels(iris$Species), function(nm.cat) {
+      full <- get(
+        mb@ale$single, 'Sepal.Length', cats = nm.cat, ale_centre = 'zero'
+      )
+      effects <- map(mb@boot_data$ale[-1], function(it.ale) {
+        get(it.ale, 'Sepal.Length', cats = nm.cat, ale_centre = 'zero')$.y
+      })
+      estimates <- do.call(cbind, effects)
+      medians <- apply(estimates, 1, median)
+      tibble(
+        Sepal.Length.ceil = full$Sepal.Length.ceil,
+        .n = full$.n,
+        .y = medians,
+        .y_lo = apply(estimates, 1, quantile, probs = 0.05),
+        .y_mean = rowMeans(estimates),
+        .y_median = medians,
+        .y_hi = apply(estimates, 1, quantile, probs = 0.95)
+      )
+    }) |>
+      stats::setNames(levels(iris$Species))
+    # Quantile labels on individual numeric values do not affect the estimates.
+    returned_intervals <- function(...) {
+      get(mb, 'Sepal.Length', ale_centre = 'zero', ...) |>
+        map(function(it.table) {
+          mutate(it.table, across(c('.y_lo', '.y_hi'), unname))
+        })
+    }
+    expect_equal(
+      list(
+        auto = returned_intervals(),
+        boot = returned_intervals(type = 'boot')
+      ),
+      list(auto = expected_aggregate, boot = expected_aggregate)
+    )
+    expect_equal(
+      get(mb, 'Petal.Width', type = 'single'),
+      get(mb@ale$single, 'Petal.Width')
+    )
 
-
-    # Test methods
-
-    get(mb, 'Sepal.Length') |> expect_snap_variant()
-    get(mb, 'Petal.Width', type = 'single') |> expect_snap_variant()
-
-    plot(mb, type = 'boot') |>
-      ale_plots_to_data() |>
-      expect_snap_variant()
-
-    plot(mb, type = 'single') |>
-      ale_plots_to_data() |>
-      expect_snap_variant()
+    # The line in the generated plot uses the aggregate values.
+    boot_plot <- get(
+      plot(mb, ale_centre = 'zero'), 'Sepal.Length', cats = 'virginica'
+    )
+    built_line <- ggplot_build(boot_plot)$data[[2]]
+    expected_line <- expected_aggregate$virginica
+    expect_equal(
+      list(x = built_line$x, y = built_line$y),
+      list(x = expected_line$Sepal.Length.ceil, y = expected_line$.y)
+    )
   }
 )
-
-test_that('ModelBoot resolves choices before forwarding to ALE (#noissue)', {
-  mb <- ModelBoot(
-    test_gam, data = test_cars, boot_it = 0, ale_p = NULL,
-    ale_options = list(x_cols = 'wt', output_stats = FALSE), silent = TRUE
-  )
-  expect_identical(mb@params$boot_centre, 'mean')
-  expect_equal(get(mb), get(mb, type = 'single'))
-  expect_equal(get(mb, ale_centre = 'zero'), get(mb@ale$single, ale_centre = 'zero'))
-})

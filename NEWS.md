@@ -10,6 +10,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 # ale (development version)
 
+## Under the hood
+
+* Completely cleaned up the test suite to be thorough yet minimalist.
+
 # ale 0.6.0
 
 ## New features

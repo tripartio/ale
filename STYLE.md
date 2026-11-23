@@ -65,6 +65,11 @@ if (length(values) > 0L) {
 }
 ```
 
+## Test files
+
+- Begin each `tests/testthat/test-*.R` file with a comment explaining what unites the tests in that file. Preserve these comments during cleanup and update them if the file's purpose changes.
+- Call functions imported through `NAMESPACE` by their unqualified names in tests. Use `pkg::fun()` only when needed for a function that is unavailable through imports or the test harness in the context where the call runs. Check the actual binding in R/ale-package.R.
+
 ## Documentation
 
 - Begin each locally written `@param` description with a compact type declaration, followed by the description. Include length, range, and nullability where applicable: `character(1).`, `numeric(2) from 0 to 1.`, `non-negative integer(1).`, `character or NULL.`, or `list of ALE objects.`. Do not wrap the declaration in parentheses or backticks. An unfamiliar class name may itself be backticked to identify it as a type. Inherit a shared description with `@inheritParams` rather than duplicating it. `...` may start with its forwarding contract instead of a type declaration.
