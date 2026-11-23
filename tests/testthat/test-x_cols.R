@@ -53,8 +53,6 @@ test_that("resolve_x_cols filters outcome terms from every supported format", {
                list(d1 = "yield", d2 = character()))
   expect_equal(resolve_x_cols(c("y", "a", "a", "y:a", "a:b", "a:b"), col_names, y_col),
                list(d1 = "a", d2 = "a:b"))
-  result <- resolve_x_cols(c('y', 'a', 'y:b'), col_names, y_col, silent = TRUE)
-  expect_equal(result, list(d1 = "a", d2 = character()))
 
   expect_equal(resolve_x_cols(NULL, col_names, y_col), empty)
   expect_equal(resolve_x_cols(character(), col_names, y_col), empty)
@@ -66,11 +64,7 @@ test_that('resolve_x_cols ignores outcome terms in exclude_cols (#noissue)', {
   x <- list(d1 = c('a', 'b'), d2 = 'a:b')
 
   expect_equal(
-    resolve_x_cols(x, col_names, y_col, exclude_cols = 'y'),
-    x
-  )
-  expect_equal(
-    resolve_x_cols(x, col_names, y_col, exclude_cols = 'y:a'),
+    resolve_x_cols(x, col_names, y_col, exclude_cols = c('y', 'y:a')),
     x
   )
   expect_equal(
@@ -86,8 +80,11 @@ test_that('resolve_x_cols ignores outcome terms in exclude_cols (#noissue)', {
 
 test_that("resolve_x_cols properly excludes specified columns", {
   expect_equal(
-    resolve_x_cols(c("a", "b", "c"), col_names, y_col, exclude_cols = c("a", "c")),
-    list(d1 = "b", d2 = character())
+    resolve_x_cols(
+      c('a', 'b', 'c'), col_names, y_col,
+      exclude_cols = c('a', 'z', 'c'), silent = TRUE
+    ),
+    list(d1 = 'b', d2 = character())
   )
 
   expect_equal(

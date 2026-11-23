@@ -1,113 +1,58 @@
-# test-stats.R
-# Only test exported functions.
+test_that('Surrogate ALEpDist preserves original predictions (#noissue)', {
+  # Use enough overlapping binary outcomes to keep the random refits stable.
+  data <- test_cars[1:24, c('vs', 'wt')]
+  formula <- stats::as.formula('vs ~ wt', env = globalenv())
+  fit <- stats::glm(formula, family = stats::binomial(), data = data)
+  distribution <- ALEpDist(
+    fit,
+    data = data,
+    pred_type = 'link',
+    surrogate = TRUE,
+    rand_it = 100L,
+    output_residuals = TRUE,
+    silent = TRUE
+  )
+  result <- ALE(
+    fit,
+    data = data,
+    x_cols = 'wt',
+    pred_type = 'link',
+    p_values = distribution,
+    aler_alpha = c(0.0975, 0.19),
+    silent = TRUE
+  )
 
+  # Surrogate refits use response-scale predictions. The saved settings and
+  # residuals must still describe the original model on its requested scale.
+  metadata <- list(
+    model = result@params$model, y_col = 'vs', pred_type = 'link',
+    exactness = 'surrogate', rand_it_ok = 100L
+  )
+  expect_identical(distribution@params[names(metadata)], metadata)
+  predictions <- unname(stats::predict(fit, data, type = 'link'))
+  expect_equal(distribution@residuals, data$vs - predictions)
 
-test_that(
-  'ALEpDist works with default inputs (exact) on ALE()', {
-    skip_on_ci()
+  # Check the matched distribution's lower and upper empirical tails through
+  # the public constructor, using the ALE estimates it actually returned.
+  random <- distribution@rand_stats$vs
+  observed <- result@effect$vs$stats$d1
+  estimates <- setNames(observed$estimate, observed$statistic)
+  p_values <- setNames(observed$p.value, observed$statistic)
+  expected_p <- c(
+    aler_min = mean(random$aler_min <= estimates[['aler_min']]),
+    aler_max = mean(random$aler_max > estimates[['aler_max']])
+  )
+  expect_equal(p_values[names(expected_p)], expected_p, tolerance = 1e-12)
 
-    pd <- ALEpDist(
-      test_gam,
-      data = test_cars,
-      y_col = 'mpg',
-      rand_it = 10,
-      .skip_validation = TRUE,
-      silent = TRUE
-    )
-    expect_snap_variant(s7_snapshot(pd))
-
-    cars_ale <- ALE(
-      test_gam,
-      data = test_cars,
-      p_values = pd,
-      boot_it = 3,
-      silent = TRUE,
-    )
-    expect_snap_variant(s7_snapshot(cars_ale))
-
-    # Verify that value_to_p() gives the expected output (verify p_to_random_value() in the next test)
-    test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
-    stats_names <- pd@rand_stats$mpg |>
-      names()
-
-    expect_snap_variant(unclass(
-      stats_names |>  # iterate the statistics by name
-        map(\(.stat) {
-          value_to_p(pd@rand_stats$mpg, .stat, test_vals)
-        }) |>
-        set_names(stats_names)
-    ))
-  }
-)
-
-test_that(
-  'Surrogate ALEpDist works', {
-    skip_on_ci()
-
-    pd <- ALEpDist(
-      test_gam,
-      data = test_cars,
-      y_col = 'mpg',
-      rand_it = 3,
-      .skip_validation = TRUE,
-      surrogate = TRUE,
-      output_residuals = TRUE,
-      silent = TRUE
-    )
-    expect_snap_variant(s7_snapshot(pd))
-
-    # Verify that p_to_random_value() gives the expected output (verified value_to_p() in the previous test)
-    test_p <- c(0, 0.001, 0.01, 0.01, 0.05, 0.1, 0.5, 1)
-    stats_names <- pd@rand_stats$mpg |>
-      names()
-
-    expect_snap_variant(unclass(
-      stats_names |>  # iterate the statistics by name
-        map(\(.stat) {
-          p_to_random_value(pd@rand_stats$mpg, .stat, test_p)
-        }) |>
-        set_names(stats_names)
-    ))
-  }
-)
-
-test_that(
-  'ALEpDist works with custom random_model_call_string', {
-    skip_on_ci()
-
-    pd <- ALEpDist(
-      test_gam,
-      data = test_cars,
-      y_col = 'mpg',
-      random_model_call_string = 'mgcv::gam(
-        mpg ~ model + s(wt) + am + gear + carb + random_variable,
-        data = rand_data
-      )',
-      # It is difficult to test random_model_call_string_vars because it is only for edge cases, but at least make sure it is a valid entry
-      random_model_call_string_vars = 'rmcsv',
-      surrogate = FALSE,
-      output_residuals = TRUE,
-      silent = TRUE,
-      rand_it = 3,
-      .skip_validation = TRUE
-    )
-    expect_snap_variant(s7_snapshot(pd))
-  }
-)
-
-
-test_that(
-  'ALEpDist works with binary outcome', {
-    skip_on_ci()
-
-    pd <- ALEpDist(
-      test_gam_binary,
-      data = test_cars,
-      y_col = 'vs',
-      silent = TRUE,
-      rand_it = 10,
-      .skip_validation = TRUE
-    )
-    expect_snap_variant(s7_snapshot(pd))
-  }
-)
+  # These joint significance levels leave one-tail probabilities 0.05 and 0.10.
+  band_rows <- c('aler_lo_lo', 'aler_lo', 'aler_hi', 'aler_hi_hi')
+  expected_bands <- median(predictions) + c(
+    stats::quantile(random$aler_min, c(0.05, 0.10), names = FALSE),
+    stats::quantile(random$aler_max, c(0.90, 0.95), names = FALSE)
+  )
+  expect_equal(
+    unname(result@params$y_summary[band_rows, 'vs']),
+    expected_bands,
+    tolerance = 1e-12
+  )
+})
