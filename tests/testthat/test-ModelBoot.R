@@ -43,87 +43,6 @@ test_that(
     )
     expect_identical(grids, rep(grids[1], length(grids)))
 
-    # Fixed draws include ties at every aggregate 1D estimate. This exercises
-    # inference on returned ModelBoot results without fitting randomized models.
-    FixedALEpDist <- S7::new_class(
-      'FixedALEpDist',
-      parent = ALEpDist,
-      constructor = function(rand_stats, residual_distribution, params) {
-        S7::new_object(
-          S7::S7_object(),
-          rand_stats = rand_stats,
-          residual_distribution = residual_distribution,
-          residuals = NULL,
-          params = params
-        )
-      }
-    )
-    aggregate_stats <- serial_mb@ale$boot$effect$mpg$stats$d1
-    draws <- purrr::map(aggregate_stats$estimate, function(it.estimate) {
-      rep(it.estimate * c(0.5, 1, 1.5), c(20L, 30L, 50L))
-    })
-    names(draws) <- as.character(aggregate_stats$statistic)
-    residuals <- test_cars$mpg - predict(
-      test_gam, newdata = test_cars, type = 'link'
-    )
-    p_dist <- FixedALEpDist(
-      list(mpg = dplyr::as_tibble(draws)),
-      univariateML::mlnorm(residuals),
-      list(
-        model = serial_mb@params$model, y_col = 'mpg', pred_type = 'link',
-        aled_fun = 'mad', rand_it = 100L, rand_it_ok = 100L, exactness = 'approx'
-      )
-    )
-
-    # The outer and inner prediction settings differ deliberately. Compatibility
-    # checks must use the inner ALE scale and the original model identity (#53).
-    alpha <- c(0.1, 0.2)
-    actual <- append_p(
-      serial_mb, p_dist, aler_alpha = alpha, require_p_model_match = TRUE
-    )
-    expected <- S7::props(serial_mb)
-    expected$ale$single <- append_p(
-      expected$ale$single, p_dist, aler_alpha = alpha,
-      require_p_model_match = FALSE
-    )
-    expected$boot_data$ale <- purrr::map(expected$boot_data$ale, function(btit.ale) {
-      append_p(btit.ale, p_dist, aler_alpha = alpha, require_p_model_match = FALSE)
-    })
-
-    # Independently calculate empirical tail frequencies for the aggregate,
-    # looking up statistics by name even when ModelBoot stores factor labels.
-    expected$ale$boot$effect$mpg$stats <- purrr::map(
-      expected$ale$boot$effect$mpg$stats, function(it.stats) {
-        it.stats$p.value <- purrr::map2_dbl(
-          as.character(it.stats$statistic), it.stats$estimate,
-          function(nm.stat, it.estimate) {
-            it.random <- draws[[nm.stat]]
-            if (endsWith(nm.stat, '_min')) {
-              mean(it.random <= it.estimate)
-            } else {
-              mean(it.random > it.estimate)
-            }
-          }
-        )
-        it.stats
-      }
-    )
-
-    expect_equal(actual@ale$single, expected$ale$single)
-    expect_equal(actual@boot_data$ale, expected$boot_data$ale)
-    expect_equal(actual@ale$boot, expected$ale$boot)
-
-    # Apart from the updated inference results, preserve the fitted models,
-    # sampled rows, model-level statistics and other returned fields.
-    remaining <- S7::props(actual)
-    remaining$ale <- expected$ale <- NULL
-    remaining$boot_data$ale <- expected$boot_data$ale <- NULL
-    expected$params$ale_p <- p_dist
-    expected$params$aler_alpha <- alpha
-    expected$params$require_p_model_match <- TRUE
-    expected$params$ale_options$aler_alpha <- alpha
-    expect_equal(remaining, expected)
-
     # Reuse the bootstrapped model to check forwarding of 2D display settings.
     hidden_bin_sizes <- plot(pll_mb, show_2d_bin_sizes = FALSE)
     hidden_2d <- get(hidden_bin_sizes, 'gear:carb')
@@ -250,6 +169,71 @@ test_that(
       )
     )
     expect_conf_summary(mb, has_p_values = TRUE)
+
+    # Reuse the generated distribution and replace its draws with fixed
+    # samples. The repeated estimate makes ties explicit in each tail test.
+    p_dist <- distribution
+    aggregate_stats <- mb@ale$boot$effect$vs$stats$d1
+    fixed_draws <- purrr::map(aggregate_stats$estimate, function(it.estimate) {
+      rep(it.estimate * c(0.5, 1, 1.5), c(20L, 30L, 50L))
+    })
+    names(fixed_draws) <- as.character(aggregate_stats$statistic)
+    p_dist@rand_stats$vs <- dplyr::as_tibble(fixed_draws)
+
+    # The outer model prediction setting can differ from the inner ALE scale.
+    # Change only the outer setting in a copy. Compatibility checks should use
+    # the inner scale and the original model identity (#53).
+    late_input <- mb
+    late_input@params$pred_type <- 'link'
+    alpha <- c(0.1, 0.2)
+    actual <- append_p(
+      late_input, p_dist, aler_alpha = alpha,
+      require_p_model_match = TRUE, silent = TRUE
+    )
+    expected <- S7::props(late_input)
+    expected$ale$single <- append_p(
+      expected$ale$single, p_dist, aler_alpha = alpha,
+      require_p_model_match = FALSE, silent = TRUE
+    )
+    expected$boot_data$ale <- purrr::map(expected$boot_data$ale, function(btit.ale) {
+      append_p(
+        btit.ale, p_dist, aler_alpha = alpha,
+        require_p_model_match = FALSE, silent = TRUE
+      )
+    })
+
+    # Calculate empirical tail frequencies for the aggregate independently.
+    # Look up statistics by name even when ModelBoot stores factor labels.
+    expected$ale$boot$effect$vs$stats <- purrr::map(
+      expected$ale$boot$effect$vs$stats, function(it.stats) {
+        it.stats$p.value <- purrr::map2_dbl(
+          as.character(it.stats$statistic), it.stats$estimate,
+          function(nm.stat, it.estimate) {
+            it.random <- fixed_draws[[nm.stat]]
+            if (endsWith(nm.stat, '_min')) {
+              mean(it.random <= it.estimate)
+            } else {
+              mean(it.random > it.estimate)
+            }
+          }
+        )
+        it.stats
+      }
+    )
+    expect_equal(actual@ale$single, expected$ale$single)
+    expect_equal(actual@boot_data$ale, expected$boot_data$ale)
+    expect_equal(actual@ale$boot, expected$ale$boot)
+
+    # Preserve the fitted models, sampled rows, model-level statistics and
+    # other returned fields while recording the updated inference settings.
+    remaining <- S7::props(actual)
+    remaining$ale <- expected$ale <- NULL
+    remaining$boot_data$ale <- expected$boot_data$ale <- NULL
+    expected$params$ale_p <- p_dist
+    expected$params$aler_alpha <- alpha
+    expected$params$require_p_model_match <- TRUE
+    expected$params$ale_options$aler_alpha <- alpha
+    expect_equal(remaining, expected)
   }
 )
 
