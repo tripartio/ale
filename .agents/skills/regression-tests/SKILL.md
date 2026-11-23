@@ -11,15 +11,16 @@ Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first. Fo
 
 - Test substantive public outputs with valid inputs and meaningful boundaries. Outputs include returned values, rendered results, and documented reports whose content is part of the interface.
 - Keep an expectation only if it protects an important, plausible regression and either adds coverage of a distinct output behavior or gives a materially clearer failure diagnostic. Prefer the smallest set of assertions that serves those purposes.
-- Treat suite size and coverage reports as signals for review. The 150–300 expectation sites were a planning target for the cleanup. Evaluate future changes by the behavior and diagnostics they protect.
+- Treat suite size and coverage reports as signals for review. Evaluate future changes by the behavior and diagnostics they protect.
 - Apply this policy when adding, modifying, or reviewing tests unless the maintainer explicitly directs otherwise.
 
-## When to change tests
+## When to create or change tests
 
+- Prioritize preventing errors through early validation of inputs for public exported functions. Use the existing validation infrastructure and conventions in `R/validation.R` and existing `rlang` and `cli` imports. Reject invalid inputs before expensive computation whenever practicable.
 - For a new public behavior or confirmed bug affecting an output, check whether an existing assertion already detects the failure. Prefer strengthening or replacing that assertion or extending its test block. Add a separate test when the existing tests cannot cover the failure clearly.
-- For a bug fix, verify that the focused output assertion detects the defect when practical. Test-first development is optional. For a refactor that preserves behavior, use the existing tests and add coverage only for a specific risk they miss.
-- Keep early input validation in production code using `R/validation.R`. Reproduce validation or condition bugs as needed during development. Any committed regression test must satisfy the output policy.
-- During a test cleanup, remove redundant and low-value assertions even when coverage decreases. Preserve distinct checks with useful failure diagnostics. Keep changes to existing tests within the task's scope.
+- For a bug fix, verify that the focused output assertion detects the defect when practical. For a refactor that preserves behavior, use the existing tests and add coverage only for a specific risk they miss.
+- If applying test-first development for MREs, prioritize the principles here: adapt existing tests when possible; only create new tests when the new feature or bug is not covered by existing tests.
+- Reproduce validation or condition bugs as needed during development. Any committed regression test must satisfy the output policy.
 
 ## Condition and smoke checks
 
@@ -36,7 +37,6 @@ Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first. Fo
 
 - Exercise internal calculations through public outputs wherever practical. Retain or propose a direct internal output test only for a critical mathematical calculation or invariant whose failure would materially affect results and cannot be adequately isolated through a practical public-output test.
 - State what could go wrong, why it matters, and why a public assertion is insufficient. Give the exception an independent expected result or mathematical property and use the smallest inputs that expose the error. Ask the maintainer if the need for an exception is doubtful.
-- Keep `test-array.R` in a separate file for the eventual move of `array.R`. Its direct comparison checks all four directional interpolation results, including an unbounded cell.
 
 ## Efficiency and maintenance
 
@@ -44,4 +44,4 @@ Read [AGENTS.md](../../../AGENTS.md) and [STYLE.md](../../../STYLE.md) first. Fo
 - Prefer extending an existing relevant test block, even when the file becomes longer, over creating separate tests that need new expensive objects.
 - When needed, adjust an existing fixture's settings to cover the intended behavior. Use representative cases and the fewest production-valid draws, resamples, and model fits that still exercise it.
 - Follow the five-second test limit in `AGENTS.md`.
-- Preserve the maintainer's decisions to retain the independent reference in `test-ALEPlot-gold-standard.R` and the generic dispatch test in `test-generics.R` during cleanups.
+- Never modify `test-ALEPlot-gold-standard.R`.

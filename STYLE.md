@@ -68,7 +68,7 @@ if (length(values) > 0L) {
 ## Test files
 
 - Begin each `tests/testthat/test-*.R` file with a comment explaining what unites the tests in that file. Preserve these comments during cleanup and update them if the file's purpose changes.
-- Call functions imported through `NAMESPACE` by their unqualified names in tests. Use `pkg::fun()` only when needed for a function that is unavailable through imports or the test harness in the context where the call runs. Check the actual binding because a package listed in `DESCRIPTION` does not automatically make all its exports available by name.
+- Call functions imported through `NAMESPACE` by their unqualified names in tests. Use `pkg::fun()` only when needed for a function that is unavailable through imports or the test harness in the context where the call runs. Check the actual binding in R/ale-package.R.
 
 ## Documentation
 

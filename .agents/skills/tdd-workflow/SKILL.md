@@ -19,7 +19,7 @@ For bug fixes, reproduce the defect with the supplied MRE or a small determinist
 
 Before editing tests, read the relevant `test_that()` blocks, their helpers, and any snapshots or parameterized cases that already cover the behavior. Identify the plausible failure, the public output that would reveal it, and how to derive the expected result independently. If an existing assertion already catches it with a useful diagnostic, keep that assertion. Otherwise, look for an assertion to tighten or replace, or a block to extend, before adding a test.
 
-Review overlap again after editing. Combine assertions on related results if the comparison still identifies what failed. Keep a separate assertion when it identifies a different failure or adds a useful diagnosis. For a full suite inventory, give every expectation site a verdict, organized by file and `test_that()` block and by expectation function. Identify critical mathematical exceptions and explain their individual value. Count source expectation sites separately from the runtime pass total, which can include repeated executions of a site.
+Review overlap again after editing. Combine assertions on related results if the comparison still identifies what failed. Keep a separate assertion when it identifies a different failure or adds a useful diagnosis. 
 
 ## Reuse resources and limit runtime
 
@@ -27,7 +27,7 @@ Inspect `tests/testthat/helper.R` for reusable resources such as `test_cars`, `t
 
 Keep each new individual test within the five-second limit in `AGENTS.md`, preferably much faster. Count attributable new fixture/setup work rather than moving expensive computation out of the test body to hide its cost. Simplify data and reuse suitable fixtures first; explain and obtain explicit permission before introducing a necessary slower test.
 
-Check that smaller fixtures still exercise the intended behavior. The categorical `ALE()` integration test has an approved exception for `rand_it = 10L` with `.skip_validation = TRUE` to exercise downstream output calculations. Use production-valid settings when the fixture represents a valid reference distribution for inference. Obtain an explicit maintainer override before introducing another bypass of a production minimum in a regression fixture.
+Check that smaller fixtures still exercise the intended behavior. Use production-valid settings when the fixture represents a valid reference distribution for inference. Obtain an explicit maintainer override before introducing another bypass of a production minimum in a regression fixture.
 
 New `test_that()` descriptions end with verified issue references, or `(#noissue)` when none applies. Never invent or copy illustrative issue numbers.
 
@@ -39,10 +39,10 @@ Apply the snapshot criteria in `regression-tests` before choosing a snapshot. Re
 
 - Prefer a single shared baseline when the substantive output is portable. Reuse `s7_snapshot()` for compatible S7 outputs. Document any normalization and ensure that it preserves the precision and attributes relevant to the behavior under test.
 - Snapshot the intended output. Keep incidental warnings and messages out of the baseline when they accompany that output.
-- Verify that the comparison ran in the environment you report. The categorical test's existing CI skip means that a successful coverage job does not verify its snapshot. Keep snapshot comparisons enabled in the applicable local checks and investigate unexpected diffs.
+- Verify that the comparison ran in the environment you report. Keep snapshot comparisons enabled in the applicable local checks and investigate unexpected diffs.
 - Review the proposed diff against expected behavior before accepting it. If a platform-specific variant is necessary, review and update that variant on the corresponding platform.
 
-For an intentional change, use testthat's review and acceptance workflow for the affected file. The shared categorical snapshot uses these commands.
+For an intentional change, use testthat's review and acceptance workflow for the affected file. 
 
 ```r
 testthat::snapshot_review('ALE-categorical.md')
