@@ -620,11 +620,11 @@ calc_ale <- function(
   if (length(constant_term) > 0L) {
     # Zero effects are already centred; singleton coordinates have no intervals
     # over which to calculate the ordinary centring constants.
+    shift <- if (ixn_d == 2L) c('TRUE' = 0, 'FALSE' = 0) else c('TRUE' = 0)
     ale_diff <- map(y_cats, \(it.cat) {
       list(
-        shift = 0,
-        distinct = if (ixn_d == 2) matrix(0, x1$n_bins, x2$n_bins) else NULL,
-        composite = NULL
+        shift = shift,
+        distinct2_x12 = if (ixn_d == 2L) matrix(0, x1$n_bins, x2$n_bins)
       )
     }) |>
       set_names(y_cats)
@@ -807,8 +807,10 @@ calc_ale <- function(
         .comp = FALSE,
         .y = ale_diff |>
           map(\(it.cat) it.cat$distinct2_x12) |>
-          unlist() |>
-          unname() |>
+          map(as.vector) |>
+          # The category is the fastest-changing index in as.data.frame.table().
+          do.call(what = rbind) |>
+          as.vector() |>
           # Replicate for each bootstrap iteration + for full dataset
           rep(times = boot_it + 1)
       )
@@ -867,12 +869,6 @@ calc_ale <- function(
   )
 
 
-  # When bootstrapping, remove first iteration: ALE on full dataset
-  if (boot_it > 0) {
-    boot_ale_tbl <- boot_ale_tbl |>
-      filter(.data$.it != 0)
-  }
-
   #TODO: In the future, maybe return this boot_ray if users want it.
 
   #TODO: report incomplete bootstraps (with some NA values).
@@ -892,8 +888,9 @@ calc_ale <- function(
       select(-'.it')
   }
   else {  # boot_it > 0
-    # aggregate bootstrap results
+    # Aggregate resamples only. Keep the full-data iteration in the raw output.
     bsumm <- boot_ale_tbl |>
+      filter(.data$.it != 0L) |>
       summarize(
         .by = c('.comp', '.cat', all_of(x_cols)),
         # Retrieve the lower, median, and upper quantiles in a single list column.

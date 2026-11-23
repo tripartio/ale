@@ -37,7 +37,7 @@ test_that('Surrogate ALEpDist preserves original predictions (#noissue)', {
   # Check the matched distribution's lower and upper empirical tails through
   # the public constructor, using the ALE estimates it actually returned.
   random <- distribution@rand_stats$vs
-  observed <- result@effect$vs$stats$d1
+  observed <- result@composite$vs$stats
   estimates <- setNames(observed$estimate, observed$statistic)
   p_values <- setNames(observed$p.value, observed$statistic)
   expected_p <- c(

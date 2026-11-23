@@ -20,6 +20,10 @@ A major change in this version is the formal distinction between composite and d
 
 * Completely cleaned up the test suite to be thorough yet minimalist.
 
+## Bug fixes
+
+* The composite and distinct ALE structure supports zero estimates for constant terms, retained bootstrap iterations, late statistics and p-values, and plot retrieval and customization.
+
 
 # ale 0.6.0
 

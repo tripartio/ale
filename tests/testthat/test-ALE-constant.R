@@ -18,7 +18,7 @@ zero_ale_boot <- function(coordinates, iterations, counts) {
   zero <- numeric(length(iterations))
   c(
     list(.it = iterations), coordinates,
-    list(.y_composite = zero, .n = counts, .y_distinct = zero, .y = zero)
+    list(.y = zero, .n = counts)
   )
 }
 

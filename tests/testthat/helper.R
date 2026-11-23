@@ -20,13 +20,13 @@ options(progressr.enable = FALSE)
 # values, attributes, other output components, and saved parameters are retained.
 #' @param ale_obj `ALE` object. Public result whose outputs will be compared.
 ALE_output <- function(ale_obj) {
-  output <- props(ale_obj)
-  output$effect <- map(output$effect, function(it.effect) {
-    it.effect$stats <- map(it.effect$stats, function(it.stats) {
-      if (!is.data.frame(it.stats)) return(it.stats)
-      it.stats[sort(names(it.stats))]
-    })
-    it.effect
+  output <- props(ale_obj)[c('composite', 'params')]
+  output$composite <- map(output$composite, function(it.category) {
+    it.stats <- it.category$stats
+    if (is.data.frame(it.stats)) {
+      it.category$stats <- it.stats[sort(names(it.stats))]
+    }
+    it.category
   })
   output
 }

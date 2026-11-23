@@ -816,7 +816,9 @@ ALE <- new_class(
           )
 
         ale_struc[['composite']][[it.cat]]$d1 <- it.ar_1D[['composite']]
-        ale_struc[['distinct']][[it.cat]]$d1  <- it.ar_1D[['distinct']]
+        if (!is.null(it.ar_1D[['distinct']])) {
+          ale_struc[['distinct']][[it.cat]]$d1 <- it.ar_1D[['distinct']]
+        }
       }
 
       # Assign 2D ALE results to ale_struc
@@ -865,7 +867,9 @@ ALE <- new_class(
           )
 
         ale_struc[['composite']][[it.cat]]$d2 <- it.ar_2D[['composite']]
-        ale_struc[['distinct']][[it.cat]]$d2  <- it.ar_2D[['distinct']]
+        if (!is.null(it.ar_2D[['distinct']])) {
+          ale_struc[['distinct']][[it.cat]]$d2 <- it.ar_2D[['distinct']]
+        }
       }  # if (length(x_cols) >= 2 && length(x_cols$d2) >= 2) {
 
     }
@@ -889,7 +893,7 @@ ALE <- new_class(
 
     # Consolidate statistics
     if (output_stats) {
-      for (it.comp in c('composite', 'distinct')) {
+      for (it.comp in names(ale_struc)) {
         for (it.cat in y_cats) {
           it.stats <- ale_struc[[it.comp]][[it.cat]][['stats']]
           ale_struc[[it.comp]][[it.cat]][['stats']] <- if (!is.null(it.stats)) {
@@ -904,7 +908,7 @@ ALE <- new_class(
             NULL
           }
         }  # for (it.cat in y_cats)
-      }  # for (it.comp in c('composite', 'distinct'))
+      }  # End composition iteration.
     }  # if (output_stats) {
 
 

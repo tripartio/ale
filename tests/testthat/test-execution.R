@@ -24,7 +24,7 @@ test_that('ALE restores the caller RNG and respects the supplied seed (#noissue)
   set.seed(123L, kind = 'Mersenne-Twister')
   first <- make_ale(17L)
   expect_identical(stats::runif(3L), expected_draws)
-  expect_equal(make_ale(17L)@effect, first@effect)
+  expect_equal(make_ale(17L)@composite, first@composite)
   expect_false(identical(
     make_ale(18L)@composite$mpg$boot_data$d1$wt$.n,
     first@composite$mpg$boot_data$d1$wt$.n

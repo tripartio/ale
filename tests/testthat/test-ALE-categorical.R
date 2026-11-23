@@ -26,8 +26,10 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
     silent = TRUE
   )
 
+  # The legacy snapshot covered the effects and parameters.
+  composite_output <- s7_snapshot(cat_cars_ale)[c('composite', 'params')]
   expect_snapshot(
-    writeLines(trimws(capture.output(dput(s7_snapshot(cat_cars_ale))), 'right')),
+    writeLines(trimws(capture.output(dput(composite_output)), 'right')),
     cran = TRUE
   )
 
@@ -35,7 +37,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   # predictor for d2_all so every excluded pair uses the stored orientation.
   predictors <- setdiff(names(test_cars), 'continent')
   interactions <- utils::combn(predictors, 2L, paste, collapse = ':')
-  effects <- map(cat_cars_ale@effect, function(it.effect) {
+  effects <- map(cat_cars_ale@composite, function(it.effect) {
     list(d1 = it.effect$ale$d1[predictors], d2 = it.effect$ale$d2[interactions])
   })
   categories <- c('Asia', 'Europe')
@@ -78,7 +80,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
 
   # Compare raw draws and the wide estimate output to its long-table reference.
   draws <- get(cat_cars_ale, 'gear', what = 'boot_data', ale_centre = 'zero')
-  asia_stats <- cat_cars_ale@effect$Asia$stats$d1
+  asia_stats <- cat_cars_ale@composite$Asia$stats
   asia_stats <- asia_stats[asia_stats$term == 'gear', ]
   wide_estimates <- as_tibble(c(
     list(term = 'gear'),
@@ -86,7 +88,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   ))
   estimates <- get(cat_cars_ale, 'gear', cats = 'Asia', stats = 'estimate') |>
     mutate(across(where(is.numeric), unname))
-  expect_equal(draws$Asia, cat_cars_ale@effect$Asia$boot_data$d1$gear)
+  expect_equal(draws$Asia, cat_cars_ale@composite$Asia$boot_data$d1$gear)
   expect_equal(estimates, wide_estimates)
   expect_requested_stats_order(cat_cars_ale)
 
@@ -205,21 +207,20 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   })
   expected <- ALE_output(cat_cars_ale)
   expected$params$p_values <- replacement
-  expected$effect <- imap(expected$effect, function(it.effect, nm.cat) {
+  expected$composite <- imap(expected$composite, function(it.effect, nm.cat) {
     samples <- replacement@rand_stats[[nm.cat]]
-    it.effect$stats <- map(it.effect$stats, function(data) {
-      data$p.value <- map2_dbl(
-        data$statistic, data$estimate, function(nm.stat, it.estimate) {
-          values <- samples[[nm.stat]]
-          if (endsWith(nm.stat, '_min')) {
-            mean(values <= it.estimate)
-          } else {
-            mean(values > it.estimate)
-          }
+    it.stats <- it.effect$stats
+    it.stats$p.value <- map2_dbl(
+      it.stats$statistic, it.stats$estimate, function(nm.stat, it.estimate) {
+        values <- samples[[nm.stat]]
+        if (endsWith(nm.stat, '_min')) {
+          mean(values <= it.estimate)
+        } else {
+          mean(values > it.estimate)
         }
-      )
-      data
-    })
+      }
+    )
+    it.effect$stats <- it.stats
     it.effect
   })
   band_rows <- c('aler_lo_lo', 'aler_lo', 'aler_hi', 'aler_hi_hi')
@@ -256,10 +257,8 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   without_p$params$y_summary <- y_summary[
     !rownames(y_summary) %in% band_rows, , drop = FALSE
   ]
-  without_p$effect <- map(without_p$effect, function(it.effect) {
-    it.effect$stats <- map(it.effect$stats, function(data) {
-      data[setdiff(names(data), 'p.value')]
-    })
+  without_p$composite <- map(without_p$composite, function(it.effect) {
+    it.effect$stats$p.value <- NULL
     it.effect
   })
   no_p <- append_stats(cat_cars_ale, p_values = NULL, silent = TRUE)
@@ -317,14 +316,14 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   for (it.zoomed in list(zoom_xy, zoom_yx, zoom_both)) {
     expect_equal(
       list(
-        limits = it.zoomed@plots$Asia$d1$wt$coordinates$limits,
-        europe = it.zoomed@plots$Europe,
-        asia_interactions = it.zoomed@plots$Asia$d2
+        limits = it.zoomed@plots$composite$Asia$d1$wt$coordinates$limits,
+        europe = it.zoomed@plots$composite$Europe,
+        asia_interactions = it.zoomed@plots$composite$Asia$d2
       ),
       list(
         limits = same_limits,
-        europe = plots@plots$Europe,
-        asia_interactions = plots@plots$Asia$d2
+        europe = plots@plots$composite$Europe,
+        asia_interactions = plots@plots$composite$Asia$d2
       )
     )
   }
@@ -346,10 +345,10 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
     customize('wt', cats = 'Asia')
   expect_equal(
     list(
-      asia = per_plot@plots$Asia$d1$wt$coordinates$limits,
-      europe = per_plot@plots$Europe$d1$wt$coordinates$limits,
-      layer_first = layer_first@plots$Asia$d1$wt$coordinates$limits,
-      replaced = replaced@plots$Asia$d1$wt$coordinates$limits
+      asia = per_plot@plots$composite$Asia$d1$wt$coordinates$limits,
+      europe = per_plot@plots$composite$Europe$d1$wt$coordinates$limits,
+      layer_first = layer_first@plots$composite$Asia$d1$wt$coordinates$limits,
+      replaced = replaced@plots$composite$Asia$d1$wt$coordinates$limits
     ),
     list(
       asia = same_limits, europe = other_limits, layer_first = same_limits,

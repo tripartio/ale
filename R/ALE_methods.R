@@ -106,21 +106,14 @@ method(get, ALE) <- function(
   # Never skip this validation step!
   rlang::check_dots_empty()
 
-  x_cols <- if (is.null(x_cols)) {
-    # Retrieve everything available
-    obj@params$requested_x_cols
-  } else {
-    resolve_x_cols(
-      x_cols = x_cols,
-      # In addition to resolving x_cols format,
-      # only validates that requested columns are valid in the dataset,
-      # not valid in the ALE object.
-      col_names = obj@params$data$data_sample |> colnames(),
-      y_col = obj@params$y_col,
-      exclude_cols = exclude_cols,
-      silent = silent
-    )
-  }
+  # Resolve exclusions against the stored terms when no selection was supplied.
+  x_cols <- resolve_x_cols(
+    x_cols = x_cols %||% obj@params$requested_x_cols,
+    col_names = names(obj@params$data$data_sample),
+    y_col = obj@params$y_col,
+    exclude_cols = exclude_cols,
+    silent = silent
+  )
 
   unavailable_terms <- setdiff(
     x_cols |>
@@ -208,12 +201,11 @@ method(get, ALE) <- function(
     })
 
   # Adjust x_cols to requested composition
+  first_category <- purrr::pluck(all_what, 1L)
   available_terms <- if (what == 'stats') {
-    all_what[[1]] |>
-      pull(term) |>
-      unique()
+    unique(first_category$term)
   } else {
-    all_what[[1]] |>  # obtain structure from the first category
+    first_category |>
       map(\(it.d) names(it.d)) |>
       unlist() |>
       unname()
@@ -256,13 +248,18 @@ method(get, ALE) <- function(
 
   if (what == 'stats') {
     specific_what <- all_what |>
-      imap(\(it.cat_stats, it.cat_name) {
-        if (it.cat_stats |> is.data.frame()) {
-          it.cat_stats <- it.cat_stats |>
-            filter(term %in% unlist(x_cols))
+      map(function(it.cat_stats) {
+        # Storage combines dimensions in one table. Return the documented
+        # d1/d2 structure and use the dimension column only for selection.
+        imap(x_cols, function(it.terms, nm.d) {
+          it.dimension <- as.integer(str_sub(nm.d, 2L))
+          if (!any(it.cat_stats$d == it.dimension)) return(NULL)
+          it.stats <- it.cat_stats |>
+            filter(.data$d == it.dimension, .data$term %in% it.terms) |>
+            select(-'d')
 
-          it.cat_stats <- if (stats |> is_string('estimate')) {
-            it.cat_stats |>
+          if (is_string(stats, 'estimate')) {
+            it.stats |>
               pivot_wider(
                 id_cols = 'term',
                 names_from = 'statistic',
@@ -270,23 +267,19 @@ method(get, ALE) <- function(
               )
           }
           else if (all(stats %in% stats_names)) {
-            it.d_stats |>
+            it.stats |>
               filter(statistic %in% stats) |>
               arrange(match(term, unique(term)), match(statistic, stats))
           }
           else if (stats |> is_string('all')) {
-            it.d_stats
+            it.stats
           }
           else {
             cli_abort('Invalid value for {.arg stats}: {stats}')
           }
 
-          it.cat_stats
-        }
-        else {
-          NULL
-        }
-      })  # imap(\(it.cat_stats, it.cat_name)
+        })
+      })
   }
   else if (stats |> is_string(c('conf_regions', 'conf_sig'))) {
     if (is.null(obj@params$p_values)) {
@@ -648,7 +641,8 @@ method(summary, ALE) <- function(
   } else {
     print(object, details = FALSE)
 
-    walk(c('composite', 'distinct'), \(it.comp) {
+    compositions <- c('composite', if (!is.null(object@distinct)) 'distinct')
+    walk(compositions, \(it.comp) {
       cat('\n')
       cat(rep('=', 72), sep = ''); cat('\n')
       cat(format_inline('{stringr::str_replace(it.comp, "^.", toupper)} ALE statistics\n'))
@@ -753,7 +747,9 @@ invert_probs <- function(
   ## Invert probabilities ----------
 
   for (it.comp in c('composite', 'distinct')) {
-    prop(ale_obj, comp) <- prop(ale_obj, comp) |>
+    it.data <- prop(ale_obj, it.comp)
+    if (is.null(it.data)) next
+    prop(ale_obj, it.comp) <- it.data |>
       map(\(it.cat_effect) {
         it.ale <- it.cat_effect$ale |>
           map(\(it.ale_d) {
@@ -767,8 +763,9 @@ invert_probs <- function(
               })
           })
 
-      it.stats <- it.cat_effect$stats |>
-        map(invert_stats)
+        it.stats <- if (!is.null(it.cat_effect$stats)) {
+          invert_stats(it.cat_effect$stats)
+        }
         # map(\(it.stats_d) {
         #   it.stats_d |>
         #     split(it.stats_d$term) |>
