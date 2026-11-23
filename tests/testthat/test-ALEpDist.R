@@ -1,3 +1,5 @@
+# Check surrogate p-value distributions and their downstream inference.
+
 test_that('Surrogate ALEpDist preserves original predictions (#noissue)', {
   # Use enough overlapping binary outcomes to keep the random refits stable.
   data <- test_cars[1:24, c('vs', 'wt')]
@@ -47,8 +49,8 @@ test_that('Surrogate ALEpDist preserves original predictions (#noissue)', {
   # These joint significance levels leave one-tail probabilities 0.05 and 0.10.
   band_rows <- c('aler_lo_lo', 'aler_lo', 'aler_hi', 'aler_hi_hi')
   expected_bands <- median(predictions) + c(
-    stats::quantile(random$aler_min, c(0.05, 0.10), names = FALSE),
-    stats::quantile(random$aler_max, c(0.90, 0.95), names = FALSE)
+    quantile(random$aler_min, c(0.05, 0.10), names = FALSE),
+    quantile(random$aler_max, c(0.90, 0.95), names = FALSE)
   )
   expect_equal(
     unname(result@params$y_summary[band_rows, 'vs']),

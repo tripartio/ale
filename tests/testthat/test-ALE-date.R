@@ -1,3 +1,5 @@
+# Check that Date predictors match the equivalent numeric ALE calculations.
+
 test_that('Date and numeric coordinates produce equivalent ALE outputs (#53)', {
   # The existing GAM's integer predictor can also represent epoch days.
   date_cars <- test_cars

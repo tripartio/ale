@@ -20,15 +20,49 @@ options(progressr.enable = FALSE)
 # values, attributes, other output components, and saved parameters are retained.
 #' @param ale_obj `ALE` object. Public result whose outputs will be compared.
 ALE_output <- function(ale_obj) {
-  output <- S7::props(ale_obj)
-  output$effect <- purrr::map(output$effect, function(it.effect) {
-    it.effect$stats <- purrr::map(it.effect$stats, function(it.stats) {
+  output <- props(ale_obj)
+  output$effect <- map(output$effect, function(it.effect) {
+    it.effect$stats <- map(it.effect$stats, function(it.stats) {
       if (!is.data.frame(it.stats)) return(it.stats)
       it.stats[sort(names(it.stats))]
     })
     it.effect
   })
   output
+}
+
+# Snapshot all S7 properties, including nested distributions, without model
+# hashes or platform noise in ordinary doubles. Retain classes and attributes.
+s7_snapshot <- function(object) {
+  normalize <- function(value) {
+    if (inherits(value, 'S7_object')) {
+      s7_snapshot(value)
+    } else if (is.data.frame(value)) {
+      ordinary <- map_lgl(value, function(it.col) {
+        is.double(it.col) && !is.object(it.col)
+      })
+      value[ordinary] <- map(value[ordinary], normalize)
+      value
+    } else if (
+      inherits(value, 'univariateML') || (is.double(value) && !is.object(value))
+    ) {
+      value <- round(value, 5L)
+      value[which(value == 0)] <- 0
+      # Near-zero residuals amplify platform noise in fitted log-likelihoods.
+      if (inherits(value, 'univariateML')) attr(value, 'logLik') <- NULL
+      value
+    } else if (is.list(value)) {
+      map(value, normalize)
+    } else {
+      value
+    }
+  }
+
+  properties <- props(object)
+  if (is.list(properties$params$model)) {
+    properties$params$model$hash <- NULL
+  }
+  map(properties, normalize)
 }
 
 # Check statistic order using existing test objects ------------
@@ -44,7 +78,7 @@ expect_requested_stats_order <- function(object, ...) {
         rows[match(stats, rows$statistic), ]
       }))
     } else if (is.list(reference)) {
-      purrr::map(reference, \(it.table) expected_tables(it.table, stats))
+      map(reference, \(it.table) expected_tables(it.table, stats))
     } else {
       reference
     }
@@ -75,7 +109,7 @@ expect_conf_summary <- function(object, has_p_values) {
         suppressMessages(summary(object, all_conf = all_conf))
       )
     )
-    shown <- purrr::map_lgl(headings, function(it.heading) {
+    shown <- map_lgl(headings, function(it.heading) {
       any(grepl(it.heading, output, fixed = TRUE))
     })
 
@@ -101,7 +135,7 @@ dbl_jitter <- stats::runif(nrow(var_cars), 0.99, 1.01)
 int_jitter <- sample(c(-1L, 0L, 1L), nrow(var_cars), replace = TRUE)
 
 test_cars <- var_cars |>
-  dplyr::bind_rows(
+  bind_rows(
     var_cars |>
       mutate(
         across(where(is.double), \(it.dbl) it.dbl * dbl_jitter)) |>

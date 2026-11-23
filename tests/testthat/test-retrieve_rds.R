@@ -1,11 +1,11 @@
-# Unit tests for retrieve_rds() ----
+# Check retrieval success, fallback expressions, and literal inputs.
 # We mock base::url() / base::readRDS() so no network/filesystem is touched.
 
 test_that("URL succeeds: returns serialized object; block not evaluated", {
   serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
   flag <- new.env(parent = emptyenv()); flag$ran <- FALSE
 
-  testthat::with_mocked_bindings(
+  with_mocked_bindings(
     url    = function(...) "mock-connection",
     readRDS = function(con) 'SERIALIZED_VALUE',
     .package = "base", {  # <- mock in the base namespace (where retrieve_rds resolves them)
@@ -26,7 +26,7 @@ test_that("URL succeeds: returns serialized object; block not evaluated", {
 test_that('URL failure returns the fallback block value (#noissue)', {
   serialized_objects_site <- "https://github.com/tripartio/ale/raw/wip/download"
 
-  testthat::with_mocked_bindings(
+  with_mocked_bindings(
     url     = function(...) "mock-connection",
     readRDS = function(con) { stop("boom", call. = FALSE) },  # force URL failure
     .package = "base", {

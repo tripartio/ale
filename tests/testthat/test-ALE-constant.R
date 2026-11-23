@@ -1,3 +1,5 @@
+# Check zero effects and intact grids, counts, and other effects for constant predictors.
+
 # Reuse the trained GAMs, multinomial model, and data from helper.R.
 suppress_constant_warning <- function(expr) {
   suppressWarnings(expr, classes = 'ale_constant_predictor')
@@ -152,7 +154,7 @@ test_that('both constant components have zero effects for all outcome levels (#5
   }
   expect_equal(
     get(result, ale_centre = 'zero') |>
-      purrr::map(\(it.data) purrr::map(it.data, identity)),
+      map(\(it.data) map(it.data, identity)),
     each_outcome(zero_ale_summary(
       list(carb.ceil = test_cars$carb[1], wt.ceil = test_cars$wt[1]),
       nrow(test_cars)
@@ -161,7 +163,7 @@ test_that('both constant components have zero effects for all outcome levels (#5
   )
   expect_equal(
     get(result, what = 'boot_data', ale_centre = 'zero') |>
-      purrr::map(as.list),
+      map(as.list),
     each_outcome(zero_ale_boot(
       list(carb = rep(test_cars$carb[1], 3), wt = rep(test_cars$wt[1], 3)),
       0:2, rep(nrow(test_cars), 3)
@@ -202,7 +204,7 @@ test_that('constant logical, categorical, ordered, and Date coordinates work (#n
       boot_coordinate <- factor(rep(label, 3))
     }
     expect_equal(
-      purrr::map(get(result, ale_centre = 'zero'), identity),
+      map(get(result, ale_centre = 'zero'), identity),
       zero_ale_summary(summary_coordinate, nrow(test_cars)),
       tolerance = 0
     )

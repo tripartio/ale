@@ -1,4 +1,4 @@
-# test-x_cols.R
+# Check how predictor selectors expand, filter, and combine requested terms.
 
 
 col_names <- c("y", "a", "b", "c")

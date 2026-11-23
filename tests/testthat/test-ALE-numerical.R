@@ -1,10 +1,12 @@
+# Check numerical binning, bootstrap output, statistics, and plot customization.
+
 # Keep binning tests synchronous and restore state before other tests run.
 with_serial_binning <- function(code) {
   original_seed <- .Random.seed
   on.exit(assign('.Random.seed', original_seed, envir = .GlobalEnv), add = TRUE)
-  testthat::with_mocked_bindings(
+  with_mocked_bindings(
     code,
-    future_map = function(.x, .f, ..., .options = NULL) purrr::map(.x, .f, ...),
+    future_map = function(.x, .f, ..., .options = NULL) map(.x, .f, ...),
     .package = 'furrr'
   )
 }
@@ -13,7 +15,7 @@ quantile_breaks <- function(values, intervals) {
   # Apley and Zhu use the inverse empirical distribution to choose each break.
   unique(c(
     min(values),
-    stats::quantile(values, seq_len(intervals) / intervals, type = 1, names = FALSE)
+    quantile(values, seq_len(intervals) / intervals, type = 1, names = FALSE)
   ))
 }
 
@@ -200,10 +202,10 @@ test_that('bootstrapped effects and categorical plot values agree (#noissue)', {
 
   cars_plots <- plot(cars_ale)
   gear_plot <- get(cars_plots, 'gear')
-  col_layer <- which(purrr::map_lgl(
+  col_layer <- which(map_lgl(
     gear_plot$layers, \(it.layer) inherits(it.layer$geom, 'GeomCol')
   ))
-  original <- ggplot2::ggplot_build(gear_plot)$data
+  original <- ggplot_build(gear_plot)$data
   columns <- original[[col_layer]]
   expect_equal(
     list(y = columns$y, width = as.numeric(columns$xmax - columns$xmin)),
@@ -217,18 +219,18 @@ test_that('bootstrapped effects and categorical plot values agree (#noissue)', {
   colours <- c(three = '#D55E00', four = '#0072B2', five = '#009E73')
   recoloured <- customize(
     cars_plots, x_cols = 'gear',
-    layers = list(ggplot2::scale_fill_manual(values = colours))
+    layers = list(scale_fill_manual(values = colours))
   )
   expected_layers <- original
   expected_layers[[col_layer]]$fill <- unname(
     colours[as.character(gear_effect$gear.bin)]
   )
   expect_equal(
-    ggplot2::ggplot_build(get(recoloured, 'gear'))$data,
+    ggplot_build(get(recoloured, 'gear'))$data,
     expected_layers
   )
   expect_identical(get(recoloured, 'wt'), get(cars_plots, 'wt'))
-  expect_equal(ggplot2::ggplot_build(get(cars_plots, 'gear'))$data, original)
+  expect_equal(ggplot_build(get(cars_plots, 'gear'))$data, original)
 })
 
 test_that('two-valued numeric and categorical bins need no numeric limits (#noissue)', with_serial_binning({
@@ -288,7 +290,7 @@ test_that('ALE statistics distinguish numeric and binary weights (#noissue)', {
   # Binary z uses the two observed levels directly, so its centre is
   # 4 * 3 / 8. Normalization counts ranks separately on each side of
   # the observed outcome median, with four observations on each side.
-  expected <- dplyr::tibble(
+  expected <- tibble(
     term = c('x', 'z'),
     aled = c(1.3125, 1.875),
     aler_min = c(-2.75, -1.5),
@@ -300,13 +302,13 @@ test_that('ALE statistics distinguish numeric and binary weights (#noissue)', {
     naler_max = c(37.5, 25)
   )
   actual <- get(result, stats = 'estimate') |>
-    dplyr::mutate(dplyr::across(-term, unname))
+    mutate(across(-term, unname))
   expect_equal(actual, expected, tolerance = 1e-8)
 })
 
 test_that('ALE statistics handle a constant outcome reference (#noissue)', {
   data <- test_cars
-  data$mpg[] <- stats::median(data$mpg)
+  data$mpg[] <- median(data$mpg)
   result <- ALE(
     test_gam,
     data = data,
@@ -320,12 +322,12 @@ test_that('ALE statistics handle a constant outcome reference (#noissue)', {
   # With all reference values at the median, nonzero effects attain
   # their signed half-percentile limits. The fitted GAM still produces
   # effects of both signs for wt and has no interval midpoint at zero.
-  expected <- dplyr::tibble(
+  expected <- tibble(
     term = 'wt',
     statistic = c('naled', 'naler_min', 'naler', 'naler_max'),
     estimate = c(50, -50, 100, 50)
   )
   actual <- get(result, stats = expected$statistic)[names(expected)] |>
-    dplyr::mutate(estimate = unname(estimate))
+    mutate(estimate = unname(estimate))
   expect_equal(actual, expected, tolerance = 1e-8)
 })

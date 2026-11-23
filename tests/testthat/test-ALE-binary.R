@@ -1,3 +1,5 @@
+# Check binary predictions, bootstrap effects, and late statistics.
+
 test_that('ALE preserves the effects of unnamed binary predictions (#noissue)', {
   original_seed <- .Random.seed
   on.exit(assign('.Random.seed', original_seed, envir = .GlobalEnv), add = TRUE)
@@ -71,8 +73,8 @@ test_that('binary ALE reports effects and statistics from its resamples (#noissu
 
     # The full-data draw and both resamples contain the original number of rows.
     # The ALER for each resample is the range of its effects across bins.
-    counts <- purrr::map_dbl(by_draw, function(btit.draw) sum(btit.draw$.n))
-    ranges <- purrr::map_dbl(by_draw[c('1', '2')], function(btit.draw) {
+    counts <- map_dbl(by_draw, function(btit.draw) sum(btit.draw$.n))
+    ranges <- map_dbl(by_draw[c('1', '2')], function(btit.draw) {
       diff(range(btit.draw$.y, na.rm = TRUE))
     })
     actual <- aler[[nm.dimension]]
@@ -86,7 +88,7 @@ test_that('binary ALE reports effects and statistics from its resamples (#noissu
     )
     expect_equal(
       unname(c(actual$estimate, actual$conf.low, actual$conf.high)),
-      c(mean(ranges), stats::quantile(ranges, c(0.025, 0.975), names = FALSE))
+      c(mean(ranges), quantile(ranges, c(0.025, 0.975), names = FALSE))
     )
   }
 })

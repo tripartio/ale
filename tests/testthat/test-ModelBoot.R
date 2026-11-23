@@ -1,4 +1,4 @@
-# test-ModelBoot.R
+# Check ModelBoot resampling, inference, and retrieval of effects and plots.
 
 
 test_that(
@@ -32,13 +32,13 @@ test_that(
     expect_equal(pll_mb@boot_data$row_idxs, serial_mb@boot_data$row_idxs)
     expect_equal(pll_mb@model_stats, serial_mb@model_stats)
     expect_equal(
-      purrr::map(pll_mb@boot_data$ale, \(it.ale) it.ale@effect),
-      purrr::map(serial_mb@boot_data$ale, \(it.ale) it.ale@effect)
+      map(pll_mb@boot_data$ale, \(it.ale) it.ale@effect),
+      map(serial_mb@boot_data$ale, \(it.ale) it.ale@effect)
     )
     expect_equal(pll_mb@ale$boot, serial_mb@ale$boot)
 
     # Agreement alone does not establish that every run uses the full-data grid.
-    grids <- purrr::map(
+    grids <- map(
       pll_mb@boot_data$ale, \(it.ale) it.ale@effect$mpg$ale$d1$wt$wt.ceil
     )
     expect_identical(grids, rep(grids[1], length(grids)))
@@ -48,7 +48,7 @@ test_that(
     hidden_2d <- get(hidden_bin_sizes, 'gear:carb')
     expect_equal(
       list(
-        layers = length(ggplot2::ggplot_build(hidden_2d)$data),
+        layers = length(ggplot_build(hidden_2d)$data),
         size_scale = hidden_2d$scales$get_scales('size')
       ),
       list(layers = 1L, size_scale = NULL)
@@ -100,8 +100,8 @@ test_that(
     # Both plot dimensions use the same full-data effects when there are no resamples.
     built_effects <- function(object) {
       plots <- plot(object)
-      purrr::map(c('wt', 'gear:carb'), function(nm.term) {
-        ggplot2::ggplot_build(get(plots, nm.term))$data
+      map(c('wt', 'gear:carb'), function(nm.term) {
+        ggplot_build(get(plots, nm.term))$data
       })
     }
     expect_equal(built_effects(mb), built_effects(single))
@@ -127,7 +127,7 @@ test_that(
     scores <- predict(test_gam_binary, newdata = test_cars, type = 'response')
     differences <- outer(scores[test_cars$vs], scores[!test_cars$vs], '-')
     full_auc <- mean(differences > 0) + mean(differences == 0) / 2
-    boot_auc <- purrr::map_dbl(mb@boot_data$perf[-1], 'auc')
+    boot_auc <- map_dbl(mb@boot_data$perf[-1], 'auc')
     auc_summary <- mb@model_stats[mb@model_stats$name == 'auc', ]
     expect_equal(
       unname(c(
@@ -135,7 +135,7 @@ test_that(
       )),
       c(
         0.368 * full_auc + 0.632 * mean(boot_auc),
-        stats::quantile(boot_auc, c(0.025, 0.975), names = FALSE)
+        quantile(boot_auc, c(0.025, 0.975), names = FALSE)
       )
     )
 
@@ -160,12 +160,12 @@ test_that(
     # The zero-centered graphic presents the inner joint ALER band.
     inner_tail <- 1 - sqrt(1 - 0.05)
     effect_plot <- get(plot(mb, ale_centre = 'zero'), 'wt')
-    band <- unique(ggplot2::ggplot_build(effect_plot)$data[[1]][c('ymin', 'ymax')])
+    band <- unique(ggplot_build(effect_plot)$data[[1]][c('ymin', 'ymax')])
     expect_equal(
       c(band$ymin, band$ymax),
       c(
-        stats::quantile(draws$aler_min, inner_tail, names = FALSE),
-        stats::quantile(draws$aler_max, 1 - inner_tail, names = FALSE)
+        quantile(draws$aler_min, inner_tail, names = FALSE),
+        quantile(draws$aler_max, 1 - inner_tail, names = FALSE)
       )
     )
     expect_conf_summary(mb, has_p_values = TRUE)
@@ -174,11 +174,11 @@ test_that(
     # samples. The repeated estimate makes ties explicit in each tail test.
     p_dist <- distribution
     aggregate_stats <- mb@ale$boot$effect$vs$stats$d1
-    fixed_draws <- purrr::map(aggregate_stats$estimate, function(it.estimate) {
+    fixed_draws <- map(aggregate_stats$estimate, function(it.estimate) {
       rep(it.estimate * c(0.5, 1, 1.5), c(20L, 30L, 50L))
     })
     names(fixed_draws) <- as.character(aggregate_stats$statistic)
-    p_dist@rand_stats$vs <- dplyr::as_tibble(fixed_draws)
+    p_dist@rand_stats$vs <- as_tibble(fixed_draws)
 
     # The outer model prediction setting can differ from the inner ALE scale.
     # Change only the outer setting in a copy. Compatibility checks should use
@@ -190,12 +190,12 @@ test_that(
       late_input, p_dist, aler_alpha = alpha,
       require_p_model_match = TRUE, silent = TRUE
     )
-    expected <- S7::props(late_input)
+    expected <- props(late_input)
     expected$ale$single <- append_p(
       expected$ale$single, p_dist, aler_alpha = alpha,
       require_p_model_match = FALSE, silent = TRUE
     )
-    expected$boot_data$ale <- purrr::map(expected$boot_data$ale, function(btit.ale) {
+    expected$boot_data$ale <- map(expected$boot_data$ale, function(btit.ale) {
       append_p(
         btit.ale, p_dist, aler_alpha = alpha,
         require_p_model_match = FALSE, silent = TRUE
@@ -204,9 +204,9 @@ test_that(
 
     # Calculate empirical tail frequencies for the aggregate independently.
     # Look up statistics by name even when ModelBoot stores factor labels.
-    expected$ale$boot$effect$vs$stats <- purrr::map(
+    expected$ale$boot$effect$vs$stats <- map(
       expected$ale$boot$effect$vs$stats, function(it.stats) {
-        it.stats$p.value <- purrr::map2_dbl(
+        it.stats$p.value <- map2_dbl(
           as.character(it.stats$statistic), it.stats$estimate,
           function(nm.stat, it.estimate) {
             it.random <- fixed_draws[[nm.stat]]
@@ -226,7 +226,7 @@ test_that(
 
     # Preserve the fitted models, sampled rows, model-level statistics and
     # other returned fields while recording the updated inference settings.
-    remaining <- S7::props(actual)
+    remaining <- props(actual)
     remaining$ale <- expected$ale <- NULL
     remaining$boot_data$ale <- expected$boot_data$ale <- NULL
     expected$params$ale_p <- p_dist
@@ -276,31 +276,31 @@ test_that(
 
     # The full-data fit supplies the canonical bins. Compute each interval
     # from the resampled fits, excluding iteration zero.
-    expected_aggregate <- purrr::map(levels(iris$Species), function(nm.cat) {
+    expected_aggregate <- map(levels(iris$Species), function(nm.cat) {
       full <- get(
         mb@ale$single, 'Sepal.Length', cats = nm.cat, ale_centre = 'zero'
       )
-      effects <- purrr::map(mb@boot_data$ale[-1], function(it.ale) {
+      effects <- map(mb@boot_data$ale[-1], function(it.ale) {
         get(it.ale, 'Sepal.Length', cats = nm.cat, ale_centre = 'zero')$.y
       })
       estimates <- do.call(cbind, effects)
-      medians <- apply(estimates, 1, stats::median)
-      dplyr::tibble(
+      medians <- apply(estimates, 1, median)
+      tibble(
         Sepal.Length.ceil = full$Sepal.Length.ceil,
         .n = full$.n,
         .y = medians,
-        .y_lo = apply(estimates, 1, stats::quantile, probs = 0.05),
+        .y_lo = apply(estimates, 1, quantile, probs = 0.05),
         .y_mean = rowMeans(estimates),
         .y_median = medians,
-        .y_hi = apply(estimates, 1, stats::quantile, probs = 0.95)
+        .y_hi = apply(estimates, 1, quantile, probs = 0.95)
       )
     }) |>
       stats::setNames(levels(iris$Species))
     # Quantile labels on individual numeric values do not affect the estimates.
     returned_intervals <- function(...) {
       get(mb, 'Sepal.Length', ale_centre = 'zero', ...) |>
-        purrr::map(function(it.table) {
-          dplyr::mutate(it.table, dplyr::across(c('.y_lo', '.y_hi'), unname))
+        map(function(it.table) {
+          mutate(it.table, across(c('.y_lo', '.y_hi'), unname))
         })
     }
     expect_equal(
@@ -319,7 +319,7 @@ test_that(
     boot_plot <- get(
       plot(mb, ale_centre = 'zero'), 'Sepal.Length', cats = 'virginica'
     )
-    built_line <- ggplot2::ggplot_build(boot_plot)$data[[2]]
+    built_line <- ggplot_build(boot_plot)$data[[2]]
     expected_line <- expected_aggregate$virginica
     expect_equal(
       list(x = built_line$x, y = built_line$y),

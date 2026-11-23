@@ -1,3 +1,7 @@
+# Tests for array.R
+#
+# Most array.R functionality is tested in other code. This test file only covers options that are skipped in other tests to assure complete coverage.
+
 test_that('2D intrapolation returns directional estimates (#noissue)', {
   x <- rbind(
     c(NA, 4, 2, 14),

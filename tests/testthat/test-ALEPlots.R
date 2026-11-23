@@ -1,3 +1,5 @@
+# Check plot rendering, bin-size overlays, facet selection, and customization.
+
 test_that('2D bin sizes are optional without changing heatmaps or 1D plots', {
   cars_ale <- ALE(
     test_gam,
@@ -12,8 +14,8 @@ test_that('2D bin sizes are optional without changing heatmaps or 1D plots', {
   hidden <- plot(cars_ale, show_2d_bin_sizes = FALSE)
   shown_plot <- get(shown, 'gear:carb')
   hidden_plot <- get(hidden, 'gear:carb')
-  shown_2d <- ggplot2::ggplot_build(shown_plot)
-  hidden_2d <- ggplot2::ggplot_build(hidden_plot)
+  shown_2d <- ggplot_build(shown_plot)
+  hidden_2d <- ggplot_build(hidden_plot)
 
   # Compare plotted square areas to bin counts independently of scale limits.
   counts <- get(cars_ale, 'gear:carb')$.n
@@ -38,8 +40,8 @@ test_that('2D bin sizes are optional without changing heatmaps or 1D plots', {
     )
   )
   expect_equal(
-    ggplot2::ggplot_build(get(hidden, 'wt'))$data,
-    ggplot2::ggplot_build(get(shown, 'wt'))$data
+    ggplot_build(get(hidden, 'wt'))$data,
+    ggplot_build(get(shown, 'wt'))$data
   )
 })
 
@@ -64,9 +66,9 @@ test_that('2D bin sizes can be hidden in individual and faceted category plots',
   hidden <- ALEPlots(cat_ale, show_2d_bin_sizes = FALSE)
   # Check all the expected modes even if a returned category plot is missing.
   for (nm.cat in c(colnames(reference), '.all')) {
-    shown_2d <- ggplot2::ggplot_build(get(shown, 'gear:carb', cats = nm.cat))
+    shown_2d <- ggplot_build(get(shown, 'gear:carb', cats = nm.cat))
     hidden_plot <- get(hidden, 'gear:carb', cats = nm.cat)
-    hidden_2d <- ggplot2::ggplot_build(hidden_plot)
+    hidden_2d <- ggplot_build(hidden_plot)
     expect_equal(
       list(
         heatmap = hidden_2d$data,
@@ -90,9 +92,9 @@ test_that('plot choices preserve the all-category facet default (#noissue)', {
   plots <- ALEPlots(cat_ale)
   expect_null(get(plots, 'am', cats = 'Asia', type = 'effect'))
 
-  default <- ggplot2::ggplot_build(get(plots, cats = '.all'))
-  facet <- ggplot2::ggplot_build(get(plots, cats = '.all', type = 'facet'))
-  overlay <- ggplot2::ggplot_build(get(plots, cats = '.all', type = 'overlay'))
+  default <- ggplot_build(get(plots, cats = '.all'))
+  facet <- ggplot_build(get(plots, cats = '.all', type = 'facet'))
+  overlay <- ggplot_build(get(plots, cats = '.all', type = 'overlay'))
   expect_equal(
     list(
       data = default$data,
@@ -110,11 +112,11 @@ test_that('plot choices preserve the all-category facet default (#noissue)', {
   explicit_plot <- explicit@plots$.all_cats$d1$am
   expect_equal(
     list(
-      built = ggplot2::ggplot_build(changed_plot)$data,
+      built = ggplot_build(changed_plot)$data,
       requested_limits = changed_plot$coordinates$limits$y
     ),
     list(
-      built = ggplot2::ggplot_build(explicit_plot)$data,
+      built = ggplot_build(explicit_plot)$data,
       requested_limits = c(0, 1)
     )
   )

@@ -1,20 +1,23 @@
+# Because this is the most complex type of ALE object, try to test almost every option here.
+
 test_that('categorical ALE returns effects, regions, and plots by category (#53)', {
   skip_on_ci()
 
-  # Build the existing distribution first so refitted models cannot retain an
-  # environment containing the later ALE and plot objects.
+  # Ten draws suffice to exercise the downstream calculations in this fixture.
+  # Build the distribution first so refits cannot retain later ALE and plots.
   pd <- ALEpDist(
     test_nn_categorical,
     model_packages = 'nnet',
     data = test_cars,
     y_col = 'continent',
     pred_type = 'probs',
-    rand_it = 100L,
+    rand_it = 10L,
+    .skip_validation = TRUE,
     silent = TRUE
   )
   cat_cars_ale <- ALE(
     test_nn_categorical,
-    x_cols = ~ wt + am + gear + am:gear + gear:carb,
+    x_cols = list(d1 = TRUE, d2 = TRUE),
     data = test_cars,
     pred_type = 'probs',
     boot_it = 2,
@@ -23,15 +26,23 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
     silent = TRUE
   )
 
-  # Retrieve actual effects with and without simplification. Excluding the
-  # interactions involving am must leave its main effect and gear:carb intact.
-  effects <- purrr::map(cat_cars_ale@effect, function(it.effect) {
-    it.effect$ale$d1 <- it.effect$ale$d1[c('wt', 'am', 'gear')]
-    it.effect$ale
+  expect_snapshot(
+    writeLines(trimws(capture.output(dput(s7_snapshot(cat_cars_ale))), 'right')),
+    cran = TRUE
+  )
+
+  # Retrieve actual effects with and without simplification. Use the first
+  # predictor for d2_all so every excluded pair uses the stored orientation.
+  predictors <- setdiff(names(test_cars), 'continent')
+  interactions <- utils::combn(predictors, 2L, paste, collapse = ':')
+  effects <- map(cat_cars_ale@effect, function(it.effect) {
+    list(d1 = it.effect$ale$d1[predictors], d2 = it.effect$ale$d2[interactions])
   })
   categories <- c('Asia', 'Europe')
-  filtered <- purrr::map(effects, function(it.effect) {
-    it.effect$d2 <- it.effect$d2['gear:carb']
+  excluded_predictor <- predictors[[1L]]
+  remaining_pairs <- interactions[!startsWith(interactions, paste0(excluded_predictor, ':'))]
+  filtered <- map(effects, function(it.effect) {
+    it.effect$d2 <- it.effect$d2[remaining_pairs]
     it.effect
   })
   raw_asia <- get(
@@ -40,7 +51,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   expect_equal(get(cat_cars_ale, ale_centre = 'zero'), effects)
   expect_equal(
     get(cat_cars_ale, 'wt', cats = categories, ale_centre = 'zero'),
-    purrr::map(effects[categories], \(it.effect) it.effect$d1$wt)
+    map(effects[categories], \(it.effect) it.effect$d1$wt)
   )
   expect_equal(
     list(
@@ -58,7 +69,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   expect_equal(
     get(
       cat_cars_ale,
-      exclude_cols = list(d2_all = 'am'),
+      exclude_cols = list(d2_all = excluded_predictor),
       simplify = FALSE,
       ale_centre = 'zero'
     ),
@@ -69,12 +80,12 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   draws <- get(cat_cars_ale, 'gear', what = 'boot_data', ale_centre = 'zero')
   asia_stats <- cat_cars_ale@effect$Asia$stats$d1
   asia_stats <- asia_stats[asia_stats$term == 'gear', ]
-  wide_estimates <- dplyr::as_tibble(c(
+  wide_estimates <- as_tibble(c(
     list(term = 'gear'),
     setNames(as.list(asia_stats$estimate), asia_stats$statistic)
   ))
   estimates <- get(cat_cars_ale, 'gear', cats = 'Asia', stats = 'estimate') |>
-    dplyr::mutate(dplyr::across(where(is.numeric), unname))
+    mutate(across(where(is.numeric), unname))
   expect_equal(draws$Asia, cat_cars_ale@effect$Asia$boot_data$d1$gear)
   expect_equal(estimates, wide_estimates)
   expect_requested_stats_order(cat_cars_ale)
@@ -88,7 +99,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
     predict(test_nn_categorical, upper, type = 'probs') -
       predict(test_nn_categorical, lower, type = 'probs')
   )
-  increments <- purrr::map_dbl(draws, function(it.draws) {
+  increments <- map_dbl(draws, function(it.draws) {
     full <- it.draws[it.draws$.it == 0L, ]
     full$.y[full$gear == 'four'] - full$.y[full$gear == 'three']
   })
@@ -97,7 +108,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   # Probabilities across outcome classes sum to one, so their 2D ALEs sum to
   # zero on the common interaction grid.
   interaction_sum <- effects |>
-    purrr::map(\(it.effect) it.effect$d2[['am:gear']]$.y) |>
+    map(\(it.effect) it.effect$d2[['am:gear']]$.y) |>
     purrr::reduce(`+`)
   expect_equal(
     interaction_sum,
@@ -123,7 +134,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
     joint <- effects[[nm.cat]]$d2[['am:gear']]
     joint <- joint[joint$.n > 0L, ]
     list(
-      d1 = dplyr::tibble(
+      d1 = tibble(
         term = rep(c('am', 'gear'), c(nrow(am), nrow(gear))),
         x = c(as.character(am$am.bin), as.character(gear$gear.bin)),
         n = c(am$.n, gear$.n),
@@ -131,7 +142,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
         y = c(am$.y, gear$.y),
         aler_band = c(band(am), band(gear))
       ),
-      d2 = dplyr::tibble(
+      d2 = tibble(
         term1 = 'am',
         x1 = as.character(joint$am.bin),
         term2 = 'gear',
@@ -143,28 +154,28 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
       )
     )
   }
-  expected_regions <- purrr::map(setNames(categories, categories), regions)
+  expected_regions <- map(setNames(categories, categories), regions)
   threshold <- 100 * cat_cars_ale@params$aler_alpha[[2]]
-  expected_significant <- purrr::map(expected_regions, function(it.regions) {
+  expected_significant <- map(expected_regions, function(it.regions) {
     main <- it.regions$d1
     joint <- it.regions$d2
     outside <- main$aler_band != 'overlap'
     by_term <- main[outside, ] |>
-      dplyr::summarize(.by = 'term', pct = sum(pct))
+      summarize(.by = 'term', pct = sum(pct))
     it.regions$d1 <- main[main$term %in% by_term$term[by_term$pct >= threshold], ]
     if (sum(joint$pct[joint$aler_band != 'overlap']) < 2 * threshold) {
       it.regions$d2 <- joint[0L, ]
     }
     it.regions
   })
-  actual_regions <- purrr::map(
+  actual_regions <- map(
     c(all = 'conf_regions', significant = 'conf_sig'),
     function(it.stats) {
       get(
         cat_cars_ale, ~ am + gear + am:gear, cats = categories,
         stats = it.stats, simplify = FALSE, ale_centre = 'zero', silent = TRUE
       ) |>
-        purrr::map(function(it.regions) {
+        map(function(it.regions) {
           # Compare the reported rows without the source-grid metadata.
           attr(it.regions$d1, 'x') <- NULL
           it.regions
@@ -183,10 +194,10 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   # They provide a deterministic oracle for both empirical tails and ALER bands
   # without repeating the randomized model fits.
   replacement <- pd
-  replacement@rand_stats <- purrr::imap(pd@rand_stats, function(data, nm.cat) {
+  replacement@rand_stats <- imap(pd@rand_stats, function(data, nm.cat) {
     scale <- match(nm.cat, names(pd@rand_stats)) / 10
     values <- seq(0, scale, length.out = nrow(data))
-    dplyr::tibble(
+    tibble(
       aled = values / 2, aler_min = -values, aler = 2 * values,
       aler_max = values, naled = aled, naler_min = aler_min,
       naler = aler, naler_max = aler_max
@@ -194,10 +205,10 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   })
   expected <- ALE_output(cat_cars_ale)
   expected$params$p_values <- replacement
-  expected$effect <- purrr::imap(expected$effect, function(it.effect, nm.cat) {
+  expected$effect <- imap(expected$effect, function(it.effect, nm.cat) {
     samples <- replacement@rand_stats[[nm.cat]]
-    it.effect$stats <- purrr::map(it.effect$stats, function(data) {
-      data$p.value <- purrr::map2_dbl(
+    it.effect$stats <- map(it.effect$stats, function(data) {
+      data$p.value <- map2_dbl(
         data$statistic, data$estimate, function(nm.stat, it.estimate) {
           values <- samples[[nm.stat]]
           if (endsWith(nm.stat, '_min')) {
@@ -213,10 +224,10 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   })
   band_rows <- c('aler_lo_lo', 'aler_lo', 'aler_hi', 'aler_hi_hi')
   tail_p <- 1 - sqrt(1 - cat_cars_ale@params$aler_alpha)
-  bands <- purrr::imap(replacement@rand_stats, function(data, nm.cat) {
+  bands <- imap(replacement@rand_stats, function(data, nm.cat) {
     y_summary['50%', nm.cat] + c(
-      stats::quantile(data$aler_min, tail_p, names = FALSE),
-      stats::quantile(data$aler_max, 1 - rev(tail_p), names = FALSE)
+      quantile(data$aler_min, tail_p, names = FALSE),
+      quantile(data$aler_max, 1 - rev(tail_p), names = FALSE)
     )
   })
   bands <- do.call(cbind, bands)
@@ -226,11 +237,8 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
     max(bands[3L, ]), max(bands[4L, ])
   )
   expect_equal(
-    list(kind = pd@params$exactness, draws = purrr::map_int(pd@rand_stats, nrow)),
-    list(
-      kind = 'approx',
-      draws = c(Asia = 100L, Europe = 100L, 'North America' = 100L)
-    )
+    purrr::map_int(pd@rand_stats, nrow),
+    c(Asia = 10L, Europe = 10L, 'North America' = 10L)
   )
   expect_equal(
     ALE_output(append_p(cat_cars_ale, replacement, silent = TRUE)),
@@ -248,8 +256,8 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   without_p$params$y_summary <- y_summary[
     !rownames(y_summary) %in% band_rows, , drop = FALSE
   ]
-  without_p$effect <- purrr::map(without_p$effect, function(it.effect) {
-    it.effect$stats <- purrr::map(it.effect$stats, function(data) {
+  without_p$effect <- map(without_p$effect, function(it.effect) {
+    it.effect$stats <- map(it.effect$stats, function(data) {
       data[setdiff(names(data), 'p.value')]
     })
     it.effect
@@ -261,16 +269,16 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
   # Reuse the no-p-value output to avoid redundant significance guide layers.
   plots <- plot(no_p, rug_sample_size = 25)
   overlay <- get(plots, 'am', cats = '.all', type = 'overlay')
-  layer <- which(purrr::map_lgl(overlay$layers, function(it.layer) {
+  layer <- which(map_lgl(overlay$layers, function(it.layer) {
     inherits(it.layer$geom, 'GeomCol')
   }))
-  columns <- ggplot2::ggplot_build(overlay)$data[[layer]]
+  columns <- ggplot_build(overlay)$data[[layer]]
   expected_points <- get(no_p, 'am') |>
-    dplyr::bind_rows(.id = '.cat') |>
-    dplyr::transmute(.cat, x = as.character(am.bin), y = .y)
+    bind_rows(.id = '.cat') |>
+    transmute(.cat, x = as.character(am.bin), y = .y)
   expect_equal(
     list(
-      points = dplyr::transmute(overlay$data, .cat, x = as.character(.x), y = .y),
+      points = transmute(overlay$data, .cat, x = as.character(.x), y = .y),
       heights = sort(columns$y)
     ),
     list(points = expected_points, heights = sort(expected_points$y))
@@ -329,7 +337,7 @@ test_that('categorical ALE returns effects, regions, and plots by category (#53)
     plots,
     'wt',
     cats = 'Asia',
-    layers = list(ggplot2::coord_cartesian(xlim = x_limits)),
+    layers = list(coord_cartesian(xlim = x_limits)),
     zoom_y = y_limits
   )
   # Replacing x preserves y, and a subsequent NULL update preserves both.

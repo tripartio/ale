@@ -1,3 +1,5 @@
+# Check caller RNG restoration and independent bootstrap streams across executors.
+
 test_that('ALE restores the caller RNG and respects the supplied seed (#noissue)', {
   original_kind <- RNGkind()
   original_seed <- .Random.seed
@@ -61,7 +63,7 @@ test_that('iteration streams isolate seed resets in both executors (#noissue)', 
     \(stream, it.job) parallel::nextRNGStream(stream),
     .init = .Random.seed
   )[-1L]
-  expected <- purrr::map(streams, function(stream) {
+  expected <- map(streams, function(stream) {
     assign('.Random.seed', stream, envir = .GlobalEnv)
     stats::runif(3L)
   })
@@ -74,7 +76,7 @@ test_that('iteration streams isolate seed resets in both executors (#noissue)', 
 test_that('one bootstrap job stays local and has its own stream (#noissue)', {
   # Count bootstrap jobs after the full-data run, rather than counting that
   # prerequisite as a second job. No worker backend should be required here.
-  testthat::local_mocked_bindings(
+  local_mocked_bindings(
     future_session = function(...) stop('unexpected worker startup'),
     .package = 'ale'
   )
