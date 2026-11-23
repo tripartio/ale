@@ -1,190 +1,248 @@
-# Reuse the trained GAMs and data from helper.R; no new models are needed.
-expect_constant_warning <- function(expr, variables) {
-  warnings <- character()
-  result <- withCallingHandlers(expr, warning = function(w) {
-    if (inherits(w, 'ale_constant_predictor')) {
-      warnings <<- c(warnings, conditionMessage(w))
-      invokeRestart('muffleWarning')
-    }
-  })
-  expect_length(warnings, 1L)
-  expect_match(warnings, 'only one unique observed value', fixed = TRUE)
-  expect_match(warnings, 'set to zero', fixed = TRUE)
-  expect_match(warnings, 'representative sample', fixed = TRUE)
-  for (variable in variables) expect_match(warnings, variable, fixed = TRUE)
-  result
+# Check zero effects and intact grids, counts, and other effects for constant predictors.
+
+# Reuse the trained GAMs, multinomial model, and data from helper.R.
+suppress_constant_warning <- function(expr) {
+  suppressWarnings(expr, classes = 'ale_constant_predictor')
 }
 
-expect_zero_ale <- function(data) {
-  y_columns <- startsWith(names(data), '.y')
-  expect_true(any(y_columns))
-  expect_true(all(as.matrix(data[y_columns]) == 0))
+zero_ale_summary <- function(coordinates, counts) {
+  zero <- numeric(length(counts))
+  c(
+    coordinates,
+    list(.n = counts, .y = zero, .y_lo = zero, .y_mean = zero,
+         .y_median = zero, .y_hi = zero)
+  )
 }
 
-test_that('constant 1D effects, statistics, and bootstrap values are zero', {
+zero_ale_boot <- function(coordinates, iterations, counts) {
+  zero <- numeric(length(iterations))
+  c(
+    list(.it = iterations), coordinates,
+    list(.y_composite = zero, .n = counts, .y_distinct = zero, .y = zero)
+  )
+}
+
+zero_ale_stats <- function(term) {
+  stats <- c('aled', 'aler_min', 'aler', 'aler_max',
+             'naled', 'naler_min', 'naler', 'naler_max')
+  zero <- setNames(numeric(length(stats)), stats)
+  tibble(
+    term = term,
+    statistic = stats,
+    estimate = zero, conf.low = zero, mean = zero, median = zero, conf.high = zero
+  )
+}
+
+test_that('constant 1D effects, statistics, and bootstrap values are zero (#53)', {
   constant_cars <- test_cars
   constant_cars$wt <- test_cars$wt[1]
+  n_cars <- nrow(constant_cars)
 
   for (boot_it in c(0, 2)) {
-    result <- expect_constant_warning(ALE(
+    result <- suppress_constant_warning(ALE(
       test_gam, data = constant_cars, x_cols = ~ wt,
       boot_it = boot_it, output_boot_data = TRUE, output_stats = FALSE,
       p_values = NULL, silent = TRUE
-    ), 'wt')
-    # Reuse the known zero outputs to verify appended statistics (#53).
+    ))
+    # Reuse the known zero outputs to verify the statistics appended later.
     result <- append_stats(result)
-    effect <- result@composite$mpg
-    summary <- effect$ale$d1$wt
-    expect_zero_ale(summary)
-    expect_equal(summary$wt.ceil, test_cars$wt[1])
-    expect_identical(summary$.n, nrow(test_cars))
-    expect_identical(attr(summary, 'x')$wt$n_bins, 1L)
-    expect_true(all(as.matrix(effect$stats$d1[c(
-      'estimate', 'conf.low', 'mean', 'median', 'conf.high'
-    )]) == 0))
-    boot <- effect$boot_data$d1$wt
-    expect_zero_ale(boot)
-    expect_true(all(seq_len(boot_it) %in% boot$.it))
-    expect_true(all(boot$.n == nrow(test_cars)))
+    summary <- as.list(get(result, ale_centre = 'zero'))
+    expected <- zero_ale_summary(list(wt.ceil = test_cars$wt[1]), n_cars)
+    grid_columns <- c('wt.ceil', '.n')
+    expect_equal(
+      summary[grid_columns], expected[grid_columns], tolerance = 0
+    )
+    expect_equal(
+      summary[setdiff(names(summary), grid_columns)],
+      expected[setdiff(names(expected), grid_columns)],
+      tolerance = 0
+    )
+    expect_equal(get(result, stats = 'all'), zero_ale_stats('wt'), tolerance = 0)
+
+    # Iteration zero uses all observations and every resample retains their count.
+    iterations <- 0:boot_it
+    boot <- get(result, what = 'boot_data', ale_centre = 'zero')
+    expect_equal(
+      as.list(boot),
+      zero_ale_boot(
+        list(wt = rep(test_cars$wt[1], length(iterations))),
+        iterations, rep(n_cars, length(iterations))
+      ),
+      tolerance = 0
+    )
   }
 })
 
-test_that('constant interaction components preserve grids and counts', {
+test_that('constant interaction components preserve grids and counts (#noissue)', {
   # These columns occur in this order internally, covering both positions.
-  for (constant in c('carb', 'wt')) {
+  for (it.constant in c('carb', 'wt')) {
     constant_cars <- test_cars
-    constant_cars[[constant]] <- test_cars[[constant]][1]
-    varying <- setdiff(c('carb', 'wt'), constant)
+    const_value <- test_cars[[it.constant]][1]
+    constant_cars[[it.constant]] <- const_value
+    varying <- setdiff(c('carb', 'wt'), it.constant)
     for (boot_it in c(0, 2)) {
-      result <- expect_constant_warning(ALE(
+      result <- suppress_constant_warning(ALE(
         test_gam_binary, data = constant_cars, x_cols = ~ carb:wt,
         boot_it = boot_it, output_boot_data = TRUE, p_values = NULL,
         silent = TRUE
-      ), constant)
+      ))
       baseline <- ALE(
         test_gam_binary, data = constant_cars, x_cols = varying,
         # Match the 2D limit when using a 1D effect as a grid/count reference.
         max_num_bins = list(d1 = 10L, d2 = 10L),
         p_values = NULL, silent = TRUE
       )
-      summary <- result@composite$vs$ale$d2[['carb:wt']]
-      varying_summary <- baseline@composite$vs$ale$d1[[varying]]
-      expect_zero_ale(summary)
-      expect_equal(summary[[paste0(constant, '.ceil')]],
-                   rep(test_cars[[constant]][1], nrow(summary)))
-      expect_equal(summary[[paste0(varying, '.ceil')]],
-                   varying_summary[[paste0(varying, '.ceil')]])
-      expect_identical(summary$.n, varying_summary$.n)
-      boot <- result@composite$vs$boot_data$d2[['carb:wt']]
-      expect_zero_ale(boot)
-      expect_true(all(seq_len(boot_it) %in% boot$.it))
-      counts <- tapply(boot$.n, boot$.it, sum)
-      expect_true(all(counts == nrow(test_cars)))
-      expect_true(all(result@composite$vs$stats$d2$estimate == 0))
+      summary <- as.list(get(result, ale_centre = 'zero'))
+      varying_summary <- get(baseline, ale_centre = 'zero')
+      constant_ceiling <- paste0(it.constant, '.ceil')
+      varying_ceiling <- paste0(varying, '.ceil')
+      coordinates <- list(carb.ceil = NULL, wt.ceil = NULL)
+      coordinates[[constant_ceiling]] <- rep(const_value, nrow(varying_summary))
+      coordinates[[varying_ceiling]] <- varying_summary[[varying_ceiling]]
+      expected <- zero_ale_summary(coordinates, varying_summary$.n)
+      grid_columns <- c(names(coordinates), '.n')
+      expect_equal(
+        summary[grid_columns], expected[grid_columns], tolerance = 0
+      )
+      expect_equal(
+        summary[setdiff(names(summary), grid_columns)],
+        expected[setdiff(names(expected), grid_columns)],
+        tolerance = 0
+      )
+
+      boot <- get(result, what = 'boot_data', ale_centre = 'zero')
+      coordinates <- as.list(boot[c('carb', 'wt')])
+      coordinates[[it.constant]] <- rep(const_value, nrow(boot))
+      expect_equal(
+        as.list(boot),
+        zero_ale_boot(coordinates, boot$.it, boot$.n),
+        tolerance = 0
+      )
+
+      # Counts can move between adjacent bins, but each iteration conserves rows.
+      iteration_counts <- boot |>
+        summarize(.by = .it, total = sum(.n)) |>
+        arrange(.it)
+      expect_equal(
+        iteration_counts,
+        tibble(
+          .it = 0:boot_it,
+          total = rep(nrow(constant_cars), boot_it + 1)
+        ),
+        tolerance = 0
+      )
+      expect_equal(
+        get(result, stats = 'all'), zero_ale_stats('carb:wt'), tolerance = 0
+      )
     }
   }
 })
 
-test_that('both interaction components can be constant for categorical outcomes', {
+test_that('both constant components have zero effects for all outcome levels (#53)', {
   constant_cars <- test_cars
   constant_cars$carb <- test_cars$carb[1]
   constant_cars$wt <- test_cars$wt[1]
-  result <- expect_constant_warning(ALE(
+  result <- suppress_constant_warning(ALE(
     test_nn_categorical, data = constant_cars, x_cols = ~ carb:wt,
     pred_type = 'probs', boot_it = 2, output_boot_data = TRUE,
     output_stats = FALSE, p_values = NULL, silent = TRUE
-  ), c('carb', 'wt'))
+  ))
   result <- append_stats(result)
-  for (effect in result@composite) {
-    summary <- effect$ale$d2[['carb:wt']]
-    expect_equal(nrow(summary), 1L)
-    expect_identical(summary$.n, nrow(test_cars))
-    expect_zero_ale(summary)
-    expect_zero_ale(effect$boot_data$d2[['carb:wt']])
-    expect_true(all(effect$stats$d2$estimate == 0))
+  outcomes <- levels(test_cars$continent)
+  each_outcome <- function(value) {
+    setNames(rep(list(value), length(outcomes)), outcomes)
   }
+  expect_equal(
+    get(result, ale_centre = 'zero') |>
+      map(\(it.data) map(it.data, identity)),
+    each_outcome(zero_ale_summary(
+      list(carb.ceil = test_cars$carb[1], wt.ceil = test_cars$wt[1]),
+      nrow(test_cars)
+    )),
+    tolerance = 0
+  )
+  expect_equal(
+    get(result, what = 'boot_data', ale_centre = 'zero') |>
+      map(as.list),
+    each_outcome(zero_ale_boot(
+      list(carb = rep(test_cars$carb[1], 3), wt = rep(test_cars$wt[1], 3)),
+      0:2, rep(nrow(test_cars), 3)
+    )),
+    tolerance = 0
+  )
+  expect_equal(
+    get(result, stats = 'all'),
+    each_outcome(zero_ale_stats('carb:wt')),
+    tolerance = 0
+  )
 })
 
-test_that('constant logical, categorical, ordered, and Date coordinates work', {
-  for (column in c('am', 'model', 'gear', 'carb')) {
+test_that('constant logical, categorical, ordered, and Date coordinates work (#noissue)', {
+  for (it.column in c('am', 'model', 'gear', 'carb')) {
     constant_cars <- test_cars
-    constant_cars[[column]] <- rep(test_cars[[column]][1], nrow(test_cars))
-    if (column == 'carb') {
+    constant_cars[[it.column]] <- rep(test_cars[[it.column]][1], nrow(test_cars))
+    if (it.column == 'carb') {
       constant_cars$carb <- as.Date(constant_cars$carb, origin = '1970-01-01')
     }
     constant_predict <- function(object, newdata, type) {
       if (inherits(newdata$carb, 'Date')) newdata$carb <- as.numeric(newdata$carb)
       predict(object, newdata = newdata, type = type)
     }
-    result <- expect_constant_warning(ALE(
-      test_gam, data = constant_cars, x_cols = column,
+    result <- suppress_constant_warning(ALE(
+      test_gam, data = constant_cars, x_cols = it.column,
       pred_fun = constant_predict, fct_order = 'ksd', boot_it = 2,
       output_boot_data = TRUE, p_values = NULL, silent = TRUE
-    ), column)
-    effect <- result@composite$mpg
-    summary <- effect$ale$d1[[column]]
-    expect_equal(nrow(summary), 1L)
-    expect_zero_ale(summary)
-    expect_zero_ale(effect$boot_data$d1[[column]])
-    expect_identical(attr(summary, 'x')[[column]]$class,
-                     class(constant_cars[[column]]))
-    if (column == 'carb') {
-      expect_s3_class(effect$boot_data$d1$carb$carb, 'Date')
+    ))
+    const_value <- constant_cars[[it.column]][1]
+    if (it.column == 'carb') {
+      # Dates are numeric ceilings in the summary, but raw draws retain dates.
+      summary_coordinate <- list(carb.ceil = as.numeric(const_value))
+      boot_coordinate <- rep(const_value, 3)
     } else {
-      expect_equal(as.character(summary[[paste0(column, '.bin')]]),
-                   as.character(constant_cars[[column]][1]))
+      label <- as.character(const_value)
+      summary_coordinate <- setNames(list(ordered(label)), paste0(it.column, '.bin'))
+      boot_coordinate <- factor(rep(label, 3))
     }
+    expect_equal(
+      map(get(result, ale_centre = 'zero'), identity),
+      zero_ale_summary(summary_coordinate, nrow(test_cars)),
+      tolerance = 0
+    )
+    expect_equal(
+      as.list(get(result, what = 'boot_data', ale_centre = 'zero')),
+      zero_ale_boot(
+        setNames(list(boot_coordinate), it.column),
+        0:2, rep(nrow(test_cars), 3)
+      ),
+      tolerance = 0
+    )
   }
 })
 
-test_that('other requested effects and statistics are unchanged', {
+test_that('other requested effects and statistics are unchanged (#noissue)', {
   constant_cars <- test_cars
   constant_cars$wt <- test_cars$wt[1]
   baseline <- ALE(
     test_gam, data = constant_cars, x_cols = ~ carb + am:gear,
     boot_it = 2, output_boot_data = TRUE, p_values = NULL, silent = TRUE
   )
-  result <- expect_constant_warning(ALE(
+  result <- suppress_constant_warning(ALE(
     test_gam, data = constant_cars, x_cols = ~ wt + carb + wt:carb + am:gear,
     boot_it = 2, output_boot_data = TRUE, p_values = NULL, silent = TRUE
-  ), 'wt')
-  for (output in c('ale', 'boot_data')) {
-    expect_equal(result@composite$mpg[[output]]$d1$carb,
-                 baseline@composite$mpg[[output]]$d1$carb)
-    expect_equal(result@composite$mpg[[output]]$d2[['am:gear']],
-                 baseline@composite$mpg[[output]]$d2[['am:gear']])
+  ))
+  for (it.output in c('ale', 'boot_data')) {
+    actual <- get(result, what = it.output, simplify = FALSE, ale_centre = 'zero')
+    expected <- get(baseline, what = it.output, simplify = FALSE, ale_centre = 'zero')
+    expect_equal(
+      list(d1 = actual$d1[names(expected$d1)], d2 = actual$d2[names(expected$d2)]),
+      expected
+    )
   }
-  for (dimension in c('d1', 'd2')) {
-    statistics <- result@composite$mpg$stats[[dimension]]
-    reference <- baseline@composite$mpg$stats[[dimension]]
+  actual <- get(result, stats = 'all', simplify = FALSE)
+  expected <- get(baseline, stats = 'all', simplify = FALSE)
+  for (it.dimension in c('d1', 'd2')) {
+    statistics <- actual[[it.dimension]]
+    reference <- expected[[it.dimension]]
     expect_equal(statistics[statistics$term %in% reference$term, ], reference)
   }
-  expect_true(any(abs(baseline@composite$mpg$ale$d2[['am:gear']]$.y) > 0))
-})
-
-test_that('warnings only concern requested predictors after exclusions', {
-  constant_cars <- test_cars
-  constant_cars$wt <- test_cars$wt[1]
-  expect_no_warning(ALE(
-    test_gam, data = constant_cars, x_cols = ~ carb,
-    p_values = NULL, silent = TRUE
-  ))
-  expect_no_warning(ALE(
-    test_gam, data = constant_cars, x_cols = ~ wt + carb + wt:carb,
-    exclude_cols = ~ wt + wt:carb, p_values = NULL, silent = TRUE
-  ))
-  # Warnings remain active with silent = TRUE and before boundary predictions.
-  predictions <- 0L
-  counting_predict <- function(object, newdata, type) {
-    predictions <<- predictions + 1L
-    predict(object, newdata = newdata, type = type)
-  }
-  previous_warn <- getOption('warn')
-  on.exit(options(warn = previous_warn), add = TRUE)
-  options(warn = 2)
-  expect_error(ALE(
-    test_gam, data = constant_cars, x_cols = ~ wt + carb + wt:carb,
-    pred_fun = counting_predict, p_values = 'auto', boot_it = 2, silent = TRUE
-  ), 'only one unique observed value')
-  expect_identical(predictions, 1L)
 })

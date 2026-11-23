@@ -16,33 +16,13 @@ options(ale.parallel = 0)
 # Disable progressr
 options(progressr.enable = FALSE)
 
-# Snapshot comparisons are a local-development check. On CI, still force the
-# expression so platform-specific runtime errors are reported, but do not compare
-# its output with snapshots that may not exist for the runner's operating system.
-# Locally, use platform-specific variants while preserving the expression passed
-# by each test for testthat's snapshot labels and diagnostics.
-expect_snap_variant <- function(x, ...) {
-  if (identical(Sys.getenv("CI"), "true")) {
-    value <- force(x)
-    testthat::succeed()
-    return(invisible(value))
-  }
-
-  testthat::expect_snapshot(
-    {{ x }},
-    ...,
-    variant = Sys.info()["sysname"] |> unname()
-  )
-}
-
-
 # Compare ALE outputs without imposing an order on statistic columns. All
 # values, attributes, other output components, and saved parameters are retained.
 #' @param ale_obj `ALE` object. Public result whose outputs will be compared.
 ALE_output <- function(ale_obj) {
-  output <- S7::props(ale_obj)
-  output$effect <- purrr::map(output$effect, function(it.effect) {
-    it.effect$stats <- purrr::map(it.effect$stats, function(it.stats) {
+  output <- props(ale_obj)
+  output$effect <- map(output$effect, function(it.effect) {
+    it.effect$stats <- map(it.effect$stats, function(it.stats) {
       if (!is.data.frame(it.stats)) return(it.stats)
       it.stats[sort(names(it.stats))]
     })
@@ -51,12 +31,45 @@ ALE_output <- function(ale_obj) {
   output
 }
 
+# Snapshot all S7 properties, including nested distributions, without model
+# hashes or platform noise in ordinary doubles. Retain classes and attributes.
+s7_snapshot <- function(object) {
+  normalize <- function(value) {
+    if (inherits(value, 'S7_object')) {
+      s7_snapshot(value)
+    } else if (is.data.frame(value)) {
+      ordinary <- map_lgl(value, function(it.col) {
+        is.double(it.col) && !is.object(it.col)
+      })
+      value[ordinary] <- map(value[ordinary], normalize)
+      value
+    } else if (
+      inherits(value, 'univariateML') || (is.double(value) && !is.object(value))
+    ) {
+      value <- round(value, 5L)
+      value[which(value == 0)] <- 0
+      # Near-zero residuals amplify platform noise in fitted log-likelihoods.
+      if (inherits(value, 'univariateML')) attr(value, 'logLik') <- NULL
+      value
+    } else if (is.list(value)) {
+      map(value, normalize)
+    } else {
+      value
+    }
+  }
+
+  properties <- props(object)
+  if (is.list(properties$params$model)) {
+    properties$params$model$hash <- NULL
+  }
+  map(properties, normalize)
+}
+
 # Check statistic order using existing test objects ------------
 expect_requested_stats_order <- function(object, ...) {
-  expected_tables <- function(result, reference, stats) {
+  expected_tables <- function(reference, stats) {
     if (is.data.frame(reference)) {
       if (nrow(reference) == 0L) {
-        expect_identical(result, reference)
         return(reference)
       }
       expected_terms <- unique(reference$term)
@@ -65,9 +78,7 @@ expect_requested_stats_order <- function(object, ...) {
         rows[match(stats, rows$statistic), ]
       }))
     } else if (is.list(reference)) {
-      lapply(names(reference), function(nm.table) {
-        expected_tables(result[[nm.table]], reference[[nm.table]], stats)
-      }) |> setNames(names(reference))
+      map(reference, \(it.table) expected_tables(it.table, stats))
     } else {
       reference
     }
@@ -78,100 +89,39 @@ expect_requested_stats_order <- function(object, ...) {
     for (stats in list(c('aler_max', 'aler_min'), c('naler', 'aled', 'aler_max'), 'aler_min')) {
       result <- get(object, stats = stats, simplify = simplify, ...)
       # Compare the whole returned tree once, retaining every table and case.
-      expect_equal(result, expected_tables(result, reference, stats))
+      expect_equal(result, expected_tables(reference, stats))
     }
   }
 }
 
-# Check confidence-region availability using existing test objects ------------
-expect_missing_p_conf <- function(object, ...) {
-  for (stat in c('conf_regions', 'conf_sig')) {
-    expect_error(
-      get(object, stats = stat, ...),
-      'Confidence regions cannot be calculated without p-values.',
-      fixed = TRUE,
-      class = 'rlang_error'
-    )
-  }
-}
-
+# Check summary output using existing test objects ------------
 expect_conf_summary <- function(object, has_p_values) {
+  headings <- c(
+    estimates = 'ALE statistics [get(',
+    distributions = 'ALE statistic distributions',
+    significant = 'Statistically significant confidence regions',
+    all_regions = 'All confidence regions'
+  )
+
   for (all_conf in c(FALSE, TRUE)) {
-    if (has_p_values) {
-      output <- capture.output(
-        returned <- withVisible(suppressMessages(summary(object, all_conf = all_conf)))
+    output <- capture.output(
+      returned <- withVisible(
+        suppressMessages(summary(object, all_conf = all_conf))
       )
-    } else {
-      expect_no_condition(
-        output <- capture.output(
-          returned <- withVisible(summary(object, all_conf = all_conf))
-        )
-      )
-    }
-
-    expect_identical(returned$value, object)
-    expect_false(returned$visible)
-    expect_true(any(grepl('ALE statistics [get(', output, fixed = TRUE)))
-    expect_true(any(grepl('ALE statistic distributions', output, fixed = TRUE)))
-    expect_identical(
-      any(grepl('Statistically significant confidence regions', output, fixed = TRUE)),
-      has_p_values
     )
+    shown <- map_lgl(headings, function(it.heading) {
+      any(grepl(it.heading, output, fixed = TRUE))
+    })
+
+    expect_identical(returned, list(value = object, visible = FALSE))
     expect_identical(
-      any(grepl('All confidence regions', output, fixed = TRUE)),
-      has_p_values && all_conf
+      shown,
+      c(
+        estimates = TRUE, distributions = TRUE,
+        significant = has_p_values, all_regions = has_p_values && all_conf
+      )
     )
   }
-}
-
-
-# Create stable snapshots of S7 objects -------------------
-
-# S7 stores properties as attributes alongside class-definition metadata. That
-# metadata is an implementation detail (and its printed representation can
-# change between S7 releases), so snapshots should contain only the object's
-# substantive properties. Recursing also handles S7 objects nested in list
-# properties, such as the ALE object stored by ModelBoot.
-s7_snapshot <- function(object) {
-  stopifnot(inherits(object, "S7_object"))
-
-  normalize <- function(value) {
-    if (inherits(value, "S7_object")) {
-      return(s7_snapshot(value))
-    }
-
-    if (inherits(value, "univariateML")) {
-      return(normalize_snapshot_univariate_ml(value))
-    }
-
-    if (inherits(value, "data.frame")) {
-      return(normalize_snapshot_data_frame(value))
-    }
-
-    if (is.list(value) && !inherits(value, "data.frame")) {
-      normalized <- lapply(value, normalize)
-      names(normalized) <- names(value)
-      return(normalized)
-    }
-
-    value
-  }
-
-  properties <- S7::props(object)
-
-  # The model hash is useful at runtime, but is not stable snapshot data. Remove
-  # only this structural path from the copied properties; the S7 object itself
-  # must retain it for model-identity validation.
-  if (
-    is.list(properties$params) &&
-      is.list(properties$params$model) &&
-      "hash" %in% names(properties$params$model)
-  ) {
-    properties$params$model$hash <- NULL
-  }
-
-  properties |>
-    lapply(normalize)
 }
 
 
@@ -185,7 +135,7 @@ dbl_jitter <- stats::runif(nrow(var_cars), 0.99, 1.01)
 int_jitter <- sample(c(-1L, 0L, 1L), nrow(var_cars), replace = TRUE)
 
 test_cars <- var_cars |>
-  dplyr::bind_rows(
+  bind_rows(
     var_cars |>
       mutate(
         across(where(is.double), \(it.dbl) it.dbl * dbl_jitter)) |>
@@ -226,140 +176,6 @@ test_nn_categorical <- nnet::multinom(
   data = test_cars,
   trace = FALSE  # suppress noisy output from nnet
 )
-
-
-# Snapshot data-frame normalization -------------------
-
-# univariateML fits are named numeric vectors whose values are the estimated
-# distribution parameters. Keep the distribution metadata intact, but apply
-# the same tolerance used for ordinary doubles in snapshot data frames.
-normalize_snapshot_univariate_ml <- function(x, tolerance = 1e-5) {
-  stopifnot(
-    inherits(x, "univariateML"),
-    is.double(x),
-    is.double(tolerance),
-    length(tolerance) == 1L,
-    !is.na(tolerance),
-    is.finite(tolerance),
-    tolerance > 0
-  )
-
-  decimal_places <- max(0, ceiling(-log10(tolerance)))
-  normalized <- round(x, digits = decimal_places)
-  normalized[!is.na(normalized) & normalized == 0] <- 0
-  normalized
-}
-
-# Round the ordinary double columns that tend to introduce platform-specific
-# noise into snapshots. Classed numeric vectors are intentionally excluded:
-# besides date/time columns, their underlying doubles need not represent an
-# ordinary numeric measurement.
-normalize_snapshot_data_frame <- function(x, tolerance = 1e-5) {
-  stopifnot(
-    inherits(x, "data.frame"),
-    is.double(tolerance),
-    length(tolerance) == 1L,
-    !is.na(tolerance),
-    is.finite(tolerance),
-    tolerance > 0
-  )
-
-  decimal_places <- max(0, ceiling(-log10(tolerance)))
-  ordinary_double <- vapply(
-    x,
-    \(column) is.double(column) && !is.object(column),
-    logical(1)
-  )
-
-  x[ordinary_double] <- lapply(x[ordinary_double], \(column) {
-    rounded <- round(column, digits = decimal_places)
-    # Assignment converts both signs of zero to positive zero without touching
-    # missing or non-finite values. round() preserves vector attributes.
-    rounded[!is.na(rounded) & rounded == 0] <- 0
-    rounded
-  })
-
-  x
-}
-
-# Recursively prepare snapshot values while leaving non-data-frame vectors
-# untouched. This supports both nested S7 properties and ggplot builds with
-# one or several layer data frames.
-normalize_snapshot_value <- function(value) {
-  if (inherits(value, "S7_object")) {
-    return(s7_snapshot(value))
-  }
-
-  if (inherits(value, "data.frame")) {
-    return(normalize_snapshot_data_frame(value))
-  }
-
-  if (is.list(value)) {
-    normalized <- lapply(value, normalize_snapshot_value)
-    names(normalized) <- names(value)
-    return(normalized)
-  }
-
-  value
-}
-
-ggplot_snapshot_data <- function(plot, first_layer = FALSE) {
-  data <- ggplot2::ggplot_build(plot)$data
-
-  if (first_layer) {
-    data <- data[[1]]
-  }
-
-  normalize_snapshot_value(data)
-}
-
-# Returns list of ALE plots converted to ggplot data format ---------------
-ale_plots_to_data <- function(
-    ale_plots  # ALEPlots object
-) {
-  # Only save composite ALE plots (which are always available)
-  purrr::imap(ale_plots@plots$composite, \(it.cat_plots, it.cat_name) {
-    list(
-      d1 = if (it.cat_name != '.all_cats') {
-        it.cat_plots$d1 |>
-          purrr::map(\(it.plot) {
-            ggplot_snapshot_data(it.plot, first_layer = TRUE)
-          })
-      } else {
-        it.cat_plots$d1 |>
-          purrr::map(\(it.x_col) {
-            it.x_col |>
-              purrr::map(\(it.plot) {
-                ggplot_snapshot_data(it.plot, first_layer = TRUE)
-              })
-          })
-      },
-      d2 = if (it.cat_name != '.all_cats') {
-        it.cat_plots$d2 |>
-          purrr::map(\(it.plot) {
-            ggplot_snapshot_data(it.plot, first_layer = TRUE)
-          })
-      } else {
-        it.cat_plots$d2 |>
-          purrr::map(\(it.plot) {
-            ggplot_snapshot_data(it.plot, first_layer = TRUE)
-          })
-      },
-      eff = if (it.cat_name != '.all_cats') {
-        if (!is.null(it.cat_plots$eff)) {
-          it.cat_plots$eff |>
-            ggplot_snapshot_data()
-        } else {
-          # No effects plot if no 1D data or no statistics
-          NULL
-        }
-      } else {
-        # No effects plot for '.all_cats' category
-        NULL
-      }
-    )
-  })
-}
 
 
 # custom predict function ------------

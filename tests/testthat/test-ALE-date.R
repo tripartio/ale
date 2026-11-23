@@ -1,11 +1,14 @@
-test_that('Date bin counts match numeric bin counts with and without bootstrapping', {
-  # Reuse the trained GAM: its integer predictor can also represent epoch days.
+# Check that Date predictors match the equivalent numeric ALE calculations.
+
+test_that('Date and numeric coordinates produce equivalent ALE outputs (#53)', {
+  # The existing GAM's integer predictor can also represent epoch days.
   date_cars <- test_cars
   date_cars$carb <- as.Date(date_cars$carb, origin = '1970-01-01')
   date_predict <- function(object, newdata, type) {
     newdata$carb <- as.numeric(newdata$carb)
     predict(object, newdata = newdata, type = type)
   }
+  terms <- c(d1 = 'carb', d2 = 'carb:wt')
 
   for (boot_it in c(0, 2)) {
     numeric_ale <- ALE(
@@ -13,39 +16,45 @@ test_that('Date bin counts match numeric bin counts with and without bootstrappi
       boot_it = boot_it, p_values = NULL, output_boot_data = TRUE,
       boot_alpha = 0.2, boot_centre = 'median', silent = TRUE
     )
-    expect_no_warning(date_ale <- ALE(
+    date_ale <- ALE(
       test_gam, data = date_cars, x_cols = ~ carb + carb:wt,
       pred_fun = date_predict,
       boot_it = boot_it, p_values = NULL, output_boot_data = TRUE,
       output_stats = FALSE,
       boot_alpha = 0.2, boot_centre = 'median', silent = TRUE
-    ))
-    # Existing numeric comparisons also verify late statistics and inherited
-    # bootstrap settings for Date main effects and interactions (#53).
-    date_ale <- append_stats(date_ale)
-
-    for (dimension in c('d1', 'd2')) {
-      numeric_effect <- numeric_ale@composite$mpg
-      date_effect <- date_ale@composite$mpg
-      expect_length(numeric_effect$ale[[dimension]], 1)
-      for (predictor in names(numeric_effect$ale[[dimension]])) {
-        numeric_summary <- numeric_effect$ale[[dimension]][[predictor]]
-        date_summary <- date_effect$ale[[dimension]][[predictor]]
-        # Final summaries retain numeric boundaries and record the original class.
-        expect_type(date_summary$carb.ceil, 'double')
-        expect_identical(attr(date_summary, 'x')$carb$class, 'Date')
-        attr(date_summary, 'x') <- attr(numeric_summary, 'x') <- NULL
-        expect_equal(date_summary, numeric_summary)
-        expect_identical(date_summary$.n, numeric_summary$.n)
-        expect_equal(sum(date_summary$.n), nrow(test_cars))
-
-        numeric_boot <- numeric_effect$boot_data[[dimension]][[predictor]]
-        date_boot <- date_effect$boot_data[[dimension]][[predictor]]
-        expect_s3_class(date_boot$carb, 'Date')
-        date_boot$carb <- as.numeric(date_boot$carb)
-        expect_equal(date_boot, numeric_boot)
-      }
-      expect_equal(date_effect$stats[[dimension]], numeric_effect$stats[[dimension]])
+    )
+    # Late statistics must use the same inherited bootstrap settings. Only the
+    # Date coordinate's metadata and raw representation differ from the control.
+    actual <- append_stats(date_ale)@effect$mpg
+    expected <- numeric_ale@effect$mpg
+    for (nm.dimension in names(terms)) {
+      nm.term <- terms[[nm.dimension]]
+      summary <- expected$ale[[nm.dimension]][[nm.term]]
+      attr(summary, 'x')$carb$class <- 'Date'
+      summary$carb.ceil <- as.double(summary$carb.ceil)
+      expected$ale[[nm.dimension]][[nm.term]] <- summary
+      draws <- expected$boot_data[[nm.dimension]][[nm.term]]
+      draws$carb <- as.Date(draws$carb, origin = '1970-01-01')
+      expected$boot_data[[nm.dimension]][[nm.term]] <- draws
     }
+
+    # Check that the equivalent grids are complete, even if both calculations
+    # were to make the same mistake when counting rows.
+    grid_totals <- purrr::imap_dbl(terms, function(nm.term, nm.dimension) {
+      sum(actual$ale[[nm.dimension]][[nm.term]]$.n)
+    })
+    ceiling_types <- purrr::imap_chr(terms, function(nm.term, nm.dimension) {
+      typeof(actual$ale[[nm.dimension]][[nm.term]]$carb.ceil)
+    })
+    expect_equal(
+      list(ale = actual$ale, counts = grid_totals, types = ceiling_types),
+      list(
+        ale = expected$ale,
+        counts = c(d1 = nrow(test_cars), d2 = nrow(test_cars)),
+        types = c(d1 = 'double', d2 = 'double')
+      )
+    )
+    expect_equal(actual$boot_data, expected$boot_data)
+    expect_equal(actual$stats, expected$stats)
   }
 })

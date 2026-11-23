@@ -16,6 +16,11 @@ A major change in this version is the formal distinction between composite and d
 
 * [ALE()] now calculates composite ALE (including statistics) for 2D interactions, along with the distinct ALE it originally calculated. 1D ALE still calculates only composite ALE. A consequence of this mixture of all composition is that `get()` and `plot()` now return composite ALE by default, even for 2D interactions. Distinct ALE must now be requested explicitly with the `comp` argument.
 
+## Under the hood
+
+* Completely cleaned up the test suite to be thorough yet minimalist.
+
+
 # ale 0.6.0
 
 ## New features

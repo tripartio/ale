@@ -1,3 +1,5 @@
+# Check plot rendering, bin-size overlays, facet selection, and customization.
+
 test_that('2D bin sizes are optional without changing heatmaps or 1D plots', {
   cars_ale <- ALE(
     test_gam,
@@ -10,28 +12,37 @@ test_that('2D bin sizes are optional without changing heatmaps or 1D plots', {
 
   shown <- ALEPlots(cars_ale)
   hidden <- plot(cars_ale, show_2d_bin_sizes = FALSE)
-  shown_2d <- shown@plots$mpg$d2[['gear:carb']]
-  hidden_2d <- hidden@plots$mpg$d2[['gear:carb']]
+  shown_plot <- get(shown, 'gear:carb')
+  hidden_plot <- get(hidden, 'gear:carb')
+  shown_2d <- ggplot_build(shown_plot)
+  hidden_2d <- ggplot_build(hidden_plot)
 
-  expect_true(shown@params$show_2d_bin_sizes)
-  expect_false(hidden@params$show_2d_bin_sizes)
-  expect_true(any(vapply(shown_2d$layers, \(layer) {
-    inherits(layer$geom, 'GeomPoint') && identical(layer$aes_params$shape, 0)
-  }, logical(1))))
-  expect_false(any(vapply(hidden_2d$layers, \(layer) {
-    inherits(layer$geom, 'GeomPoint')
-  }, logical(1))))
-  expect_false(is.null(shown_2d$scales$get_scales('size')))
-  expect_null(hidden_2d$scales$get_scales('size'))
+  # Compare plotted square areas to bin counts independently of scale limits.
+  counts <- get(cars_ale, 'gear:carb')$.n
+  squares <- unique(shown_2d$data[[2]][c('x', 'y', 'shape', 'size')])
+  areas <- squares$size^2
   expect_equal(
-    ggplot2::ggplot_build(shown_2d)$data[[1]],
-    ggplot2::ggplot_build(hidden_2d)$data[[1]]
+    list(
+      shape = unique(squares$shape),
+      relative_areas = areas / max(areas),
+      size_scale = !is.null(shown_plot$scales$get_scales('size'))
+    ),
+    list(shape = 0, relative_areas = counts / max(counts), size_scale = TRUE)
   )
   expect_equal(
-    ggplot_snapshot_data(shown@plots$mpg$d1$wt),
-    ggplot_snapshot_data(hidden@plots$mpg$d1$wt)
+    list(
+      heatmap = hidden_2d$data,
+      size_scale = hidden_plot$scales$get_scales('size')
+    ),
+    list(
+      heatmap = shown_2d$data[1],
+      size_scale = NULL
+    )
   )
-
+  expect_equal(
+    ggplot_build(get(hidden, 'wt'))$data,
+    ggplot_build(get(shown, 'wt'))$data
+  )
 })
 
 test_that('2D bin sizes can be hidden in individual and faceted category plots', {
@@ -53,18 +64,22 @@ test_that('2D bin sizes can be hidden in individual and faceted category plots',
 
   shown <- ALEPlots(cat_ale)
   hidden <- ALEPlots(cat_ale, show_2d_bin_sizes = FALSE)
-  expect_true('.all_cats' %in% names(hidden@plots))
-
-  for (cat_name in names(hidden@plots)) {
-    shown_2d <- shown@plots[[cat_name]]$d2[['gear:carb']]
-    hidden_2d <- hidden@plots[[cat_name]]$d2[['gear:carb']]
-    expect_false(any(vapply(hidden_2d$layers, \(layer) {
-      inherits(layer$geom, 'GeomPoint')
-    }, logical(1))))
-    expect_null(hidden_2d$scales$get_scales('size'))
+  # Check all the expected modes even if a returned category plot is missing.
+  for (nm.cat in c(colnames(reference), '.all')) {
+    shown_2d <- ggplot_build(get(shown, 'gear:carb', cats = nm.cat))
+    hidden_plot <- get(hidden, 'gear:carb', cats = nm.cat)
+    hidden_2d <- ggplot_build(hidden_plot)
     expect_equal(
-      ggplot2::ggplot_build(shown_2d)$data[[1]],
-      ggplot2::ggplot_build(hidden_2d)$data[[1]]
+      list(
+        heatmap = hidden_2d$data,
+        layout = hidden_2d$layout$layout,
+        size_scale = hidden_plot$scales$get_scales('size')
+      ),
+      list(
+        heatmap = shown_2d$data[1],
+        layout = shown_2d$layout$layout,
+        size_scale = NULL
+      )
     )
   }
 })
@@ -75,17 +90,34 @@ test_that('plot choices preserve the all-category facet default (#noissue)', {
     pred_type = 'probs', p_values = NULL, output_stats = FALSE, silent = TRUE
   )
   plots <- ALEPlots(cat_ale)
-  expect_identical(plots@params$ale_centre, 'median')
-  expect_s3_class(get(plots, cats = '.all'), 'ggplot')
+  expect_null(get(plots, 'am', cats = 'Asia', type = 'effect'))
+
+  default <- ggplot_build(get(plots, cats = '.all'))
+  facet <- ggplot_build(get(plots, cats = '.all', type = 'facet'))
+  overlay <- ggplot_build(get(plots, cats = '.all', type = 'overlay'))
   expect_equal(
-    ggplot_snapshot_data(get(plots, cats = '.all')),
-    ggplot_snapshot_data(get(plots, cats = '.all', type = 'facet'))
+    list(
+      data = default$data,
+      layout = default$layout$layout,
+      differs_from_overlay = !identical(
+        default$layout$layout, overlay$layout$layout
+      )
+    ),
+    list(data = facet$data, layout = facet$layout$layout, differs_from_overlay = TRUE)
   )
+
   changed <- customize(plots, cats = '.all', zoom_y = c(0, 1))
   explicit <- customize(plots, cats = '.all', type = 'facet', zoom_y = c(0, 1))
+  changed_plot <- changed@plots$.all_cats$d1$am
+  explicit_plot <- explicit@plots$.all_cats$d1$am
   expect_equal(
-    ggplot_snapshot_data(changed@plots$.all_cats$d1$am),
-    ggplot_snapshot_data(explicit@plots$.all_cats$d1$am)
+    list(
+      built = ggplot_build(changed_plot)$data,
+      requested_limits = changed_plot$coordinates$limits$y
+    ),
+    list(
+      built = ggplot_build(explicit_plot)$data,
+      requested_limits = c(0, 1)
+    )
   )
-  expect_identical(changed@plots$.all_cats$d1$am$coordinates$limits$y, c(0, 1))
 })
