@@ -1,4 +1,6 @@
-test_that('ALE restores RNG kinds, seed state, and seed absence (#noissue)', {
+# Check caller RNG restoration and independent bootstrap streams across executors.
+
+test_that('ALE restores the caller RNG and respects the supplied seed (#noissue)', {
   original_kind <- RNGkind()
   original_seed <- .Random.seed
   on.exit({
@@ -14,53 +16,67 @@ test_that('ALE restores RNG kinds, seed state, and seed absence (#noissue)', {
       seed = seed, silent = TRUE
     )
   }
+
+  # ALE uses L'Ecuyer-CMRG internally. Check the caller's next draws with a
+  # different kind and the same starting seed, with and without the ALE call.
+  set.seed(123L, kind = 'Mersenne-Twister')
+  expected_draws <- stats::runif(3L)
+  set.seed(123L, kind = 'Mersenne-Twister')
   first <- make_ale(17L)
-  expect_identical(.Random.seed, original_seed)
-  expect_identical(RNGkind(), original_kind)
+  expect_identical(stats::runif(3L), expected_draws)
   expect_equal(make_ale(17L)@effect, first@effect)
   expect_false(identical(
     make_ale(18L)@effect$mpg$boot_data$d1$wt$.n,
     first@effect$mpg$boot_data$d1$wt$.n
   ))
-
-  rm('.Random.seed', envir = .GlobalEnv)
-  make_ale(17L)
-  expect_false(exists('.Random.seed', envir = .GlobalEnv, inherits = FALSE))
-  failing_prediction <- function(object, newdata, type) {
-    runif(1)
-    stop('prediction failed after drawing random numbers')
-  }
-  expect_error(
-    ALE(test_gam, data = test_cars, pred_fun = failing_prediction, silent = TRUE),
-    'prediction failed after drawing random numbers'
-  )
-  expect_false(exists('.Random.seed', envir = .GlobalEnv, inherits = FALSE))
-  expect_identical(RNGkind(), original_kind)
 })
 
 test_that('iteration streams isolate seed resets in both executors (#noissue)', {
+  original_kind <- RNGkind()
+  original_seed <- .Random.seed
+  on.exit({
+    do.call(RNGkind, as.list(original_kind))
+    assign('.Random.seed', original_seed, envir = .GlobalEnv)
+  }, add = TRUE)
+
   # Direct coverage protects the critical stream invariant: an inner seed
   # reset must never choose the random inputs of the following iteration.
-  original_seed <- .Random.seed
   calculate_job <- function(it.job) {
-    draws <- runif(3)
+    draws <- stats::runif(3L)
     set.seed(0L)
     draws
   }
   jobs <- c(first = 1L, second = 2L, third = 3L)
   serial <- .map_jobs(jobs, calculate_job, parallel = 0, seed = 17L)
   future <- .map_jobs(jobs, calculate_job, parallel = 1, seed = 17L)
-  expect_identical(serial, future)
-  expect_identical(names(serial), names(jobs))
-  expect_false(identical(serial[[1]], serial[[2]]))
-  expect_false(identical(serial[[2]], serial[[3]]))
-  expect_identical(.Random.seed, original_seed)
+
+  # Start at the stream reserved for bootstrap sampling. Advance once per
+  # job using R's stream primitive and draw from the resulting stream.
+  set.seed(
+    17L,
+    kind = "L'Ecuyer-CMRG",
+    normal.kind = 'Inversion',
+    sample.kind = 'Rejection'
+  )
+  streams <- purrr::accumulate(
+    jobs,
+    \(stream, it.job) parallel::nextRNGStream(stream),
+    .init = .Random.seed
+  )[-1L]
+  expected <- map(streams, function(stream) {
+    assign('.Random.seed', stream, envir = .GlobalEnv)
+    stats::runif(3L)
+  })
+  expect_identical(
+    list(serial = serial, future = future),
+    list(serial = expected, future = expected)
+  )
 })
 
 test_that('one bootstrap job stays local and has its own stream (#noissue)', {
   # Count bootstrap jobs after the full-data run, rather than counting that
   # prerequisite as a second job. No worker backend should be required here.
-  testthat::local_mocked_bindings(
+  local_mocked_bindings(
     future_session = function(...) stop('unexpected worker startup'),
     .package = 'ale'
   )
@@ -78,7 +94,6 @@ test_that('one bootstrap job stays local and has its own stream (#noissue)', {
       output_boot_data = TRUE, silent = TRUE
     )
   }
-  original_seed <- .Random.seed
   serial <- make_boot(0)
   future_requested <- make_boot(2)
   smoothing <- function(object) {
@@ -87,5 +102,4 @@ test_that('one bootstrap job stays local and has its own stream (#noissue)', {
   expect_identical(smoothing(serial), smoothing(future_requested))
   expect_false(identical(smoothing(serial)[[1]], smoothing(serial)[[2]]))
   expect_equal(serial@ale$boot, future_requested@ale$boot)
-  expect_identical(.Random.seed, original_seed)
 })

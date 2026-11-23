@@ -1,6 +1,6 @@
 ---
 name: tdd-workflow
-description: Use when reproducing bugs, implementing or executing R tests, reviewing snapshots and conditions, or verifying package changes through tests, builds, and checks. Follow regression-tests for test selection and design.
+description: Use when reproducing bugs, planning and implementing output tests, reviewing snapshots, or verifying package changes through tests, builds, and checks. Follow regression-tests for test selection and design.
 ---
 
 # Testing and package verification
@@ -11,42 +11,44 @@ When creating, modifying, reviewing, or removing tests, also follow [regression-
 
 This skill governs testing procedures and package verification; `regression-tests` governs testing philosophy and test selection. Test-first development is not mandatory.
 
-# Reproduce MREs before creating fixes
+## Reproduce MREs before creating fixes
 
 For bug fixes, reproduce the defect with the supplied MRE or a small deterministic example before changing the implementation. For bug fixes, verify correct public behaviour using valid inputs, following regression-tests. Documentation-only or other low-impact changes do not automatically require new tests. Diagnose baseline failures and distinguish them from regressions rather than stopping automatically.
 
+## Review existing coverage before adding tests
+
+Before editing tests, read the relevant `test_that()` blocks, their helpers, and any snapshots or parameterized cases that already cover the behavior. Identify the plausible failure, the public output that would reveal it, and how to derive the expected result independently. If an existing assertion already catches it with a useful diagnostic, keep that assertion. Otherwise, look for an assertion to tighten or replace, or a block to extend, before adding a test.
+
+Review overlap again after editing. Combine assertions on related results if the comparison still identifies what failed. Keep a separate assertion when it identifies a different failure or adds a useful diagnosis. 
+
 ## Reuse resources and limit runtime
 
-Before coding, inspect `tests/testthat/helper.R` and related test files and inventory the expensive objects proposed tests would create. Identify existing fixtures that can replace that setup, starting with `test_cars`, `test_gam`, `test_gam_binary`, `test_nn_categorical`, and objects already constructed in relevant test blocks. Follow the fixture-reuse policy in `regression-tests`.
-
-Summarize the planned fixture reuse, any necessary setting changes, the expected constructor-call count compared with the baseline, and the distinct public outputs each assertion will verify before implementing the change. Verify that reused or adjusted fixtures actually exercise the intended cases. Tests must be independent of execution order, but may use shared helper resources.
+Inspect `tests/testthat/helper.R` for reusable resources such as `test_cars`, `test_gam`, `test_gam_binary`, and `test_nn_categorical`. Also look for results already constructed in the relevant test block. Before editing, summarize which assertions will be reused, changed, or added, what distinct outputs they will verify, and any fixture setting changes or additional constructor calls compared with the baseline. Keep blocks independent of execution order.
 
 Keep each new individual test within the five-second limit in `AGENTS.md`, preferably much faster. Count attributable new fixture/setup work rather than moving expensive computation out of the test body to hide its cost. Simplify data and reuse suitable fixtures first; explain and obtain explicit permission before introducing a necessary slower test.
 
+Check that smaller fixtures still exercise the intended behavior. Use production-valid settings when the fixture represents a valid reference distribution for inference. Obtain an explicit maintainer override before introducing another bypass of a production minimum in a regression fixture.
+
 New `test_that()` descriptions end with verified issue references, or `(#noissue)` when none applies. Never invent or copy illustrative issue numbers.
 
-Use deterministic inputs and appropriate numeric tolerances. Preserve comments explaining computational reasoning as required by `STYLE.md`.
+Use deterministic inputs and appropriate numeric tolerances. Follow `STYLE.md` for test file purpose comments and preserve explanations of computational reasoning.
 
-## Snapshots and conditions
+## Snapshots
 
-Read the existing test and helper implementation before changing snapshots:
+Apply the snapshot criteria in `regression-tests` before choosing a snapshot. Read the test and its snapshot preparation before changing either.
 
-- Use `expect_snap_variant()` for the platform-variant output snapshots. It selects `Sys.info()['sysname']` locally; existing variants live under `_snaps/Linux/` and `_snaps/Windows/`.
-- That helper still evaluates expressions on CI (`CI=true`) but deliberately skips output comparison. Do not mistake CI success for local snapshot comparison or change CI flags to bypass a failing comparison.
-- Reuse `s7_snapshot()`, `normalize_snapshot_data_frame()`, `normalize_snapshot_univariate_ml()`, `normalize_snapshot_value()`, `ggplot_snapshot_data()`, and `ale_plots_to_data()` where appropriate. They preserve the existing substantive comparisons while excluding known unstable metadata or numerical noise.
-- Follow `regression-tests` when deciding whether a snapshot is warranted. Inspect each proposed change against intended behavior and review the correct platform variant before accepting. Do not automatically accept new snapshots or overwrite another platform's variant.
+- Prefer a single shared baseline when the substantive output is portable. Reuse `s7_snapshot()` for compatible S7 outputs. Document any normalization and ensure that it preserves the precision and attributes relevant to the behavior under test.
+- Snapshot the intended output. Keep incidental warnings and messages out of the baseline when they accompany that output.
+- Verify that the comparison ran in the environment you report. Keep snapshot comparisons enabled in the applicable local checks and investigate unexpected diffs.
+- Review the proposed diff against expected behavior before accepting it. If a platform-specific variant is necessary, review and update that variant on the corresponding platform.
 
-For an intentional change, use testthat's review/accept workflow for the affected file and variant. For example, for the `ALE-numerical` file on Linux, after inspecting the proposed output:
+For an intentional change, use testthat's review and acceptance workflow for the affected file. 
 
 ```r
-testthat::snapshot_review('Linux/ALE-numerical.md')
+testthat::snapshot_review('ALE-categorical.md')
 # Only after reviewing the change:
-testthat::snapshot_accept('Linux/ALE-numerical.md')
+testthat::snapshot_accept('ALE-categorical.md')
 ```
-
-For necessary maintenance of existing condition tests, preserve these assertion conventions:
-
-- Other packages' conditions can use `expect_error()`, `expect_warning()`, or `expect_message()` with useful class/message checks. Avoid unnecessary snapshots of third-party messages.
 
 ## Run tests and the full check
 
@@ -67,10 +69,10 @@ R CMD check --as-cran ale_VERSION.tar.gz
 
 Keep build/check artifacts outside the source checkout when practical by building from an artifact directory with the checkout path as the build argument. Preserve inherited environment variables and CRAN-check overrides. Do not disable tests, examples, vignettes, or dependency checks merely to obtain a passing result. Any deliberately reduced diagnostic run must be reported as such, separately from the required full check.
 
-Follow `AGENTS.md` for error/warning diagnosis, remediation attempts, reruns, NOTES, and reporting. Report which fixtures were reused, constructor-call counts compared with the baseline, the intended cases exercised without redundant setup, test results, and remaining limitations. Identify missing tools or dependencies from actual command failures; report blockers rather than claiming verification succeeded. Do not run Air or lintr as part of these checks.
+Follow `AGENTS.md` for error and warning diagnosis, remediation attempts, reruns, notes, and reporting. For changes to tests, report the distinct behavior protected, fixture reuse, any exceptions, and changes to expectation sites or constructor calls. Report test results and verification limitations. Identify missing tools or dependencies from actual command failures. Do not run Air or lintr as part of these checks.
 
 ## Useful testthat patterns
 
-Use Edition 3 expectations: `expect_equal()` with a meaningful tolerance for numeric results; `expect_identical()` for exact contracts; and `expect_named()`, `expect_setequal()`, or `expect_s3_class()` when those capture the intended result. Replace deprecated `context()`, `expect_equivalent()`, `expect_is()`, and `with_mock()` when editing their surrounding tests. Use `withr::local_*()` for temporary state and `local_mocked_bindings()` only where mocking is necessary.
+Use Edition 3 expectations such as `expect_equal()` with a meaningful tolerance for numeric results and `expect_identical()` for exact contracts. Compare the substantive output, including any names, shape, or class that matter to the public contract. Follow the exclusions for condition and smoke checks in `regression-tests`, including when updating older code. Follow the test namespace rules in `STYLE.md`. Use `withr::local_*()` for temporary state and `local_mocked_bindings()` only where mocking is necessary.
 
 If static data are necessary and no existing fixture fits, use a small fixture under `tests/testthat/fixtures/` accessed with `test_path()`. Correct an obsolete test only after establishing and explaining why its expected behavior is wrong; do not weaken assertions to conceal a defect.

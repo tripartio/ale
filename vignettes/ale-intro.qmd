@@ -30,8 +30,8 @@ This vignette demonstrates the basic functionality of the `{ale}` package on sta
 We begin by loading the necessary libraries.
 
 ```{r}
-#| label:  load-libraries
-#| messages: false
+#| label: load-libraries
+#| message: false
 
 library(ale)
 library(dplyr)

@@ -12,6 +12,9 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 * We have added a **Shiny app that can be used to browse the `ale` data object**. It is accessed with the new `browse_ale()` function. It is implemented as a [Shiny module](https://mastering-shiny.org/scaling-modules.html) with `aleBrowserUI()` as the UI function and `aleBrowserServer()` as the corresponding server function. So, it can be embedded in other Shiny apps or in dynamic [Quarto](https://quarto.org/docs/interactive/shiny/) or [R Markdown](https://bookdown.org/yihui/rmarkdown/shiny-embedded.html) documents.
 
+## Under the hood
+
+* Completely cleaned up the test suite to be thorough yet minimalist.
 
 # ale 0.6.0
 
