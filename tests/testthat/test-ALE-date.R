@@ -25,8 +25,8 @@ test_that('Date and numeric coordinates produce equivalent ALE outputs (#53)', {
     )
     # Late statistics must use the same inherited bootstrap settings. Only the
     # Date coordinate's metadata and raw representation differ from the control.
-    actual <- append_stats(date_ale)@effect$mpg
-    expected <- numeric_ale@effect$mpg
+    actual <- append_stats(date_ale)@composite$mpg
+    expected <- numeric_ale@composite$mpg
     for (nm.dimension in names(terms)) {
       nm.term <- terms[[nm.dimension]]
       summary <- expected$ale[[nm.dimension]][[nm.term]]

@@ -77,6 +77,7 @@ method(get, ALEPlots) <- function(
   type <- vap$type
   y_cats <- vap$y_cats
   all_cats <- vap$all_cats
+  plots <- obj@plots$composite
 
 
   ## Retrieve requested plots --------------
@@ -86,7 +87,7 @@ method(get, ALEPlots) <- function(
       cats <- y_cats
     }
 
-    req_plots <- prop(obj, 'plots')[cats]
+    req_plots <- plots[cats]
 
     req_plots <- map(req_plots, \(it.cat_plots) {
       if (type == 'ale') {
@@ -109,11 +110,11 @@ method(get, ALEPlots) <- function(
   else {
     # all_cats
     req_plots <- list(
-      d1 = obj@plots$.all_cats$d1 |>
+      d1 = plots$.all_cats$d1 |>
         map(\(it.d1_plots) it.d1_plots[[type]]),
 
       d2 = if (type == 'facet') {
-        obj@plots$.all_cats$d2
+        plots$.all_cats$d2
       } else if (type == 'overlay') {
         if (length(x_cols$d1) == 0) {
           cli_warn(c(
@@ -200,8 +201,8 @@ method(plot, ALEPlots) <- function(
 
   # Print one page per category per dimension.
   # Skip .all_cats; silently just don't print it.
-  plots_obj@plots[names(plots_obj@plots) |> setdiff('.all_cats')] |>
-    (`[[`)(comp) |>
+  plots_obj@plots[[comp]] |>
+    (`[`)(setdiff(names(plots_obj@plots[[comp]]), '.all_cats')) |>
     purrr::iwalk(\(it.cat_plots, i.cat_name) {
       purrr::iwalk(c(n_1D, n_2D), \(it.n, i.d) {
         # Only plot non-null dimensions.
@@ -352,16 +353,18 @@ method(subset, ALEPlots) <- function(
 
   # Subset plots
   plots_obj@plots <- plots_obj@plots |>
-    map(\(it.plot_cat) {
-      it.plot_cat$d1 <- it.plot_cat$d1[subset_x_cols$d1]
-      it.plot_cat$d2 <- it.plot_cat$d2[subset_x_cols$d2]
+    map(function(it.comp) {
+      if (is.null(it.comp)) return(NULL)
+      map(it.comp, function(it.cat) {
+        it.cat$d1 <- it.cat$d1[intersect(subset_x_cols$d1, names(it.cat$d1))]
+        it.cat$d2 <- it.cat$d2[intersect(subset_x_cols$d2, names(it.cat$d2))]
 
-      if (!include_eff) {
-        # Only removed if explicitly not included
-        it.plot_cat$eff <- NULL
-      }
+        if (!include_eff) {
+          it.cat$eff <- NULL
+        }
 
-      it.plot_cat
+        it.cat
+      })
     })
 
   # Align params to the new subset
@@ -594,65 +597,39 @@ customize <- function(
 
   ## Append layers to specified plots --------------
 
-  # if (!all_cats) {
-    cats <- if (is.null(cats)) {
-      y_cats
-    } else if (all_cats) {
-      '.all_cats'
-    } else {
-      cats
+  cats <- if (all_cats) '.all_cats' else cats %||% y_cats
+  customize_category <- function(it.plots, nm.cat) {
+    if (!(nm.cat %in% cats)) return(it.plots)
+    if (type == 'effect') {
+      if (!is.null(it.plots$eff)) {
+        it.plots$eff <- add_layers(it.plots$eff, custom_layers)
+      }
+      return(it.plots)
     }
+    if (!all_cats && type != 'ale') return(it.plots)
 
-    plots_obj@plots <- plots_obj@plots |>
-      imap(\(it.cat_plots, it.cat_name) {
-        if (it.cat_name %in% cats) {
-          if (type == 'ale') {
-            it.cat_plots |>
-              imap(\(it.el, it.el_name) {
-                if (it.el_name %in% names(x_cols)) {
-                  for (it.term in x_cols[[it.el_name]]) {
-                    it.el[[it.term]] <- add_layers(it.el[[it.term]], custom_layers)
-                  }
+    for (nm.d in names(x_cols)) {
+      # Combined 2D plots are faceted. The 1D overlay and facet share a term.
+      if (all_cats && nm.d == 'd2' && type == 'overlay') next
+      for (nm.term in intersect(x_cols[[nm.d]], names(it.plots[[nm.d]]))) {
+        it.plot <- it.plots[[nm.d]][[nm.term]]
+        if (all_cats && nm.d == 'd1') {
+          it.plot[[type]] <- add_layers(it.plot[[type]], custom_layers)
+        } else {
+          it.plot <- add_layers(it.plot, custom_layers)
+        }
+        it.plots[[nm.d]][[nm.term]] <- it.plot
+      }
+    }
+    it.plots
+  }
 
-                  it.el
-                } else {
-                  it.el
-                }
-              })
-          }
-          else if (type == 'effect') {
-            add_layers(it.cat_plots$eff, custom_layers)
-            # it.cat_plots$eff +
-            #   custom_layers
-          }
-          else if (it.cat_name == '.all_cats') {
-            ## TODO: cat plots need careful debugging
-            it.cat_plots |>
-              imap(\(it.el, it.el_name) {
-                if (it.el_name %in% names(x_cols)) {
-                  x_cols[[it.el_name]] |>
-                    map(\(it.term) {
-                      add_layers(it.el[[it.term]][[type]], custom_layers)
-                      # it.el[[it.term]][[type]] +
-                      #   custom_layers
-                    }) |>
-                    set_names(x_cols[[it.el_name]])
-                } else {
-                  it.el
-                }
-              })
-          } else {
-            # that type was not specified; return it unmodified
-            it.cat_plots
-          }
-        }
-        else {
-          # it.cat_name not specified; return it unmodified
-          it.cat_plots
-        }
-      }) |>
-      # Suppress "Coordinate system already present" message
-      suppressMessages()
+  plots_obj@plots <- plots_obj@plots |>
+    map(function(it.comp) {
+      if (!is.null(it.comp)) imap(it.comp, customize_category)
+    }) |>
+    # Suppress "Coordinate system already present" message
+    suppressMessages()
 
 
   ## Return ----------

@@ -108,8 +108,8 @@ test_that('plot choices preserve the all-category facet default (#noissue)', {
 
   changed <- customize(plots, cats = '.all', zoom_y = c(0, 1))
   explicit <- customize(plots, cats = '.all', type = 'facet', zoom_y = c(0, 1))
-  changed_plot <- changed@plots$.all_cats$d1$am
-  explicit_plot <- explicit@plots$.all_cats$d1$am
+  changed_plot <- get(changed, cats = '.all')
+  explicit_plot <- get(explicit, cats = '.all', type = 'facet')
   expect_equal(
     list(
       built = ggplot_build(changed_plot)$data,

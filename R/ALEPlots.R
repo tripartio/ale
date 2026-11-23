@@ -208,42 +208,24 @@ ALEPlots <- new_class(
     eff_plot <- NULL
 
     y_cats <- obj@params$y_cats
-    if (length(y_cats) > 1) {
-      # Create .all_cats ALE data
-      all_cats_data <- c('composite', 'distinct') |>
-        map(\(it.comp) {
-          list(
-            ale = imap(obj@params$requested_x_cols, \(it.x_cols_d, it.d) {
-              # obtain the first cateogry ALE to ensure that its composition
-              # has data in this dimension.
-              # Distinct ALE might not have data for a given dimension.
-              it.d_ale <- prop(obj, it.comp)[[1]]$ale[[it.d]]
-
-              if (!is.null(it.d_ale)) {
-                map(it.x_cols_d, \(it.x_cols) {
-                  map(y_cats, \(it.cat_name) {
-                    it.d_ale[[it.x_cols]] |>
-                      mutate(.cat = it.cat_name)
-                  }) |>
-                    bind_rows()
-                }) |>
-                  set_names(it.x_cols_d)
-              } else {
-                # No ALE data for this dimension for this composition
-                NULL
-              }
+    plots <- map(c('composite', 'distinct'), function(nm.comp) {
+      it.categories <- prop(obj, nm.comp)
+      if (is.null(it.categories)) return(NULL)
+      if (length(y_cats) > 1L) {
+        # Stack the actual data from each outcome category for combined plots.
+        it.categories$.all_cats <- list(
+          ale = imap(it.categories[[1]]$ale, function(it.dimension, nm.d) {
+            imap(it.dimension, function(it.data, nm.term) {
+              map(y_cats, function(nm.cat) {
+                it.categories[[nm.cat]]$ale[[nm.d]][[nm.term]] |>
+                  mutate(.cat = nm.cat)
+              }) |>
+                bind_rows()
             })
-          )
-        })
-
-      obj@composite$.all_cats <- all_cats_data$composite
-      obj@distinct$.all_cats <- all_cats_data$distinct
-
-      y_cats <- c(y_cats, '.all_cats')
-    }
-
-    plots <- map(c('composite', 'distinct'), \(it.comp) {
-      imap(prop(obj, it.comp), \(it.cat_el, it.cat_name) {
+          })
+        )
+      }
+      imap(it.categories, \(it.cat_el, it.cat_name) {
         if (length(it.cat_el$ale$d1) >= 1) {
           # There is at least one 1D ALE data element
 

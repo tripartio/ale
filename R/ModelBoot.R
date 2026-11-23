@@ -1053,6 +1053,7 @@ ModelBoot <- new_class(
 
       # Loop across composition and categories
       map(c('composite', 'distinct'), \(it.comp) {
+        if (is.null(prop(full_ale, it.comp))) return(NULL)
         map(y_cats, \(it.cat) {
           # Summarize bootstrapped ALE data, grouped by variable
           it.ale_summary_data <-

@@ -916,7 +916,7 @@ append_stats <- function(
   for (nm.cat in ale_obj@params$y_cats) {
     for (nm.effect in c('composite', 'distinct')) {
       it.effect <- prop(ale_obj, nm.effect)[[nm.cat]]
-      # it.effect <- ale_obj@effect[[nm.cat]]
+      if (is.null(it.effect)) next
       it.effect$stats <- imap(it.effect$ale, function(it.dimension, nm.d) {
         # Unrequested dimensions can contain a NULL placeholder in stored ALE data.
         if (length(ale_obj@params$requested_x_cols[[nm.d]]) == 0L) {
@@ -952,7 +952,6 @@ append_stats <- function(
       }) |>
         bind_rows()
       prop(ale_obj, nm.effect)[[nm.cat]] <- it.effect
-      # ale_obj@effect[[nm.cat]] <- it.effect
     }
   } # End outcome-category iteration.
 
@@ -1045,11 +1044,11 @@ update_ALE_p <- function(
 ) {
   for (nm.cat in ale_obj@params$y_cats) {
     for (nm.effect in c('composite', 'distinct')) {
-      prop(ale_obj, nm.effect)[[nm.cat]]$stats <-
-        map(prop(ale_obj, nm.effect)[[nm.cat]]$stats, function(it.stats) {
-          if (!is.data.frame(it.stats)) return(it.stats)
+      it.stats <- prop(ale_obj, nm.effect)[[nm.cat]]$stats
+      if (!is.null(it.stats)) {
+        prop(ale_obj, nm.effect)[[nm.cat]]$stats <-
           p_values_stats(it.stats, p_values@rand_stats[[nm.cat]])
-        })
+      }
     }
   } # End outcome-category iteration.
   ale_obj@params$p_values <- p_values
@@ -1081,14 +1080,10 @@ update_ModelBoot_p <- function(
   if (!is.null(ale_obj@ale$boot)) {
     # Use the same ALE adapter pattern as get() for ModelBoot for aggregate data.
     it.aggregate <- ale_obj@ale$single
-    for (nm.effect in c('composite', 'distinct')) {
-      prop(it.aggregate, nm.effect) <- ale_obj@ale$boot[[nm.effect]]
-      it.aggregate <- update_ALE_p(it.aggregate, p_values, aler_alpha, FALSE)
-      ale_obj@ale$boot[[nm.effect]] <- prop(it.aggregate, nm.effect)
-      # it.aggregate@effect <- ale_obj@ale$boot$effect
-      # it.aggregate <- update_ALE_p(it.aggregate, p_values, aler_alpha, FALSE)
-      # ale_obj@ale$boot$effect <- it.aggregate@effect
-    }
+    it.aggregate@composite <- ale_obj@ale$boot$composite
+    it.aggregate@distinct <- ale_obj@ale$boot$distinct
+    it.aggregate <- update_ALE_p(it.aggregate, p_values, aler_alpha, FALSE)
+    ale_obj@ale$boot <- props(it.aggregate)[c('composite', 'distinct')]
   }
   ale_obj@boot_data$ale <- map(ale_obj@boot_data$ale, function(btit.ale) {
     # Failed bootstrap iterations have no ALE object and remain absent.

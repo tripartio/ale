@@ -32,14 +32,14 @@ test_that(
     expect_equal(pll_mb@boot_data$row_idxs, serial_mb@boot_data$row_idxs)
     expect_equal(pll_mb@model_stats, serial_mb@model_stats)
     expect_equal(
-      map(pll_mb@boot_data$ale, \(it.ale) it.ale@effect),
-      map(serial_mb@boot_data$ale, \(it.ale) it.ale@effect)
+      map(pll_mb@boot_data$ale, \(it.ale) it.ale@composite),
+      map(serial_mb@boot_data$ale, \(it.ale) it.ale@composite)
     )
     expect_equal(pll_mb@ale$boot, serial_mb@ale$boot)
 
     # Agreement alone does not establish that every run uses the full-data grid.
     grids <- map(
-      pll_mb@boot_data$ale, \(it.ale) it.ale@effect$mpg$ale$d1$wt$wt.ceil
+      pll_mb@boot_data$ale, \(it.ale) it.ale@composite$mpg$ale$d1$wt$wt.ceil
     )
     expect_identical(grids, rep(grids[1], length(grids)))
 
@@ -173,7 +173,7 @@ test_that(
     # Reuse the generated distribution and replace its draws with fixed
     # samples. The repeated estimate makes ties explicit in each tail test.
     p_dist <- distribution
-    aggregate_stats <- mb@ale$boot$effect$vs$stats$d1
+    aggregate_stats <- mb@ale$boot$composite$vs$stats
     fixed_draws <- map(aggregate_stats$estimate, function(it.estimate) {
       rep(it.estimate * c(0.5, 1, 1.5), c(20L, 30L, 50L))
     })
@@ -204,22 +204,18 @@ test_that(
 
     # Calculate empirical tail frequencies for the aggregate independently.
     # Look up statistics by name even when ModelBoot stores factor labels.
-    expected$ale$boot$effect$vs$stats <- map(
-      expected$ale$boot$effect$vs$stats, function(it.stats) {
-        it.stats$p.value <- map2_dbl(
-          as.character(it.stats$statistic), it.stats$estimate,
-          function(nm.stat, it.estimate) {
-            it.random <- fixed_draws[[nm.stat]]
-            if (endsWith(nm.stat, '_min')) {
-              mean(it.random <= it.estimate)
-            } else {
-              mean(it.random > it.estimate)
-            }
-          }
-        )
-        it.stats
+    aggregate_stats$p.value <- map2_dbl(
+      as.character(aggregate_stats$statistic), aggregate_stats$estimate,
+      function(nm.stat, it.estimate) {
+        it.random <- fixed_draws[[nm.stat]]
+        if (endsWith(nm.stat, '_min')) {
+          mean(it.random <= it.estimate)
+        } else {
+          mean(it.random > it.estimate)
+        }
       }
     )
+    expected$ale$boot$composite$vs$stats <- aggregate_stats
     expect_equal(actual@ale$single, expected$ale$single)
     expect_equal(actual@boot_data$ale, expected$boot_data$ale)
     expect_equal(actual@ale$boot, expected$ale$boot)
