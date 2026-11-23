@@ -15897,3 +15897,4 @@
               d1 = 1000L, d2 = 10L), fct_order = "levels", boot_it = 2,
           boot_alpha = 0.05, boot_centre = "mean", seed = 0, y_type = "categorical",
           sample_size = 500L))
+
