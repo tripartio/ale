@@ -26,8 +26,8 @@ We begin by loading the necessary libraries.
 
 
 ```{r}
-#| label:  load-libraries
-#| messages: false
+#| label: load-libraries
+#| message: false
 
 library(mgcv)   # for datasets and the gam function
 library(dplyr)  # for data manipulation
