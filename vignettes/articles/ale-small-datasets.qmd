@@ -38,8 +38,8 @@ An obvious question is, "How small is 'small'?" This is a very complex question 
 We begin by loading the necessary libraries.
 
 ```{r}
-#| label:  load-libraries
-#| messages: false
+#| label: load-libraries
+#| message: false
 
 library(ale)
 ```

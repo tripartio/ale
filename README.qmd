@@ -5,10 +5,6 @@ format:
   gfm:
     toc: true
 
-execute:
-  warning: false
-  message: false
-  
 knitr:
   opts_chunk:
     fig.path: "man/figures/README-"
@@ -79,6 +75,7 @@ We will give two demonstrations of how to use the package: first, a simple demon
 
 ```{r}
 #| label: diamonds-data
+#| message: false
 
 library(dplyr)
 
@@ -122,6 +119,7 @@ For the simple demonstration, we directly create ALE data with the `ALE()` funct
 
 ```{r}
 #| label: load-ale
+#| message: false
 
 library(ale)
 # Enable parallelization of the ALE package (set to the number of threads you want)
